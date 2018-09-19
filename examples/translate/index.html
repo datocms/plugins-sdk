@@ -32,8 +32,6 @@
       }
     });
 
-    const apiKey = 'trnsl.1.1.20151015T080754Z.fac48f0d13a96c3a.c0c58058288c42ba40de8aec2b36d9d86c3adb1d';
-
     const translate = (text) => {
       ext.site.attributes.locales.slice(1).forEach(locale => {
         const path = ext.fieldPath.replace(
@@ -47,7 +45,7 @@
         }
 
         const qs = toQueryString({
-          key: apiKey,
+          key: ext.parameters.global.yandexApiKey,
           lang: locale.substring(0, 2),
           text,
         });
