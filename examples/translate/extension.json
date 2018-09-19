@@ -1,6 +1,6 @@
 {
   "name": "Yandex translate",
-  "extensionUrl": "http://localhost:8000/examples/translate/index.html",
+  "extensionUrl": "https://raw.githubusercontent.com/datocms/ui-extensions-sdk/master/examples/translate/index.html",
   "fieldTypes": ["string", "text"],
   "sidebar": false,
   "parameters": {

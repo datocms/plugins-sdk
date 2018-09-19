@@ -50,6 +50,10 @@
           text,
         });
 
+        if (ext.parameters.global.developmentMode) {
+          console.log(`Fetching "${locale}" translation for "${text}"`);
+        }
+
         fetch(`https://translate.yandex.net/api/v1.5/tr.json/translate?${qs}`)
           .then(res => res.json())
           .then(({ text }) => (
