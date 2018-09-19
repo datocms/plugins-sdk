@@ -32,7 +32,7 @@
       }
     });
 
-    const translate = (text) => {
+    const translate = debounce((text) => {
       ext.site.attributes.locales.slice(1).forEach(locale => {
         const path = ext.fieldPath.replace(
           new RegExp(`\.${ext.locale}$`),
@@ -60,7 +60,7 @@
             ext.setFieldValue(path, text.join(' '))
           ));
       });
-    };
+    }, 500);
 
     const change = (e) => {
       const mainLocale = ext.site.attributes.locales[0];
