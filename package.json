@@ -2,7 +2,7 @@
   "name": "datocms-ui-extensions-sdk",
   "version": "0.0.1",
   "description": "DatoCMS UI Extensions SDK",
-  "main": "lib/index.js",
+  "main": "dist/sdk.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/datocms/ui-extensions-sdk.git"
@@ -13,6 +13,9 @@
     "dist": "NODE_ENV=production webpack --progress",
     "dev": "NODE_ENV=production webpack --progress --watch"
   },
+  "files": [
+    "dist"
+  ],
   "keywords": [
     "datocms"
   ],
