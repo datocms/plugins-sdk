@@ -1,0 +1,38 @@
+$base-body-color: #34363a
+$light-body-color: #848484
+
+$light-bg-color: #f5f5f5
+$disabled-color: #e0e0e0
+
+$border-color: #f0f0f0
+$alert-color: #ff5e49
+$notice-color: #46d700
+
+$add-color: #275e00
+$remove-color: #cd5c5c
+
+$primary-color: #41a6c8
+$accent-color: #70c8dc
+$semi-transparent-accent-color: rgba($accent-color, 0.1)
+$light-color: #e1edf2
+$dark-color: #1a2a31
+
+=primary-color-rule($rule)
+  #{$rule}: $primary-color
+  #{$rule}: var(--primary-color)
+
+=accent-color-rule($rule)
+  #{$rule}: $accent-color
+  #{$rule}: var(--accent-color)
+
+=semi-transparent-accent-color-rule($rule)
+  #{$rule}: $semi-transparent-accent-color
+  #{$rule}: var(--semi-transparent-accent-color)
+
+=light-color-rule($rule)
+  #{$rule}: $light-color
+  #{$rule}: var(--light-color)
+
+=dark-color-rule($rule)
+  #{$rule}: $dark-color
+  #{$rule}: var(--dark-color)

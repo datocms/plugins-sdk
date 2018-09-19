@@ -1,0 +1,56 @@
+{
+  "name": "datocms-ui-extensions-sdk",
+  "version": "0.0.1",
+  "description": "DatoCMS UI Extensions SDK",
+  "main": "lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/datocms/ui-extensions-sdk.git"
+  },
+  "scripts": {
+    "lint:autocorrect": "eslint src --fix",
+    "prepublish": "rimraf lib dist && mkdir lib dist && npm run dist",
+    "dist": "NODE_ENV=production webpack --progress",
+    "dev": "NODE_ENV=production webpack --progress --watch"
+  },
+  "keywords": [
+    "datocms"
+  ],
+  "author": "DatoCMS <support@datocms.com>",
+  "contributors": [
+    {
+      "name": "Stefano Verna",
+      "email": "s.verna@datocms.com"
+    }
+  ],
+  "homepage": "https://github.com/datocms/ui-extensions-sdk",
+  "bugs": {
+    "url": "https://github.com/datocms/ui-extensions-sdk/issues"
+  },
+  "license": "MIT",
+  "private": false,
+  "devDependencies": {
+    "@babel/cli": "^7.0.0-beta.54",
+    "@babel/core": "^7.0.0-beta.54",
+    "@babel/preset-env": "^7.0.0-beta.54",
+    "@babel/register": "^7.0.0-beta.54",
+    "babel-eslint": "^8.2.6",
+    "babel-loader": "^8.0.0-beta",
+    "css-loader": "^1.0.0",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb-base": "^13.0.0",
+    "eslint-loader": "^2.1.0",
+    "eslint-plugin-import": "^2.12.0",
+    "mini-css-extract-plugin": "^0.4.3",
+    "node-sass": "^4.9.3",
+    "np": "^3.0.4",
+    "sass-loader": "^7.1.0",
+    "webpack": "^4.16.1",
+    "webpack-cli": "^3.1.0"
+  },
+  "dependencies": {
+    "auto-bind": "^1.2.1",
+    "lodash-es": "^4.17.11",
+    "penpal": "^3.0.3"
+  }
+}
