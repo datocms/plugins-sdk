@@ -2,19 +2,25 @@
   "name": "datocms-ui-extensions-sdk",
   "version": "0.0.2",
   "description": "DatoCMS UI Extensions SDK",
-  "main": "dist/sdk.js",
+  "main": "lib/index.js",
+  "browser": "dist/sdk.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/datocms/ui-extensions-sdk.git"
   },
   "scripts": {
     "lint:autocorrect": "eslint src --fix",
-    "prepublish": "rimraf lib dist && mkdir lib dist && npm run dist",
+    "prepublish": "rimraf lib dist && mkdir lib dist && npm run lib && npm run dist",
+    "lib": "babel src --out-dir lib",
+    "watch": "babel -w src --out-dir lib",
     "dist": "NODE_ENV=production webpack --progress",
-    "dev": "NODE_ENV=production webpack --progress --watch"
+    "webpack:watch": "NODE_ENV=production webpack --progress --watch",
+    "serve": "serve -p 5001 dist",
+    "start": "concurrently \"yarn webpack:watch\" \"yarn serve\""
   },
   "files": [
-    "dist"
+    "dist",
+    "lib"
   ],
   "keywords": [
     "datocms"
@@ -39,6 +45,7 @@
     "@babel/register": "^7.0.0-beta.54",
     "babel-eslint": "^8.2.6",
     "babel-loader": "^8.0.0-beta",
+    "concurrently": "^4.0.1",
     "css-loader": "^1.0.0",
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^13.0.0",
@@ -48,6 +55,7 @@
     "node-sass": "^4.9.3",
     "np": "^3.0.4",
     "sass-loader": "^7.1.0",
+    "serve": "^10.0.2",
     "webpack": "^4.16.1",
     "webpack-cli": "^3.1.0"
   },

@@ -14,6 +14,11 @@ const toPath = (...chunks) => flattenDeep(chunks).join('.');
 const KEBAB_REGEX = /[A-Z\u00C0-\u00D6\u00D8-\u00DE]/g;
 const dashCase = str => str.replace(KEBAB_REGEX, match => `-${match.toLowerCase()}`);
 
+const fail = (message) => {
+  console.error(message);
+  throw new Error(message);
+};
+
 class Extension {
   constructor(parent, settings) {
     autoBind(this);
@@ -68,8 +73,8 @@ class Extension {
 
   addChangeListener(...args) {
     if (args.length < 2) {
-      console.error('addChangeListener requires a path an a callback function');
-      return;
+      fail('addChangeListener requires a path an a callback function');
+      return undefined;
     }
 
     const pathChunks = args.slice(0, -1);
@@ -86,11 +91,11 @@ class Extension {
 
   addFieldChangeListener(...args) {
     if (args.length < 2) {
-      console.error('addFieldChangeListener requires a path an a callback function');
-      return;
+      fail('addFieldChangeListener requires a path an a callback function');
+      return undefined;
     }
 
-    this.addChangeListener('itemValue', ...args);
+    return this.addChangeListener('itemValue', ...args);
   }
 
   startAutoResizer() {
