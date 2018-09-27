@@ -78,6 +78,10 @@ class Extension {
 
     this._listeners[path] = this._listeners[path] || [];
     this._listeners[path].push(cb);
+
+    return () => {
+      this._listeners[path].filter(x => x !== cb);
+    };
   }
 
   addFieldChangeListener(...args) {
