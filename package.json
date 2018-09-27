@@ -16,7 +16,8 @@
     "dist": "NODE_ENV=production webpack --progress",
     "webpack:watch": "NODE_ENV=production webpack --progress --watch",
     "serve": "serve -p 5001 dist",
-    "start": "concurrently \"yarn webpack:watch\" \"yarn serve\""
+    "start": "concurrently \"yarn webpack:watch\" \"yarn serve\"",
+    "test": "echo 1"
   },
   "files": [
     "dist",
