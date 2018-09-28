@@ -1,0 +1,123 @@
+.DatoCMS-button
+  padding: 0.7em 1em
+  text-decoration: none
+  display: inline-block
+  vertical-align: middle
+  white-space: nowrap
+  font-family: inherit
+  cursor: pointer
+  line-height: inherit
+  background-color: transparent
+  color: $base-body-color
+  -webkit-appearance: none
+  -moz-appearance: none
+  border-radius: 3px
+  box-sizing: border-box
+  transition: all 0.3s $material-ease
+  font-size: 0.9em
+  text-transform: uppercase
+  font-weight: 500
+  border-width: 0
+  +accent-color-rule(color)
+
+  &:hover
+    background-color: rgba(black, 0.05)
+
+  &:active
+    background-color: rgba(black, 0.15)
+
+  i, .Spinner
+    display: inline-block
+    vertical-align: middle
+    font-size: 1.4em
+    line-height: 0.6
+
+  i:first-child, .Spinner:first-child
+    margin-right: 0.5em
+
+  i:last-child, .Spinner:last-child
+    margin-left: 0.5em
+
+  i:first-child:last-child, .Spinner:first-child:last-child
+    margin-left: 0
+    margin-right: 0
+
+  &[disabled], &.is-disabled
+    border-width: 0
+    color: rgba(black, 0.2)
+    background-color: $light-bg-color
+    cursor: not-allowed
+
+.DatoCMS-button--micro
+  @extend .DatoCMS-button
+  font-size: 0.8em
+  padding: 0.5em 0.8em
+
+.DatoCMS-button--tiny
+  @extend .DatoCMS-button
+  font-size: 0.8em
+  padding: 0.6em 1em
+
+.DatoCMS-button--small
+  @extend .DatoCMS-button
+  font-size: 0.8em
+
+.DatoCMS-button--large
+  @extend .DatoCMS-button
+  font-size: 1.1em
+
+.DatoCMS-button--huge
+  @extend .DatoCMS-button
+  font-size: 1.1em
+  padding: 1em 1em
+
+.DatoCMS-button--expand
+  @extend .DatoCMS-button
+  text-align: center
+  display: block
+  width: 100%
+
+.DatoCMS-button--primary
+  @extend .DatoCMS-button
+  +accent-color-rule(background-color)
+  color: white
+
+  &:hover, &:active
+    +accent-color-rule(background-color)
+    color: white
+    opacity: 0.8
+
+  &[disabled]
+    background-color: $disabled-color
+
+    &:hover
+      color: rgba(black, 0.2)
+
+.DatoCMS-button--datocms
+  @extend .DatoCMS-button
+  background-color: #533451
+  color: white
+
+  &:hover, &:active
+    color: white
+    background-color: #533451
+
+.DatoCMS-button--rev
+  @extend .DatoCMS-button
+  color: white
+
+  &:hover
+    background-color: rgba(black, 0.4)
+
+  &:active
+    background-color: rgba(black, 0.8)
+
+.DatoCMS-button--alert
+  @extend .DatoCMS-button
+  color: $alert-color
+
+.DatoCMS-button--waiting
+  cursor: default
+
+  &:hover
+    color: $base-body-color
