@@ -35,7 +35,7 @@ var config = {
   output: {
     path: BUILD_DIR,
     filename: `sdk.js`,
-    library: 'DatoCmsExtension',
+    library: 'DatoCmsPlugin',
     libraryTarget: 'umd',
     umdNamedDefine: true
   },

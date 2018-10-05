@@ -1,12 +1,12 @@
 {
-  "name": "datocms-ui-extensions-sdk",
+  "name": "datocms-plugins-sdk",
   "version": "0.0.3",
-  "description": "DatoCMS UI Extensions SDK",
+  "description": "DatoCMS Plugin SDK",
   "main": "lib/index.js",
   "browser": "dist/sdk.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/datocms/ui-extensions-sdk.git"
+    "url": "git://github.com/datocms/plugins-sdk.git"
   },
   "scripts": {
     "lint:autocorrect": "eslint src --fix",
@@ -33,9 +33,9 @@
       "email": "s.verna@datocms.com"
     }
   ],
-  "homepage": "https://github.com/datocms/ui-extensions-sdk",
+  "homepage": "https://github.com/datocms/plugins-sdk",
   "bugs": {
-    "url": "https://github.com/datocms/ui-extensions-sdk/issues"
+    "url": "https://github.com/datocms/plugins-sdk/issues"
   },
   "license": "MIT",
   "private": false,

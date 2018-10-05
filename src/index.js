@@ -19,7 +19,7 @@ const fail = (message) => {
   throw new Error(message);
 };
 
-class Extension {
+class Plugin {
   constructor(parent, settings) {
     autoBind(this);
 
@@ -141,12 +141,12 @@ class Extension {
 
 export default {
   init: (cb) => {
-    let extensionPromise;
+    let pluginPromise;
 
     const connection = Penpal.connectToParent({
       methods: {
         onChange(newSettings) {
-          extensionPromise.then((ext) => {
+          pluginPromise.then((ext) => {
             const oldSettings = ext._settings;
 
             /* eslint-disable-next-line no-param-reassign */
@@ -165,16 +165,16 @@ export default {
       },
     });
 
-    extensionPromise = connection.promise
+    pluginPromise = connection.promise
       .then(parent => (
         parent.getSettings()
-          .then(settings => new Extension(parent, settings))
+          .then(settings => new Plugin(parent, settings))
       ));
 
     if (typeof cb === 'undefined') {
-      return extensionPromise;
+      return pluginPromise;
     }
 
-    return extensionPromise.then(cb);
+    return pluginPromise.then(cb);
   },
 };
