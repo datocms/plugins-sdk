@@ -71,6 +71,19 @@ class Plugin {
     this._parent.setFieldValue(path, value);
   }
 
+  toggleField(...args) {
+    if (args.length < 2) {
+      console.error('toggleField requires path and a new value');
+      return;
+    }
+
+    const pathChunks = args.slice(0, -1);
+    const value = args[args.length - 1];
+    const path = toPath(pathChunks);
+
+    this._parent.toggleField(path, value);
+  }
+
   addChangeListener(...args) {
     if (args.length < 2) {
       fail('addChangeListener requires a path an a callback function');
