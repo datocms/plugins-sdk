@@ -1,6 +1,6 @@
 # DatoCMS Plugins SDK
 
-The Plugins SDK allows you to customize and extend the functionality of [DatoCMS](https://www.datocms.com) webapp.
+The Plugins SDK allows you to customize and extend the functionality of the [DatoCMS](https://www.datocms.com) webapp.
 
 ## Documentation
 
