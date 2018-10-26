@@ -150,6 +150,14 @@ class Plugin {
       this._oldHeight = realHeight;
     }
   }
+
+  createNewItem(itemTypeId) {
+    return this._parent.createNewItem(itemTypeId);
+  }
+
+  editItem(itemId) {
+    return this._parent.editItem(itemId);
+  }
 }
 
 export default {
