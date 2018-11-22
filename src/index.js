@@ -158,6 +158,10 @@ class Plugin {
   editItem(itemId) {
     return this._parent.editItem(itemId);
   }
+
+  navigateTo(path) {
+    return this._parent.navigateTo(path);
+  }
 }
 
 export default {
