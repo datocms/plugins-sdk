@@ -162,6 +162,14 @@ class Plugin {
   navigateTo(path) {
     return this._parent.navigateTo(path);
   }
+
+  scrollToField(...pathChunks) {
+    if (pathChunks.length === 0) {
+      console.error('scrollToField requires a path');
+      return undefined;
+    }
+    return this._parent.scrollTo(pathChunks);
+  }
 }
 
 export default {
