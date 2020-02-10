@@ -30,10 +30,7 @@ class Plugin {
     this._oldHeight = null;
 
     entries(settings.theme).forEach(([varName, color]) => {
-      document.body.style.setProperty(
-        `--${dashCase(varName)}`,
-        color,
-      );
+      document.body.style.setProperty(`--${dashCase(varName)}`, color);
     });
 
     keys(this._settings).forEach((key) => {
@@ -172,7 +169,9 @@ class Plugin {
       console.error('scrollToField requires a path');
       return undefined;
     }
-    return this._parent.scrollTo(pathChunks);
+    const path = toPath(pathChunks);
+    const locale = pathChunks.length > 1 && pathChunks.slice(-1)[0];
+    return this._parent.scrollToField(path, locale);
   }
 
   notice(message) {
@@ -211,10 +210,8 @@ export default {
     });
 
     pluginPromise = connection.promise
-      .then(parent => (
-        parent.getSettings()
-          .then(settings => new Plugin(parent, settings))
-      ));
+      .then(parent => parent.getSettings()
+        .then(settings => new Plugin(parent, settings)));
 
     if (typeof cb === 'undefined') {
       return pluginPromise;
