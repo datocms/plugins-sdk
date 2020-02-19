@@ -170,6 +170,14 @@ class Plugin {
     }
     return this._parent.scrollTo(pathChunks);
   }
+
+  notice(message) {
+    return this._parent.notice(message);
+  }
+
+  alert(message) {
+    return this._parent.alert(message);
+  }
 }
 
 export default {
