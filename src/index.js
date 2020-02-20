@@ -159,6 +159,10 @@ class Plugin {
     return this._parent.editItem(itemId);
   }
 
+  saveCurrentItem() {
+    return this._parent.saveCurrentItem();
+  }
+
   navigateTo(path) {
     return this._parent.navigateTo(path);
   }
