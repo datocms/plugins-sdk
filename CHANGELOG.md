@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- `scrollToField` - Plugins can use this method to navigate the record form.
-- `saveCurrentItem` - Plugins can use this method to trigger a record save action without pushing the save button.
-- `notice` and `alert` - Use these methods to display UI consistent notifications and alerts.
+- `scrollToField(...pathChunks)` - Plugins can use this method to navigate the record form.
+- `saveCurrentItem()` - Plugins can use this method to trigger a record save action without pushing the save button.
+- `notice(message)` and `alert(message)` - Use these methods to display UI consistent notifications and alerts.
+- `itemStatus` - Information about the publishing status of the record the plugin is attached to.
+- `isSubmitting` - Information about the record's form submitting status.
