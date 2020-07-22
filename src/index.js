@@ -12,7 +12,7 @@ import './style/index.sass';
 const toPath = (...chunks) => flattenDeep(chunks).join('.');
 
 const KEBAB_REGEX = /[A-Z\u00C0-\u00D6\u00D8-\u00DE]/g;
-const dashCase = str => str.replace(KEBAB_REGEX, match => `-${match.toLowerCase()}`);
+const dashCase = (str) => str.replace(KEBAB_REGEX, (match) => `-${match.toLowerCase()}`);
 
 const fail = (message) => {
   console.error(message);
@@ -81,6 +81,19 @@ class Plugin {
     this._parent.toggleField(path, value);
   }
 
+  disableField(...args) {
+    if (args.length < 2) {
+      console.error('disableField requires path and a new value');
+      return;
+    }
+
+    const pathChunks = args.slice(0, -1);
+    const value = args[args.length - 1];
+    const path = toPath(pathChunks);
+
+    this._parent.disableField(path, value);
+  }
+
   addChangeListener(...args) {
     if (args.length < 2) {
       fail('addChangeListener requires a path an a callback function');
@@ -95,7 +108,7 @@ class Plugin {
     this._listeners[path].push(cb);
 
     return () => {
-      this._listeners[path].filter(x => x !== cb);
+      this._listeners[path].filter((x) => x !== cb);
     };
   }
 
@@ -201,7 +214,7 @@ export default {
               const oldValue = get(oldSettings, path);
 
               if (!isEqual(oldValue, newValue)) {
-                listeners.forEach(l => l(newValue, oldValue));
+                listeners.forEach((l) => l(newValue, oldValue));
               }
             });
           });
@@ -210,8 +223,8 @@ export default {
     });
 
     pluginPromise = connection.promise
-      .then(parent => parent.getSettings()
-        .then(settings => new Plugin(parent, settings)));
+      .then((parent) => parent.getSettings()
+        .then((settings) => new Plugin(parent, settings)));
 
     if (typeof cb === 'undefined') {
       return pluginPromise;
