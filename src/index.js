@@ -165,6 +165,14 @@ class Plugin {
     return this._parent.createNewItem(itemTypeId);
   }
 
+  selectExistingItem(itemTypeId) {
+    return this._parent.selectExistingItem(itemTypeId);
+  }
+
+  selectExistingItems(itemTypeId) {
+    return this._parent.selectExistingItems(itemTypeId);
+  }
+
   editItem(itemId) {
     return this._parent.editItem(itemId);
   }
@@ -193,6 +201,14 @@ class Plugin {
 
   alert(message) {
     return this._parent.alert(message);
+  }
+
+  editUpload(uploadId) {
+    return this._parent.editUpload(uploadId);
+  }
+
+  editUploadMetadata(uploadMetadata) {
+    return this._parent.editUploadMetadata(uploadMetadata);
   }
 }
 
