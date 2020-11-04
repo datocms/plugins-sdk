@@ -167,12 +167,8 @@ class Plugin {
     return this._parent.createNewItem(itemTypeId);
   }
 
-  selectExistingItem(itemTypeId) {
-    return this._parent.selectExistingItem(itemTypeId);
-  }
-
-  selectExistingItems(itemTypeId) {
-    return this._parent.selectExistingItems(itemTypeId);
+  selectItem(itemTypeId, { multiple = false } = {}) {
+    return this._parent.selectItem(itemTypeId, { multiple });
   }
 
   editItem(itemId) {
