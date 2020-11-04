@@ -12,7 +12,8 @@ import './style/index.sass';
 const toPath = (...chunks) => flattenDeep(chunks).join('.');
 
 const KEBAB_REGEX = /[A-Z\u00C0-\u00D6\u00D8-\u00DE]/g;
-const dashCase = (str) => str.replace(KEBAB_REGEX, (match) => `-${match.toLowerCase()}`);
+const dashCase = (str) =>
+  str.replace(KEBAB_REGEX, (match) => `-${match.toLowerCase()}`);
 
 const fail = (message) => {
   console.error(message);
@@ -151,9 +152,10 @@ class Plugin {
   }
 
   updateHeight(height) {
-    const realHeight = height == null
-      ? Math.ceil(document.documentElement.getBoundingClientRect().height)
-      : height;
+    const realHeight =
+      height == null
+        ? Math.ceil(document.documentElement.getBoundingClientRect().height)
+        : height;
 
     if (realHeight !== this._oldHeight) {
       this._parent.setHeight(realHeight);
@@ -203,6 +205,10 @@ class Plugin {
     return this._parent.alert(message);
   }
 
+  selectUpload({ multiple = false } = {}) {
+    return this._parent.selectUpload({ multiple });
+  }
+
   editUpload(uploadId) {
     return this._parent.editUpload(uploadId);
   }
@@ -238,9 +244,9 @@ export default {
       },
     });
 
-    pluginPromise = connection.promise
-      .then((parent) => parent.getSettings()
-        .then((settings) => new Plugin(parent, settings)));
+    pluginPromise = connection.promise.then((parent) =>
+      parent.getSettings().then((settings) => new Plugin(parent, settings)),
+    );
 
     if (typeof cb === 'undefined') {
       return pluginPromise;
