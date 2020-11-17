@@ -165,6 +165,10 @@ class Plugin {
     return this._parent.createNewItem(itemTypeId);
   }
 
+  selectItem(itemTypeId, { multiple = false } = {}) {
+    return this._parent.selectItem(itemTypeId, { multiple });
+  }
+
   editItem(itemId) {
     return this._parent.editItem(itemId);
   }
@@ -194,6 +198,18 @@ class Plugin {
   alert(message) {
     return this._parent.alert(message);
   }
+
+  selectUpload({ multiple = false } = {}) {
+    return this._parent.selectUpload({ multiple });
+  }
+
+  editUpload(uploadId) {
+    return this._parent.editUpload(uploadId);
+  }
+
+  editUploadMetadata(uploadMetadata) {
+    return this._parent.editUploadMetadata(uploadMetadata);
+  }
 }
 
 export default {
@@ -222,9 +238,10 @@ export default {
       },
     });
 
-    pluginPromise = connection.promise
-      .then((parent) => parent.getSettings()
-        .then((settings) => new Plugin(parent, settings)));
+    // prettier-ignore
+    pluginPromise = connection.promise.then(
+      (parent) => parent.getSettings().then((settings) => new Plugin(parent, settings)),
+    );
 
     if (typeof cb === 'undefined') {
       return pluginPromise;
