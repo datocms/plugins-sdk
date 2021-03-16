@@ -7,12 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Please refer to the [SDK docs](https://www.datocms.com/docs/building-plugins/sdk-reference) for furthe information about APIs.
 
+## [0.1.1] - 2021-03-16
+
+### Added
+
+- `loadItemTypeFields(itemTypeId)` - Plugins can use this method to load all fields belonging to a specific model or block.
+- `environment` - Information about the current environment.
+
 ## [0.1.0] - 2020-11-09
 
 ### Added
 
-- `selectItem(itemTypeId, { multiple })` - Plugins can use this method do show the modal dialog to select one or multiple existing records.
-- `selectUpload({ multiple: boolean })` - Plugins can use this method do show the modal dialog to select one or multiple uploads.
+- `selectItem(itemTypeId, { multiple })` - Plugins can use this method to show the modal dialog to select one or multiple existing records.
+- `selectUpload({ multiple: boolean })` - Plugins can use this method to show the modal dialog to select one or multiple uploads.
 - `editUpload(uploadId)` - Plugins can use this method to show the modal dialog to edit an upload.
 - `editUploadMetadata(uploadMetadata)` - Plugins can use this method to show the modal dialog to edit an upload metadata.
 
