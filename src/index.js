@@ -68,6 +68,10 @@ class Plugin {
     this._parent.setFieldValue(path, value);
   }
 
+  loadItemTypeFields(itemTypeId) {
+    return this._parent.loadItemTypeFields(itemTypeId);
+  }
+
   toggleField(...args) {
     if (args.length < 2) {
       console.error('toggleField requires path and a new value');
