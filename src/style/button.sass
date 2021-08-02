@@ -1,4 +1,6 @@
+
 .DatoCMS-button
+  font-family: inherit
   padding: 0.7em 1em
   text-decoration: none
   display: inline-block
@@ -11,36 +13,41 @@
   color: $base-body-color
   -webkit-appearance: none
   -moz-appearance: none
-  border-radius: 3px
+  border-radius: 4px
   box-sizing: border-box
   transition: all 0.3s $material-ease
-  font-size: 0.9em
-  text-transform: uppercase
+  font-size: 1.1em
   font-weight: 500
-  border-width: 0
+  border: 1px solid transparent
+  +light-color-rule(background-color)
   +accent-color-rule(color)
+  opacity: 1
 
-  &:hover
-    background-color: rgba(black, 0.05)
+  &:hover, &:focus
+    opacity: 0.8
 
   &:active
-    background-color: rgba(black, 0.15)
+    opacity: 0.7
 
-  i, .Spinner
+  > span
+    position: relative
+    top: 0.06em
+
+  svg, i, .Spinner
     display: inline-block
     vertical-align: middle
-    font-size: 1.4em
     line-height: 0.6
+    +accent-color-rule(fill)
 
-  i:first-child, .Spinner:first-child
-    margin-right: 0.5em
+    &:first-child
+      margin-right: 0.5em
 
-  i:last-child, .Spinner:last-child
-    margin-left: 0.5em
+    &:last-child
+      margin-left: 0.5em
 
-  i:first-child:last-child, .Spinner:first-child:last-child
-    margin-left: 0
-    margin-right: 0
+    &:first-child:last-child
+      margin-left: 0
+      margin-right: 0
 
   &[disabled], &.is-disabled
     border-width: 0
@@ -48,27 +55,35 @@
     background-color: $light-bg-color
     cursor: not-allowed
 
+    svg
+      fill: rgba(black, 0.2)
+
+    &:hover, &:focus
+      color: rgba(black, 0.2)
+      background-color: $light-bg-color
+      cursor: not-allowed
+
 .DatoCMS-button--micro
   @extend .DatoCMS-button
-  font-size: 0.8em
+  font-size: 1em
   padding: 0.5em 0.8em
 
 .DatoCMS-button--tiny
   @extend .DatoCMS-button
-  font-size: 0.8em
-  padding: 0.6em 1em
+  font-size: 1em
+  padding: 0.6em 0.8em
 
 .DatoCMS-button--small
   @extend .DatoCMS-button
-  font-size: 0.8em
+  font-size: 1em
 
 .DatoCMS-button--large
   @extend .DatoCMS-button
-  font-size: 1.1em
+  font-size: 1.2em
 
 .DatoCMS-button--huge
   @extend .DatoCMS-button
-  font-size: 1.1em
+  font-size: 1.2em
   padding: 1em 1em
 
 .DatoCMS-button--expand
@@ -79,45 +94,115 @@
 
 .DatoCMS-button--primary
   @extend .DatoCMS-button
+  border-width: 0
   +accent-color-rule(background-color)
   color: white
 
-  &:hover, &:active
-    +accent-color-rule(background-color)
+  svg
+    fill: white
+
+  &:hover, &:focus, &:active
     color: white
-    opacity: 0.8
 
   &[disabled]
     background-color: $disabled-color
 
-    &:hover
+    &:hover, &:focus
       color: rgba(black, 0.2)
 
 .DatoCMS-button--datocms
   @extend .DatoCMS-button
-  background-color: #533451
+  border-width: 0
+  background-color: #ff593d
   color: white
 
-  &:hover, &:active
+  svg
+    fill: white
+
+  &:hover, &:focus, &:active
     color: white
-    background-color: #533451
+    background-color: #ff593d
+
+    svg
+      fill: white
 
 .DatoCMS-button--rev
   @extend .DatoCMS-button
+  background: transparent
+  border-color: rgba(white, 0.1)
   color: white
 
-  &:hover
+  svg
+    fill: white
+
+  &:hover, &:focus
     background-color: rgba(black, 0.4)
 
   &:active
     background-color: rgba(black, 0.8)
 
+.DatoCMS-button--white
+  @extend .DatoCMS-button
+  border-width: 0
+  background-color: white
+
+  &:hover, &:focus
+    background-color: rgba(white, 0.8)
+
+  &:active
+    background-color: rgba(white, 0.7)
+
 .DatoCMS-button--alert
   @extend .DatoCMS-button
-  color: $alert-color
+  background-color: $alert-color
+  border-width: 0
+  color: white
+
+  svg
+    fill: white
+
+  &:hover, &:focus, &:active
+    color: white
+    background-color: $alert-color
+
+    svg
+      fill: white
+
+  &[disabled],
+  &[aria-disabled="true"]
+    cursor: not-allowed
+    user-select: none
+    background-color: $disabled-color
+    color: rgba(black, 0.2)
+    svg
+      fill: rgba(black, 0.2)
 
 .DatoCMS-button--waiting
   cursor: default
 
-  &:hover
+  &:hover, &:focus
     color: $base-body-color
+
+    svg
+      fill: $base-body-color
+
+.DatoCMS-button--transparent
+  @extend .DatoCMS-button
+  color: white
+  border-width: 0
+  background-color: rgba(white, 0.2)
+
+  svg
+    fill: white
+
+  &:hover, &:focus, &:active
+    color: white
+    background-color: rgba(white, 0.4)
+
+  &[disabled]
+    opacity: 0.5
+    background-color: transparent
+
+    &:hover, &:focus
+      background-color: transparent
+      opacity: 0.5
