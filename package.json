@@ -1,6 +1,6 @@
 {
   "name": "datocms-plugins-sdk",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "DatoCMS Plugin SDK",
   "main": "lib/index.js",
   "browser": "dist/sdk.js",
