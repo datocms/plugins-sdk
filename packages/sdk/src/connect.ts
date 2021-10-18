@@ -54,6 +54,14 @@ type RenderUtilities = {
   updateHeight: (newHeight?: number) => void;
 };
 
+export type PageCtx = RenderCtx & RenderMethods & RenderUtilities;
+export type ModalCtx = RenderCtx & ModalRenderMethods & RenderUtilities;
+export type ItemFormCtx = ItemFormRenderCtx & ItemFormRenderMethods & RenderUtilities;
+export type FieldExtensionCtx = FieldExtensionRenderCtx & ItemFormRenderMethods & RenderUtilities;
+export type FieldExtensionConfigCtx = RenderCtx &
+  FieldExtensionConfigRenderMethods &
+  RenderUtilities;
+
 type FullConfiguration = {
   dashboardWidgets: (ctx: InitCtx) => DashboardWidget[];
   mainNavigationPages: (ctx: InitCtx) => NavigationPage[];
@@ -64,37 +72,14 @@ type FullConfiguration = {
   itemTypeSidebarPanes: (itemType: ModelBlock, ctx: InitCtx) => SidebarPane[];
   overrideFieldExtensions: (field: Field, ctx: FieldSetupCtx) => FieldExtensionOverride | undefined;
   assetSources: (field: Field, ctx: FieldSetupCtx) => AssetSource[];
-
-  renderDashboardWidget: (
-    dashboardWidget: DashboardWidget,
-    ctx: RenderCtx & RenderMethods & RenderUtilities,
-  ) => void;
-
+  renderDashboardWidget: (dashboardWidget: DashboardWidget, ctx: PageCtx) => void;
   renderConfig: (ctx: RenderCtx & ConfigRenderMethods & RenderUtilities) => void;
-
-  renderAssetSource: (
-    assetSource: AssetSource,
-    ctx: RenderCtx & RenderMethods & RenderUtilities,
-  ) => void;
-
-  renderPage: (pageId: string, ctx: RenderCtx & RenderMethods & RenderUtilities) => void;
-
-  renderModal: (modal: Modal, ctx: RenderCtx & ModalRenderMethods & RenderUtilities) => void;
-
-  renderSidebarPane: (
-    sidebar: SidebarPane,
-    ctx: ItemFormRenderCtx & ItemFormRenderMethods & RenderUtilities,
-  ) => void;
-
-  renderFieldExtension: (
-    extension: FieldExtension,
-    ctx: FieldExtensionRenderCtx & ItemFormRenderMethods & RenderUtilities,
-  ) => void;
-
-  renderFieldExtensionConfig: (
-    extension: FieldExtension,
-    ctx: RenderCtx & FieldExtensionConfigRenderMethods & RenderUtilities,
-  ) => void;
+  renderAssetSource: (assetSource: AssetSource, ctx: PageCtx) => void;
+  renderPage: (pageId: string, ctx: PageCtx) => void;
+  renderModal: (modal: Modal, ctx: ModalCtx) => void;
+  renderSidebarPane: (sidebar: SidebarPane, ctx: ItemFormCtx) => void;
+  renderFieldExtension: (extension: FieldExtension, ctx: FieldExtensionCtx) => void;
+  renderFieldExtensionConfig: (extension: FieldExtension, ctx: FieldExtensionConfigCtx) => void;
 };
 
 function toMultifield<Result>(fn: ((field: Field, ctx: FieldSetupCtx) => Result) | undefined) {

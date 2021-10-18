@@ -1,12 +1,4 @@
-import {
-  AdminPageGroup,
-  AssetSource,
-  ContentPage,
-  DashboardWidget,
-  FieldExtension,
-  NavigationPage,
-  SidebarPane,
-} from './definitions';
+import { AssetSource, DashboardWidget, FieldExtension, SidebarPane } from './definitions';
 
 import {
   ConfigRenderMethods,
