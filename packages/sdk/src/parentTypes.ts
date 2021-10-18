@@ -43,7 +43,7 @@ export type RenderPageParent = {
   getSettings: () => Promise<
     {
       mode: 'renderPage';
-      page: AdminPageGroup | NavigationPage | ContentPage;
+      pageId: string;
     } & RenderCtx
   >;
 } & RenderMethods &

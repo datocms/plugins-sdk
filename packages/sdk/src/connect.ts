@@ -77,10 +77,7 @@ type FullConfiguration = {
     ctx: RenderCtx & RenderMethods & RenderUtilities,
   ) => void;
 
-  renderPage: (
-    page: AdminPageGroup | NavigationPage | ContentPage,
-    ctx: RenderCtx & RenderMethods & RenderUtilities,
-  ) => void;
+  renderPage: (pageId: string, ctx: RenderCtx & RenderMethods & RenderUtilities) => void;
 
   renderModal: (modal: Modal, ctx: RenderCtx & ModalRenderMethods & RenderUtilities) => void;
 
@@ -256,7 +253,7 @@ export async function connect(configuration: Partial<FullConfiguration> = {}): P
         return;
       }
 
-      configuration.renderPage(settings.page, {
+      configuration.renderPage(settings.pageId, {
         ...parent,
         ...settings,
         ...renderUtils,

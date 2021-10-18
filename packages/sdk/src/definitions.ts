@@ -8,7 +8,6 @@ export type NavigationPage = {
   id: string;
   label: string;
   icon: string;
-  invocationParams: Record<string, unknown>;
 };
 
 export type AdminPageGroup = {
@@ -21,13 +20,13 @@ export type AdminPage = {
   label: string;
   icon: string;
   group: string;
-  invocationParams: Record<string, unknown>;
 };
 
 export type ContentPage = {
   id: string;
   label: string;
-  invocationParams: Record<string, unknown>;
+  icon: string;
+  location: 'top' | 'bottom';
 };
 
 export type FieldType =
