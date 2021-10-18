@@ -1,6 +1,6 @@
 {
   "name": "datocms-plugins-sdk",
-  "version": "0.2.0",
+  "version": "0.2.0-alpha.0",
   "description": "DatoCMS Plugin SDK",
   "keywords": [
     "datocms",
@@ -36,7 +36,7 @@
     "@types/lodash-es": "^4.17.0"
   },
   "dependencies": {
-    "penpal": "^4.1.1",
-    "lodash-es": "^4.17.11"
+    "lodash-es": "^4.17.11",
+    "penpal": "^4.1.1"
   }
 }
