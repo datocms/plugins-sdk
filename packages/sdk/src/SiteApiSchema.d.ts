@@ -1212,14 +1212,7 @@ export interface RoleAttributes {
     /**
      * Permitted action
      */
-    action:
-      | 'all'
-      | 'read'
-      | 'update'
-      | 'create'
-      | 'delete'
-      | 'edit_creator'
-      | 'replace_asset';
+    action: 'all' | 'read' | 'update' | 'create' | 'delete' | 'edit_creator' | 'replace_asset';
     /**
      * Permitted creator
      */
@@ -1241,14 +1234,7 @@ export interface RoleAttributes {
     /**
      * Permitted action
      */
-    action:
-      | 'all'
-      | 'read'
-      | 'update'
-      | 'create'
-      | 'delete'
-      | 'edit_creator'
-      | 'replace_asset';
+    action: 'all' | 'read' | 'update' | 'create' | 'delete' | 'edit_creator' | 'replace_asset';
     /**
      * Permitted creator
      */
@@ -1460,14 +1446,7 @@ export interface RoleMeta {
       /**
        * Permitted action
        */
-      action:
-        | 'all'
-        | 'read'
-        | 'update'
-        | 'create'
-        | 'delete'
-        | 'edit_creator'
-        | 'replace_asset';
+      action: 'all' | 'read' | 'update' | 'create' | 'delete' | 'edit_creator' | 'replace_asset';
       /**
        * Permitted creator
        */
@@ -1489,14 +1468,7 @@ export interface RoleMeta {
       /**
        * Permitted action
        */
-      action:
-        | 'all'
-        | 'read'
-        | 'update'
-        | 'create'
-        | 'delete'
-        | 'edit_creator'
-        | 'replace_asset';
+      action: 'all' | 'read' | 'update' | 'create' | 'delete' | 'edit_creator' | 'replace_asset';
       /**
        * Permitted creator
        */
@@ -1689,14 +1661,7 @@ export interface RoleCreateSchema {
         /**
          * Permitted action
          */
-        action:
-          | 'all'
-          | 'read'
-          | 'update'
-          | 'create'
-          | 'delete'
-          | 'edit_creator'
-          | 'replace_asset';
+        action: 'all' | 'read' | 'update' | 'create' | 'delete' | 'edit_creator' | 'replace_asset';
         /**
          * Permitted creator
          */
@@ -1718,14 +1683,7 @@ export interface RoleCreateSchema {
         /**
          * Permitted action
          */
-        action:
-          | 'all'
-          | 'read'
-          | 'update'
-          | 'create'
-          | 'delete'
-          | 'edit_creator'
-          | 'replace_asset';
+        action: 'all' | 'read' | 'update' | 'create' | 'delete' | 'edit_creator' | 'replace_asset';
         /**
          * Permitted creator
          */
@@ -1939,14 +1897,7 @@ export interface RoleUpdateSchema {
         /**
          * Permitted action
          */
-        action:
-          | 'all'
-          | 'read'
-          | 'update'
-          | 'create'
-          | 'delete'
-          | 'edit_creator'
-          | 'replace_asset';
+        action: 'all' | 'read' | 'update' | 'create' | 'delete' | 'edit_creator' | 'replace_asset';
         /**
          * Permitted creator
          */
@@ -1968,14 +1919,7 @@ export interface RoleUpdateSchema {
         /**
          * Permitted action
          */
-        action:
-          | 'all'
-          | 'read'
-          | 'update'
-          | 'create'
-          | 'delete'
-          | 'edit_creator'
-          | 'replace_asset';
+        action: 'all' | 'read' | 'update' | 'create' | 'delete' | 'edit_creator' | 'replace_asset';
         /**
          * Permitted creator
          */
@@ -2974,12 +2918,7 @@ export interface ItemTypeAttributes {
   /**
    * Specifies the model's sorting method. Cannot be set in concurrency with ordering_field
    */
-  ordering_meta:
-    | null
-    | 'created_at'
-    | 'updated_at'
-    | 'first_published_at'
-    | 'published_at';
+  ordering_meta: null | 'created_at' | 'updated_at' | 'first_published_at' | 'published_at';
   /**
    * If this model is single-instance, this tells the single-instance record has already been created or not
    */
@@ -3107,12 +3046,7 @@ export interface ItemTypeCreateSchema {
       /**
        * Specifies the model's sorting method. Cannot be set in concurrency with ordering_field
        */
-      ordering_meta?:
-        | null
-        | 'created_at'
-        | 'updated_at'
-        | 'first_published_at'
-        | 'published_at';
+      ordering_meta?: null | 'created_at' | 'updated_at' | 'first_published_at' | 'published_at';
       /**
        * The way the model collection should be presented to the editors
        */
@@ -3215,12 +3149,7 @@ export interface ItemTypeUpdateSchema {
       /**
        * Specifies the model's sorting method. Cannot be set in concurrency with ordering_field
        */
-      ordering_meta?:
-        | null
-        | 'created_at'
-        | 'updated_at'
-        | 'first_published_at'
-        | 'published_at';
+      ordering_meta?: null | 'created_at' | 'updated_at' | 'first_published_at' | 'published_at';
       /**
        * If this model is single-instance, this tells the single-instance record has already been created or not
        */
