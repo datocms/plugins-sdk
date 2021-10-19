@@ -130,8 +130,7 @@ export type ConfirmOptions = {
   cancel: ConfirmChoice;
 };
 
-export type InitMeta = {
-  mode: 'init';
+export type CommonMeta = {
   site: Site;
   environment: string | null;
   itemTypes: Partial<Record<string, ModelBlock>>;
@@ -139,11 +138,17 @@ export type InitMeta = {
   plugin: Plugin;
 };
 
+export type InitMetaAdditions = {
+  mode: 'init';
+};
+
+export type InitMeta = CommonMeta & InitMetaAdditions;
+
 export type InitMethods = {
   getSettings: () => Promise<InitMeta>;
 };
 
-export type RenderMetaAdditions = {
+export type CommonRenderMetaAdditions = {
   fields: Partial<Record<string, Field>>;
   theme: Theme;
   users: Partial<Record<string, User>>;
@@ -151,10 +156,9 @@ export type RenderMetaAdditions = {
   plugin: Plugin;
 };
 
-export type RenderMeta = Omit<InitMeta, 'mode'> & RenderMetaAdditions;
+export type CommonRenderMeta = CommonMeta & CommonRenderMetaAdditions;
 
-export type RenderMethodsAdditions = {
-  getSettings: () => Promise<RenderMeta>;
+export type CommonRenderMethods = {
   setHeight: (number: number) => void;
   navigateTo: (path: string) => void;
   loadItemTypeFields: (itemTypeId: string) => Promise<Field[]>;
@@ -187,9 +191,7 @@ export type RenderMethodsAdditions = {
   openConfirm: (options: ConfirmOptions) => Promise<unknown>;
 };
 
-export type RenderMethods = RenderMethodsAdditions;
-
-export type RenderItemFormMetaAdditions = {
+export type CommonRenderItemFormMetaAdditions = {
   locale: string;
   itemId: string | null;
   itemStatus: string;
@@ -199,10 +201,10 @@ export type RenderItemFormMetaAdditions = {
   itemType: ModelBlock | undefined;
 };
 
-export type RenderItemFormMeta = Omit<RenderMeta, 'mode'> & RenderItemFormMetaAdditions;
+export type CommonRenderItemFormMeta = CommonRenderMeta & CommonRenderItemFormMetaAdditions;
 
-export type RenderItemFormMethodsAdditions = {
-  getSettings: () => Promise<RenderItemFormMeta>;
+export type CommonRenderItemFormMethodsAdditions = {
+  getSettings: () => Promise<CommonRenderItemFormMeta>;
   toggleField: (path: string, show: boolean) => void;
   disableField: (path: string, disable: boolean) => void;
   scrollToField: (path: string, locale?: string) => void;
@@ -210,22 +212,21 @@ export type RenderItemFormMethodsAdditions = {
   saveCurrentItem: () => void;
 };
 
-export type RenderItemFormMethods = Omit<RenderMethods, 'getSettings'> &
-  RenderItemFormMethodsAdditions;
+export type CommonRenderItemFormMethods = CommonRenderMethods &
+  CommonRenderItemFormMethodsAdditions;
 
 export type RenderSidebarPaneMetaAdditions = {
   mode: 'renderSidebarPane';
   sidebarPane: SidebarPane;
 };
 
-export type RenderSidebarPaneMeta = Omit<RenderMeta, 'mode'> & RenderSidebarPaneMetaAdditions;
+export type RenderSidebarPaneMeta = CommonRenderMeta & RenderSidebarPaneMetaAdditions;
 
 export type RenderSidebarPaneMethodsAdditions = {
   getSettings: () => Promise<RenderSidebarPaneMeta>;
 };
 
-export type RenderSidebarPaneMethods = Omit<RenderMethods, 'getSettings'> &
-  RenderSidebarPaneMethodsAdditions;
+export type RenderSidebarPaneMethods = CommonRenderMethods & RenderSidebarPaneMethodsAdditions;
 
 export type RenderFieldExtensionMetaAdditions = {
   mode: 'renderFieldExtension';
@@ -243,14 +244,13 @@ export type RenderFieldExtensionMetaAdditions = {
   parentFieldId: string | undefined | null;
 };
 
-export type RenderFieldExtensionMeta = Omit<RenderItemFormMeta, 'mode'> &
-  RenderFieldExtensionMetaAdditions;
+export type RenderFieldExtensionMeta = CommonRenderItemFormMeta & RenderFieldExtensionMetaAdditions;
 
 export type RenderFieldExtensionMethodsAdditions = {
   getSettings: () => Promise<RenderFieldExtensionMeta>;
 };
 
-export type RenderFieldExtensionMethods = Omit<RenderItemFormMethods, 'getSettings'> &
+export type RenderFieldExtensionMethods = CommonRenderItemFormMethods &
   RenderFieldExtensionMethodsAdditions;
 
 export type RenderModalMetaAdditions = {
@@ -258,41 +258,40 @@ export type RenderModalMetaAdditions = {
   modal: Modal;
 };
 
-export type RenderModalMeta = Omit<RenderMeta, 'mode'> & RenderModalMetaAdditions;
+export type RenderModalMeta = CommonRenderMeta & RenderModalMetaAdditions;
 
 export type RenderModalMethodsAdditions = {
   getSettings: () => Promise<RenderModalMeta>;
   resolve: (returnValue: unknown) => void;
 };
 
-export type RenderModalMethods = Omit<RenderMethods, 'getSettings'> & RenderModalMethodsAdditions;
+export type RenderModalMethods = CommonRenderMethods & RenderModalMethodsAdditions;
 
 export type RenderPageMetaAdditions = {
   mode: 'renderPage';
   pageId: string;
 };
 
-export type RenderPageMeta = Omit<RenderMeta, 'mode'> & RenderPageMetaAdditions;
+export type RenderPageMeta = CommonRenderMeta & RenderPageMetaAdditions;
 
 export type RenderPageMethodsAdditions = {
   getSettings: () => Promise<RenderPageMeta>;
 };
 
-export type RenderPageMethods = Omit<RenderMethods, 'getSettings'> & RenderPageMethodsAdditions;
+export type RenderPageMethods = CommonRenderMethods & RenderPageMethodsAdditions;
 
 export type RenderDashboardWidgetMetaAdditions = {
   mode: 'renderDashboardWidget';
   dashboardWidget: DashboardWidget;
 };
 
-export type RenderDashboardWidgetMeta = Omit<RenderMeta, 'mode'> &
-  RenderDashboardWidgetMetaAdditions;
+export type RenderDashboardWidgetMeta = CommonRenderMeta & RenderDashboardWidgetMetaAdditions;
 
 export type RenderDashboardWidgetMethodsAdditions = {
   getSettings: () => Promise<RenderDashboardWidgetMeta>;
 };
 
-export type RenderDashboardWidgetMethods = Omit<RenderMethods, 'getSettings'> &
+export type RenderDashboardWidgetMethods = CommonRenderMethods &
   RenderDashboardWidgetMethodsAdditions;
 
 export type RenderFieldExtensionConfigMetaAdditions = {
@@ -300,7 +299,7 @@ export type RenderFieldExtensionConfigMetaAdditions = {
   fieldExtension: FieldExtension;
 };
 
-export type RenderFieldExtensionConfigMeta = Omit<RenderMeta, 'mode'> &
+export type RenderFieldExtensionConfigMeta = CommonRenderMeta &
   RenderFieldExtensionConfigMetaAdditions;
 
 export type RenderFieldExtensionConfigMethodsAdditions = {
@@ -308,21 +307,21 @@ export type RenderFieldExtensionConfigMethodsAdditions = {
   save: (params: Record<string, unknown>) => Promise<void>;
 };
 
-export type RenderFieldExtensionConfigMethods = Omit<RenderMethods, 'getSettings'> &
+export type RenderFieldExtensionConfigMethods = CommonRenderMethods &
   RenderFieldExtensionConfigMethodsAdditions;
 
 export type RenderConfigMetaAdditions = {
   mode: 'renderConfig';
 };
 
-export type RenderConfigMeta = Omit<RenderMeta, 'mode'> & RenderConfigMetaAdditions;
+export type RenderConfigMeta = CommonRenderMeta & RenderConfigMetaAdditions;
 
 export type RenderConfigMethodsAdditions = {
   getSettings: () => Promise<RenderConfigMeta>;
   save: (params: Record<string, unknown>) => Promise<void>;
 };
 
-export type RenderConfigMethods = Omit<RenderMethods, 'getSettings'> & RenderConfigMethodsAdditions;
+export type RenderConfigMethods = CommonRenderMethods & RenderConfigMethodsAdditions;
 
 export type FieldSetupMetaAdditions = {
   mode: 'init';
@@ -336,12 +335,11 @@ export type RenderAssetSourceMetaAdditions = {
   assetSource: AssetSource;
 };
 
-export type RenderAssetSourceMeta = Omit<RenderMeta, 'mode'> & RenderAssetSourceMetaAdditions;
+export type RenderAssetSourceMeta = CommonRenderMeta & RenderAssetSourceMetaAdditions;
 
 export type RenderAssetSourceMethodsAdditions = {
   getSettings: () => Promise<RenderAssetSourceMeta>;
   resolve: (returnValue: unknown) => void;
 };
 
-export type RenderAssetSourceMethods = Omit<RenderMethods, 'getSettings'> &
-  RenderAssetSourceMethodsAdditions;
+export type RenderAssetSourceMethods = CommonRenderMethods & RenderAssetSourceMethodsAdditions;
