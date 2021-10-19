@@ -54,7 +54,8 @@ export type FieldExtension = {
 export type SidebarPane = {
   id: string;
   label: string;
-  invocationParams: Record<string, unknown>;
+  invocationParams?: Record<string, unknown>;
+  startOpen?: boolean;
 };
 
 export type FieldExtensionOverride = {

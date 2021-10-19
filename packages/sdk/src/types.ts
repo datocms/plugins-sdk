@@ -100,7 +100,6 @@ export type ModalRenderMethods = RenderMethods & {
 
 export type ItemFormRenderCtx = RenderCtx & {
   locale: string;
-  placeholder: string;
   disabled: boolean;
   itemId: string | null;
   itemStatus: 'draft' | 'updated' | 'published';
@@ -108,7 +107,6 @@ export type ItemFormRenderCtx = RenderCtx & {
   isSubmitting: boolean;
   isFormDirty: boolean;
   itemType: ModelBlock;
-  fieldPath: string;
 };
 
 export type ItemFormRenderMethods = RenderMethods & {
@@ -120,6 +118,8 @@ export type ItemFormRenderMethods = RenderMethods & {
 };
 
 export type FieldExtensionRenderCtx = ItemFormRenderCtx & {
+  placeholder: string;
+  fieldPath: string;
   field: Field;
   parentField: Field;
   invocationParams: Record<string, unknown>;
