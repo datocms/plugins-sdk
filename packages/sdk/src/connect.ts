@@ -1,20 +1,11 @@
 import connectToParent from 'penpal/lib/connectToParent';
 import { Field, ModelBlock } from './SiteApiSchema';
 import {
-  ConfigRenderMethods,
-  FieldExtensionConfigRenderMethods,
-  FieldExtensionRenderCtx,
-  FieldSetupCtx,
-  InitCtx,
-  ItemFormRenderCtx,
-  ItemFormRenderMethods,
+  RenderConfigMethods,
+  RenderFieldExtensionConfigMethods,
+  RenderSidebarPaneMethods,
   Modal,
-  ModalRenderMethods,
-  RenderCtx,
-  RenderMethods,
-} from './types';
-
-import {
+  RenderModalMethods,
   AdminPage,
   AdminPageGroup,
   AssetSource,
@@ -24,9 +15,14 @@ import {
   NavigationPage,
   SidebarPane,
   DashboardWidget,
-} from './definitions';
+  RenderAssetSourceMethods,
+  RenderDashboardWidgetMethods,
+  RenderFieldExtensionMethods,
+  RenderPageMethods,
+} from './types';
 
 import {
+  InitMetaAndMethods,
   isInitParent,
   isRenderAssetSourceParent,
   isRenderConfigParent,
@@ -37,15 +33,14 @@ import {
   isRenderPageParent,
   isRenderSidebarPaneParent,
   Parent,
-  PrivateRenderMethods,
-  RenderAssetSourceParent,
-  RenderConfigParent,
-  RenderDashboardWidgetParent,
-  RenderFieldExtensionConfigParent,
-  RenderFieldExtensionParent,
-  RenderModalParent,
-  RenderPageParent,
-  RenderSidebarPaneParent,
+  RenderAssetSourceMetaAndMethods,
+  RenderConfigMetaAndMethods,
+  RenderDashboardWidgetMetaAndMethods,
+  RenderFieldExtensionConfigMetaAndMethods,
+  RenderFieldExtensionMetaAndMethods,
+  RenderModalMetaAndMethods,
+  RenderPageMetaAndMethods,
+  RenderSidebarPaneMetaAndMethods,
 } from './parentTypes';
 
 type SizingUtilities = {
@@ -56,36 +51,43 @@ type SizingUtilities = {
 
 export type { Field, ModelBlock };
 
-export type PageCtx = RenderCtx & RenderMethods;
-export type ModalCtx = RenderCtx & ModalRenderMethods & SizingUtilities;
-export type ItemFormCtx = ItemFormRenderCtx & ItemFormRenderMethods & SizingUtilities;
-export type FieldExtensionCtx = FieldExtensionRenderCtx & ItemFormRenderMethods & SizingUtilities;
-export type FieldExtensionConfigCtx = RenderCtx &
-  FieldExtensionConfigRenderMethods &
+export type FieldInitCtx = InitMetaAndMethods & { itemType: ModelBlock };
+
+export type RenderPageCtx = RenderPageMetaAndMethods;
+export type RenderModalCtx = RenderModalMetaAndMethods & SizingUtilities;
+export type RenderSidebarPaneCtx = RenderSidebarPaneMetaAndMethods & SizingUtilities;
+export type RenderDashboardWidgetCtx = RenderDashboardWidgetMetaAndMethods & SizingUtilities;
+export type RenderFieldExtensionCtx = RenderFieldExtensionMetaAndMethods & SizingUtilities;
+export type RenderFieldExtensionConfigCtx = RenderFieldExtensionConfigMetaAndMethods &
   SizingUtilities;
+export type RenderAssetSourceCtx = RenderAssetSourceMetaAndMethods & SizingUtilities;
+export type RenderConfigCtx = RenderConfigMetaAndMethods & SizingUtilities;
 
 type FullConfiguration = {
-  dashboardWidgets: (ctx: InitCtx) => DashboardWidget[];
-  mainNavigationPages: (ctx: InitCtx) => NavigationPage[];
-  adminPageGroups: (ctx: InitCtx) => AdminPageGroup[];
-  adminPages: (ctx: InitCtx) => AdminPage[];
-  contentPages: (ctx: InitCtx) => ContentPage[];
-  manualFieldExtensions: (ctx: InitCtx) => FieldExtension[];
-  itemTypeSidebarPanes: (itemType: ModelBlock, ctx: InitCtx) => SidebarPane[];
-  overrideFieldExtensions: (field: Field, ctx: FieldSetupCtx) => FieldExtensionOverride | undefined;
-  assetSources: (field: Field, ctx: FieldSetupCtx) => AssetSource[];
-  renderDashboardWidget: (dashboardWidget: DashboardWidget, ctx: PageCtx) => void;
-  renderConfig: (ctx: RenderCtx & ConfigRenderMethods & SizingUtilities) => void;
-  renderAssetSource: (assetSource: AssetSource, ctx: PageCtx) => void;
-  renderPage: (pageId: string, ctx: PageCtx) => void;
-  renderModal: (modal: Modal, ctx: ModalCtx) => void;
-  renderSidebarPane: (sidebar: SidebarPane, ctx: ItemFormCtx) => void;
-  renderFieldExtension: (extension: FieldExtension, ctx: FieldExtensionCtx) => void;
-  renderFieldExtensionConfig: (extension: FieldExtension, ctx: FieldExtensionConfigCtx) => void;
+  dashboardWidgets: (ctx: InitMetaAndMethods) => DashboardWidget[];
+  mainNavigationPages: (ctx: InitMetaAndMethods) => NavigationPage[];
+  adminPageGroups: (ctx: InitMetaAndMethods) => AdminPageGroup[];
+  adminPages: (ctx: InitMetaAndMethods) => AdminPage[];
+  contentPages: (ctx: InitMetaAndMethods) => ContentPage[];
+  manualFieldExtensions: (ctx: InitMetaAndMethods) => FieldExtension[];
+  itemTypeSidebarPanes: (itemType: ModelBlock, ctx: InitMetaAndMethods) => SidebarPane[];
+  overrideFieldExtensions: (field: Field, ctx: FieldInitCtx) => FieldExtensionOverride | undefined;
+  assetSources: (field: Field, ctx: FieldInitCtx) => AssetSource[];
+  renderDashboardWidget: (dashboardWidget: DashboardWidget, ctx: RenderDashboardWidgetCtx) => void;
+  renderConfig: (ctx: RenderConfigCtx) => void;
+  renderAssetSource: (assetSource: AssetSource, ctx: RenderAssetSourceCtx) => void;
+  renderPage: (pageId: string, ctx: RenderPageCtx) => void;
+  renderModal: (modal: Modal, ctx: RenderModalCtx) => void;
+  renderSidebarPane: (sidebar: SidebarPane, ctx: RenderSidebarPaneCtx) => void;
+  renderFieldExtension: (extension: FieldExtension, ctx: RenderFieldExtensionCtx) => void;
+  renderFieldExtensionConfig: (
+    extension: FieldExtension,
+    ctx: RenderFieldExtensionConfigCtx,
+  ) => void;
 };
 
-function toMultifield<Result>(fn: ((field: Field, ctx: FieldSetupCtx) => Result) | undefined) {
-  return (fields: Field[], ctx: InitCtx): Record<string, Result> => {
+function toMultifield<Result>(fn: ((field: Field, ctx: FieldInitCtx) => Result) | undefined) {
+  return (fields: Field[], ctx: InitMetaAndMethods): Record<string, Result> => {
     if (!fn) {
       return {};
     }
@@ -110,7 +112,7 @@ type AsyncReturnType<T extends (...args: any) => any> = T extends (...args: any)
   : // eslint-disable-next-line @typescript-eslint/no-explicit-any
     any;
 
-const buildRenderUtils = (parent: PrivateRenderMethods) => {
+const buildRenderUtils = (parent: { setHeight: (number: number) => void }) => {
   let oldHeight: null | number = null;
 
   const updateHeight = (height?: number) => {
@@ -210,7 +212,7 @@ export async function connect(configuration: Partial<FullConfiguration> = {}): P
   }
 
   if (isRenderDashboardWidgetParent(parent, initialSettings)) {
-    type Settings = AsyncReturnType<RenderDashboardWidgetParent['getSettings']>;
+    type Settings = AsyncReturnType<RenderDashboardWidgetMethods['getSettings']>;
 
     const renderUtils = buildRenderUtils(parent);
 
@@ -231,7 +233,7 @@ export async function connect(configuration: Partial<FullConfiguration> = {}): P
   }
 
   if (isRenderPageParent(parent, initialSettings)) {
-    type Settings = AsyncReturnType<RenderPageParent['getSettings']>;
+    type Settings = AsyncReturnType<RenderPageMethods['getSettings']>;
 
     const render = (settings: Settings) => {
       if (!configuration.renderPage) {
@@ -249,7 +251,7 @@ export async function connect(configuration: Partial<FullConfiguration> = {}): P
   }
 
   if (isRenderAssetSourceParent(parent, initialSettings)) {
-    type Settings = AsyncReturnType<RenderAssetSourceParent['getSettings']>;
+    type Settings = AsyncReturnType<RenderAssetSourceMethods['getSettings']>;
 
     const renderUtils = buildRenderUtils(parent);
 
@@ -270,7 +272,7 @@ export async function connect(configuration: Partial<FullConfiguration> = {}): P
   }
 
   if (isRenderConfigParent(parent, initialSettings)) {
-    type Settings = AsyncReturnType<RenderConfigParent['getSettings']>;
+    type Settings = AsyncReturnType<RenderConfigMethods['getSettings']>;
 
     const renderUtils = buildRenderUtils(parent);
 
@@ -291,7 +293,7 @@ export async function connect(configuration: Partial<FullConfiguration> = {}): P
   }
 
   if (isRenderModalParent(parent, initialSettings)) {
-    type Settings = AsyncReturnType<RenderModalParent['getSettings']>;
+    type Settings = AsyncReturnType<RenderModalMethods['getSettings']>;
 
     const renderUtils = buildRenderUtils(parent);
 
@@ -312,7 +314,7 @@ export async function connect(configuration: Partial<FullConfiguration> = {}): P
   }
 
   if (isRenderSidebarPaneParent(parent, initialSettings)) {
-    type Settings = AsyncReturnType<RenderSidebarPaneParent['getSettings']>;
+    type Settings = AsyncReturnType<RenderSidebarPaneMethods['getSettings']>;
 
     const renderUtils = buildRenderUtils(parent);
 
@@ -333,7 +335,7 @@ export async function connect(configuration: Partial<FullConfiguration> = {}): P
   }
 
   if (isRenderFieldExtensionParent(parent, initialSettings)) {
-    type Settings = AsyncReturnType<RenderFieldExtensionParent['getSettings']>;
+    type Settings = AsyncReturnType<RenderFieldExtensionMethods['getSettings']>;
 
     const renderUtils = buildRenderUtils(parent);
 
@@ -354,7 +356,7 @@ export async function connect(configuration: Partial<FullConfiguration> = {}): P
   }
 
   if (isRenderFieldExtensionConfigParent(parent, initialSettings)) {
-    type Settings = AsyncReturnType<RenderFieldExtensionConfigParent['getSettings']>;
+    type Settings = AsyncReturnType<RenderFieldExtensionConfigMethods['getSettings']>;
 
     const renderUtils = buildRenderUtils(parent);
 

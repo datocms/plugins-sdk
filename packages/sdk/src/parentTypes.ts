@@ -1,160 +1,62 @@
-import { AssetSource, DashboardWidget, FieldExtension, SidebarPane } from './definitions';
-
 import {
-  ConfigRenderMethods,
-  FieldExtensionConfigRenderMethods,
-  FieldExtensionRenderCtx,
-  ItemFormRenderCtx,
-  ItemFormRenderMethods,
-  Modal,
-  ModalRenderMethods,
-  RenderCtx,
-  RenderMethods,
+  InitMethods,
+  RenderPageMethods,
+  RenderAssetSourceMethods,
+  RenderDashboardWidgetMethods,
+  RenderFieldExtensionMethods,
+  RenderConfigMethods,
+  RenderFieldExtensionConfigMethods,
+  RenderSidebarPaneMethods,
+  RenderModalMethods,
+  InitMeta,
+  RenderPageMeta,
+  RenderAssetSourceMeta,
+  RenderDashboardWidgetMeta,
+  RenderConfigMeta,
+  RenderModalMeta,
+  RenderSidebarPaneMeta,
+  RenderFieldExtensionMeta,
+  RenderFieldExtensionConfigMeta,
 } from './types';
 
 export type Parent = { getSettings: () => Promise<{ mode: string }> };
 
-export type PrivateRenderMethods = {
-  setHeight: (newHeight: number) => Promise<void>;
-};
-
-export function isInitParent(parent: Parent, settings: { mode: string }): parent is InitParent {
-  return settings.mode === 'init';
+function buildGuard<P extends Parent>(mode: string) {
+  return (parent: Parent, settings: { mode: string }): parent is P => settings.mode === mode;
 }
 
-export type InitParent = { getSettings: () => Promise<{ mode: 'init' }> };
+export const isInitParent = buildGuard<InitMethods>('init');
+export type InitMetaAndMethods = InitMethods & InitMeta;
 
-export function isRenderPageParent(
-  parent: Parent,
-  settings: { mode: string },
-): parent is RenderPageParent {
-  return settings.mode === 'renderPage';
-}
+export const isRenderPageParent = buildGuard<RenderPageMethods>('renderPage');
+export type RenderPageMetaAndMethods = RenderPageMethods & RenderPageMeta;
 
-export type RenderPageParent = {
-  getSettings: () => Promise<
-    {
-      mode: 'renderPage';
-      pageId: string;
-    } & RenderCtx
-  >;
-} & RenderMethods &
-  PrivateRenderMethods;
+export const isRenderAssetSourceParent = buildGuard<RenderAssetSourceMethods>('renderAssetSource');
+export type RenderAssetSourceMetaAndMethods = RenderAssetSourceMethods & RenderAssetSourceMeta;
 
-export function isRenderAssetSourceParent(
-  parent: Parent,
-  settings: { mode: string },
-): parent is RenderAssetSourceParent {
-  return settings.mode === 'renderAssetSource';
-}
+export const isRenderDashboardWidgetParent = buildGuard<RenderDashboardWidgetMethods>(
+  'renderDashboardWidget',
+);
+export type RenderDashboardWidgetMetaAndMethods = RenderDashboardWidgetMethods &
+  RenderDashboardWidgetMeta;
 
-export type RenderAssetSourceParent = {
-  getSettings: () => Promise<
-    {
-      mode: 'renderAssetSource';
-      assetSource: AssetSource;
-    } & RenderCtx
-  >;
-} & RenderMethods &
-  PrivateRenderMethods;
+export const isRenderConfigParent = buildGuard<RenderConfigMethods>('renderConfig');
+export type RenderConfigMetaAndMethods = RenderConfigMethods & RenderConfigMeta;
 
-export function isRenderDashboardWidgetParent(
-  parent: Parent,
-  settings: { mode: string },
-): parent is RenderDashboardWidgetParent {
-  return settings.mode === 'renderDashboardWidget';
-}
+export const isRenderModalParent = buildGuard<RenderModalMethods>('renderModal');
+export type RenderModalMetaAndMethods = RenderModalMethods & RenderModalMeta;
 
-export type RenderDashboardWidgetParent = {
-  getSettings: () => Promise<
-    {
-      mode: 'renderDashboardWidget';
-      dashboardWidget: DashboardWidget;
-    } & RenderCtx
-  >;
-} & RenderMethods &
-  PrivateRenderMethods;
+export const isRenderSidebarPaneParent = buildGuard<RenderSidebarPaneMethods>('renderSidebarPane');
+export type RenderSidebarPaneMetaAndMethods = RenderSidebarPaneMethods & RenderSidebarPaneMeta;
 
-export function isRenderConfigParent(
-  parent: Parent,
-  settings: { mode: string },
-): parent is RenderConfigParent {
-  return settings.mode === 'renderConfig';
-}
+export const isRenderFieldExtensionParent = buildGuard<RenderFieldExtensionMethods>(
+  'renderFieldExtension',
+);
+export type RenderFieldExtensionMetaAndMethods = RenderFieldExtensionMethods &
+  RenderFieldExtensionMeta;
 
-export type RenderConfigParent = {
-  getSettings: () => Promise<
-    {
-      mode: 'renderConfig';
-    } & RenderCtx
-  >;
-} & ConfigRenderMethods &
-  PrivateRenderMethods;
-
-export function isRenderModalParent(
-  parent: Parent,
-  settings: { mode: string },
-): parent is RenderModalParent {
-  return settings.mode === 'renderModal';
-}
-
-export type RenderModalParent = {
-  getSettings: () => Promise<
-    {
-      mode: 'renderModal';
-      modal: Modal;
-    } & RenderCtx
-  >;
-} & ModalRenderMethods &
-  PrivateRenderMethods;
-
-export function isRenderSidebarPaneParent(
-  parent: Parent,
-  settings: { mode: string },
-): parent is RenderSidebarPaneParent {
-  return settings.mode === 'renderSidebarPane';
-}
-
-export type RenderSidebarPaneParent = {
-  getSettings: () => Promise<
-    {
-      mode: 'renderSidebarPane';
-      sidebarPane: SidebarPane;
-    } & ItemFormRenderCtx
-  >;
-} & ItemFormRenderMethods &
-  PrivateRenderMethods;
-
-export function isRenderFieldExtensionParent(
-  parent: Parent,
-  settings: { mode: string },
-): parent is RenderFieldExtensionParent {
-  return settings.mode === 'renderFieldExtension';
-}
-
-export type RenderFieldExtensionParent = {
-  getSettings: () => Promise<
-    {
-      mode: 'renderFieldExtension';
-      fieldExtension: FieldExtension;
-    } & FieldExtensionRenderCtx
-  >;
-} & ItemFormRenderMethods &
-  PrivateRenderMethods;
-
-export function isRenderFieldExtensionConfigParent(
-  parent: Parent,
-  settings: { mode: string },
-): parent is RenderFieldExtensionConfigParent {
-  return settings.mode === 'renderFieldExtensionConfig';
-}
-
-export type RenderFieldExtensionConfigParent = {
-  getSettings: () => Promise<
-    {
-      mode: 'renderFieldExtensionConfig';
-      fieldExtension: FieldExtension;
-    } & RenderCtx
-  >;
-} & FieldExtensionConfigRenderMethods &
-  PrivateRenderMethods;
+export const isRenderFieldExtensionConfigParent = buildGuard<RenderFieldExtensionConfigMethods>(
+  'renderFieldExtensionConfig',
+);
+export type RenderFieldExtensionConfigMetaAndMethods = RenderFieldExtensionConfigMethods &
+  RenderFieldExtensionConfigMeta;

@@ -4,26 +4,86 @@ import {
   Item,
   ModelBlock,
   Plugin,
-  Role,
+  PluginAttributes,
   Site,
   SsoUser,
   Upload,
   User,
 } from './SiteApiSchema';
 
-export type { Account, Field, Item, ModelBlock, Plugin, Role, Site, SsoUser, Upload, User };
-
-export type InitCtx = {
-  site: Site;
-  environment: string | null;
-  itemTypes: Partial<Record<string, ModelBlock>>;
-  currentUser: User | SsoUser | Account;
-  currentUserRole: Role;
-  plugin: Plugin;
+export type DashboardWidget = {
+  id: string;
+  label: string;
+  invocationParams: Record<string, unknown>;
 };
 
-export type FieldSetupCtx = InitCtx & {
-  itemType: ModelBlock;
+export type NavigationPage = {
+  id: string;
+  label: string;
+  icon: string;
+};
+
+export type AdminPageGroup = {
+  id: string;
+  label: string;
+};
+
+export type AdminPage = {
+  id: string;
+  label: string;
+  icon: string;
+  group: string;
+};
+
+export type ContentPage = {
+  id: string;
+  label: string;
+  icon: string;
+  location: 'top' | 'bottom';
+};
+
+export type FieldType =
+  | 'boolean'
+  | 'date'
+  | 'date_time'
+  | 'float'
+  | 'integer'
+  | 'string'
+  | 'text'
+  | 'json'
+  | 'color'
+  | 'rich_text';
+
+export type FieldExtensionType = 'field_editor' | 'field_addon' | 'sidebar';
+
+export type FieldExtension = {
+  id: string;
+  name: string;
+  type: FieldExtensionType;
+  fieldTypes: FieldType[];
+  configurable: boolean;
+};
+
+export type SidebarPane = {
+  id: string;
+  label: string;
+  invocationParams?: Record<string, unknown>;
+  startOpen?: boolean;
+};
+
+export type FieldExtensionOverride = {
+  editor?: {
+    id: string;
+    type: 'field_editor' | 'sidebar';
+    invocationParams: Record<string, unknown>;
+  };
+  addons?: Array<{ id: string; invocationParams: Record<string, unknown> }>;
+};
+
+export type AssetSource = {
+  id: string;
+  label: string;
+  icon: string;
 };
 
 export type Theme = {
@@ -34,16 +94,19 @@ export type Theme = {
   darkColor: string;
 };
 
-type FocalPoint = {
+export type FocalPoint = {
   x: number;
   y: number;
 };
 
 export type FileFieldValue = {
+  // eslint-disable-next-line camelcase
   upload_id: string;
   alt: string | null;
   title: string | null;
+  // eslint-disable-next-line camelcase
   focal_point: FocalPoint | null;
+  // eslint-disable-next-line camelcase
   custom_data: Record<string, string>;
 };
 
@@ -54,7 +117,7 @@ export type Modal = {
   invocationParams: Record<string, unknown>;
 };
 
-type ConfirmChoice = {
+export type ConfirmChoice = {
   label: string;
   value: unknown;
   intent?: 'positive' | 'negative';
@@ -67,68 +130,218 @@ export type ConfirmOptions = {
   cancel: ConfirmChoice;
 };
 
-export type RenderCtx = InitCtx & {
-  fields: Partial<Record<string, Field>>;
-  users: Partial<Record<string, User>>;
-  ssoUsers: Partial<Record<string, SsoUser>>;
-  account: Account;
-  theme: Theme;
+export type InitMeta = {
+  mode: 'init';
+  site: Site;
+  environment: string | null;
+  itemTypes: Partial<Record<string, ModelBlock>>;
+  currentUser: User | SsoUser | Account;
+  plugin: Plugin;
 };
 
-export type RenderMethods = {
-  navigateTo: (path: string) => Promise<void>;
-  loadItemTypeFields: (itemTypeId: string) => Promise<void>;
+export type InitMethods = {
+  getSettings: () => Promise<InitMeta>;
+};
+
+export type RenderMetaAdditions = {
+  fields: Partial<Record<string, Field>>;
+  theme: Theme;
+  users: Partial<Record<string, User>>;
+  account: Account;
+  plugin: Plugin;
+};
+
+export type RenderMeta = Omit<InitMeta, 'mode'> & RenderMetaAdditions;
+
+export type RenderMethodsAdditions = {
+  getSettings: () => Promise<RenderMeta>;
+  setHeight: (number: number) => void;
+  navigateTo: (path: string) => void;
+  loadItemTypeFields: (itemTypeId: string) => Promise<Field[]>;
   createNewItem: (itemTypeId: string) => Promise<Item | null>;
   selectItem:
-    | ((itemTypeId: string, options: { multiple: true }) => Promise<Item[] | null>)
-    | ((itemTypeId: string, options?: { multiple: false }) => Promise<Item | null>);
+    | ((
+        itemTypeId: string,
+        options: {
+          multiple: true;
+        },
+      ) => Promise<Item[] | null>)
+    | ((
+        itemTypeId: string,
+        options?: {
+          multiple: false;
+        },
+      ) => Promise<Item | null>);
   editItem: (itemId: string) => Promise<Item | null>;
-  notice: (message: string) => Promise<void>;
-  alert: (message: string) => Promise<void>;
+  notice: (message: string) => void;
+  alert: (message: string) => void;
   selectUpload:
     | ((options: { multiple: true }) => Promise<Upload[] | null>)
     | ((options?: { multiple: false }) => Promise<Upload | null>);
   editUpload: (uploadId: string) => Promise<Upload | null>;
-  editUploadMetadata: (fileFieldValue: FileFieldValue) => Promise<FileFieldValue | null>;
+  editUploadMetadata: (
+    fileFieldValue: FileFieldValue,
+    locale?: string,
+  ) => Promise<FileFieldValue | null>;
   openModal: (modal: Modal) => Promise<unknown>;
   openConfirm: (options: ConfirmOptions) => Promise<unknown>;
 };
 
-export type ModalRenderMethods = RenderMethods & {
-  resolve: (returnValue: unknown) => void;
-};
+export type RenderMethods = RenderMethodsAdditions;
 
-export type ItemFormRenderCtx = RenderCtx & {
+export type RenderItemFormMetaAdditions = {
   locale: string;
-  disabled: boolean;
   itemId: string | null;
-  itemStatus: 'draft' | 'updated' | 'published';
+  itemStatus: string;
   itemValue: Record<string, unknown>;
   isSubmitting: boolean;
   isFormDirty: boolean;
+  itemType: ModelBlock | undefined;
+};
+
+export type RenderItemFormMeta = Omit<RenderMeta, 'mode'> & RenderItemFormMetaAdditions;
+
+export type RenderItemFormMethodsAdditions = {
+  getSettings: () => Promise<RenderItemFormMeta>;
+  toggleField: (path: string, show: boolean) => void;
+  disableField: (path: string, disable: boolean) => void;
+  scrollToField: (path: string, locale?: string) => void;
+  setFieldValue: (path: string, value: unknown) => void;
+  saveCurrentItem: () => void;
+};
+
+export type RenderItemFormMethods = Omit<RenderMethods, 'getSettings'> &
+  RenderItemFormMethodsAdditions;
+
+export type RenderSidebarPaneMetaAdditions = {
+  mode: 'renderSidebarPane';
+  sidebarPane: SidebarPane;
+};
+
+export type RenderSidebarPaneMeta = Omit<RenderMeta, 'mode'> & RenderSidebarPaneMetaAdditions;
+
+export type RenderSidebarPaneMethodsAdditions = {
+  getSettings: () => Promise<RenderSidebarPaneMeta>;
+};
+
+export type RenderSidebarPaneMethods = Omit<RenderMethods, 'getSettings'> &
+  RenderSidebarPaneMethodsAdditions;
+
+export type RenderFieldExtensionMetaAdditions = {
+  mode: 'renderFieldExtension';
+  fieldExtension: FieldExtension;
+  parameters: {
+    instance: Record<string, any>;
+    global: PluginAttributes['parameters'] | undefined;
+  };
+  placeholder: string;
+  disabled: boolean;
+  fieldPath: string;
+  field: Field | undefined;
+  parentField: Field | undefined;
+  fieldId: string;
+  parentFieldId: string | undefined | null;
+};
+
+export type RenderFieldExtensionMeta = Omit<RenderItemFormMeta, 'mode'> &
+  RenderFieldExtensionMetaAdditions;
+
+export type RenderFieldExtensionMethodsAdditions = {
+  getSettings: () => Promise<RenderFieldExtensionMeta>;
+};
+
+export type RenderFieldExtensionMethods = Omit<RenderItemFormMethods, 'getSettings'> &
+  RenderFieldExtensionMethodsAdditions;
+
+export type RenderModalMetaAdditions = {
+  mode: 'renderModal';
+  modal: Modal;
+};
+
+export type RenderModalMeta = Omit<RenderMeta, 'mode'> & RenderModalMetaAdditions;
+
+export type RenderModalMethodsAdditions = {
+  getSettings: () => Promise<RenderModalMeta>;
+  resolve: (returnValue: unknown) => void;
+};
+
+export type RenderModalMethods = Omit<RenderMethods, 'getSettings'> & RenderModalMethodsAdditions;
+
+export type RenderPageMetaAdditions = {
+  mode: 'renderPage';
+  pageId: string;
+};
+
+export type RenderPageMeta = Omit<RenderMeta, 'mode'> & RenderPageMetaAdditions;
+
+export type RenderPageMethodsAdditions = {
+  getSettings: () => Promise<RenderPageMeta>;
+};
+
+export type RenderPageMethods = Omit<RenderMethods, 'getSettings'> & RenderPageMethodsAdditions;
+
+export type RenderDashboardWidgetMetaAdditions = {
+  mode: 'renderDashboardWidget';
+  dashboardWidget: DashboardWidget;
+};
+
+export type RenderDashboardWidgetMeta = Omit<RenderMeta, 'mode'> &
+  RenderDashboardWidgetMetaAdditions;
+
+export type RenderDashboardWidgetMethodsAdditions = {
+  getSettings: () => Promise<RenderDashboardWidgetMeta>;
+};
+
+export type RenderDashboardWidgetMethods = Omit<RenderMethods, 'getSettings'> &
+  RenderDashboardWidgetMethodsAdditions;
+
+export type RenderFieldExtensionConfigMetaAdditions = {
+  mode: 'renderFieldExtensionConfig';
+  fieldExtension: FieldExtension;
+};
+
+export type RenderFieldExtensionConfigMeta = Omit<RenderMeta, 'mode'> &
+  RenderFieldExtensionConfigMetaAdditions;
+
+export type RenderFieldExtensionConfigMethodsAdditions = {
+  getSettings: () => Promise<RenderFieldExtensionConfigMeta>;
+  save: (params: Record<string, unknown>) => Promise<void>;
+};
+
+export type RenderFieldExtensionConfigMethods = Omit<RenderMethods, 'getSettings'> &
+  RenderFieldExtensionConfigMethodsAdditions;
+
+export type RenderConfigMetaAdditions = {
+  mode: 'renderConfig';
+};
+
+export type RenderConfigMeta = Omit<RenderMeta, 'mode'> & RenderConfigMetaAdditions;
+
+export type RenderConfigMethodsAdditions = {
+  getSettings: () => Promise<RenderConfigMeta>;
+  save: (params: Record<string, unknown>) => Promise<void>;
+};
+
+export type RenderConfigMethods = Omit<RenderMethods, 'getSettings'> & RenderConfigMethodsAdditions;
+
+export type FieldSetupMetaAdditions = {
+  mode: 'init';
   itemType: ModelBlock;
 };
 
-export type ItemFormRenderMethods = RenderMethods & {
-  toggleField: (path: string, show: boolean) => Promise<void>;
-  disableField: (path: string, disable: boolean) => Promise<void>;
-  scrollToField: (path: string, locale?: string) => Promise<void>;
-  setFieldValue: (path: string, value: unknown) => Promise<void>;
-  saveCurrentItem: () => Promise<void>;
+export type FieldSetupMeta = InitMeta & FieldSetupMetaAdditions;
+
+export type RenderAssetSourceMetaAdditions = {
+  mode: 'renderAssetSource';
+  assetSource: AssetSource;
 };
 
-export type FieldExtensionRenderCtx = ItemFormRenderCtx & {
-  placeholder: string;
-  fieldPath: string;
-  field: Field;
-  parentField: Field;
-  invocationParams: Record<string, unknown>;
+export type RenderAssetSourceMeta = Omit<RenderMeta, 'mode'> & RenderAssetSourceMetaAdditions;
+
+export type RenderAssetSourceMethodsAdditions = {
+  getSettings: () => Promise<RenderAssetSourceMeta>;
+  resolve: (returnValue: unknown) => void;
 };
 
-export type FieldExtensionConfigRenderMethods = RenderMethods & {
-  save: (params: Record<string, unknown>) => Promise<void>;
-};
-
-export type ConfigRenderMethods = RenderMethods & {
-  save: (params: Record<string, unknown>) => Promise<void>;
-};
+export type RenderAssetSourceMethods = Omit<RenderMethods, 'getSettings'> &
+  RenderAssetSourceMethodsAdditions;
