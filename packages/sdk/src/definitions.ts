@@ -71,5 +71,3 @@ export type AssetSource = {
   label: string;
   icon: string;
 };
-
-export type Foo = 'bar';

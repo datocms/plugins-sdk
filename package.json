@@ -22,7 +22,7 @@
   "scripts": {
     "test": "npm run lint && node --trace-warnings --experimental-vm-modules node_modules/jest/bin/jest.js",
     "build": "lerna run build",
-    "publish": "npm run test && lerna publish",
+    "publish": "npm run test && lerna run build && lerna publish",
     "lint": "eslint . --ext .ts,.tsx",
     "prettier": "prettier --write \"**/*.{ts,tsx,json}\"",
     "prepare": "husky install"
