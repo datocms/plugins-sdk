@@ -11,6 +11,8 @@ import {
   User,
 } from './SiteApiSchema';
 
+export type { Account, Field, Item, ModelBlock, Plugin, Role, Site, SsoUser, Upload, User };
+
 export type InitCtx = {
   site: Site;
   environment: string | null;
@@ -47,8 +49,8 @@ export type FileFieldValue = {
 
 export type Modal = {
   title?: string;
-  closeDisabled: boolean;
-  width: 's' | 'm' | 'l' | 'xl' | 'fullWidth' | number;
+  closeDisabled?: boolean;
+  width?: 's' | 'm' | 'l' | 'xl' | 'fullWidth' | number;
   invocationParams: Record<string, unknown>;
 };
 

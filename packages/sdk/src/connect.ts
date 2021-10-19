@@ -48,19 +48,21 @@ import {
   RenderSidebarPaneParent,
 } from './parentTypes';
 
-type RenderUtilities = {
+type SizingUtilities = {
   startAutoResizer: () => void;
   stopAutoResizer: () => void;
   updateHeight: (newHeight?: number) => void;
 };
 
-export type PageCtx = RenderCtx & RenderMethods & RenderUtilities;
-export type ModalCtx = RenderCtx & ModalRenderMethods & RenderUtilities;
-export type ItemFormCtx = ItemFormRenderCtx & ItemFormRenderMethods & RenderUtilities;
-export type FieldExtensionCtx = FieldExtensionRenderCtx & ItemFormRenderMethods & RenderUtilities;
+export type { Field, ModelBlock };
+
+export type PageCtx = RenderCtx & RenderMethods;
+export type ModalCtx = RenderCtx & ModalRenderMethods & SizingUtilities;
+export type ItemFormCtx = ItemFormRenderCtx & ItemFormRenderMethods & SizingUtilities;
+export type FieldExtensionCtx = FieldExtensionRenderCtx & ItemFormRenderMethods & SizingUtilities;
 export type FieldExtensionConfigCtx = RenderCtx &
   FieldExtensionConfigRenderMethods &
-  RenderUtilities;
+  SizingUtilities;
 
 type FullConfiguration = {
   dashboardWidgets: (ctx: InitCtx) => DashboardWidget[];
@@ -73,7 +75,7 @@ type FullConfiguration = {
   overrideFieldExtensions: (field: Field, ctx: FieldSetupCtx) => FieldExtensionOverride | undefined;
   assetSources: (field: Field, ctx: FieldSetupCtx) => AssetSource[];
   renderDashboardWidget: (dashboardWidget: DashboardWidget, ctx: PageCtx) => void;
-  renderConfig: (ctx: RenderCtx & ConfigRenderMethods & RenderUtilities) => void;
+  renderConfig: (ctx: RenderCtx & ConfigRenderMethods & SizingUtilities) => void;
   renderAssetSource: (assetSource: AssetSource, ctx: PageCtx) => void;
   renderPage: (pageId: string, ctx: PageCtx) => void;
   renderModal: (modal: Modal, ctx: ModalCtx) => void;
@@ -231,8 +233,6 @@ export async function connect(configuration: Partial<FullConfiguration> = {}): P
   if (isRenderPageParent(parent, initialSettings)) {
     type Settings = AsyncReturnType<RenderPageParent['getSettings']>;
 
-    const renderUtils = buildRenderUtils(parent);
-
     const render = (settings: Settings) => {
       if (!configuration.renderPage) {
         return;
@@ -241,7 +241,6 @@ export async function connect(configuration: Partial<FullConfiguration> = {}): P
       configuration.renderPage(settings.pageId, {
         ...parent,
         ...settings,
-        ...renderUtils,
       });
     };
 
