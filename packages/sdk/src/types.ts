@@ -184,7 +184,7 @@ export type CommonRenderItemFormMetaAdditions = {
   itemValue: Record<string, unknown>;
   isSubmitting: boolean;
   isFormDirty: boolean;
-  itemType: ModelBlock | undefined;
+  itemType: ModelBlock;
 };
 
 export type CommonRenderItemFormMeta = CommonRenderMeta & CommonRenderItemFormMetaAdditions;
