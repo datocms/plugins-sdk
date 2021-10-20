@@ -133,7 +133,7 @@ export type InitMetaAdditions = {
 export type InitMeta = CommonMeta & InitMetaAdditions;
 
 export type InitMethods = {
-  getSettings: () => Promise<InitMeta>;
+  getSettings(): Promise<InitMeta>;
 };
 
 export type CommonRenderMetaAdditions = {
@@ -147,36 +147,34 @@ export type CommonRenderMetaAdditions = {
 export type CommonRenderMeta = CommonMeta & CommonRenderMetaAdditions;
 
 export type CommonRenderMethods = {
-  setHeight: (number: number) => void;
-  navigateTo: (path: string) => void;
-  loadItemTypeFields: (itemTypeId: string) => Promise<Field[]>;
-  createNewItem: (itemTypeId: string) => Promise<Item | null>;
-  selectItem:
-    | ((
-        itemTypeId: string,
-        options: {
-          multiple: true;
-        },
-      ) => Promise<Item[] | null>)
-    | ((
-        itemTypeId: string,
-        options?: {
-          multiple: false;
-        },
-      ) => Promise<Item | null>);
-  editItem: (itemId: string) => Promise<Item | null>;
-  notice: (message: string) => void;
-  alert: (message: string) => void;
-  selectUpload:
-    | ((options: { multiple: true }) => Promise<Upload[] | null>)
-    | ((options?: { multiple: false }) => Promise<Upload | null>);
-  editUpload: (uploadId: string) => Promise<Upload | null>;
-  editUploadMetadata: (
+  setHeight(number: number): void;
+  navigateTo(path: string): void;
+  loadItemTypeFields(itemTypeId: string): Promise<Field[]>;
+  createNewItem(itemTypeId: string): Promise<Item | null>;
+  selectItem(
+    itemTypeId: string,
+    options: {
+      multiple: true;
+    },
+  ): Promise<Item[] | null>;
+  selectItem(
+    itemTypeId: string,
+    options?: {
+      multiple: false;
+    },
+  ): Promise<Item | null>;
+  editItem(itemId: string): Promise<Item | null>;
+  notice(message: string): void;
+  alert(message: string): void;
+  selectUpload(options: { multiple: true }): Promise<Upload[] | null>;
+  selectUpload(options?: { multiple: false }): Promise<Upload | null>;
+  editUpload(uploadId: string): Promise<Upload | null>;
+  editUploadMetadata(
     fileFieldValue: FileFieldValue,
     locale?: string,
-  ) => Promise<FileFieldValue | null>;
-  openModal: (modal: Modal) => Promise<unknown>;
-  openConfirm: (options: ConfirmOptions) => Promise<unknown>;
+  ): Promise<FileFieldValue | null>;
+  openModal(modal: Modal): Promise<unknown>;
+  openConfirm(options: ConfirmOptions): Promise<unknown>;
 };
 
 export type CommonRenderItemFormMetaAdditions = {
@@ -192,11 +190,11 @@ export type CommonRenderItemFormMetaAdditions = {
 export type CommonRenderItemFormMeta = CommonRenderMeta & CommonRenderItemFormMetaAdditions;
 
 export type CommonRenderItemFormMethodsAdditions = {
-  toggleField: (path: string, show: boolean) => void;
-  disableField: (path: string, disable: boolean) => void;
-  scrollToField: (path: string, locale?: string) => void;
-  setFieldValue: (path: string, value: unknown) => void;
-  saveCurrentItem: () => void;
+  toggleField(path: string, show: boolean): void;
+  disableField(path: string, disable: boolean): void;
+  scrollToField(path: string, locale?: string): void;
+  setFieldValue(path: string, value: unknown): void;
+  saveCurrentItem(): void;
 };
 
 export type CommonRenderItemFormMethods = CommonRenderMethods &
@@ -210,7 +208,7 @@ export type RenderSidebarPaneMetaAdditions = {
 export type RenderSidebarPaneMeta = CommonRenderItemFormMeta & RenderSidebarPaneMetaAdditions;
 
 export type RenderSidebarPaneMethodsAdditions = {
-  getSettings: () => Promise<RenderSidebarPaneMeta>;
+  getSettings(): Promise<RenderSidebarPaneMeta>;
 };
 
 export type RenderSidebarPaneMethods = CommonRenderMethods & RenderSidebarPaneMethodsAdditions;
@@ -234,7 +232,7 @@ export type RenderFieldExtensionMetaAdditions = {
 export type RenderFieldExtensionMeta = CommonRenderItemFormMeta & RenderFieldExtensionMetaAdditions;
 
 export type RenderFieldExtensionMethodsAdditions = {
-  getSettings: () => Promise<RenderFieldExtensionMeta>;
+  getSettings(): Promise<RenderFieldExtensionMeta>;
 };
 
 export type RenderFieldExtensionMethods = CommonRenderItemFormMethods &
@@ -248,8 +246,8 @@ export type RenderModalMetaAdditions = {
 export type RenderModalMeta = CommonRenderMeta & RenderModalMetaAdditions;
 
 export type RenderModalMethodsAdditions = {
-  getSettings: () => Promise<RenderModalMeta>;
-  resolve: (returnValue: unknown) => void;
+  getSettings(): Promise<RenderModalMeta>;
+  resolve(returnValue: unknown): void;
 };
 
 export type RenderModalMethods = CommonRenderMethods & RenderModalMethodsAdditions;
@@ -262,7 +260,7 @@ export type RenderPageMetaAdditions = {
 export type RenderPageMeta = CommonRenderMeta & RenderPageMetaAdditions;
 
 export type RenderPageMethodsAdditions = {
-  getSettings: () => Promise<RenderPageMeta>;
+  getSettings(): Promise<RenderPageMeta>;
 };
 
 export type RenderPageMethods = CommonRenderMethods & RenderPageMethodsAdditions;
@@ -275,7 +273,7 @@ export type RenderDashboardWidgetMetaAdditions = {
 export type RenderDashboardWidgetMeta = CommonRenderMeta & RenderDashboardWidgetMetaAdditions;
 
 export type RenderDashboardWidgetMethodsAdditions = {
-  getSettings: () => Promise<RenderDashboardWidgetMeta>;
+  getSettings(): Promise<RenderDashboardWidgetMeta>;
 };
 
 export type RenderDashboardWidgetMethods = CommonRenderMethods &
@@ -290,8 +288,8 @@ export type RenderFieldExtensionConfigMeta = CommonRenderMeta &
   RenderFieldExtensionConfigMetaAdditions;
 
 export type RenderFieldExtensionConfigMethodsAdditions = {
-  getSettings: () => Promise<RenderFieldExtensionConfigMeta>;
-  save: (params: Record<string, unknown>) => Promise<void>;
+  getSettings(): Promise<RenderFieldExtensionConfigMeta>;
+  save(params: Record<string, unknown>): Promise<void>;
 };
 
 export type RenderFieldExtensionConfigMethods = CommonRenderMethods &
@@ -304,8 +302,8 @@ export type RenderConfigMetaAdditions = {
 export type RenderConfigMeta = CommonRenderMeta & RenderConfigMetaAdditions;
 
 export type RenderConfigMethodsAdditions = {
-  getSettings: () => Promise<RenderConfigMeta>;
-  save: (params: Record<string, unknown>) => Promise<void>;
+  getSettings(): Promise<RenderConfigMeta>;
+  save(params: Record<string, unknown>): Promise<void>;
 };
 
 export type RenderConfigMethods = CommonRenderMethods & RenderConfigMethodsAdditions;
@@ -325,8 +323,8 @@ export type RenderAssetSourceMetaAdditions = {
 export type RenderAssetSourceMeta = CommonRenderMeta & RenderAssetSourceMetaAdditions;
 
 export type RenderAssetSourceMethodsAdditions = {
-  getSettings: () => Promise<RenderAssetSourceMeta>;
-  resolve: (returnValue: unknown) => void;
+  getSettings(): Promise<RenderAssetSourceMeta>;
+  resolve(returnValue: unknown): void;
 };
 
 export type RenderAssetSourceMethods = CommonRenderMethods & RenderAssetSourceMethodsAdditions;
