@@ -207,7 +207,7 @@ export type RenderSidebarPaneMetaAdditions = {
   sidebarPane: SidebarPane;
 };
 
-export type RenderSidebarPaneMeta = CommonRenderMeta & RenderSidebarPaneMetaAdditions;
+export type RenderSidebarPaneMeta = CommonRenderItemFormMeta & RenderSidebarPaneMetaAdditions;
 
 export type RenderSidebarPaneMethodsAdditions = {
   getSettings: () => Promise<RenderSidebarPaneMeta>;
