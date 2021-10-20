@@ -211,7 +211,8 @@ export type RenderSidebarPaneMethodsAdditions = {
   getSettings(): Promise<RenderSidebarPaneMeta>;
 };
 
-export type RenderSidebarPaneMethods = CommonRenderMethods & RenderSidebarPaneMethodsAdditions;
+export type RenderSidebarPaneMethods = CommonRenderItemFormMethods &
+  RenderSidebarPaneMethodsAdditions;
 
 export type RenderFieldExtensionMetaAdditions = {
   mode: 'renderFieldExtension';
