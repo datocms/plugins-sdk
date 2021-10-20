@@ -224,7 +224,7 @@ export type RenderFieldExtensionMetaAdditions = {
   placeholder: string;
   disabled: boolean;
   fieldPath: string;
-  field: Field | undefined;
+  field: Field;
   parentField: Field | undefined;
   fieldId: string;
   parentFieldId: string | undefined | null;
