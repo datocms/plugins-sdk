@@ -51,8 +51,8 @@ type SizingUtilities = {
 
 export type { Field, ModelBlock };
 
+export type InitCtx = InitMetaAndMethods;
 export type FieldInitCtx = InitMetaAndMethods & { itemType: ModelBlock };
-
 export type RenderPageCtx = RenderPageMetaAndMethods;
 export type RenderModalCtx = RenderModalMetaAndMethods & SizingUtilities;
 export type RenderSidebarPaneCtx = RenderSidebarPaneMetaAndMethods & SizingUtilities;
@@ -64,13 +64,13 @@ export type RenderAssetSourceCtx = RenderAssetSourceMetaAndMethods & SizingUtili
 export type RenderConfigCtx = RenderConfigMetaAndMethods & SizingUtilities;
 
 type FullConfiguration = {
-  dashboardWidgets: (ctx: InitMetaAndMethods) => DashboardWidget[];
-  mainNavigationPages: (ctx: InitMetaAndMethods) => NavigationPage[];
-  adminPageGroups: (ctx: InitMetaAndMethods) => AdminPageGroup[];
-  adminPages: (ctx: InitMetaAndMethods) => AdminPage[];
-  contentPages: (ctx: InitMetaAndMethods) => ContentPage[];
-  manualFieldExtensions: (ctx: InitMetaAndMethods) => FieldExtension[];
-  itemTypeSidebarPanes: (itemType: ModelBlock, ctx: InitMetaAndMethods) => SidebarPane[];
+  dashboardWidgets: (ctx: InitCtx) => DashboardWidget[];
+  mainNavigationPages: (ctx: InitCtx) => NavigationPage[];
+  adminPageGroups: (ctx: InitCtx) => AdminPageGroup[];
+  adminPages: (ctx: InitCtx) => AdminPage[];
+  contentPages: (ctx: InitCtx) => ContentPage[];
+  manualFieldExtensions: (ctx: InitCtx) => FieldExtension[];
+  itemTypeSidebarPanes: (itemType: ModelBlock, ctx: InitCtx) => SidebarPane[];
   overrideFieldExtensions: (field: Field, ctx: FieldInitCtx) => FieldExtensionOverride | undefined;
   assetSources: (field: Field, ctx: FieldInitCtx) => AssetSource[];
   renderDashboardWidget: (dashboardWidget: DashboardWidget, ctx: RenderDashboardWidgetCtx) => void;

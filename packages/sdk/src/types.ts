@@ -219,7 +219,7 @@ export type RenderFieldExtensionMetaAdditions = {
   mode: 'renderFieldExtension';
   fieldExtension: FieldExtension;
   parameters: {
-    instance: Record<string, any>;
+    instance: Record<string, unknown>;
     global: PluginAttributes['parameters'] | undefined;
   };
   placeholder: string;
