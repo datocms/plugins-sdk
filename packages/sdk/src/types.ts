@@ -42,25 +42,13 @@ export type ContentPage = {
   location: 'top' | 'bottom';
 };
 
-export type FieldType =
-  | 'boolean'
-  | 'date'
-  | 'date_time'
-  | 'float'
-  | 'integer'
-  | 'string'
-  | 'text'
-  | 'json'
-  | 'color'
-  | 'rich_text';
-
 export type FieldExtensionType = 'field_editor' | 'field_addon' | 'sidebar';
 
 export type FieldExtension = {
   id: string;
   name: string;
   type: FieldExtensionType;
-  fieldTypes: FieldType[];
+  fieldTypes: PluginAttributes['field_types'];
   configurable: boolean;
 };
 
@@ -204,7 +192,6 @@ export type CommonRenderItemFormMetaAdditions = {
 export type CommonRenderItemFormMeta = CommonRenderMeta & CommonRenderItemFormMetaAdditions;
 
 export type CommonRenderItemFormMethodsAdditions = {
-  getSettings: () => Promise<CommonRenderItemFormMeta>;
   toggleField: (path: string, show: boolean) => void;
   disableField: (path: string, disable: boolean) => void;
   scrollToField: (path: string, locale?: string) => void;
@@ -232,7 +219,7 @@ export type RenderFieldExtensionMetaAdditions = {
   mode: 'renderFieldExtension';
   fieldExtension: FieldExtension;
   parameters: {
-    instance: Record<string, unknown>;
+    instance: Record<string, any>;
     global: PluginAttributes['parameters'] | undefined;
   };
   placeholder: string;
