@@ -120,7 +120,7 @@ export type ConfirmOptions = {
 
 export type CommonMeta = {
   site: Site;
-  environment: string | null;
+  environment: string;
   itemTypes: Partial<Record<string, ModelBlock>>;
   currentUser: User | SsoUser | Account;
   plugin: Plugin;
@@ -179,6 +179,7 @@ export type CommonRenderMethods = {
 
 export type CommonRenderItemFormMetaAdditions = {
   locale: string;
+  item: Item | null;
   itemId: string | null;
   itemStatus: string;
   itemValue: Record<string, unknown>;
