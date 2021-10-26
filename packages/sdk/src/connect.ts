@@ -4,7 +4,6 @@ import {
   RenderConfigMethods,
   RenderFieldExtensionConfigMethods,
   RenderSidebarPaneMethods,
-  Modal,
   RenderModalMethods,
   AdminPage,
   AdminPageGroup,
