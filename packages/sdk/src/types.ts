@@ -218,7 +218,7 @@ export type RenderSidebarPaneMethods = CommonRenderItemFormMethods &
 export type RenderFieldExtensionMetaAdditions = {
   mode: 'renderFieldExtension';
   fieldExtensionId: string;
-  invocationParams: Record<string, unknown> | null;
+  invocationParams: Record<string, unknown>;
   placeholder: string;
   disabled: boolean;
   fieldPath: string;
