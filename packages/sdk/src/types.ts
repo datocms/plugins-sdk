@@ -216,7 +216,7 @@ export type RenderSidebarPaneMethods = CommonRenderItemFormMethods &
 
 export type RenderFieldExtensionMetaAdditions = {
   mode: 'renderFieldExtension';
-  fieldExtension: FieldExtension;
+  fieldExtensionId: string;
   invocationParams: Record<string, unknown> | null;
   placeholder: string;
   disabled: boolean;
@@ -277,7 +277,7 @@ export type RenderDashboardWidgetMethods = CommonRenderMethods &
 
 export type RenderFieldExtensionConfigMetaAdditions = {
   mode: 'renderFieldExtensionConfig';
-  fieldExtension: FieldExtension;
+  fieldExtensionId: string;
 };
 
 export type RenderFieldExtensionConfigMeta = CommonRenderMeta &

@@ -79,9 +79,9 @@ type FullConfiguration = {
   renderPage: (pageId: string, ctx: RenderPageCtx) => void;
   renderModal: (modal: Modal, ctx: RenderModalCtx) => void;
   renderSidebarPane: (sidebar: SidebarPane, ctx: RenderSidebarPaneCtx) => void;
-  renderFieldExtension: (extension: FieldExtension, ctx: RenderFieldExtensionCtx) => void;
+  renderFieldExtension: (fieldExtensionId: string, ctx: RenderFieldExtensionCtx) => void;
   renderFieldExtensionConfig: (
-    extension: FieldExtension,
+    fieldExtensionId: string,
     ctx: RenderFieldExtensionConfigCtx,
   ) => void;
 };
@@ -344,7 +344,7 @@ export async function connect(configuration: Partial<FullConfiguration> = {}): P
         return;
       }
 
-      configuration.renderFieldExtension(settings.fieldExtension, {
+      configuration.renderFieldExtension(settings.fieldExtensionId, {
         ...parent,
         ...settings,
         ...renderUtils,
@@ -365,7 +365,7 @@ export async function connect(configuration: Partial<FullConfiguration> = {}): P
         return;
       }
 
-      configuration.renderFieldExtensionConfig(settings.fieldExtension, {
+      configuration.renderFieldExtensionConfig(settings.fieldExtensionId, {
         ...parent,
         ...settings,
         ...renderUtils,
