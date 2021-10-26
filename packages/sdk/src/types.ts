@@ -55,7 +55,7 @@ export type FieldExtension = {
 export type SidebarPane = {
   id: string;
   label: string;
-  invocationParams?: Record<string, unknown>;
+  invocationParams: Record<string, unknown>;
   startOpen?: boolean;
 };
 
@@ -98,6 +98,7 @@ export type FileFieldValue = {
 };
 
 export type Modal = {
+  id: string;
   title?: string;
   closeDisabled?: boolean;
   width?: 's' | 'm' | 'l' | 'xl' | 'fullWidth' | number;
@@ -202,6 +203,7 @@ export type CommonRenderItemFormMethods = CommonRenderMethods &
 export type RenderSidebarPaneMetaAdditions = {
   mode: 'renderSidebarPane';
   sidebarPaneId: string;
+  invocationParams: Record<string, unknown>;
 };
 
 export type RenderSidebarPaneMeta = CommonRenderItemFormMeta & RenderSidebarPaneMetaAdditions;
@@ -235,7 +237,8 @@ export type RenderFieldExtensionMethods = CommonRenderItemFormMethods &
 
 export type RenderModalMetaAdditions = {
   mode: 'renderModal';
-  modal: Modal;
+  modalId: string;
+  invocationParams: Record<string, unknown>;
 };
 
 export type RenderModalMeta = CommonRenderMeta & RenderModalMetaAdditions;
@@ -262,7 +265,8 @@ export type RenderPageMethods = CommonRenderMethods & RenderPageMethodsAdditions
 
 export type RenderDashboardWidgetMetaAdditions = {
   mode: 'renderDashboardWidget';
-  dashboardWidget: DashboardWidget;
+  dashboardWidgetId: string;
+  invocationParams: Record<string, unknown>;
 };
 
 export type RenderDashboardWidgetMeta = CommonRenderMeta & RenderDashboardWidgetMetaAdditions;
@@ -312,7 +316,7 @@ export type FieldSetupMeta = InitMeta & FieldSetupMetaAdditions;
 
 export type RenderAssetSourceMetaAdditions = {
   mode: 'renderAssetSource';
-  assetSource: AssetSource;
+  assetSourceId: string;
 };
 
 export type RenderAssetSourceMeta = CommonRenderMeta & RenderAssetSourceMetaAdditions;

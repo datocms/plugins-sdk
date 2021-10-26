@@ -73,11 +73,11 @@ type FullConfiguration = {
   itemTypeSidebarPanes: (itemType: ModelBlock, ctx: InitCtx) => SidebarPane[];
   overrideFieldExtensions: (field: Field, ctx: FieldInitCtx) => FieldExtensionOverride | void;
   assetSources: (field: Field, ctx: FieldInitCtx) => AssetSource[];
-  renderDashboardWidget: (dashboardWidget: DashboardWidget, ctx: RenderDashboardWidgetCtx) => void;
+  renderDashboardWidget: (dashboardWidgetId: string, ctx: RenderDashboardWidgetCtx) => void;
   renderConfig: (ctx: RenderConfigCtx) => void;
-  renderAssetSource: (assetSource: AssetSource, ctx: RenderAssetSourceCtx) => void;
+  renderAssetSource: (assetSourceId: string, ctx: RenderAssetSourceCtx) => void;
   renderPage: (pageId: string, ctx: RenderPageCtx) => void;
-  renderModal: (modal: Modal, ctx: RenderModalCtx) => void;
+  renderModal: (modalId: string, ctx: RenderModalCtx) => void;
   renderSidebarPane: (sidebarPaneId: string, ctx: RenderSidebarPaneCtx) => void;
   renderFieldExtension: (fieldExtensionId: string, ctx: RenderFieldExtensionCtx) => void;
   renderFieldExtensionConfig: (
@@ -221,7 +221,7 @@ export async function connect(configuration: Partial<FullConfiguration> = {}): P
         return;
       }
 
-      configuration.renderDashboardWidget(settings.dashboardWidget, {
+      configuration.renderDashboardWidget(settings.dashboardWidgetId, {
         ...parent,
         ...settings,
         ...renderUtils,
@@ -260,7 +260,7 @@ export async function connect(configuration: Partial<FullConfiguration> = {}): P
         return;
       }
 
-      configuration.renderAssetSource(settings.assetSource, {
+      configuration.renderAssetSource(settings.assetSourceId, {
         ...parent,
         ...settings,
         ...renderUtils,
@@ -302,7 +302,7 @@ export async function connect(configuration: Partial<FullConfiguration> = {}): P
         return;
       }
 
-      configuration.renderModal(settings.modal, {
+      configuration.renderModal(settings.modalId, {
         ...parent,
         ...settings,
         ...renderUtils,
