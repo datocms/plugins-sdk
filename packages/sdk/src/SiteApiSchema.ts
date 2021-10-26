@@ -441,7 +441,11 @@ export type ItemInstancesHrefSchema = {
  */
 export type ItemReferencesHrefSchema = {
   /**
-   * whether you want the currently published version of the record, or the latest available
+   * For Modular Content fields and Structured Text fields, return full payload for nested blocks instead of IDs
+   */
+  nested?: 'true';
+  /**
+   * Retrieve only the selected type of version that is linked to the record; current, published or both
    */
   version?: null | ('current' | 'published' | 'published-or-current');
   [k: string]: unknown;
@@ -594,6 +598,21 @@ export type UploadBatchDestroyHrefSchema = {
    * IDs to destroy, comma separated
    */
   'filter[ids]'?: string;
+  [k: string]: unknown;
+};
+/**
+ * This interface was referenced by `Upload`'s JSON-Schema
+ * via the `references.hrefSchema` link.
+ */
+export type UploadReferencesHrefSchema = {
+  /**
+   * For Modular Content fields and Structured Text fields, return full payload for nested blocks instead of IDs
+   */
+  nested?: string;
+  /**
+   * Retrieve only the selected type of version that is linked to the upload; current, published or both
+   */
+  version?: null | ('current' | 'published' | 'published-or-current');
   [k: string]: unknown;
 };
 /**
@@ -2060,7 +2079,7 @@ export interface UserUpdateSchema {
       /**
        * Whether the user is active or not
        */
-      is_active?: boolean;
+      is_active: boolean;
     };
     relationships?: {
       /**
@@ -3331,9 +3350,9 @@ export interface FieldAttributes {
     /**
      * An array of add-on plugins with id and parameters
      */
-    addons?: {
-      id?: string;
-      parameters?: {
+    addons: {
+      id: string;
+      parameters: {
         [k: string]: unknown;
       };
       [k: string]: unknown;
@@ -3435,9 +3454,9 @@ export interface FieldCreateSchema {
         /**
          * An array of add-on plugins with id and parameters
          */
-        addons?: {
-          id?: string;
-          parameters?: {
+        addons: {
+          id: string;
+          parameters: {
             [k: string]: unknown;
           };
           [k: string]: unknown;
@@ -3557,9 +3576,9 @@ export interface FieldUpdateSchema {
         /**
          * An array of add-on plugins with id and parameters
          */
-        addons?: {
-          id?: string;
-          parameters?: {
+        addons: {
+          id: string;
+          parameters: {
             [k: string]: unknown;
           };
           [k: string]: unknown;
@@ -5707,7 +5726,7 @@ export interface UploadBatchDestroyJobSchema {
  * via the `references.targetSchema` link.
  */
 export interface UploadReferencesTargetSchema {
-  data: Upload;
+  data: Item;
 }
 /**
  * This interface was referenced by `Upload`'s JSON-Schema
@@ -7912,10 +7931,6 @@ export interface SiteAttributes {
    * Site default timezone
    */
   timezone: string;
-  /**
-   * Number of items present in the site
-   */
-  items_count: number;
   /**
    * Whether the website needs to be indexed by search engines or not
    */
