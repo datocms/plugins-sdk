@@ -78,7 +78,7 @@ type FullConfiguration = {
   renderAssetSource: (assetSource: AssetSource, ctx: RenderAssetSourceCtx) => void;
   renderPage: (pageId: string, ctx: RenderPageCtx) => void;
   renderModal: (modal: Modal, ctx: RenderModalCtx) => void;
-  renderSidebarPane: (sidebar: SidebarPane, ctx: RenderSidebarPaneCtx) => void;
+  renderSidebarPane: (sidebarPaneId: string, ctx: RenderSidebarPaneCtx) => void;
   renderFieldExtension: (fieldExtensionId: string, ctx: RenderFieldExtensionCtx) => void;
   renderFieldExtensionConfig: (
     fieldExtensionId: string,
@@ -323,7 +323,7 @@ export async function connect(configuration: Partial<FullConfiguration> = {}): P
         return;
       }
 
-      configuration.renderSidebarPane(settings.sidebarPane, {
+      configuration.renderSidebarPane(settings.sidebarPaneId, {
         ...parent,
         ...settings,
         ...renderUtils,

@@ -62,7 +62,6 @@ export type SidebarPane = {
 export type FieldExtensionOverride = {
   editor?: {
     id: string;
-    type: 'field_editor' | 'sidebar';
     invocationParams: Record<string, unknown>;
   };
   addons?: Array<{ id: string; invocationParams: Record<string, unknown> }>;
@@ -202,7 +201,7 @@ export type CommonRenderItemFormMethods = CommonRenderMethods &
 
 export type RenderSidebarPaneMetaAdditions = {
   mode: 'renderSidebarPane';
-  sidebarPane: SidebarPane;
+  sidebarPaneId: string;
 };
 
 export type RenderSidebarPaneMeta = CommonRenderItemFormMeta & RenderSidebarPaneMetaAdditions;
