@@ -180,12 +180,10 @@ export type CommonRenderMethods = {
 export type CommonRenderItemFormMetaAdditions = {
   locale: string;
   item: Item | null;
-  itemId: string | null;
-  itemStatus: string;
-  itemValue: Record<string, unknown>;
+  itemType: ModelBlock;
+  formValue: Record<string, unknown>;
   isSubmitting: boolean;
   isFormDirty: boolean;
-  itemType: ModelBlock;
 };
 
 export type CommonRenderItemFormMeta = CommonRenderMeta & CommonRenderItemFormMetaAdditions;
@@ -227,8 +225,6 @@ export type RenderFieldExtensionMetaAdditions = {
   fieldPath: string;
   field: Field;
   parentField: Field | undefined;
-  fieldId: string;
-  parentFieldId: string | undefined | null;
 };
 
 export type RenderFieldExtensionMeta = CommonRenderItemFormMeta & RenderFieldExtensionMetaAdditions;
