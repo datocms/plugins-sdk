@@ -181,7 +181,7 @@ export type CommonRenderItemFormMetaAdditions = {
   locale: string;
   item: Item | null;
   itemType: ModelBlock;
-  formValue: Record<string, unknown>;
+  formValues: Record<string, unknown>;
   itemStatus: 'new' | 'draft' | 'updated' | 'published';
   isSubmitting: boolean;
   isFormDirty: boolean;
@@ -217,10 +217,7 @@ export type RenderSidebarPaneMethods = CommonRenderItemFormMethods &
 export type RenderFieldExtensionMetaAdditions = {
   mode: 'renderFieldExtension';
   fieldExtension: FieldExtension;
-  parameters: {
-    instance: Record<string, unknown>;
-    global: PluginAttributes['parameters'] | undefined;
-  };
+  invocationParams: Record<string, unknown> | null;
   placeholder: string;
   disabled: boolean;
   fieldPath: string;
