@@ -182,6 +182,7 @@ export type CommonRenderItemFormMetaAdditions = {
   item: Item | null;
   itemType: ModelBlock;
   formValue: Record<string, unknown>;
+  itemStatus: 'new' | 'draft' | 'updated' | 'published';
   isSubmitting: boolean;
   isFormDirty: boolean;
 };
