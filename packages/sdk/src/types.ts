@@ -14,7 +14,7 @@ import {
 export type DashboardWidget = {
   id: string;
   label: string;
-  invocationParams: Record<string, unknown>;
+  parameters: Record<string, unknown>;
 };
 
 export type NavigationPage = {
@@ -55,16 +55,16 @@ export type FieldExtension = {
 export type SidebarPane = {
   id: string;
   label: string;
-  invocationParams: Record<string, unknown>;
+  parameters: Record<string, unknown>;
   startOpen?: boolean;
 };
 
 export type FieldExtensionOverride = {
   editor?: {
     id: string;
-    invocationParams: Record<string, unknown>;
+    parameters: Record<string, unknown>;
   };
-  addons?: Array<{ id: string; invocationParams: Record<string, unknown> }>;
+  addons?: Array<{ id: string; parameters: Record<string, unknown> }>;
 };
 
 export type AssetSource = {
@@ -102,7 +102,7 @@ export type Modal = {
   title?: string;
   closeDisabled?: boolean;
   width?: 's' | 'm' | 'l' | 'xl' | 'fullWidth' | number;
-  invocationParams: Record<string, unknown>;
+  parameters: Record<string, unknown>;
 };
 
 export type ConfirmChoice = {
@@ -203,7 +203,7 @@ export type CommonRenderItemFormMethods = CommonRenderMethods &
 export type RenderSidebarPaneMetaAdditions = {
   mode: 'renderSidebarPane';
   sidebarPaneId: string;
-  invocationParams: Record<string, unknown>;
+  parameters: Record<string, unknown>;
 };
 
 export type RenderSidebarPaneMeta = CommonRenderItemFormMeta & RenderSidebarPaneMetaAdditions;
@@ -218,7 +218,7 @@ export type RenderSidebarPaneMethods = CommonRenderItemFormMethods &
 export type RenderFieldExtensionMetaAdditions = {
   mode: 'renderFieldExtension';
   fieldExtensionId: string;
-  invocationParams: Record<string, unknown>;
+  parameters: Record<string, unknown>;
   placeholder: string;
   disabled: boolean;
   fieldPath: string;
@@ -238,7 +238,7 @@ export type RenderFieldExtensionMethods = CommonRenderItemFormMethods &
 export type RenderModalMetaAdditions = {
   mode: 'renderModal';
   modalId: string;
-  invocationParams: Record<string, unknown>;
+  parameters: Record<string, unknown>;
 };
 
 export type RenderModalMeta = CommonRenderMeta & RenderModalMetaAdditions;
@@ -266,7 +266,7 @@ export type RenderPageMethods = CommonRenderMethods & RenderPageMethodsAdditions
 export type RenderDashboardWidgetMetaAdditions = {
   mode: 'renderDashboardWidget';
   dashboardWidgetId: string;
-  invocationParams: Record<string, unknown>;
+  parameters: Record<string, unknown>;
 };
 
 export type RenderDashboardWidgetMeta = CommonRenderMeta & RenderDashboardWidgetMetaAdditions;
@@ -278,34 +278,36 @@ export type RenderDashboardWidgetMethodsAdditions = {
 export type RenderDashboardWidgetMethods = CommonRenderMethods &
   RenderDashboardWidgetMethodsAdditions;
 
-export type RenderFieldExtensionConfigMetaAdditions = {
-  mode: 'renderFieldExtensionConfig';
+export type RenderManualFieldExtensionParametersFormMetaAdditions = {
+  mode: 'renderManualFieldExtensionParametersForm';
   fieldExtensionId: string;
 };
 
-export type RenderFieldExtensionConfigMeta = CommonRenderMeta &
-  RenderFieldExtensionConfigMetaAdditions;
+export type RenderManualFieldExtensionParametersFormMeta = CommonRenderMeta &
+  RenderManualFieldExtensionParametersFormMetaAdditions;
 
-export type RenderFieldExtensionConfigMethodsAdditions = {
-  getSettings(): Promise<RenderFieldExtensionConfigMeta>;
+export type RenderManualFieldExtensionParametersFormMethodsAdditions = {
+  getSettings(): Promise<RenderManualFieldExtensionParametersFormMeta>;
   save(params: Record<string, unknown>): Promise<void>;
 };
 
-export type RenderFieldExtensionConfigMethods = CommonRenderMethods &
-  RenderFieldExtensionConfigMethodsAdditions;
+export type RenderManualFieldExtensionParametersFormMethods = CommonRenderMethods &
+  RenderManualFieldExtensionParametersFormMethodsAdditions;
 
-export type RenderConfigMetaAdditions = {
-  mode: 'renderConfig';
+export type RenderPluginParametersFormMetaAdditions = {
+  mode: 'renderPluginParametersForm';
 };
 
-export type RenderConfigMeta = CommonRenderMeta & RenderConfigMetaAdditions;
+export type RenderPluginParametersFormMeta = CommonRenderMeta &
+  RenderPluginParametersFormMetaAdditions;
 
-export type RenderConfigMethodsAdditions = {
-  getSettings(): Promise<RenderConfigMeta>;
+export type RenderPluginParametersFormMethodsAdditions = {
+  getSettings(): Promise<RenderPluginParametersFormMeta>;
   save(params: Record<string, unknown>): Promise<void>;
 };
 
-export type RenderConfigMethods = CommonRenderMethods & RenderConfigMethodsAdditions;
+export type RenderPluginParametersFormMethods = CommonRenderMethods &
+  RenderPluginParametersFormMethodsAdditions;
 
 export type FieldSetupMetaAdditions = {
   mode: 'init';

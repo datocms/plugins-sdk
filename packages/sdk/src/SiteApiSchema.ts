@@ -406,31 +406,57 @@ export type BuildTriggerType = 'build_trigger';
  */
 export type ItemInstancesHrefSchema = {
   /**
-   * For Modular Content fields and Structured Text fields, return full payload for nested blocks instead of IDs
+   * For Modular Content fields and Structured Text fields. If set, returns full payload for nested blocks instead of IDs
    */
   nested?: string;
   /**
-   * IDs to fetch, comma separated
+   * Attributes to filter records
    */
-  'filter[ids]'?: string;
+  filter?: {
+    /**
+     * Record (or block record) IDs to fetch, comma separated. If you use this filter, you _must not_ use `filter[type]` or `filter[fields]`
+     */
+    ids?: string;
+    /**
+     * Model ID or `api_key` to filter. If you use this filter, you _must not_ use `filter[ids]`. Comma separated values are accepted, but you _must not_ use `filter[fields]` in this case
+     */
+    type?: string;
+    /**
+     * Textual query to match. You _must not_ use `filter[ids]`. If `locale` is defined, search within that locale. Otherwise environment's main locale will be used.
+     */
+    query?: string;
+    /**
+     * Same as [GraphQL API records filters](/docs/content-delivery-api/filtering-records). Use snake_case for fields names. If `locale` is defined, search within that locale. Otherwise environment's main locale will be used.
+     */
+    fields?: {
+      [k: string]: unknown;
+    };
+    [k: string]: unknown;
+  };
   /**
-   * model ID to filter
+   * When `filter[query]` or `field[fields]` is defined, filter by this locale. Default: environment's main locale
    */
-  'filter[type]'?: string;
+  locale?: string;
   /**
-   * textual query to match, remember to specify also `filter[type]` to be able use this option
+   * Attributes to manage results pagination
    */
-  'filter[fields]'?: string;
+  page?: {
+    /**
+     * Index of first record to fetch. Default: 0
+     */
+    offset?: number;
+    /**
+     * Number of records to fetch. Maximum is 500 per page, default is 30.
+     */
+    limit?: number;
+    [k: string]: unknown;
+  };
   /**
-   * index of first record to fetch
+   * Fields used to order results. You _must_ specify also `filter[type]` with one element only to be able use this option. Format: `<field_name>_<DIRECTION(ASC|DESC)>`. You can pass multiple comma separated rules
    */
-  'page[offset]'?: number;
+  order_by?: string;
   /**
-   * number of records to fetch, maximum is 500 records per page
-   */
-  'page[limit]'?: number;
-  /**
-   * whether you want the currently published versions of your records, or the latest available
+   * Whether you want the currently published versions (`published`, default) of your records, or the latest available (`current`)
    */
   version?: string;
   [k: string]: unknown;
@@ -456,11 +482,11 @@ export type ItemReferencesHrefSchema = {
  */
 export type ItemSelfHrefSchema = {
   /**
-   * For Modular Content fields and Structured Text fields, return full payload for nested blocks instead of IDs
+   * For Modular Content fields and Structured Text fields. If set, returns full payload for nested blocks instead of IDs
    */
   nested?: string;
   /**
-   * whether you want the currently published version of the record, or the latest available
+   * Whether you want the currently published versions (`published`, default) of your records, or the latest available (`current`)
    */
   version?: string;
   [k: string]: unknown;
@@ -557,25 +583,47 @@ export type UploadIdentity = string;
  */
 export type UploadInstancesHrefSchema = {
   /**
-   * Type of upload
+   * Attributes to filter uploads
    */
-  'filter[type]'?: 'file' | 'image' | 'video' | 'not_used' | 'other';
+  filter?: {
+    /**
+     * IDs to fetch, comma separated
+     */
+    ids?: string;
+    /**
+     * Textual query to match. If `locale` is defined, search within that locale. Otherwise environment's main locale will be used.
+     */
+    query?: string;
+    /**
+     * Same as [GraphQL API uploads filters](/docs/content-delivery-api/filtering-uploads). Use snake_case for fields names. If `locale` is defined, search within that locale. Otherwise environment's main locale will be used.
+     */
+    fields?: {
+      [k: string]: unknown;
+    };
+    [k: string]: unknown;
+  };
   /**
-   * Textual query to match
+   * When `filter[query]` or `field[fields]` is defined, filter by this locale. Default: environment's main locale
    */
-  'filter[query]'?: string;
+  locale?: string;
   /**
-   * Ordering direction by upload date
+   * Fields used to order results. Format: `<field_name>_<DIRECTION(ASC|DESC)>`. You can pass multiple comma separated rules.
    */
-  'sort[direction]'?: 'asc' | 'desc';
+  order_by?: string;
   /**
-   * Index of first record to fetch
+   * Attributes to manage results pagination
    */
-  'page[offset]'?: number;
-  /**
-   * Number of records to fetch
-   */
-  'page[limit]'?: number;
+  page?: {
+    /**
+     * Index of first upload to fetch. Default: 0
+     */
+    offset?: number;
+    /**
+     * Number of uplads to fetch. Maximum is 500 per page, default is 30.
+     */
+    limit?: number;
+    [k: string]: unknown;
+  };
   [k: string]: unknown;
 };
 /**
@@ -3338,9 +3386,13 @@ export interface FieldAttributes {
    */
   appearance: {
     /**
-     * This can be either the field editor type or a plugin id
+     * A valid editor can be a DatoCMS default field editor type (ie. `"single_line"`), or a plugin ID offering a custom field editor
      */
     editor: string;
+    /**
+     * The specific field extension to use for the field (only if the editor is a modern plugin)
+     */
+    field_extension?: string;
     /**
      * The editor plugin's parameters
      */
@@ -3351,7 +3403,14 @@ export interface FieldAttributes {
      * An array of add-on plugins with id and parameters
      */
     addons: {
+      /**
+       * The ID of a plugin offering a field addon
+       */
       id: string;
+      /**
+       * The specific field extension to use for the field (only if the editor is a modern plugin)
+       */
+      field_extension?: string;
       parameters: {
         [k: string]: unknown;
       };
@@ -3442,9 +3501,13 @@ export interface FieldCreateSchema {
        */
       appearance?: {
         /**
-         * This can be either the field editor type or a plugin id
+         * A valid editor can be a DatoCMS default field editor type (ie. `"single_line"`), or a plugin ID offering a custom field editor
          */
         editor: string;
+        /**
+         * The specific field extension to use for the field (only if the editor is a modern plugin)
+         */
+        field_extension?: string;
         /**
          * The editor plugin's parameters
          */
@@ -3455,7 +3518,14 @@ export interface FieldCreateSchema {
          * An array of add-on plugins with id and parameters
          */
         addons: {
+          /**
+           * The ID of a plugin offering a field addon
+           */
           id: string;
+          /**
+           * The specific field extension to use for the field (only if the editor is a modern plugin)
+           */
+          field_extension?: string;
           parameters: {
             [k: string]: unknown;
           };
@@ -3564,9 +3634,13 @@ export interface FieldUpdateSchema {
        */
       appearance?: {
         /**
-         * This can be either the field editor type or a plugin id
+         * A valid editor can be a DatoCMS default field editor type (ie. `"single_line"`), or a plugin ID offering a custom field editor
          */
         editor: string;
+        /**
+         * The specific field extension to use for the field (only if the editor is a modern plugin)
+         */
+        field_extension?: string;
         /**
          * The editor plugin's parameters
          */
@@ -3577,7 +3651,14 @@ export interface FieldUpdateSchema {
          * An array of add-on plugins with id and parameters
          */
         addons: {
+          /**
+           * The ID of a plugin offering a field addon
+           */
           id: string;
+          /**
+           * The specific field extension to use for the field (only if the editor is a modern plugin)
+           */
+          field_extension?: string;
           parameters: {
             [k: string]: unknown;
           };
@@ -4138,6 +4219,7 @@ export interface Plugin {
   type: PluginType;
   id: PluginIdentity;
   attributes: PluginAttributes;
+  meta: PluginMeta;
 }
 /**
  * JSON API attributes
@@ -4151,61 +4233,75 @@ export interface PluginAttributes {
    */
   name: string;
   /**
-   * A textual description for the plugin
+   * A description of the plugin
    */
   description: null | string;
   /**
-   * Plugin Npm package name
+   * NPM package name of the plugin (or null if it's a private plugin)
    */
   package_name: null | string;
   /**
-   * Plugin Npm version
+   * The installed version of the plugin (or null if it's a private plugin)
    */
   package_version: null | string;
   /**
-   * The type of extension
-   */
-  plugin_type: 'field_editor' | 'sidebar' | 'field_addon';
-  /**
-   * On which types of field this plugin can be used
-   */
-  field_types: (
-    | 'boolean'
-    | 'date'
-    | 'date_time'
-    | 'float'
-    | 'integer'
-    | 'string'
-    | 'text'
-    | 'lat_lon'
-    | 'json'
-    | 'seo'
-    | 'link'
-    | 'links'
-    | 'video'
-    | 'color'
-    | 'slug'
-    | 'rich_text'
-    | 'file'
-    | 'gallery'
-  )[];
-  /**
-   * The name of the plugin
+   * The entry point URL of the plugin
    */
   url: string;
   /**
-   * Global parameters which are set on on a project level. Values apply globally to every instance of an plugin within the project.
+   * Global plugin configuration. Plugins can persist whatever information they want in this object to reuse it later.
    */
   parameters: {
     [k: string]: unknown;
   };
   /**
-   * Parameter definitions for the plugin
+   * The type of field extension a legacy plugin implements
    */
-  parameter_definitions: {
+  plugin_type: 'field_editor' | 'sidebar' | 'field_addon' | null;
+  /**
+   * On which types of field in which a legacy plugin can be used
+   */
+  field_types:
+    | null
+    | (
+        | 'boolean'
+        | 'date'
+        | 'date_time'
+        | 'float'
+        | 'integer'
+        | 'string'
+        | 'text'
+        | 'lat_lon'
+        | 'json'
+        | 'seo'
+        | 'link'
+        | 'links'
+        | 'video'
+        | 'color'
+        | 'slug'
+        | 'rich_text'
+        | 'file'
+        | 'gallery'
+      )[];
+  /**
+   * The schema for the parameters a legacy plugin can persist
+   */
+  parameter_definitions: null | {
     global: unknown[];
     instance: unknown[];
   };
+}
+/**
+ * JSON API meta
+ *
+ * This interface was referenced by `Plugin`'s JSON-Schema
+ * via the `definition` "meta".
+ */
+export interface PluginMeta {
+  /**
+   * Version of the plugin. Legacy plugins are v1, new plugins are v2
+   */
+  version: string;
 }
 /**
  * JSON API data
@@ -4226,19 +4322,27 @@ export interface PluginCreateSchema {
     type: PluginType;
     attributes: {
       /**
-       * The name of the plugin
+       * NPM package name of the public plugin you want to install. For public plugins, that's the only attribute you need to pass.
+       */
+      package_name?: string;
+      /**
+       * The name of the plugin. Only to be passed if package name key is not specified.
        */
       name?: string;
       /**
-       * A textual description for the plugin
+       * A description of the plugin. Only to be passed if package name key is not specified.
        */
-      description?: null | string;
+      description?: string;
       /**
-       * The name of the plugin
+       * The entry point URL of the plugin. Only to be passed if package name key is not specified.
        */
       url?: string;
       /**
-       * On which types of field this plugin can be used
+       * The type of field extension this legacy plugin implements. Only to be passed if package name key is not specified.
+       */
+      plugin_type?: 'field_editor' | 'sidebar' | 'field_addon';
+      /**
+       * On which types of field in which this legacy plugin can be used. Only to be passed if package name key is not specified.
        */
       field_types?: (
         | 'boolean'
@@ -4261,24 +4365,16 @@ export interface PluginCreateSchema {
         | 'gallery'
       )[];
       /**
-       * Parameter definitions for the plugin
+       * The schema for the parameters this legacy plugin can persist
        */
       parameter_definitions?: {
         global: unknown[];
         instance: unknown[];
       };
       /**
-       * The type of extension
+       * NPM version of the plugin
        */
-      plugin_type?: 'field_editor' | 'sidebar' | 'field_addon';
-      /**
-       * Plugin Npm package name
-       */
-      package_name?: null | string;
-      /**
-       * Plugin Npm version
-       */
-      package_version?: null | string;
+      package_version?: string;
     };
   };
 }
@@ -4303,23 +4399,26 @@ export interface PluginUpdateSchema {
        */
       name?: string;
       /**
-       * A textual description for the plugin
+       * A description of the plugin
        */
       description?: null | string;
       /**
-       * The name of the plugin
+       * The entry point URL of the plugin
        */
       url?: string;
       /**
-       * Global parameters which are set on on a project level. Values apply globally to every instance of an plugin within the project.
+       * Global plugin configuration. Plugins can persist whatever information they want in this object to reuse it later.
        */
       parameters?: {
         [k: string]: unknown;
       };
       /**
-       * Plugin Npm version
+       * The installed version of the plugin (or null if it's a private plugin)
        */
       package_version?: null | string;
+    };
+    meta?: {
+      [k: string]: unknown;
     };
   };
 }
@@ -5265,6 +5364,16 @@ export interface ItemVersionInstancesTargetSchema {
   };
 }
 /**
+ * This interface was referenced by `ItemVersion`'s JSON-Schema
+ * via the `self.targetSchema` link.
+ */
+export interface ItemVersionSelfTargetSchema {
+  data: ItemVersion;
+  meta?: {
+    [k: string]: unknown;
+  };
+}
+/**
  * Every file you upload to DatoCMS will be retrievable from this endpoint.
  *
  * This interface was referenced by `DatoCMSSiteAPI`'s JSON-Schema
@@ -5885,7 +5994,7 @@ export interface ScheduledPublicationAttributes {
   /**
    * The future date for the publication
    */
-  publication_scheduled_at: null | string;
+  publication_scheduled_at: string;
 }
 /**
  * JSON API links
@@ -5934,8 +6043,7 @@ export interface ScheduledPublicationCreateTargetSchema {
  * via the `destroy.targetSchema` link.
  */
 export interface ScheduledPublicationDestroyTargetSchema {
-  data: ScheduledPublication;
-  included: Item[];
+  data: Item;
 }
 /**
  * You can create a scheduled unpublishing to unpublish records in the future
@@ -5959,7 +6067,7 @@ export interface ScheduledUnpublishingAttributes {
   /**
    * The future date for the unpublishing
    */
-  unpublishing_scheduled_at: null | string;
+  unpublishing_scheduled_at: string;
 }
 /**
  * JSON API links
@@ -6008,8 +6116,7 @@ export interface ScheduledUnpublishingCreateTargetSchema {
  * via the `destroy.targetSchema` link.
  */
 export interface ScheduledUnpublishingDestroyTargetSchema {
-  data: ScheduledUnpublishing;
-  included: Item[];
+  data: Item;
 }
 /**
  * DatoCMS Site Search is a way to deliver tailored search results to your site visitors. This is the endpoint you can use to query for results.

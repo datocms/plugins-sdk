@@ -1,8 +1,8 @@
 import connectToParent from 'penpal/lib/connectToParent';
 import { Field, ModelBlock } from './SiteApiSchema';
 import {
-  RenderConfigMethods,
-  RenderFieldExtensionConfigMethods,
+  RenderPluginParametersFormMethods,
+  RenderManualFieldExtensionParametersFormMethods,
   RenderSidebarPaneMethods,
   RenderModalMethods,
   AdminPage,
@@ -24,18 +24,18 @@ import {
   InitMetaAndMethods,
   isInitParent,
   isRenderAssetSourceParent,
-  isRenderConfigParent,
+  isRenderPluginParametersFormParent,
   isRenderDashboardWidgetParent,
-  isRenderFieldExtensionConfigParent,
+  isRenderManualFieldExtensionParametersFormParent,
   isRenderFieldExtensionParent,
   isRenderModalParent,
   isRenderPageParent,
   isRenderSidebarPaneParent,
   Parent,
   RenderAssetSourceMetaAndMethods,
-  RenderConfigMetaAndMethods,
+  RenderPluginParametersFormMetaAndMethods,
   RenderDashboardWidgetMetaAndMethods,
-  RenderFieldExtensionConfigMetaAndMethods,
+  RenderManualFieldExtensionParametersFormMetaAndMethods,
   RenderFieldExtensionMetaAndMethods,
   RenderModalMetaAndMethods,
   RenderPageMetaAndMethods,
@@ -57,12 +57,13 @@ export type RenderModalCtx = RenderModalMetaAndMethods & SizingUtilities;
 export type RenderSidebarPaneCtx = RenderSidebarPaneMetaAndMethods & SizingUtilities;
 export type RenderDashboardWidgetCtx = RenderDashboardWidgetMetaAndMethods & SizingUtilities;
 export type RenderFieldExtensionCtx = RenderFieldExtensionMetaAndMethods & SizingUtilities;
-export type RenderFieldExtensionConfigCtx = RenderFieldExtensionConfigMetaAndMethods &
+export type RenderManualFieldExtensionParametersFormCtx = RenderManualFieldExtensionParametersFormMetaAndMethods &
   SizingUtilities;
 export type RenderAssetSourceCtx = RenderAssetSourceMetaAndMethods & SizingUtilities;
-export type RenderConfigCtx = RenderConfigMetaAndMethods & SizingUtilities;
+export type RenderPluginParametersFormCtx = RenderPluginParametersFormMetaAndMethods &
+  SizingUtilities;
 
-type FullConfiguration = {
+type FullPluginParametersFormuration = {
   dashboardWidgets: (ctx: InitCtx) => DashboardWidget[];
   mainNavigationPages: (ctx: InitCtx) => NavigationPage[];
   adminPageGroups: (ctx: InitCtx) => AdminPageGroup[];
@@ -73,15 +74,15 @@ type FullConfiguration = {
   overrideFieldExtensions: (field: Field, ctx: FieldInitCtx) => FieldExtensionOverride | void;
   assetSources: (field: Field, ctx: FieldInitCtx) => AssetSource[];
   renderDashboardWidget: (dashboardWidgetId: string, ctx: RenderDashboardWidgetCtx) => void;
-  renderConfig: (ctx: RenderConfigCtx) => void;
+  renderPluginParametersForm: (ctx: RenderPluginParametersFormCtx) => void;
   renderAssetSource: (assetSourceId: string, ctx: RenderAssetSourceCtx) => void;
   renderPage: (pageId: string, ctx: RenderPageCtx) => void;
   renderModal: (modalId: string, ctx: RenderModalCtx) => void;
   renderSidebarPane: (sidebarPaneId: string, ctx: RenderSidebarPaneCtx) => void;
   renderFieldExtension: (fieldExtensionId: string, ctx: RenderFieldExtensionCtx) => void;
-  renderFieldExtensionConfig: (
+  renderManualFieldExtensionParametersForm: (
     fieldExtensionId: string,
-    ctx: RenderFieldExtensionConfigCtx,
+    ctx: RenderManualFieldExtensionParametersFormCtx,
   ) => void;
 };
 
@@ -169,7 +170,9 @@ const buildRenderUtils = (parent: { setHeight: (number: number) => void }) => {
   return { updateHeight, startAutoResizer, stopAutoResizer };
 };
 
-export async function connect(configuration: Partial<FullConfiguration> = {}): Promise<void> {
+export async function connect(
+  configuration: Partial<FullPluginParametersFormuration> = {},
+): Promise<void> {
   const {
     dashboardWidgets,
     mainNavigationPages,
@@ -270,17 +273,17 @@ export async function connect(configuration: Partial<FullConfiguration> = {}): P
     render(initialSettings as Settings);
   }
 
-  if (isRenderConfigParent(parent, initialSettings)) {
-    type Settings = AsyncReturnType<RenderConfigMethods['getSettings']>;
+  if (isRenderPluginParametersFormParent(parent, initialSettings)) {
+    type Settings = AsyncReturnType<RenderPluginParametersFormMethods['getSettings']>;
 
     const renderUtils = buildRenderUtils(parent);
 
     const render = (settings: Settings) => {
-      if (!configuration.renderConfig) {
+      if (!configuration.renderPluginParametersForm) {
         return;
       }
 
-      configuration.renderConfig({
+      configuration.renderPluginParametersForm({
         ...parent,
         ...settings,
         ...renderUtils,
@@ -354,17 +357,17 @@ export async function connect(configuration: Partial<FullConfiguration> = {}): P
     render(initialSettings as Settings);
   }
 
-  if (isRenderFieldExtensionConfigParent(parent, initialSettings)) {
-    type Settings = AsyncReturnType<RenderFieldExtensionConfigMethods['getSettings']>;
+  if (isRenderManualFieldExtensionParametersFormParent(parent, initialSettings)) {
+    type Settings = AsyncReturnType<RenderManualFieldExtensionParametersFormMethods['getSettings']>;
 
     const renderUtils = buildRenderUtils(parent);
 
     const render = (settings: Settings) => {
-      if (!configuration.renderFieldExtensionConfig) {
+      if (!configuration.renderManualFieldExtensionParametersForm) {
         return;
       }
 
-      configuration.renderFieldExtensionConfig(settings.fieldExtensionId, {
+      configuration.renderManualFieldExtensionParametersForm(settings.fieldExtensionId, {
         ...parent,
         ...settings,
         ...renderUtils,

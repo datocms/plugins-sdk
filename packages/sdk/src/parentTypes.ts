@@ -4,19 +4,19 @@ import {
   RenderAssetSourceMethods,
   RenderDashboardWidgetMethods,
   RenderFieldExtensionMethods,
-  RenderConfigMethods,
-  RenderFieldExtensionConfigMethods,
+  RenderPluginParametersFormMethods,
+  RenderManualFieldExtensionParametersFormMethods,
   RenderSidebarPaneMethods,
   RenderModalMethods,
   InitMeta,
   RenderPageMeta,
   RenderAssetSourceMeta,
   RenderDashboardWidgetMeta,
-  RenderConfigMeta,
+  RenderPluginParametersFormMeta,
   RenderModalMeta,
   RenderSidebarPaneMeta,
   RenderFieldExtensionMeta,
-  RenderFieldExtensionConfigMeta,
+  RenderManualFieldExtensionParametersFormMeta,
 } from './types';
 
 export type Parent = { getSettings: () => Promise<{ mode: string }> };
@@ -40,8 +40,11 @@ export const isRenderDashboardWidgetParent = buildGuard<RenderDashboardWidgetMet
 export type RenderDashboardWidgetMetaAndMethods = RenderDashboardWidgetMethods &
   RenderDashboardWidgetMeta;
 
-export const isRenderConfigParent = buildGuard<RenderConfigMethods>('renderConfig');
-export type RenderConfigMetaAndMethods = RenderConfigMethods & RenderConfigMeta;
+export const isRenderPluginParametersFormParent = buildGuard<RenderPluginParametersFormMethods>(
+  'renderPluginParametersForm',
+);
+export type RenderPluginParametersFormMetaAndMethods = RenderPluginParametersFormMethods &
+  RenderPluginParametersFormMeta;
 
 export const isRenderModalParent = buildGuard<RenderModalMethods>('renderModal');
 export type RenderModalMetaAndMethods = RenderModalMethods & RenderModalMeta;
@@ -55,8 +58,8 @@ export const isRenderFieldExtensionParent = buildGuard<RenderFieldExtensionMetho
 export type RenderFieldExtensionMetaAndMethods = RenderFieldExtensionMethods &
   RenderFieldExtensionMeta;
 
-export const isRenderFieldExtensionConfigParent = buildGuard<RenderFieldExtensionConfigMethods>(
-  'renderFieldExtensionConfig',
+export const isRenderManualFieldExtensionParametersFormParent = buildGuard<RenderManualFieldExtensionParametersFormMethods>(
+  'renderManualFieldExtensionParametersForm',
 );
-export type RenderFieldExtensionConfigMetaAndMethods = RenderFieldExtensionConfigMethods &
-  RenderFieldExtensionConfigMeta;
+export type RenderManualFieldExtensionParametersFormMetaAndMethods = RenderManualFieldExtensionParametersFormMethods &
+  RenderManualFieldExtensionParametersFormMeta;
