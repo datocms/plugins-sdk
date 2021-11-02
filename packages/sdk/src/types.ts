@@ -48,7 +48,7 @@ export type FieldExtension = {
   id: string;
   name: string;
   type: FieldExtensionType;
-  fieldTypes: PluginAttributes['field_types'];
+  fieldTypes: NonNullable<PluginAttributes['field_types']>;
   configurable: boolean;
 };
 
