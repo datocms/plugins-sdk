@@ -282,6 +282,7 @@ export type RenderManualFieldExtensionParametersFormMetaAdditions = {
   mode: 'renderManualFieldExtensionParametersForm';
   fieldExtensionId: string;
   parameters: Record<string, unknown>;
+  errors: Record<string, unknown>;
 };
 
 export type RenderManualFieldExtensionParametersFormMeta = CommonRenderMeta &

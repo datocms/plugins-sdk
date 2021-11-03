@@ -84,6 +84,10 @@ type FullPluginParametersFormuration = {
     fieldExtensionId: string,
     ctx: RenderManualFieldExtensionParametersFormCtx,
   ) => void;
+  validateManualFieldExtensionParameters: (
+    fieldExtensionId: string,
+    parameters: Record<string, unknown>,
+  ) => Promise<Record<string, unknown>>;
 };
 
 function toMultifield<Result>(fn: ((field: Field, ctx: FieldInitCtx) => Result) | undefined) {
@@ -203,6 +207,7 @@ export async function connect(
           listener(newSettings);
         }
       },
+      validateManualFieldExtensionParameters: configuration.validateManualFieldExtensionParameters,
     },
   });
 
