@@ -281,6 +281,7 @@ export type RenderDashboardWidgetMethods = CommonRenderMethods &
 export type RenderManualFieldExtensionParametersFormMetaAdditions = {
   mode: 'renderManualFieldExtensionParametersForm';
   fieldExtensionId: string;
+  parameters: Record<string, unknown>;
 };
 
 export type RenderManualFieldExtensionParametersFormMeta = CommonRenderMeta &
@@ -288,7 +289,7 @@ export type RenderManualFieldExtensionParametersFormMeta = CommonRenderMeta &
 
 export type RenderManualFieldExtensionParametersFormMethodsAdditions = {
   getSettings(): Promise<RenderManualFieldExtensionParametersFormMeta>;
-  save(params: Record<string, unknown>): Promise<void>;
+  setParameters(params: Record<string, unknown>): Promise<void>;
 };
 
 export type RenderManualFieldExtensionParametersFormMethods = CommonRenderMethods &
