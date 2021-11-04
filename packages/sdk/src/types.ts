@@ -56,6 +56,7 @@ export type SidebarPane = {
 export type FieldExtensionOverride = {
   editor?: {
     id: string;
+    type: 'field_editor' | 'sidebar';
     parameters: Record<string, unknown>;
   };
   addons?: Array<{ id: string; parameters: Record<string, unknown> }>;
