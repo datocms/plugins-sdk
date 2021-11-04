@@ -7,15 +7,11 @@ import {
   RenderModalMethods,
   AdminPage,
   AdminPageGroup,
-  AssetSource,
   ContentPage,
   FieldExtension,
   FieldExtensionOverride,
   NavigationPage,
   SidebarPane,
-  DashboardWidget,
-  RenderAssetSourceMethods,
-  RenderDashboardWidgetMethods,
   RenderFieldExtensionMethods,
   RenderPageMethods,
 } from './types';
@@ -23,18 +19,14 @@ import {
 import {
   InitMetaAndMethods,
   isInitParent,
-  isRenderAssetSourceParent,
   isRenderPluginParametersFormParent,
-  isRenderDashboardWidgetParent,
   isRenderManualFieldExtensionParametersFormParent,
   isRenderFieldExtensionParent,
   isRenderModalParent,
   isRenderPageParent,
   isRenderSidebarPaneParent,
   Parent,
-  RenderAssetSourceMetaAndMethods,
   RenderPluginParametersFormMetaAndMethods,
-  RenderDashboardWidgetMetaAndMethods,
   RenderManualFieldExtensionParametersFormMetaAndMethods,
   RenderFieldExtensionMetaAndMethods,
   RenderModalMetaAndMethods,
@@ -55,16 +47,13 @@ export type FieldInitCtx = InitMetaAndMethods & { itemType: ModelBlock };
 export type RenderPageCtx = RenderPageMetaAndMethods;
 export type RenderModalCtx = RenderModalMetaAndMethods & SizingUtilities;
 export type RenderSidebarPaneCtx = RenderSidebarPaneMetaAndMethods & SizingUtilities;
-export type RenderDashboardWidgetCtx = RenderDashboardWidgetMetaAndMethods & SizingUtilities;
 export type RenderFieldExtensionCtx = RenderFieldExtensionMetaAndMethods & SizingUtilities;
 export type RenderManualFieldExtensionParametersFormCtx = RenderManualFieldExtensionParametersFormMetaAndMethods &
   SizingUtilities;
-export type RenderAssetSourceCtx = RenderAssetSourceMetaAndMethods & SizingUtilities;
 export type RenderPluginParametersFormCtx = RenderPluginParametersFormMetaAndMethods &
   SizingUtilities;
 
 type FullPluginParametersFormuration = {
-  dashboardWidgets: (ctx: InitCtx) => DashboardWidget[];
   mainNavigationPages: (ctx: InitCtx) => NavigationPage[];
   adminPageGroups: (ctx: InitCtx) => AdminPageGroup[];
   adminPages: (ctx: InitCtx) => AdminPage[];
@@ -72,10 +61,7 @@ type FullPluginParametersFormuration = {
   manualFieldExtensions: (ctx: InitCtx) => FieldExtension[];
   itemTypeSidebarPanes: (itemType: ModelBlock, ctx: InitCtx) => SidebarPane[];
   overrideFieldExtensions: (field: Field, ctx: FieldInitCtx) => FieldExtensionOverride | void;
-  assetSources: (field: Field, ctx: FieldInitCtx) => AssetSource[];
-  renderDashboardWidget: (dashboardWidgetId: string, ctx: RenderDashboardWidgetCtx) => void;
   renderPluginParametersForm: (ctx: RenderPluginParametersFormCtx) => void;
-  renderAssetSource: (assetSourceId: string, ctx: RenderAssetSourceCtx) => void;
   renderPage: (pageId: string, ctx: RenderPageCtx) => void;
   renderModal: (modalId: string, ctx: RenderModalCtx) => void;
   renderSidebarPane: (sidebarPaneId: string, ctx: RenderSidebarPaneCtx) => void;
@@ -87,7 +73,7 @@ type FullPluginParametersFormuration = {
   validateManualFieldExtensionParameters: (
     fieldExtensionId: string,
     parameters: Record<string, unknown>,
-  ) => Promise<Record<string, unknown>>;
+  ) => Record<string, unknown> | Promise<Record<string, unknown>>;
 };
 
 function toMultifield<Result>(fn: ((field: Field, ctx: FieldInitCtx) => Result) | undefined) {
@@ -178,7 +164,6 @@ export async function connect(
   configuration: Partial<FullPluginParametersFormuration> = {},
 ): Promise<void> {
   const {
-    dashboardWidgets,
     mainNavigationPages,
     adminPageGroups,
     adminPages,
@@ -192,7 +177,6 @@ export async function connect(
 
   const penpalConnection = connectToParent({
     methods: {
-      dashboardWidgets,
       mainNavigationPages,
       adminPageGroups,
       adminPages,
@@ -200,7 +184,6 @@ export async function connect(
       manualFieldExtensions,
       itemTypeSidebarPanes,
       overrideFieldExtensions: toMultifield(configuration.overrideFieldExtensions),
-      assetSources: toMultifield(configuration.assetSources),
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       onChange(newSettings: any) {
         if (listener) {
@@ -218,27 +201,6 @@ export async function connect(
     // Nothing to do. Parent calls the method they need.
   }
 
-  if (isRenderDashboardWidgetParent(parent, initialSettings)) {
-    type Settings = AsyncReturnType<RenderDashboardWidgetMethods['getSettings']>;
-
-    const renderUtils = buildRenderUtils(parent);
-
-    const render = (settings: Settings) => {
-      if (!configuration.renderDashboardWidget) {
-        return;
-      }
-
-      configuration.renderDashboardWidget(settings.dashboardWidgetId, {
-        ...parent,
-        ...settings,
-        ...renderUtils,
-      });
-    };
-
-    listener = render;
-    render(initialSettings as Settings);
-  }
-
   if (isRenderPageParent(parent, initialSettings)) {
     type Settings = AsyncReturnType<RenderPageMethods['getSettings']>;
 
@@ -250,27 +212,6 @@ export async function connect(
       configuration.renderPage(settings.pageId, {
         ...parent,
         ...settings,
-      });
-    };
-
-    listener = render;
-    render(initialSettings as Settings);
-  }
-
-  if (isRenderAssetSourceParent(parent, initialSettings)) {
-    type Settings = AsyncReturnType<RenderAssetSourceMethods['getSettings']>;
-
-    const renderUtils = buildRenderUtils(parent);
-
-    const render = (settings: Settings) => {
-      if (!configuration.renderAssetSource) {
-        return;
-      }
-
-      configuration.renderAssetSource(settings.assetSourceId, {
-        ...parent,
-        ...settings,
-        ...renderUtils,
       });
     };
 

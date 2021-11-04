@@ -1,8 +1,6 @@
 import {
   InitMethods,
   RenderPageMethods,
-  RenderAssetSourceMethods,
-  RenderDashboardWidgetMethods,
   RenderFieldExtensionMethods,
   RenderPluginParametersFormMethods,
   RenderManualFieldExtensionParametersFormMethods,
@@ -10,8 +8,6 @@ import {
   RenderModalMethods,
   InitMeta,
   RenderPageMeta,
-  RenderAssetSourceMeta,
-  RenderDashboardWidgetMeta,
   RenderPluginParametersFormMeta,
   RenderModalMeta,
   RenderSidebarPaneMeta,
@@ -30,15 +26,6 @@ export type InitMetaAndMethods = InitMethods & InitMeta;
 
 export const isRenderPageParent = buildGuard<RenderPageMethods>('renderPage');
 export type RenderPageMetaAndMethods = RenderPageMethods & RenderPageMeta;
-
-export const isRenderAssetSourceParent = buildGuard<RenderAssetSourceMethods>('renderAssetSource');
-export type RenderAssetSourceMetaAndMethods = RenderAssetSourceMethods & RenderAssetSourceMeta;
-
-export const isRenderDashboardWidgetParent = buildGuard<RenderDashboardWidgetMethods>(
-  'renderDashboardWidget',
-);
-export type RenderDashboardWidgetMetaAndMethods = RenderDashboardWidgetMethods &
-  RenderDashboardWidgetMeta;
 
 export const isRenderPluginParametersFormParent = buildGuard<RenderPluginParametersFormMethods>(
   'renderPluginParametersForm',

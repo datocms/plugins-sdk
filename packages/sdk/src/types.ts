@@ -11,12 +11,6 @@ import {
   User,
 } from './SiteApiSchema';
 
-export type DashboardWidget = {
-  id: string;
-  label: string;
-  parameters: Record<string, unknown>;
-};
-
 export type NavigationPage = {
   id: string;
   label: string;
@@ -65,12 +59,6 @@ export type FieldExtensionOverride = {
     parameters: Record<string, unknown>;
   };
   addons?: Array<{ id: string; parameters: Record<string, unknown> }>;
-};
-
-export type AssetSource = {
-  id: string;
-  label: string;
-  icon: string;
 };
 
 export type Theme = {
@@ -263,21 +251,6 @@ export type RenderPageMethodsAdditions = {
 
 export type RenderPageMethods = CommonRenderMethods & RenderPageMethodsAdditions;
 
-export type RenderDashboardWidgetMetaAdditions = {
-  mode: 'renderDashboardWidget';
-  dashboardWidgetId: string;
-  parameters: Record<string, unknown>;
-};
-
-export type RenderDashboardWidgetMeta = CommonRenderMeta & RenderDashboardWidgetMetaAdditions;
-
-export type RenderDashboardWidgetMethodsAdditions = {
-  getSettings(): Promise<RenderDashboardWidgetMeta>;
-};
-
-export type RenderDashboardWidgetMethods = CommonRenderMethods &
-  RenderDashboardWidgetMethodsAdditions;
-
 export type RenderManualFieldExtensionParametersFormMetaAdditions = {
   mode: 'renderManualFieldExtensionParametersForm';
   fieldExtensionId: string;
@@ -317,17 +290,3 @@ export type FieldSetupMetaAdditions = {
 };
 
 export type FieldSetupMeta = InitMeta & FieldSetupMetaAdditions;
-
-export type RenderAssetSourceMetaAdditions = {
-  mode: 'renderAssetSource';
-  assetSourceId: string;
-};
-
-export type RenderAssetSourceMeta = CommonRenderMeta & RenderAssetSourceMetaAdditions;
-
-export type RenderAssetSourceMethodsAdditions = {
-  getSettings(): Promise<RenderAssetSourceMeta>;
-  resolve(returnValue: unknown): void;
-};
-
-export type RenderAssetSourceMethods = CommonRenderMethods & RenderAssetSourceMethodsAdditions;
