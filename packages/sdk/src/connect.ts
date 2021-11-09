@@ -34,8 +34,6 @@ import {
   RenderSidebarPaneMetaAndMethods,
 } from './parentTypes';
 
-import packageJson from '../package.json';
-
 type SizingUtilities = {
   startAutoResizer: () => void;
   stopAutoResizer: () => void;
@@ -179,7 +177,7 @@ export async function connect(
 
   const penpalConnection = connectToParent({
     methods: {
-      sdkVersion: () => packageJson.version,
+      sdkVersion: () => '0.2.0',
       mainNavigationPages,
       SettingsPageSections,
       SettingsPages,
