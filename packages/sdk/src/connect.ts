@@ -53,10 +53,10 @@ export type RenderManualFieldExtensionParametersFormCtx = RenderManualFieldExten
 export type RenderPluginParametersFormCtx = RenderPluginParametersFormMetaAndMethods &
   SizingUtilities;
 
-type FullPluginParametersFormuration = {
+type FullPluginParameters = {
   mainNavigationPages: (ctx: InitCtx) => MainNavigationPage[];
-  SettingsPageSections: (ctx: InitCtx) => SettingsPageSection[];
-  SettingsPages: (ctx: InitCtx) => SettingsPage[];
+  settingsPageSections: (ctx: InitCtx) => SettingsPageSection[];
+  settingsPages: (ctx: InitCtx) => SettingsPage[];
   contentPages: (ctx: InitCtx) => ContentPage[];
   manualFieldExtensions: (ctx: InitCtx) => FieldExtension[];
   itemTypeSidebarPanes: (itemType: ModelBlock, ctx: InitCtx) => SidebarPane[];
@@ -160,13 +160,11 @@ const buildRenderUtils = (parent: { setHeight: (number: number) => void }) => {
   return { updateHeight, startAutoResizer, stopAutoResizer };
 };
 
-export async function connect(
-  configuration: Partial<FullPluginParametersFormuration> = {},
-): Promise<void> {
+export async function connect(configuration: Partial<FullPluginParameters> = {}): Promise<void> {
   const {
     mainNavigationPages,
-    SettingsPageSections,
-    SettingsPages,
+    settingsPageSections,
+    settingsPages,
     contentPages,
     manualFieldExtensions,
     itemTypeSidebarPanes,
@@ -179,8 +177,8 @@ export async function connect(
     methods: {
       sdkVersion: () => '0.2.0',
       mainNavigationPages,
-      SettingsPageSections,
-      SettingsPages,
+      settingsPageSections,
+      settingsPages,
       contentPages,
       manualFieldExtensions,
       itemTypeSidebarPanes,
