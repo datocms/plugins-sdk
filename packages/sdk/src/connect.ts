@@ -5,12 +5,12 @@ import {
   RenderManualFieldExtensionParametersFormMethods,
   RenderSidebarPaneMethods,
   RenderModalMethods,
-  AdminPage,
-  AdminPageGroup,
+  SettingsPage,
+  SettingsPageSection,
   ContentPage,
   FieldExtension,
   FieldExtensionOverride,
-  NavigationPage,
+  MainNavigationPage,
   SidebarPane,
   RenderFieldExtensionMethods,
   RenderPageMethods,
@@ -34,6 +34,8 @@ import {
   RenderSidebarPaneMetaAndMethods,
 } from './parentTypes';
 
+import packageJson from '../package.json';
+
 type SizingUtilities = {
   startAutoResizer: () => void;
   stopAutoResizer: () => void;
@@ -54,9 +56,9 @@ export type RenderPluginParametersFormCtx = RenderPluginParametersFormMetaAndMet
   SizingUtilities;
 
 type FullPluginParametersFormuration = {
-  mainNavigationPages: (ctx: InitCtx) => NavigationPage[];
-  adminPageGroups: (ctx: InitCtx) => AdminPageGroup[];
-  adminPages: (ctx: InitCtx) => AdminPage[];
+  mainNavigationPages: (ctx: InitCtx) => MainNavigationPage[];
+  SettingsPageSections: (ctx: InitCtx) => SettingsPageSection[];
+  SettingsPages: (ctx: InitCtx) => SettingsPage[];
   contentPages: (ctx: InitCtx) => ContentPage[];
   manualFieldExtensions: (ctx: InitCtx) => FieldExtension[];
   itemTypeSidebarPanes: (itemType: ModelBlock, ctx: InitCtx) => SidebarPane[];
@@ -165,8 +167,8 @@ export async function connect(
 ): Promise<void> {
   const {
     mainNavigationPages,
-    adminPageGroups,
-    adminPages,
+    SettingsPageSections,
+    SettingsPages,
     contentPages,
     manualFieldExtensions,
     itemTypeSidebarPanes,
@@ -177,9 +179,10 @@ export async function connect(
 
   const penpalConnection = connectToParent({
     methods: {
+      sdkVersion: () => packageJson.version,
       mainNavigationPages,
-      adminPageGroups,
-      adminPages,
+      SettingsPageSections,
+      SettingsPages,
       contentPages,
       manualFieldExtensions,
       itemTypeSidebarPanes,

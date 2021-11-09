@@ -5,61 +5,112 @@ import {
   ModelBlock,
   Plugin,
   PluginAttributes,
+  Role,
   Site,
   SsoUser,
   Upload,
   User,
 } from './SiteApiSchema';
 
-export type NavigationPage = {
+/** Page displayed in the top-bar of the UI */
+export type MainNavigationPage = {
+  /** ID of the page. Will be passed as first argument to `renderPage` method */
+  id: string;
+  /** Details about the handle that will be shown in the top-bar **/
+  handle: {
+    /** Label to be shown */
+    label: string;
+    /** FontAwesome icon name to be shown alongside the label */
+    icon: string;
+    /** Expresses where you want to place the handle in the top-bar. If not specified, the handle will be placed after the standard handles provided by DatoCMS itself. */
+    placement?: ['before' | 'after', 'content' | 'mediaArea' | 'apiExplorer' | 'settings'];
+    /**
+     * If different plugins specify the same placement for their handle, they will be displayed by ascending `rank`.
+     *
+     * Pro tip: if you want to specify an explicit value for `rank`, make sure to offer a way for final users to customize it inside the plugin's settings form, otherwise the hardcoded value you choose might clash with the one of another plugin!
+     **/
+    rank: number;
+  };
+};
+
+/**  In the Settings area, pages are grouped in different sections by topic. This object represents a new section to be added to the standard ones DatoCMS provides. */
+export type SettingsPageSection = {
+  /** ID of the section. You can reference it in the `sectionId` property of your settings pages. */
+  id: string;
+  /** Label to show for the section */
+  label: string;
+  /**
+   * Sections displayed by ascending `rank`. If not specified, the section it is guaranteed to be placed after the standard ones provided by DatoCMS itself.
+   *
+   * Pro tip: if the position of the tab is important for your plugin, so you want to specify an explicit value for `rank`, make sure to offer a way for final users to customize it inside the plugin's settings form, otherwise the hardcoded value you choose might clash with the one of another plugin!
+   **/
+  rank?: number;
+};
+
+export type SettingsPage = {
+  /** ID of SettingsPage */
   id: string;
   label: string;
   icon: string;
-};
-
-export type AdminPageGroup = {
-  id: string;
-  label: string;
-};
-
-export type AdminPage = {
-  id: string;
-  label: string;
-  icon: string;
-  group: string;
+  sectionId: string;
+  rank?: number;
 };
 
 export type ContentPage = {
+  /** ID of ContentPage */
   id: string;
   label: string;
   icon: string;
   location: 'top' | 'bottom';
+  parentPageId?: string;
+  rank?: number;
 };
 
 export type FieldExtensionType = 'field_editor' | 'field_addon' | 'sidebar';
 
 export type FieldExtension = {
+  /** ID of FieldExtension */
   id: string;
   name: string;
   type: FieldExtensionType;
   fieldTypes: NonNullable<PluginAttributes['field_types']>;
   configurable: boolean;
+  startOpen?: boolean;
+  rank?: number;
+  initialHeight?: number;
 };
 
 export type SidebarPane = {
+  /** ID of SidebarPane */
   id: string;
   label: string;
   parameters: Record<string, unknown>;
   startOpen?: boolean;
+  rank?: number;
+  initialHeight?: number;
+};
+
+export type EditorOverride = {
+  /** ID of EditorOverride */
+  id: string;
+  type: 'field_editor' | 'sidebar';
+  parameters: Record<string, unknown>;
+  startOpen?: boolean;
+  rank?: number;
+  initialHeight?: number;
+};
+
+export type AddonOverride = {
+  /** ID of AddonOverride */
+  id: string;
+  parameters: Record<string, unknown>;
+  rank?: number;
+  initialHeight?: number;
 };
 
 export type FieldExtensionOverride = {
-  editor?: {
-    id: string;
-    type: 'field_editor' | 'sidebar';
-    parameters: Record<string, unknown>;
-  };
-  addons?: Array<{ id: string; parameters: Record<string, unknown> }>;
+  editor?: EditorOverride;
+  addons?: AddonOverride[];
 };
 
 export type Theme = {
@@ -87,11 +138,23 @@ export type FileFieldValue = {
 };
 
 export type Modal = {
+  /** ID of Modal */
   id: string;
   title?: string;
   closeDisabled?: boolean;
   width?: 's' | 'm' | 'l' | 'xl' | 'fullWidth' | number;
   parameters: Record<string, unknown>;
+  initialHeight?: number;
+};
+
+export type Toast<CtaValue = unknown> = {
+  message: string;
+  type: 'notice' | 'alert' | 'warning';
+  autoClose: number | boolean;
+  cta?: {
+    label: string;
+    value: CtaValue;
+  };
 };
 
 export type ConfirmChoice = {
@@ -112,7 +175,12 @@ export type CommonMeta = {
   environment: string;
   itemTypes: Partial<Record<string, ModelBlock>>;
   currentUser: User | SsoUser | Account;
+  currentRole: Role;
+  currentAccessToken: string;
   plugin: Plugin;
+  ui: {
+    locale: string;
+  };
 };
 
 export type InitMetaAdditions = {
@@ -129,6 +197,7 @@ export type CommonRenderMetaAdditions = {
   fields: Partial<Record<string, Field>>;
   theme: Theme;
   users: Partial<Record<string, User>>;
+  ssoUsers: Partial<Record<string, SsoUser>>;
   account: Account;
   plugin: Plugin;
 };
@@ -139,6 +208,8 @@ export type CommonRenderMethods = {
   setHeight(number: number): void;
   navigateTo(path: string): void;
   loadItemTypeFields(itemTypeId: string): Promise<Field[]>;
+  loadUsers(): Promise<User[]>;
+  loadSsoUsers(): Promise<SsoUser[]>;
   createNewItem(itemTypeId: string): Promise<Item | null>;
   selectItem(
     itemTypeId: string,
@@ -153,8 +224,9 @@ export type CommonRenderMethods = {
     },
   ): Promise<Item | null>;
   editItem(itemId: string): Promise<Item | null>;
-  notice(message: string): void;
   alert(message: string): void;
+  notice(message: string): void;
+  customToast<CtaValue = unknown>(toast: Toast<CtaValue>): Promise<CtaValue | null>;
   selectUpload(options: { multiple: true }): Promise<Upload[] | null>;
   selectUpload(options?: { multiple: false }): Promise<Upload | null>;
   editUpload(uploadId: string): Promise<Upload | null>;
