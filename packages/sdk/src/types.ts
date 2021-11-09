@@ -25,11 +25,9 @@ export type MainNavigationPage = {
     /** Expresses where you want to place the handle in the top-bar. If not specified, the handle will be placed after the standard handles provided by DatoCMS itself. */
     placement?: ['before' | 'after', 'content' | 'mediaArea' | 'apiExplorer' | 'settings'];
     /**
-     * If different plugins specify the same placement for their handle, they will be displayed by ascending `rank`.
-     *
-     * Pro tip: if you want to specify an explicit value for `rank`, make sure to offer a way for final users to customize it inside the plugin's settings form, otherwise the hardcoded value you choose might clash with the one of another plugin!
+     * If different plugins specify the same placement for their handle, they will be displayed by ascending `rank`. If you want to specify an explicit value for `rank`, make sure to offer a way for final users to customize it inside the plugin's settings form, otherwise the hardcoded value you choose might clash with the one of another plugin!
      **/
-    rank: number;
+    rank?: number;
   };
 };
 
