@@ -12,56 +12,107 @@ import {
   User,
 } from './SiteApiSchema';
 
-/** Page displayed in the top-bar of the UI */
-export type MainNavigationPage = {
-  /** ID of the page. Will be passed as first argument to `renderPage` method */
-  id: string;
-  /** Details about the handle that will be shown in the top-bar **/
-  handle: {
-    /** Label to be shown */
-    label: string;
-    /** FontAwesome icon name to be shown alongside the label */
-    icon: string;
-    /** Expresses where you want to place the handle in the top-bar. If not specified, the handle will be placed after the standard handles provided by DatoCMS itself. */
-    placement?: ['before' | 'after', 'content' | 'mediaArea' | 'apiExplorer' | 'settings'];
-    /**
-     * If different plugins specify the same placement for their handle, they will be displayed by ascending `rank`. If you want to specify an explicit value for `rank`, make sure to offer a way for final users to customize it inside the plugin's settings form, otherwise the hardcoded value you choose might clash with the one of another plugin!
-     **/
-    rank?: number;
+// /** A menu item displayed inside a custom tab in the top-bar of the UI */
+// export type MainNavigationTabItem = {
+//   /** Label to be shown. Must be unique. */
+//   label: string;
+//   /** FontAwesome icon name to be shown alongside the label */
+//   icon: string;
+//   /** ID of the page linked to the tab */
+//   pointsTo?: {
+//     pageId: string;
+//   };
+// }
+
+/** A tab to be displayed in the top-bar of the UI */
+export type MainNavigationTab = {
+  /** Label to be shown. Must be unique. */
+  label: string;
+  /** FontAwesome icon name to be shown alongside the label */
+  icon: string;
+  /** ID of the page linked to the tab */
+  pointsTo?: {
+    pageId: string;
+  };
+  /** Expresses where you want to place the tab in the top-bar. If not specified, the tab will be placed after the standard tabs provided by DatoCMS itself. */
+  placement?: ['before' | 'after', 'content' | 'mediaArea' | 'apiExplorer' | 'settings'];
+  /** If different plugins specify the same placement for their tab, they will be displayed by ascending `rank`. If you want to specify an explicit value for `rank`, make sure to offer a way for final users to customize it inside the plugin's settings form, otherwise the hardcoded value you choose might clash with the one of another plugin! **/
+  rank?: number;
+
+  // FUTURE
+
+  // /** The list of sub-items it contains **/
+  // items?: MainNavigationTabItem[];
+};
+
+/** An item contained in a Settings Area group */
+export type SettingsAreaSidebarItem = {
+  /** Label to be shown. Must be unique. */
+  label: string;
+  /** FontAwesome icon name to be shown alongside the label */
+  icon: string;
+  /** ID of the page linked to the item */
+  pointsTo?: {
+    pageId: string;
   };
 };
 
-/**  In the Settings area, pages are grouped in different sections by topic. This object represents a new section to be added to the standard ones DatoCMS provides. */
-export type SettingsPageSection = {
-  /** ID of the section. You can reference it in the `sectionId` property of your settings pages. */
-  id: string;
-  /** Label to show for the section */
+/**  The sidebar in the Settings Area presents a number of pages grouped by topic. This object represents a new group to be added in the sideebar to the standard ones DatoCMS provides. */
+export type SettingsAreaSidebarItemGroup = {
+  /** Label to be shown. Must be unique. */
   label: string;
-  /**
-   * Sections displayed by ascending `rank`. If not specified, the section it is guaranteed to be placed after the standard ones provided by DatoCMS itself.
-   *
-   * Pro tip: if the position of the tab is important for your plugin, so you want to specify an explicit value for `rank`, make sure to offer a way for final users to customize it inside the plugin's settings form, otherwise the hardcoded value you choose might clash with the one of another plugin!
-   **/
+  /** The list of items it contains **/
+  items: SettingsAreaSidebarItem[];
+  /** Expresses where you want the group to be placed inside the sidebar. If not specified, the item will be placed after the standard items provided by DatoCMS itself. */
+  placement?: [
+    'before' | 'after',
+    (
+      | 'environment'
+      | 'project'
+      | 'permissions'
+      | 'webhooks'
+      | 'deployment'
+      | 'sso'
+      | 'auditLog'
+      | 'usage'
+    ),
+  ];
+  /** If different plugins specify the same placement for their sections, they will be displayed by ascending `rank`. If you want to specify an explicit value for `rank`, make sure to offer a way for final users to customize it inside the plugin's settings form, otherwise the hardcoded value you choose might clash with the one of another plugin! **/
   rank?: number;
 };
 
-export type SettingsPage = {
-  /** ID of SettingsPage */
-  id: string;
-  label: string;
-  icon: string;
-  sectionId: string;
-  rank?: number;
-};
+// type ContentAreaSidebarItemChild = {
+//   /** Label to be shown. Must be unique. */
+//   label: string;
+//   /** FontAwesome icon name to be shown alongside the label */
+//   icon: string;
+//   /** ID of the page linked to the item */
+//   pointsTo?: {
+//     pageId: string;
+//   };
+//   /** The list of sub-items it contains **/
+//   items?: ContentAreaSidebarItemChild[];
+// }
 
-export type ContentPage = {
-  /** ID of ContentPage */
-  id: string;
+/**  The sidebar in the Content Area presents a number of user-defined menu-items. This object represents a new item to be added in the sidebar. */
+export type ContentAreaSidebarItem = {
+  /** Label to be shown. Must be unique. */
   label: string;
+  /** FontAwesome icon name to be shown alongside the label */
   icon: string;
-  location: 'top' | 'bottom';
-  parentPageId?: string;
+  /** ID of the page linked to the item */
+  pointsTo?: {
+    pageId: string;
+  };
+  /** Expresses where you want the item to be placed inside the sidebar. If not specified, the item will be placed after the standard items provided by DatoCMS itself. */
+  placement?: ['before' | 'after', 'menuItems' | 'settings'];
+  /** If different plugins specify the same placement for their sections, they will be displayed by ascending `rank`. If you want to specify an explicit value for `rank`, make sure to offer a way for final users to customize it inside the plugin's settings form, otherwise the hardcoded value you choose might clash with the one of another plugin! **/
   rank?: number;
+
+  // FUTURE
+
+  // /** The list of sub-items it contains **/
+  // items?: ContentAreaSidebarItemChild[];
 };
 
 export type FieldExtensionType = 'field_editor' | 'field_addon' | 'sidebar';

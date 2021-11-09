@@ -5,12 +5,11 @@ import {
   RenderManualFieldExtensionParametersFormMethods,
   RenderSidebarPaneMethods,
   RenderModalMethods,
-  SettingsPage,
-  SettingsPageSection,
-  ContentPage,
+  SettingsAreaSidebarItemGroup,
+  ContentAreaSidebarItem,
   FieldExtension,
   FieldExtensionOverride,
-  MainNavigationPage,
+  MainNavigationTab,
   SidebarPane,
   RenderFieldExtensionMethods,
   RenderPageMethods,
@@ -54,10 +53,9 @@ export type RenderPluginParametersFormCtx = RenderPluginParametersFormMetaAndMet
   SizingUtilities;
 
 type FullPluginParameters = {
-  mainNavigationPages: (ctx: InitCtx) => MainNavigationPage[];
-  settingsPageSections: (ctx: InitCtx) => SettingsPageSection[];
-  settingsPages: (ctx: InitCtx) => SettingsPage[];
-  contentPages: (ctx: InitCtx) => ContentPage[];
+  mainNavigationTabs: (ctx: InitCtx) => MainNavigationTab[];
+  settingsAreaSidebarItemGroups: (ctx: InitCtx) => SettingsAreaSidebarItemGroup[];
+  contentAreaSidebarItems: (ctx: InitCtx) => ContentAreaSidebarItem[];
   manualFieldExtensions: (ctx: InitCtx) => FieldExtension[];
   itemTypeSidebarPanes: (itemType: ModelBlock, ctx: InitCtx) => SidebarPane[];
   overrideFieldExtensions: (field: Field, ctx: FieldInitCtx) => FieldExtensionOverride | void;
@@ -162,10 +160,9 @@ const buildRenderUtils = (parent: { setHeight: (number: number) => void }) => {
 
 export async function connect(configuration: Partial<FullPluginParameters> = {}): Promise<void> {
   const {
-    mainNavigationPages,
-    settingsPageSections,
-    settingsPages,
-    contentPages,
+    mainNavigationTabs,
+    settingsAreaSidebarItemGroups,
+    contentAreaSidebarItems,
     manualFieldExtensions,
     itemTypeSidebarPanes,
   } = configuration;
@@ -176,10 +173,9 @@ export async function connect(configuration: Partial<FullPluginParameters> = {})
   const penpalConnection = connectToParent({
     methods: {
       sdkVersion: () => '0.2.0',
-      mainNavigationPages,
-      settingsPageSections,
-      settingsPages,
-      contentPages,
+      mainNavigationTabs,
+      settingsAreaSidebarItemGroups,
+      contentAreaSidebarItems,
       manualFieldExtensions,
       itemTypeSidebarPanes,
       overrideFieldExtensions: toMultifield(configuration.overrideFieldExtensions),
