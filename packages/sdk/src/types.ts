@@ -148,11 +148,12 @@ export type Modal = {
 export type Toast<CtaValue = unknown> = {
   message: string;
   type: 'notice' | 'alert' | 'warning';
-  autoClose: number | boolean;
   cta?: {
     label: string;
     value: CtaValue;
   };
+  dismissOnPageChange: boolean;
+  dismissAfterTimeout: boolean | number;
 };
 
 export type ConfirmChoice = {
