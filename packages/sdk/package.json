@@ -8,7 +8,7 @@
     "sdk"
   ],
   "author": "Stefano Verna <s.verna@datocms.com>",
-  "homepage": "https://github.com/datocms/plugins-sdk/tree/master/packages/datocms-structured-text-utils#readme",
+  "homepage": "https://github.com/datocms/plugins-sdk/tree/master/packages/datocms-plugins-sdk#readme",
   "license": "MIT",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -26,18 +26,18 @@
     "url": "git+https://github.com/datocms/plugins-sdk.git"
   },
   "scripts": {
-    "build": "tsc && tsc --project ./tsconfig.esnext.json",
+    "build": "tsc && tsc --project ./tsconfig.esnext.json && npm run generate-docs",
+    "generate-docs": "typedoc src/index.ts --json docs.json",
     "prebuild": "rimraf dist"
   },
   "bugs": {
     "url": "https://github.com/datocms/plugins-sdk/issues"
   },
-  "devDependencies": {
-    "@types/lodash-es": "^4.17.0"
-  },
   "dependencies": {
-    "lodash-es": "^4.17.11",
     "penpal": "^4.1.1"
+  },
+  "devDependencies": {
+    "typedoc": "^0.22.8"
   },
   "gitHead": "034a79ceab7b58e996d77220e74af7382d699eb6"
 }

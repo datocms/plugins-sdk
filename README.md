@@ -6,7 +6,7 @@ Monorepo with Typescript libraries for handling and rendering [DatoCMS Structure
 
 <br /><br />
 <a href="https://www.datocms.com/">
-  <img src="https://www.datocms.com/images/full_logo.svg" height="60">
+<img src="https://www.datocms.com/images/full_logo.svg" height="60">
 </a>
 <br /><br />
 
@@ -16,7 +16,7 @@ Monorepo with Typescript libraries for handling and rendering [DatoCMS Structure
 
 - [`html-to-structured-text`](https://github.com/datocms/plugins-sdk/tree/master/packages/html-to-structured-text)
   - Convert HTML (or [Hast](https://github.com/syntax-tree/hast) syntax tree) to a valid Structured Text document.
-- [`datocms-structured-text-utils`](https://github.com/datocms/plugins-sdk/tree/master/packages/utils)
+- [`datocms-plugins-sdk`](https://github.com/datocms/plugins-sdk/tree/master/packages/utils)
   - A set of Typescript types and helpers to work with DatoCMS Structured Text fields.
 - [`datocms-structured-text-to-plain-text`](https://github.com/datocms/plugins-sdk/tree/master/packages/to-plain-text)
   - Plain text renderer for the Structured Text document.

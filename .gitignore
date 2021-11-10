@@ -1,5 +1,7 @@
 yarn.lock
 
+**/docs
+
 # Logs
 **/logs
 **/*.log
