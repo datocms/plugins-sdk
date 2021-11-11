@@ -59,191 +59,75 @@ export type RenderPluginParametersFormCtx = RenderPluginParametersFormProperties
 export type FullConnectParameters = {
   /**
    * Use this function to declare new tabs you want to add in the top-bar of the UI
-   *
-   * @example
-   * import { connect } from 'datocms-plugins-sdk';
-   *
-   * connect({
-   *   mainNavigationTabs(ctx: InitCtx) {
-   *     return [
-   *       {
-   *         label: 'Analytics',
-   *         icon: 'analytics',
-   *         placement: ['before', 'content'],
-   *         pointsTo: {
-   *           pageId: 'analytics',
-   *         },
-   *       },
-   *     ];
-   *   },
-   * });
+   * @group pages
    **/
   mainNavigationTabs: (ctx: InitCtx) => MainNavigationTab[];
   /**
    * Use this function to declare new navigation sections in the Settings Area sidebar
-   *
-   * @example
-   * import { connect } from 'datocms-plugins-sdk';
-   *
-   * connect({
-   *   settingsAreaSidebarItemGroups(ctx: InitCtx) {
-   *     return [
-   *       {
-   *         label: 'Analytics',
-   *         items: [
-   *           {
-   *             label: 'Help',
-   *             icon: 'life-ring',
-   *             pointsTo: {
-   *               pageId: 'help',
-   *             },
-   *           },
-   *         ],
-   *       },
-   *     ];
-   *   },
-   * });
+   * @group pages
    **/
   settingsAreaSidebarItemGroups: (ctx: InitCtx) => SettingsAreaSidebarItemGroup[];
   /**
    * Use this function to declare new navigation items in the Content Area sidebar
-   *
-   * @example
-   * import { connect } from 'datocms-plugins-sdk';
-   *
-   * connect({
-   *   contentAreaSidebarItems(ctx: InitCtx) {
-   *     return [
-   *       {
-   *         label: 'Welcome!',
-   *         icon: 'igloo',
-   *         placement: ['before', 'menuItems'],
-   *         pointsTo: {
-   *           pageId: 'welcome',
-   *         },
-   *       },
-   *     ];
-   *   },
-   * });
-   *
+   * @group pages
    **/
   contentAreaSidebarItems: (ctx: InitCtx) => ContentAreaSidebarItem[];
   /**
    * Use this function to declare new field extensions that users will be able to install manually in some field
-   *
-   * @example
-   * import { connect } from 'datocms-plugins-sdk';
-   *
-   * connect({
-   *   manualFieldExtensions(ctx) {
-   *     return [
-   *       {
-   *         id: 'shopify',
-   *         name: 'Shopify product finder',
-   *         type: 'field_editor',
-   *         fieldTypes: ['string'],
-   *         configurable: true,
-   *       },
-   *       {
-   *         id: 'lorem',
-   *         name: 'Lorem Ipsum generator',
-   *         type: 'field_addon',
-   *         fieldTypes: ['string'],
-   *         configurable: false,
-   *       },
-   *     ];
-   *   },
-   * });
+   * @group manualFieldExtensions
    **/
   manualFieldExtensions: (ctx: InitCtx) => FieldExtension[];
   /**
    * Use this function to declare new sidebar panes to be shown when the user edits records of a particular model
-   *
-   * @example
-   * import { connect } from 'datocms-plugins-sdk';
-   *
-   * connect({
-   *   itemTypeSidebarPanes(model: ModelBlock, ctx: InitCtx) {
-   *     return [
-   *       {
-   *         id: 'preview',
-   *         label: 'Preview',
-   *         parameters: { foo: 'bar' },
-   *       },
-   *     ];
-   *   },
-   * });
+   * @group sidebarPanes
    **/
   itemTypeSidebarPanes: (itemType: ModelBlock, ctx: InitCtx) => SidebarPane[];
   /**
    * Use this function to automatically force one or more field extensions to a particular field
-   *
-   * @example
-   * import { connect } from 'datocms-plugins-sdk';
-   *
-   * connect({
-   *   overrideFieldExtensions(field, { itemType }) {
-   *     if (
-   *       field.attributes.field_type !== 'string' ||
-   *       field.attributes.api_key !== 'title'
-   *     ) {
-   *       return undefined;
-   *     }
-   *
-   *     return {
-   *       editor: {
-   *         id: 'titleFieldEditor',
-   *         type: 'field_editor',
-   *         parameters: { foo: 'bar' },
-   *       },
-   *       addons: [
-   *         {
-   *           id: 'titleAddon',
-   *           parameters: { foo: 'bar' },
-   *         },
-   *       ],
-   *     };
-   *   },
-   * });
+   * @group forcedFieldExtensions
    **/
   overrideFieldExtensions: (field: Field, ctx: FieldInitCtx) => FieldExtensionOverride | void;
   /**
+   * This function will be called when the plugin needs to render the plugin's configuration form
+   * @group plugin
+   **/
+  renderPluginParametersForm: (ctx: RenderPluginParametersFormCtx) => void;
+  /**
+   * This function will be called when the plugin needs to render a specific page (see the `mainNavigationTabs`, `settingsAreaSidebarItemGroups` and `contentAreaSidebarItems` functions)
+   * @group pages
+   **/
+  renderPage: (pageId: string, ctx: RenderPageCtx) => void;
+  /**
+   * This function will be called when the plugin requested to open a modal (see the `openModal` function)
+   * @group modals
+   **/
+  renderModal: (modalId: string, ctx: RenderModalCtx) => void;
+  /**
+   * This function will be called when the plugin needs to render a sidebar panel (see the `itemTypeSidebarPanes` function)
+   * @group sidebarPanes
+   **/
+  renderSidebarPane: (sidebarPaneId: string, ctx: RenderSidebarPaneCtx) => void;
+  /**
+   * This function will be called when the plugin needs to render a field extension (see the `manualFieldExtensions` and `overrideFieldExtensions` functions)
+   * @group manualFieldExtensions, forcedFieldExtensions
+   **/
+  renderFieldExtension: (fieldExtensionId: string, ctx: RenderFieldExtensionCtx) => void;
+  /**
+   * This function will be called when the plugin needs to render the configuration form for installing a field extension inside a particular field
+   * @group manualFieldExtensions
+   **/
+  renderManualFieldExtensionParametersForm: (
+    fieldExtensionId: string,
+    ctx: RenderManualFieldExtensionParametersFormCtx,
+  ) => void;
+  /**
    * This function will be called each time the configuration object changes. It must return an object containing possible validation errors
-   *
-   * @example
-   * import { connect } from 'datocms-plugins-sdk';
-   *
-   * connect({
-   *   async validateManualFieldExtensionParameters(fieldExtension, parameters) {
-   *     const errors: Record<string, string> = {};
-   *
-   *     if (!parameters.someRequiredParameter) {
-   *       errors.someRequiredParameter = 'required';
-   *     }
-   *
-   *     return errors;
-   *   },
-   * });
+   * @group manualFieldExtensions
    **/
   validateManualFieldExtensionParameters: (
     fieldExtensionId: string,
     parameters: Record<string, unknown>,
   ) => Record<string, unknown> | Promise<Record<string, unknown>>;
-  /** This function will be called when the plugin needs to render the plugin's configuration form */
-  renderPluginParametersForm: (ctx: RenderPluginParametersFormCtx) => void;
-  /** This function will be called when the plugin needs to render a specific page (see the `mainNavigationTabs`, `settingsAreaSidebarItemGroups` and `contentAreaSidebarItems` functions) */
-  renderPage: (pageId: string, ctx: RenderPageCtx) => void;
-  /** This function will be called when the plugin requested to open a modal (see the `openModal` function) */
-  renderModal: (modalId: string, ctx: RenderModalCtx) => void;
-  /** This function will be called when the plugin needs to render a sidebar panel (see the `itemTypeSidebarPanes` function) */
-  renderSidebarPane: (sidebarPaneId: string, ctx: RenderSidebarPaneCtx) => void;
-  /** This function will be called when the plugin needs to render a field extension (see the `manualFieldExtensions` and `overrideFieldExtensions` functions) */
-  renderFieldExtension: (fieldExtensionId: string, ctx: RenderFieldExtensionCtx) => void;
-  /** This function will be called when the plugin needs to render the configuration form for installing a field extension inside a particular field */
-  renderManualFieldExtensionParametersForm: (
-    fieldExtensionId: string,
-    ctx: RenderManualFieldExtensionParametersFormCtx,
-  ) => void;
 };
 
 function toMultifield<Result>(fn: ((field: Field, ctx: FieldInitCtx) => Result) | undefined) {
