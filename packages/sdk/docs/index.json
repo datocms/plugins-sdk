@@ -1,39 +1,39 @@
 {
   "pages": [
     {
-      "title": "Plugin configuration",
-      "slug": "configuration",
-      "content": "configuration.md",
+      "title": "Managing settings",
+      "slug": "settings",
+      "content": "settings.md",
       "hooksGroup": "plugin"
     },
     {
-      "title": "Adding pages",
-      "slug": "adding-pages",
-      "content": "adding-pages.md",
+      "title": "Custom pages",
+      "slug": "custom-pages",
+      "content": "pages.md",
       "hooksGroup": "pages"
     },
     {
-      "title": "Adding record sidebar panes",
-      "slug": "adding-sidebar-panes",
-      "content": "adding-sidebar-panes.md",
+      "title": "Record sidebar panes",
+      "slug": "sidebar-panes",
+      "content": "sidebarPanes.md",
       "hooksGroup": "sidebarPanes"
     },
     {
       "title": "Manual field extensions",
       "slug": "manual-field-extensions",
-      "content": "manual-field-extensions.md",
+      "content": "manualFieldExtensions.md",
       "hooksGroup": "manualFieldExtensions"
     },
     {
       "title": "Forcing field extensions",
-      "slug": "forcing-field-extensions",
-      "content": "forcing-field-extensions.md",
+      "slug": "forced-field-extensions",
+      "content": "forcedFieldExtensions.md",
       "hooksGroup": "forcedFieldExtensions"
     },
     {
       "title": "Opening modals",
-      "slug": "opening-modals",
-      "content": "opening-modals.md",
+      "slug": "modals",
+      "content": "modals.md",
       "hooksGroup": "modals"
     }
   ]
