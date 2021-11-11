@@ -19,7 +19,7 @@ import {
 //   /** FontAwesome icon name to be shown alongside the label */
 //   icon: string;
 //   /** ID of the page linked to the tab */
-//   pointsTo?: {
+//   pointsTo: {
 //     pageId: string;
 //   };
 // }
@@ -31,7 +31,7 @@ export type MainNavigationTab = {
   /** FontAwesome icon name to be shown alongside the label */
   icon: string;
   /** ID of the page linked to the tab */
-  pointsTo?: {
+  pointsTo: {
     pageId: string;
   };
   /** Expresses where you want to place the tab in the top-bar. If not specified, the tab will be placed after the standard tabs provided by DatoCMS itself. */
@@ -52,7 +52,7 @@ export type SettingsAreaSidebarItem = {
   /** FontAwesome icon name to be shown alongside the label */
   icon: string;
   /** ID of the page linked to the item */
-  pointsTo?: {
+  pointsTo: {
     pageId: string;
   };
 };
@@ -87,7 +87,7 @@ export type SettingsAreaSidebarItemGroup = {
 //   /** FontAwesome icon name to be shown alongside the label */
 //   icon: string;
 //   /** ID of the page linked to the item */
-//   pointsTo?: {
+//   pointsTo: {
 //     pageId: string;
 //   };
 //   /** The list of sub-items it contains **/
@@ -101,7 +101,7 @@ export type ContentAreaSidebarItem = {
   /** FontAwesome icon name to be shown alongside the label */
   icon: string;
   /** ID of the page linked to the item */
-  pointsTo?: {
+  pointsTo: {
     pageId: string;
   };
   /** Expresses where you want the item to be placed inside the sidebar. If not specified, the item will be placed after the standard items provided by DatoCMS itself. */
@@ -291,7 +291,8 @@ export type ConfirmOptions = {
   cancel: ConfirmChoice;
 };
 
-export type CommonMeta = {
+/** Generic properties available in all the hooks */
+export type CommonProperties = {
   /** The current DatoCMS project */
   site: Site;
   /** The ID of the current environment */
@@ -313,19 +314,20 @@ export type CommonMeta = {
   };
 };
 
-export type InitMetaAdditions = {
+export type InitAdditionalProperties = {
   mode: 'init';
 };
 
-export type InitMeta = CommonMeta & InitMetaAdditions;
+export type InitProperties = CommonProperties & InitAdditionalProperties;
 
 export type InitMethods = {
-  getSettings(): Promise<InitMeta>;
+  getSettings(): Promise<InitProperties>;
 };
 
-export type InitMetaAndMethods = InitMethods & InitMeta;
+export type InitPropertiesAndMethods = InitMethods & InitProperties;
 
-export type CommonRenderMetaAdditions = {
+/** Additional properties available in all `renderXXX` hooks */
+export type RenderAdditionalProperties = {
   /** All the fields currently loaded for the current DatoCMS project, indexed by ID. It will always contain the current model fields and all the fields of the blocks it might contain via Modular Content/Structured Text fields. If some fields you need are not present, use the `loadItemTypeFields` function to load them. */
   fields: Partial<Record<string, Field>>;
   /** An object containing the theme colors for the current DatoCMS project */
@@ -338,13 +340,10 @@ export type CommonRenderMetaAdditions = {
   account: Account;
 };
 
-export type CommonRenderMeta = CommonMeta & CommonRenderMetaAdditions;
+export type RenderProperties = CommonProperties & RenderAdditionalProperties;
 
-export type CommonRenderMethods = {
-  /** Sets the height for the iframe */
-  setHeight(number: number): void;
-  /** Moves the user to another URL internal to the backend */
-  navigateTo(path: string): void;
+/** These methods asyncronously load required additional information */
+export type LoadDataMethods = {
   /** Loads all the fields for a specific model (or block). Fields will be returned and will also be available in the the `fields` property. */
   loadItemTypeFields(itemTypeId: string): Promise<Field[]>;
   /** Loads all regular users. Users will be returned and will also be available in the the `users` property. */
@@ -352,6 +351,10 @@ export type CommonRenderMethods = {
   /** Loads all SSO users. Users will be returned and will also be available in the the `ssoUsers` property. */
   loadSsoUsers(): Promise<SsoUser[]>;
   /** Opens a dialog for creating a new record. It returns a promise resolved with the newly created record or `null` if the user closes the dialog without creating anything. */
+};
+
+/** These methods let you open the standard DatoCMS dialogs needed to interact with records */
+export type ItemDialogMethods = {
   createNewItem(itemTypeId: string): Promise<Item | null>;
   /** Opens a dialog for selecting multiple records from a list of existing records of type `itemTypeId`. It returns a promise resolved with an array of selected records, or `null` if the user closes the dialog without choosing any record. */
   selectItem(
@@ -369,12 +372,20 @@ export type CommonRenderMethods = {
   ): Promise<Item | null>;
   /** Opens a dialog for editing an existing record. It returns a promise resolved with the edited record, or `null` if the user closes the dialog without persisting any change. */
   editItem(itemId: string): Promise<Item | null>;
-  /** Triggers a UI-consistent alert toast displaying the selected message */
+};
+
+/** These methods can be used to show UI-consistent toast notifications to the end-user */
+export type ToastMethods = {
+  /** Triggers an "error" toast displaying the selected message */
   alert(message: string): void;
-  /** Triggers a UI-consistent notice toast displaying the selected message */
+  /** Triggers a "success" toast displaying the selected message */
   notice(message: string): void;
-  /** Triggers a UI-consistent custom toast displaying the selected message (and a CTA) */
+  /** Triggers a custom toast displaying the selected message (and optionally a CTA) */
   customToast<CtaValue = unknown>(toast: Toast<CtaValue>): Promise<CtaValue | null>;
+};
+
+/** These methods let you open the standard DatoCMS dialogs needed to interact with Media Area assets */
+export type UploadDialogMethods = {
   /** Opens a dialog for selecting multiple existing assets. It returns a promise resolved with an array of selected assets, or `null` if the user closes the dialog without selecting any upload. */
   selectUpload(options: { multiple: true }): Promise<Upload[] | null>;
   /** Opens a dialog for selecting an existing asset. It returns a promise resolved with the selected asset, or `null` if the user closes the dialog without selecting any upload. */
@@ -393,13 +404,38 @@ export type CommonRenderMethods = {
     /** Shows metadata information for a specific locale */
     locale?: string,
   ): Promise<FileFieldValue | null>;
+};
+
+/** These methods can be used to open custom dialogs/confirmation panels */
+export type CustomDialogMethods = {
   /** Opens a custom modal. Returns a promise resolved with what the modal itself returns calling the `resolve()` function */
   openModal(modal: Modal): Promise<unknown>;
   /** Opens a UI-consistent confirmation dialog. Returns a promise resolved with the value of the choice made by the user */
   openConfirm(options: ConfirmOptions): Promise<unknown>;
 };
 
-export type CommonRenderItemFormMetaAdditions = {
+/** These methods can be used to take the user to different pages */
+export type NavigateMethods = {
+  /** Moves the user to another URL internal to the backend */
+  navigateTo(path: string): void;
+};
+
+/** These methods can be used to set various properties of the containing iframe */
+export type IframeMethods = {
+  /** Sets the height for the iframe */
+  setHeight(number: number): void;
+};
+
+export type RenderMethods = LoadDataMethods &
+  ItemDialogMethods &
+  ToastMethods &
+  UploadDialogMethods &
+  CustomDialogMethods &
+  NavigateMethods &
+  IframeMethods;
+
+/** These information describe the current state of the form that's being shown to the end-user to edit a record */
+export type ItemFormAdditionalProperties = {
   /** The currently active locale for the record */
   locale: string;
   /** If an already persisted record is being edited, returns the full record entity */
@@ -416,9 +452,10 @@ export type CommonRenderItemFormMetaAdditions = {
   isFormDirty: boolean;
 };
 
-export type CommonRenderItemFormMeta = CommonRenderMeta & CommonRenderItemFormMetaAdditions;
+export type ItemFormProperties = RenderProperties & ItemFormAdditionalProperties;
 
-export type CommonRenderItemFormMethodsAdditions = {
+/** These methods can be used to interact with the form that's being shown to the end-user to edit a record */
+export type ItemFormAdditionalMethods = {
   /** Hides/shows a specific field in the form */
   toggleField(path: string, show: boolean): void;
   /** Disables/re-enables a specific field in the form */
@@ -431,10 +468,10 @@ export type CommonRenderItemFormMethodsAdditions = {
   saveCurrentItem(): Promise<void>;
 };
 
-export type CommonRenderItemFormMethods = CommonRenderMethods &
-  CommonRenderItemFormMethodsAdditions;
+export type ItemFormMethods = RenderMethods & ItemFormAdditionalMethods;
 
-export type RenderSidebarPaneMetaAdditions = {
+/** Information regarding the specific sidebar panel that you need to render */
+export type RenderSidebarPaneAdditionalProperties = {
   mode: 'renderSidebarPane';
   /** The ID of the sidebar pane that needs to be rendered */
   sidebarPaneId: string;
@@ -442,18 +479,19 @@ export type RenderSidebarPaneMetaAdditions = {
   parameters: Record<string, unknown>;
 };
 
-export type RenderSidebarPaneMeta = CommonRenderItemFormMeta & RenderSidebarPaneMetaAdditions;
+export type RenderSidebarPaneMeta = ItemFormProperties & RenderSidebarPaneAdditionalProperties;
 
-export type RenderSidebarPaneMethodsAdditions = {
+export type RenderSidebarPaneAdditionalMethods = {
   getSettings(): Promise<RenderSidebarPaneMeta>;
 };
 
-export type RenderSidebarPaneMethods = CommonRenderItemFormMethods &
-  RenderSidebarPaneMethodsAdditions;
+export type RenderSidebarPaneMethods = ItemFormMethods & RenderSidebarPaneAdditionalMethods;
 
-export type RenderSidebarPaneMetaAndMethods = RenderSidebarPaneMethods & RenderSidebarPaneMeta;
+export type RenderSidebarPanePropertiesAndMethods = RenderSidebarPaneMethods &
+  RenderSidebarPaneMeta;
 
-export type RenderFieldExtensionMetaAdditions = {
+/** Information regarding the state of a specific field where you need to render the field extension */
+export type RenderFieldExtensionAdditionalProperties = {
   mode: 'renderFieldExtension';
   /** The ID of the field extension that needs to be rendered */
   fieldExtensionId: string;
@@ -471,19 +509,20 @@ export type RenderFieldExtensionMetaAdditions = {
   parentField: Field | undefined;
 };
 
-export type RenderFieldExtensionMeta = CommonRenderItemFormMeta & RenderFieldExtensionMetaAdditions;
+export type RenderFieldExtensionMeta = ItemFormProperties &
+  RenderFieldExtensionAdditionalProperties;
 
-export type RenderFieldExtensionMethodsAdditions = {
+export type RenderFieldExtensionAdditionalMethods = {
   getSettings(): Promise<RenderFieldExtensionMeta>;
 };
 
-export type RenderFieldExtensionMethods = CommonRenderItemFormMethods &
-  RenderFieldExtensionMethodsAdditions;
+export type RenderFieldExtensionMethods = ItemFormMethods & RenderFieldExtensionAdditionalMethods;
 
-export type RenderFieldExtensionMetaAndMethods = RenderFieldExtensionMethods &
+export type RenderFieldExtensionPropertiesAndMethods = RenderFieldExtensionMethods &
   RenderFieldExtensionMeta;
 
-export type RenderModalMetaAdditions = {
+/** Information regarding the specific custom modal that you need to render */
+export type RenderModalAdditionalProperties = {
   mode: 'renderModal';
   /** The ID of the modal that needs to be rendered */
   modalId: string;
@@ -491,35 +530,38 @@ export type RenderModalMetaAdditions = {
   parameters: Record<string, unknown>;
 };
 
-export type RenderModalMeta = CommonRenderMeta & RenderModalMetaAdditions;
+export type RenderModalMeta = RenderProperties & RenderModalAdditionalProperties;
 
-export type RenderModalMethodsAdditions = {
+/** These methods can be used to close the modal */
+export type RenderModalAdditionalMethods = {
   getSettings(): Promise<RenderModalMeta>;
   /** A function to be called by the plugin to close the modal. The `openModal` call will be resolved with the passed return value */
   resolve(returnValue: unknown): void;
 };
 
-export type RenderModalMethods = CommonRenderMethods & RenderModalMethodsAdditions;
+export type RenderModalMethods = RenderMethods & RenderModalAdditionalMethods;
 
-export type RenderModalMetaAndMethods = RenderModalMethods & RenderModalMeta;
+export type RenderModalPropertiesAndMethods = RenderModalMethods & RenderModalMeta;
 
-export type RenderPageMetaAdditions = {
+/** Information regarding the specific page that you need to render */
+export type RenderPageAdditionalProperties = {
   mode: 'renderPage';
   /** The ID of the page that needs to be rendered */
   pageId: string;
 };
 
-export type RenderPageMeta = CommonRenderMeta & RenderPageMetaAdditions;
+export type RenderPageMeta = RenderProperties & RenderPageAdditionalProperties;
 
-export type RenderPageMethodsAdditions = {
+export type RenderPageAdditionalMethods = {
   getSettings(): Promise<RenderPageMeta>;
 };
 
-export type RenderPageMethods = CommonRenderMethods & RenderPageMethodsAdditions;
+export type RenderPageMethods = RenderMethods & RenderPageAdditionalMethods;
 
-export type RenderPageMetaAndMethods = RenderPageMethods & RenderPageMeta;
+export type RenderPagePropertiesAndMethods = RenderPageMethods & RenderPageMeta;
 
-export type RenderManualFieldExtensionParametersFormMetaAdditions = {
+/** Information regarding the specific form that you need to render to let the end-user edit the configuration object of a field extension */
+export type RenderManualFieldExtensionParametersFormAdditionalProperties = {
   mode: 'renderManualFieldExtensionParametersForm';
   /** The ID of the field extension for which we need to render the parameters form */
   fieldExtensionId: string;
@@ -529,44 +571,47 @@ export type RenderManualFieldExtensionParametersFormMetaAdditions = {
   errors: Record<string, unknown>;
 };
 
-export type RenderManualFieldExtensionParametersFormMeta = CommonRenderMeta &
-  RenderManualFieldExtensionParametersFormMetaAdditions;
+export type RenderManualFieldExtensionParametersFormMeta = RenderProperties &
+  RenderManualFieldExtensionParametersFormAdditionalProperties;
 
-export type RenderManualFieldExtensionParametersFormMethodsAdditions = {
+/** These methods can be used to update the configuration object of a specific field extension */
+export type RenderManualFieldExtensionParametersFormAdditionalMethods = {
   getSettings(): Promise<RenderManualFieldExtensionParametersFormMeta>;
   /** Sets a new value for the parameters */
   setParameters(params: Record<string, unknown>): Promise<void>;
 };
 
-export type RenderManualFieldExtensionParametersFormMethods = CommonRenderMethods &
-  RenderManualFieldExtensionParametersFormMethodsAdditions;
+export type RenderManualFieldExtensionParametersFormMethods = RenderMethods &
+  RenderManualFieldExtensionParametersFormAdditionalMethods;
 
-export type RenderManualFieldExtensionParametersFormMetaAndMethods = RenderManualFieldExtensionParametersFormMethods &
+export type RenderManualFieldExtensionParametersFormPropertiesAndMethods = RenderManualFieldExtensionParametersFormMethods &
   RenderManualFieldExtensionParametersFormMeta;
 
-export type RenderPluginParametersFormMetaAdditions = {
+export type RenderPluginParametersFormAdditionalProperties = {
   mode: 'renderPluginParametersForm';
 };
 
-export type RenderPluginParametersFormMeta = CommonRenderMeta &
-  RenderPluginParametersFormMetaAdditions;
+export type RenderPluginParametersFormMeta = RenderProperties &
+  RenderPluginParametersFormAdditionalProperties;
 
-export type RenderPluginParametersFormMethodsAdditions = {
+/** These methods can be used to update the configuration object of your plugin */
+export type RenderPluginParametersFormAdditionalMethods = {
   getSettings(): Promise<RenderPluginParametersFormMeta>;
   /** A function to be called by the plugin to persist some changes to the parameters of the plugin */
   save(params: Record<string, unknown>): Promise<void>;
 };
 
-export type RenderPluginParametersFormMethods = CommonRenderMethods &
-  RenderPluginParametersFormMethodsAdditions;
+export type RenderPluginParametersFormMethods = RenderMethods &
+  RenderPluginParametersFormAdditionalMethods;
 
-export type RenderPluginParametersFormMetaAndMethods = RenderPluginParametersFormMethods &
+export type RenderPluginParametersFormPropertiesAndMethods = RenderPluginParametersFormMethods &
   RenderPluginParametersFormMeta;
 
-export type FieldSetupMetaAdditions = {
+/** Information regarding the field you need to configure */
+export type FieldSetupAdditionalProperties = {
   mode: 'init';
   /** The model/block model for the field */
   itemType: ModelBlock;
 };
 
-export type FieldSetupMeta = InitMeta & FieldSetupMetaAdditions;
+export type FieldSetupMeta = InitProperties & FieldSetupAdditionalProperties;

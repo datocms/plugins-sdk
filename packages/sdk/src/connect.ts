@@ -13,13 +13,13 @@ import {
   SidebarPane,
   RenderFieldExtensionMethods,
   RenderPageMethods,
-  RenderPluginParametersFormMetaAndMethods,
-  RenderManualFieldExtensionParametersFormMetaAndMethods,
-  RenderFieldExtensionMetaAndMethods,
-  RenderModalMetaAndMethods,
-  RenderPageMetaAndMethods,
-  RenderSidebarPaneMetaAndMethods,
-  InitMetaAndMethods,
+  RenderPluginParametersFormPropertiesAndMethods,
+  RenderManualFieldExtensionParametersFormPropertiesAndMethods,
+  RenderFieldExtensionPropertiesAndMethods,
+  RenderModalPropertiesAndMethods,
+  RenderPagePropertiesAndMethods,
+  RenderSidebarPanePropertiesAndMethods,
+  InitPropertiesAndMethods,
 } from './types';
 
 import {
@@ -34,25 +34,25 @@ import {
 } from './guards';
 
 export type SizingUtilities = {
-  /* Listens for DOM changes and automatically calls `setHeight` when it detects a change */
+  /** Listens for DOM changes and automatically calls `setHeight` when it detects a change */
   startAutoResizer: () => void;
-  /* Stops resizing the iframe automatically */
+  /** Stops resizing the iframe automatically */
   stopAutoResizer: () => void;
-  /* Triggers a change in the size of the iframe. If you don't explicitely pass a `newHeight` it will be automatically calculated using the iframe content at the moment */
+  /** Triggers a change in the size of the iframe. If you don't explicitely pass a `newHeight` it will be automatically calculated using the iframe content at the moment */
   updateHeight: (newHeight?: number) => void;
 };
 
 export type { Field, ModelBlock };
 
-export type InitCtx = InitMetaAndMethods;
-export type FieldInitCtx = InitMetaAndMethods & { itemType: ModelBlock };
-export type RenderPageCtx = RenderPageMetaAndMethods;
-export type RenderModalCtx = RenderModalMetaAndMethods & SizingUtilities;
-export type RenderSidebarPaneCtx = RenderSidebarPaneMetaAndMethods & SizingUtilities;
-export type RenderFieldExtensionCtx = RenderFieldExtensionMetaAndMethods & SizingUtilities;
-export type RenderManualFieldExtensionParametersFormCtx = RenderManualFieldExtensionParametersFormMetaAndMethods &
+export type InitCtx = InitPropertiesAndMethods;
+export type FieldInitCtx = InitPropertiesAndMethods & { itemType: ModelBlock };
+export type RenderPageCtx = RenderPagePropertiesAndMethods;
+export type RenderModalCtx = RenderModalPropertiesAndMethods & SizingUtilities;
+export type RenderSidebarPaneCtx = RenderSidebarPanePropertiesAndMethods & SizingUtilities;
+export type RenderFieldExtensionCtx = RenderFieldExtensionPropertiesAndMethods & SizingUtilities;
+export type RenderManualFieldExtensionParametersFormCtx = RenderManualFieldExtensionParametersFormPropertiesAndMethods &
   SizingUtilities;
-export type RenderPluginParametersFormCtx = RenderPluginParametersFormMetaAndMethods &
+export type RenderPluginParametersFormCtx = RenderPluginParametersFormPropertiesAndMethods &
   SizingUtilities;
 
 /** The full options you can pass to the `connect` function */
@@ -61,6 +61,8 @@ export type FullConnectParameters = {
    * Use this function to declare new tabs you want to add in the top-bar of the UI
    *
    * @example
+   * import { connect } from 'datocms-plugins-sdk';
+   *
    * connect({
    *   mainNavigationTabs(ctx: InitCtx) {
    *     return [
@@ -81,6 +83,8 @@ export type FullConnectParameters = {
    * Use this function to declare new navigation sections in the Settings Area sidebar
    *
    * @example
+   * import { connect } from 'datocms-plugins-sdk';
+   *
    * connect({
    *   settingsAreaSidebarItemGroups(ctx: InitCtx) {
    *     return [
@@ -111,7 +115,6 @@ export type FullConnectParameters = {
    *   contentAreaSidebarItems(ctx: InitCtx) {
    *     return [
    *       {
-   *         id: 'welcome',
    *         label: 'Welcome!',
    *         icon: 'igloo',
    *         placement: ['before', 'menuItems'],
@@ -244,7 +247,7 @@ export type FullConnectParameters = {
 };
 
 function toMultifield<Result>(fn: ((field: Field, ctx: FieldInitCtx) => Result) | undefined) {
-  return (fields: Field[], ctx: InitMetaAndMethods): Record<string, Result> => {
+  return (fields: Field[], ctx: InitPropertiesAndMethods): Record<string, Result> => {
     if (!fn) {
       return {};
     }
