@@ -1,6 +1,6 @@
 yarn.lock
 
-packages/sdk/typedoc.json
+packages/sdk/types.json
 
 # Logs
 **/logs

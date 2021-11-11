@@ -20,7 +20,7 @@
   },
   "files": [
     "dist",
-    "typedoc.json"
+    "types.json"
   ],
   "repository": {
     "type": "git",
@@ -28,7 +28,7 @@
   },
   "scripts": {
     "build": "tsc && tsc --project ./tsconfig.esnext.json && npm run generate-typedoc",
-    "generate-typedoc": "rm -f typedoc.json && typedoc src/index.ts --json typedoc.json",
+    "generate-typedoc": "typedoc src/index.ts --json types.json",
     "prebuild": "rimraf dist"
   },
   "bugs": {
