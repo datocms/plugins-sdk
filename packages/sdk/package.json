@@ -19,7 +19,8 @@
     "test": "__tests__"
   },
   "files": [
-    "dist"
+    "dist",
+    "typedoc.json"
   ],
   "repository": {
     "type": "git",
