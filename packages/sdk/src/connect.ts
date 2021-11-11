@@ -33,7 +33,7 @@ import {
   Parent,
 } from './guards';
 
-type SizingUtilities = {
+export type SizingUtilities = {
   /* Listens for DOM changes and automatically calls `setHeight` when it detects a change */
   startAutoResizer: () => void;
   /* Stops resizing the iframe automatically */
