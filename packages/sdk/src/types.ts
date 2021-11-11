@@ -323,6 +323,8 @@ export type InitMethods = {
   getSettings(): Promise<InitMeta>;
 };
 
+export type InitMetaAndMethods = InitMethods & InitMeta;
+
 export type CommonRenderMetaAdditions = {
   /** All the fields currently loaded for the current DatoCMS project, indexed by ID. It will always contain the current model fields and all the fields of the blocks it might contain via Modular Content/Structured Text fields. If some fields you need are not present, use the `loadItemTypeFields` function to load them. */
   fields: Partial<Record<string, Field>>;
@@ -449,6 +451,8 @@ export type RenderSidebarPaneMethodsAdditions = {
 export type RenderSidebarPaneMethods = CommonRenderItemFormMethods &
   RenderSidebarPaneMethodsAdditions;
 
+export type RenderSidebarPaneMetaAndMethods = RenderSidebarPaneMethods & RenderSidebarPaneMeta;
+
 export type RenderFieldExtensionMetaAdditions = {
   mode: 'renderFieldExtension';
   /** The ID of the field extension that needs to be rendered */
@@ -476,6 +480,9 @@ export type RenderFieldExtensionMethodsAdditions = {
 export type RenderFieldExtensionMethods = CommonRenderItemFormMethods &
   RenderFieldExtensionMethodsAdditions;
 
+export type RenderFieldExtensionMetaAndMethods = RenderFieldExtensionMethods &
+  RenderFieldExtensionMeta;
+
 export type RenderModalMetaAdditions = {
   mode: 'renderModal';
   /** The ID of the modal that needs to be rendered */
@@ -494,6 +501,8 @@ export type RenderModalMethodsAdditions = {
 
 export type RenderModalMethods = CommonRenderMethods & RenderModalMethodsAdditions;
 
+export type RenderModalMetaAndMethods = RenderModalMethods & RenderModalMeta;
+
 export type RenderPageMetaAdditions = {
   mode: 'renderPage';
   /** The ID of the page that needs to be rendered */
@@ -507,6 +516,8 @@ export type RenderPageMethodsAdditions = {
 };
 
 export type RenderPageMethods = CommonRenderMethods & RenderPageMethodsAdditions;
+
+export type RenderPageMetaAndMethods = RenderPageMethods & RenderPageMeta;
 
 export type RenderManualFieldExtensionParametersFormMetaAdditions = {
   mode: 'renderManualFieldExtensionParametersForm';
@@ -530,6 +541,9 @@ export type RenderManualFieldExtensionParametersFormMethodsAdditions = {
 export type RenderManualFieldExtensionParametersFormMethods = CommonRenderMethods &
   RenderManualFieldExtensionParametersFormMethodsAdditions;
 
+export type RenderManualFieldExtensionParametersFormMetaAndMethods = RenderManualFieldExtensionParametersFormMethods &
+  RenderManualFieldExtensionParametersFormMeta;
+
 export type RenderPluginParametersFormMetaAdditions = {
   mode: 'renderPluginParametersForm';
 };
@@ -545,6 +559,9 @@ export type RenderPluginParametersFormMethodsAdditions = {
 
 export type RenderPluginParametersFormMethods = CommonRenderMethods &
   RenderPluginParametersFormMethodsAdditions;
+
+export type RenderPluginParametersFormMetaAndMethods = RenderPluginParametersFormMethods &
+  RenderPluginParametersFormMeta;
 
 export type FieldSetupMetaAdditions = {
   mode: 'init';

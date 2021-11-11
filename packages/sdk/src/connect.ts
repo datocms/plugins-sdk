@@ -13,10 +13,16 @@ import {
   SidebarPane,
   RenderFieldExtensionMethods,
   RenderPageMethods,
+  RenderPluginParametersFormMetaAndMethods,
+  RenderManualFieldExtensionParametersFormMetaAndMethods,
+  RenderFieldExtensionMetaAndMethods,
+  RenderModalMetaAndMethods,
+  RenderPageMetaAndMethods,
+  RenderSidebarPaneMetaAndMethods,
+  InitMetaAndMethods,
 } from './types';
 
 import {
-  InitMetaAndMethods,
   isInitParent,
   isRenderPluginParametersFormParent,
   isRenderManualFieldExtensionParametersFormParent,
@@ -25,13 +31,7 @@ import {
   isRenderPageParent,
   isRenderSidebarPaneParent,
   Parent,
-  RenderPluginParametersFormMetaAndMethods,
-  RenderManualFieldExtensionParametersFormMetaAndMethods,
-  RenderFieldExtensionMetaAndMethods,
-  RenderModalMetaAndMethods,
-  RenderPageMetaAndMethods,
-  RenderSidebarPaneMetaAndMethods,
-} from './parentTypes';
+} from './guards';
 
 type SizingUtilities = {
   /* Listens for DOM changes and automatically calls `setHeight` when it detects a change */

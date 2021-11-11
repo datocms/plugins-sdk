@@ -6,13 +6,6 @@ import {
   RenderManualFieldExtensionParametersFormMethods,
   RenderSidebarPaneMethods,
   RenderModalMethods,
-  InitMeta,
-  RenderPageMeta,
-  RenderPluginParametersFormMeta,
-  RenderModalMeta,
-  RenderSidebarPaneMeta,
-  RenderFieldExtensionMeta,
-  RenderManualFieldExtensionParametersFormMeta,
 } from './types';
 
 export type Parent = { getSettings: () => Promise<{ mode: string }> };
@@ -22,31 +15,21 @@ function buildGuard<P extends Parent>(mode: string) {
 }
 
 export const isInitParent = buildGuard<InitMethods>('init');
-export type InitMetaAndMethods = InitMethods & InitMeta;
 
 export const isRenderPageParent = buildGuard<RenderPageMethods>('renderPage');
-export type RenderPageMetaAndMethods = RenderPageMethods & RenderPageMeta;
 
 export const isRenderPluginParametersFormParent = buildGuard<RenderPluginParametersFormMethods>(
   'renderPluginParametersForm',
 );
-export type RenderPluginParametersFormMetaAndMethods = RenderPluginParametersFormMethods &
-  RenderPluginParametersFormMeta;
 
 export const isRenderModalParent = buildGuard<RenderModalMethods>('renderModal');
-export type RenderModalMetaAndMethods = RenderModalMethods & RenderModalMeta;
 
 export const isRenderSidebarPaneParent = buildGuard<RenderSidebarPaneMethods>('renderSidebarPane');
-export type RenderSidebarPaneMetaAndMethods = RenderSidebarPaneMethods & RenderSidebarPaneMeta;
 
 export const isRenderFieldExtensionParent = buildGuard<RenderFieldExtensionMethods>(
   'renderFieldExtension',
 );
-export type RenderFieldExtensionMetaAndMethods = RenderFieldExtensionMethods &
-  RenderFieldExtensionMeta;
 
 export const isRenderManualFieldExtensionParametersFormParent = buildGuard<RenderManualFieldExtensionParametersFormMethods>(
   'renderManualFieldExtensionParametersForm',
 );
-export type RenderManualFieldExtensionParametersFormMetaAndMethods = RenderManualFieldExtensionParametersFormMethods &
-  RenderManualFieldExtensionParametersFormMeta;

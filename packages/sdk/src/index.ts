@@ -15,4 +15,3 @@ export type { Account, Field, Item, ModelBlock, Plugin, Site, SsoUser, Upload, U
 
 export * from './connect';
 export * from './types';
-export * from './parentTypes';
