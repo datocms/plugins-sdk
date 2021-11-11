@@ -342,7 +342,7 @@ export type RenderAdditionalProperties = {
 
 export type RenderProperties = CommonProperties & RenderAdditionalProperties;
 
-/** These methods asyncronously load required additional information */
+/** These methods can be used to asyncronously load additional information your plugin needs to work */
 export type LoadDataMethods = {
   /** Loads all the fields for a specific model (or block). Fields will be returned and will also be available in the the `fields` property. */
   loadItemTypeFields(itemTypeId: string): Promise<Field[]>;
@@ -350,11 +350,11 @@ export type LoadDataMethods = {
   loadUsers(): Promise<User[]>;
   /** Loads all SSO users. Users will be returned and will also be available in the the `ssoUsers` property. */
   loadSsoUsers(): Promise<SsoUser[]>;
-  /** Opens a dialog for creating a new record. It returns a promise resolved with the newly created record or `null` if the user closes the dialog without creating anything. */
 };
 
 /** These methods let you open the standard DatoCMS dialogs needed to interact with records */
 export type ItemDialogMethods = {
+  /** Opens a dialog for creating a new record. It returns a promise resolved with the newly created record or `null` if the user closes the dialog without creating anything. */
   createNewItem(itemTypeId: string): Promise<Item | null>;
   /** Opens a dialog for selecting multiple records from a list of existing records of type `itemTypeId`. It returns a promise resolved with an array of selected records, or `null` if the user closes the dialog without choosing any record. */
   selectItem(
