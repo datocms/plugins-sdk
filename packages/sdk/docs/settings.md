@@ -41,9 +41,7 @@ type PropTypes = {
 };
 
 function PluginParametersForm({ ctx }: PropTypes) {
-  useEffect(() => {
-    ctx.startAutoResizer();
-  }, [ctx]);
+  useEffect(ctx.startAutoResizer, []);
 
   return <div>Hi!</div>;
 }

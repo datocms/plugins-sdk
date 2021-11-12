@@ -19,16 +19,16 @@
       "hooksGroup": "sidebarPanes"
     },
     {
+      "title": "Field extensions",
+      "slug": "field-extensions",
+      "content": "fieldExtensions.md",
+      "hooksGroup": "forcedFieldExtensions"
+    },
+    {
       "title": "Manual field extensions",
       "slug": "manual-field-extensions",
       "content": "manualFieldExtensions.md",
       "hooksGroup": "manualFieldExtensions"
-    },
-    {
-      "title": "Forcing field extensions",
-      "slug": "forced-field-extensions",
-      "content": "forcedFieldExtensions.md",
-      "hooksGroup": "forcedFieldExtensions"
     },
     {
       "title": "Opening modals",

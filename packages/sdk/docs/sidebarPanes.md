@@ -9,7 +9,7 @@ Through plugins it is possible to add a series of additional and fully customisa
 
 ### Implementing a simple sidebar pane
 
-To give a very simple example, let's say we want to create a sidebar pane with a link pointing to the website page related to the record we're editing. The first step is to implement the [`itemTypeSidebarPanes`](#itemTypeSidebarPanes) hook, to add the pane to the sidebar:
+To give a very simple example, let's say we want to create a sidebar pane that will show a link pointing to the website page related to the record we're editing. The first step is to implement the [`itemTypeSidebarPanes`](#itemTypeSidebarPanes) hook, to add the pane to the sidebar:
 
 ```ts
 import { connect, InitCtx } from 'datocms-plugins-sdk';
@@ -21,7 +21,6 @@ connect({
         id: 'goToWebsite',
         label: 'Go to website',
         startOpen: true,
-        parameters: {},
       },
     ];
   },
@@ -43,10 +42,11 @@ itemTypeSidebarPanes(model: ModelBlock, ctx: InitCtx) {
   }
 
   if (!permalinksByModel[model.attributes.api_key]) {
+    // Don't add the pane!
     return [];
   }
 
-  // Add the sidebar pane!
+  // Add the pane!
 }
 ```
 
@@ -54,7 +54,7 @@ itemTypeSidebarPanes(model: ModelBlock, ctx: InitCtx) {
 
 The final step is to actually render the panel itself by implementing the [`renderSidebarPane`](#renderSidebarPane) hook.
 
-We can use it to initialize React and render a custom component called `GoToWebsiteSidebarPane`, passing down as a prop the second `ctx` argument, which provides a series of information and methods for interacting with the main application:
+Inside of this hook we initialize React and render a custom component called `GoToWebsiteSidebarPane`, passing down as a prop the second `ctx` argument, which provides a series of information and methods for interacting with the main application:
 
 ```ts
 import React from 'react';
@@ -83,9 +83,7 @@ type PropTypes = {
 };
 
 function GoToWebsiteSidebarPane({ ctx }: PropTypes) {
-  useEffect(() => {
-    ctx.startAutoResizer();
-  }, [ctx]);
+  useEffect(ctx.startAutoResizer, []);
 
   return <div>Hi!</div>;
 }

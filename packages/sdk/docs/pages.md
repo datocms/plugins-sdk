@@ -44,7 +44,7 @@ In this case, we are asking to show the tab before the default "Content" tab:
 
 [SCREENSHOT]
 
-#### Option 2: Adding a menu item in the Content navigation sidebar
+#### Option 2: Menu item in the Content navigation sidebar
 
 Similarly, we can use the [`contentAreaSidebarItems`](#contentAreaSidebarItems) hook to add menu items to the sidebar that is displayed when we are inside the "Content" area:
 
@@ -71,7 +71,7 @@ This code will add a menu item above the default item menus present in the sideb
 
 [SCREENSHOT]
 
-#### Option 3: Adding a custom section in the Settings area
+#### Option 3: Custom section in the Settings area
 
 It is also possible to new sections in the sidebar present in the "Settings" area with the [`settingsAreaSidebarItemGroups`](#settingsAreaSidebarItemGroups) hook:
 

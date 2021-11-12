@@ -115,7 +115,7 @@ export type ContentAreaSidebarItem = {
   // items?: ContentAreaSidebarItemChild[];
 };
 
-export type FieldExtensionType = 'field_editor' | 'field_addon' | 'sidebar';
+export type FieldExtensionType = 'editor' | 'addon';
 
 /** Field extensions extend the basic functionality of DatoCMS when it comes to presenting record's fields to the final editor. Depending on the extension type (`field_editor`, `field_addon` or `sidebar`) they will be shown in different places of the interface. */
 export type FieldExtension = {
@@ -123,14 +123,10 @@ export type FieldExtension = {
   id: string;
   /** Name to be shown when editing fields */
   name: string;
-  /**
-   * Type of field extension.
-   *
-   * * `field_editor` extensions replace the default field editor that DatoCMS provides
-   * * `field_addon` extensions are placed underneath the field editor to provide additional info/behaviour. You can setup multiple field addons for every field
-   * * `sidebar` extensions move the field on the sidebar of the record editing page
-   **/
+  /** Type of field extension. An `editor` extension replaces the default field editor that DatoCMS provides, while an `addon` extension is placed underneath the field editor to provide additional info/behaviour. You can setup multiple field addons for every field. */
   type: FieldExtensionType;
+  /** For `editor` extensions: moves the field to the sidebar of the record editing page, mimicking a sidebar pane */
+  asSidebarPane?: boolean | { startOpen: boolean };
   /** The type of fields that the field extension in compatible with */
   fieldTypes: NonNullable<PluginAttributes['field_types']>;
   /** Whether this field extension needs some configuration options before being installed in a field or not. Will trigger the `renderManualFieldExtensionParametersForm` and `validateManualFieldExtensionParameters` methods */
@@ -150,7 +146,7 @@ export type SidebarPane = {
   /** Label to be shown on the collapsible sidebar pane handle */
   label: string;
   /** An arbitrary configuration object that will be passed as the `parameters` property of the second argument of the `renderSidebarPane` function */
-  parameters: Record<string, unknown>;
+  parameters?: Record<string, unknown>;
   /** Whether the sidebar pane will start open or collapsed */
   startOpen?: boolean;
   /** If multiple sidebar panes are present, they will be sorted by ascending `rank`. If you want to specify an explicit value for `rank`, make sure to offer a way for final users to customize it inside the plugin's settings form, otherwise the hardcoded value you choose might clash with the one of another plugin! **/
@@ -163,17 +159,10 @@ export type SidebarPane = {
 export type EditorOverride = {
   /** ID of field extension. Will be the first argument for the `renderFieldExtension` function */
   id: string;
-  /**
-   * Type of field extension.
-   *
-   * * `field_editor` extensions replace the default field editor that DatoCMS provides
-   * * `sidebar` extensions move the field on the sidebar of the record editing page
-   **/
-  type: 'field_editor' | 'sidebar';
+  /** Moves the field to the sidebar of the record editing page, mimicking a sidebar pane */
+  asSidebarPane?: boolean | { startOpen: boolean };
   /** An arbitrary configuration object that will be passed as the `parameters` property of the second argument of the `renderFieldExtension` function */
-  parameters: Record<string, unknown>;
-  /** For `sidebar` extensions only: whether the sidebar pane will start open or collapsed */
-  startOpen?: boolean;
+  parameters?: Record<string, unknown>;
   /** If multiple plugins ovverride a field, the one with the highest `rank` will win. If you want to specify an explicit value for `rank`, make sure to offer a way for final users to customize it inside the plugin's settings form, otherwise the hardcoded value you choose might clash with the one of another plugin! **/
   rank?: number;
   /** The initial height to set for the iframe that will render the field extension */
@@ -185,7 +174,7 @@ export type AddonOverride = {
   /** ID of field extension. Will be the first argument for the `renderFieldExtension` function */
   id: string;
   /** An arbitrary configuration object that will be passed as the `parameters` property of the second argument of the `renderFieldExtension` function */
-  parameters: Record<string, unknown>;
+  parameters?: Record<string, unknown>;
   /** If multiple addons are present for a field, they will be sorted by ascending `rank`. If you want to specify an explicit value for `rank`, make sure to offer a way for final users to customize it inside the plugin's settings form, otherwise the hardcoded value you choose might clash with the one of another plugin! **/
   rank?: number;
   /** The initial height to set for the iframe that will render the field extension */
@@ -245,7 +234,7 @@ export type Modal = {
   /** Width of the modal. Can be a number, or one of the predefined sizes */
   width?: 's' | 'm' | 'l' | 'xl' | 'fullWidth' | number;
   /** An arbitrary configuration object that will be passed as the `parameters` property of the second argument of the `renderModal` function */
-  parameters: Record<string, unknown>;
+  parameters?: Record<string, unknown>;
   /** The initial height to set for the iframe that will render the modal content */
   initialHeight?: number;
 };
@@ -476,7 +465,7 @@ export type RenderSidebarPaneAdditionalProperties = {
   /** The ID of the sidebar pane that needs to be rendered */
   sidebarPaneId: string;
   /** The arbitrary `parameters` of the panel declared in the `itemTypeSidebarPanes` function */
-  parameters: Record<string, unknown>;
+  parameters: Record<string, unknown> | undefined;
 };
 
 export type RenderSidebarPaneMeta = ItemFormProperties & RenderSidebarPaneAdditionalProperties;
@@ -496,7 +485,7 @@ export type RenderFieldExtensionAdditionalProperties = {
   /** The ID of the field extension that needs to be rendered */
   fieldExtensionId: string;
   /** The arbitrary `parameters` of the field extension */
-  parameters: Record<string, unknown>;
+  parameters: Record<string, unknown> | undefined;
   /** The placeholder for the field */
   placeholder: string;
   /** Whether the field is currently disabled or not */
@@ -527,7 +516,7 @@ export type RenderModalAdditionalProperties = {
   /** The ID of the modal that needs to be rendered */
   modalId: string;
   /** The arbitrary `parameters` of the modal declared in the `openModal` function */
-  parameters: Record<string, unknown>;
+  parameters: Record<string, unknown> | undefined;
 };
 
 export type RenderModalMeta = RenderProperties & RenderModalAdditionalProperties;
@@ -566,7 +555,7 @@ export type RenderManualFieldExtensionParametersFormAdditionalProperties = {
   /** The ID of the field extension for which we need to render the parameters form */
   fieldExtensionId: string;
   /** The current value of the parameters (you can change the value with the `setParameters` function) */
-  parameters: Record<string, unknown>;
+  parameters: Record<string, unknown> | undefined;
   /** The current validation errors for the parameters (you can set them implementing the `validateManualFieldExtensionParameters` function) */
   errors: Record<string, unknown>;
 };
