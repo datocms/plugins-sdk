@@ -13,6 +13,10 @@ They operate on top of a particular field, replacing the default field editor th
 
 It is also possible to have editor extensions in "sidebar mode": the effect is to move the field to the right-hand sidebar, giving it the appearance of a collapsible panel. As an example, the [Sidebar notes](/marketplace/plugins/i/datocms-plugin-notes) plugin uses this mode to turn a JSON field into a kind of notepad where you can add virtual post-it notes.
 
+SE SIDEBAR, NO ADDON.
+
+CHE DIFFERENZA C'E COL SIDEBAR PANE?
+
 #### "Addon" extensions
 
 As the name suggests, addons do not change the way a field is edited, but they add functionality, or provide additional information, directly below the field editor. While only one editor can be set up for each field, it is possible to have several addons per field, each providing its own different functionality.
@@ -142,7 +146,7 @@ You might have noticed that our plugin is currently hardcoding some choices, nam
 
 - the rules that decide when to apply both our "star rating" and "lorem ipsum" extensions;
 - the maximum number of stars to show;
-- the lenght of the "lorem ipsum" text we're generating;
+- the length of the "lorem ipsum" text we're generating;
 
 If we want, we could make these settings configurable by the user, either by implementing some [global plugin settings](/docs/plugin-sdk/sdk/settings), or by transforming our field extensions into ["manual" extensions](/docs/plugin-sdk/sdk/manual-field-extensions).
 
@@ -150,3 +154,5 @@ When to use one strategy or the other is completely up to you, and each has its 
 
 - Manual field extensions are manually hooked by the end-user on each field, and for each installation different configuration options can be specified. Given that our star rating extension will most likely be used in a few specific places rather than in all integer fields of the project, manual fields might be the best choice.
 - On the other hand, our Lorem Ipsum generator may be convenient in all text fields, so requiring the end user to manually install it everywhere would be unnecessarily tedious. In this case, the choice to force the addon on all fields with the [`overrideFieldExtensions`](#overrideFieldExtensions) hook is probably the right one.
+
+In the [next section](/docs/plugin-sdk/sdk/manual-field-extensions) we're going to take a much more detailed look at manual field extensions, and we're going to convert our star rating editor into a manual extension.
