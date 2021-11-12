@@ -11,7 +11,8 @@ import {
 export type Parent = { getSettings: () => Promise<{ mode: string }> };
 
 function buildGuard<P extends Parent>(mode: string) {
-  return (parent: Parent, settings: { mode: string }): parent is P => settings.mode === mode;
+  return (parent: Parent, settings: { mode: string }): parent is P =>
+    settings.mode === mode;
 }
 
 export const isInitParent = buildGuard<InitMethods>('init');
@@ -22,9 +23,13 @@ export const isRenderPluginParametersFormParent = buildGuard<RenderPluginParamet
   'renderPluginParametersForm',
 );
 
-export const isRenderModalParent = buildGuard<RenderModalMethods>('renderModal');
+export const isRenderModalParent = buildGuard<RenderModalMethods>(
+  'renderModal',
+);
 
-export const isRenderSidebarPaneParent = buildGuard<RenderSidebarPaneMethods>('renderSidebarPane');
+export const isRenderSidebarPaneParent = buildGuard<RenderSidebarPaneMethods>(
+  'renderSidebarPane',
+);
 
 export const isRenderFieldExtensionParent = buildGuard<RenderFieldExtensionMethods>(
   'renderFieldExtension',

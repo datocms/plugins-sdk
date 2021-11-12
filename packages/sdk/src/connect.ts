@@ -39,8 +39,9 @@ export type SizingUtilities = {
   /** Stops resizing the iframe automatically */
   stopAutoResizer: () => void;
   /**
-   * Triggers a change in the size of the iframe. If you don't explicitely pass a `newHeight` it
-   * will be automatically calculated using the iframe content at the moment
+   * Triggers a change in the size of the iframe. If you don't explicitely pass
+   * a `newHeight` it will be automatically calculated using the iframe content
+   * at the moment
    */
   updateHeight: (newHeight?: number) => void;
 };
@@ -51,8 +52,10 @@ export type InitCtx = InitPropertiesAndMethods;
 export type FieldInitCtx = InitPropertiesAndMethods & { itemType: ModelBlock };
 export type RenderPageCtx = RenderPagePropertiesAndMethods;
 export type RenderModalCtx = RenderModalPropertiesAndMethods & SizingUtilities;
-export type RenderSidebarPaneCtx = RenderSidebarPanePropertiesAndMethods & SizingUtilities;
-export type RenderFieldExtensionCtx = RenderFieldExtensionPropertiesAndMethods & SizingUtilities;
+export type RenderSidebarPaneCtx = RenderSidebarPanePropertiesAndMethods &
+  SizingUtilities;
+export type RenderFieldExtensionCtx = RenderFieldExtensionPropertiesAndMethods &
+  SizingUtilities;
 export type RenderManualFieldExtensionParametersFormCtx = RenderManualFieldExtensionParametersFormPropertiesAndMethods &
   SizingUtilities;
 export type RenderPluginParametersFormCtx = RenderPluginParametersFormPropertiesAndMethods &
@@ -71,7 +74,9 @@ export type FullConnectParameters = {
    *
    * @group pages
    */
-  settingsAreaSidebarItemGroups: (ctx: InitCtx) => SettingsAreaSidebarItemGroup[];
+  settingsAreaSidebarItemGroups: (
+    ctx: InitCtx,
+  ) => SettingsAreaSidebarItemGroup[];
   /**
    * Use this function to declare new navigation items in the Content Area sidebar
    *
@@ -79,61 +84,71 @@ export type FullConnectParameters = {
    */
   contentAreaSidebarItems: (ctx: InitCtx) => ContentAreaSidebarItem[];
   /**
-   * Use this function to declare new field extensions that users will be able to install manually
-   * in some field
+   * Use this function to declare new field extensions that users will be able
+   * to install manually in some field
    *
    * @group manualFieldExtensions
    */
   manualFieldExtensions: (ctx: InitCtx) => FieldExtension[];
   /**
-   * Use this function to declare new sidebar panes to be shown when the user edits records of a
-   * particular model
+   * Use this function to declare new sidebar panes to be shown when the user
+   * edits records of a particular model
    *
    * @group sidebarPanes
    */
   itemTypeSidebarPanes: (itemType: ModelBlock, ctx: InitCtx) => SidebarPane[];
   /**
-   * Use this function to automatically force one or more field extensions to a particular field
+   * Use this function to automatically force one or more field extensions to a
+   * particular field
    *
    * @group forcedFieldExtensions
    */
-  overrideFieldExtensions: (field: Field, ctx: FieldInitCtx) => FieldExtensionOverride | void;
+  overrideFieldExtensions: (
+    field: Field,
+    ctx: FieldInitCtx,
+  ) => FieldExtensionOverride | void;
   /**
-   * This function will be called when the plugin needs to render the plugin's configuration form
+   * This function will be called when the plugin needs to render the plugin's
+   * configuration form
    *
    * @group plugin
    */
   renderPluginParametersForm: (ctx: RenderPluginParametersFormCtx) => void;
   /**
-   * This function will be called when the plugin needs to render a specific page (see the
-   * `mainNavigationTabs`, `settingsAreaSidebarItemGroups` and `contentAreaSidebarItems` functions)
+   * This function will be called when the plugin needs to render a specific
+   * page (see the `mainNavigationTabs`, `settingsAreaSidebarItemGroups` and
+   * `contentAreaSidebarItems` functions)
    *
    * @group pages
    */
   renderPage: (pageId: string, ctx: RenderPageCtx) => void;
   /**
-   * This function will be called when the plugin requested to open a modal (see the `openModal` function)
+   * This function will be called when the plugin requested to open a modal (see
+   * the `openModal` function)
    *
    * @group modals
    */
   renderModal: (modalId: string, ctx: RenderModalCtx) => void;
   /**
-   * This function will be called when the plugin needs to render a sidebar panel (see the
-   * `itemTypeSidebarPanes` function)
+   * This function will be called when the plugin needs to render a sidebar
+   * panel (see the `itemTypeSidebarPanes` function)
    *
    * @group sidebarPanes
    */
   renderSidebarPane: (sidebarPaneId: string, ctx: RenderSidebarPaneCtx) => void;
   /**
-   * This function will be called when the plugin needs to render a field extension (see the
-   * `manualFieldExtensions` and `overrideFieldExtensions` functions)
+   * This function will be called when the plugin needs to render a field
+   * extension (see the `manualFieldExtensions` and `overrideFieldExtensions` functions)
    *
    * @group manualFieldExtensions, forcedFieldExtensions
    */
-  renderFieldExtension: (fieldExtensionId: string, ctx: RenderFieldExtensionCtx) => void;
+  renderFieldExtension: (
+    fieldExtensionId: string,
+    ctx: RenderFieldExtensionCtx,
+  ) => void;
   /**
-   * This function will be called when the plugin needs to render the configuration form for
-   * installing a field extension inside a particular field
+   * This function will be called when the plugin needs to render the
+   * configuration form for installing a field extension inside a particular field
    *
    * @group manualFieldExtensions
    */
@@ -142,8 +157,8 @@ export type FullConnectParameters = {
     ctx: RenderManualFieldExtensionParametersFormCtx,
   ) => void;
   /**
-   * This function will be called each time the configuration object changes. It must return an
-   * object containing possible validation errors
+   * This function will be called each time the configuration object changes. It
+   * must return an object containing possible validation errors
    *
    * @group manualFieldExtensions
    */
@@ -153,8 +168,13 @@ export type FullConnectParameters = {
   ) => Record<string, unknown> | Promise<Record<string, unknown>>;
 };
 
-function toMultifield<Result>(fn: ((field: Field, ctx: FieldInitCtx) => Result) | undefined) {
-  return (fields: Field[], ctx: InitPropertiesAndMethods): Record<string, Result> => {
+function toMultifield<Result>(
+  fn: ((field: Field, ctx: FieldInitCtx) => Result) | undefined,
+) {
+  return (
+    fields: Field[],
+    ctx: InitPropertiesAndMethods,
+  ): Record<string, Result> => {
     if (!fn) {
       return {};
     }
@@ -162,7 +182,9 @@ function toMultifield<Result>(fn: ((field: Field, ctx: FieldInitCtx) => Result) 
     const result: Record<string, Result> = {};
 
     for (const field of fields) {
-      const itemType = ctx.itemTypes[field.relationships.item_type.data.id] as ModelBlock;
+      const itemType = ctx.itemTypes[
+        field.relationships.item_type.data.id
+      ] as ModelBlock;
       result[field.id] = fn(field, { ...ctx, itemType });
     }
 
@@ -171,7 +193,9 @@ function toMultifield<Result>(fn: ((field: Field, ctx: FieldInitCtx) => Result) 
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-type AsyncReturnType<T extends (...args: any) => any> = T extends (...args: any) => Promise<infer U>
+type AsyncReturnType<T extends (...args: any) => any> = T extends (
+  ...args: any
+) => Promise<infer U>
   ? U
   : // eslint-disable-next-line @typescript-eslint/no-explicit-any
   T extends (...args: any) => infer U
@@ -237,7 +261,9 @@ const buildRenderUtils = (parent: { setHeight: (number: number) => void }) => {
   return { updateHeight, startAutoResizer, stopAutoResizer };
 };
 
-export async function connect(configuration: Partial<FullConnectParameters> = {}): Promise<void> {
+export async function connect(
+  configuration: Partial<FullConnectParameters> = {},
+): Promise<void> {
   const {
     mainNavigationTabs,
     settingsAreaSidebarItemGroups,
@@ -257,14 +283,17 @@ export async function connect(configuration: Partial<FullConnectParameters> = {}
       contentAreaSidebarItems,
       manualFieldExtensions,
       itemTypeSidebarPanes,
-      overrideFieldExtensions: toMultifield(configuration.overrideFieldExtensions),
+      overrideFieldExtensions: toMultifield(
+        configuration.overrideFieldExtensions,
+      ),
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       onChange(newSettings: any) {
         if (listener) {
           listener(newSettings);
         }
       },
-      validateManualFieldExtensionParameters: configuration.validateManualFieldExtensionParameters,
+      validateManualFieldExtensionParameters:
+        configuration.validateManualFieldExtensionParameters,
     },
   });
 
@@ -294,7 +323,9 @@ export async function connect(configuration: Partial<FullConnectParameters> = {}
   }
 
   if (isRenderPluginParametersFormParent(parent, initialSettings)) {
-    type Settings = AsyncReturnType<RenderPluginParametersFormMethods['getSettings']>;
+    type Settings = AsyncReturnType<
+      RenderPluginParametersFormMethods['getSettings']
+    >;
 
     const renderUtils = buildRenderUtils(parent);
 
@@ -377,8 +408,12 @@ export async function connect(configuration: Partial<FullConnectParameters> = {}
     render(initialSettings as Settings);
   }
 
-  if (isRenderManualFieldExtensionParametersFormParent(parent, initialSettings)) {
-    type Settings = AsyncReturnType<RenderManualFieldExtensionParametersFormMethods['getSettings']>;
+  if (
+    isRenderManualFieldExtensionParametersFormParent(parent, initialSettings)
+  ) {
+    type Settings = AsyncReturnType<
+      RenderManualFieldExtensionParametersFormMethods['getSettings']
+    >;
 
     const renderUtils = buildRenderUtils(parent);
 
@@ -387,11 +422,14 @@ export async function connect(configuration: Partial<FullConnectParameters> = {}
         return;
       }
 
-      configuration.renderManualFieldExtensionParametersForm(settings.fieldExtensionId, {
-        ...parent,
-        ...settings,
-        ...renderUtils,
-      });
+      configuration.renderManualFieldExtensionParametersForm(
+        settings.fieldExtensionId,
+        {
+          ...parent,
+          ...settings,
+          ...renderUtils,
+        },
+      );
     };
 
     listener = render;

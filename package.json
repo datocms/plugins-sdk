@@ -26,7 +26,7 @@
     "publish": "npm run test && lerna run build && lerna publish",
     "publish-next": "npm run test && lerna run build && lerna publish --dist-tag next",
     "lint": "eslint . --ext .ts,.tsx",
-    "prettier": "prettier --write \"**/*.{ts,tsx,json}\"",
+    "prettier": "prettier --write \"**/*.{ts,tsx,json,md}\"",
     "prepare": "husky install"
   },
   "license": "MIT",

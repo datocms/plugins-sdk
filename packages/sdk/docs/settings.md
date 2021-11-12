@@ -55,7 +55,9 @@ It is now time to setup our form, using one of the many form management librarie
 import { useForm } from 'react-hook-form';
 
 function PluginParametersForm({ ctx }: PropTypes) {
-  const { register, handleSubmit } = useForm({ defaultValues: ctx.plugin.attributes.parameters });
+  const { register, handleSubmit } = useForm({
+    defaultValues: ctx.plugin.attributes.parameters,
+  });
 
   const onSubmit = (newParameters) => ctx.save(newParameters);
 

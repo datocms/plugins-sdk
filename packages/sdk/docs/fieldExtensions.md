@@ -34,7 +34,10 @@ import { connect, Field, FieldInitCtx } from 'datocms-plugins-sdk';
 
 connect({
   overrideFieldExtensions(field: Field, ctx: FieldInitCtx) {
-    if (field.attributes.field_type === 'integer' && field.attributes.api_key === 'rating') {
+    if (
+      field.attributes.field_type === 'integer' &&
+      field.attributes.api_key === 'rating'
+    ) {
       return {
         editor: { id: 'starRating' },
       };
