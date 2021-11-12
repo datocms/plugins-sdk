@@ -38,7 +38,10 @@ export type SizingUtilities = {
   startAutoResizer: () => void;
   /** Stops resizing the iframe automatically */
   stopAutoResizer: () => void;
-  /** Triggers a change in the size of the iframe. If you don't explicitely pass a `newHeight` it will be automatically calculated using the iframe content at the moment */
+  /**
+   * Triggers a change in the size of the iframe. If you don't explicitely pass a `newHeight` it
+   * will be automatically calculated using the iframe content at the moment
+   */
   updateHeight: (newHeight?: number) => void;
 };
 
@@ -59,71 +62,91 @@ export type RenderPluginParametersFormCtx = RenderPluginParametersFormProperties
 export type FullConnectParameters = {
   /**
    * Use this function to declare new tabs you want to add in the top-bar of the UI
+   *
    * @group pages
-   **/
+   */
   mainNavigationTabs: (ctx: InitCtx) => MainNavigationTab[];
   /**
    * Use this function to declare new navigation sections in the Settings Area sidebar
+   *
    * @group pages
-   **/
+   */
   settingsAreaSidebarItemGroups: (ctx: InitCtx) => SettingsAreaSidebarItemGroup[];
   /**
    * Use this function to declare new navigation items in the Content Area sidebar
+   *
    * @group pages
-   **/
+   */
   contentAreaSidebarItems: (ctx: InitCtx) => ContentAreaSidebarItem[];
   /**
-   * Use this function to declare new field extensions that users will be able to install manually in some field
+   * Use this function to declare new field extensions that users will be able to install manually
+   * in some field
+   *
    * @group manualFieldExtensions
-   **/
+   */
   manualFieldExtensions: (ctx: InitCtx) => FieldExtension[];
   /**
-   * Use this function to declare new sidebar panes to be shown when the user edits records of a particular model
+   * Use this function to declare new sidebar panes to be shown when the user edits records of a
+   * particular model
+   *
    * @group sidebarPanes
-   **/
+   */
   itemTypeSidebarPanes: (itemType: ModelBlock, ctx: InitCtx) => SidebarPane[];
   /**
    * Use this function to automatically force one or more field extensions to a particular field
+   *
    * @group forcedFieldExtensions
-   **/
+   */
   overrideFieldExtensions: (field: Field, ctx: FieldInitCtx) => FieldExtensionOverride | void;
   /**
    * This function will be called when the plugin needs to render the plugin's configuration form
+   *
    * @group plugin
-   **/
+   */
   renderPluginParametersForm: (ctx: RenderPluginParametersFormCtx) => void;
   /**
-   * This function will be called when the plugin needs to render a specific page (see the `mainNavigationTabs`, `settingsAreaSidebarItemGroups` and `contentAreaSidebarItems` functions)
+   * This function will be called when the plugin needs to render a specific page (see the
+   * `mainNavigationTabs`, `settingsAreaSidebarItemGroups` and `contentAreaSidebarItems` functions)
+   *
    * @group pages
-   **/
+   */
   renderPage: (pageId: string, ctx: RenderPageCtx) => void;
   /**
    * This function will be called when the plugin requested to open a modal (see the `openModal` function)
+   *
    * @group modals
-   **/
+   */
   renderModal: (modalId: string, ctx: RenderModalCtx) => void;
   /**
-   * This function will be called when the plugin needs to render a sidebar panel (see the `itemTypeSidebarPanes` function)
+   * This function will be called when the plugin needs to render a sidebar panel (see the
+   * `itemTypeSidebarPanes` function)
+   *
    * @group sidebarPanes
-   **/
+   */
   renderSidebarPane: (sidebarPaneId: string, ctx: RenderSidebarPaneCtx) => void;
   /**
-   * This function will be called when the plugin needs to render a field extension (see the `manualFieldExtensions` and `overrideFieldExtensions` functions)
+   * This function will be called when the plugin needs to render a field extension (see the
+   * `manualFieldExtensions` and `overrideFieldExtensions` functions)
+   *
    * @group manualFieldExtensions, forcedFieldExtensions
-   **/
+   */
   renderFieldExtension: (fieldExtensionId: string, ctx: RenderFieldExtensionCtx) => void;
   /**
-   * This function will be called when the plugin needs to render the configuration form for installing a field extension inside a particular field
+   * This function will be called when the plugin needs to render the configuration form for
+   * installing a field extension inside a particular field
+   *
    * @group manualFieldExtensions
-   **/
+   */
   renderManualFieldExtensionParametersForm: (
     fieldExtensionId: string,
     ctx: RenderManualFieldExtensionParametersFormCtx,
   ) => void;
   /**
-   * This function will be called each time the configuration object changes. It must return an object containing possible validation errors
+   * This function will be called each time the configuration object changes. It must return an
+   * object containing possible validation errors
+   *
    * @group manualFieldExtensions
-   **/
+   */
   validateManualFieldExtensionParameters: (
     fieldExtensionId: string,
     parameters: Record<string, unknown>,

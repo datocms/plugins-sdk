@@ -149,8 +149,8 @@ export type FieldExtensionType = 'editor' | 'addon';
 
 /**
  * Field extensions extend the basic functionality of DatoCMS when it comes to presenting record's
- * fields to the final editor. Depending on the extension type (`field_editor`, `field_addon` or
- * `sidebar`) they will be shown in different places of the interface.
+ * fields to the final user. Depending on the extension type (`editor` or `addon`) they will be
+ * shown in different places of the interface.
  */
 export type FieldExtension = {
   /** ID of field extension. Will be the first argument for the `renderFieldExtension` function */
@@ -376,7 +376,7 @@ export type CommonProperties = {
   currentAccessToken: string;
   /** The current plugin */
   plugin: Plugin;
-  /** UI preferences of the current user */
+  /** UI preferences of the current user (right now, only the preferred locale is available) */
   ui: {
     /** Preferred locale */
     locale: string;
