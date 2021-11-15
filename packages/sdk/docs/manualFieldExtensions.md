@@ -123,7 +123,7 @@ connect({
 
 ### Add per-field configuration options to manual field extensions
 
-While exposing the manual extensions that our plugin offers, with the `configurable: true` option we can declare that we want to present some configuration options to the user when they're installing the extension on a field:
+In the `manualFieldExtensions()` hook, we can pass the `configurable: true` option to declare that we want to present some configuration options to the user when they're installing the extension on a field:
 
 ```ts
 import { connect, Field, InitCtx } from 'datocms-plugins-sdk';
@@ -147,7 +147,7 @@ Just like global plugin settings, these per-field configuration parameters are c
 
 To continue our example, let's take our "Star rating" editor and say we want to offer end-users the ability, on a per-field basis, to specify the maximum number of stars that can be selected and the color of the stars.
 
-The hook provided to render the configuration form is [`renderManualFieldExtensionParametersForm`](#renderManualFieldExtensionParametersForm), and it will be called by DatoCMS when the selects our configurable manual extension for a particular field.
+The hook provided to render the configuration form is [`renderManualFieldExtensionParametersForm`](#renderManualFieldExtensionParametersForm), and it will be called by DatoCMS when the adds the extension on a particular field.
 
 Inside the hook we'll simply initialize React and a custom component called `StarRatingParametersForm`. The argument `ctx` provides a series of information and methods for interacting with the main application, and for now all we'll just pass the whole object to the component, in the form of a React prop:
 
@@ -229,7 +229,7 @@ function StarRatingParametersForm({ ctx }: PropTypes) {
 }
 ```
 
-At the first mount of our component, we're calling `ctx.startAutoResizer()` so that the iframe will continuously auto-adjust its size based on the content we're rendering, and we're also setting a default value for our options if none are specified.
+At the first mount of our component, we're setting a default value for our options if none are specified, and we're also calling `ctx.startAutoResizer()` so that the iframe will continuously auto-adjust its size based on the content we're rendering.
 
 As the user changes values for the inputs, we're using `ctx.setParameters()` to propagate the change to the main DatoCMS application.
 
@@ -252,7 +252,7 @@ connect({
     const errors: Record<string, string> = {};
 
     if (parameters.maxRating < 2 || parameters.maxRating > 10) {
-      errors.starsColor = 'Stars can be between 2 and 10!';
+      errors.starsColor = 'Rating must be between 2 and 10!';
     }
 
     if (!isValidCSSColor(parameters.starsColor)) {
@@ -283,6 +283,24 @@ function StarRatingParametersForm({ ctx }: PropTypes) {
         {ctx.errors.starsColor && <div>{ctx.errors.starsColor}</div>}
       </div>
     </>
+  );
+}
+```
+
+We can then access the saved settings in the `renderFieldExtension` hook via `ctx.parameters`:
+
+```ts
+import ReactStars from 'react-rating-stars-component';
+
+function StarRatingEditor({ ctx }: PropTypes) {
+  // ...
+
+  return (
+    <ReactStars
+      /* ... */
+      count={ctx.parameters.maxRating}
+      activeColor={ctx.parameters.starsColor}
+    />
   );
 }
 ```

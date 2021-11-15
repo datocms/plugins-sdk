@@ -71,7 +71,7 @@ The `openModal()` function offers various rendering options, for example you can
 
 Interestingly, the function returns a promise, which will be resolved when the modal is closed by the user.
 
-You can specify what to render inside the modal by implementing a new hook called `renderModal`, which similarly to what is done with pages, initializes React with a custom component:
+You can specify what to render inside the modal by implementing a new hook called [`renderModal`](#renderModal) which, similarly to what we did with custom pages, initializes React with a custom component:
 
 ```ts
 connect({
@@ -98,7 +98,7 @@ function CustomModal({ ctx }: PropTypes) {
 }
 ```
 
-### Modal closing
+### Closing the modal
 
 If the modal will be closed through the "close" button provided by the interface, the promise `openModal()` will be resolved with value `null`.
 
@@ -112,7 +112,7 @@ const result = await sdk.openModal({
 });
 ```
 
-In this case the user can only close the modal via an interaction of your choice (custom buttons, for example):
+In this case the user will only be able to close the modal via an interaction of your choice (custom buttons, for example):
 
 ```ts
 function CustomModal({ ctx }: PropTypes) {

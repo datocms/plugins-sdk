@@ -197,6 +197,7 @@ function toMultifield<Result>(
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AsyncReturnType<T extends (...args: any) => any> = T extends (
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ...args: any
 ) => Promise<infer U>
   ? U
