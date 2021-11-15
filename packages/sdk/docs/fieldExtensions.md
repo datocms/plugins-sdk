@@ -11,9 +11,7 @@ They operate on top of a particular field, replacing the default field editor th
 - The [Shopify product](/marketplace/plugins/i/datocms-plugin-shopify-product) plugin can be hooked into string fields and completely changes the interface to allow you to browse the products in your Shopify store, then save the ID of the selected product in the string field itself;
 - The [Hidden field](/marketplace/plugins/i/datocms-plugin-shopify-product) plugin simply hides a specific field from the editor's eyes, while the [Conditional fields](/marketplace/plugins/i/datocms-plugin-conditional-fields) plugin shows/hides a number of fields when you toggle a particular checkbox field.
 
-It is also possible to have editor extensions in "sidebar mode": the effect is to move the field to the right-hand sidebar, giving it the appearance of a collapsible panel. As an example, the [Sidebar notes](/marketplace/plugins/i/datocms-plugin-notes) plugin uses this mode to turn a JSON field into a kind of notepad where you can add virtual post-it notes.
-
-The difference between an "editor field extension" in sidebar mode, and a [sidebar panel](/docs/plugin-sdk/sdk/sidebar-panels) is the fact that the first controls a specific field and can use it as a "storage unit" to save internal information, while a sidebar panels are not associated to any particular field.
+It is also possible to have editor extensions in "sidebar mode": the effect is to move the field to the right-hand sidebar, giving it the appearance of a collapsible panel. As an example, the [Sidebar notes](/marketplace/plugins/i/datocms-plugin-notes) plugin uses this mode to turn a JSON field into a kind of notepad where you can add virtual post-it notes. The difference between this mode and a [sidebar panel](/docs/plugin-sdk/sdk/sidebar-panels), is that this controls a specific field of the record and can use it as a "storage unit" to save internal information, while a sidebar panel is not associated to any particular field.
 
 #### "Addon" extensions
 

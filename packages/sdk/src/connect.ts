@@ -143,7 +143,7 @@ export type FullConnectParameters = {
    * This function will be called when the plugin needs to render a field
    * extension (see the `manualFieldExtensions` and `overrideFieldExtensions` functions)
    *
-   * @group manualFieldExtensions, forcedFieldExtensions
+   * @group forcedFieldExtensions
    */
   renderFieldExtension: (
     fieldExtensionId: string,
