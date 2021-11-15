@@ -206,14 +206,17 @@ export type FieldExtension = {
 };
 
 /** A sidebar panel to be shown inside the record's editing page */
-export type SidebarPanel = {
-  /** ID of the panel. Will be the first argument for the `renderSidebarPanel` function */
+export type ItemFormSidebarPanel = {
+  /**
+   * ID of the panel. Will be the first argument for the
+   * `renderItemFormSidebarPanel` function
+   */
   id: string;
   /** Label to be shown on the collapsible sidebar panel handle */
   label: string;
   /**
    * An arbitrary configuration object that will be passed as the `parameters`
-   * property of the second argument of the `renderSidebarPanel` function
+   * property of the second argument of the `renderItemFormSidebarPanel` function
    */
   parameters?: Record<string, unknown>;
   /** Whether the sidebar panel will start open or collapsed */
@@ -814,12 +817,12 @@ export type ItemFormMethods = RenderMethods & ItemFormAdditionalMethods;
 
 /** Information regarding the specific sidebar panel that you need to render */
 export type RenderSidebarPaneAdditionalProperties = {
-  mode: 'renderSidebarPanel';
+  mode: 'renderItemFormSidebarPanel';
   /** The ID of the sidebar panel that needs to be rendered */
   sidebarPaneId: string;
   /**
    * The arbitrary `parameters` of the panel declared in the
-   * `itemTypeSidebarPanels` function
+   * `itemFormSidebarPanels` function
    */
   parameters: Record<string, unknown> | undefined;
 };

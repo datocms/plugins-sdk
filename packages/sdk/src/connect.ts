@@ -10,7 +10,7 @@ import {
   FieldExtension,
   FieldExtensionOverride,
   MainNavigationTab,
-  SidebarPanel,
+  ItemFormSidebarPanel,
   RenderFieldExtensionMethods,
   RenderPageMethods,
   RenderPluginParametersFormPropertiesAndMethods,
@@ -52,7 +52,7 @@ export type InitCtx = InitPropertiesAndMethods;
 export type FieldInitCtx = InitPropertiesAndMethods & { itemType: ModelBlock };
 export type RenderPageCtx = RenderPagePropertiesAndMethods;
 export type RenderModalCtx = RenderModalPropertiesAndMethods & SizingUtilities;
-export type RenderSidebarPaneCtx = RenderSidebarPanePropertiesAndMethods &
+export type RenderItemFormSidebarPanelCtx = RenderSidebarPanePropertiesAndMethods &
   SizingUtilities;
 export type RenderFieldExtensionCtx = RenderFieldExtensionPropertiesAndMethods &
   SizingUtilities;
@@ -96,7 +96,10 @@ export type FullConnectParameters = {
    *
    * @group sidebarPanels
    */
-  itemTypeSidebarPanels: (itemType: ModelBlock, ctx: InitCtx) => SidebarPanel[];
+  itemFormSidebarPanels: (
+    itemType: ModelBlock,
+    ctx: InitCtx,
+  ) => ItemFormSidebarPanel[];
   /**
    * Use this function to automatically force one or more field extensions to a
    * particular field
@@ -131,13 +134,13 @@ export type FullConnectParameters = {
   renderModal: (modalId: string, ctx: RenderModalCtx) => void;
   /**
    * This function will be called when the plugin needs to render a sidebar
-   * panel (see the `itemTypeSidebarPanels` function)
+   * panel (see the `itemFormSidebarPanels` function)
    *
    * @group sidebarPanels
    */
-  renderSidebarPanel: (
+  renderItemFormSidebarPanel: (
     sidebarPaneId: string,
-    ctx: RenderSidebarPaneCtx,
+    ctx: RenderItemFormSidebarPanelCtx,
   ) => void;
   /**
    * This function will be called when the plugin needs to render a field
@@ -273,7 +276,7 @@ export async function connect(
     settingsAreaSidebarItemGroups,
     contentAreaSidebarItems,
     manualFieldExtensions,
-    itemTypeSidebarPanels,
+    itemFormSidebarPanels,
   } = configuration;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -286,7 +289,7 @@ export async function connect(
       settingsAreaSidebarItemGroups,
       contentAreaSidebarItems,
       manualFieldExtensions,
-      itemTypeSidebarPanels,
+      itemFormSidebarPanels,
       overrideFieldExtensions: toMultifield(
         configuration.overrideFieldExtensions,
       ),
@@ -376,11 +379,11 @@ export async function connect(
     const renderUtils = buildRenderUtils(parent);
 
     const render = (settings: Settings) => {
-      if (!configuration.renderSidebarPanel) {
+      if (!configuration.renderItemFormSidebarPanel) {
         return;
       }
 
-      configuration.renderSidebarPanel(settings.sidebarPaneId, {
+      configuration.renderItemFormSidebarPanel(settings.sidebarPaneId, {
         ...parent,
         ...settings,
         ...renderUtils,

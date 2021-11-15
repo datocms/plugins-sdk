@@ -9,13 +9,13 @@ Through plugins it is possible to add a series of additional and fully customisa
 
 ### Implementing a simple sidebar panel
 
-To give a very simple example, let's say we want to create a sidebar panel that will show a link pointing to the website page related to the record we're editing. The first step is to implement the [`itemTypeSidebarPanels`](#itemTypeSidebarPanels) hook, to add the panel to the sidebar:
+To give a very simple example, let's say we want to create a sidebar panel that will show a link pointing to the website page related to the record we're editing. The first step is to implement the [`itemFormSidebarPanels`](#itemFormSidebarPanels) hook, to add the panel to the sidebar:
 
 ```ts
 import { connect, InitCtx } from 'datocms-plugins-sdk';
 
 connect({
-  itemTypeSidebarPanels(model: ModelBlock, ctx: InitCtx) {
+  itemFormSidebarPanels(model: ModelBlock, ctx: InitCtx) {
     return [
       {
         id: 'goToWebsite',
@@ -30,7 +30,7 @@ connect({
 The code above will add a panel to every record in our project... but maybe not every record in DatoCMS has a specific page in the final website, right? It might be better to [add some settings to our plugin](/docs/plugin-sdk/sdk/settings) to let the final user declare the set of models that have permalinks, and the relative URL structure enforced on the frontend:
 
 ```ts
-itemTypeSidebarPanels(model: ModelBlock, ctx: InitCtx) {
+itemFormSidebarPanels(model: ModelBlock, ctx: InitCtx) {
   const { permalinksByModel } = ctx.plugin.attributes.parameters;
 
   // Assuming we're saving user preferences in this format:
@@ -52,20 +52,23 @@ itemTypeSidebarPanels(model: ModelBlock, ctx: InitCtx) {
 
 #### Rendering the panel
 
-The final step is to actually render the panel itself by implementing the [`renderSidebarPanel`](#renderSidebarPanel) hook.
+The final step is to actually render the panel itself by implementing the [`renderItemFormSidebarPanel`](#renderItemFormSidebarPanel) hook.
 
-Inside of this hook we initialize React and render a custom component called `GoToWebsiteSidebarPanel`, passing down as a prop the second `ctx` argument, which provides a series of information and methods for interacting with the main application:
+Inside of this hook we initialize React and render a custom component called `GoToWebsiteItemFormSidebarPanel`, passing down as a prop the second `ctx` argument, which provides a series of information and methods for interacting with the main application:
 
 ```ts
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { connect, RenderSidebarPaneCtx } from 'datocms-plugins-sdk';
+import { connect, RenderItemFormSidebarPanelCtx } from 'datocms-plugins-sdk';
 
 connect({
-  renderSidebarPanel(sidebarPaneId, ctx: RenderSidebarPaneCtx) {
+  renderItemFormSidebarPanel(
+    sidebarPaneId,
+    ctx: RenderItemFormSidebarPanelCtx,
+  ) {
     ReactDOM.render(
       <React.StrictMode>
-        <GoToWebsiteSidebarPanel ctx={ctx} />
+        <GoToWebsiteItemFormSidebarPanel ctx={ctx} />
       </React.StrictMode>,
       document.getElementById('root'),
     );
@@ -79,10 +82,10 @@ A plugin might render different panels, so we can use the `sidebarPaneId` argume
 import { useEffect } from 'react';
 
 type PropTypes = {
-  ctx: RenderSidebarPaneCtx;
+  ctx: RenderItemFormSidebarPanelCtx;
 };
 
-function GoToWebsiteSidebarPanel({ ctx }: PropTypes) {
+function GoToWebsiteItemFormSidebarPanel({ ctx }: PropTypes) {
   useEffect(ctx.startAutoResizer, []);
 
   return <div>Hi!</div>;
@@ -94,7 +97,7 @@ Since our panel is rendered inside an iframe, it is important to call `ctx.start
 All we need to do now is to actually render the link to the website, reading the state of the record that's being edited:
 
 ```ts
-function GoToWebsiteSidebarPanel({ ctx }: PropTypes) {
+function GoToWebsiteItemFormSidebarPanel({ ctx }: PropTypes) {
   // ...
 
   if (ctx.itemStatus === 'new') {
