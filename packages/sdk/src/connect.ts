@@ -7,7 +7,7 @@ import {
   RenderModalMethods,
   SettingsAreaSidebarItemGroup,
   ContentAreaSidebarItem,
-  FieldExtension,
+  ManualFieldExtension,
   FieldExtensionOverride,
   MainNavigationTab,
   ItemFormSidebarPanel,
@@ -89,7 +89,7 @@ export type FullConnectParameters = {
    *
    * @group manualFieldExtensions
    */
-  manualFieldExtensions: (ctx: InitCtx) => FieldExtension[];
+  manualFieldExtensions: (ctx: InitCtx) => ManualFieldExtension[];
   /**
    * Use this function to declare new sidebar panels to be shown when the user
    * edits records of a particular model

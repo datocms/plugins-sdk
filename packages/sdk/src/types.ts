@@ -161,7 +161,7 @@ export type FieldExtensionType = 'editor' | 'addon';
  * presenting record's fields to the final user. Depending on the extension type
  * (`editor` or `addon`) they will be shown in different places of the interface.
  */
-export type FieldExtension = {
+export type ManualFieldExtension = {
   /**
    * ID of field extension. Will be the first argument for the
    * `renderFieldExtension` function
@@ -192,15 +192,6 @@ export type FieldExtension = {
   configurable: boolean;
   /** For `sidebar` extensions only: whether the sidebar panel will start open or collapsed */
   startOpen?: boolean;
-  /**
-   * For `sidebar` and `field_addon` extensions only: if multiple field
-   * extensions are present for a field, they will be sorted by ascending
-   * `rank`. If you want to specify an explicit value for `rank`, make sure to
-   * offer a way for final users to customize it inside the plugin's settings
-   * form, otherwise the hardcoded value you choose might clash with the one of
-   * another plugin! *
-   */
-  rank?: number;
   /** The initial height to set for the iframe that will render the field extension */
   initialHeight?: number;
 };
