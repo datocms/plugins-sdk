@@ -178,9 +178,9 @@ export type FieldExtension = {
   type: FieldExtensionType;
   /**
    * For `editor` extensions: moves the field to the sidebar of the record
-   * editing page, mimicking a sidebar pane
+   * editing page, mimicking a sidebar panel
    */
-  asSidebarPane?: boolean | { startOpen: boolean };
+  asSidebarPanel?: boolean | { startOpen: boolean };
   /** The type of fields that the field extension in compatible with */
   fieldTypes: NonNullable<PluginAttributes['field_types']>;
   /**
@@ -190,7 +190,7 @@ export type FieldExtension = {
    * `validateManualFieldExtensionParameters` methods
    */
   configurable: boolean;
-  /** For `sidebar` extensions only: whether the sidebar pane will start open or collapsed */
+  /** For `sidebar` extensions only: whether the sidebar panel will start open or collapsed */
   startOpen?: boolean;
   /**
    * For `sidebar` and `field_addon` extensions only: if multiple field
@@ -205,28 +205,28 @@ export type FieldExtension = {
   initialHeight?: number;
 };
 
-/** A sidebar pane to be shown inside the record's editing page */
-export type SidebarPane = {
-  /** ID of the pane. Will be the first argument for the `renderSidebarPane` function */
+/** A sidebar panel to be shown inside the record's editing page */
+export type SidebarPanel = {
+  /** ID of the panel. Will be the first argument for the `renderSidebarPanel` function */
   id: string;
-  /** Label to be shown on the collapsible sidebar pane handle */
+  /** Label to be shown on the collapsible sidebar panel handle */
   label: string;
   /**
    * An arbitrary configuration object that will be passed as the `parameters`
-   * property of the second argument of the `renderSidebarPane` function
+   * property of the second argument of the `renderSidebarPanel` function
    */
   parameters?: Record<string, unknown>;
-  /** Whether the sidebar pane will start open or collapsed */
+  /** Whether the sidebar panel will start open or collapsed */
   startOpen?: boolean;
   /**
-   * If multiple sidebar panes are present, they will be sorted by ascending
+   * If multiple sidebar panels are present, they will be sorted by ascending
    * `rank`. If you want to specify an explicit value for `rank`, make sure to
    * offer a way for final users to customize it inside the plugin's settings
    * form, otherwise the hardcoded value you choose might clash with the one of
    * another plugin! *
    */
   rank?: number;
-  /** The initial height to set for the iframe that will render the sidebar pane */
+  /** The initial height to set for the iframe that will render the sidebar panel */
   initialHeight?: number;
 };
 
@@ -237,8 +237,8 @@ export type EditorOverride = {
    * `renderFieldExtension` function
    */
   id: string;
-  /** Moves the field to the sidebar of the record editing page, mimicking a sidebar pane */
-  asSidebarPane?: boolean | { startOpen: boolean };
+  /** Moves the field to the sidebar of the record editing page, mimicking a sidebar panel */
+  asSidebarPanel?: boolean | { startOpen: boolean };
   /**
    * An arbitrary configuration object that will be passed as the `parameters`
    * property of the second argument of the `renderFieldExtension` function
@@ -366,7 +366,7 @@ export type Toast<CtaValue = unknown> = {
   dismissAfterTimeout?: boolean | number;
 };
 
-/** A choice presented in a `openConfirm` pane */
+/** A choice presented in a `openConfirm` panel */
 export type ConfirmChoice = {
   /** The label to be shown for the choice */
   label: string;
@@ -381,9 +381,9 @@ export type ConfirmChoice = {
 
 /** Options for the `openConfirm` function */
 export type ConfirmOptions = {
-  /** The title to be shown inside the confirmation pane */
+  /** The title to be shown inside the confirmation panel */
   title: string;
-  /** The main message to be shown inside the confirmation pane */
+  /** The main message to be shown inside the confirmation panel */
   content: string;
   /** The different options the user can choose from */
   choices: ConfirmChoice[];
@@ -814,12 +814,12 @@ export type ItemFormMethods = RenderMethods & ItemFormAdditionalMethods;
 
 /** Information regarding the specific sidebar panel that you need to render */
 export type RenderSidebarPaneAdditionalProperties = {
-  mode: 'renderSidebarPane';
-  /** The ID of the sidebar pane that needs to be rendered */
+  mode: 'renderSidebarPanel';
+  /** The ID of the sidebar panel that needs to be rendered */
   sidebarPaneId: string;
   /**
    * The arbitrary `parameters` of the panel declared in the
-   * `itemTypeSidebarPanes` function
+   * `itemTypeSidebarPanels` function
    */
   parameters: Record<string, unknown> | undefined;
 };

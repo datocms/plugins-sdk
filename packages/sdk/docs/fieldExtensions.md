@@ -13,9 +13,7 @@ They operate on top of a particular field, replacing the default field editor th
 
 It is also possible to have editor extensions in "sidebar mode": the effect is to move the field to the right-hand sidebar, giving it the appearance of a collapsible panel. As an example, the [Sidebar notes](/marketplace/plugins/i/datocms-plugin-notes) plugin uses this mode to turn a JSON field into a kind of notepad where you can add virtual post-it notes.
 
-SE SIDEBAR, NO ADDON.
-
-CHE DIFFERENZA C'E COL SIDEBAR PANE?
+The difference between an "editor field extension" in sidebar mode, and a [sidebar panel](/docs/plugin-sdk/sdk/sidebar-panels) is the fact that the first controls a specific field and can use it as a "storage unit" to save internal information, while a sidebar panels are not associated to any particular field.
 
 #### "Addon" extensions
 

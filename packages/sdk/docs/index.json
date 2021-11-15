@@ -13,10 +13,10 @@
       "hooksGroup": "pages"
     },
     {
-      "title": "Record sidebar panes",
-      "slug": "sidebar-panes",
-      "content": "sidebarPanes.md",
-      "hooksGroup": "sidebarPanes"
+      "title": "Record sidebar panels",
+      "slug": "sidebar-panels",
+      "content": "sidebarPanels.md",
+      "hooksGroup": "sidebarPanels"
     },
     {
       "title": "Field extensions",

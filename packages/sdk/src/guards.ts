@@ -28,7 +28,7 @@ export const isRenderModalParent = buildGuard<RenderModalMethods>(
 );
 
 export const isRenderSidebarPaneParent = buildGuard<RenderSidebarPaneMethods>(
-  'renderSidebarPane',
+  'renderSidebarPanel',
 );
 
 export const isRenderFieldExtensionParent = buildGuard<RenderFieldExtensionMethods>(
