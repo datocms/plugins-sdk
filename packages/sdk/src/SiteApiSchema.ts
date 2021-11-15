@@ -1096,6 +1096,7 @@ export interface RoleAttributes {
       | 'read'
       | 'update'
       | 'create'
+      | 'duplicate'
       | 'delete'
       | 'publish'
       | 'edit_creator'
@@ -1124,6 +1125,7 @@ export interface RoleAttributes {
       | 'read'
       | 'update'
       | 'create'
+      | 'duplicate'
       | 'delete'
       | 'publish'
       | 'edit_creator'
@@ -1270,6 +1272,7 @@ export interface RoleMeta {
         | 'read'
         | 'update'
         | 'create'
+        | 'duplicate'
         | 'delete'
         | 'publish'
         | 'edit_creator'
@@ -1298,6 +1301,7 @@ export interface RoleMeta {
         | 'read'
         | 'update'
         | 'create'
+        | 'duplicate'
         | 'delete'
         | 'publish'
         | 'edit_creator'
@@ -1424,6 +1428,7 @@ export interface RoleCreateSchema {
           | 'read'
           | 'update'
           | 'create'
+          | 'duplicate'
           | 'delete'
           | 'publish'
           | 'edit_creator'
@@ -1452,6 +1457,7 @@ export interface RoleCreateSchema {
           | 'read'
           | 'update'
           | 'create'
+          | 'duplicate'
           | 'delete'
           | 'publish'
           | 'edit_creator'
@@ -1595,6 +1601,7 @@ export interface RoleUpdateSchema {
           | 'read'
           | 'update'
           | 'create'
+          | 'duplicate'
           | 'delete'
           | 'publish'
           | 'edit_creator'
@@ -1623,6 +1630,7 @@ export interface RoleUpdateSchema {
           | 'read'
           | 'update'
           | 'create'
+          | 'duplicate'
           | 'delete'
           | 'publish'
           | 'edit_creator'
@@ -1739,6 +1747,7 @@ export interface User {
   id: UserIdentity;
   attributes: UserAttributes;
   relationships: UserRelationships;
+  meta?: UserMeta;
 }
 /**
  * JSON API attributes
@@ -1767,6 +1776,15 @@ export interface UserRelationships {
   role: {
     data: RoleData;
   };
+}
+/**
+ * Meta information on the user
+ *
+ * This interface was referenced by `User`'s JSON-Schema via the `definition` "meta".
+ */
+export interface UserMeta {
+  /** Date of last reading/interaction */
+  last_access: string | null;
 }
 /**
  * JSON API data
@@ -1833,6 +1851,7 @@ export interface SsoUser {
   id: SsoUserIdentity;
   attributes: SsoUserAttributes;
   relationships: SsoUserRelationships;
+  meta: SsoUserMeta;
 }
 /**
  * JSON API attributes
@@ -1879,6 +1898,15 @@ export interface SsoUserRelationships {
 export interface SsoGroupData {
   type: SsoGroupType;
   id: SsoGroupIdentity;
+}
+/**
+ * Meta information on the user
+ *
+ * This interface was referenced by `SsoUser`'s JSON-Schema via the `definition` "meta".
+ */
+export interface SsoUserMeta {
+  /** Date of last reading/interaction */
+  last_access: string | null;
 }
 /**
  * JSON API data
