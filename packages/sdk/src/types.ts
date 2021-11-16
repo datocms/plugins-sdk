@@ -415,7 +415,7 @@ export type CommonProperties = {
    * The access token to perform API calls on behalf of the current user. Only
    * available if `requestCurrentAccessToken` is set to `true`
    */
-  currentAccessToken: string;
+  currentAccessToken: string | undefined;
   /** The current plugin */
   plugin: Plugin;
   /**
