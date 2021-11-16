@@ -43,10 +43,10 @@ export type MainNavigationTab = {
     'content' | 'mediaArea' | 'apiExplorer' | 'settings',
   ];
   /**
-   * If different plugins specify the same placement for their tab, they will be
-   * displayed by ascending `rank`. If you want to specify an explicit value for
-   * `rank`, make sure to offer a way for final users to customize it inside the
-   * plugin's settings form, otherwise the hardcoded value you choose might
+   * If different plugins specify the same `placement` for their tabs, they will
+   * be displayed by ascending `rank`. If you want to specify an explicit value
+   * for `rank`, make sure to offer a way for final users to customize it inside
+   * the plugin's settings form, otherwise the hardcoded value you choose might
    * clash with the one of another plugin! *
    */
   rank?: number;
@@ -98,7 +98,7 @@ export type SettingsAreaSidebarItemGroup = {
     ),
   ];
   /**
-   * If different plugins specify the same placement for their sections, they
+   * If different plugins specify the same `placement` for their sections, they
    * will be displayed by ascending `rank`. If you want to specify an explicit
    * value for `rank`, make sure to offer a way for final users to customize it
    * inside the plugin's settings form, otherwise the hardcoded value you choose
@@ -140,7 +140,7 @@ export type ContentAreaSidebarItem = {
    */
   placement?: ['before' | 'after', 'menuItems' | 'settings'];
   /**
-   * If different plugins specify the same placement for their sections, they
+   * If different plugins specify the same `placement` for their panels, they
    * will be displayed by ascending `rank`. If you want to specify an explicit
    * value for `rank`, make sure to offer a way for final users to customize it
    * inside the plugin's settings form, otherwise the hardcoded value you choose
@@ -196,6 +196,11 @@ export type ManualFieldExtension = {
   initialHeight?: number;
 };
 
+export type ItemFormSidebarPanelPlacement = [
+  'before' | 'after',
+  'recordInfo' | 'actions' | 'links' | 'revisionHistory',
+];
+
 /** A sidebar panel to be shown inside the record's editing page */
 export type ItemFormSidebarPanel = {
   /**
@@ -213,11 +218,17 @@ export type ItemFormSidebarPanel = {
   /** Whether the sidebar panel will start open or collapsed */
   startOpen?: boolean;
   /**
-   * If multiple sidebar panels are present, they will be sorted by ascending
-   * `rank`. If you want to specify an explicit value for `rank`, make sure to
-   * offer a way for final users to customize it inside the plugin's settings
-   * form, otherwise the hardcoded value you choose might clash with the one of
-   * another plugin! *
+   * Expresses where you want the item to be placed inside the sidebar. If not
+   * specified, the item will be placed after the standard panels provided by
+   * DatoCMS itself.
+   */
+  placement?: ItemFormSidebarPanelPlacement;
+  /**
+   * If multiple sidebar panels specify the same `placement`, they will be
+   * sorted by ascending `rank`. If you want to specify an explicit value for
+   * `rank`, make sure to offer a way for final users to customize it inside the
+   * plugin's settings form, otherwise the hardcoded value you choose might
+   * clash with the one of another plugin! *
    */
   rank?: number;
   /** The initial height to set for the iframe that will render the sidebar panel */
@@ -232,14 +243,16 @@ export type EditorOverride = {
    */
   id: string;
   /** Moves the field to the sidebar of the record editing page, mimicking a sidebar panel */
-  asSidebarPanel?: boolean | { startOpen: boolean };
+  asSidebarPanel?:
+    | boolean
+    | { startOpen?: boolean; placement?: ItemFormSidebarPanelPlacement };
   /**
    * An arbitrary configuration object that will be passed as the `parameters`
    * property of the second argument of the `renderFieldExtension` function
    */
   parameters?: Record<string, unknown>;
   /**
-   * If multiple plugins ovverride a field, the one with the highest `rank` will
+   * If multiple plugins override a field, the one with the highest `rank` will
    * win. If you want to specify an explicit value for `rank`, make sure to
    * offer a way for final users to customize it inside the plugin's settings
    * form, otherwise the hardcoded value you choose might clash with the one of
