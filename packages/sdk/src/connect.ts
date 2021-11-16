@@ -64,6 +64,11 @@ export type RenderPluginParametersFormCtx = RenderPluginParametersFormProperties
 /** The full options you can pass to the `connect` function */
 export type FullConnectParameters = {
   /**
+   * Makes the token of the logged in user available in all hooks as
+   * `ctx.currentAccessToken`, so you can perform actions on their behalf.
+   */
+  requireCurrentAccessToken: boolean;
+  /**
    * Use this function to declare new tabs you want to add in the top-bar of the UI
    *
    * @group pages

@@ -411,7 +411,10 @@ export type CommonProperties = {
   currentUser: User | SsoUser | Account;
   /** The role for the current DatoCMS user */
   currentRole: Role;
-  /** The access token to perform API calls on behalf of the current user */
+  /**
+   * The access token to perform API calls on behalf of the current user. Only
+   * available if `requestCurrentAccessToken` is set to `true`
+   */
   currentAccessToken: string;
   /** The current plugin */
   plugin: Plugin;
