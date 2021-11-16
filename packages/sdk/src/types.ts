@@ -190,8 +190,6 @@ export type ManualFieldExtension = {
    * `validateManualFieldExtensionParameters` methods
    */
   configurable: boolean;
-  /** For `sidebar` extensions only: whether the sidebar panel will start open or collapsed */
-  startOpen?: boolean;
   /** The initial height to set for the iframe that will render the field extension */
   initialHeight?: number;
 };
