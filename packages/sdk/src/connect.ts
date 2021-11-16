@@ -290,7 +290,16 @@ export async function connect(
   const penpalConnection = connectToParent({
     methods: {
       sdkVersion: () => '0.2.0',
-      implementedHooks: () => Object.keys(configuration),
+      implementedHooks: () =>
+        Object.fromEntries(
+          Object.entries(configuration).map(([key, value]) => {
+            if (typeof value === 'function') {
+              return [key, true];
+            }
+
+            return [key, value];
+          }),
+        ),
       mainNavigationTabs,
       settingsAreaSidebarItemGroups,
       contentAreaSidebarItems,
