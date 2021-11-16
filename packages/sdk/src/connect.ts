@@ -285,6 +285,7 @@ export async function connect(
   const penpalConnection = connectToParent({
     methods: {
       sdkVersion: () => '0.2.0',
+      implementedHooks: () => Object.keys(configuration),
       mainNavigationTabs,
       settingsAreaSidebarItemGroups,
       contentAreaSidebarItems,
