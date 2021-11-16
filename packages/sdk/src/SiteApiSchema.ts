@@ -3508,6 +3508,8 @@ export interface PluginAttributes {
   parameters: {
     [k: string]: unknown;
   };
+  /** Permissions granted to this plugin */
+  permissions: 'currentAccessToken'[];
   /** The type of field extension a legacy plugin implements */
   plugin_type: 'field_editor' | 'sidebar' | 'field_addon' | null;
   /** On which types of field in which a legacy plugin can be used */
@@ -3579,6 +3581,11 @@ export interface PluginCreateSchema {
        * key is not specified.
        */
       url?: string;
+      /**
+       * Permissions granted to this plugin. Only to be passed if package name
+       * key is not specified.
+       */
+      permissions?: 'currentAccessToken'[];
       /**
        * The type of field extension this legacy plugin implements. Only to be
        * passed if package name key is not specified.
