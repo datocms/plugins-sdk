@@ -1,0 +1,40 @@
+@import 'https://use.typekit.net/iok7hkr.css';
+
+:root {
+  --base-body-color: #34363a;
+  --light-body-color: #848484;
+  --placeholder-body-color: #c6c6c6;
+  --light-bg-color: #f5f5f5;
+  --disabled-color: #ededed;
+  --border-color: #f0f0f0;
+  --alert-color: #ff5e49;
+  --warning-color: #ffd700;
+  --notice-color: #46d700;
+  --warning-bg-color: #ffffe5;
+  --enterprise-color: #eca227;
+  --add-color: #4cb06d;
+  --remove-color: #eb576a;
+  --base-font-family: 'colfax-web', 'Roboto', 'Helvetica Neue', Helvetica,
+    Roboto, Arial, sans-serif;
+  --monospaced-font-family: 'Roboto Mono', 'Menlo', 'Bitstream Vera Sans Mono',
+    Consolas, Courier, monospace;
+}
+
+html {
+  padding: 0;
+  margin: 0;
+  height: auto;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--base-font-family);
+  -webkit-text-size-adjust: 100%;
+  line-height: 1.5;
+  color: var(--base-body-color);
+  font-size: 0.9375rem;
+  text-rendering: optimizeLegibility;
+  padding: 0;
+  margin: 0;
+  height: auto;
+}
