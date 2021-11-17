@@ -413,7 +413,7 @@ export type CommonProperties = {
   currentRole: Role;
   /**
    * The access token to perform API calls on behalf of the current user. Only
-   * available if `requestCurrentAccessToken` is set to `true`
+   * available if `currentAccessToken` permission is granted
    */
   currentAccessToken: string | undefined;
   /** The current plugin */
