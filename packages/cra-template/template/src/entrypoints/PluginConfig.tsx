@@ -7,7 +7,7 @@ type PropTypes = {
 };
 
 export default function PluginParametersForm({ ctx }: PropTypes) {
-  useEffect(ctx.startAutoResizer, [ctx]);
+  useEffect(() => ctx.startAutoResizer(), [ctx]);
 
   return <>Hi!</>;
 }
