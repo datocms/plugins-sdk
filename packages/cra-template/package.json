@@ -1,0 +1,28 @@
+{
+  "name": "cra-template-datocms-plugin",
+  "version": "1.1.2",
+  "keywords": [
+    "react",
+    "create-react-app",
+    "template",
+    "typescript",
+    "datocms"
+  ],
+  "description": "The base TypeScript template for creating DatoCMS plugins",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/datocms/plugins-sdk.git",
+    "directory": "packages/cra-template"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=14"
+  },
+  "bugs": {
+    "url": "https://github.com/datocms/plugins-sdk/issues"
+  },
+  "files": [
+    "template",
+    "template.json"
+  ]
+}
