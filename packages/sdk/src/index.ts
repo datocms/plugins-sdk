@@ -11,6 +11,8 @@ import {
   Role,
 } from './SiteApiSchema';
 
+import * as sistema from './sistema';
+
 export type {
   Account,
   Field,
@@ -26,4 +28,4 @@ export type {
 
 export * from './connect';
 export * from './types';
-export * from './sistema';
+export { sistema };
