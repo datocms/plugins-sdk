@@ -20,7 +20,8 @@
   },
   "files": [
     "dist",
-    "sistema"
+    "sistema",
+    "types.json"
   ],
   "repository": {
     "type": "git",
