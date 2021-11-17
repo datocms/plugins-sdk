@@ -1,0 +1,315 @@
+.button {
+  padding: 0.7em 1em;
+  text-decoration: none;
+  display: inline-block;
+  vertical-align: middle;
+  white-space: nowrap;
+  font-family: inherit;
+  cursor: pointer;
+  line-height: inherit;
+  background-color: transparent;
+  color: $base-body-color;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border-radius: 4px;
+  box-sizing: border-box;
+  transition: all 0.3s $material-ease;
+  font-size: 1.1em;
+  font-weight: 500;
+  border: 1px solid transparent;
+  opacity: 1;
+}
+
+.button:hover,
+.button:focus {
+  opacity: 0.8;
+}
+
+.button:active {
+  opacity: 0.7;
+}
+
+.disabled {
+  border-width: 0;
+  color: rgba(0, 0, 0, 0.2);
+  background-color: var(--lightBgColor);
+  cursor: not-allowed;
+}
+
+.buttonType-muted {
+  background-color: var(--lightColor);
+  color: var(--accentColor);
+}
+
+.buttonType-primary {
+  border-width: 0;
+  background-color: var(--accentColor);
+  color: white;
+}
+
+.buttonType-primary:hover,
+.buttonType-primary:focus,
+.buttonType-primary:active {
+  color: white;
+}
+
+.buttonType-primary.disabled {
+  background-color: var(--disabledColor);
+  color: rgba(0, 0, 0, 0.2);
+}
+
+.buttonType-primary.disabled:hover,
+.buttonType-primary.disabled:focus,
+.buttonType-primary.disabled:active {
+  color: rgba(0, 0, 0, 0.2);
+}
+
+.buttonType-negative {
+  background-color: var(--alertColor);
+  border-width: 0;
+  color: white;
+}
+
+.buttonType-negative:hover,
+.buttonType-negative:focus,
+.buttonType-negative:active {
+  color: white;
+  background-color: var(--alertColor);
+}
+
+.buttonType-negative.disabled {
+  background-color: var(--disabledColor);
+  color: rgba(0, 0, 0, 0.2);
+}
+
+.buttonSize-xxs {
+  font-size: 1em;
+  padding: 0.5em 0.8em;
+}
+
+.buttonSize-xs {
+  font-size: 1em;
+  padding: 0.6em 0.8em;
+}
+
+.buttonSize-s {
+  font-size: 1em;
+}
+
+.buttonSize-l {
+  font-size: 1.2em;
+}
+
+.buttonSize-xl {
+  font-size: 1.2em;
+  padding: 1em 1em;
+}
+
+.fullWidth {
+  text-align: center;
+  display: block;
+  width: 100%;
+}
+
+/*
+  &:hover, &:focus
+    opacity: 0.8
+
+  &:active
+    opacity: 0.7
+
+  > span
+    position: relative
+    top: 0.06em
+
+  svg, i, .Spinner
+    display: inline-block
+    vertical-align: middle
+    line-height: 0.6
+    +accent-color-rule(fill)
+
+    &:first-child
+      margin-right: 0.5em
+
+    &:last-child
+      margin-left: 0.5em
+
+    &:first-child:last-child
+      margin-left: 0
+      margin-right: 0
+
+  &[disabled], &.is-disabled
+    border-width: 0
+    color: rgba(black, 0.2)
+    background-color: $light-bg-color
+    cursor: not-allowed
+
+    svg
+      fill: rgba(black, 0.2)
+
+    &:hover, &:focus
+      color: rgba(black, 0.2)
+      background-color: $light-bg-color
+      cursor: not-allowed
+
+.Button--micro
+  @extend .button
+  font-size: 1em
+  padding: 0.5em 0.8em
+
+.Button--tiny
+  @extend .button
+  font-size: 1em
+  padding: 0.6em 0.8em
+
+.Button--small
+  @extend .button
+  font-size: 1em
+
+.Button--large
+  @extend .button
+  font-size: 1.2em
+
+.Button--huge
+  @extend .button
+  font-size: 1.2em
+  padding: 1em 1em
+
+.Button--expand
+  @extend .button
+  text-align: center
+  display: block
+  width: 100%
+
+.Button--primary
+  @extend .button
+  border-width: 0
+  +accent-color-rule(background-color)
+  color: white
+
+  svg
+    fill: white
+
+  &:hover, &:focus, &:active
+    color: white
+
+  &[disabled]
+    background-color: $disabled-color
+
+    &:hover, &:focus
+      color: rgba(black, 0.2)
+
+.Button--datocms
+  @extend .button
+  border-width: 0
+  background-color: #ff593d
+  color: white
+
+  svg
+    fill: white
+
+  &:hover, &:focus, &:active
+    color: white
+    background-color: #ff593d
+
+    svg
+      fill: white
+
+.Button--rev
+  @extend .button
+  background: transparent
+  border-color: rgba(white, 0.1)
+  color: white
+
+  svg
+    fill: white
+
+  &:hover, &:focus
+    background-color: rgba(black, 0.4)
+
+  &:active
+    background-color: rgba(black, 0.8)
+
+.Button--white
+  @extend .button
+  border-width: 0
+  background-color: white
+
+  &:hover, &:focus
+    background-color: rgba(white, 0.8)
+
+  &:active
+    background-color: rgba(white, 0.7)
+
+.Button--alert
+  @extend .button
+  background-color: $alert-color
+  border-width: 0
+  color: white
+
+  svg
+    fill: white
+
+  &:hover, &:focus, &:active
+    color: white
+    background-color: $alert-color
+
+    svg
+      fill: white
+
+  &[disabled],
+  &[aria-disabled="true"]
+    cursor: not-allowed
+    user-select: none
+    background-color: $disabled-color
+    color: rgba(black, 0.2)
+    svg
+      fill: rgba(black, 0.2)
+
+.Button--waiting
+  cursor: default
+
+  &:hover, &:focus
+    color: $base-body-color
+
+    svg
+      fill: $base-body-color
+
+.Button--transparent
+  @extend .button
+  color: white
+  border-width: 0
+  background-color: rgba(white, 0.2)
+
+  svg
+    fill: white
+
+  &:hover, &:focus, &:active
+    color: white
+    background-color: rgba(white, 0.4)
+
+  &[disabled]
+    opacity: 0.5
+    background-color: transparent
+
+    &:hover, &:focus
+      background-color: transparent
+      opacity: 0.5
+
+.AdjacentButtons > *
+  display: inline-block
+  margin-right: 4px
+
+  &:last-child
+    margin-right: 0
+
+.button-as-link
+  +reset-button
+  text-decoration: underline
+  +accent-color-rule(color)
+
+  &:hover
+    text-decoration: none
+
+span.button-as-link
+  cursor: default */

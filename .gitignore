@@ -1,6 +1,7 @@
 yarn.lock
 
 packages/sdk/types.json
+packages/react-ui/types.json
 
 # Logs
 **/logs
