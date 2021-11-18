@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { RenderPluginParametersFormCtx } from 'datocms-plugins-sdk';
+import { Canvas, Button } from 'datocms-react-ui';
 import './style.css';
 
 type PropTypes = {
@@ -7,7 +8,10 @@ type PropTypes = {
 };
 
 export default function PluginParametersForm({ ctx }: PropTypes) {
-  useEffect(() => ctx.startAutoResizer(), [ctx]);
-
-  return <>Hi!</>;
+  return (
+    <Canvas ctx={ctx}>
+      Hi!
+      <Button>Click me!</Button>
+    </Canvas>
+  );
 }
