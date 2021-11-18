@@ -8,6 +8,9 @@
       "datocms-plugins-sdk": "next",
       "datocms-react-ui": "next"
     },
+    "scripts": {
+      "start": "BROWSER=none react-scripts start"
+    },
     "eslintConfig": {
       "extends": ["react-app"]
     }

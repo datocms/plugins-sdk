@@ -1,10 +1,10 @@
 import { connect } from 'datocms-plugins-sdk';
 import { render } from './utils/render';
-import PluginConfig from './entrypoints/PluginConfig';
+import ConfigScreen from './entrypoints/ConfigScreen';
 import 'datocms-react-ui/styles.css';
 
 connect({
-  renderPluginParametersForm(ctx) {
-    return render(<PluginConfig ctx={ctx} />);
+  renderConfigScreen(ctx) {
+    return render(<ConfigScreen ctx={ctx} />);
   },
 });

@@ -1,7 +1,7 @@
 import connectToParent from 'penpal/lib/connectToParent';
 import { Field, ModelBlock } from './SiteApiSchema';
 import {
-  RenderPluginParametersFormMethods,
+  RenderConfigScreenMethods,
   RenderManualFieldExtensionParametersFormMethods,
   RenderSidebarPaneMethods,
   RenderModalMethods,
@@ -13,7 +13,7 @@ import {
   ItemFormSidebarPanel,
   RenderFieldExtensionMethods,
   RenderPageMethods,
-  RenderPluginParametersFormPropertiesAndMethods,
+  RenderConfigScreenPropertiesAndMethods,
   RenderManualFieldExtensionParametersFormPropertiesAndMethods,
   RenderFieldExtensionPropertiesAndMethods,
   RenderModalPropertiesAndMethods,
@@ -24,7 +24,7 @@ import {
 
 import {
   isInitParent,
-  isRenderPluginParametersFormParent,
+  isRenderConfigScreenParent,
   isRenderManualFieldExtensionParametersFormParent,
   isRenderFieldExtensionParent,
   isRenderModalParent,
@@ -58,7 +58,7 @@ export type RenderFieldExtensionCtx = RenderFieldExtensionPropertiesAndMethods &
   SizingUtilities;
 export type RenderManualFieldExtensionParametersFormCtx = RenderManualFieldExtensionParametersFormPropertiesAndMethods &
   SizingUtilities;
-export type RenderPluginParametersFormCtx = RenderPluginParametersFormPropertiesAndMethods &
+export type RenderConfigScreenCtx = RenderConfigScreenPropertiesAndMethods &
   SizingUtilities;
 
 /** The full options you can pass to the `connect` function */
@@ -114,9 +114,9 @@ export type FullConnectParameters = {
    * This function will be called when the plugin needs to render the plugin's
    * configuration form
    *
-   * @group plugin
+   * @group configScreen
    */
-  renderPluginParametersForm: (ctx: RenderPluginParametersFormCtx) => void;
+  renderConfigScreen: (ctx: RenderConfigScreenCtx) => void;
   /**
    * This function will be called when the plugin needs to render a specific
    * page (see the `mainNavigationTabs`, `settingsAreaSidebarItemGroups` and
@@ -339,19 +339,17 @@ export async function connect(
     render(initialSettings as Settings);
   }
 
-  if (isRenderPluginParametersFormParent(parent, initialSettings)) {
-    type Settings = AsyncReturnType<
-      RenderPluginParametersFormMethods['getSettings']
-    >;
+  if (isRenderConfigScreenParent(parent, initialSettings)) {
+    type Settings = AsyncReturnType<RenderConfigScreenMethods['getSettings']>;
 
     const renderUtils = buildRenderUtils(parent);
 
     const render = (settings: Settings) => {
-      if (!configuration.renderPluginParametersForm) {
+      if (!configuration.renderConfigScreen) {
         return;
       }
 
-      configuration.renderPluginParametersForm({
+      configuration.renderConfigScreen({
         ...parent,
         ...settings,
         ...renderUtils,

@@ -971,16 +971,16 @@ export type RenderManualFieldExtensionParametersFormMethods = RenderMethods &
 export type RenderManualFieldExtensionParametersFormPropertiesAndMethods = RenderManualFieldExtensionParametersFormMethods &
   RenderManualFieldExtensionParametersFormMeta;
 
-export type RenderPluginParametersFormAdditionalProperties = {
-  mode: 'renderPluginParametersForm';
+export type RenderConfigScreenAdditionalProperties = {
+  mode: 'renderConfigScreen';
 };
 
-export type RenderPluginParametersFormMeta = RenderProperties &
-  RenderPluginParametersFormAdditionalProperties;
+export type RenderConfigScreenMeta = RenderProperties &
+  RenderConfigScreenAdditionalProperties;
 
 /** These methods can be used to update the configuration object of your plugin */
-export type RenderPluginParametersFormAdditionalMethods = {
-  getSettings: () => Promise<RenderPluginParametersFormMeta>;
+export type RenderConfigScreenAdditionalMethods = {
+  getSettings: () => Promise<RenderConfigScreenMeta>;
   /**
    * A function to be called by the plugin to persist some changes to the
    * parameters of the plugin
@@ -991,11 +991,11 @@ export type RenderPluginParametersFormAdditionalMethods = {
   save: (params: Record<string, unknown>) => Promise<void>;
 };
 
-export type RenderPluginParametersFormMethods = RenderMethods &
-  RenderPluginParametersFormAdditionalMethods;
+export type RenderConfigScreenMethods = RenderMethods &
+  RenderConfigScreenAdditionalMethods;
 
-export type RenderPluginParametersFormPropertiesAndMethods = RenderPluginParametersFormMethods &
-  RenderPluginParametersFormMeta;
+export type RenderConfigScreenPropertiesAndMethods = RenderConfigScreenMethods &
+  RenderConfigScreenMeta;
 
 /** Information regarding the field you need to configure */
 export type FieldSetupAdditionalProperties = {

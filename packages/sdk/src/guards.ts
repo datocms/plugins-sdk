@@ -2,7 +2,7 @@ import {
   InitMethods,
   RenderPageMethods,
   RenderFieldExtensionMethods,
-  RenderPluginParametersFormMethods,
+  RenderConfigScreenMethods,
   RenderManualFieldExtensionParametersFormMethods,
   RenderSidebarPaneMethods,
   RenderModalMethods,
@@ -19,8 +19,8 @@ export const isInitParent = buildGuard<InitMethods>('init');
 
 export const isRenderPageParent = buildGuard<RenderPageMethods>('renderPage');
 
-export const isRenderPluginParametersFormParent = buildGuard<RenderPluginParametersFormMethods>(
-  'renderPluginParametersForm',
+export const isRenderConfigScreenParent = buildGuard<RenderConfigScreenMethods>(
+  'renderConfigScreen',
 );
 
 export const isRenderModalParent = buildGuard<RenderModalMethods>(
