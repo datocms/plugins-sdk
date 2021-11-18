@@ -1,7 +1,7 @@
 import { connect } from 'datocms-plugins-sdk';
 import { render } from './utils/render';
 import PluginConfig from './entrypoints/PluginConfig';
-import 'datocms-plugins-sdk/sistema/global.css';
+import 'datocms-react-ui/styles.css';
 
 connect({
   renderPluginParametersForm(ctx) {
