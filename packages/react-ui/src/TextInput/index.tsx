@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import cn from 'classnames';
 import styles from './styles.module.css.json';
 
