@@ -2,7 +2,7 @@ import connectToParent from 'penpal/lib/connectToParent';
 import { Field, ModelBlock } from './SiteApiSchema';
 import {
   RenderConfigScreenMethods,
-  RenderManualFieldExtensionParametersFormMethods,
+  RenderManualFieldExtensionConfigScreenMethods,
   RenderSidebarPaneMethods,
   RenderModalMethods,
   SettingsAreaSidebarItemGroup,
@@ -14,7 +14,7 @@ import {
   RenderFieldExtensionMethods,
   RenderPageMethods,
   RenderConfigScreenPropertiesAndMethods,
-  RenderManualFieldExtensionParametersFormPropertiesAndMethods,
+  RenderManualFieldExtensionConfigScreenPropertiesAndMethods,
   RenderFieldExtensionPropertiesAndMethods,
   RenderModalPropertiesAndMethods,
   RenderPagePropertiesAndMethods,
@@ -25,7 +25,7 @@ import {
 import {
   isInitParent,
   isRenderConfigScreenParent,
-  isRenderManualFieldExtensionParametersFormParent,
+  isRenderManualFieldExtensionConfigScreenParent,
   isRenderFieldExtensionParent,
   isRenderModalParent,
   isRenderPageParent,
@@ -56,7 +56,7 @@ export type RenderItemFormSidebarPanelCtx = RenderSidebarPanePropertiesAndMethod
   SizingUtilities;
 export type RenderFieldExtensionCtx = RenderFieldExtensionPropertiesAndMethods &
   SizingUtilities;
-export type RenderManualFieldExtensionParametersFormCtx = RenderManualFieldExtensionParametersFormPropertiesAndMethods &
+export type RenderManualFieldExtensionConfigScreenCtx = RenderManualFieldExtensionConfigScreenPropertiesAndMethods &
   SizingUtilities;
 export type RenderConfigScreenCtx = RenderConfigScreenPropertiesAndMethods &
   SizingUtilities;
@@ -158,9 +158,9 @@ export type FullConnectParameters = {
    *
    * @group manualFieldExtensions
    */
-  renderManualFieldExtensionParametersForm: (
+  renderManualFieldExtensionConfigScreen: (
     fieldExtensionId: string,
-    ctx: RenderManualFieldExtensionParametersFormCtx,
+    ctx: RenderManualFieldExtensionConfigScreenCtx,
   ) => void;
   /**
    * This function will be called each time the configuration object changes. It
@@ -423,21 +423,19 @@ export async function connect(
     render(initialSettings as Settings);
   }
 
-  if (
-    isRenderManualFieldExtensionParametersFormParent(parent, initialSettings)
-  ) {
+  if (isRenderManualFieldExtensionConfigScreenParent(parent, initialSettings)) {
     type Settings = AsyncReturnType<
-      RenderManualFieldExtensionParametersFormMethods['getSettings']
+      RenderManualFieldExtensionConfigScreenMethods['getSettings']
     >;
 
     const renderUtils = buildRenderUtils(parent);
 
     const render = (settings: Settings) => {
-      if (!configuration.renderManualFieldExtensionParametersForm) {
+      if (!configuration.renderManualFieldExtensionConfigScreen) {
         return;
       }
 
-      configuration.renderManualFieldExtensionParametersForm(
+      configuration.renderManualFieldExtensionConfigScreen(
         settings.fieldExtensionId,
         {
           ...parent,

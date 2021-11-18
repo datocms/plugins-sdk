@@ -3,7 +3,7 @@ import {
   RenderPageMethods,
   RenderFieldExtensionMethods,
   RenderConfigScreenMethods,
-  RenderManualFieldExtensionParametersFormMethods,
+  RenderManualFieldExtensionConfigScreenMethods,
   RenderSidebarPaneMethods,
   RenderModalMethods,
 } from './types';
@@ -35,6 +35,6 @@ export const isRenderFieldExtensionParent = buildGuard<RenderFieldExtensionMetho
   'renderFieldExtension',
 );
 
-export const isRenderManualFieldExtensionParametersFormParent = buildGuard<RenderManualFieldExtensionParametersFormMethods>(
-  'renderManualFieldExtensionParametersForm',
+export const isRenderManualFieldExtensionConfigScreenParent = buildGuard<RenderManualFieldExtensionConfigScreenMethods>(
+  'renderManualFieldExtensionConfigScreen',
 );

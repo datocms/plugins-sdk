@@ -186,7 +186,7 @@ export type ManualFieldExtension = {
   /**
    * Whether this field extension needs some configuration options before being
    * installed in a field or not. Will trigger the
-   * `renderManualFieldExtensionParametersForm` and
+   * `renderManualFieldExtensionConfigScreen` and
    * `validateManualFieldExtensionParameters` methods
    */
   configurable: boolean;
@@ -931,8 +931,8 @@ export type RenderPagePropertiesAndMethods = RenderPageMethods & RenderPageMeta;
  * Information regarding the specific form that you need to render to let the
  * end-user edit the configuration object of a field extension
  */
-export type RenderManualFieldExtensionParametersFormAdditionalProperties = {
-  mode: 'renderManualFieldExtensionParametersForm';
+export type RenderManualFieldExtensionConfigScreenAdditionalProperties = {
+  mode: 'renderManualFieldExtensionConfigScreen';
   /** The ID of the field extension for which we need to render the parameters form */
   fieldExtensionId: string;
   /**
@@ -947,15 +947,15 @@ export type RenderManualFieldExtensionParametersFormAdditionalProperties = {
   errors: Record<string, unknown>;
 };
 
-export type RenderManualFieldExtensionParametersFormMeta = RenderProperties &
-  RenderManualFieldExtensionParametersFormAdditionalProperties;
+export type RenderManualFieldExtensionConfigScreenMeta = RenderProperties &
+  RenderManualFieldExtensionConfigScreenAdditionalProperties;
 
 /**
  * These methods can be used to update the configuration object of a specific
  * field extension
  */
-export type RenderManualFieldExtensionParametersFormAdditionalMethods = {
-  getSettings: () => Promise<RenderManualFieldExtensionParametersFormMeta>;
+export type RenderManualFieldExtensionConfigScreenAdditionalMethods = {
+  getSettings: () => Promise<RenderManualFieldExtensionConfigScreenMeta>;
   /**
    * Sets a new value for the parameters
    *
@@ -965,11 +965,11 @@ export type RenderManualFieldExtensionParametersFormAdditionalMethods = {
   setParameters: (params: Record<string, unknown>) => Promise<void>;
 };
 
-export type RenderManualFieldExtensionParametersFormMethods = RenderMethods &
-  RenderManualFieldExtensionParametersFormAdditionalMethods;
+export type RenderManualFieldExtensionConfigScreenMethods = RenderMethods &
+  RenderManualFieldExtensionConfigScreenAdditionalMethods;
 
-export type RenderManualFieldExtensionParametersFormPropertiesAndMethods = RenderManualFieldExtensionParametersFormMethods &
-  RenderManualFieldExtensionParametersFormMeta;
+export type RenderManualFieldExtensionConfigScreenPropertiesAndMethods = RenderManualFieldExtensionConfigScreenMethods &
+  RenderManualFieldExtensionConfigScreenMeta;
 
 export type RenderConfigScreenAdditionalProperties = {
   mode: 'renderConfigScreen';
