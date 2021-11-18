@@ -16,4 +16,11 @@
     Arial, sans-serif;
   --monospacedFontFamily: 'Roboto Mono', 'Menlo', 'Bitstream Vera Sans Mono',
     Consolas, Courier, monospace;
+
+  font-family: var(--baseFontFamily);
+  -webkit-text-size-adjust: 100%;
+  line-height: 1.5;
+  color: var(--baseBodyColor);
+  font-size: 0.9375rem;
+  text-rendering: optimizeLegibility;
 }
