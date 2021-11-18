@@ -1,5 +1,4 @@
 .button {
-  padding: 0.7em 1em;
   text-decoration: none;
   display: inline-block;
   vertical-align: middle;
@@ -14,19 +13,18 @@
   border-radius: 4px;
   box-sizing: border-box;
   transition: all 0.3s $material-ease;
-  font-size: 1.1em;
   font-weight: 500;
   border: 1px solid transparent;
   opacity: 1;
-}
 
-.button:hover,
-.button:focus {
-  opacity: 0.8;
-}
+  &:hover,
+  &:focus {
+    opacity: 0.8;
+  }
 
-.button:active {
-  opacity: 0.7;
+  &:active {
+    opacity: 0.7;
+  }
 }
 
 .disabled {
@@ -45,41 +43,40 @@
   border-width: 0;
   background-color: var(--accentColor);
   color: white;
-}
 
-.buttonType-primary:hover,
-.buttonType-primary:focus,
-.buttonType-primary:active {
-  color: white;
-}
+  &:hover,
+  &:focus,
+  &:active {
+    color: white;
+  }
 
-.buttonType-primary.disabled {
-  background-color: var(--disabledColor);
-  color: rgba(0, 0, 0, 0.2);
-}
-
-.buttonType-primary.disabled:hover,
-.buttonType-primary.disabled:focus,
-.buttonType-primary.disabled:active {
-  color: rgba(0, 0, 0, 0.2);
+  &.disabled {
+    background-color: var(--disabledColor);
+    color: rgba(0, 0, 0, 0.2);
+    &:hover,
+    &:focus,
+    &:active {
+      color: rgba(0, 0, 0, 0.2);
+    }
+  }
 }
 
 .buttonType-negative {
   background-color: var(--alertColor);
   border-width: 0;
   color: white;
-}
 
-.buttonType-negative:hover,
-.buttonType-negative:focus,
-.buttonType-negative:active {
-  color: white;
-  background-color: var(--alertColor);
-}
+  &:hover,
+  &:focus,
+  &:active {
+    color: white;
+    background-color: var(--alertColor);
+  }
 
-.buttonType-negative.disabled {
-  background-color: var(--disabledColor);
-  color: rgba(0, 0, 0, 0.2);
+  &.disabled {
+    background-color: var(--disabledColor);
+    color: rgba(0, 0, 0, 0.2);
+  }
 }
 
 .buttonSize-xxs {
@@ -94,6 +91,11 @@
 
 .buttonSize-s {
   font-size: 1em;
+}
+
+.buttonSize-m {
+  padding: 0.7em 1em;
+  font-size: 1.1em;
 }
 
 .buttonSize-l {

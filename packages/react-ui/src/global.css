@@ -1,0 +1,12 @@
+@import 'https://use.typekit.net/iok7hkr.css';
+
+@import './Button/styles.module.css';
+@import './Canvas/styles.module.css';
+@import './TextInput/styles.module.css';
+
+html {
+  padding: 0;
+  margin: 0;
+  height: auto;
+  font-size: 16px;
+}

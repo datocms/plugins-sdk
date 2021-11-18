@@ -1,0 +1,19 @@
+.canvas {
+  --baseBodyColor: #34363a;
+  --lightBodyColor: #848484;
+  --placeholderBodyColor: #c6c6c6;
+  --lightBgColor: #f5f5f5;
+  --disabledColor: #ededed;
+  --borderColor: #f0f0f0;
+  --alertColor: #ff5e49;
+  --warningColor: #ffd700;
+  --noticeColor: #46d700;
+  --warningBgColor: #ffffe5;
+  --enterpriseColor: #eca227;
+  --addColor: #4cb06d;
+  --removeColor: #eb576a;
+  --baseFontFamily: 'colfax-web', 'Roboto', 'Helvetica Neue', Helvetica, Roboto,
+    Arial, sans-serif;
+  --monospacedFontFamily: 'Roboto Mono', 'Menlo', 'Bitstream Vera Sans Mono',
+    Consolas, Courier, monospace;
+}

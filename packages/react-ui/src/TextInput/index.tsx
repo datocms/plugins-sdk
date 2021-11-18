@@ -2,30 +2,31 @@ import React, { ReactNode } from 'react';
 import cn from 'classnames';
 import styles from './styles.module.css.json';
 
-export type ButtonProps = {
+export type TextInputProps = {
   children: ReactNode;
   className?: string;
   disabled?: boolean;
-  buttonType?: 'primary' | 'muted' | 'negative';
-  buttonSize?: 'xxs' | 'xs' | 's' | 'm' | 'l' | 'xl';
+  textInputType?: 'primary' | 'muted' | 'negative';
+  textInputSize?: 'xxs' | 'xs' | 's' | 'l' | 'xl';
   fullWidth?: boolean;
 };
 
-export default function Button({
+export default function TextInput({
   children,
   className,
   disabled,
-  buttonType = 'muted',
-  buttonSize = 'm',
+  textInputType = 'muted',
+  textInputSize = 's',
   fullWidth,
   ...other
-}: ButtonProps): JSX.Element {
+}: TextInputProps): JSX.Element {
   return (
-    <button
+    <input
+      type="text"
       className={cn(
-        styles.button,
-        styles[`buttonType-${buttonType}`],
-        styles[`buttonSize-${buttonSize}`],
+        styles.textInput,
+        styles[`textInputType-${textInputType}`],
+        styles[`textInputSize-${textInputSize}`],
         {
           [styles.disabled]: disabled,
           [styles.fullWidth]: fullWidth,
@@ -34,8 +35,6 @@ export default function Button({
       )}
       disabled={disabled}
       {...other}
-    >
-      {children}
-    </button>
+    />
   );
 }

@@ -3,6 +3,10 @@ yarn.lock
 packages/sdk/types.json
 packages/react-ui/types.json
 
+packages/react-ui/**/styles.module.css.json
+packages/react-ui/tmp
+packages/react-ui/styles.css
+
 # Logs
 **/logs
 **/*.log
