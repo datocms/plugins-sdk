@@ -11,7 +11,7 @@ export type ButtonProps = {
   fullWidth?: boolean;
 };
 
-export default function Button({
+export function Button({
   children,
   className,
   disabled,

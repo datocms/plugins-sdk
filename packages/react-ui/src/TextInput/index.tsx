@@ -3,7 +3,6 @@ import cn from 'classnames';
 import styles from './styles.module.css.json';
 
 export type TextInputProps = {
-  children: ReactNode;
   className?: string;
   disabled?: boolean;
   textInputType?: 'primary' | 'muted' | 'negative';
@@ -11,8 +10,7 @@ export type TextInputProps = {
   fullWidth?: boolean;
 };
 
-export default function TextInput({
-  children,
+export function TextInput({
   className,
   disabled,
   textInputType = 'muted',

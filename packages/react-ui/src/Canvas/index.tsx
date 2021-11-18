@@ -8,7 +8,7 @@ export type CanvasProps = {
   children: ReactNode;
 };
 
-export default function Canvas({
+export function Canvas({
   ctx,
   children,
   noAutoResizer,

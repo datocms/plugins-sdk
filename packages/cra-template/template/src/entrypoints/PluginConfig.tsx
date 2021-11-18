@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { RenderPluginParametersFormCtx } from 'datocms-plugins-sdk';
 import { Canvas, Button } from 'datocms-react-ui';
 import './style.css';
