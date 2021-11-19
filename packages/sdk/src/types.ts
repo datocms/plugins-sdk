@@ -1,7 +1,6 @@
 import {
   Account,
   Field,
-  FieldAttributes,
   Item,
   ModelBlock,
   Plugin,
@@ -471,6 +470,73 @@ export type RenderAdditionalProperties = {
 
 export type RenderProperties = CommonProperties & RenderAdditionalProperties;
 
+export type FieldAppearanceChange =
+  | {
+      operation: 'removeEditor';
+    }
+  | {
+      operation: 'updateEditor';
+      newFieldExtensionId?: 'string';
+      newFieldExtensionParameters?: Record<string, unknown>;
+    }
+  | {
+      operation: 'setEditor';
+      newFieldExtensionId: 'string';
+      newFieldExtensionParameters: Record<string, unknown>;
+    }
+  | {
+      operation: 'removeAddon';
+      index: number;
+    }
+  | {
+      operation: 'updateAddon';
+      index: number;
+      newFieldExtensionId?: 'string';
+      newFieldExtensionParameters?: Record<string, unknown>;
+    }
+  | {
+      on: 'insertAddon';
+      index: number;
+      newFieldExtensionId: 'string';
+      newFieldExtensionParameters: Record<string, unknown>;
+    };
+
+export type UpdateParametersMethods = {
+  /**
+   * Updates the plugin parameters. Always check
+   * `ctx.currentRole.meta.final_permissions.can_edit_schema` before calling
+   * this, as the user might not have the permission to perform the operation.
+   *
+   * @example
+   *   ctx.updatePluginParameters({ debugMode: true });
+   */
+  updatePluginParameters: (params: Record<string, unknown>) => Promise<void>;
+  /**
+   * Performs some changes in the appearance of a field, installing/removing a
+   * manual field extension, or tweaking their parameters. Always check
+   * `ctx.currentRole.meta.final_permissions.can_edit_schema` before calling
+   * this, as the user might not have the permission to perform the operation.
+   *
+   * @example
+   *   const fieldId = 234;
+   *   ctx.updateFieldAppearance(234, [
+   *     {
+   *       operation: 'updateEditor',
+   *       newFieldExtensionParameters: { foo: 'bar' },
+   *     },
+   *     {
+   *       operation: 'updateAddon',
+   *       index: 2,
+   *       newFieldExtensionParameters: { bar: 'qux' },
+   *     },
+   *   ]);
+   */
+  updateFieldAppearance: (
+    fieldId: string,
+    changes: FieldAppearanceChange[],
+  ) => Promise<void>;
+};
+
 /**
  * These methods can be used to asyncronously load additional information your
  * plugin needs to work
@@ -758,6 +824,7 @@ export type IframeMethods = {
 };
 
 export type RenderMethods = LoadDataMethods &
+  UpdateParametersMethods &
   ToastMethods &
   CustomDialogMethods &
   NavigateMethods;
@@ -994,14 +1061,6 @@ export type RenderConfigScreenProperties = RenderProperties &
 /** These methods can be used to update the configuration object of your plugin */
 export type RenderConfigScreenAdditionalMethods = {
   getSettings: () => Promise<RenderConfigScreenProperties>;
-  /**
-   * A function to be called by the plugin to persist some changes to the
-   * parameters of the plugin
-   *
-   * @example
-   *   ctx.save({ debugMode: true });
-   */
-  save: (params: Record<string, unknown>) => Promise<void>;
 };
 
 export type RenderConfigScreenMethods = RenderMethods &
@@ -1016,67 +1075,8 @@ export type OnBootAdditionalProperties = {
 
 export type OnBootProperties = RenderProperties & OnBootAdditionalProperties;
 
-export type FieldAppearanceChange =
-  | {
-      operation: 'removeEditor';
-    }
-  | {
-      operation: 'updateEditor';
-      newFieldExtensionId?: 'string';
-      newFieldExtensionParameters?: Record<string, unknown>;
-    }
-  | {
-      operation: 'setEditor';
-      newFieldExtensionId: 'string';
-      newFieldExtensionParameters: Record<string, unknown>;
-    }
-  | {
-      operation: 'removeAddon';
-      index: number;
-    }
-  | {
-      operation: 'updateAddon';
-      index: number;
-      newFieldExtensionId?: 'string';
-      newFieldExtensionParameters?: Record<string, unknown>;
-    }
-  | {
-      on: 'insertAddon';
-      index: number;
-      newFieldExtensionId: 'string';
-      newFieldExtensionParameters: Record<string, unknown>;
-    };
-
 export type OnBootAdditionalMethods = {
   getSettings: () => Promise<OnBootProperties>;
-  /**
-   * Updates the plugin parameters
-   *
-   * @example
-   *   ctx.updatePluginParameters({ debugMode: true });
-   */
-  updatePluginParameters: (params: Record<string, unknown>) => Promise<void>;
-  /**
-   * Performs some changes in the appearance of a field, installing/removing a
-   * manual field extension, or tweaking their parameters
-   *
-   * @example
-   *   ctx.updateFieldAppearance(234, [
-   *     {
-   *       operation: 'updateEditor',
-   *       newFieldExtensionParameters: { foo: 'bar' },
-   *     },
-   *     {
-   *       operation: 'updateAddon',
-   *       index: 2,
-   *       newFieldExtensionParameters: { bar: 'qux' },
-   *     },
-   *   ]);
-   */
-  updateFieldAppearance: (
-    fieldId: string,
-    changes: FieldAppearanceChange[],
-  ) => Promise<void>;
 };
 
 export type OnBootMethods = RenderMethods & OnBootAdditionalMethods;
