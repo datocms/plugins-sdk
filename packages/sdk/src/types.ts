@@ -896,7 +896,9 @@ export type ItemFormAdditionalMethods = {
   saveCurrentItem: () => Promise<void>;
 };
 
-export type ItemFormMethods = RenderMethods & ItemFormAdditionalMethods;
+export type ItemFormMethods = RenderMethods &
+  IframeMethods &
+  ItemFormAdditionalMethods;
 
 /** Information regarding the specific sidebar panel that you need to render */
 export type RenderSidebarPanelAdditionalProperties = {
@@ -983,7 +985,9 @@ export type RenderModalAdditionalMethods = {
   resolve: (returnValue: unknown) => void;
 };
 
-export type RenderModalMethods = RenderMethods & RenderModalAdditionalMethods;
+export type RenderModalMethods = RenderMethods &
+  IframeMethods &
+  RenderModalAdditionalMethods;
 
 export type RenderModalPropertiesAndMethods = RenderModalMethods &
   RenderModalProperties;
@@ -1046,6 +1050,7 @@ export type RenderManualFieldExtensionConfigScreenAdditionalMethods = {
 };
 
 export type RenderManualFieldExtensionConfigScreenMethods = RenderMethods &
+  IframeMethods &
   RenderManualFieldExtensionConfigScreenAdditionalMethods;
 
 export type RenderManualFieldExtensionConfigScreenPropertiesAndMethods = RenderManualFieldExtensionConfigScreenMethods &
@@ -1064,6 +1069,7 @@ export type RenderConfigScreenAdditionalMethods = {
 };
 
 export type RenderConfigScreenMethods = RenderMethods &
+  IframeMethods &
   RenderConfigScreenAdditionalMethods;
 
 export type RenderConfigScreenPropertiesAndMethods = RenderConfigScreenMethods &
