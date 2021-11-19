@@ -1,6 +1,7 @@
 import {
   Account,
   Field,
+  FieldAttributes,
   Item,
   ModelBlock,
   Plugin,
@@ -488,6 +489,19 @@ export type LoadDataMethods = {
    *   );
    */
   loadItemTypeFields: (itemTypeId: string) => Promise<Field[]>;
+  /**
+   * Loads all the fields in the project that are currently using the plugin for
+   * one of its manual field extensions.
+   *
+   * @example
+   *   const fields = await sdk.loadFieldsUsingPlugin();
+   *   sdk.notice(
+   *     `Success! ${fields
+   *       .map((field) => field.attributes.api_key)
+   *       .join(', ')}`,
+   *   );
+   */
+  loadFieldsUsingPlugin: () => Promise<Field[]>;
   /**
    * Loads all regular users. Users will be returned and will also be available
    * in the the `users` property.
@@ -1002,16 +1016,67 @@ export type OnBootAdditionalProperties = {
 
 export type OnBootProperties = RenderProperties & OnBootAdditionalProperties;
 
+export type FieldAppearanceChange =
+  | {
+      operation: 'removeEditor';
+    }
+  | {
+      operation: 'updateEditor';
+      newFieldExtensionId?: 'string';
+      newFieldExtensionParameters?: Record<string, unknown>;
+    }
+  | {
+      operation: 'setEditor';
+      newFieldExtensionId: 'string';
+      newFieldExtensionParameters: Record<string, unknown>;
+    }
+  | {
+      operation: 'removeAddon';
+      index: number;
+    }
+  | {
+      operation: 'updateAddon';
+      index: number;
+      newFieldExtensionId?: 'string';
+      newFieldExtensionParameters?: Record<string, unknown>;
+    }
+  | {
+      on: 'insertAddon';
+      index: number;
+      newFieldExtensionId: 'string';
+      newFieldExtensionParameters: Record<string, unknown>;
+    };
+
 export type OnBootAdditionalMethods = {
   getSettings: () => Promise<OnBootProperties>;
   /**
-   * A function to be called by the plugin to persist some changes to the
-   * parameters of the plugin
+   * Updates the plugin parameters
    *
    * @example
-   *   ctx.saveParameters({ debugMode: true });
+   *   ctx.updatePluginParameters({ debugMode: true });
    */
-  saveParameters: (params: Record<string, unknown>) => Promise<void>;
+  updatePluginParameters: (params: Record<string, unknown>) => Promise<void>;
+  /**
+   * Performs some changes in the appearance of a field, installing/removing a
+   * manual field extension, or tweaking their parameters
+   *
+   * @example
+   *   ctx.updateFieldAppearance(234, [
+   *     {
+   *       operation: 'updateEditor',
+   *       newFieldExtensionParameters: { foo: 'bar' },
+   *     },
+   *     {
+   *       operation: 'updateAddon',
+   *       index: 2,
+   *       newFieldExtensionParameters: { bar: 'qux' },
+   *     },
+   *   ]);
+   */
+  updateFieldAppearance: (
+    fieldId: string,
+    changes: FieldAppearanceChange[],
+  ) => Promise<void>;
 };
 
 export type OnBootMethods = RenderMethods & OnBootAdditionalMethods;
