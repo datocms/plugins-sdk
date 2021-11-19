@@ -744,12 +744,9 @@ export type IframeMethods = {
 };
 
 export type RenderMethods = LoadDataMethods &
-  ItemDialogMethods &
   ToastMethods &
-  UploadDialogMethods &
   CustomDialogMethods &
-  NavigateMethods &
-  IframeMethods;
+  NavigateMethods;
 
 /**
  * These information describe the current state of the form that's being shown
@@ -1007,6 +1004,14 @@ export type OnBootProperties = RenderProperties & OnBootAdditionalProperties;
 
 export type OnBootAdditionalMethods = {
   getSettings: () => Promise<OnBootProperties>;
+  /**
+   * A function to be called by the plugin to persist some changes to the
+   * parameters of the plugin
+   *
+   * @example
+   *   ctx.saveParameters({ debugMode: true });
+   */
+  saveParameters: (params: Record<string, unknown>) => Promise<void>;
 };
 
 export type OnBootMethods = RenderMethods & OnBootAdditionalMethods;

@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { CSSProperties, MouseEventHandler, ReactNode } from 'react';
 import cn from 'classnames';
 import styles from './styles.module.css.json';
 
@@ -6,9 +6,11 @@ export type ButtonProps = {
   children: ReactNode;
   className?: string;
   disabled?: boolean;
+  onClick?: MouseEventHandler;
   buttonType?: 'primary' | 'muted' | 'negative';
   buttonSize?: 'xxs' | 'xs' | 's' | 'm' | 'l' | 'xl';
   fullWidth?: boolean;
+  style?: CSSProperties;
 };
 
 export function Button({
@@ -18,7 +20,8 @@ export function Button({
   buttonType = 'muted',
   buttonSize = 'm',
   fullWidth,
-  ...other
+  onClick,
+  style,
 }: ButtonProps): JSX.Element {
   return (
     <button
@@ -33,7 +36,8 @@ export function Button({
         className,
       )}
       disabled={disabled}
-      {...other}
+      onClick={onClick}
+      style={style}
     >
       {children}
     </button>

@@ -1,5 +1,5 @@
 import { RenderConfigScreenCtx } from 'datocms-plugins-sdk';
-import { Canvas, Button } from 'datocms-react-ui';
+import { Canvas } from 'datocms-react-ui';
 import './style.css';
 
 type PropTypes = {
