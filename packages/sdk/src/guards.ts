@@ -1,6 +1,6 @@
-import { OnBootMethods } from '.';
 import {
-  IntentMethods,
+  InitMethods,
+  OnBootMethods,
   RenderPageMethods,
   RenderFieldExtensionMethods,
   RenderConfigScreenMethods,
@@ -16,7 +16,7 @@ function buildGuard<P extends Parent>(mode: string) {
     settings.mode === mode;
 }
 
-export const isIntentParent = buildGuard<IntentMethods>('intent');
+export const isInitParent = buildGuard<InitMethods>('init');
 
 export const isOnBootParent = buildGuard<OnBootMethods>('onBoot');
 

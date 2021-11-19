@@ -428,17 +428,17 @@ export type CommonProperties = {
   };
 };
 
-export type IntentAdditionalProperties = {
-  mode: 'intent';
+export type InitAdditionalProperties = {
+  mode: 'init';
 };
 
-export type IntentProperties = CommonProperties & IntentAdditionalProperties;
+export type InitProperties = CommonProperties & InitAdditionalProperties;
 
-export type IntentMethods = {
-  getSettings: () => Promise<IntentProperties>;
+export type InitMethods = {
+  getSettings: () => Promise<InitProperties>;
 };
 
-export type IntentPropertiesAndMethods = IntentMethods & IntentProperties;
+export type InitPropertiesAndMethods = InitMethods & InitProperties;
 
 /** Additional properties available in all `renderXXX` hooks */
 export type RenderAdditionalProperties = {
@@ -751,33 +751,6 @@ export type RenderMethods = LoadDataMethods &
   NavigateMethods &
   IframeMethods;
 
-export type OnBootAdditionalProperties = {
-  mode: 'onBoot';
-  /**
-   * A function to be called by the plugin to persist some changes to the
-   * parameters of the plugin
-   *
-   * @example
-   *   ctx.saveParameters({ debugMode: true });
-   */
-  saveParameters: (params: Record<string, unknown>) => Promise<void>;
-};
-
-export type OnBootProperties = CommonProperties &
-  RenderAdditionalProperties &
-  OnBootAdditionalProperties;
-
-export type OnBootMethods = LoadDataMethods &
-  ItemDialogMethods &
-  ToastMethods &
-  UploadDialogMethods &
-  CustomDialogMethods &
-  NavigateMethods & {
-    getSettings: () => Promise<OnBootProperties>;
-  };
-
-export type OnBootPropertiesAndMethods = OnBootMethods & OnBootProperties;
-
 /**
  * These information describe the current state of the form that's being shown
  * to the end-user to edit a record
@@ -1025,3 +998,17 @@ export type RenderConfigScreenMethods = RenderMethods &
 
 export type RenderConfigScreenPropertiesAndMethods = RenderConfigScreenMethods &
   RenderConfigScreenProperties;
+
+export type OnBootAdditionalProperties = {
+  mode: 'onBoot';
+};
+
+export type OnBootProperties = RenderProperties & OnBootAdditionalProperties;
+
+export type OnBootAdditionalMethods = {
+  getSettings: () => Promise<OnBootProperties>;
+};
+
+export type OnBootMethods = RenderMethods & OnBootAdditionalMethods;
+
+export type OnBootPropertiesAndMethods = OnBootMethods & OnBootProperties;

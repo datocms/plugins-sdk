@@ -1,40 +1,39 @@
 import connectToParent from 'penpal/lib/connectToParent';
 import { Field, ModelBlock } from './SiteApiSchema';
 import {
-  RenderConfigScreenMethods,
-  RenderManualFieldExtensionConfigScreenMethods,
-  RenderSidebarPanelMethods,
-  RenderModalMethods,
-  SettingsAreaSidebarItemGroup,
   ContentAreaSidebarItem,
-  ManualFieldExtension,
   FieldExtensionOverride,
-  MainNavigationTab,
+  InitPropertiesAndMethods,
   ItemFormSidebarPanel,
-  RenderFieldExtensionMethods,
-  RenderPageMethods,
-  RenderConfigScreenPropertiesAndMethods,
-  RenderManualFieldExtensionConfigScreenPropertiesAndMethods,
-  RenderFieldExtensionPropertiesAndMethods,
-  RenderModalPropertiesAndMethods,
-  RenderPagePropertiesAndMethods,
-  RenderSidebarPanePropertiesAndMethods,
-  IntentPropertiesAndMethods,
+  MainNavigationTab,
+  ManualFieldExtension,
+  OnBootMethods,
   OnBootPropertiesAndMethods,
+  RenderConfigScreenMethods,
+  RenderConfigScreenPropertiesAndMethods,
+  RenderFieldExtensionMethods,
+  RenderFieldExtensionPropertiesAndMethods,
+  RenderManualFieldExtensionConfigScreenMethods,
+  RenderManualFieldExtensionConfigScreenPropertiesAndMethods,
+  RenderModalMethods,
+  RenderModalPropertiesAndMethods,
+  RenderPageMethods,
+  RenderPagePropertiesAndMethods,
+  RenderSidebarPanelMethods,
+  RenderSidebarPanePropertiesAndMethods,
+  SettingsAreaSidebarItemGroup,
 } from './types';
-
 import {
-  isIntentParent,
+  isInitParent,
+  isOnBootParent,
   isRenderConfigScreenParent,
-  isRenderManualFieldExtensionConfigScreenParent,
   isRenderFieldExtensionParent,
+  isRenderManualFieldExtensionConfigScreenParent,
   isRenderModalParent,
   isRenderPageParent,
   isRenderSidebarPaneParent,
   Parent,
-  isOnBootParent,
 } from './guards';
-import { OnBootMethods } from '.';
 
 export type SizingUtilities = {
   /** Listens for DOM changes and automatically calls `setHeight` when it detects a change */
@@ -51,9 +50,9 @@ export type SizingUtilities = {
 
 export type { Field, ModelBlock };
 
-export type IntentCtx = IntentPropertiesAndMethods;
+export type IntentCtx = InitPropertiesAndMethods;
 export type OnBootCtx = OnBootPropertiesAndMethods;
-export type FieldIntentCtx = IntentPropertiesAndMethods & {
+export type FieldIntentCtx = InitPropertiesAndMethods & {
   itemType: ModelBlock;
 };
 export type RenderPageCtx = RenderPagePropertiesAndMethods;
@@ -192,7 +191,7 @@ function toMultifield<Result>(
 ) {
   return (
     fields: Field[],
-    ctx: IntentPropertiesAndMethods,
+    ctx: InitPropertiesAndMethods,
   ): Record<string, Result> => {
     if (!fn) {
       return {};
@@ -330,7 +329,7 @@ export async function connect(
   const parent: Parent = await penpalConnection.promise;
   const initialSettings = await parent.getSettings();
 
-  if (isIntentParent(parent, initialSettings)) {
+  if (isInitParent(parent, initialSettings)) {
     // Nothing to do. Parent calls the method they need.
   }
 
@@ -348,7 +347,6 @@ export async function connect(
       });
     };
 
-    listener = render;
     render(initialSettings as Settings);
   }
 
