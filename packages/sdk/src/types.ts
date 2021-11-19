@@ -428,17 +428,17 @@ export type CommonProperties = {
   };
 };
 
-export type InitAdditionalProperties = {
-  mode: 'init';
+export type IntentAdditionalProperties = {
+  mode: 'intent';
 };
 
-export type InitProperties = CommonProperties & InitAdditionalProperties;
+export type IntentProperties = CommonProperties & IntentAdditionalProperties;
 
-export type InitMethods = {
-  getSettings: () => Promise<InitProperties>;
+export type IntentMethods = {
+  getSettings: () => Promise<IntentProperties>;
 };
 
-export type InitPropertiesAndMethods = InitMethods & InitProperties;
+export type IntentPropertiesAndMethods = IntentMethods & IntentProperties;
 
 /** Additional properties available in all `renderXXX` hooks */
 export type RenderAdditionalProperties = {
@@ -751,6 +751,33 @@ export type RenderMethods = LoadDataMethods &
   NavigateMethods &
   IframeMethods;
 
+export type OnBootAdditionalProperties = {
+  mode: 'onBoot';
+  /**
+   * A function to be called by the plugin to persist some changes to the
+   * parameters of the plugin
+   *
+   * @example
+   *   ctx.saveParameters({ debugMode: true });
+   */
+  saveParameters: (params: Record<string, unknown>) => Promise<void>;
+};
+
+export type OnBootProperties = CommonProperties &
+  RenderAdditionalProperties &
+  OnBootAdditionalProperties;
+
+export type OnBootMethods = LoadDataMethods &
+  ItemDialogMethods &
+  ToastMethods &
+  UploadDialogMethods &
+  CustomDialogMethods &
+  NavigateMethods & {
+    getSettings: () => Promise<OnBootProperties>;
+  };
+
+export type OnBootPropertiesAndMethods = OnBootMethods & OnBootProperties;
+
 /**
  * These information describe the current state of the form that's being shown
  * to the end-user to edit a record
@@ -821,7 +848,7 @@ export type ItemFormAdditionalMethods = {
 export type ItemFormMethods = RenderMethods & ItemFormAdditionalMethods;
 
 /** Information regarding the specific sidebar panel that you need to render */
-export type RenderSidebarPaneAdditionalProperties = {
+export type RenderSidebarPanelAdditionalProperties = {
   mode: 'renderItemFormSidebarPanel';
   /** The ID of the sidebar panel that needs to be rendered */
   sidebarPaneId: string;
@@ -832,18 +859,18 @@ export type RenderSidebarPaneAdditionalProperties = {
   parameters: Record<string, unknown> | undefined;
 };
 
-export type RenderSidebarPaneMeta = ItemFormProperties &
-  RenderSidebarPaneAdditionalProperties;
+export type RenderSidebarPanelProperties = ItemFormProperties &
+  RenderSidebarPanelAdditionalProperties;
 
-export type RenderSidebarPaneAdditionalMethods = {
-  getSettings: () => Promise<RenderSidebarPaneMeta>;
+export type RenderSidebarPanelAdditionalMethods = {
+  getSettings: () => Promise<RenderSidebarPanelProperties>;
 };
 
-export type RenderSidebarPaneMethods = ItemFormMethods &
-  RenderSidebarPaneAdditionalMethods;
+export type RenderSidebarPanelMethods = ItemFormMethods &
+  RenderSidebarPanelAdditionalMethods;
 
-export type RenderSidebarPanePropertiesAndMethods = RenderSidebarPaneMethods &
-  RenderSidebarPaneMeta;
+export type RenderSidebarPanePropertiesAndMethods = RenderSidebarPanelMethods &
+  RenderSidebarPanelProperties;
 
 /**
  * Information regarding the state of a specific field where you need to render
@@ -870,18 +897,18 @@ export type RenderFieldExtensionAdditionalProperties = {
   parentField: Field | undefined;
 };
 
-export type RenderFieldExtensionMeta = ItemFormProperties &
+export type RenderFieldExtensionProperties = ItemFormProperties &
   RenderFieldExtensionAdditionalProperties;
 
 export type RenderFieldExtensionAdditionalMethods = {
-  getSettings: () => Promise<RenderFieldExtensionMeta>;
+  getSettings: () => Promise<RenderFieldExtensionProperties>;
 };
 
 export type RenderFieldExtensionMethods = ItemFormMethods &
   RenderFieldExtensionAdditionalMethods;
 
 export type RenderFieldExtensionPropertiesAndMethods = RenderFieldExtensionMethods &
-  RenderFieldExtensionMeta;
+  RenderFieldExtensionProperties;
 
 /** Information regarding the specific custom modal that you need to render */
 export type RenderModalAdditionalProperties = {
@@ -892,12 +919,12 @@ export type RenderModalAdditionalProperties = {
   parameters: Record<string, unknown> | undefined;
 };
 
-export type RenderModalMeta = RenderProperties &
+export type RenderModalProperties = RenderProperties &
   RenderModalAdditionalProperties;
 
 /** These methods can be used to close the modal */
 export type RenderModalAdditionalMethods = {
-  getSettings: () => Promise<RenderModalMeta>;
+  getSettings: () => Promise<RenderModalProperties>;
   /**
    * A function to be called by the plugin to close the modal. The `openModal`
    * call will be resolved with the passed return value
@@ -908,7 +935,7 @@ export type RenderModalAdditionalMethods = {
 export type RenderModalMethods = RenderMethods & RenderModalAdditionalMethods;
 
 export type RenderModalPropertiesAndMethods = RenderModalMethods &
-  RenderModalMeta;
+  RenderModalProperties;
 
 /** Information regarding the specific page that you need to render */
 export type RenderPageAdditionalProperties = {
@@ -917,15 +944,17 @@ export type RenderPageAdditionalProperties = {
   pageId: string;
 };
 
-export type RenderPageMeta = RenderProperties & RenderPageAdditionalProperties;
+export type RenderPageProperties = RenderProperties &
+  RenderPageAdditionalProperties;
 
 export type RenderPageAdditionalMethods = {
-  getSettings: () => Promise<RenderPageMeta>;
+  getSettings: () => Promise<RenderPageProperties>;
 };
 
 export type RenderPageMethods = RenderMethods & RenderPageAdditionalMethods;
 
-export type RenderPagePropertiesAndMethods = RenderPageMethods & RenderPageMeta;
+export type RenderPagePropertiesAndMethods = RenderPageMethods &
+  RenderPageProperties;
 
 /**
  * Information regarding the specific form that you need to render to let the
@@ -947,7 +976,7 @@ export type RenderManualFieldExtensionConfigScreenAdditionalProperties = {
   errors: Record<string, unknown>;
 };
 
-export type RenderManualFieldExtensionConfigScreenMeta = RenderProperties &
+export type RenderManualFieldExtensionConfigScreenProperties = RenderProperties &
   RenderManualFieldExtensionConfigScreenAdditionalProperties;
 
 /**
@@ -955,7 +984,7 @@ export type RenderManualFieldExtensionConfigScreenMeta = RenderProperties &
  * field extension
  */
 export type RenderManualFieldExtensionConfigScreenAdditionalMethods = {
-  getSettings: () => Promise<RenderManualFieldExtensionConfigScreenMeta>;
+  getSettings: () => Promise<RenderManualFieldExtensionConfigScreenProperties>;
   /**
    * Sets a new value for the parameters
    *
@@ -969,18 +998,18 @@ export type RenderManualFieldExtensionConfigScreenMethods = RenderMethods &
   RenderManualFieldExtensionConfigScreenAdditionalMethods;
 
 export type RenderManualFieldExtensionConfigScreenPropertiesAndMethods = RenderManualFieldExtensionConfigScreenMethods &
-  RenderManualFieldExtensionConfigScreenMeta;
+  RenderManualFieldExtensionConfigScreenProperties;
 
 export type RenderConfigScreenAdditionalProperties = {
   mode: 'renderConfigScreen';
 };
 
-export type RenderConfigScreenMeta = RenderProperties &
+export type RenderConfigScreenProperties = RenderProperties &
   RenderConfigScreenAdditionalProperties;
 
 /** These methods can be used to update the configuration object of your plugin */
 export type RenderConfigScreenAdditionalMethods = {
-  getSettings: () => Promise<RenderConfigScreenMeta>;
+  getSettings: () => Promise<RenderConfigScreenProperties>;
   /**
    * A function to be called by the plugin to persist some changes to the
    * parameters of the plugin
@@ -995,13 +1024,4 @@ export type RenderConfigScreenMethods = RenderMethods &
   RenderConfigScreenAdditionalMethods;
 
 export type RenderConfigScreenPropertiesAndMethods = RenderConfigScreenMethods &
-  RenderConfigScreenMeta;
-
-/** Information regarding the field you need to configure */
-export type FieldSetupAdditionalProperties = {
-  mode: 'init';
-  /** The model/block model for the field */
-  itemType: ModelBlock;
-};
-
-export type FieldSetupMeta = InitProperties & FieldSetupAdditionalProperties;
+  RenderConfigScreenProperties;

@@ -1,10 +1,11 @@
+import { OnBootMethods } from '.';
 import {
-  InitMethods,
+  IntentMethods,
   RenderPageMethods,
   RenderFieldExtensionMethods,
   RenderConfigScreenMethods,
   RenderManualFieldExtensionConfigScreenMethods,
-  RenderSidebarPaneMethods,
+  RenderSidebarPanelMethods,
   RenderModalMethods,
 } from './types';
 
@@ -15,7 +16,9 @@ function buildGuard<P extends Parent>(mode: string) {
     settings.mode === mode;
 }
 
-export const isInitParent = buildGuard<InitMethods>('init');
+export const isIntentParent = buildGuard<IntentMethods>('intent');
+
+export const isOnBootParent = buildGuard<OnBootMethods>('onBoot');
 
 export const isRenderPageParent = buildGuard<RenderPageMethods>('renderPage');
 
@@ -27,7 +30,7 @@ export const isRenderModalParent = buildGuard<RenderModalMethods>(
   'renderModal',
 );
 
-export const isRenderSidebarPaneParent = buildGuard<RenderSidebarPaneMethods>(
+export const isRenderSidebarPaneParent = buildGuard<RenderSidebarPanelMethods>(
   'renderItemFormSidebarPanel',
 );
 

@@ -3,7 +3,7 @@ import { Field, ModelBlock } from './SiteApiSchema';
 import {
   RenderConfigScreenMethods,
   RenderManualFieldExtensionConfigScreenMethods,
-  RenderSidebarPaneMethods,
+  RenderSidebarPanelMethods,
   RenderModalMethods,
   SettingsAreaSidebarItemGroup,
   ContentAreaSidebarItem,
@@ -19,11 +19,12 @@ import {
   RenderModalPropertiesAndMethods,
   RenderPagePropertiesAndMethods,
   RenderSidebarPanePropertiesAndMethods,
-  InitPropertiesAndMethods,
+  IntentPropertiesAndMethods,
+  OnBootPropertiesAndMethods,
 } from './types';
 
 import {
-  isInitParent,
+  isIntentParent,
   isRenderConfigScreenParent,
   isRenderManualFieldExtensionConfigScreenParent,
   isRenderFieldExtensionParent,
@@ -31,7 +32,9 @@ import {
   isRenderPageParent,
   isRenderSidebarPaneParent,
   Parent,
+  isOnBootParent,
 } from './guards';
+import { OnBootMethods } from '.';
 
 export type SizingUtilities = {
   /** Listens for DOM changes and automatically calls `setHeight` when it detects a change */
@@ -48,8 +51,11 @@ export type SizingUtilities = {
 
 export type { Field, ModelBlock };
 
-export type InitCtx = InitPropertiesAndMethods;
-export type FieldInitCtx = InitPropertiesAndMethods & { itemType: ModelBlock };
+export type IntentCtx = IntentPropertiesAndMethods;
+export type OnBootCtx = OnBootPropertiesAndMethods;
+export type FieldIntentCtx = IntentPropertiesAndMethods & {
+  itemType: ModelBlock;
+};
 export type RenderPageCtx = RenderPagePropertiesAndMethods;
 export type RenderModalCtx = RenderModalPropertiesAndMethods & SizingUtilities;
 export type RenderItemFormSidebarPanelCtx = RenderSidebarPanePropertiesAndMethods &
@@ -64,32 +70,39 @@ export type RenderConfigScreenCtx = RenderConfigScreenPropertiesAndMethods &
 /** The full options you can pass to the `connect` function */
 export type FullConnectParameters = {
   /**
+   * This function will be called once at boot time and can be used to perform
+   * ie. some initial integrity checks on the configuration.
+   *
+   * @group boot
+   */
+  onBoot: (ctx: OnBootCtx) => void;
+  /**
    * Use this function to declare new tabs you want to add in the top-bar of the UI
    *
    * @group pages
    */
-  mainNavigationTabs: (ctx: InitCtx) => MainNavigationTab[];
+  mainNavigationTabs: (ctx: IntentCtx) => MainNavigationTab[];
   /**
    * Use this function to declare new navigation sections in the Settings Area sidebar
    *
    * @group pages
    */
   settingsAreaSidebarItemGroups: (
-    ctx: InitCtx,
+    ctx: IntentCtx,
   ) => SettingsAreaSidebarItemGroup[];
   /**
    * Use this function to declare new navigation items in the Content Area sidebar
    *
    * @group pages
    */
-  contentAreaSidebarItems: (ctx: InitCtx) => ContentAreaSidebarItem[];
+  contentAreaSidebarItems: (ctx: IntentCtx) => ContentAreaSidebarItem[];
   /**
    * Use this function to declare new field extensions that users will be able
    * to install manually in some field
    *
    * @group manualFieldExtensions
    */
-  manualFieldExtensions: (ctx: InitCtx) => ManualFieldExtension[];
+  manualFieldExtensions: (ctx: IntentCtx) => ManualFieldExtension[];
   /**
    * Use this function to declare new sidebar panels to be shown when the user
    * edits records of a particular model
@@ -98,7 +111,7 @@ export type FullConnectParameters = {
    */
   itemFormSidebarPanels: (
     itemType: ModelBlock,
-    ctx: InitCtx,
+    ctx: IntentCtx,
   ) => ItemFormSidebarPanel[];
   /**
    * Use this function to automatically force one or more field extensions to a
@@ -108,7 +121,7 @@ export type FullConnectParameters = {
    */
   overrideFieldExtensions: (
     field: Field,
-    ctx: FieldInitCtx,
+    ctx: FieldIntentCtx,
   ) => FieldExtensionOverride | void;
   /**
    * This function will be called when the plugin needs to render the plugin's
@@ -175,11 +188,11 @@ export type FullConnectParameters = {
 };
 
 function toMultifield<Result>(
-  fn: ((field: Field, ctx: FieldInitCtx) => Result) | undefined,
+  fn: ((field: Field, ctx: FieldIntentCtx) => Result) | undefined,
 ) {
   return (
     fields: Field[],
-    ctx: InitPropertiesAndMethods,
+    ctx: IntentPropertiesAndMethods,
   ): Record<string, Result> => {
     if (!fn) {
       return {};
@@ -317,8 +330,26 @@ export async function connect(
   const parent: Parent = await penpalConnection.promise;
   const initialSettings = await parent.getSettings();
 
-  if (isInitParent(parent, initialSettings)) {
+  if (isIntentParent(parent, initialSettings)) {
     // Nothing to do. Parent calls the method they need.
+  }
+
+  if (isOnBootParent(parent, initialSettings)) {
+    type Settings = AsyncReturnType<OnBootMethods['getSettings']>;
+
+    const render = (settings: Settings) => {
+      if (!configuration.onBoot) {
+        return;
+      }
+
+      configuration.onBoot({
+        ...parent,
+        ...settings,
+      });
+    };
+
+    listener = render;
+    render(initialSettings as Settings);
   }
 
   if (isRenderPageParent(parent, initialSettings)) {
@@ -382,7 +413,7 @@ export async function connect(
   }
 
   if (isRenderSidebarPaneParent(parent, initialSettings)) {
-    type Settings = AsyncReturnType<RenderSidebarPaneMethods['getSettings']>;
+    type Settings = AsyncReturnType<RenderSidebarPanelMethods['getSettings']>;
 
     const renderUtils = buildRenderUtils(parent);
 
