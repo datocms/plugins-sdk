@@ -4,6 +4,7 @@ import styles from './styles.module.css.json';
 
 export type ButtonProps = {
   children: ReactNode;
+  type: React.ButtonHTMLAttributes<HTMLButtonElement>['type'];
   className?: string;
   disabled?: boolean;
   onClick?: MouseEventHandler;
@@ -22,9 +23,11 @@ export function Button({
   fullWidth,
   onClick,
   style,
+  type = 'button',
 }: ButtonProps): JSX.Element {
   return (
     <button
+      type={type}
       className={cn(
         styles.button,
         styles[`buttonType-${buttonType}`],
