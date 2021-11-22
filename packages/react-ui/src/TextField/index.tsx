@@ -56,8 +56,8 @@ export function TextField({
         error={!!error}
       />
 
-      {hint && <FieldHint>{hint}</FieldHint>}
       {error && <FieldError>{error}</FieldError>}
+      {hint && <FieldHint>{hint}</FieldHint>}
     </>
   );
 }

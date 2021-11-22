@@ -59,23 +59,21 @@ export const TextInput = ({
   });
 
   return (
-    <div className={classNames}>
-      <input
-        aria-label={labelText}
-        className={s['TextInput__input']}
-        id={id}
-        name={name}
-        required={required}
-        placeholder={placeholder}
-        maxLength={maxLength}
-        disabled={disabled}
-        onBlur={onBlur}
-        onChange={handleChange}
-        value={value}
-        type={type}
-        ref={inputRef}
-        {...otherProps}
-      />
-    </div>
+    <input
+      className={classNames}
+      aria-label={labelText}
+      id={id}
+      name={name}
+      required={required}
+      placeholder={placeholder}
+      maxLength={maxLength}
+      disabled={disabled}
+      onBlur={onBlur}
+      onChange={handleChange}
+      value={value}
+      type={type}
+      ref={inputRef}
+      {...otherProps}
+    />
   );
 };

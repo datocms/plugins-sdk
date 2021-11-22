@@ -58,8 +58,8 @@ export function SwitchField({
       </div>
       {(hint || error) && (
         <div className={s.switchField__below}>
-          {hint && <FieldHint>{hint}</FieldHint>}
           {error && <FieldError>{error}</FieldError>}
+          {hint && <FieldHint>{hint}</FieldHint>}
         </div>
       )}
     </>
