@@ -1,26 +1,53 @@
 .canvas {
-  --baseBodyColor: #34363a;
-  --lightBodyColor: #848484;
-  --placeholderBodyColor: #c6c6c6;
-  --lightBgColor: #f5f5f5;
-  --disabledColor: #ededed;
-  --borderColor: #f0f0f0;
-  --alertColor: #ff5e49;
-  --warningColor: #ffd700;
-  --noticeColor: #46d700;
-  --warningBgColor: #ffffe5;
-  --enterpriseColor: #eca227;
-  --addColor: #4cb06d;
-  --removeColor: #eb576a;
-  --baseFontFamily: 'colfax-web', 'Roboto', 'Helvetica Neue', Helvetica, Roboto,
-    Arial, sans-serif;
-  --monospacedFontFamily: 'Roboto Mono', 'Menlo', 'Bitstream Vera Sans Mono',
+  /* Colors */
+  --base-body-color: #34363a;
+  --light-body-color: #848484;
+  --placeholder-body-color: #c6c6c6;
+  --light-bg-color: #f5f5f5;
+  --disabled-bg-color: #ededed;
+  --border-color: #f0f0f0;
+  --alert-color: #ff5e49;
+  --warning-color: #ffd700;
+  --notice-color: #46d700;
+  --warning-bg-color: #ffffe5;
+  --add-color: #4cb06d;
+  --remove-color: #eb576a;
+
+  /* Fonts */
+  --base-font-family: 'colfax-web', 'Roboto', 'Helvetica Neue', Helvetica,
+    Roboto, Arial, sans-serif;
+  --monospaced-font-family: 'Roboto Mono', 'Menlo', 'Bitstream Vera Sans Mono',
     Consolas, Courier, monospace;
 
-  font-family: var(--baseFontFamily);
+  --base-unit: 0.0625rem;
+
+  /* Spacing */
+  --spacing-s: calc(0.5 * 12px * var(--base-unit));
+  --spacing-m: calc(1 * 12px * var(--base-unit));
+  --spacing-l: calc(2 * 12px * var(--base-unit));
+  --spacing-xl: calc(3 * 12px * var(--base-unit));
+  --spacing-xxl: calc(5 * 12px * var(--base-unit));
+  --spacing-xxxl: calc(8 * 12px * var(--base-unit));
+
+  /* Font-size */
+  --font-size-xxs: calc(11px * var(--base-unit));
+  --font-size-xs: calc(12px * var(--base-unit));
+  --font-size-s: calc(14px * var(--base-unit));
+  --font-size-m: calc(15px * var(--base-unit));
+  --font-size-l: calc(17px * var(--base-unit));
+  --font-size-xl: calc(19px * var(--base-unit));
+  --font-size-xxl: calc(25px * var(--base-unit));
+  --font-size-xxxl: calc(30px * var(--base-unit));
+  --font-size-xxxl: calc(35px * var(--base-unit));
+  --font-size-xxxl: calc(50px * var(--base-unit));
+
+  --material-ease: cubic-bezier(0.55, 0, 0.1, 1);
+  --inertial-ease: cubic-bezier(0.19, 1, 0.22, 1);
+
+  font-family: var(--base-font-family);
   -webkit-text-size-adjust: 100%;
   line-height: 1.5;
-  color: var(--baseBodyColor);
-  font-size: 0.9375rem;
+  color: var(--base-body-color);
+  font-size: var(--font-size-m);
   text-rendering: optimizeLegibility;
 }

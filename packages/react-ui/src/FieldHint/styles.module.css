@@ -1,0 +1,6 @@
+.fieldHint {
+  color: var(--light-body-color);
+  line-height: 1.2;
+  font-size: var(--font-size-s);
+  margin-top: var(--spacing-s);
+}

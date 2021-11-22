@@ -2,6 +2,13 @@ import React, { ReactNode, useEffect } from 'react';
 import { RenderProperties, SizingUtilities } from 'datocms-plugins-sdk';
 import styles from './styles.module.css.json';
 
+function camelToDash(str: string) {
+  if (str != str.toLowerCase()) {
+    str = str.replace(/[A-Z]/g, (m) => '-' + m.toLowerCase());
+  }
+  return str;
+}
+
 export type CanvasProps = {
   ctx: RenderProperties;
   noAutoResizer?: boolean;
@@ -30,7 +37,7 @@ export function Canvas({
     <div
       className={styles.canvas}
       style={Object.entries(ctx.theme).reduce(
-        (acc, [k, v]) => ({ ...acc, [`--${k}`]: v }),
+        (acc, [k, v]) => ({ ...acc, [`--${camelToDash(k)}`]: v }),
         {},
       )}
     >

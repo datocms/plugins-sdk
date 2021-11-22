@@ -32,18 +32,18 @@
 .disabled {
   border-width: 0;
   color: rgba(0, 0, 0, 0.2);
-  background-color: var(--lightBgColor);
+  background-color: var(--light-bg-color);
   cursor: not-allowed;
 }
 
 .textInputType-muted {
-  background-color: var(--lightColor);
-  color: var(--accentColor);
+  background-color: var(--light-color);
+  color: var(--accent-color);
 }
 
 .textInputType-primary {
   border-width: 0;
-  background-color: var(--accentColor);
+  background-color: var(--accent-color);
   color: white;
 }
 
@@ -54,7 +54,7 @@
 }
 
 .textInputType-primary.disabled {
-  background-color: var(--disabledColor);
+  background-color: var(--disabled-bg-color);
   color: rgba(0, 0, 0, 0.2);
 }
 
@@ -65,7 +65,7 @@
 }
 
 .textInputType-negative {
-  background-color: var(--alertColor);
+  background-color: var(--alert-color);
   border-width: 0;
   color: white;
 }
@@ -74,11 +74,11 @@
 .textInputType-negative:focus,
 .textInputType-negative:active {
   color: white;
-  background-color: var(--alertColor);
+  background-color: var(--alert-color);
 }
 
 .textInputType-negative.disabled {
-  background-color: var(--disabledColor);
+  background-color: var(--disabled-bg-color);
   color: rgba(0, 0, 0, 0.2);
 }
 

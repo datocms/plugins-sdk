@@ -1,11 +1,11 @@
-.rcSwitchInner {
+.switchInput__inner {
   color: #fff;
   font-size: 12px;
   position: absolute;
   left: 24px;
 }
 
-.rcSwitch {
+.switchInput {
   position: relative;
   display: inline-block;
   box-sizing: border-box;
@@ -17,7 +17,6 @@
   border: 1px solid #ccc;
   background-color: #ccc;
   cursor: pointer;
-  -webkit-transition: all 0.3s cubic-bezier(0.35, 0, 0.25, 1);
   transition: all 0.3s cubic-bezier(0.35, 0, 0.25, 1);
 
   &:after {
@@ -31,32 +30,25 @@
     content: ' ';
     cursor: pointer;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.26);
-    -webkit-transform: scale(1);
     transform: scale(1);
-    -webkit-transition: left 0.3s cubic-bezier(0.35, 0, 0.25, 1);
     transition: left 0.3s cubic-bezier(0.35, 0, 0.25, 1);
-    -webkit-animation-timing-function: cubic-bezier(0.35, 0, 0.25, 1);
     animation-timing-function: cubic-bezier(0.35, 0, 0.25, 1);
-    -webkit-animation-duration: 0.3s;
     animation-duration: 0.3s;
-    -webkit-animation-name: rcSwitchOff;
-    animation-name: rcSwitchOff;
+    animation-name: switchInput__off;
   }
 
   &:hover,
   &:focus:after {
-    -webkit-transform: scale(1.1);
     transform: scale(1.1);
-    -webkit-animation-name: rcSwitchOn;
-    animation-name: rcSwitchOn;
+    animation-name: switchInput__on;
   }
 }
 
-.rcSwitchChecked {
-  border: 1px solid var(--accentColor);
-  background-color: var(--accentColor);
+.switchInput__checked {
+  border: 1px solid var(--accent-color);
+  background-color: var(--accent-color);
 
-  .rcSwitchInner {
+  .switchInput__inner {
     left: 6px;
   }
 
@@ -65,66 +57,44 @@
   }
 }
 
-.rcSwitchDisabled {
+.switchInput__disabled {
   cursor: no-drop;
   background: #ccc;
   border-color: #ccc;
 
   &:after {
     background: #9e9e9e;
-    -webkit-animation-name: none;
     animation-name: none;
     cursor: no-drop;
   }
 
   &:hover,
   &:focus:after {
-    -webkit-transform: scale(1);
     transform: scale(1);
-    -webkit-animation-name: none;
     animation-name: none;
   }
 }
 
-.rcSwitchLabel {
-  display: inline-block;
-  line-height: 20px;
-  font-size: 14px;
-  padding-left: 10px;
-  vertical-align: middle;
-  white-space: normal;
-  pointer-events: none;
-  -webkit-user-select: text;
-  -moz-user-select: text;
-  -ms-user-select: text;
-  user-select: text;
-}
-
-@keyframes rcSwitchOn {
+@keyframes switchInput__on {
   0% {
-    -webkit-transform: scale(1);
     transform: scale(1);
   }
 
   50% {
-    -webkit-transform: scale(1.25);
     transform: scale(1.25);
   }
 
   100% {
-    -webkit-transform: scale(1.1);
     transform: scale(1.1);
   }
 }
 
-@keyframes rcSwitchOff {
+@keyframes switchInput__off {
   0% {
-    -webkit-transform: scale(1.1);
     transform: scale(1.1);
   }
 
   100% {
-    -webkit-transform: scale(1);
     transform: scale(1);
   }
 }

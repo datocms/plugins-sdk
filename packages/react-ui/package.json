@@ -52,6 +52,7 @@
     "postcss-import": "^14.0.2",
     "postcss-modules": "^4.2.2",
     "postcss-nested": "^5.0.6",
+    "postcss-calc": "^8.0.0",
     "typedoc": "^0.22.8"
   },
   "gitHead": "034a79ceab7b58e996d77220e74af7382d699eb6"

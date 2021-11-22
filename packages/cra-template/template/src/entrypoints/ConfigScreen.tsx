@@ -2,11 +2,11 @@ import { RenderConfigScreenCtx } from 'datocms-plugins-sdk';
 import { Canvas } from 'datocms-react-ui';
 import './style.css';
 
-type PropTypes = {
+type Props = {
   ctx: RenderConfigScreenCtx;
 };
 
-export default function ConfigScreen({ ctx }: PropTypes) {
+export default function ConfigScreen({ ctx }: Props) {
   return (
     <Canvas ctx={ctx}>
       Welcome to your plugin! This is your config screen!

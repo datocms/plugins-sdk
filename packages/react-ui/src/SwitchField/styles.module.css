@@ -1,0 +1,22 @@
+.switchField__flex {
+  display: flex;
+  align-items: center;
+}
+
+.switchField__switchInput {
+  margin-right: 10px;
+}
+
+.switchField__label {
+  line-height: 1.1;
+  flex: 1;
+  line-height: 20px;
+  pointer-events: none;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+.switchField__below {
+  margin-left: 55px;
+}
