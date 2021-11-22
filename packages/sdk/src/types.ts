@@ -503,19 +503,24 @@ export type FieldAppearanceChange =
 
 export type UpdateParametersMethods = {
   /**
-   * Updates the plugin parameters. Always check
-   * `ctx.currentRole.meta.final_permissions.can_edit_schema` before calling
-   * this, as the user might not have the permission to perform the operation.
+   * Updates the plugin parameters.
+   *
+   * Always check `ctx.currentRole.meta.final_permissions.can_edit_schema`
+   * before calling this, as the user might not have the permission to perform
+   * the operation.
    *
    * @example
    *   ctx.updatePluginParameters({ debugMode: true });
    */
   updatePluginParameters: (params: Record<string, unknown>) => Promise<void>;
   /**
-   * Performs some changes in the appearance of a field, installing/removing a
-   * manual field extension, or tweaking their parameters. Always check
-   * `ctx.currentRole.meta.final_permissions.can_edit_schema` before calling
-   * this, as the user might not have the permission to perform the operation.
+   * Performs changes in the appearance of a field. You can install/remove a
+   * manual field extension, or tweak their parameters. If multiple changes are
+   * passed, they will be applied sequencially.
+   *
+   * Always check `ctx.currentRole.meta.final_permissions.can_edit_schema`
+   * before calling this, as the user might not have the permission to perform
+   * the operation.
    *
    * @example
    *   const fieldId = 234;
