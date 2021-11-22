@@ -189,7 +189,7 @@ export type ManualFieldExtension = {
    * `renderManualFieldExtensionConfigScreen` and
    * `validateManualFieldExtensionParameters` methods
    */
-  configurable: boolean;
+  configurable?: boolean | { initialHeight: number };
   /** The initial height to set for the iframe that will render the field extension */
   initialHeight?: number;
 };
