@@ -7,8 +7,6 @@ import {
   TextInput,
   TextInputProps,
 } from '..';
-import cn from 'classnames';
-import s from './styles.module.css.json';
 
 type TextFieldProps = {
   id: string;
