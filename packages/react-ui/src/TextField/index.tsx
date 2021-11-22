@@ -37,7 +37,12 @@ export function TextField({
 }: TextFieldProps): JSX.Element {
   return (
     <>
-      <FormLabel {...formLabelProps} htmlFor={id} required={required}>
+      <FormLabel
+        {...formLabelProps}
+        htmlFor={id}
+        required={required}
+        error={!!error}
+      >
         {label}
       </FormLabel>
 
@@ -48,6 +53,7 @@ export function TextField({
         value={value}
         placeholder={placeholder}
         onChange={onChange}
+        error={!!error}
       />
 
       {hint && <FieldHint>{hint}</FieldHint>}
