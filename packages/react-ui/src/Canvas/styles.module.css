@@ -4,9 +4,12 @@
   --light-body-color: #848484;
   --placeholder-body-color: #c6c6c6;
   --light-bg-color: #f5f5f5;
+  --lighter-bg-color: #f8f8f8;
   --disabled-bg-color: #ededed;
   --border-color: #f0f0f0;
+  --darker-border-color: #d7d7d7;
   --alert-color: #ff5e49;
+  --alert-rgb-components: 255, 94, 73;
   --warning-color: #ffd700;
   --notice-color: #46d700;
   --warning-bg-color: #ffffe5;
@@ -19,27 +22,25 @@
   --monospaced-font-family: 'Roboto Mono', 'Menlo', 'Bitstream Vera Sans Mono',
     Consolas, Courier, monospace;
 
-  --base-unit: 0.0625rem;
-
   /* Spacing */
-  --spacing-s: calc(0.5 * 12px * var(--base-unit));
-  --spacing-m: calc(1 * 12px * var(--base-unit));
-  --spacing-l: calc(2 * 12px * var(--base-unit));
-  --spacing-xl: calc(3 * 12px * var(--base-unit));
-  --spacing-xxl: calc(5 * 12px * var(--base-unit));
-  --spacing-xxxl: calc(8 * 12px * var(--base-unit));
+  --spacing-s: calc(0.5 * 12 * 0.0625rem);
+  --spacing-m: calc(1 * 12 * 0.0625rem);
+  --spacing-l: calc(2 * 12 * 0.0625rem);
+  --spacing-xl: calc(3 * 12 * 0.0625rem);
+  --spacing-xxl: calc(5 * 12 * 0.0625rem);
+  --spacing-xxxl: calc(8 * 12 * 0.0625rem);
 
   /* Font-size */
-  --font-size-xxs: calc(11px * var(--base-unit));
-  --font-size-xs: calc(12px * var(--base-unit));
-  --font-size-s: calc(14px * var(--base-unit));
-  --font-size-m: calc(15px * var(--base-unit));
-  --font-size-l: calc(17px * var(--base-unit));
-  --font-size-xl: calc(19px * var(--base-unit));
-  --font-size-xxl: calc(25px * var(--base-unit));
-  --font-size-xxxl: calc(30px * var(--base-unit));
-  --font-size-xxxl: calc(35px * var(--base-unit));
-  --font-size-xxxl: calc(50px * var(--base-unit));
+  --font-size-xxs: calc(11 * 0.0625rem);
+  --font-size-xs: calc(12 * 0.0625rem);
+  --font-size-s: calc(14 * 0.0625rem);
+  --font-size-m: calc(15 * 0.0625rem);
+  --font-size-l: calc(17 * 0.0625rem);
+  --font-size-xl: calc(19 * 0.0625rem);
+  --font-size-xxl: calc(25 * 0.0625rem);
+  --font-size-xxxl: calc(30 * 0.0625rem);
+  --font-size-xxxl: calc(35 * 0.0625rem);
+  --font-size-xxxl: calc(50 * 0.0625rem);
 
   --material-ease: cubic-bezier(0.55, 0, 0.1, 1);
   --inertial-ease: cubic-bezier(0.19, 1, 0.22, 1);

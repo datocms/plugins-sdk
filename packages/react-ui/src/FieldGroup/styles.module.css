@@ -1,0 +1,12 @@
+.FieldGroup {
+  display: block;
+}
+
+.FieldGroup__item {
+  display: block;
+  margin-bottom: var(--spacing-l);
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}

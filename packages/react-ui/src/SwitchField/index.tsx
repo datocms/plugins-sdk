@@ -7,6 +7,7 @@ import {
   SwitchInput,
   SwitchInputProps,
 } from '..';
+import cn from 'classnames';
 import s from './styles.module.css.json';
 
 type SwitchFieldProps = {
@@ -19,7 +20,7 @@ type SwitchFieldProps = {
   formLabelProps?: FormLabelProps;
   value: SwitchInputProps['value'];
   onChange: SwitchInputProps['onChange'];
-  switchInputProps: SwitchInputProps;
+  switchInputProps?: SwitchInputProps;
 };
 
 export function SwitchField({
@@ -45,11 +46,14 @@ export function SwitchField({
             onChange={onChange}
           />
         </div>
-        <div className={s.switchField__label}>
-          <FormLabel htmlFor={id} required={required} {...formLabelProps}>
-            {label}
-          </FormLabel>
-        </div>
+        <FormLabel
+          {...formLabelProps}
+          htmlFor={id}
+          required={required}
+          className={cn(s.switchField__label, formLabelProps?.className)}
+        >
+          {label}
+        </FormLabel>
       </div>
       {(hint || error) && (
         <div className={s.switchField__below}>

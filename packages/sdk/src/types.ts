@@ -466,6 +466,8 @@ export type RenderAdditionalProperties = {
   ssoUsers: Partial<Record<string, SsoUser>>;
   /** The project owner */
   account: Account;
+  /** The padding in px that must be applied to the body */
+  bodyPadding: [number, number, number, number];
 };
 
 export type RenderProperties = CommonProperties & RenderAdditionalProperties;

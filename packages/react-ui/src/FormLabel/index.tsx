@@ -26,8 +26,10 @@ export const FormLabel = ({
 
   return (
     <label className={classNames} htmlFor={htmlFor} {...otherProps}>
-      <span className={s.formLabel__label}>{children}</span>
-      {required && <span className={s.formLabel__required}>*</span>}
+      <span className={s.formLabel__label}>
+        {children}
+        {required && <span className={s.formLabel__required}>*</span>}
+      </span>
       {code && <span className={s.formLabel__code}>{code}</span>}
     </label>
   );

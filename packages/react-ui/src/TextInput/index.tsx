@@ -1,38 +1,81 @@
-import React from 'react';
+import React, { useCallback, RefObject, ChangeEvent } from 'react';
 import cn from 'classnames';
-import styles from './styles.module.css.json';
+import s from './styles.module.css.json';
+
+export type TextInputChangeEventHandler = (
+  newValue: string,
+  event: React.ChangeEvent<HTMLInputElement>,
+) => void;
 
 export type TextInputProps = {
+  type?:
+    | 'text'
+    | 'password'
+    | 'email'
+    | 'number'
+    | 'search'
+    | 'url'
+    | 'date'
+    | 'time';
+  name?: string;
+  labelText?: string;
+  id?: string;
   className?: string;
-  disabled?: boolean;
-  textInputType?: 'primary' | 'muted' | 'negative';
-  textInputSize?: 'xxs' | 'xs' | 's' | 'l' | 'xl';
-  fullWidth?: boolean;
-};
+  onChange?: TextInputChangeEventHandler;
+  value: string;
+  inputRef?: RefObject<HTMLInputElement>;
+  error?: boolean;
+} & JSX.IntrinsicElements['input'];
 
-export function TextInput({
+export const TextInput = ({
   className,
-  disabled,
-  textInputType = 'muted',
-  textInputSize = 's',
-  fullWidth,
-  ...other
-}: TextInputProps): JSX.Element {
-  return (
-    <input
-      type="text"
-      className={cn(
-        styles.textInput,
-        styles[`textInputType-${textInputType}`],
-        styles[`textInputSize-${textInputSize}`],
-        {
-          [styles.disabled]: disabled,
-          [styles.fullWidth]: fullWidth,
-        },
-        className,
-      )}
-      disabled={disabled}
-      {...other}
-    />
+  disabled = false,
+  error,
+  id,
+  inputRef,
+  maxLength,
+  name,
+  labelText,
+  onBlur,
+  onChange,
+  placeholder,
+  required = false,
+  type,
+  value,
+  ...otherProps
+}: TextInputProps): JSX.Element => {
+  const handleChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      if (onChange) {
+        onChange(e.target.value, e);
+      }
+    },
+    [onChange],
   );
-}
+
+  const classNames = cn(s['TextInput'], className, {
+    [s['TextInput--disabled']]: disabled,
+    [s['TextInput--error']]: error,
+  });
+
+  return (
+    <div className={classNames}>
+      <input
+        aria-label={labelText}
+        className={s['TextInput__input']}
+        id={id}
+        name={name}
+        required={required}
+        placeholder={placeholder}
+        maxLength={maxLength}
+        disabled={disabled}
+        onBlur={onBlur}
+        onChange={handleChange}
+        value={value}
+        type={type}
+        ref={inputRef}
+        {...otherProps}
+      />
+    </div>
+  );
+};

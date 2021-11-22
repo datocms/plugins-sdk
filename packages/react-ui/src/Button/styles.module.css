@@ -90,6 +90,7 @@
 }
 
 .buttonSize-s {
+  padding: 0.7em 1em;
   font-size: 1em;
 }
 
@@ -99,6 +100,7 @@
 }
 
 .buttonSize-l {
+  padding: 0.7em 1em;
   font-size: 1.2em;
 }
 

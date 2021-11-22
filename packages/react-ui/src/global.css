@@ -3,9 +3,13 @@
 @import './Button/styles.module.css';
 @import './Canvas/styles.module.css';
 @import './FieldError/styles.module.css';
+@import './FieldGroup/styles.module.css';
 @import './FieldHint/styles.module.css';
+@import './Form/styles.module.css';
 @import './FormLabel/styles.module.css';
+@import './SwitchField/styles.module.css';
 @import './SwitchInput/styles.module.css';
+@import './TextField/styles.module.css';
 @import './TextInput/styles.module.css';
 
 html {

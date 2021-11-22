@@ -38,7 +38,9 @@ export function Canvas({
       className={styles.canvas}
       style={Object.entries(ctx.theme).reduce(
         (acc, [k, v]) => ({ ...acc, [`--${camelToDash(k)}`]: v }),
-        {},
+        {
+          padding: ctx.bodyPadding.map((p) => `${p}px`).join(' '),
+        },
       )}
     >
       {children}
