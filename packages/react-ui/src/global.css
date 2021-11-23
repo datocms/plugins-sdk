@@ -11,6 +11,7 @@
 @import './SwitchInput/styles.module.css';
 @import './TextField/styles.module.css';
 @import './TextInput/styles.module.css';
+@import './ContextInspector/styles.module.css';
 
 html {
   padding: 0;

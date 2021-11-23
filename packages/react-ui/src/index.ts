@@ -9,3 +9,4 @@ export * from './SwitchField';
 export * from './SwitchInput';
 export * from './TextField';
 export * from './TextInput';
+export * from './ContextInspector';

@@ -503,6 +503,10 @@ export type FieldAppearanceChange =
       parameters: Record<string, unknown>;
     };
 
+/**
+ * These methods can be used to update both plugin parameters and manual field
+ * extensions configuration.
+ */
 export type UpdateParametersMethods = {
   /**
    * Updates the plugin parameters.
