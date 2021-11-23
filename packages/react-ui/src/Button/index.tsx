@@ -46,3 +46,47 @@ export function Button({
     </button>
   );
 }
+
+export type ButtonLinkProps = {
+  children: ReactNode;
+  href: string;
+  target?: React.AnchorHTMLAttributes<HTMLAnchorElement>['target'];
+  className?: string;
+  onClick?: MouseEventHandler;
+  buttonType?: 'primary' | 'muted' | 'negative';
+  buttonSize?: 'xxs' | 'xs' | 's' | 'm' | 'l' | 'xl';
+  fullWidth?: boolean;
+  style?: CSSProperties;
+};
+
+export function ButtonLink({
+  children,
+  href,
+  target = '_blank',
+  className,
+  buttonType = 'muted',
+  buttonSize = 'm',
+  onClick,
+  fullWidth,
+  style,
+}: ButtonLinkProps): JSX.Element {
+  return (
+    <a
+      href={href}
+      target={target}
+      className={cn(
+        styles.button,
+        styles[`buttonType-${buttonType}`],
+        styles[`buttonSize-${buttonSize}`],
+        {
+          [styles.fullWidth]: fullWidth,
+        },
+        className,
+      )}
+      style={style}
+      onClick={onClick}
+    >
+      {children}
+    </a>
+  );
+}
