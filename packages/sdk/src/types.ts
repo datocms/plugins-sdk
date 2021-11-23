@@ -916,7 +916,7 @@ export type RenderSidebarPanelAdditionalProperties = {
    * The arbitrary `parameters` of the panel declared in the
    * `itemFormSidebarPanels` function
    */
-  parameters: Record<string, unknown> | undefined;
+  parameters: Record<string, unknown>;
 };
 
 export type RenderSidebarPanelProperties = ItemFormProperties &
@@ -941,7 +941,7 @@ export type RenderFieldExtensionAdditionalProperties = {
   /** The ID of the field extension that needs to be rendered */
   fieldExtensionId: string;
   /** The arbitrary `parameters` of the field extension */
-  parameters: Record<string, unknown> | undefined;
+  parameters: Record<string, unknown>;
   /** The placeholder for the field */
   placeholder: string;
   /** Whether the field is currently disabled or not */
@@ -976,7 +976,7 @@ export type RenderModalAdditionalProperties = {
   /** The ID of the modal that needs to be rendered */
   modalId: string;
   /** The arbitrary `parameters` of the modal declared in the `openModal` function */
-  parameters: Record<string, unknown> | undefined;
+  parameters: Record<string, unknown>;
 };
 
 export type RenderModalProperties = RenderProperties &
@@ -1030,7 +1030,7 @@ export type RenderManualFieldExtensionConfigScreenAdditionalProperties = {
    * The current value of the parameters (you can change the value with the
    * `setParameters` function)
    */
-  parameters: Record<string, unknown> | undefined;
+  parameters: Record<string, unknown>;
   /**
    * The current validation errors for the parameters (you can set them
    * implementing the `validateManualFieldExtensionParameters` function)

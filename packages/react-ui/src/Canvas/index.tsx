@@ -1,5 +1,5 @@
 import React, { ReactNode, useEffect } from 'react';
-import { RenderProperties, SizingUtilities } from 'datocms-plugins-sdk';
+import { RenderProperties, SizingUtilities } from 'datocms-plugin-sdk';
 import styles from './styles.module.css.json';
 
 function camelToDash(str: string) {

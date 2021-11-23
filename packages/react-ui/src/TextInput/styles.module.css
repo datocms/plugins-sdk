@@ -10,6 +10,7 @@
   transition: border 0.2s var(--material-ease);
   font-size: var(--font-size-m);
   resize: none;
+  font-family: inherit;
 
   &::placeholder {
     color: var(--placeholder-body-color);

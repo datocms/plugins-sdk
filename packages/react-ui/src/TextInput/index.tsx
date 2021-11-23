@@ -22,10 +22,9 @@ export type TextInputProps = {
   id?: string;
   className?: string;
   onChange?: TextInputChangeEventHandler;
-  value: string;
   inputRef?: RefObject<HTMLInputElement>;
   error?: boolean;
-} & JSX.IntrinsicElements['input'];
+} & Omit<JSX.IntrinsicElements['input'], 'onChange'>;
 
 export const TextInput = ({
   className,

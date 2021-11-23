@@ -1,4 +1,4 @@
-import { RenderConfigScreenCtx } from 'datocms-plugins-sdk';
+import { RenderConfigScreenCtx } from 'datocms-plugin-sdk';
 import { Canvas } from 'datocms-react-ui';
 import './style.css';
 
