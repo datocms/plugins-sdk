@@ -478,12 +478,12 @@ export type FieldAppearanceChange =
     }
   | {
       operation: 'updateEditor';
-      newFieldExtensionId?: 'string';
+      newFieldExtensionId?: string;
       newFieldExtensionParameters?: Record<string, unknown>;
     }
   | {
       operation: 'setEditor';
-      fieldExtensionId: 'string';
+      fieldExtensionId: string;
       parameters: Record<string, unknown>;
     }
   | {
@@ -493,13 +493,13 @@ export type FieldAppearanceChange =
   | {
       operation: 'updateAddon';
       index: number;
-      newFieldExtensionId?: 'string';
+      newFieldExtensionId?: string;
       newParameters?: Record<string, unknown>;
     }
   | {
       operation: 'insertAddon';
       index: number;
-      fieldExtensionId: 'string';
+      fieldExtensionId: string;
       parameters: Record<string, unknown>;
     };
 
