@@ -1,6 +1,6 @@
 {
   "name": "cra-template-datocms-plugin",
-  "version": "0.2.0-alpha.65",
+  "version": "0.3.0",
   "keywords": [
     "react",
     "create-react-app",
@@ -25,5 +25,5 @@
     "template",
     "template.json"
   ],
-  "gitHead": "b12cac5d076b2c49a48db8bcc4895443f84a7b56"
+  "gitHead": "71bed73a0f3193ba4ecc7f9052344331ce4c7f1d"
 }
