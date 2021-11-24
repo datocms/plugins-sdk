@@ -1,6 +1,6 @@
 # `datocms-plugin-sdk`
 
-A set of Typescript types and helpers to work with DatoCMS Structured Text fields.
+React component library to mimic the DatoCMS interface inside plugins. You can read all about this package in [our documentation](https://www.datocms.com/docs/plugin-sdk).
 
 ## Installation
 

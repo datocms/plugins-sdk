@@ -674,7 +674,7 @@ export type ToastMethods = {
    *     type: 'warning',
    *     message: 'Just a sample warning notification!',
    *     dismissOnPageChange: true,
-   *     dismissAfterTimeout: 22000,
+   *     dismissAfterTimeout: 5000,
    *     cta: {
    *       label: 'Execute call-to-action',
    *       value: 'cta',
