@@ -36,7 +36,11 @@ import {
 } from './guards';
 
 export type SizingUtilities = {
-  /** Listens for DOM changes and automatically calls `setHeight` when it detects a change */
+  /**
+   * Listens for DOM changes and automatically calls `setHeight` when it detects a change.
+   * If you're using `datocms-react-ui` package, the `<Canvas />` component already takes
+   * care of calling this method for you.
+   */
   startAutoResizer: () => void;
   /** Stops resizing the iframe automatically */
   stopAutoResizer: () => void;
