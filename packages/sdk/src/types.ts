@@ -479,7 +479,7 @@ export type FieldAppearanceChange =
   | {
       operation: 'updateEditor';
       newFieldExtensionId?: string;
-      newFieldExtensionParameters?: Record<string, unknown>;
+      newParameters?: Record<string, unknown>;
     }
   | {
       operation: 'setEditor';
@@ -516,7 +516,8 @@ export type UpdateParametersMethods = {
    * the operation.
    *
    * @example
-   *   ctx.updatePluginParameters({ debugMode: true });
+   *   await ctx.updatePluginParameters({ debugMode: true });
+   *   await ctx.notice('Plugin parameters successfully updated!');
    */
   updatePluginParameters: (params: Record<string, unknown>) => Promise<void>;
   /**
@@ -529,19 +530,44 @@ export type UpdateParametersMethods = {
    * the operation.
    *
    * @example
-   *   const fieldId = prompt('Please insert a field ID:');
+   *   const fields = await ctx.loadFieldsUsingPlugin();
    *
-   *   ctx.updateFieldAppearance(fieldId, [
-   *     {
-   *       operation: 'updateEditor',
-   *       newFieldExtensionParameters: { foo: 'bar' },
-   *     },
-   *     {
-   *       operation: 'updateAddon',
-   *       index: 2,
-   *       newFieldExtensionParameters: { bar: 'qux' },
-   *     },
-   *   ]);
+   *   if (fields.length === 0) {
+   *     ctx.alert('No field is using this plugin as a manual extension!');
+   *     return;
+   *   }
+   *
+   *   for (const field of fields) {
+   *     const { appearance } = field.attributes;
+   *     const operations = [];
+   *
+   *     if (appearance.editor === ctx.plugin.id) {
+   *       operations.push({
+   *         operation: 'updateEditor',
+   *         newParameters: {
+   *           ...appearance.parameters,
+   *           foo: 'bar',
+   *         },
+   *       });
+   *     }
+   *
+   *     appearance.addons.forEach((addon, i) => {
+   *       if (addon.id !== ctx.plugin.id) {
+   *         return;
+   *       }
+   *
+   *       operations.push({
+   *         operation: 'updateAddon',
+   *         index: i,
+   *         newParameters: { ...addon.parameters, foo: 'bar' },
+   *       });
+   *     });
+   *
+   *     await ctx.updateFieldAppearance(field.id, operations);
+   *     await ctx.notice(
+   *       `Successfully edited field ${field.attributes.api_key}`,
+   *     );
+   *   }
    */
   updateFieldAppearance: (
     fieldId: string,
@@ -591,7 +617,7 @@ export type LoadDataMethods = {
    * @example
    *   const users = await ctx.loadUsers();
    *
-   *   ctx.notice(`Success! ${users.map((user) => i.id).join(', ')}`);
+   *   ctx.notice(`Success! ${users.map((user) => user.id).join(', ')}`);
    */
   loadUsers: () => Promise<User[]>;
   /**
@@ -601,7 +627,7 @@ export type LoadDataMethods = {
    * @example
    *   const users = await ctx.loadSsoUsers();
    *
-   *   ctx.notice(`Success! ${users.map((user) => i.id).join(', ')}`);
+   *   ctx.notice(`Success! ${users.map((user) => user.id).join(', ')}`);
    */
   loadSsoUsers: () => Promise<SsoUser[]>;
 };
@@ -676,9 +702,9 @@ export type ToastMethods = {
    *     'This is an alert message!',
    *   );
    *
-   *   ctx.alert(message);
+   *   await ctx.alert(message);
    */
-  alert: (message: string) => void;
+  alert: (message: string) => Promise<void>;
   /**
    * Triggers a "success" toast displaying the selected message
    *
@@ -688,9 +714,9 @@ export type ToastMethods = {
    *     'This is a notice message!',
    *   );
    *
-   *   ctx.notice(message);
+   *   await ctx.notice(message);
    */
-  notice: (message: string) => void;
+  notice: (message: string) => Promise<void>;
   /**
    * Triggers a custom toast displaying the selected message (and optionally a CTA)
    *
@@ -854,15 +880,15 @@ export type NavigateMethods = {
    * Moves the user to another URL internal to the backend
    *
    * @example
-   *   ctx.navigateTo('/');
+   *   await ctx.navigateTo('/');
    */
-  navigateTo: (path: string) => void;
+  navigateTo: (path: string) => Promise<void>;
 };
 
 /** These methods can be used to set various properties of the containing iframe */
 export type IframeMethods = {
   /** Sets the height for the iframe */
-  setHeight: (number: number) => void;
+  setHeight: (number: number) => Promise<void>;
 };
 
 export type RenderMethods = LoadDataMethods &
@@ -909,9 +935,9 @@ export type ItemFormAdditionalMethods = {
    *     ctx.fieldPath,
    *   );
    *
-   *   ctx.toggleField(fieldPath, true);
+   *   await ctx.toggleField(fieldPath, true);
    */
-  toggleField: (path: string, show: boolean) => void;
+  toggleField: (path: string, show: boolean) => Promise<void>;
   /**
    * Disables/re-enables a specific field in the form
    *
@@ -920,9 +946,10 @@ export type ItemFormAdditionalMethods = {
    *     'Please insert the path of a field in the form',
    *     ctx.fieldPath,
    *   );
-   *   ctx.disableField(fieldPath, true);
+   *
+   *   await ctx.disableField(fieldPath, true);
    */
-  disableField: (path: string, disable: boolean) => void;
+  disableField: (path: string, disable: boolean) => Promise<void>;
   /**
    * Smoothly navigates to a specific field in the form. If the field is
    * localized it will switch language tab and then navigate to the chosen field.
@@ -932,9 +959,10 @@ export type ItemFormAdditionalMethods = {
    *     'Please insert the path of a field in the form',
    *     ctx.fieldPath,
    *   );
-   *   ctx.scrollToField(fieldPath);
+   *
+   *   await ctx.scrollToField(fieldPath);
    */
-  scrollToField: (path: string, locale?: string) => void;
+  scrollToField: (path: string, locale?: string) => Promise<void>;
   /**
    * Changes a specific path of the `formValues` object
    *
@@ -943,9 +971,10 @@ export type ItemFormAdditionalMethods = {
    *     'Please insert the path of a field in the form',
    *     ctx.fieldPath,
    *   );
-   *   ctx.setFieldValue(fieldPath, 'new value');
+   *
+   *   await ctx.setFieldValue(fieldPath, 'new value');
    */
-  setFieldValue: (path: string, value: unknown) => void;
+  setFieldValue: (path: string, value: unknown) => Promise<void>;
   /**
    * Triggers a submit form for current record
    *
@@ -1047,9 +1076,9 @@ export type RenderModalAdditionalMethods = {
    *     'success',
    *   );
    *
-   *   ctx.resolve(returnValue);
+   *   await ctx.resolve(returnValue);
    */
-  resolve: (returnValue: unknown) => void;
+  resolve: (returnValue: unknown) => Promise<void>;
 };
 
 export type RenderModalMethods = RenderMethods &
@@ -1111,7 +1140,7 @@ export type RenderManualFieldExtensionConfigScreenAdditionalMethods = {
    * Sets a new value for the parameters
    *
    * @example
-   *   ctx.setParameters({ color: '#ff0000' });
+   *   await ctx.setParameters({ color: '#ff0000' });
    */
   setParameters: (params: Record<string, unknown>) => Promise<void>;
 };

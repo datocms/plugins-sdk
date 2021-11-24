@@ -110,7 +110,10 @@ function buildCtx(manifest: any, definition: any) {
 
   if (definition.type.type === 'reflection') {
     const properties = definition.type.declaration.children.filter(
-      (child: any) => !['mode', 'getSettings'].includes(child.name),
+      (child: any) =>
+        !['mode', 'getSettings', 'setHeight', 'bodyPadding'].includes(
+          child.name,
+        ),
     );
 
     if (properties.length === 0) {
@@ -154,7 +157,7 @@ function buildCtx(manifest: any, definition: any) {
     };
   }
 
-  throw new Error('fuck');
+  throw new Error(`Don\t know how to handle ${definition}`);
 }
 
 const ExpandablePane = ({ children, label }: any) => {
@@ -183,7 +186,7 @@ export function ContextInspector({
   useEffect(() => {
     const runner = async () => {
       const response = await fetch(
-        'https://unpkg.com/datocms-plugins-sdk@next/types.json',
+        'https://unpkg.com/datocms-plugin-sdk/types.json',
       );
       const manifest = await response.json();
 
@@ -217,7 +220,21 @@ export function ContextInspector({
   };
 
   const handleRun = (example: string) => {
-    Function(`"use strict";return(function(ctx){${example}})`)()(ctx);
+    Function(
+      `
+        "use strict";
+        return(
+          async function(ctx) {
+            try {
+              ${example}
+            } catch(e) {
+              await ctx.alert('Execution failed! See console for errors!');
+              console.error(e);
+            }
+          }
+        )
+      `,
+    )()(ctx);
   };
 
   return (
