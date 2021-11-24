@@ -57,7 +57,11 @@ function findExample(signature: any) {
 
   const commonIndentation = Math.min(...spacesPerLine);
 
-  return lines.map((line) => line.substring(commonIndentation)).join('\n');
+  const result = lines
+    .map((line) => line.substring(commonIndentation))
+    .join('\n');
+
+  return result;
 }
 
 function buildCtx(manifest: any, definition: any) {
@@ -181,7 +185,7 @@ export function ContextInspector({
   }, [setGroups]);
 
   return (
-    <>
+    <div className={s.inspector}>
       {groups &&
         groups.map((group) => {
           const name = group.name
@@ -209,6 +213,11 @@ export function ContextInspector({
 
                       <div>{item.description}</div>
                     </div>
+                    {item.type === 'property' && (
+                      <pre className={s.propertyOrMethodExample}>
+                        {JSON.stringify((ctx as any)[item.name], null, 2)}
+                      </pre>
+                    )}
                     {item.example && (
                       <pre className={s.propertyOrMethodExample}>
                         {item.example}
@@ -220,6 +229,6 @@ export function ContextInspector({
             </ExpandablePane>
           );
         })}
-    </>
+    </div>
   );
 }

@@ -529,8 +529,9 @@ export type UpdateParametersMethods = {
    * the operation.
    *
    * @example
-   *   const fieldId = 234;
-   *   ctx.updateFieldAppearance(234, [
+   *   const fieldId = prompt('Please insert a field ID:');
+   *
+   *   ctx.updateFieldAppearance(fieldId, [
    *     {
    *       operation: 'updateEditor',
    *       newFieldExtensionParameters: { foo: 'bar' },
@@ -558,7 +559,10 @@ export type LoadDataMethods = {
    * returned and will also be available in the the `fields` property.
    *
    * @example
-   *   const fields = await sdk.loadItemTypeFields('810907');
+   *   const fieldId = prompt('Please insert a field ID:');
+   *
+   *   const fields = await sdk.loadItemTypeFields(fieldId);
+   *
    *   sdk.notice(
    *     `Success! ${fields
    *       .map((field) => field.attributes.api_key)
@@ -572,6 +576,7 @@ export type LoadDataMethods = {
    *
    * @example
    *   const fields = await sdk.loadFieldsUsingPlugin();
+   *
    *   sdk.notice(
    *     `Success! ${fields
    *       .map((field) => field.attributes.api_key)
@@ -585,6 +590,7 @@ export type LoadDataMethods = {
    *
    * @example
    *   const users = await sdk.loadUsers();
+   *
    *   sdk.notice(`Success! ${users.map((user) => i.id).join(', ')}`);
    */
   loadUsers: () => Promise<User[]>;
@@ -594,6 +600,7 @@ export type LoadDataMethods = {
    *
    * @example
    *   const users = await sdk.loadSsoUsers();
+   *
    *   sdk.notice(`Success! ${users.map((user) => i.id).join(', ')}`);
    */
   loadSsoUsers: () => Promise<SsoUser[]>;
@@ -607,7 +614,10 @@ export type ItemDialogMethods = {
    * without creating anything.
    *
    * @example
-   *   const item = await sdk.createNewItem('810907');
+   *   const itemTypeId = prompt('Please insert a model ID:');
+   *
+   *   const item = await sdk.createNewItem(itemTypeId);
+   *
    *   if (item) {
    *     sdk.notice(`Success! ${item.id}`);
    *   } else {
@@ -622,7 +632,10 @@ export type ItemDialogMethods = {
    * choosing any record.
    *
    * @example
-   *   const items = await ctx.selectItem('810907', { multiple: true });
+   *   const itemTypeId = prompt('Please insert a model ID:');
+   *
+   *   const items = await ctx.selectItem(itemTypeId, { multiple: true });
+   *
    *   if (items) {
    *     ctx.notice(`Success! ${items.map((i) => i.id).join(', ')}`);
    *   } else {
@@ -639,7 +652,9 @@ export type ItemDialogMethods = {
    * without persisting any change.
    *
    * @example
-   *   const item = await sdk.editItem('50479504');
+   *   const itemId = prompt('Please insert a record ID:');
+   *
+   *   const item = await sdk.editItem(itemId);
    *
    *   if (item) {
    *     sdk.notice(`Success! ${item.id}`);
@@ -656,14 +671,24 @@ export type ToastMethods = {
    * Triggers an "error" toast displaying the selected message
    *
    * @example
-   *   sdk.alert('Alert!');
+   *   const message = prompt(
+   *     'Please insert a message:',
+   *     'This is an alert message!',
+   *   );
+   *
+   *   sdk.alert(message);
    */
   alert: (message: string) => void;
   /**
    * Triggers a "success" toast displaying the selected message
    *
    * @example
-   *   sdk.notice('Notice!');
+   *   const message = prompt(
+   *     'Please insert a message:',
+   *     'This is a notice message!',
+   *   );
+   *
+   *   sdk.notice(message);
    */
   notice: (message: string) => void;
   /**
@@ -723,7 +748,9 @@ export type UploadDialogMethods = {
    *   the user deletes the asset
    *
    * @example
-   *   const item = await sdk.editUpload('21717537');
+   *   const uploadId = prompt('Please insert an asset ID:');
+   *
+   *   const item = await sdk.editUpload(uploadId);
    *
    *   if (item) {
    *     sdk.notice(`Success! ${item.id}`);
@@ -740,8 +767,10 @@ export type UploadDialogMethods = {
    * the dialog without persisting any change.
    *
    * @example
+   *   const uploadId = prompt('Please insert an asset ID:');
+   *
    *   const result = await sdk.editUploadMetadata({
-   *     upload_id: '21717537',
+   *     upload_id: uploadId,
    *     alt: null,
    *     title: null,
    *     custom_data: {},
@@ -775,6 +804,7 @@ export type CustomDialogMethods = {
    *     width: 'l',
    *     parameters: { foo: 'bar' },
    *   });
+   *
    *   if (result) {
    *     sdk.notice(`Success! ${JSON.stringify(result)}`);
    *   } else {
@@ -808,6 +838,7 @@ export type CustomDialogMethods = {
    *       value: false,
    *     },
    *   });
+   *
    *   if (result) {
    *     sdk.notice(`Success! ${result}`);
    *   } else {
@@ -873,14 +904,23 @@ export type ItemFormAdditionalMethods = {
    * Hides/shows a specific field in the form
    *
    * @example
-   *   sdk.toggleField(sdk.fieldPath, true);
+   *   const fieldPath = prompt(
+   *     'Please insert the path of a field in the form',
+   *     sdk.fieldPath,
+   *   );
+   *
+   *   sdk.toggleField(fieldPath, true);
    */
   toggleField: (path: string, show: boolean) => void;
   /**
    * Disables/re-enables a specific field in the form
    *
    * @example
-   *   sdk.disableField(sdk.fieldPath, true);
+   *   const fieldPath = prompt(
+   *     'Please insert the path of a field in the form',
+   *     sdk.fieldPath,
+   *   );
+   *   sdk.disableField(fieldPath, true);
    */
   disableField: (path: string, disable: boolean) => void;
   /**
@@ -888,14 +928,22 @@ export type ItemFormAdditionalMethods = {
    * localized it will switch language tab and then navigate to the chosen field.
    *
    * @example
-   *   sdk.scrollToField(sdk.fieldPath);
+   *   const fieldPath = prompt(
+   *     'Please insert the path of a field in the form',
+   *     sdk.fieldPath,
+   *   );
+   *   sdk.scrollToField(fieldPath);
    */
   scrollToField: (path: string, locale?: string) => void;
   /**
    * Changes a specific path of the `formValues` object
    *
    * @example
-   *   sdk.setFieldValue(sdk.fieldPath, 'new value');
+   *   const fieldPath = prompt(
+   *     'Please insert the path of a field in the form',
+   *     sdk.fieldPath,
+   *   );
+   *   sdk.setFieldValue(fieldPath, 'new value');
    */
   setFieldValue: (path: string, value: unknown) => void;
   /**
@@ -992,6 +1040,14 @@ export type RenderModalAdditionalMethods = {
   /**
    * A function to be called by the plugin to close the modal. The `openModal`
    * call will be resolved with the passed return value
+   *
+   * @example
+   *   const returnValue = prompt(
+   *     'Please specify the value to return to the caller:',
+   *     'success',
+   *   );
+   *
+   *   sdk.resolve(returnValue);
    */
   resolve: (returnValue: unknown) => void;
 };

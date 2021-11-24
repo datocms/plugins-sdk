@@ -1,3 +1,7 @@
+.inspector {
+  margin: var(--spacing-l) 0;
+}
+
 .panel {
   border-bottom: 1px solid var(--border-color);
 }
@@ -52,6 +56,8 @@
   background: var(--light-bg-color);
   font-size: 0.8em;
   margin: 0;
+  max-height: 240px;
+  overflow: auto;
 }
 
 .propertyOrMethodName {
