@@ -15,9 +15,12 @@
       "datocms-plugin-sdk": "*",
       "datocms-react-ui": "*"
     },
+    "devDependencies": {
+      "cross-env": "^7.0.3"
+    },
     "scripts": {
-      "start": "BROWSER='none' react-scripts start",
-      "build": "PUBLIC_URL='.' react-scripts build",
+      "start": "cross-env BROWSER='none' react-scripts start",
+      "build": "cross-env PUBLIC_URL='.' react-scripts build",
       "prepublishOnly": "npm run build"
     },
     "eslintConfig": {
