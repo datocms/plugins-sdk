@@ -52,12 +52,16 @@
 }
 
 .propertyOrMethodExample {
-  padding: 15px;
-  background: var(--light-bg-color);
-  font-size: 0.8em;
-  margin: 0;
-  max-height: 240px;
-  overflow: auto;
+  position: relative;
+
+  pre {
+    padding: 15px;
+    background: var(--light-bg-color);
+    font-size: 0.8em;
+    margin: 0;
+    max-height: 240px;
+    overflow: auto;
+  }
 }
 
 .propertyOrMethodName {
@@ -71,5 +75,15 @@
 
   &:hover {
     text-decoration: underline;
+  }
+}
+
+.propertyOrMethodExampleActions {
+  padding: 15px;
+  background: white;
+  display: flex;
+
+  > * {
+    margin-right: 10px;
   }
 }

@@ -561,9 +561,9 @@ export type LoadDataMethods = {
    * @example
    *   const fieldId = prompt('Please insert a field ID:');
    *
-   *   const fields = await sdk.loadItemTypeFields(fieldId);
+   *   const fields = await ctx.loadItemTypeFields(fieldId);
    *
-   *   sdk.notice(
+   *   ctx.notice(
    *     `Success! ${fields
    *       .map((field) => field.attributes.api_key)
    *       .join(', ')}`,
@@ -575,9 +575,9 @@ export type LoadDataMethods = {
    * one of its manual field extensions.
    *
    * @example
-   *   const fields = await sdk.loadFieldsUsingPlugin();
+   *   const fields = await ctx.loadFieldsUsingPlugin();
    *
-   *   sdk.notice(
+   *   ctx.notice(
    *     `Success! ${fields
    *       .map((field) => field.attributes.api_key)
    *       .join(', ')}`,
@@ -589,9 +589,9 @@ export type LoadDataMethods = {
    * in the the `users` property.
    *
    * @example
-   *   const users = await sdk.loadUsers();
+   *   const users = await ctx.loadUsers();
    *
-   *   sdk.notice(`Success! ${users.map((user) => i.id).join(', ')}`);
+   *   ctx.notice(`Success! ${users.map((user) => i.id).join(', ')}`);
    */
   loadUsers: () => Promise<User[]>;
   /**
@@ -599,9 +599,9 @@ export type LoadDataMethods = {
    * the the `ssoUsers` property.
    *
    * @example
-   *   const users = await sdk.loadSsoUsers();
+   *   const users = await ctx.loadSsoUsers();
    *
-   *   sdk.notice(`Success! ${users.map((user) => i.id).join(', ')}`);
+   *   ctx.notice(`Success! ${users.map((user) => i.id).join(', ')}`);
    */
   loadSsoUsers: () => Promise<SsoUser[]>;
 };
@@ -616,12 +616,12 @@ export type ItemDialogMethods = {
    * @example
    *   const itemTypeId = prompt('Please insert a model ID:');
    *
-   *   const item = await sdk.createNewItem(itemTypeId);
+   *   const item = await ctx.createNewItem(itemTypeId);
    *
    *   if (item) {
-   *     sdk.notice(`Success! ${item.id}`);
+   *     ctx.notice(`Success! ${item.id}`);
    *   } else {
-   *     sdk.alert('Closed!');
+   *     ctx.alert('Closed!');
    *   }
    */
   createNewItem: (itemTypeId: string) => Promise<Item | null>;
@@ -654,12 +654,12 @@ export type ItemDialogMethods = {
    * @example
    *   const itemId = prompt('Please insert a record ID:');
    *
-   *   const item = await sdk.editItem(itemId);
+   *   const item = await ctx.editItem(itemId);
    *
    *   if (item) {
-   *     sdk.notice(`Success! ${item.id}`);
+   *     ctx.notice(`Success! ${item.id}`);
    *   } else {
-   *     sdk.alert('Closed!');
+   *     ctx.alert('Closed!');
    *   }
    */
   editItem: (itemId: string) => Promise<Item | null>;
@@ -676,7 +676,7 @@ export type ToastMethods = {
    *     'This is an alert message!',
    *   );
    *
-   *   sdk.alert(message);
+   *   ctx.alert(message);
    */
   alert: (message: string) => void;
   /**
@@ -688,14 +688,14 @@ export type ToastMethods = {
    *     'This is a notice message!',
    *   );
    *
-   *   sdk.notice(message);
+   *   ctx.notice(message);
    */
   notice: (message: string) => void;
   /**
    * Triggers a custom toast displaying the selected message (and optionally a CTA)
    *
    * @example
-   *   const result = await sdk.customToast({
+   *   const result = await ctx.customToast({
    *     type: 'warning',
    *     message: 'Just a sample warning notification!',
    *     dismissOnPageChange: true,
@@ -707,7 +707,7 @@ export type ToastMethods = {
    *   });
    *
    *   if (result === 'cta') {
-   *     sdk.notice(`Clicked CTA!`);
+   *     ctx.notice(`Clicked CTA!`);
    *   }
    */
   customToast: <CtaValue = unknown>(
@@ -726,12 +726,12 @@ export type UploadDialogMethods = {
    * user closes the dialog without selecting any upload.
    *
    * @example
-   *   const item = await sdk.selectUpload({ multiple: false });
+   *   const item = await ctx.selectUpload({ multiple: false });
    *
    *   if (item) {
-   *     sdk.notice(`Success! ${item.id}`);
+   *     ctx.notice(`Success! ${item.id}`);
    *   } else {
-   *     sdk.alert('Closed!');
+   *     ctx.alert('Closed!');
    *   }
    */
   selectUpload: {
@@ -750,12 +750,12 @@ export type UploadDialogMethods = {
    * @example
    *   const uploadId = prompt('Please insert an asset ID:');
    *
-   *   const item = await sdk.editUpload(uploadId);
+   *   const item = await ctx.editUpload(uploadId);
    *
    *   if (item) {
-   *     sdk.notice(`Success! ${item.id}`);
+   *     ctx.notice(`Success! ${item.id}`);
    *   } else {
-   *     sdk.alert('Closed!');
+   *     ctx.alert('Closed!');
    *   }
    */
   editUpload: (
@@ -769,7 +769,7 @@ export type UploadDialogMethods = {
    * @example
    *   const uploadId = prompt('Please insert an asset ID:');
    *
-   *   const result = await sdk.editUploadMetadata({
+   *   const result = await ctx.editUploadMetadata({
    *     upload_id: uploadId,
    *     alt: null,
    *     title: null,
@@ -778,9 +778,9 @@ export type UploadDialogMethods = {
    *   });
    *
    *   if (result) {
-   *     sdk.notice(`Success! ${JSON.stringify(result)}`);
+   *     ctx.notice(`Success! ${JSON.stringify(result)}`);
    *   } else {
-   *     sdk.alert('Closed!');
+   *     ctx.alert('Closed!');
    *   }
    */
   editUploadMetadata: (
@@ -798,7 +798,7 @@ export type CustomDialogMethods = {
    * returns calling the `resolve()` function
    *
    * @example
-   *   const result = await sdk.openModal({
+   *   const result = await ctx.openModal({
    *     id: 'regular',
    *     title: 'Custom title!',
    *     width: 'l',
@@ -806,9 +806,9 @@ export type CustomDialogMethods = {
    *   });
    *
    *   if (result) {
-   *     sdk.notice(`Success! ${JSON.stringify(result)}`);
+   *     ctx.notice(`Success! ${JSON.stringify(result)}`);
    *   } else {
-   *     sdk.alert('Closed!');
+   *     ctx.alert('Closed!');
    *   }
    */
   openModal: (modal: Modal) => Promise<unknown>;
@@ -817,7 +817,7 @@ export type CustomDialogMethods = {
    * the value of the choice made by the user
    *
    * @example
-   *   const result = await sdk.openConfirm({
+   *   const result = await ctx.openConfirm({
    *     title: 'Custom title',
    *     content:
    *       'Lorem Ipsum is simply dummy text of the printing and typesetting industry',
@@ -840,9 +840,9 @@ export type CustomDialogMethods = {
    *   });
    *
    *   if (result) {
-   *     sdk.notice(`Success! ${result}`);
+   *     ctx.notice(`Success! ${result}`);
    *   } else {
-   *     sdk.alert('Cancelled!');
+   *     ctx.alert('Cancelled!');
    *   }
    */
   openConfirm: (options: ConfirmOptions) => Promise<unknown>;
@@ -854,7 +854,7 @@ export type NavigateMethods = {
    * Moves the user to another URL internal to the backend
    *
    * @example
-   *   sdk.navigateTo('/');
+   *   ctx.navigateTo('/');
    */
   navigateTo: (path: string) => void;
 };
@@ -906,10 +906,10 @@ export type ItemFormAdditionalMethods = {
    * @example
    *   const fieldPath = prompt(
    *     'Please insert the path of a field in the form',
-   *     sdk.fieldPath,
+   *     ctx.fieldPath,
    *   );
    *
-   *   sdk.toggleField(fieldPath, true);
+   *   ctx.toggleField(fieldPath, true);
    */
   toggleField: (path: string, show: boolean) => void;
   /**
@@ -918,9 +918,9 @@ export type ItemFormAdditionalMethods = {
    * @example
    *   const fieldPath = prompt(
    *     'Please insert the path of a field in the form',
-   *     sdk.fieldPath,
+   *     ctx.fieldPath,
    *   );
-   *   sdk.disableField(fieldPath, true);
+   *   ctx.disableField(fieldPath, true);
    */
   disableField: (path: string, disable: boolean) => void;
   /**
@@ -930,9 +930,9 @@ export type ItemFormAdditionalMethods = {
    * @example
    *   const fieldPath = prompt(
    *     'Please insert the path of a field in the form',
-   *     sdk.fieldPath,
+   *     ctx.fieldPath,
    *   );
-   *   sdk.scrollToField(fieldPath);
+   *   ctx.scrollToField(fieldPath);
    */
   scrollToField: (path: string, locale?: string) => void;
   /**
@@ -941,16 +941,16 @@ export type ItemFormAdditionalMethods = {
    * @example
    *   const fieldPath = prompt(
    *     'Please insert the path of a field in the form',
-   *     sdk.fieldPath,
+   *     ctx.fieldPath,
    *   );
-   *   sdk.setFieldValue(fieldPath, 'new value');
+   *   ctx.setFieldValue(fieldPath, 'new value');
    */
   setFieldValue: (path: string, value: unknown) => void;
   /**
    * Triggers a submit form for current record
    *
    * @example
-   *   await sdk.saveCurrentItem();
+   *   await ctx.saveCurrentItem();
    */
   saveCurrentItem: () => Promise<void>;
 };
@@ -1047,7 +1047,7 @@ export type RenderModalAdditionalMethods = {
    *     'success',
    *   );
    *
-   *   sdk.resolve(returnValue);
+   *   ctx.resolve(returnValue);
    */
   resolve: (returnValue: unknown) => void;
 };
