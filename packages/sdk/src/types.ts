@@ -541,9 +541,9 @@ export type LoadDataMethods = {
    * will also be available in the the `fields` property.
    *
    * @example
-   *   const fieldId = prompt('Please insert a field ID:');
+   *   const itemTypeId = prompt('Please insert a model ID:');
    *
-   *   const fields = await ctx.loadItemTypeFields(fieldId);
+   *   const fields = await ctx.loadItemTypeFields(itemTypeId);
    *
    *   ctx.notice(
    *     `Success! ${fields.map((field) => field.attributes.api_key).join(', ')}`,
