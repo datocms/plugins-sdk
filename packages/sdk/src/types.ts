@@ -35,19 +35,15 @@ export type MainNavigationTab = {
     pageId: string;
   };
   /**
-   * Expresses where you want to place the tab in the top-bar. If not specified,
-   * the tab will be placed after the standard tabs provided by DatoCMS itself.
+   * Expresses where you want to place the tab in the top-bar. If not specified, the tab
+   * will be placed after the standard tabs provided by DatoCMS itself.
    */
-  placement?: [
-    'before' | 'after',
-    'content' | 'mediaArea' | 'apiExplorer' | 'settings',
-  ];
+  placement?: ['before' | 'after', 'content' | 'mediaArea' | 'apiExplorer' | 'settings'];
   /**
-   * If different plugins specify the same `placement` for their tabs, they will
-   * be displayed by ascending `rank`. If you want to specify an explicit value
-   * for `rank`, make sure to offer a way for final users to customize it inside
-   * the plugin's settings form, otherwise the hardcoded value you choose might
-   * clash with the one of another plugin! *
+   * If different plugins specify the same `placement` for their tabs, they will be
+   * displayed by ascending `rank`. If you want to specify an explicit value for `rank`,
+   * make sure to offer a way for final users to customize it inside the plugin's settings
+   * form, otherwise the hardcoded value you choose might clash with the one of another plugin! *
    */
   rank?: number;
 
@@ -70,9 +66,8 @@ export type SettingsAreaSidebarItem = {
 };
 
 /**
- * The sidebar in the Settings Area presents a number of pages grouped by topic.
- * This object represents a new group to be added in the sideebar to the
- * standard ones DatoCMS provides.
+ * The sidebar in the Settings Area presents a number of pages grouped by topic. This
+ * object represents a new group to be added in the sideebar to the standard ones DatoCMS provides.
  */
 export type SettingsAreaSidebarItemGroup = {
   /** Label to be shown. Must be unique. */
@@ -80,9 +75,8 @@ export type SettingsAreaSidebarItemGroup = {
   /** The list of items it contains * */
   items: SettingsAreaSidebarItem[];
   /**
-   * Expresses where you want the group to be placed inside the sidebar. If not
-   * specified, the item will be placed after the standard items provided by
-   * DatoCMS itself.
+   * Expresses where you want the group to be placed inside the sidebar. If not specified,
+   * the item will be placed after the standard items provided by DatoCMS itself.
    */
   placement?: [
     'before' | 'after',
@@ -98,11 +92,10 @@ export type SettingsAreaSidebarItemGroup = {
     ),
   ];
   /**
-   * If different plugins specify the same `placement` for their sections, they
-   * will be displayed by ascending `rank`. If you want to specify an explicit
-   * value for `rank`, make sure to offer a way for final users to customize it
-   * inside the plugin's settings form, otherwise the hardcoded value you choose
-   * might clash with the one of another plugin! *
+   * If different plugins specify the same `placement` for their sections, they will be
+   * displayed by ascending `rank`. If you want to specify an explicit value for `rank`,
+   * make sure to offer a way for final users to customize it inside the plugin's settings
+   * form, otherwise the hardcoded value you choose might clash with the one of another plugin! *
    */
   rank?: number;
 };
@@ -121,8 +114,8 @@ export type SettingsAreaSidebarItemGroup = {
 // }
 
 /**
- * The sidebar in the Content Area presents a number of user-defined menu-items.
- * This object represents a new item to be added in the sidebar.
+ * The sidebar in the Content Area presents a number of user-defined menu-items. This
+ * object represents a new item to be added in the sidebar.
  */
 export type ContentAreaSidebarItem = {
   /** Label to be shown. Must be unique. */
@@ -134,17 +127,15 @@ export type ContentAreaSidebarItem = {
     pageId: string;
   };
   /**
-   * Expresses where you want the item to be placed inside the sidebar. If not
-   * specified, the item will be placed after the standard items provided by
-   * DatoCMS itself.
+   * Expresses where you want the item to be placed inside the sidebar. If not specified,
+   * the item will be placed after the standard items provided by DatoCMS itself.
    */
   placement?: ['before' | 'after', 'menuItems' | 'settings'];
   /**
-   * If different plugins specify the same `placement` for their panels, they
-   * will be displayed by ascending `rank`. If you want to specify an explicit
-   * value for `rank`, make sure to offer a way for final users to customize it
-   * inside the plugin's settings form, otherwise the hardcoded value you choose
-   * might clash with the one of another plugin! *
+   * If different plugins specify the same `placement` for their panels, they will be
+   * displayed by ascending `rank`. If you want to specify an explicit value for `rank`,
+   * make sure to offer a way for final users to customize it inside the plugin's settings
+   * form, otherwise the hardcoded value you choose might clash with the one of another plugin! *
    */
   rank?: number;
 
@@ -157,36 +148,31 @@ export type ContentAreaSidebarItem = {
 export type FieldExtensionType = 'editor' | 'addon';
 
 /**
- * Field extensions extend the basic functionality of DatoCMS when it comes to
- * presenting record's fields to the final user. Depending on the extension type
- * (`editor` or `addon`) they will be shown in different places of the interface.
+ * Field extensions extend the basic functionality of DatoCMS when it comes to presenting
+ * record's fields to the final user. Depending on the extension type (`editor` or
+ * `addon`) they will be shown in different places of the interface.
  */
 export type ManualFieldExtension = {
-  /**
-   * ID of field extension. Will be the first argument for the
-   * `renderFieldExtension` function
-   */
+  /** ID of field extension. Will be the first argument for the `renderFieldExtension` function */
   id: string;
   /** Name to be shown when editing fields */
   name: string;
   /**
-   * Type of field extension. An `editor` extension replaces the default field
-   * editor that DatoCMS provides, while an `addon` extension is placed
-   * underneath the field editor to provide additional info/behaviour. You can
-   * setup multiple field addons for every field.
+   * Type of field extension. An `editor` extension replaces the default field editor that
+   * DatoCMS provides, while an `addon` extension is placed underneath the field editor to
+   * provide additional info/behaviour. You can setup multiple field addons for every field.
    */
   type: FieldExtensionType;
   /**
-   * For `editor` extensions: moves the field to the sidebar of the record
-   * editing page, mimicking a sidebar panel
+   * For `editor` extensions: moves the field to the sidebar of the record editing page,
+   * mimicking a sidebar panel
    */
   asSidebarPanel?: boolean | { startOpen: boolean };
   /** The type of fields that the field extension in compatible with */
   fieldTypes: NonNullable<PluginAttributes['field_types']>;
   /**
-   * Whether this field extension needs some configuration options before being
-   * installed in a field or not. Will trigger the
-   * `renderManualFieldExtensionConfigScreen` and
+   * Whether this field extension needs some configuration options before being installed
+   * in a field or not. Will trigger the `renderManualFieldExtensionConfigScreen` and
    * `validateManualFieldExtensionParameters` methods
    */
   configurable?: boolean | { initialHeight: number };
@@ -201,32 +187,27 @@ export type ItemFormSidebarPanelPlacement = [
 
 /** A sidebar panel to be shown inside the record's editing page */
 export type ItemFormSidebarPanel = {
-  /**
-   * ID of the panel. Will be the first argument for the
-   * `renderItemFormSidebarPanel` function
-   */
+  /** ID of the panel. Will be the first argument for the `renderItemFormSidebarPanel` function */
   id: string;
   /** Label to be shown on the collapsible sidebar panel handle */
   label: string;
   /**
-   * An arbitrary configuration object that will be passed as the `parameters`
-   * property of the second argument of the `renderItemFormSidebarPanel` function
+   * An arbitrary configuration object that will be passed as the `parameters` property of
+   * the second argument of the `renderItemFormSidebarPanel` function
    */
   parameters?: Record<string, unknown>;
   /** Whether the sidebar panel will start open or collapsed */
   startOpen?: boolean;
   /**
-   * Expresses where you want the item to be placed inside the sidebar. If not
-   * specified, the item will be placed after the standard panels provided by
-   * DatoCMS itself.
+   * Expresses where you want the item to be placed inside the sidebar. If not specified,
+   * the item will be placed after the standard panels provided by DatoCMS itself.
    */
   placement?: ItemFormSidebarPanelPlacement;
   /**
-   * If multiple sidebar panels specify the same `placement`, they will be
-   * sorted by ascending `rank`. If you want to specify an explicit value for
-   * `rank`, make sure to offer a way for final users to customize it inside the
-   * plugin's settings form, otherwise the hardcoded value you choose might
-   * clash with the one of another plugin! *
+   * If multiple sidebar panels specify the same `placement`, they will be sorted by
+   * ascending `rank`. If you want to specify an explicit value for `rank`, make sure to
+   * offer a way for final users to customize it inside the plugin's settings form,
+   * otherwise the hardcoded value you choose might clash with the one of another plugin! *
    */
   rank?: number;
   /** The initial height to set for the iframe that will render the sidebar panel */
@@ -235,26 +216,22 @@ export type ItemFormSidebarPanel = {
 
 /** A field editor/sidebar forced on a field */
 export type EditorOverride = {
-  /**
-   * ID of field extension. Will be the first argument for the
-   * `renderFieldExtension` function
-   */
+  /** ID of field extension. Will be the first argument for the `renderFieldExtension` function */
   id: string;
   /** Moves the field to the sidebar of the record editing page, mimicking a sidebar panel */
   asSidebarPanel?:
     | boolean
     | { startOpen?: boolean; placement?: ItemFormSidebarPanelPlacement };
   /**
-   * An arbitrary configuration object that will be passed as the `parameters`
-   * property of the second argument of the `renderFieldExtension` function
+   * An arbitrary configuration object that will be passed as the `parameters` property of
+   * the second argument of the `renderFieldExtension` function
    */
   parameters?: Record<string, unknown>;
   /**
-   * If multiple plugins override a field, the one with the highest `rank` will
-   * win. If you want to specify an explicit value for `rank`, make sure to
-   * offer a way for final users to customize it inside the plugin's settings
-   * form, otherwise the hardcoded value you choose might clash with the one of
-   * another plugin! *
+   * If multiple plugins override a field, the one with the highest `rank` will win. If
+   * you want to specify an explicit value for `rank`, make sure to offer a way for final
+   * users to customize it inside the plugin's settings form, otherwise the hardcoded
+   * value you choose might clash with the one of another plugin! *
    */
   rank?: number;
   /** The initial height to set for the iframe that will render the field extension */
@@ -263,22 +240,18 @@ export type EditorOverride = {
 
 /** A field addon extension forced on a field */
 export type AddonOverride = {
-  /**
-   * ID of field extension. Will be the first argument for the
-   * `renderFieldExtension` function
-   */
+  /** ID of field extension. Will be the first argument for the `renderFieldExtension` function */
   id: string;
   /**
-   * An arbitrary configuration object that will be passed as the `parameters`
-   * property of the second argument of the `renderFieldExtension` function
+   * An arbitrary configuration object that will be passed as the `parameters` property of
+   * the second argument of the `renderFieldExtension` function
    */
   parameters?: Record<string, unknown>;
   /**
-   * If multiple addons are present for a field, they will be sorted by
-   * ascending `rank`. If you want to specify an explicit value for `rank`, make
-   * sure to offer a way for final users to customize it inside the plugin's
-   * settings form, otherwise the hardcoded value you choose might clash with
-   * the one of another plugin! *
+   * If multiple addons are present for a field, they will be sorted by ascending `rank`.
+   * If you want to specify an explicit value for `rank`, make sure to offer a way for
+   * final users to customize it inside the plugin's settings form, otherwise the
+   * hardcoded value you choose might clash with the one of another plugin! *
    */
   rank?: number;
   /** The initial height to set for the iframe that will render the field extension */
@@ -338,8 +311,8 @@ export type Modal = {
   /** Width of the modal. Can be a number, or one of the predefined sizes */
   width?: 's' | 'm' | 'l' | 'xl' | 'fullWidth' | number;
   /**
-   * An arbitrary configuration object that will be passed as the `parameters`
-   * property of the second argument of the `renderModal` function
+   * An arbitrary configuration object that will be passed as the `parameters` property of
+   * the second argument of the `renderModal` function
    */
   parameters?: Record<string, unknown>;
   /** The initial height to set for the iframe that will render the modal content */
@@ -356,17 +329,14 @@ export type Toast<CtaValue = unknown> = {
   cta?: {
     /** Label for the button */
     label: string;
-    /**
-     * The value to be returned by the `customToast` promise if the button is
-     * clicked by the user
-     */
+    /** The value to be returned by the `customToast` promise if the button is clicked by the user */
     value: CtaValue;
   };
   /** Whether the toast is to be automatically closed if the user changes page */
   dismissOnPageChange?: boolean;
   /**
-   * Whether the toast is to be automatically closed after some time (`true`
-   * will use the default DatoCMS time interval)
+   * Whether the toast is to be automatically closed after some time (`true` will use the
+   * default DatoCMS time interval)
    */
   dismissAfterTimeout?: boolean | number;
 };
@@ -375,10 +345,7 @@ export type Toast<CtaValue = unknown> = {
 export type ConfirmChoice = {
   /** The label to be shown for the choice */
   label: string;
-  /**
-   * The value to be returned by the `openConfirm` promise if the button is
-   * clicked by the user
-   */
+  /** The value to be returned by the `openConfirm` promise if the button is clicked by the user */
   value: unknown;
   /** The intent of the button. Will present the button in a different color accent. */
   intent?: 'positive' | 'negative';
@@ -405,23 +372,20 @@ export type CommonProperties = {
   /** All the models of the current DatoCMS project, indexed by ID */
   itemTypes: Partial<Record<string, ModelBlock>>;
   /**
-   * The current DatoCMS user. It can either be the owner or one of the
-   * collaborators (regular or SSO).
+   * The current DatoCMS user. It can either be the owner or one of the collaborators
+   * (regular or SSO).
    */
   currentUser: User | SsoUser | Account;
   /** The role for the current DatoCMS user */
   currentRole: Role;
   /**
-   * The access token to perform API calls on behalf of the current user. Only
-   * available if `currentAccessToken` permission is granted
+   * The access token to perform API calls on behalf of the current user. Only available
+   * if `currentAccessToken` permission is granted
    */
   currentAccessToken: string | undefined;
   /** The current plugin */
   plugin: Plugin;
-  /**
-   * UI preferences of the current user (right now, only the preferred locale is
-   * available)
-   */
+  /** UI preferences of the current user (right now, only the preferred locale is available) */
   ui: {
     /** Preferred locale */
     locale: string;
@@ -443,25 +407,24 @@ export type InitPropertiesAndMethods = InitMethods & InitProperties;
 /** Additional properties available in all `renderXXX` hooks */
 export type RenderAdditionalProperties = {
   /**
-   * All the fields currently loaded for the current DatoCMS project, indexed by
-   * ID. It will always contain the current model fields and all the fields of
-   * the blocks it might contain via Modular Content/Structured Text fields. If
-   * some fields you need are not present, use the `loadItemTypeFields` function
-   * to load them.
+   * All the fields currently loaded for the current DatoCMS project, indexed by ID. It
+   * will always contain the current model fields and all the fields of the blocks it
+   * might contain via Modular Content/Structured Text fields. If some fields you need are
+   * not present, use the `loadItemTypeFields` function to load them.
    */
   fields: Partial<Record<string, Field>>;
   /** An object containing the theme colors for the current DatoCMS project */
   theme: Theme;
   /**
-   * All the regular users currently loaded for the current DatoCMS project,
-   * indexed by ID. It will always contain the current user. If some users you
-   * need are not present, use the `loadUsers` function to load them.
+   * All the regular users currently loaded for the current DatoCMS project, indexed by
+   * ID. It will always contain the current user. If some users you need are not present,
+   * use the `loadUsers` function to load them.
    */
   users: Partial<Record<string, User>>;
   /**
-   * All the SSO users currently loaded for the current DatoCMS project, indexed
-   * by ID. It will always contain the current user. If some users you need are
-   * not present, use the `loadSsoUsers` function to load them.
+   * All the SSO users currently loaded for the current DatoCMS project, indexed by ID. It
+   * will always contain the current user. If some users you need are not present, use the
+   * `loadSsoUsers` function to load them.
    */
   ssoUsers: Partial<Record<string, SsoUser>>;
   /** The project owner */
@@ -504,16 +467,15 @@ export type FieldAppearanceChange =
     };
 
 /**
- * These methods can be used to update both plugin parameters and manual field
- * extensions configuration.
+ * These methods can be used to update both plugin parameters and manual field extensions
+ * configuration.
  */
 export type UpdateParametersMethods = {
   /**
    * Updates the plugin parameters.
    *
-   * Always check `ctx.currentRole.meta.final_permissions.can_edit_schema`
-   * before calling this, as the user might not have the permission to perform
-   * the operation.
+   * Always check `ctx.currentRole.meta.final_permissions.can_edit_schema` before calling
+   * this, as the user might not have the permission to perform the operation.
    *
    * @example
    *   await ctx.updatePluginParameters({ debugMode: true });
@@ -521,13 +483,12 @@ export type UpdateParametersMethods = {
    */
   updatePluginParameters: (params: Record<string, unknown>) => Promise<void>;
   /**
-   * Performs changes in the appearance of a field. You can install/remove a
-   * manual field extension, or tweak their parameters. If multiple changes are
-   * passed, they will be applied sequencially.
+   * Performs changes in the appearance of a field. You can install/remove a manual field
+   * extension, or tweak their parameters. If multiple changes are passed, they will be
+   * applied sequencially.
    *
-   * Always check `ctx.currentRole.meta.final_permissions.can_edit_schema`
-   * before calling this, as the user might not have the permission to perform
-   * the operation.
+   * Always check `ctx.currentRole.meta.final_permissions.can_edit_schema` before calling
+   * this, as the user might not have the permission to perform the operation.
    *
    * @example
    *   const fields = await ctx.loadFieldsUsingPlugin();
@@ -564,9 +525,7 @@ export type UpdateParametersMethods = {
    *     });
    *
    *     await ctx.updateFieldAppearance(field.id, operations);
-   *     await ctx.notice(
-   *       `Successfully edited field ${field.attributes.api_key}`,
-   *     );
+   *     await ctx.notice(`Successfully edited field ${field.attributes.api_key}`);
    *   }
    */
   updateFieldAppearance: (
@@ -575,14 +534,11 @@ export type UpdateParametersMethods = {
   ) => Promise<void>;
 };
 
-/**
- * These methods can be used to asyncronously load additional information your
- * plugin needs to work
- */
+/** These methods can be used to asyncronously load additional information your plugin needs to work */
 export type LoadDataMethods = {
   /**
-   * Loads all the fields for a specific model (or block). Fields will be
-   * returned and will also be available in the the `fields` property.
+   * Loads all the fields for a specific model (or block). Fields will be returned and
+   * will also be available in the the `fields` property.
    *
    * @example
    *   const fieldId = prompt('Please insert a field ID:');
@@ -590,29 +546,25 @@ export type LoadDataMethods = {
    *   const fields = await ctx.loadItemTypeFields(fieldId);
    *
    *   ctx.notice(
-   *     `Success! ${fields
-   *       .map((field) => field.attributes.api_key)
-   *       .join(', ')}`,
+   *     `Success! ${fields.map((field) => field.attributes.api_key).join(', ')}`,
    *   );
    */
   loadItemTypeFields: (itemTypeId: string) => Promise<Field[]>;
   /**
-   * Loads all the fields in the project that are currently using the plugin for
-   * one of its manual field extensions.
+   * Loads all the fields in the project that are currently using the plugin for one of
+   * its manual field extensions.
    *
    * @example
    *   const fields = await ctx.loadFieldsUsingPlugin();
    *
    *   ctx.notice(
-   *     `Success! ${fields
-   *       .map((field) => field.attributes.api_key)
-   *       .join(', ')}`,
+   *     `Success! ${fields.map((field) => field.attributes.api_key).join(', ')}`,
    *   );
    */
   loadFieldsUsingPlugin: () => Promise<Field[]>;
   /**
-   * Loads all regular users. Users will be returned and will also be available
-   * in the the `users` property.
+   * Loads all regular users. Users will be returned and will also be available in the the
+   * `users` property.
    *
    * @example
    *   const users = await ctx.loadUsers();
@@ -621,8 +573,8 @@ export type LoadDataMethods = {
    */
   loadUsers: () => Promise<User[]>;
   /**
-   * Loads all SSO users. Users will be returned and will also be available in
-   * the the `ssoUsers` property.
+   * Loads all SSO users. Users will be returned and will also be available in the the
+   * `ssoUsers` property.
    *
    * @example
    *   const users = await ctx.loadSsoUsers();
@@ -635,9 +587,8 @@ export type LoadDataMethods = {
 /** These methods let you open the standard DatoCMS dialogs needed to interact with records */
 export type ItemDialogMethods = {
   /**
-   * Opens a dialog for creating a new record. It returns a promise resolved
-   * with the newly created record or `null` if the user closes the dialog
-   * without creating anything.
+   * Opens a dialog for creating a new record. It returns a promise resolved with the
+   * newly created record or `null` if the user closes the dialog without creating anything.
    *
    * @example
    *   const itemTypeId = prompt('Please insert a model ID:');
@@ -652,10 +603,9 @@ export type ItemDialogMethods = {
    */
   createNewItem: (itemTypeId: string) => Promise<Item | null>;
   /**
-   * Opens a dialog for selecting one (or multiple) record(s) from a list of
-   * existing records of type `itemTypeId`. It returns a promise resolved with
-   * the selected record(s), or `null` if the user closes the dialog without
-   * choosing any record.
+   * Opens a dialog for selecting one (or multiple) record(s) from a list of existing
+   * records of type `itemTypeId`. It returns a promise resolved with the selected
+   * record(s), or `null` if the user closes the dialog without choosing any record.
    *
    * @example
    *   const itemTypeId = prompt('Please insert a model ID:');
@@ -673,9 +623,8 @@ export type ItemDialogMethods = {
     (itemTypeId: string, options?: { multiple: false }): Promise<Item | null>;
   };
   /**
-   * Opens a dialog for editing an existing record. It returns a promise
-   * resolved with the edited record, or `null` if the user closes the dialog
-   * without persisting any change.
+   * Opens a dialog for editing an existing record. It returns a promise resolved with the
+   * edited record, or `null` if the user closes the dialog without persisting any change.
    *
    * @example
    *   const itemId = prompt('Please insert a record ID:');
@@ -697,10 +646,7 @@ export type ToastMethods = {
    * Triggers an "error" toast displaying the selected message
    *
    * @example
-   *   const message = prompt(
-   *     'Please insert a message:',
-   *     'This is an alert message!',
-   *   );
+   *   const message = prompt('Please insert a message:', 'This is an alert message!');
    *
    *   await ctx.alert(message);
    */
@@ -709,10 +655,7 @@ export type ToastMethods = {
    * Triggers a "success" toast displaying the selected message
    *
    * @example
-   *   const message = prompt(
-   *     'Please insert a message:',
-   *     'This is a notice message!',
-   *   );
+   *   const message = prompt('Please insert a message:', 'This is a notice message!');
    *
    *   await ctx.notice(message);
    */
@@ -736,20 +679,15 @@ export type ToastMethods = {
    *     ctx.notice(`Clicked CTA!`);
    *   }
    */
-  customToast: <CtaValue = unknown>(
-    toast: Toast<CtaValue>,
-  ) => Promise<CtaValue | null>;
+  customToast: <CtaValue = unknown>(toast: Toast<CtaValue>) => Promise<CtaValue | null>;
 };
 
-/**
- * These methods let you open the standard DatoCMS dialogs needed to interact
- * with Media Area assets
- */
+/** These methods let you open the standard DatoCMS dialogs needed to interact with Media Area assets */
 export type UploadDialogMethods = {
   /**
-   * Opens a dialog for selecting one (or multiple) existing asset(s). It
-   * returns a promise resolved with the selected asset(s), or `null` if the
-   * user closes the dialog without selecting any upload.
+   * Opens a dialog for selecting one (or multiple) existing asset(s). It returns a
+   * promise resolved with the selected asset(s), or `null` if the user closes the dialog
+   * without selecting any upload.
    *
    * @example
    *   const item = await ctx.selectUpload({ multiple: false });
@@ -770,8 +708,8 @@ export type UploadDialogMethods = {
    *
    * - The updated asset, if the user persists some changes to the asset itself
    * - `null`, if the user closes the dialog without persisting any change
-   * - An asset structure with an additional `deleted` property set to true, if
-   *   the user deletes the asset
+   * - An asset structure with an additional `deleted` property set to true, if the user
+   *   deletes the asset
    *
    * @example
    *   const uploadId = prompt('Please insert an asset ID:');
@@ -784,13 +722,11 @@ export type UploadDialogMethods = {
    *     ctx.alert('Closed!');
    *   }
    */
-  editUpload: (
-    uploadId: string,
-  ) => Promise<(Upload & { deleted?: true }) | null>;
+  editUpload: (uploadId: string) => Promise<(Upload & { deleted?: true }) | null>;
   /**
-   * Opens a dialog for editing a "single asset" field structure. It returns a
-   * promise resolved with the updated structure, or `null` if the user closes
-   * the dialog without persisting any change.
+   * Opens a dialog for editing a "single asset" field structure. It returns a promise
+   * resolved with the updated structure, or `null` if the user closes the dialog without
+   * persisting any change.
    *
    * @example
    *   const uploadId = prompt('Please insert an asset ID:');
@@ -820,8 +756,8 @@ export type UploadDialogMethods = {
 /** These methods can be used to open custom dialogs/confirmation panels */
 export type CustomDialogMethods = {
   /**
-   * Opens a custom modal. Returns a promise resolved with what the modal itself
-   * returns calling the `resolve()` function
+   * Opens a custom modal. Returns a promise resolved with what the modal itself returns
+   * calling the `resolve()` function
    *
    * @example
    *   const result = await ctx.openModal({
@@ -839,8 +775,8 @@ export type CustomDialogMethods = {
    */
   openModal: (modal: Modal) => Promise<unknown>;
   /**
-   * Opens a UI-consistent confirmation dialog. Returns a promise resolved with
-   * the value of the choice made by the user
+   * Opens a UI-consistent confirmation dialog. Returns a promise resolved with the value
+   * of the choice made by the user
    *
    * @example
    *   const result = await ctx.openConfirm({
@@ -898,8 +834,8 @@ export type RenderMethods = LoadDataMethods &
   NavigateMethods;
 
 /**
- * These information describe the current state of the form that's being shown
- * to the end-user to edit a record
+ * These information describe the current state of the form that's being shown to the
+ * end-user to edit a record
  */
 export type ItemFormAdditionalProperties = {
   /** The currently active locale for the record */
@@ -918,12 +854,11 @@ export type ItemFormAdditionalProperties = {
   isFormDirty: boolean;
 };
 
-export type ItemFormProperties = RenderProperties &
-  ItemFormAdditionalProperties;
+export type ItemFormProperties = RenderProperties & ItemFormAdditionalProperties;
 
 /**
- * These methods can be used to interact with the form that's being shown to the
- * end-user to edit a record
+ * These methods can be used to interact with the form that's being shown to the end-user
+ * to edit a record
  */
 export type ItemFormAdditionalMethods = {
   /**
@@ -951,8 +886,8 @@ export type ItemFormAdditionalMethods = {
    */
   disableField: (path: string, disable: boolean) => Promise<void>;
   /**
-   * Smoothly navigates to a specific field in the form. If the field is
-   * localized it will switch language tab and then navigate to the chosen field.
+   * Smoothly navigates to a specific field in the form. If the field is localized it will
+   * switch language tab and then navigate to the chosen field.
    *
    * @example
    *   const fieldPath = prompt(
@@ -984,19 +919,14 @@ export type ItemFormAdditionalMethods = {
   saveCurrentItem: () => Promise<void>;
 };
 
-export type ItemFormMethods = RenderMethods &
-  IframeMethods &
-  ItemFormAdditionalMethods;
+export type ItemFormMethods = RenderMethods & IframeMethods & ItemFormAdditionalMethods;
 
 /** Information regarding the specific sidebar panel that you need to render */
 export type RenderSidebarPanelAdditionalProperties = {
   mode: 'renderItemFormSidebarPanel';
   /** The ID of the sidebar panel that needs to be rendered */
   sidebarPaneId: string;
-  /**
-   * The arbitrary `parameters` of the panel declared in the
-   * `itemFormSidebarPanels` function
-   */
+  /** The arbitrary `parameters` of the panel declared in the `itemFormSidebarPanels` function */
   parameters: Record<string, unknown>;
 };
 
@@ -1013,10 +943,7 @@ export type RenderSidebarPanelMethods = ItemFormMethods &
 export type RenderSidebarPanePropertiesAndMethods = RenderSidebarPanelMethods &
   RenderSidebarPanelProperties;
 
-/**
- * Information regarding the state of a specific field where you need to render
- * the field extension
- */
+/** Information regarding the state of a specific field where you need to render the field extension */
 export type RenderFieldExtensionAdditionalProperties = {
   mode: 'renderFieldExtension';
   /** The ID of the field extension that needs to be rendered */
@@ -1032,8 +959,8 @@ export type RenderFieldExtensionAdditionalProperties = {
   /** The field where the field extension is installed to */
   field: Field;
   /**
-   * If the field extension is installed in a field of a block, returns the top
-   * level Modular Content/Structured Text field containing the block itself
+   * If the field extension is installed in a field of a block, returns the top level
+   * Modular Content/Structured Text field containing the block itself
    */
   parentField: Field | undefined;
 };
@@ -1060,15 +987,14 @@ export type RenderModalAdditionalProperties = {
   parameters: Record<string, unknown>;
 };
 
-export type RenderModalProperties = RenderProperties &
-  RenderModalAdditionalProperties;
+export type RenderModalProperties = RenderProperties & RenderModalAdditionalProperties;
 
 /** These methods can be used to close the modal */
 export type RenderModalAdditionalMethods = {
   getSettings: () => Promise<RenderModalProperties>;
   /**
-   * A function to be called by the plugin to close the modal. The `openModal`
-   * call will be resolved with the passed return value
+   * A function to be called by the plugin to close the modal. The `openModal` call will
+   * be resolved with the passed return value
    *
    * @example
    *   const returnValue = prompt(
@@ -1085,8 +1011,7 @@ export type RenderModalMethods = RenderMethods &
   IframeMethods &
   RenderModalAdditionalMethods;
 
-export type RenderModalPropertiesAndMethods = RenderModalMethods &
-  RenderModalProperties;
+export type RenderModalPropertiesAndMethods = RenderModalMethods & RenderModalProperties;
 
 /** Information regarding the specific page that you need to render */
 export type RenderPageAdditionalProperties = {
@@ -1095,8 +1020,7 @@ export type RenderPageAdditionalProperties = {
   pageId: string;
 };
 
-export type RenderPageProperties = RenderProperties &
-  RenderPageAdditionalProperties;
+export type RenderPageProperties = RenderProperties & RenderPageAdditionalProperties;
 
 export type RenderPageAdditionalMethods = {
   getSettings: () => Promise<RenderPageProperties>;
@@ -1104,12 +1028,11 @@ export type RenderPageAdditionalMethods = {
 
 export type RenderPageMethods = RenderMethods & RenderPageAdditionalMethods;
 
-export type RenderPagePropertiesAndMethods = RenderPageMethods &
-  RenderPageProperties;
+export type RenderPagePropertiesAndMethods = RenderPageMethods & RenderPageProperties;
 
 /**
- * Information regarding the specific form that you need to render to let the
- * end-user edit the configuration object of a field extension
+ * Information regarding the specific form that you need to render to let the end-user
+ * edit the configuration object of a field extension
  */
 export type RenderManualFieldExtensionConfigScreenAdditionalProperties = {
   mode: 'renderManualFieldExtensionConfigScreen';
@@ -1121,8 +1044,8 @@ export type RenderManualFieldExtensionConfigScreenAdditionalProperties = {
    */
   parameters: Record<string, unknown>;
   /**
-   * The current validation errors for the parameters (you can set them
-   * implementing the `validateManualFieldExtensionParameters` function)
+   * The current validation errors for the parameters (you can set them implementing the
+   * `validateManualFieldExtensionParameters` function)
    */
   errors: Record<string, unknown>;
 };
@@ -1130,10 +1053,7 @@ export type RenderManualFieldExtensionConfigScreenAdditionalProperties = {
 export type RenderManualFieldExtensionConfigScreenProperties = RenderProperties &
   RenderManualFieldExtensionConfigScreenAdditionalProperties;
 
-/**
- * These methods can be used to update the configuration object of a specific
- * field extension
- */
+/** These methods can be used to update the configuration object of a specific field extension */
 export type RenderManualFieldExtensionConfigScreenAdditionalMethods = {
   getSettings: () => Promise<RenderManualFieldExtensionConfigScreenProperties>;
   /**

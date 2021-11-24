@@ -15,11 +15,7 @@ export type CanvasProps = {
   children: ReactNode;
 };
 
-export function Canvas({
-  ctx,
-  children,
-  noAutoResizer,
-}: CanvasProps): JSX.Element {
+export function Canvas({ ctx, children, noAutoResizer }: CanvasProps): JSX.Element {
   const { mode } = (ctx as unknown) as { mode: string };
 
   useEffect(() => {

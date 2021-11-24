@@ -26,10 +26,7 @@ export const Form = ({
 }: FormProps): JSX.Element => {
   const classNames = cn(styles.Form, className);
 
-  const formItemClassNames = cn(
-    styles.Form__item,
-    styles[`Form__item--${spacing}`],
-  );
+  const formItemClassNames = cn(styles.Form__item, styles[`Form__item--${spacing}`]);
 
   const handleSubmit = useCallback(
     (event: FormEvent) => {

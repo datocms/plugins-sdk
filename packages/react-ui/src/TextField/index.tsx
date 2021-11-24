@@ -37,12 +37,7 @@ export function TextField({
 }: TextFieldProps): JSX.Element {
   return (
     <>
-      <FormLabel
-        {...formLabelProps}
-        htmlFor={id}
-        required={required}
-        error={!!error}
-      >
+      <FormLabel {...formLabelProps} htmlFor={id} required={required} error={!!error}>
         {label}
       </FormLabel>
 

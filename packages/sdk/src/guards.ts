@@ -26,9 +26,7 @@ export const isRenderConfigScreenParent = buildGuard<RenderConfigScreenMethods>(
   'renderConfigScreen',
 );
 
-export const isRenderModalParent = buildGuard<RenderModalMethods>(
-  'renderModal',
-);
+export const isRenderModalParent = buildGuard<RenderModalMethods>('renderModal');
 
 export const isRenderSidebarPaneParent = buildGuard<RenderSidebarPanelMethods>(
   'renderItemFormSidebarPanel',

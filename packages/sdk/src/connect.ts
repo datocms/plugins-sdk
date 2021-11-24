@@ -41,9 +41,8 @@ export type SizingUtilities = {
   /** Stops resizing the iframe automatically */
   stopAutoResizer: () => void;
   /**
-   * Triggers a change in the size of the iframe. If you don't explicitely pass
-   * a `newHeight` it will be automatically calculated using the iframe content
-   * at the moment
+   * Triggers a change in the size of the iframe. If you don't explicitely pass a
+   * `newHeight` it will be automatically calculated using the iframe content at the moment
    */
   updateHeight: (newHeight?: number) => void;
 };
@@ -69,8 +68,8 @@ export type RenderConfigScreenCtx = RenderConfigScreenPropertiesAndMethods &
 /** The full options you can pass to the `connect` function */
 export type FullConnectParameters = {
   /**
-   * This function will be called once at boot time and can be used to perform
-   * ie. some initial integrity checks on the configuration.
+   * This function will be called once at boot time and can be used to perform ie. some
+   * initial integrity checks on the configuration.
    *
    * @group boot
    */
@@ -86,9 +85,7 @@ export type FullConnectParameters = {
    *
    * @group pages
    */
-  settingsAreaSidebarItemGroups: (
-    ctx: IntentCtx,
-  ) => SettingsAreaSidebarItemGroup[];
+  settingsAreaSidebarItemGroups: (ctx: IntentCtx) => SettingsAreaSidebarItemGroup[];
   /**
    * Use this function to declare new navigation items in the Content Area sidebar
    *
@@ -96,25 +93,21 @@ export type FullConnectParameters = {
    */
   contentAreaSidebarItems: (ctx: IntentCtx) => ContentAreaSidebarItem[];
   /**
-   * Use this function to declare new field extensions that users will be able
-   * to install manually in some field
+   * Use this function to declare new field extensions that users will be able to install
+   * manually in some field
    *
    * @group manualFieldExtensions
    */
   manualFieldExtensions: (ctx: IntentCtx) => ManualFieldExtension[];
   /**
-   * Use this function to declare new sidebar panels to be shown when the user
-   * edits records of a particular model
+   * Use this function to declare new sidebar panels to be shown when the user edits
+   * records of a particular model
    *
    * @group sidebarPanels
    */
-  itemFormSidebarPanels: (
-    itemType: ModelBlock,
-    ctx: IntentCtx,
-  ) => ItemFormSidebarPanel[];
+  itemFormSidebarPanels: (itemType: ModelBlock, ctx: IntentCtx) => ItemFormSidebarPanel[];
   /**
-   * Use this function to automatically force one or more field extensions to a
-   * particular field
+   * Use this function to automatically force one or more field extensions to a particular field
    *
    * @group forcedFieldExtensions
    */
@@ -123,30 +116,28 @@ export type FullConnectParameters = {
     ctx: FieldIntentCtx,
   ) => FieldExtensionOverride | void;
   /**
-   * This function will be called when the plugin needs to render the plugin's
-   * configuration form
+   * This function will be called when the plugin needs to render the plugin's configuration form
    *
    * @group configScreen
    */
   renderConfigScreen: (ctx: RenderConfigScreenCtx) => void;
   /**
-   * This function will be called when the plugin needs to render a specific
-   * page (see the `mainNavigationTabs`, `settingsAreaSidebarItemGroups` and
-   * `contentAreaSidebarItems` functions)
+   * This function will be called when the plugin needs to render a specific page (see the
+   * `mainNavigationTabs`, `settingsAreaSidebarItemGroups` and `contentAreaSidebarItems` functions)
    *
    * @group pages
    */
   renderPage: (pageId: string, ctx: RenderPageCtx) => void;
   /**
-   * This function will be called when the plugin requested to open a modal (see
-   * the `openModal` function)
+   * This function will be called when the plugin requested to open a modal (see the
+   * `openModal` function)
    *
    * @group modals
    */
   renderModal: (modalId: string, ctx: RenderModalCtx) => void;
   /**
-   * This function will be called when the plugin needs to render a sidebar
-   * panel (see the `itemFormSidebarPanels` function)
+   * This function will be called when the plugin needs to render a sidebar panel (see the
+   * `itemFormSidebarPanels` function)
    *
    * @group sidebarPanels
    */
@@ -155,18 +146,15 @@ export type FullConnectParameters = {
     ctx: RenderItemFormSidebarPanelCtx,
   ) => void;
   /**
-   * This function will be called when the plugin needs to render a field
-   * extension (see the `manualFieldExtensions` and `overrideFieldExtensions` functions)
+   * This function will be called when the plugin needs to render a field extension (see
+   * the `manualFieldExtensions` and `overrideFieldExtensions` functions)
    *
    * @group forcedFieldExtensions
    */
-  renderFieldExtension: (
-    fieldExtensionId: string,
-    ctx: RenderFieldExtensionCtx,
-  ) => void;
+  renderFieldExtension: (fieldExtensionId: string, ctx: RenderFieldExtensionCtx) => void;
   /**
-   * This function will be called when the plugin needs to render the
-   * configuration form for installing a field extension inside a particular field
+   * This function will be called when the plugin needs to render the configuration form
+   * for installing a field extension inside a particular field
    *
    * @group manualFieldExtensions
    */
@@ -175,8 +163,8 @@ export type FullConnectParameters = {
     ctx: RenderManualFieldExtensionConfigScreenCtx,
   ) => void;
   /**
-   * This function will be called each time the configuration object changes. It
-   * must return an object containing possible validation errors
+   * This function will be called each time the configuration object changes. It must
+   * return an object containing possible validation errors
    *
    * @group manualFieldExtensions
    */
@@ -189,10 +177,7 @@ export type FullConnectParameters = {
 function toMultifield<Result>(
   fn: ((field: Field, ctx: FieldIntentCtx) => Result) | undefined,
 ) {
-  return (
-    fields: Field[],
-    ctx: InitPropertiesAndMethods,
-  ): Record<string, Result> => {
+  return (fields: Field[], ctx: InitPropertiesAndMethods): Record<string, Result> => {
     if (!fn) {
       return {};
     }
@@ -200,9 +185,7 @@ function toMultifield<Result>(
     const result: Record<string, Result> = {};
 
     for (const field of fields) {
-      const itemType = ctx.itemTypes[
-        field.relationships.item_type.data.id
-      ] as ModelBlock;
+      const itemType = ctx.itemTypes[field.relationships.item_type.data.id] as ModelBlock;
       result[field.id] = fn(field, { ...ctx, itemType });
     }
 
@@ -312,9 +295,7 @@ export async function connect(
       contentAreaSidebarItems,
       manualFieldExtensions,
       itemFormSidebarPanels,
-      overrideFieldExtensions: toMultifield(
-        configuration.overrideFieldExtensions,
-      ),
+      overrideFieldExtensions: toMultifield(configuration.overrideFieldExtensions),
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       onChange(newSettings: any) {
         if (listener) {
@@ -464,14 +445,11 @@ export async function connect(
         return;
       }
 
-      configuration.renderManualFieldExtensionConfigScreen(
-        settings.fieldExtensionId,
-        {
-          ...parent,
-          ...settings,
-          ...renderUtils,
-        },
-      );
+      configuration.renderManualFieldExtensionConfigScreen(settings.fieldExtensionId, {
+        ...parent,
+        ...settings,
+        ...renderUtils,
+      });
     };
 
     listener = render;
