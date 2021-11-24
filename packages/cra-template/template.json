@@ -1,4 +1,11 @@
 {
+  "private": false,
+  "datoCmsPlugin": {
+    "title": "",
+    "previewImage": "",
+    "coverImage": "",
+    "entryPoint": "build/index.html"
+  },
   "package": {
     "dependencies": {
       "@types/node": "^16.7.13",
@@ -9,7 +16,9 @@
       "datocms-react-ui": "*"
     },
     "scripts": {
-      "start": "BROWSER=none react-scripts start"
+      "start": "BROWSER='none' react-scripts start",
+      "build": "PUBLIC_URL='.' react-scripts build",
+      "prepublishOnly": "npm run build"
     },
     "eslintConfig": {
       "extends": ["react-app"]
