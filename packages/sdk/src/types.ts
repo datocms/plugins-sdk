@@ -525,7 +525,7 @@ export type UpdateParametersMethods = {
    *     });
    *
    *     await ctx.updateFieldAppearance(field.id, operations);
-   *     await ctx.notice(`Successfully edited field ${field.attributes.api_key}`);
+   *     ctx.notice(`Successfully edited field ${field.attributes.api_key}`);
    *   }
    */
   updateFieldAppearance: (
