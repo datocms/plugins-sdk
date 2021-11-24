@@ -199,8 +199,8 @@ export function ContextInspector({ ctx }: { ctx: { mode: string } }): JSX.Elemen
             try {
               ${example}
             } catch(e) {
-              await ctx.alert('Execution failed! See console for errors!');
               console.error(e);
+              await ctx.alert('Execution failed! See console for errors!');
             }
           }
         )
