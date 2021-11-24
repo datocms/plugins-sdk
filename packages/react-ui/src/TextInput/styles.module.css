@@ -27,6 +27,10 @@
   }
 }
 
+.TextInput--monospaced {
+  font-family: var(--monospaced-font-family);
+}
+
 .TextInput--disabled {
   color: var(--light-body-color);
   border-color: var(--border-color);
