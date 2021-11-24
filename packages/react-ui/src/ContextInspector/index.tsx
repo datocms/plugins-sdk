@@ -4,7 +4,7 @@ import { Button } from '..';
 import s from './styles.module.css.json';
 
 const baseUrl =
-  'https://github.com/datocms/plugins-sdk/blob/v0.2/packages/sdk/src/types.ts';
+  'https://github.com/datocms/plugins-sdk/blob/master/packages/sdk/src/types.ts';
 
 function copyTextToClipboard(text: string) {
   const textArea = document.createElement('textarea');
