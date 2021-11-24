@@ -1,5 +1,6 @@
 {
   "private": false,
+  "files": ["build", "docs"],
   "datoCmsPlugin": {
     "title": "",
     "previewImage": "",
@@ -16,7 +17,7 @@
       "datocms-react-ui": "*"
     },
     "scripts": {
-      "start": "BROWSER='none' react-scripts start",
+      "start": "BROWSER='none' PUBLIC_URL='/' react-scripts start",
       "build": "PUBLIC_URL='.' react-scripts build",
       "prepublishOnly": "npm run build"
     },
