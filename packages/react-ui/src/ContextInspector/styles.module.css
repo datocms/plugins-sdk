@@ -9,6 +9,7 @@
 .panelHandle {
   all: inherit;
   display: block;
+  box-sizing: border-box;
   width: 100%;
   font-weight: 500;
   background: var(--light-bg-color);
