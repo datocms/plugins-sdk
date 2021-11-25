@@ -380,9 +380,9 @@ export type CommonProperties = {
   currentRole: Role;
   /**
    * The access token to perform API calls on behalf of the current user. Only available
-   * if `currentAccessToken` permission is granted
+   * if `currentUserAccessToken` additional permission is granted
    */
-  currentAccessToken: string | undefined;
+  currentUserAccessToken: string | undefined;
   /** The current plugin */
   plugin: Plugin;
   /** UI preferences of the current user (right now, only the preferred locale is available) */
