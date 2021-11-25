@@ -29,6 +29,7 @@
 
 .TextInput--monospaced {
   font-family: var(--monospaced-font-family);
+  font-size: var(--font-size-s);
 }
 
 .TextInput--disabled {

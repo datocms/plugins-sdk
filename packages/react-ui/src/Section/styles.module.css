@@ -1,0 +1,100 @@
+.Section {
+  position: relative;
+}
+
+.Section--highlighted:before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  right: -30px;
+  bottom: -20px;
+  left: -30px;
+  box-shadow: 0 0 0 4px var(--accent-color);
+  border-radius: 4px;
+  animation: pageContentSectionHighligh 4s 0.25s ease-in-out forwards;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.Section__header {
+  margin-left: var(--negative-spacing-l);
+  margin-right: var(--negative-spacing-l);
+  margin-bottom: var(--spacing-l);
+  position: relative;
+
+  &:before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: var(--border-color);
+    z-index: 1;
+  }
+}
+
+.Section__title {
+  font-size: var(--font-size-l);
+  font-weight: 500;
+  margin-left: var(--spacing-m);
+  margin-right: var(--spacing-l);
+  padding-left: var(--spacing-m);
+  padding-right: var(--spacing-m);
+  background-color: white;
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+}
+
+.Section__title__content {
+}
+
+.Section__arrow {
+  all: initial;
+  width: 15px;
+  align-self: stretch;
+  cursor: pointer;
+  margin-right: 0.3em;
+
+  &:before {
+    content: '';
+    position: absolute;
+    height: 0;
+    width: 0;
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    border-left: 6px solid var(--base-body-color);
+    left: 14px;
+    top: 50%;
+    margin-top: -6px;
+    transition: transform 0.2s ease-out;
+    transform-origin: 50% 50%;
+  }
+
+  &:hover:before {
+    opacity: 0.7;
+  }
+}
+
+.Section__arrow--is-open:before {
+  transform: rotate(90deg);
+}
+
+@keyframes pageContentSectionHighligh {
+  0% {
+    box-shadow: 0 0 0 4px var(--accent-color),
+      0 0 0 4px var(slightly-transparent-accent-color);
+  }
+  15% {
+    box-shadow: 0 0 0 4px var(--accent-color), 0 0 0 80px transparent;
+  }
+  75% {
+    box-shadow: 0 0 0 4px var(--accent-color), 0 0 0 80px transparent;
+  }
+  100% {
+    box-shadow: 0 0 0 4px transparent, 0 0 0 80px transparent;
+  }
+}

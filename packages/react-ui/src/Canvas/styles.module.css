@@ -17,10 +17,10 @@
   --remove-color: #eb576a;
 
   /* Fonts */
-  --base-font-family: 'colfax-web', 'Roboto', 'Helvetica Neue', Helvetica,
-    Roboto, Arial, sans-serif;
-  --monospaced-font-family: 'Roboto Mono', 'Menlo', 'Bitstream Vera Sans Mono',
-    Consolas, Courier, monospace;
+  --base-font-family: 'colfax-web', 'Roboto', 'Helvetica Neue', Helvetica, Roboto, Arial,
+    sans-serif;
+  --monospaced-font-family: 'Roboto Mono', 'Menlo', 'Bitstream Vera Sans Mono', Consolas,
+    Courier, monospace;
 
   /* Spacing */
   --spacing-s: calc(0.5 * 12 * 0.0625rem);
@@ -29,6 +29,13 @@
   --spacing-xl: calc(3 * 12 * 0.0625rem);
   --spacing-xxl: calc(5 * 12 * 0.0625rem);
   --spacing-xxxl: calc(8 * 12 * 0.0625rem);
+
+  --negative-spacing-s: calc(-0.5 * 12 * 0.0625rem);
+  --negative-spacing-m: calc(-1 * 12 * 0.0625rem);
+  --negative-spacing-l: calc(-2 * 12 * 0.0625rem);
+  --negative-spacing-xl: calc(-3 * 12 * 0.0625rem);
+  --negative-spacing-xxl: calc(-5 * 12 * 0.0625rem);
+  --negative-spacing-xxxl: calc(-8 * 12 * 0.0625rem);
 
   /* Font-size */
   --font-size-xxs: calc(11 * 0.0625rem);

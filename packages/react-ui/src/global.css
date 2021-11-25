@@ -12,6 +12,7 @@
 @import './TextField/styles.module.css';
 @import './TextInput/styles.module.css';
 @import './ContextInspector/styles.module.css';
+@import './Section/styles.module.css';
 
 html {
   padding: 0;
