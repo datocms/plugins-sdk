@@ -13,6 +13,7 @@ export type TextInputProps = {
   labelText?: string;
   id?: string;
   className?: string;
+  monospaced?: boolean;
   onChange?: TextInputChangeEventHandler;
   inputRef?: RefObject<HTMLInputElement>;
   error?: boolean;
@@ -33,6 +34,7 @@ export const TextInput = ({
   required = false,
   type,
   value,
+  monospaced,
   ...otherProps
 }: TextInputProps): JSX.Element => {
   const handleChange = useCallback(
@@ -47,6 +49,7 @@ export const TextInput = ({
   const classNames = cn(s['TextInput'], className, {
     [s['TextInput--disabled']]: disabled,
     [s['TextInput--error']]: error,
+    [s['TextInput--monospaced']]: monospaced,
   });
 
   return (

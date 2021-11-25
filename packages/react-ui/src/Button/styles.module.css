@@ -114,3 +114,30 @@
   display: block;
   width: 100%;
 }
+
+.button__leftIcon,
+.button__rightIcon {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 0.6;
+
+  svg {
+    fill: var(--accent-color);
+  }
+}
+
+.button__leftIcon {
+  margin-right: 0.5em;
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.button__rightIcon {
+  margin-left: 0.5em;
+
+  &:first-child {
+    margin-left: 0;
+  }
+}

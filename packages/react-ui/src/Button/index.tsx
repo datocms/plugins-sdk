@@ -3,13 +3,15 @@ import cn from 'classnames';
 import styles from './styles.module.css.json';
 
 export type ButtonProps = {
-  children: ReactNode;
+  children?: ReactNode;
   type: React.ButtonHTMLAttributes<HTMLButtonElement>['type'];
   className?: string;
   disabled?: boolean;
   onClick?: MouseEventHandler;
   buttonType?: 'primary' | 'muted' | 'negative';
   buttonSize?: 'xxs' | 'xs' | 's' | 'm' | 'l' | 'xl';
+  leftIcon?: ReactNode;
+  rightIcon?: ReactNode;
   fullWidth?: boolean;
   style?: CSSProperties;
 };
@@ -23,6 +25,8 @@ export function Button({
   fullWidth,
   onClick,
   style,
+  leftIcon,
+  rightIcon,
   type = 'button',
 }: ButtonProps): JSX.Element {
   return (
@@ -42,13 +46,15 @@ export function Button({
       onClick={onClick}
       style={style}
     >
-      {children}
+      {leftIcon && <span className={styles['button__leftIcon']}>{leftIcon}</span>}
+      {children && <span>{children}</span>}
+      {rightIcon && <span className={styles['button__rightIcon']}>{rightIcon}</span>}
     </button>
   );
 }
 
 export type ButtonLinkProps = {
-  children: ReactNode;
+  children?: ReactNode;
   href: string;
   target?: React.AnchorHTMLAttributes<HTMLAnchorElement>['target'];
   className?: string;
@@ -57,6 +63,8 @@ export type ButtonLinkProps = {
   buttonSize?: 'xxs' | 'xs' | 's' | 'm' | 'l' | 'xl';
   fullWidth?: boolean;
   style?: CSSProperties;
+  leftIcon?: ReactNode;
+  rightIcon?: ReactNode;
 };
 
 export function ButtonLink({
@@ -68,6 +76,8 @@ export function ButtonLink({
   buttonSize = 'm',
   onClick,
   fullWidth,
+  leftIcon,
+  rightIcon,
   style,
 }: ButtonLinkProps): JSX.Element {
   return (
@@ -86,7 +96,9 @@ export function ButtonLink({
       style={style}
       onClick={onClick}
     >
-      {children}
+      {leftIcon && <span className={styles['button__leftIcon']}>{leftIcon}</span>}
+      {children && <span>{children}</span>}
+      {rightIcon && <span className={styles['button__rightIcon']}>{rightIcon}</span>}
     </a>
   );
 }
