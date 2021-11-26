@@ -16,6 +16,75 @@ export type ButtonProps = {
   style?: CSSProperties;
 };
 
+/**
+ * @example
+ *   <Canvas ctx={ctx}>
+ *     <div>
+ *       <Button type="button">Submit</Button>
+ *       <Button type="button" disabled>
+ *         Submit
+ *       </Button>
+ *     </div>
+ *     <div>
+ *       <Button type="button" buttonType="primary">
+ *         Submit
+ *       </Button>
+ *       <Button type="button" buttonType="primary" disabled>
+ *         Submit
+ *       </Button>
+ *     </div>
+ *     <div>
+ *       <Button type="button" buttonType="negative">
+ *         Submit
+ *       </Button>
+ *       <Button type="button" buttonType="negative" disabled>
+ *         Submit
+ *       </Button>
+ *     </div>
+ *   </Canvas>;
+ *
+ * @example
+ *   <Canvas ctx={ctx}>
+ *     <Button type="button" fullWidth>
+ *       Submit
+ *     </Button>
+ *   </Canvas>;
+ *
+ * @example
+ *   <Canvas ctx={ctx}>
+ *     <Button type="button" buttonSize="xxs">
+ *       Submit
+ *     </Button>
+ *     <Button type="button" buttonSize="xs">
+ *       Submit
+ *     </Button>
+ *     <Button type="button" buttonSize="s">
+ *       Submit
+ *     </Button>
+ *     <Button type="button" buttonSize="m">
+ *       Submit
+ *     </Button>
+ *     <Button type="button" buttonSize="l">
+ *       Submit
+ *     </Button>
+ *     <Button type="button" buttonSize="xl">
+ *       Submit
+ *     </Button>
+ *   </Canvas>;
+ *
+ * @example
+ *   <Canvas ctx={ctx}>
+ *     <Button type="button" leftIcon={<PlusIcon />}>
+ *       Submit
+ *     </Button>
+ *     <Button type="button" rightIcon={<ChevronDownIcon />}>
+ *       Submit
+ *     </Button>
+ *     <Button type="button" leftIcon={<PlusIcon />} />
+ *   </Canvas>;
+ *
+ * @exampleNames basic, fullWidth, size, icons
+ */
 export function Button({
   children,
   className,

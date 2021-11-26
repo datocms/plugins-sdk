@@ -13,6 +13,36 @@ type SectionProps = {
   titleStyle?: CSSProperties;
 };
 
+/**
+ * @example
+ *   <Canvas ctx={ctx}>
+ *     <Section title="Section title">
+ *       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+ *       incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+ *       nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+ *     </Section>
+ *   </Canvas>;
+ *
+ * @example
+ *   <Canvas ctx={ctx}>
+ *     <Section title="Section title" highlighted>
+ *       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+ *       incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+ *       nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+ *     </Section>
+ *   </Canvas>;
+ *
+ * @example
+ *   <Canvas ctx={ctx}>
+ *     <Section title="Section title" collapsible={{ isOpen: true }}>
+ *       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+ *       incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+ *       nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+ *     </Section>
+ *   </Canvas>;
+ *
+ * @exampleNames basic, highlighted, collapsible
+ */
 export function Section({
   title,
   children,

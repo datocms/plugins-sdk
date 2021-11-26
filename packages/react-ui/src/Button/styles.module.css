@@ -14,7 +14,7 @@
   box-sizing: border-box;
   transition: all 0.3s var(--material-ease);
   font-weight: 500;
-  border: 1px solid transparent;
+  border: 0;
   opacity: 1;
 
   &:hover,
@@ -28,7 +28,6 @@
 }
 
 .disabled {
-  border-width: 0;
   color: rgba(0, 0, 0, 0.2);
   background-color: var(--light-bg-color);
   cursor: not-allowed;
@@ -40,7 +39,6 @@
 }
 
 .buttonType-primary {
-  border-width: 0;
   background-color: var(--accent-color);
   color: white;
 
@@ -63,7 +61,6 @@
 
 .buttonType-negative {
   background-color: var(--alert-color);
-  border-width: 0;
   color: white;
 
   &:hover,
