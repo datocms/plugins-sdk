@@ -16,7 +16,10 @@ export type CanvasProps = {
 };
 
 /**
- * @example Color variables
+ * @example Color palette CSS variables
+ *
+ * Within the `Canvas` component, a color palette is made available as a set of
+ * CSS variables, allowing you to conform to the theme of the current environment:
  *
  * ```js
  * <Canvas ctx={ctx}>
@@ -293,7 +296,13 @@ export type CanvasProps = {
  * </Canvas>;
  * ```
  *
- * @example Typography variables
+ * @example Typography CSS variables
+ *
+ * Typography is a foundational element in UI design. Good typography
+ * establishes a strong, cohesive visual hierarchy and presents content clearly
+ * and efficiently to users. Within the `Canvas` component, a set of CSS
+ * variables is available allowing your plugin to conform to the overall
+ * look&feel of DatoCMS:
  *
  * ```js
  * <Canvas ctx={ctx}>
@@ -398,7 +407,11 @@ export type CanvasProps = {
  * </Canvas>;
  * ```
  *
- * @example Spacing variables
+ * @example Spacing CSS variables
+ *
+ * The following CSS variables are available as well, to mimick the spacing
+ * between elements used by the main DatoCMS application. Negative spacing
+ * variables are available too (`--negative-spacing-<SIZE>`).
  *
  * ```js
  * <Canvas ctx={ctx}>
