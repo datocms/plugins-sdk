@@ -4,14 +4,16 @@ import s from './styles.module.css.json';
 
 export type SwitchInputChangeEventHandler = (
   newValue: boolean,
-  event: React.MouseEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLButtonElement>,
+  event:
+    | React.MouseEvent<HTMLButtonElement>
+    | React.KeyboardEvent<HTMLButtonElement>,
 ) => void;
 
 export interface SwitchInputProps
   extends Omit<React.HTMLAttributes<HTMLButtonElement>, 'onChange'> {
   name: string;
   disabled?: boolean;
-  onChange: SwitchInputChangeEventHandler;
+  onChange?: SwitchInputChangeEventHandler;
   onKeyDown?: React.KeyboardEventHandler<HTMLButtonElement>;
   value: boolean;
 }
@@ -27,9 +29,11 @@ export function SwitchInput({
 }: SwitchInputProps): JSX.Element {
   function triggerChange(
     newValue: boolean,
-    event: React.MouseEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLButtonElement>,
+    event:
+      | React.MouseEvent<HTMLButtonElement>
+      | React.KeyboardEvent<HTMLButtonElement>,
   ) {
-    if (!disabled) {
+    if (!disabled && onChange) {
       onChange(newValue, event);
     }
   }

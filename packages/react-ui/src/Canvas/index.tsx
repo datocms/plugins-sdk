@@ -15,7 +15,490 @@ export type CanvasProps = {
   children: ReactNode;
 };
 
-export function Canvas({ ctx, children, noAutoResizer }: CanvasProps): JSX.Element {
+/**
+ * @example Color variables
+ *
+ * ```js
+ * <Canvas ctx={ctx}>
+ *   <Section title="Text colors">
+ *     <table>
+ *       <tbody>
+ *         <tr>
+ *           <td>
+ *             <code>--base-body-color</code>
+ *           </td>
+ *           <td width="30%">
+ *             <div
+ *               style={{
+ *                 width: '30px',
+ *                 height: '30px',
+ *                 background: 'var(--base-body-color)',
+ *               }}
+ *             />
+ *           </td>
+ *         </tr>
+ *         <tr>
+ *           <td>
+ *             <code>--light-body-color</code>
+ *           </td>
+ *           <td width="30%">
+ *             <div
+ *               style={{
+ *                 width: '30px',
+ *                 height: '30px',
+ *                 background: 'var(--light-body-color)',
+ *               }}
+ *             />
+ *           </td>
+ *         </tr>
+ *         <tr>
+ *           <td>
+ *             <code>--placeholder-body-color</code>
+ *           </td>
+ *           <td width="30%">
+ *             <div
+ *               style={{
+ *                 width: '30px',
+ *                 height: '30px',
+ *                 background: 'var(--placeholder-body-color)',
+ *               }}
+ *             />
+ *           </td>
+ *         </tr>
+ *       </tbody>
+ *     </table>
+ *   </Section>
+ *   <Section title="UI colors">
+ *     <table>
+ *       <tbody>
+ *         <tr>
+ *           <td>
+ *             <code>--light-bg-color</code>
+ *           </td>
+ *           <td width="30%">
+ *             <div
+ *               style={{
+ *                 width: '30px',
+ *                 height: '30px',
+ *                 background: 'var(--light-bg-color)',
+ *               }}
+ *             />
+ *           </td>
+ *         </tr>
+ *         <tr>
+ *           <td>
+ *             <code>--lighter-bg-color</code>
+ *           </td>
+ *           <td width="30%">
+ *             <div
+ *               style={{
+ *                 width: '30px',
+ *                 height: '30px',
+ *                 background: 'var(--lighter-bg-color)',
+ *               }}
+ *             />
+ *           </td>
+ *         </tr>
+ *         <tr>
+ *           <td>
+ *             <code>--disabled-bg-color</code>
+ *           </td>
+ *           <td width="30%">
+ *             <div
+ *               style={{
+ *                 width: '30px',
+ *                 height: '30px',
+ *                 background: 'var(--disabled-bg-color)',
+ *               }}
+ *             />
+ *           </td>
+ *         </tr>
+ *         <tr>
+ *           <td>
+ *             <code>--border-color</code>
+ *           </td>
+ *           <td width="30%">
+ *             <div
+ *               style={{
+ *                 width: '30px',
+ *                 height: '30px',
+ *                 background: 'var(--border-color)',
+ *               }}
+ *             />
+ *           </td>
+ *         </tr>
+ *         <tr>
+ *           <td>
+ *             <code>--darker-border-color</code>
+ *           </td>
+ *           <td width="30%">
+ *             <div
+ *               style={{
+ *                 width: '30px',
+ *                 height: '30px',
+ *                 background: 'var(--darker-border-color)',
+ *               }}
+ *             />
+ *           </td>
+ *         </tr>
+ *         <tr>
+ *           <td>
+ *             <code>--alert-color</code>
+ *           </td>
+ *           <td width="30%">
+ *             <div
+ *               style={{
+ *                 width: '30px',
+ *                 height: '30px',
+ *                 background: 'var(--alert-color)',
+ *               }}
+ *             />
+ *           </td>
+ *         </tr>
+ *         <tr>
+ *           <td>
+ *             <code>--warning-color</code>
+ *           </td>
+ *           <td width="30%">
+ *             <div
+ *               style={{
+ *                 width: '30px',
+ *                 height: '30px',
+ *                 background: 'var(--warning-color)',
+ *               }}
+ *             />
+ *           </td>
+ *         </tr>
+ *         <tr>
+ *           <td>
+ *             <code>--notice-color</code>
+ *           </td>
+ *           <td width="30%">
+ *             <div
+ *               style={{
+ *                 width: '30px',
+ *                 height: '30px',
+ *                 background: 'var(--notice-color)',
+ *               }}
+ *             />
+ *           </td>
+ *         </tr>
+ *         <tr>
+ *           <td>
+ *             <code>--warning-bg-color</code>
+ *           </td>
+ *           <td width="30%">
+ *             <div
+ *               style={{
+ *                 width: '30px',
+ *                 height: '30px',
+ *                 background: 'var(--warning-bg-color)',
+ *               }}
+ *             />
+ *           </td>
+ *         </tr>
+ *         <tr>
+ *           <td>
+ *             <code>--add-color</code>
+ *           </td>
+ *           <td width="30%">
+ *             <div
+ *               style={{
+ *                 width: '30px',
+ *                 height: '30px',
+ *                 background: 'var(--add-color)',
+ *               }}
+ *             />
+ *           </td>
+ *         </tr>
+ *         <tr>
+ *           <td>
+ *             <code>--remove-color</code>
+ *           </td>
+ *           <td width="30%">
+ *             <div
+ *               style={{
+ *                 width: '30px',
+ *                 height: '30px',
+ *                 background: 'var(--remove-color)',
+ *               }}
+ *             />
+ *           </td>
+ *         </tr>
+ *       </tbody>
+ *     </table>
+ *   </Section>
+ *   <Section title="Project-specific colors">
+ *     <table>
+ *       <tbody>
+ *         <tr>
+ *           <td>
+ *             <code>--accent-color</code>
+ *           </td>
+ *           <td width="30%">
+ *             <div
+ *               style={{
+ *                 width: '30px',
+ *                 height: '30px',
+ *                 background: 'var(--accent-color)',
+ *               }}
+ *             />
+ *           </td>
+ *         </tr>
+ *         <tr>
+ *           <td>
+ *             <code>--primary-color</code>
+ *           </td>
+ *           <td width="30%">
+ *             <div
+ *               style={{
+ *                 width: '30px',
+ *                 height: '30px',
+ *                 background: 'var(--primary-color)',
+ *               }}
+ *             />
+ *           </td>
+ *         </tr>
+ *         <tr>
+ *           <td>
+ *             <code>--light-color</code>
+ *           </td>
+ *           <td width="30%">
+ *             <div
+ *               style={{
+ *                 width: '30px',
+ *                 height: '30px',
+ *                 background: 'var(--light-color)',
+ *               }}
+ *             />
+ *           </td>
+ *         </tr>
+ *         <tr>
+ *           <td>
+ *             <code>--dark-color</code>
+ *           </td>
+ *           <td width="30%">
+ *             <div
+ *               style={{
+ *                 width: '30px',
+ *                 height: '30px',
+ *                 background: 'var(--dark-color)',
+ *               }}
+ *             />
+ *           </td>
+ *         </tr>
+ *       </tbody>
+ *     </table>
+ *   </Section>
+ * </Canvas>;
+ * ```
+ *
+ * @example Typography variables
+ *
+ * ```js
+ * <Canvas ctx={ctx}>
+ *   <table>
+ *     <tbody>
+ *       <tr>
+ *         <td>
+ *           <code>--font-size-xxs</code>
+ *         </td>
+ *         <td>
+ *           <div style={{ fontSize: 'var(--font-size-xxs)' }}>
+ *             Size XXS
+ *           </div>
+ *         </td>
+ *       </tr>
+ *       <tr>
+ *         <td>
+ *           <code>--font-size-xs</code>
+ *         </td>
+ *         <td>
+ *           <div style={{ fontSize: 'var(--font-size-xs)' }}>Size XS</div>
+ *         </td>
+ *       </tr>
+ *       <tr>
+ *         <td>
+ *           <code>--font-size-s</code>
+ *         </td>
+ *         <td>
+ *           <div style={{ fontSize: 'var(--font-size-s)' }}>Size S</div>
+ *         </td>
+ *       </tr>
+ *       <tr>
+ *         <td>
+ *           <code>--font-size-m</code>
+ *         </td>
+ *         <td>
+ *           <div style={{ fontSize: 'var(--font-size-m)' }}>Size M</div>
+ *         </td>
+ *       </tr>
+ *       <tr>
+ *         <td>
+ *           <code>--font-size-l</code>
+ *         </td>
+ *         <td>
+ *           <div
+ *             style={{
+ *               fontSize: 'var(--font-size-l)',
+ *               fontWeight: 'var(--font-weight-bold)',
+ *             }}
+ *           >
+ *             Size L
+ *           </div>
+ *         </td>
+ *       </tr>
+ *       <tr>
+ *         <td>
+ *           <code>--font-size-xl</code>
+ *         </td>
+ *         <td>
+ *           <div
+ *             style={{
+ *               fontSize: 'var(--font-size-xl)',
+ *               fontWeight: 'var(--font-weight-bold)',
+ *             }}
+ *           >
+ *             Size XL
+ *           </div>
+ *         </td>
+ *       </tr>
+ *       <tr>
+ *         <td>
+ *           <code>--font-size-xxl</code>
+ *         </td>
+ *         <td>
+ *           <div
+ *             style={{
+ *               fontSize: 'var(--font-size-xxl)',
+ *               fontWeight: 'var(--font-weight-bold)',
+ *             }}
+ *           >
+ *             Size XXL
+ *           </div>
+ *         </td>
+ *       </tr>
+ *       <tr>
+ *         <td>
+ *           <code>--font-size-xxxl</code>
+ *         </td>
+ *         <td>
+ *           <div
+ *             style={{
+ *               fontSize: 'var(--font-size-xxxl)',
+ *               fontWeight: 'var(--font-weight-bold)',
+ *             }}
+ *           >
+ *             Size XXXL
+ *           </div>
+ *         </td>
+ *       </tr>
+ *     </tbody>
+ *   </table>
+ * </Canvas>;
+ * ```
+ *
+ * @example Spacing variables
+ *
+ * ```js
+ * <Canvas ctx={ctx}>
+ *   <table>
+ *     <tbody>
+ *       <tr>
+ *         <td>
+ *           <code>--spacing-s</code>
+ *         </td>
+ *         <td>
+ *           <div
+ *             style={{
+ *               background: 'var(--accent-color)',
+ *               width: 'var(--spacing-s)',
+ *               height: 'var(--spacing-s)',
+ *             }}
+ *           />
+ *         </td>
+ *       </tr>
+ *       <tr>
+ *         <td>
+ *           <code>--spacing-m</code>
+ *         </td>
+ *         <td>
+ *           <div
+ *             style={{
+ *               background: 'var(--accent-color)',
+ *               width: 'var(--spacing-m)',
+ *               height: 'var(--spacing-m)',
+ *             }}
+ *           />
+ *         </td>
+ *       </tr>
+ *       <tr>
+ *         <td>
+ *           <code>--spacing-l</code>
+ *         </td>
+ *         <td>
+ *           <div
+ *             style={{
+ *               background: 'var(--accent-color)',
+ *               width: 'var(--spacing-l)',
+ *               height: 'var(--spacing-l)',
+ *             }}
+ *           />
+ *         </td>
+ *       </tr>
+ *       <tr>
+ *         <td>
+ *           <code>--spacing-xl</code>
+ *         </td>
+ *         <td>
+ *           <div
+ *             style={{
+ *               background: 'var(--accent-color)',
+ *               width: 'var(--spacing-xl)',
+ *               height: 'var(--spacing-xl)',
+ *             }}
+ *           />
+ *         </td>
+ *       </tr>
+ *       <tr>
+ *         <td>
+ *           <code>--spacing-xxl</code>
+ *         </td>
+ *         <td>
+ *           <div
+ *             style={{
+ *               background: 'var(--accent-color)',
+ *               width: 'var(--spacing-xxl)',
+ *               height: 'var(--spacing-xxl)',
+ *             }}
+ *           />
+ *         </td>
+ *       </tr>
+ *       <tr>
+ *         <td>
+ *           <code>--spacing-xxxl</code>
+ *         </td>
+ *         <td>
+ *           <div
+ *             style={{
+ *               background: 'var(--accent-color)',
+ *               width: 'var(--spacing-xxxl)',
+ *               height: 'var(--spacing-xxxl)',
+ *             }}
+ *           />
+ *         </td>
+ *       </tr>
+ *     </tbody>
+ *   </table>
+ * </Canvas>;
+ * ```
+ */
+
+export function Canvas({
+  ctx,
+  children,
+  noAutoResizer,
+}: CanvasProps): JSX.Element {
   const { mode } = (ctx as unknown) as { mode: string };
 
   useEffect(() => {
@@ -29,16 +512,22 @@ export function Canvas({ ctx, children, noAutoResizer }: CanvasProps): JSX.Eleme
     }
   }, [mode, noAutoResizer]);
 
+  const style = Object.entries(ctx.theme).reduce(
+    (acc, [k, v]) => {
+      return {
+        ...acc,
+        [`--${camelToDash(k)}`]: v,
+        [`--${camelToDash(`${k}RgbComponents`)}`]:
+          v.match(/rgb\((\d+, \d+, \d+)\)/)?.[1] || undefined,
+      };
+    },
+    {
+      padding: ctx.bodyPadding.map((p) => `${p}px`).join(' '),
+    },
+  );
+
   return (
-    <div
-      className={styles.canvas}
-      style={Object.entries(ctx.theme).reduce(
-        (acc, [k, v]) => ({ ...acc, [`--${camelToDash(k)}`]: v }),
-        {
-          padding: ctx.bodyPadding.map((p) => `${p}px`).join(' '),
-        },
-      )}
-    >
+    <div className={styles.canvas} style={style}>
       {children}
     </div>
   );

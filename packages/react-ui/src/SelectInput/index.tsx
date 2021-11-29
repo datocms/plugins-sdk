@@ -57,7 +57,7 @@ const useStyles = (isDisabled?: boolean, error?: boolean) => {
             backgroundColor: isDisabled ? 'var(--disabled-color)' : 'white',
             boxShadow: `0 0 0 3px ${
               error
-                ? 'rgba(var(--alert-rgb-components), 0.2)'
+                ? 'rgba(var(--alert-color-rgb-components), 0.2)'
                 : 'var(--semi-transparent-accent-color)'
             }`,
             '&:hover': {
@@ -71,7 +71,9 @@ const useStyles = (isDisabled?: boolean, error?: boolean) => {
           borderColor: error ? 'var(--alert-color)' : 'var(--border-color)',
           backgroundColor: isDisabled ? 'var(--disabled-color)' : 'white',
           '&:hover': {
-            borderColor: error ? 'var(--alert-color)' : 'var(--darker-border-color)',
+            borderColor: error
+              ? 'var(--alert-color)'
+              : 'var(--darker-border-color)',
           },
         };
       },
@@ -118,7 +120,8 @@ export type SelectInputProps<
   Option,
   IsMulti extends boolean,
   Group extends GroupBase<Option>
-> = Omit<RawSelectProps<Option, IsMulti, Group>, 'theme' | 'styles'> & ErrorProp;
+> = Omit<RawSelectProps<Option, IsMulti, Group>, 'theme' | 'styles'> &
+  ErrorProp;
 
 export function SelectInput<
   Option = unknown,
@@ -174,7 +177,8 @@ export type CreatableSelectInputProps<
   Option,
   IsMulti extends boolean,
   Group extends GroupBase<Option>
-> = Omit<CreatableProps<Option, IsMulti, Group>, 'theme' | 'styles'> & ErrorProp;
+> = Omit<CreatableProps<Option, IsMulti, Group>, 'theme' | 'styles'> &
+  ErrorProp;
 
 export function CreatableSelectInput<
   Option = unknown,
@@ -202,7 +206,8 @@ export type AsyncCreatableSelectInputProps<
   Option,
   IsMulti extends boolean,
   Group extends GroupBase<Option>
-> = Omit<AsyncCreatableProps<Option, IsMulti, Group>, 'theme' | 'styles'> & ErrorProp;
+> = Omit<AsyncCreatableProps<Option, IsMulti, Group>, 'theme' | 'styles'> &
+  ErrorProp;
 
 export function AsyncCreatableSelectInput<
   Option = unknown,

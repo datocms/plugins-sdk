@@ -47,6 +47,6 @@
   }
 
   &:focus {
-    box-shadow: 0 0 0 3px rgba(var(--alert-rgb-components), 0.2);
+    box-shadow: 0 0 0 3px rgba(var(--alert-color-rgb-components), 0.2);
   }
 }

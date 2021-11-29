@@ -13,7 +13,7 @@
   border-radius: 4px;
   box-sizing: border-box;
   transition: all 0.3s var(--material-ease);
-  font-weight: 500;
+  font-weight: var(--font-weight-bold);
   border: 0;
   opacity: 1;
 

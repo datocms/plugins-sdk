@@ -14,34 +14,51 @@ type SectionProps = {
 };
 
 /**
- * @example
- *   <Canvas ctx={ctx}>
- *     <Section title="Section title">
- *       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
- *       incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
- *       nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
- *     </Section>
- *   </Canvas>;
+ * @example Basic usage
  *
- * @example
- *   <Canvas ctx={ctx}>
- *     <Section title="Section title" highlighted>
- *       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
- *       incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
- *       nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
- *     </Section>
- *   </Canvas>;
+ * ```jsx
+ * <Canvas ctx={ctx}>
+ *   <Section title="Section title">
+ *     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+ *     eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+ *     ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+ *     aliquip ex ea commodo consequat.
+ *   </Section>
+ * </Canvas>;
+ * ```
  *
- * @example
- *   <Canvas ctx={ctx}>
- *     <Section title="Section title" collapsible={{ isOpen: true }}>
- *       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
- *       incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
- *       nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
- *     </Section>
- *   </Canvas>;
+ * @example Highlighted
  *
- * @exampleNames basic, highlighted, collapsible
+ * ```jsx
+ * <Canvas ctx={ctx}>
+ *   <Section title="Section title" highlighted>
+ *     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+ *     eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+ *     ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+ *     aliquip ex ea commodo consequat.
+ *   </Section>
+ * </Canvas>;
+ * ```
+ *
+ * @example Collapsible
+ *
+ * ```jsx
+ * <Canvas ctx={ctx}>
+ *   <StateManager initial={true}>
+ *     {(isOpen, setOpen) => (
+ *       <Section
+ *         title="Section title"
+ *         collapsible={{ isOpen, onToggle: () => setOpen((v) => !v) }}
+ *       >
+ *         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+ *         eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+ *         enim ad minim veniam, quis nostrud exercitation ullamco laboris
+ *         nisi ut aliquip ex ea commodo consequat.
+ *       </Section>
+ *     )}
+ *   </StateManager>
+ * </Canvas>;
+ * ```
  */
 export function Section({
   title,
@@ -54,8 +71,13 @@ export function Section({
   titleStyle,
 }: SectionProps): JSX.Element {
   return (
-    <div className={cn(s['Section'], { [s['Section--highlighted']]: highlighted })}>
-      <div className={cn(s['Section__header'], headerClassName)} style={headerStyle}>
+    <div
+      className={cn(s['Section'], { [s['Section--highlighted']]: highlighted })}
+    >
+      <div
+        className={cn(s['Section__header'], headerClassName)}
+        style={headerStyle}
+      >
         <div
           className={cn(
             s['Section__title'],

@@ -1,26 +1,40 @@
 .canvas {
   /* Colors */
-  --base-body-color: #34363a;
-  --light-body-color: #848484;
-  --placeholder-body-color: #c6c6c6;
-  --light-bg-color: #f5f5f5;
-  --lighter-bg-color: #f8f8f8;
-  --disabled-bg-color: #ededed;
-  --border-color: #f0f0f0;
-  --darker-border-color: #d7d7d7;
-  --alert-color: #ff5e49;
-  --alert-rgb-components: 255, 94, 73;
-  --warning-color: #ffd700;
-  --notice-color: #46d700;
-  --warning-bg-color: #ffffe5;
-  --add-color: #4cb06d;
-  --remove-color: #eb576a;
+  --base-body-color: rgb(52, 54, 58);
+  --base-body-color-rgb-components: 52, 54, 58;
+  --light-body-color: rgb(132, 132, 132);
+  --light-body-color-rgb-components: 132, 132, 132;
+  --placeholder-body-color: rgb(198, 198, 198);
+  --placeholder-body-color-rgb-components: 198, 198, 198;
+  --light-bg-color: rgb(245, 245, 245);
+  --light-bg-color-rgb-components: 245, 245, 245;
+  --lighter-bg-color: rgb(248, 248, 248);
+  --lighter-bg-color-rgb-components: 248, 248, 248;
+  --disabled-bg-color: rgb(237, 237, 237);
+  --disabled-bg-color-rgb-components: 237, 237, 237;
+  --border-color: rgb(240, 240, 240);
+  --border-color-rgb-components: 240, 240, 240;
+  --darker-border-color: rgb(215, 215, 215);
+  --darker-border-color-rgb-components: 215, 215, 215;
+  --alert-color: rgb(255, 94, 73);
+  --alert-color-rgb-components: 255, 94, 73;
+  --warning-color: rgb(255, 215, 0);
+  --warning-color-rgb-components: 255, 215, 0;
+  --notice-color: rgb(70, 215, 0);
+  --notice-color-rgb-components: 70, 215, 0;
+  --warning-bg-color: rgb(255, 255, 229);
+  --warning-bg-color-rgb-components: 255, 255, 229;
+  --add-color: rgb(76, 176, 109);
+  --add-color-rgb-components: 76, 176, 109;
+  --remove-color: rgb(235, 87, 106);
+  --remove-color-rgb-components: 235, 87, 106;
 
   /* Fonts */
-  --base-font-family: 'colfax-web', 'Roboto', 'Helvetica Neue', Helvetica, Roboto, Arial,
-    sans-serif;
-  --monospaced-font-family: 'Roboto Mono', 'Menlo', 'Bitstream Vera Sans Mono', Consolas,
-    Courier, monospace;
+  --base-font-family: 'colfax-web', 'Roboto', 'Helvetica Neue', Helvetica,
+    Roboto, Arial, sans-serif;
+  --monospaced-font-family: 'Roboto Mono', 'Menlo', 'Bitstream Vera Sans Mono',
+    Consolas, Courier, monospace;
+  --font-weight-bold: 500;
 
   /* Spacing */
   --spacing-s: calc(0.5 * 12 * 0.0625rem);
@@ -46,8 +60,6 @@
   --font-size-xl: calc(19 * 0.0625rem);
   --font-size-xxl: calc(25 * 0.0625rem);
   --font-size-xxxl: calc(30 * 0.0625rem);
-  --font-size-xxxl: calc(35 * 0.0625rem);
-  --font-size-xxxl: calc(50 * 0.0625rem);
 
   --material-ease: cubic-bezier(0.55, 0, 0.1, 1);
   --inertial-ease: cubic-bezier(0.19, 1, 0.22, 1);

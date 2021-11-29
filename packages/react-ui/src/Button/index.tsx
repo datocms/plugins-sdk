@@ -4,7 +4,7 @@ import styles from './styles.module.css.json';
 
 export type ButtonProps = {
   children?: ReactNode;
-  type: React.ButtonHTMLAttributes<HTMLButtonElement>['type'];
+  type?: React.ButtonHTMLAttributes<HTMLButtonElement>['type'];
   className?: string;
   disabled?: boolean;
   onClick?: MouseEventHandler;
@@ -17,73 +17,65 @@ export type ButtonProps = {
 };
 
 /**
- * @example
- *   <Canvas ctx={ctx}>
- *     <div>
- *       <Button type="button">Submit</Button>
- *       <Button type="button" disabled>
- *         Submit
- *       </Button>
- *     </div>
- *     <div>
- *       <Button type="button" buttonType="primary">
- *         Submit
- *       </Button>
- *       <Button type="button" buttonType="primary" disabled>
- *         Submit
- *       </Button>
- *     </div>
- *     <div>
- *       <Button type="button" buttonType="negative">
- *         Submit
- *       </Button>
- *       <Button type="button" buttonType="negative" disabled>
- *         Submit
- *       </Button>
- *     </div>
- *   </Canvas>;
+ * @example Button types
  *
- * @example
- *   <Canvas ctx={ctx}>
- *     <Button type="button" fullWidth>
+ * ```js
+ * <Canvas ctx={ctx}>
+ *   <div style={{ marginBottom: 'var(--spacing-m)' }}>
+ *     <Button buttonType="muted">Submit</Button>{' '}
+ *     <Button buttonType="primary">Submit</Button>{' '}
+ *     <Button buttonType="negative">Submit</Button>
+ *   </div>
+ *   <div>
+ *     <Button buttonType="muted" disabled>
+ *       Submit
+ *     </Button>{' '}
+ *     <Button buttonType="primary" disabled>
+ *       Submit
+ *     </Button>{' '}
+ *     <Button buttonType="negative" disabled>
  *       Submit
  *     </Button>
- *   </Canvas>;
+ *   </div>
+ * </Canvas>;
+ * ```
  *
- * @example
- *   <Canvas ctx={ctx}>
- *     <Button type="button" buttonSize="xxs">
- *       Submit
- *     </Button>
- *     <Button type="button" buttonSize="xs">
- *       Submit
- *     </Button>
- *     <Button type="button" buttonSize="s">
- *       Submit
- *     </Button>
- *     <Button type="button" buttonSize="m">
- *       Submit
- *     </Button>
- *     <Button type="button" buttonSize="l">
- *       Submit
- *     </Button>
- *     <Button type="button" buttonSize="xl">
- *       Submit
- *     </Button>
- *   </Canvas>;
+ * @example Full-width
  *
- * @example
- *   <Canvas ctx={ctx}>
- *     <Button type="button" leftIcon={<PlusIcon />}>
- *       Submit
- *     </Button>
- *     <Button type="button" rightIcon={<ChevronDownIcon />}>
- *       Submit
- *     </Button>
- *     <Button type="button" leftIcon={<PlusIcon />} />
- *   </Canvas>;
+ * ```js
+ * <Canvas ctx={ctx}>
+ *   <Button fullWidth>Submit</Button>
+ * </Canvas>;
+ * ```
  *
- * @exampleNames basic, fullWidth, size, icons
+ * @example Sizing
+ *
+ * ```js
+ * <Canvas ctx={ctx}>
+ *   <Button buttonSize="xxs">Submit</Button>{' '}
+ *   <Button buttonSize="xs">Submit</Button>{' '}
+ *   <Button buttonSize="s">Submit</Button>{' '}
+ *   <Button buttonSize="m">Submit</Button>{' '}
+ *   <Button buttonSize="l">Submit</Button>{' '}
+ *   <Button buttonSize="xl">Submit</Button>{' '}
+ * </Canvas>;
+ * ```
+ *
+ * @example Icons
+ *
+ * ```js
+ * <Canvas ctx={ctx}>
+ *   <div style={{ marginBottom: 'var(--spacing-m)' }}>
+ *     <Button leftIcon={<PlusIcon />}>Submit</Button>
+ *   </div>
+ *   <div style={{ marginBottom: 'var(--spacing-m)' }}>
+ *     <Button rightIcon={<ChevronDownIcon />}>Options</Button>
+ *   </div>
+ *   <div>
+ *     <Button leftIcon={<PlusIcon />} />
+ *   </div>
+ * </Canvas>;
+ * ```
  */
 export function Button({
   children,
@@ -115,9 +107,13 @@ export function Button({
       onClick={onClick}
       style={style}
     >
-      {leftIcon && <span className={styles['button__leftIcon']}>{leftIcon}</span>}
+      {leftIcon && (
+        <span className={styles['button__leftIcon']}>{leftIcon}</span>
+      )}
       {children && <span>{children}</span>}
-      {rightIcon && <span className={styles['button__rightIcon']}>{rightIcon}</span>}
+      {rightIcon && (
+        <span className={styles['button__rightIcon']}>{rightIcon}</span>
+      )}
     </button>
   );
 }
@@ -165,9 +161,13 @@ export function ButtonLink({
       style={style}
       onClick={onClick}
     >
-      {leftIcon && <span className={styles['button__leftIcon']}>{leftIcon}</span>}
+      {leftIcon && (
+        <span className={styles['button__leftIcon']}>{leftIcon}</span>
+      )}
       {children && <span>{children}</span>}
-      {rightIcon && <span className={styles['button__rightIcon']}>{rightIcon}</span>}
+      {rightIcon && (
+        <span className={styles['button__rightIcon']}>{rightIcon}</span>
+      )}
     </a>
   );
 }
