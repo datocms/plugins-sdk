@@ -45,7 +45,9 @@ function findChildrenById(manifest: any, id: string) {
 }
 
 function findShortText(signature: any) {
-  return (signature.comment && addFinalPeriod(signature.comment.shortText)) || null;
+  return (
+    (signature.comment && addFinalPeriod(signature.comment.shortText)) || null
+  );
 }
 
 function findFirstTag(signature: any, tagName: string): string | null {
@@ -53,7 +55,9 @@ function findFirstTag(signature: any, tagName: string): string | null {
     return null;
   }
 
-  const tagNode = signature.comment.tags.find((tag: any) => tag.tag === tagName);
+  const tagNode = signature.comment.tags.find(
+    (tag: any) => tag.tag === tagName,
+  );
 
   if (!tagNode) {
     return null;
@@ -80,9 +84,11 @@ function findExample(signature: any) {
 
   const commonIndentation = Math.min(...spacesPerLine);
 
-  const result = lines.map((line) => line.substring(commonIndentation)).join('\n');
+  const result = lines
+    .map((line) => line.substring(commonIndentation))
+    .join('\n');
 
-  return result;
+  return result.match(/```[a-z]*\n([\s\S]*?)\n```/)?.[1].trim();
 }
 
 function buildCtx(manifest: any, definition: any) {
@@ -91,7 +97,10 @@ function buildCtx(manifest: any, definition: any) {
 
     definition.type.types.forEach((elementInIntersection: any) => {
       if (elementInIntersection.type === 'reference') {
-        const innerDefinition = findChildrenById(manifest, elementInIntersection.id);
+        const innerDefinition = findChildrenById(
+          manifest,
+          elementInIntersection.id,
+        );
         result = [...result, buildCtx(manifest, innerDefinition)];
       }
     });
@@ -102,7 +111,9 @@ function buildCtx(manifest: any, definition: any) {
   if (definition.type.type === 'reflection') {
     const properties = definition.type.declaration.children.filter(
       (child: any) =>
-        !['mode', 'getSettings', 'setHeight', 'bodyPadding'].includes(child.name),
+        !['mode', 'getSettings', 'setHeight', 'bodyPadding'].includes(
+          child.name,
+        ),
     );
 
     if (properties.length === 0) {
@@ -113,7 +124,11 @@ function buildCtx(manifest: any, definition: any) {
       name: definition.name,
       description: findShortText(definition),
       properties: properties.map((child: any) => {
-        if (child.type && child.type.declaration && child.type.declaration.signatures) {
+        if (
+          child.type &&
+          child.type.declaration &&
+          child.type.declaration.signatures
+        ) {
           child.signatures = child.type.declaration.signatures;
         }
 
@@ -150,7 +165,10 @@ const ExpandablePane = ({ children, label }: any) => {
 
   return (
     <div className={s.panel}>
-      <button className={s.panelHandle} onClick={() => setOpen((open) => !open)}>
+      <button
+        className={s.panelHandle}
+        onClick={() => setOpen((open) => !open)}
+      >
         {label}
       </button>
       {open && <div className={s.panelBody}>{children}</div>}
@@ -158,12 +176,18 @@ const ExpandablePane = ({ children, label }: any) => {
   );
 };
 
-export function ContextInspector({ ctx }: { ctx: { mode: string } }): JSX.Element {
+export function ContextInspector({
+  ctx,
+}: {
+  ctx: { mode: string };
+}): JSX.Element {
   const [groups, setGroups] = useState<any[] | null>(null);
 
   useEffect(() => {
     const runner = async () => {
-      const response = await fetch('https://unpkg.com/datocms-plugin-sdk/types.json');
+      const response = await fetch(
+        'https://unpkg.com/datocms-plugin-sdk/types.json',
+      );
       const manifest = await response.json();
 
       const connectParameters = manifest.children.find(
@@ -175,10 +199,15 @@ export function ContextInspector({ ctx }: { ctx: { mode: string } }): JSX.Elemen
       );
 
       const signature = hook.signatures[0];
-      const ctxParameter = signature.parameters.find((p: any) => p.name === 'ctx');
+      const ctxParameter = signature.parameters.find(
+        (p: any) => p.name === 'ctx',
+      );
 
       setGroups(
-        buildCtx(manifest, findChildrenById(manifest, ctxParameter.type.id)) as any[],
+        buildCtx(
+          manifest,
+          findChildrenById(manifest, ctxParameter.type.id),
+        ) as any[],
       );
     };
 
@@ -240,7 +269,9 @@ export function ContextInspector({ ctx }: { ctx: { mode: string } }): JSX.Elemen
                     </div>
                     {item.type === 'property' && (
                       <div className={s.propertyOrMethodExample}>
-                        <pre>{JSON.stringify((ctx as any)[item.name], null, 2)}</pre>
+                        <pre>
+                          {JSON.stringify((ctx as any)[item.name], null, 2)}
+                        </pre>
                         <div className={s.propertyOrMethodExampleActions}>
                           <Button
                             type="button"
