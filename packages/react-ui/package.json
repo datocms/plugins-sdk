@@ -30,7 +30,7 @@
   "scripts": {
     "build": "npm run generate-cssmodules && tsc && tsc --project ./tsconfig.esnext.json && npm run generate-typedoc && npm run generate-global-styles",
     "generate-cssmodules": "NODE_ENV=prebuild postcss src/**/*.css --base src --dir tmp",
-    "generate-global-styles": "cp src/global.css tmp/global.css && NODE_ENV=production postcss tmp/global.css --output styles.css && rm -rf tmp",
+    "generate-global-styles": "cp src/*.css tmp && NODE_ENV=production postcss tmp/global.css --output styles.css && rm -rf tmp",
     "generate-typedoc": "typedoc src/index.ts --json types.json",
     "prebuild": "rimraf dist"
   },

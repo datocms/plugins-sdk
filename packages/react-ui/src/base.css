@@ -1,0 +1,154 @@
+@font-face {
+  font-family: 'colfax-web';
+  src: url('https://use.typekit.net/af/7065ab/00000000000000003b9acdea/27/l?primer=f592e0a4b9356877842506ce344308576437e4f677d7c9b78ca2162e6cad991a&fvd=n9&v=3')
+      format('woff2'),
+    url('https://use.typekit.net/af/7065ab/00000000000000003b9acdea/27/d?primer=f592e0a4b9356877842506ce344308576437e4f677d7c9b78ca2162e6cad991a&fvd=n9&v=3')
+      format('woff'),
+    url('https://use.typekit.net/af/7065ab/00000000000000003b9acdea/27/a?primer=f592e0a4b9356877842506ce344308576437e4f677d7c9b78ca2162e6cad991a&fvd=n9&v=3')
+      format('opentype');
+  font-display: auto;
+  font-style: normal;
+  font-weight: 900;
+}
+
+@font-face {
+  font-family: 'colfax-web';
+  src: url('https://use.typekit.net/af/5e9f47/00000000000000003b9acde8/27/l?primer=f592e0a4b9356877842506ce344308576437e4f677d7c9b78ca2162e6cad991a&fvd=n7&v=3')
+      format('woff2'),
+    url('https://use.typekit.net/af/5e9f47/00000000000000003b9acde8/27/d?primer=f592e0a4b9356877842506ce344308576437e4f677d7c9b78ca2162e6cad991a&fvd=n7&v=3')
+      format('woff'),
+    url('https://use.typekit.net/af/5e9f47/00000000000000003b9acde8/27/a?primer=f592e0a4b9356877842506ce344308576437e4f677d7c9b78ca2162e6cad991a&fvd=n7&v=3')
+      format('opentype');
+  font-display: auto;
+  font-style: normal;
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'colfax-web';
+  src: url('https://use.typekit.net/af/7d9fca/00000000000000003b9acde9/27/l?primer=f592e0a4b9356877842506ce344308576437e4f677d7c9b78ca2162e6cad991a&fvd=i7&v=3')
+      format('woff2'),
+    url('https://use.typekit.net/af/7d9fca/00000000000000003b9acde9/27/d?primer=f592e0a4b9356877842506ce344308576437e4f677d7c9b78ca2162e6cad991a&fvd=i7&v=3')
+      format('woff'),
+    url('https://use.typekit.net/af/7d9fca/00000000000000003b9acde9/27/a?primer=f592e0a4b9356877842506ce344308576437e4f677d7c9b78ca2162e6cad991a&fvd=i7&v=3')
+      format('opentype');
+  font-display: auto;
+  font-style: italic;
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'colfax-web';
+  src: url('https://use.typekit.net/af/a5949d/00000000000000003b9acde2/27/l?primer=f592e0a4b9356877842506ce344308576437e4f677d7c9b78ca2162e6cad991a&fvd=n3&v=3')
+      format('woff2'),
+    url('https://use.typekit.net/af/a5949d/00000000000000003b9acde2/27/d?primer=f592e0a4b9356877842506ce344308576437e4f677d7c9b78ca2162e6cad991a&fvd=n3&v=3')
+      format('woff'),
+    url('https://use.typekit.net/af/a5949d/00000000000000003b9acde2/27/a?primer=f592e0a4b9356877842506ce344308576437e4f677d7c9b78ca2162e6cad991a&fvd=n3&v=3')
+      format('opentype');
+  font-display: auto;
+  font-style: normal;
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: 'colfax-web';
+  src: url('https://use.typekit.net/af/29e3f1/00000000000000003b9acde3/27/l?primer=f592e0a4b9356877842506ce344308576437e4f677d7c9b78ca2162e6cad991a&fvd=i3&v=3')
+      format('woff2'),
+    url('https://use.typekit.net/af/29e3f1/00000000000000003b9acde3/27/d?primer=f592e0a4b9356877842506ce344308576437e4f677d7c9b78ca2162e6cad991a&fvd=i3&v=3')
+      format('woff'),
+    url('https://use.typekit.net/af/29e3f1/00000000000000003b9acde3/27/a?primer=f592e0a4b9356877842506ce344308576437e4f677d7c9b78ca2162e6cad991a&fvd=i3&v=3')
+      format('opentype');
+  font-display: auto;
+  font-style: italic;
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: 'colfax-web';
+  src: url('https://use.typekit.net/af/522c51/00000000000000003b9acde6/27/l?primer=f592e0a4b9356877842506ce344308576437e4f677d7c9b78ca2162e6cad991a&fvd=n5&v=3')
+      format('woff2'),
+    url('https://use.typekit.net/af/522c51/00000000000000003b9acde6/27/d?primer=f592e0a4b9356877842506ce344308576437e4f677d7c9b78ca2162e6cad991a&fvd=n5&v=3')
+      format('woff'),
+    url('https://use.typekit.net/af/522c51/00000000000000003b9acde6/27/a?primer=f592e0a4b9356877842506ce344308576437e4f677d7c9b78ca2162e6cad991a&fvd=n5&v=3')
+      format('opentype');
+  font-display: auto;
+  font-style: normal;
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: 'colfax-web';
+  src: url('https://use.typekit.net/af/4e71b3/00000000000000003b9acde7/27/l?primer=f592e0a4b9356877842506ce344308576437e4f677d7c9b78ca2162e6cad991a&fvd=i5&v=3')
+      format('woff2'),
+    url('https://use.typekit.net/af/4e71b3/00000000000000003b9acde7/27/d?primer=f592e0a4b9356877842506ce344308576437e4f677d7c9b78ca2162e6cad991a&fvd=i5&v=3')
+      format('woff'),
+    url('https://use.typekit.net/af/4e71b3/00000000000000003b9acde7/27/a?primer=f592e0a4b9356877842506ce344308576437e4f677d7c9b78ca2162e6cad991a&fvd=i5&v=3')
+      format('opentype');
+  font-display: auto;
+  font-style: italic;
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: 'colfax-web';
+  src: url('https://use.typekit.net/af/bac079/00000000000000003b9acde4/27/l?primer=f592e0a4b9356877842506ce344308576437e4f677d7c9b78ca2162e6cad991a&fvd=n4&v=3')
+      format('woff2'),
+    url('https://use.typekit.net/af/bac079/00000000000000003b9acde4/27/d?primer=f592e0a4b9356877842506ce344308576437e4f677d7c9b78ca2162e6cad991a&fvd=n4&v=3')
+      format('woff'),
+    url('https://use.typekit.net/af/bac079/00000000000000003b9acde4/27/a?primer=f592e0a4b9356877842506ce344308576437e4f677d7c9b78ca2162e6cad991a&fvd=n4&v=3')
+      format('opentype');
+  font-display: auto;
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'colfax-web';
+  src: url('https://use.typekit.net/af/c1cc04/00000000000000003b9acde5/27/l?primer=f592e0a4b9356877842506ce344308576437e4f677d7c9b78ca2162e6cad991a&fvd=i4&v=3')
+      format('woff2'),
+    url('https://use.typekit.net/af/c1cc04/00000000000000003b9acde5/27/d?primer=f592e0a4b9356877842506ce344308576437e4f677d7c9b78ca2162e6cad991a&fvd=i4&v=3')
+      format('woff'),
+    url('https://use.typekit.net/af/c1cc04/00000000000000003b9acde5/27/a?primer=f592e0a4b9356877842506ce344308576437e4f677d7c9b78ca2162e6cad991a&fvd=i4&v=3')
+      format('opentype');
+  font-display: auto;
+  font-style: italic;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'colfax-web';
+  src: url('https://use.typekit.net/af/8faa9c/00000000000000003b9acde0/27/l?primer=f592e0a4b9356877842506ce344308576437e4f677d7c9b78ca2162e6cad991a&fvd=n2&v=3')
+      format('woff2'),
+    url('https://use.typekit.net/af/8faa9c/00000000000000003b9acde0/27/d?primer=f592e0a4b9356877842506ce344308576437e4f677d7c9b78ca2162e6cad991a&fvd=n2&v=3')
+      format('woff'),
+    url('https://use.typekit.net/af/8faa9c/00000000000000003b9acde0/27/a?primer=f592e0a4b9356877842506ce344308576437e4f677d7c9b78ca2162e6cad991a&fvd=n2&v=3')
+      format('opentype');
+  font-display: auto;
+  font-style: normal;
+  font-weight: 200;
+}
+
+@font-face {
+  font-family: 'colfax-web';
+  src: url('https://use.typekit.net/af/256d4a/00000000000000003b9acde1/27/l?primer=f592e0a4b9356877842506ce344308576437e4f677d7c9b78ca2162e6cad991a&fvd=i2&v=3')
+      format('woff2'),
+    url('https://use.typekit.net/af/256d4a/00000000000000003b9acde1/27/d?primer=f592e0a4b9356877842506ce344308576437e4f677d7c9b78ca2162e6cad991a&fvd=i2&v=3')
+      format('woff'),
+    url('https://use.typekit.net/af/256d4a/00000000000000003b9acde1/27/a?primer=f592e0a4b9356877842506ce344308576437e4f677d7c9b78ca2162e6cad991a&fvd=i2&v=3')
+      format('opentype');
+  font-display: auto;
+  font-style: italic;
+  font-weight: 200;
+}
+
+html {
+  padding: 0;
+  margin: 0;
+  height: auto;
+  font-size: 16px;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}
