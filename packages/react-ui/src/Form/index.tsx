@@ -71,6 +71,25 @@ export interface FormProps {
  *         }}
  *         onChange={(newValue) => console.log(newValue)}
  *       />
+ *       <SelectField
+ *         name="multipleOption"
+ *         id="multipleOption"
+ *         label="Multiple options"
+ *         hint="Select one of the options"
+ *         value={[
+ *           { label: 'Option 1', value: 'option1' },
+ *           { label: 'Option 2', value: 'option2' },
+ *         ]}
+ *         selectInputProps={{
+ *           isMulti: true,
+ *           options: [
+ *             { label: 'Option 1', value: 'option1' },
+ *             { label: 'Option 2', value: 'option2' },
+ *             { label: 'Option 3', value: 'option3' },
+ *           ],
+ *         }}
+ *         onChange={(newValue) => console.log(newValue)}
+ *       />
  *       <SwitchField
  *         name="debugMode"
  *         id="debugMode"
