@@ -519,10 +519,12 @@ export function Canvas({
       const ctxWithAutoResizer = (ctx as unknown) as SizingUtilities;
       ctxWithAutoResizer.startAutoResizer();
 
-      () => {
+      return () => {
         ctxWithAutoResizer.stopAutoResizer();
       };
     }
+
+    return undefined;
   }, [mode, noAutoResizer]);
 
   const style = Object.entries(ctx.theme).reduce(
