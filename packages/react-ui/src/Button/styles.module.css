@@ -28,14 +28,23 @@
 }
 
 .disabled {
-  color: rgba(0, 0, 0, 0.2);
-  background-color: var(--light-bg-color);
   cursor: not-allowed;
 }
 
 .buttonType-muted {
   background-color: var(--light-color);
   color: var(--accent-color);
+
+  &.disabled {
+    background-color: var(--light-bg-color);
+    color: rgba(0, 0, 0, 0.2);
+
+    &:hover,
+    &:focus,
+    &:active {
+      color: rgba(0, 0, 0, 0.2);
+    }
+  }
 }
 
 .buttonType-primary {
