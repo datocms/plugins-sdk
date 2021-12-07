@@ -38,7 +38,7 @@ export type ToolbarProps = {
  * <Canvas ctx={ctx}>
  *   <Toolbar>
  *     <ToolbarButton>
- *       <ToolbarBackIcon />
+ *       <BackIcon />
  *     </ToolbarButton>
  *     <ToolbarStack stackSize="l">
  *       <ToolbarTitle>Media Area</ToolbarTitle>
@@ -46,7 +46,7 @@ export type ToolbarProps = {
  *       <Button buttonType="primary">Action</Button>
  *     </ToolbarStack>
  *     <ToolbarButton>
- *       <ToolbarSidebarLeftArrowIcon />
+ *       <SidebarLeftArrowIcon />
  *     </ToolbarButton>
  *   </Toolbar>
  *   <div

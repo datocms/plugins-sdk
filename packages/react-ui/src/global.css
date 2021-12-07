@@ -20,3 +20,4 @@
 @import './Toolbar/Stack/styles.module.css';
 @import './Toolbar/Title/styles.module.css';
 @import './Toolbar/Toolbar/styles.module.css';
+@import './Dropdown/styles.module.css';

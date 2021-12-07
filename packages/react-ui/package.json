@@ -41,7 +41,9 @@
   "dependencies": {
     "classnames": "^2.3.1",
     "datocms-plugin-sdk": "^0.3.10",
-    "react-select": "^5.2.1"
+    "react-select": "^5.2.1",
+    "react-intersection-observer": "^8.31.0",
+    "scroll-into-view-if-needed": "^2.2.20"
   },
   "devDependencies": {
     "@types/react": "^17.0.3",

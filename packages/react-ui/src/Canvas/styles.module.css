@@ -1,4 +1,4 @@
-.canvas {
+.themeVariables {
   /* Colors */
   --base-body-color: rgb(52, 54, 58);
   --base-body-color-rgb-components: 52, 54, 58;
@@ -63,7 +63,9 @@
 
   --material-ease: cubic-bezier(0.55, 0, 0.1, 1);
   --inertial-ease: cubic-bezier(0.19, 1, 0.22, 1);
+}
 
+.canvas {
   font-family: var(--base-font-family);
   -webkit-text-size-adjust: 100%;
   line-height: 1.5;

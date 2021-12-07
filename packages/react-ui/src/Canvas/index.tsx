@@ -1,16 +1,32 @@
-import React, { ReactNode, useEffect } from 'react';
-import { RenderProperties, SizingUtilities } from 'datocms-plugin-sdk';
-import styles from './styles.module.css.json';
+import React, { createContext, ReactNode, useContext, useEffect } from 'react';
+import {
+  RenderMethods,
+  RenderProperties,
+  SizingUtilities,
+} from 'datocms-plugin-sdk';
+import s from './styles.module.css.json';
+import { generateStyleFromCtx } from '../generateStyleFromCtx';
+import classNames from 'classnames';
 
-function camelToDash(str: string) {
-  if (str != str.toLowerCase()) {
-    str = str.replace(/[A-Z]/g, (m) => '-' + m.toLowerCase());
+type BaseRenderPropertiesAndMethods = RenderProperties & RenderMethods;
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const CtxContext = createContext<BaseRenderPropertiesAndMethods | null>(
+  null,
+);
+
+export function useCtx<T extends BaseRenderPropertiesAndMethods>(): T {
+  const ctx = useContext(CtxContext);
+
+  if (!ctx) {
+    throw new Error('useCtx requires <Canvas />!');
   }
-  return str;
+
+  return ctx as T;
 }
 
 export type CanvasProps = {
-  ctx: RenderProperties;
+  ctx: BaseRenderPropertiesAndMethods;
   noAutoResizer?: boolean;
   children: ReactNode;
 };
@@ -527,23 +543,14 @@ export function Canvas({
     return undefined;
   }, [mode, noAutoResizer]);
 
-  const style = Object.entries(ctx.theme).reduce(
-    (acc, [k, v]) => {
-      return {
-        ...acc,
-        [`--${camelToDash(k)}`]: v,
-        [`--${camelToDash(`${k}RgbComponents`)}`]:
-          v.match(/rgb\((\d+, \d+, \d+)\)/)?.[1] || undefined,
-      };
-    },
-    {
-      padding: ctx.bodyPadding.map((p) => `${p}px`).join(' '),
-    },
-  );
-
   return (
-    <div className={styles.canvas} style={style}>
-      {children}
-    </div>
+    <CtxContext.Provider value={ctx}>
+      <div
+        className={classNames(s['themeVariables'], s['canvas'])}
+        style={generateStyleFromCtx(ctx)}
+      >
+        {children}
+      </div>
+    </CtxContext.Provider>
   );
 }

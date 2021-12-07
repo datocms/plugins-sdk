@@ -17,3 +17,5 @@ export * from './ButtonGroup';
 export * from './Toolbar';
 export * from './Spinner';
 export * from './SidebarPanel';
+export * from './Dropdown';
+export * from './icons';
