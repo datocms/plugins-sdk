@@ -1,0 +1,12 @@
+.Title {
+  font-weight: 500;
+  line-height: 1.1;
+  margin-right: 15px;
+  font-size: var(--font-size-l);
+}
+
+@media screen and (min-width: 380px) {
+  .Title {
+    font-size: var(--font-size-xl);
+  }
+}

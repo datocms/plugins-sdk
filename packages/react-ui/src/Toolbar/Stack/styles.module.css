@@ -1,0 +1,18 @@
+.Stack {
+  display: flex;
+  padding: 10px 15px;
+  flex: 1;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+}
+
+.Stack--s {
+  padding-top: var(--spacing-s);
+  padding-bottom: var(--spacing-s);
+}
+
+.Stack--l {
+  padding-left: var(--spacing-xl);
+  padding-right: var(--spacing-xl);
+}

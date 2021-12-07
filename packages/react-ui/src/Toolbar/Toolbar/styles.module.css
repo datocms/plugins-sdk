@@ -1,0 +1,15 @@
+.Toolbar {
+  display: flex;
+  border-bottom: 1px solid var(--border-color);
+  border-top: 1px solid var(--border-color);
+  align-items: stretch;
+  position: relative;
+}
+
+.Toolbar:first-child {
+  border-top-width: 0;
+}
+
+.Toolbar:last-child {
+  border-bottom-width: 0;
+}

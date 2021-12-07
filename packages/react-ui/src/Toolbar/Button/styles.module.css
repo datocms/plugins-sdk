@@ -1,0 +1,43 @@
+.Button {
+  font-family: inherit;
+  cursor: pointer;
+  line-height: inherit;
+  background-color: transparent;
+  color: var(--base-body-color);
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  box-sizing: border-box;
+  border: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 49px;
+  min-height: 49px;
+  border-left: 1px solid var(--border-color);
+  border-right: 1px solid var(--border-color);
+}
+
+.Button:hover,
+.Button:focus {
+  background-color: var(--light-bg-color);
+}
+
+.Button:first-child {
+  border-left: 0;
+}
+
+.Button:last-child {
+  border-right: 0;
+}
+
+@media screen and (min-width: 380px) {
+  .Button {
+    width: 59px;
+    min-height: 59px;
+  }
+
+  .Button svg {
+    font-size: 20px;
+  }
+}

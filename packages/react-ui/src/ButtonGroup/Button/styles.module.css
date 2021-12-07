@@ -1,0 +1,72 @@
+.Button {
+  font-family: inherit;
+  cursor: pointer;
+  line-height: inherit;
+  background-color: white;
+  color: var(--base-body-color);
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  font-size: inherit;
+  box-sizing: border-box;
+  border: 0;
+  padding: 0;
+  padding: 7px 13px;
+  border-right: 1px solid var(--border-color);
+  border: 1px solid var(--border-color);
+  border-left-width: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-column: center;
+  color: rgba(var(--base-body-color-rgb-components, 0.6));
+}
+
+.Button:hover {
+  background-color: var(--light-bg-color);
+}
+
+.Button svg {
+  fill: var(--light-body-color);
+}
+
+.Button--s {
+  padding: 3px 10px;
+}
+
+.Button--disabled {
+  cursor: not-allowed;
+  color: var(--light-body-color);
+}
+
+.Button--disabled:hover {
+  background: white;
+}
+
+.Button--selected {
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
+  color: white;
+}
+
+.Button--selected svg {
+  fill: white;
+}
+
+.Button--selected:hover {
+  background-color: var(--accent-color);
+}
+
+.Button--selected:hover,
+.Button--selected.Button--disabled {
+  background-color: rgba(var(--accent-color-rgb-components), 0.8);
+  border-color: rgba(var(--accent-color-rgb-components), 0.8);
+}
+
+.Button:first-child {
+  border-radius: 4px 0 0 4px;
+  border-left-width: 1px;
+}
+
+.Button:last-child {
+  border-radius: 0 4px 4px 0;
+}
