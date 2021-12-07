@@ -11,7 +11,7 @@ export default function ConfigScreen({ ctx }: Props) {
     <Canvas ctx={ctx}>
       <p>Welcome to your plugin! This is your config screen!</p>
       <div className={s.inspector}>
-        <ContextInspector ctx={ctx} />
+        <ContextInspector />
       </div>
     </Canvas>
   );

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from 'react';
-import { Button } from '..';
+import { Button, useCtx } from '..';
 import s from './styles.module.css.json';
 
 const baseUrl =
@@ -176,11 +176,8 @@ const ExpandablePane = ({ children, label }: any) => {
   );
 };
 
-export function ContextInspector({
-  ctx,
-}: {
-  ctx: { mode: string };
-}): JSX.Element {
+export function ContextInspector(): JSX.Element {
+  const ctx = useCtx();
   const [groups, setGroups] = useState<any[] | null>(null);
 
   useEffect(() => {
@@ -195,7 +192,7 @@ export function ContextInspector({
       );
 
       const hook = connectParameters.type.declaration.children.find(
-        (hook: any) => hook.signatures[0].name === ctx.mode,
+        (hook: any) => hook.signatures[0].name === (ctx as any).mode,
       );
 
       const signature = hook.signatures[0];
