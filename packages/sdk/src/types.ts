@@ -1177,6 +1177,21 @@ export type RenderPageMethods = RenderMethods & RenderPageAdditionalMethods;
 export type RenderPagePropertiesAndMethods = RenderPageMethods &
   RenderPageProperties;
 
+export type PendingField = {
+  id?: string;
+  type: 'field';
+  attributes: {
+    api_key: Field['attributes']['api_key'];
+    appearance: Field['attributes']['appearance'];
+    default_value: Field['attributes']['default_value'];
+    field_type: Field['attributes']['field_type'];
+    hint: Field['attributes']['hint'];
+    label: Field['attributes']['label'];
+    localized: Field['attributes']['localized'];
+    validators: Field['attributes']['validators'];
+  };
+};
+
 /**
  * Information regarding the specific form that you need to render to let the
  * end-user edit the configuration object of a field extension
@@ -1195,6 +1210,12 @@ export type RenderManualFieldExtensionConfigScreenAdditionalProperties = {
    * implementing the `validateManualFieldExtensionParameters` function)
    */
   errors: Record<string, unknown>;
+
+  /** The field entity that is being edited in the form */
+  pendingField: PendingField;
+
+  /** The model for the field being edited */
+  itemType: ModelBlock;
 };
 
 export type RenderManualFieldExtensionConfigScreenProperties = RenderProperties &
