@@ -131,7 +131,7 @@ export function Dropdown({
     (event) => {
       if (
         isClickOutsideEnabled.current &&
-        !event.target.closest(s['Dropdown__menu']) &&
+        !event.target.closest('.' + s['Dropdown__menu']) &&
         isOpen
       ) {
         setOpen(false);
