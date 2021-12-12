@@ -9,27 +9,23 @@ import {
   Site,
   SsoUser,
   Upload,
+  UploadCreateSchema,
   User,
 } from './SiteApiSchema';
 
-// /** A menu item displayed inside a custom tab in the top-bar of the UI */
-// export type MainNavigationTabItem = {
-//   /** Label to be shown. Must be unique. */
-//   label: string;
-//   /** FontAwesome icon name to be shown alongside the label */
-//   icon: string;
-//   /** ID of the page linked to the tab */
-//   pointsTo: {
-//     pageId: string;
-//   };
-// }
+export type Icon = string | { type: 'svg'; viewBox: string; content: string };
 
 /** A tab to be displayed in the top-bar of the UI */
 export type MainNavigationTab = {
   /** Label to be shown. Must be unique. */
   label: string;
-  /** FontAwesome icon name to be shown alongside the label */
-  icon: string;
+  /**
+   * Icon to be shown alongside the label. Can be a FontAwesome icon name (ie.
+   * `"address-book"`) or a custom SVG definition. To maintain visual
+   * consistency with the rest of the interface, try to use FontAwesome icons
+   * whenever possible.
+   */
+  icon: Icon;
   /** ID of the page linked to the tab */
   pointsTo: {
     pageId: string;
@@ -50,19 +46,19 @@ export type MainNavigationTab = {
    * clash with the one of another plugin! *
    */
   rank?: number;
-
-  // FUTURE
-
-  // /** The list of sub-items it contains **/
-  // items?: MainNavigationTabItem[];
 };
 
 /** An item contained in a Settings Area group */
 export type SettingsAreaSidebarItem = {
   /** Label to be shown. Must be unique. */
   label: string;
-  /** FontAwesome icon name to be shown alongside the label */
-  icon: string;
+  /**
+   * Icon to be shown alongside the label. Can be a FontAwesome icon name (ie.
+   * `"address-book"`) or a custom SVG definition. To maintain visual
+   * consistency with the rest of the interface, try to use FontAwesome icons
+   * whenever possible.
+   */
+  icon: Icon;
   /** ID of the page linked to the item */
   pointsTo: {
     pageId: string;
@@ -107,19 +103,6 @@ export type SettingsAreaSidebarItemGroup = {
   rank?: number;
 };
 
-// type ContentAreaSidebarItemChild = {
-//   /** Label to be shown. Must be unique. */
-//   label: string;
-//   /** FontAwesome icon name to be shown alongside the label */
-//   icon: string;
-//   /** ID of the page linked to the item */
-//   pointsTo: {
-//     pageId: string;
-//   };
-//   /** The list of sub-items it contains **/
-//   items?: ContentAreaSidebarItemChild[];
-// }
-
 /**
  * The sidebar in the Content Area presents a number of user-defined menu-items.
  * This object represents a new item to be added in the sidebar.
@@ -127,8 +110,13 @@ export type SettingsAreaSidebarItemGroup = {
 export type ContentAreaSidebarItem = {
   /** Label to be shown. Must be unique. */
   label: string;
-  /** FontAwesome icon name to be shown alongside the label */
-  icon: string;
+  /**
+   * Icon to be shown alongside the label. Can be a FontAwesome icon name (ie.
+   * `"address-book"`) or a custom SVG definition. To maintain visual
+   * consistency with the rest of the interface, try to use FontAwesome icons
+   * whenever possible.
+   */
+  icon: Icon;
   /** ID of the page linked to the item */
   pointsTo: {
     pageId: string;
@@ -147,11 +135,6 @@ export type ContentAreaSidebarItem = {
    * might clash with the one of another plugin! *
    */
   rank?: number;
-
-  // FUTURE
-
-  // /** The list of sub-items it contains **/
-  // items?: ContentAreaSidebarItemChild[];
 };
 
 export type FieldExtensionType = 'editor' | 'addon';
@@ -344,6 +327,29 @@ export type Modal = {
   parameters?: Record<string, unknown>;
   /** The initial height to set for the iframe that will render the modal content */
   initialHeight?: number;
+};
+
+/** An additional asset source */
+export type AssetSource = {
+  /**
+   * ID of the asset source. Will be the first argument for the
+   * `renderAssetSource` function
+   */
+  id: string;
+  /** Name of the asset that will be shown to the user */
+  name: string;
+  /**
+   * Icon to be shown alongside the name. Can be a FontAwesome icon name (ie.
+   * `"address-book"`) or a custom SVG definition. To maintain visual
+   * consistency with the rest of the interface, try to use FontAwesome icons
+   * whenever possible.
+   */
+  icon: Icon;
+  /**
+   * Configuration options for the modal that will be opened to select a media
+   * file from this source
+   */
+  modal: Pick<Modal, 'width' | 'initialHeight'>;
 };
 
 /** A toast notification to present to the user */
@@ -1157,6 +1163,99 @@ export type RenderModalMethods = RenderMethods &
 
 export type RenderModalPropertiesAndMethods = RenderModalMethods &
   RenderModalProperties;
+
+/** Information regarding the specific asset source browser that you need to render */
+export type RenderAssetSourceAdditionalProperties = {
+  mode: 'renderAssetSource';
+  /** The ID of the assetSource that needs to be rendered */
+  assetSourceId: string;
+};
+
+export type RenderAssetSourceProperties = RenderProperties &
+  RenderAssetSourceAdditionalProperties;
+
+export type NewUploadResourceAsUrl = {
+  /**
+   * URL for the resource. The URL must respond with a
+   * `Access-Control-Allow-Origin` header — for instance `*`, which will allow
+   * all hosts — allowing the image to be read by DatoCMS
+   */
+  url: string;
+  /**
+   * Optional filename to be used to generate the final DatoCMS URL. If not
+   * passed, the URL will be used
+   */
+  filename?: string;
+};
+
+export type NewUploadResourceAsBase64 = {
+  /**
+   * Base64 encoded data URI for the resource.
+   *
+   * Format:
+   *
+   * `data:[<mime type>][;charset=<charset>];base64,<encoded data>`
+   */
+  base64: string;
+  /** Filename to be used to generate the final DatoCMS URL */
+  filename: string;
+};
+
+export type NewUpload = {
+  /** The actual resource that will be uploaded */
+  resource: NewUploadResourceAsUrl | NewUploadResourceAsBase64;
+  /** Copyright to apply to the asset */
+  copyright?: string;
+  /** Author to apply to the asset */
+  author?: string;
+  /** Notes to apply to the asset */
+  notes?: string;
+  /** Tags to apply to the asset */
+  tags?: string[];
+  /**
+   * An hash containing, for each locale of the project, the default metadata to
+   * apply to the asset
+   */
+  defaultFieldMetadata?: NonNullable<
+    Record<
+      string,
+      UploadCreateSchema['data']['attributes']['default_field_metadata']
+    >
+  >;
+};
+
+/** Use these methods to confirm */
+export type RenderAssetSourceAdditionalMethods = {
+  getSettings: () => Promise<RenderAssetSourceProperties>;
+  /**
+   * Function to be called when the user selects the asset: it will trigger the
+   * creation of a new `Upload` that will be added in the Media Area.
+   *
+   * @example
+   *
+   * ```js
+   * await ctx.select({
+   *   resource: {
+   *     url:
+   *       'https://images.unsplash.com/photo-1416339306562-f3d12fefd36f',
+   *     filename: 'man-drinking-coffee.jpg',
+   *   },
+   *   copyright: 'Royalty free (Unsplash)',
+   *   author: 'Jeff Sheldon',
+   *   notes: 'A man drinking a coffee',
+   *   tags: ['man', 'coffee'],
+   * });
+   * ```
+   */
+  select: (newUpload: NewUpload) => Promise<void>;
+};
+
+export type RenderAssetSourceMethods = RenderMethods &
+  IframeMethods &
+  RenderAssetSourceAdditionalMethods;
+
+export type RenderAssetSourcePropertiesAndMethods = RenderAssetSourceMethods &
+  RenderAssetSourceProperties;
 
 /** Information regarding the specific page that you need to render */
 export type RenderPageAdditionalProperties = {
