@@ -31,10 +31,6 @@ export const isRenderModalParent = buildGuard<RenderModalMethods>(
   'renderModal',
 );
 
-export const isRenderAssetSourceParent = buildGuard<RenderAssetSourceMethods>(
-  'renderAssetSource',
-);
-
 export const isRenderSidebarPaneParent = buildGuard<RenderSidebarPanelMethods>(
   'renderItemFormSidebarPanel',
 );
@@ -45,4 +41,8 @@ export const isRenderFieldExtensionParent = buildGuard<RenderFieldExtensionMetho
 
 export const isRenderManualFieldExtensionConfigScreenParent = buildGuard<RenderManualFieldExtensionConfigScreenMethods>(
   'renderManualFieldExtensionConfigScreen',
+);
+
+export const isRenderAssetSourceParent = buildGuard<RenderAssetSourceMethods>(
+  'renderAssetSource',
 );
