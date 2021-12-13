@@ -349,7 +349,7 @@ export type AssetSource = {
    * Configuration options for the modal that will be opened to select a media
    * file from this source
    */
-  modal: Pick<Modal, 'width' | 'initialHeight'>;
+  modal?: Pick<Modal, 'width' | 'initialHeight'>;
 };
 
 /** A toast notification to present to the user */

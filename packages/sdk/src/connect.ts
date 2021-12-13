@@ -308,6 +308,7 @@ export async function connect(
   configuration: Partial<FullConnectParameters> = {},
 ): Promise<void> {
   const {
+    assetSources,
     mainNavigationTabs,
     settingsAreaSidebarItemGroups,
     contentAreaSidebarItems,
@@ -331,6 +332,7 @@ export async function connect(
             return [key, value];
           }),
         ),
+      assetSources,
       mainNavigationTabs,
       settingsAreaSidebarItemGroups,
       contentAreaSidebarItems,
