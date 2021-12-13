@@ -349,7 +349,12 @@ export type AssetSource = {
    * Configuration options for the modal that will be opened to select a media
    * file from this source
    */
-  modal?: Pick<Modal, 'width' | 'initialHeight'>;
+  modal?: {
+    /** Width of the modal. Can be a number, or one of the predefined sizes */
+    width?: 's' | 'm' | 'l' | 'xl' | number;
+    /** The initial height to set for the iframe that will render the modal content */
+    initialHeight?: number;
+  };
 };
 
 /** A toast notification to present to the user */
@@ -1247,7 +1252,7 @@ export type RenderAssetSourceAdditionalMethods = {
    * });
    * ```
    */
-  select: (newUpload: NewUpload) => Promise<void>;
+  select: (newUpload: NewUpload) => void;
 };
 
 export type RenderAssetSourceMethods = RenderMethods &
