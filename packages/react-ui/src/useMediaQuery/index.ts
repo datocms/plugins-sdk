@@ -86,9 +86,9 @@ const supportsBorderBox = (() => {
   try {
     observer.observe(e, { box: 'border-box' });
     observer.unobserve(e);
-    return false;
-  } catch (error) {
     return true;
+  } catch (error) {
+    return false;
   } finally {
     document.body.removeChild(e);
   }
@@ -150,7 +150,7 @@ function getResizeObserver(): ResizeObserver | undefined {
 }
 
 export function useElementLayout(
-  ref: React.MutableRefObject<Element>,
+  ref: React.MutableRefObject<Element> | React.RefObject<Element>,
 ): DOMRect {
   const observer = getResizeObserver();
   const [rect, setRect] = React.useState(new DOMRect());
