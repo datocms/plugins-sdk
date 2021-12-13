@@ -9,7 +9,6 @@ import {
   Site,
   SsoUser,
   Upload,
-  UploadCreateSchema,
   User,
 } from './SiteApiSchema';
 
