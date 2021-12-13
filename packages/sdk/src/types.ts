@@ -1221,12 +1221,7 @@ export type NewUpload = {
    * An hash containing, for each locale of the project, the default metadata to
    * apply to the asset
    */
-  defaultFieldMetadata?: NonNullable<
-    Record<
-      string,
-      UploadCreateSchema['data']['attributes']['default_field_metadata']
-    >
-  >;
+  default_field_metadata?: UploadCreateSchema['data']['attributes']['default_field_metadata'];
 };
 
 /** Use these methods to confirm */
