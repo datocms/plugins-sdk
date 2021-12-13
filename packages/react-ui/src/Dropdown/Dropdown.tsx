@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { MediaQuery } from '../useMediaQuery';
-import useClickOutside from '../useClickOutside';
+import { useClickOutside } from '../useClickOutside';
 import { DropdownContext } from './DropdownContext';
 import s from './styles.module.css.json';
 
