@@ -1221,7 +1221,25 @@ export type NewUpload = {
    * An hash containing, for each locale of the project, the default metadata to
    * apply to the asset
    */
-  default_field_metadata?: UploadCreateSchema['data']['attributes']['default_field_metadata'];
+  default_field_metadata?: {
+    [k: string]: {
+      /** Alternate text for the asset */
+      alt: string | null;
+      /** Title for the asset */
+      title: string | null;
+      /** Object with arbitrary metadata */
+      custom_data: {
+        [k: string]: unknown;
+      };
+      /** Focal point (only for image assets) */
+      focal_point?: {
+        /** Horizontal position expressed as float between 0 and 1 */
+        x: number;
+        /** Vertical position expressed as float between 0 and 1 */
+        y: number;
+      } | null;
+    };
+  };
 };
 
 /** Use these methods to confirm */
