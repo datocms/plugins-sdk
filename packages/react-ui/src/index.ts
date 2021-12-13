@@ -18,4 +18,5 @@ export * from './Toolbar';
 export * from './Spinner';
 export * from './SidebarPanel';
 export * from './Dropdown';
+export * from './useMediaQuery';
 export * from './icons';
