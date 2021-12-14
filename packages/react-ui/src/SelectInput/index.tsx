@@ -84,6 +84,7 @@ const useStyles = (isDisabled?: boolean, error?: boolean) => {
       menu: (provided) => {
         return {
           ...provided,
+          zIndex: 1000,
           minWidth: 250,
         };
       },
@@ -101,7 +102,7 @@ const useStyles = (isDisabled?: boolean, error?: boolean) => {
       multiValue: (provided) => {
         return {
           ...provided,
-          zIndex: 100000,
+          zIndex: 100,
           backgroundColor: 'var(--light-color)',
         };
       },
