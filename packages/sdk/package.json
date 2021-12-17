@@ -20,7 +20,7 @@
   },
   "files": [
     "dist",
-    "sistema",
+    "src",
     "types.json"
   ],
   "repository": {
