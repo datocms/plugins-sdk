@@ -956,6 +956,8 @@ export type IframeMethods = {
 export type RenderMethods = LoadDataMethods &
   UpdateParametersMethods &
   ToastMethods &
+  ItemDialogMethods &
+  UploadDialogMethods &
   CustomDialogMethods &
   NavigateMethods;
 
