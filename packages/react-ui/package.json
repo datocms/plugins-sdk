@@ -19,6 +19,7 @@
     "test": "__tests__"
   },
   "files": [
+    "src",
     "dist",
     "styles.css",
     "types.json"
