@@ -3,4 +3,12 @@
   line-height: 1.2;
   font-size: var(--font-size-xs);
   margin-top: var(--spacing-s);
+
+  a {
+    color: inherit;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
 }
