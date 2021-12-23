@@ -1,12 +1,5 @@
 import React, { ReactNode } from 'react';
-import {
-  FieldError,
-  FieldHint,
-  FormLabel,
-  FormLabelProps,
-  TextInput,
-  TextInputProps,
-} from '..';
+import { FieldWrapper, FormLabelProps, TextInput, TextInputProps } from '..';
 
 type TextFieldProps = {
   id: string;
@@ -36,11 +29,14 @@ export function TextField({
   textInputProps,
 }: TextFieldProps): JSX.Element {
   return (
-    <>
-      <FormLabel {...formLabelProps} htmlFor={id} required={required} error={!!error}>
-        {label}
-      </FormLabel>
-
+    <FieldWrapper
+      formLabelProps={formLabelProps}
+      id={id}
+      required={required}
+      error={error}
+      hint={hint}
+      label={label}
+    >
       <TextInput
         {...textInputProps}
         id={id}
@@ -50,9 +46,6 @@ export function TextField({
         onChange={onChange}
         error={!!error}
       />
-
-      {error && <FieldError>{error}</FieldError>}
-      {hint && <FieldHint>{hint}</FieldHint>}
-    </>
+    </FieldWrapper>
   );
 }

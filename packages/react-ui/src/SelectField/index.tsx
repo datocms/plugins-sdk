@@ -6,9 +6,7 @@ import {
   AsyncSelectInputProps,
   CreatableSelectInput,
   CreatableSelectInputProps,
-  FieldError,
-  FieldHint,
-  FormLabel,
+  FieldWrapper,
   FormLabelProps,
   SelectInput,
   SelectInputProps,
@@ -51,11 +49,14 @@ export function SelectField<
   selectInputProps,
 }: SelectFieldProps<Option, IsMulti, Group>): JSX.Element {
   return (
-    <>
-      <FormLabel {...formLabelProps} htmlFor={id} required={required} error={!!error}>
-        {label}
-      </FormLabel>
-
+    <FieldWrapper
+      formLabelProps={formLabelProps}
+      id="id"
+      required={required}
+      error={error}
+      hint={hint}
+      label={label}
+    >
       <SelectInput<Option, IsMulti, Group>
         {...selectInputProps}
         id={id}
@@ -65,10 +66,7 @@ export function SelectField<
         onChange={onChange}
         error={!!error}
       />
-
-      {error && <FieldError>{error}</FieldError>}
-      {hint && <FieldHint>{hint}</FieldHint>}
-    </>
+    </FieldWrapper>
   );
 }
 
@@ -108,11 +106,14 @@ export function AsyncSelectField<
   selectInputProps,
 }: AsyncSelectFieldProps<Option, IsMulti, Group>): JSX.Element {
   return (
-    <>
-      <FormLabel {...formLabelProps} htmlFor={id} required={required} error={!!error}>
-        {label}
-      </FormLabel>
-
+    <FieldWrapper
+      formLabelProps={formLabelProps}
+      id="id"
+      required={required}
+      error={error}
+      hint={hint}
+      label={label}
+    >
       <AsyncSelectInput<Option, IsMulti, Group>
         {...selectInputProps}
         id={id}
@@ -122,10 +123,7 @@ export function AsyncSelectField<
         onChange={onChange}
         error={!!error}
       />
-
-      {error && <FieldError>{error}</FieldError>}
-      {hint && <FieldHint>{hint}</FieldHint>}
-    </>
+    </FieldWrapper>
   );
 }
 
@@ -165,11 +163,14 @@ export function CreatableSelectField<
   selectInputProps,
 }: CreatableSelectFieldProps<Option, IsMulti, Group>): JSX.Element {
   return (
-    <>
-      <FormLabel {...formLabelProps} htmlFor={id} required={required} error={!!error}>
-        {label}
-      </FormLabel>
-
+    <FieldWrapper
+      formLabelProps={formLabelProps}
+      id="id"
+      required={required}
+      error={error}
+      hint={hint}
+      label={label}
+    >
       <CreatableSelectInput<Option, IsMulti, Group>
         {...selectInputProps}
         id={id}
@@ -179,10 +180,7 @@ export function CreatableSelectField<
         onChange={onChange}
         error={!!error}
       />
-
-      {error && <FieldError>{error}</FieldError>}
-      {hint && <FieldHint>{hint}</FieldHint>}
-    </>
+    </FieldWrapper>
   );
 }
 
@@ -222,11 +220,14 @@ export function AsyncCreatableSelectField<
   selectInputProps,
 }: AsyncCreatableSelectFieldProps<Option, IsMulti, Group>): JSX.Element {
   return (
-    <>
-      <FormLabel {...formLabelProps} htmlFor={id} required={required} error={!!error}>
-        {label}
-      </FormLabel>
-
+    <FieldWrapper
+      formLabelProps={formLabelProps}
+      id="id"
+      required={required}
+      error={error}
+      hint={hint}
+      label={label}
+    >
       <AsyncCreatableSelectInput<Option, IsMulti, Group>
         {...selectInputProps}
         id={id}
@@ -236,9 +237,6 @@ export function AsyncCreatableSelectField<
         onChange={onChange}
         error={!!error}
       />
-
-      {error && <FieldError>{error}</FieldError>}
-      {hint && <FieldHint>{hint}</FieldHint>}
-    </>
+    </FieldWrapper>
   );
 }

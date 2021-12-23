@@ -7,6 +7,7 @@ export * from './FieldError';
 export * from './FieldGroup';
 export * from './FieldHint';
 export * from './Form';
+export * from './FieldWrapper';
 export * from './FormLabel';
 export * from './icons';
 export * from './Section';
