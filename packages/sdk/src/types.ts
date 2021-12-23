@@ -1,6 +1,7 @@
 import {
   Account,
   Field,
+  Fieldset,
   Item,
   ModelBlock,
   Plugin,
@@ -460,6 +461,14 @@ export type RenderAdditionalProperties = {
    * to load them.
    */
   fields: Partial<Record<string, Field>>;
+  /**
+   * All the fieldsets currently loaded for the current DatoCMS project, indexed
+   * by ID. It will always contain the current model fields and all the fields
+   * of the blocks it might contain via Modular Content/Structured Text fields.
+   * If some fields you need are not present, use the `loadItemTypeFieldsets`
+   * function to load them.
+   */
+  fieldsets: Partial<Record<string, Fieldset>>;
   /** An object containing the theme colors for the current DatoCMS project */
   theme: Theme;
   /**
@@ -613,6 +622,25 @@ export type LoadDataMethods = {
    * ```
    */
   loadItemTypeFields: (itemTypeId: string) => Promise<Field[]>;
+  /**
+   * Loads all the fieldsets for a specific model (or block). Fieldsets will be
+   * returned and will also be available in the the `fieldsets` property.
+   *
+   * @example
+   *
+   * ```js
+   * const itemTypeId = prompt('Please insert a model ID:');
+   *
+   * const fieldsets = await ctx.loadItemTypeFieldsets(itemTypeId);
+   *
+   * ctx.notice(
+   *   `Success! ${fieldsets
+   *     .map((fieldset) => fieldset.attributes.title)
+   *     .join(', ')}`,
+   * );
+   * ```
+   */
+  loadItemTypeFieldsets: (itemTypeId: string) => Promise<Fieldset[]>;
   /**
    * Loads all the fields in the project that are currently using the plugin for
    * one of its manual field extensions.
