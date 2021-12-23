@@ -164,7 +164,7 @@ export type ManualFieldExtension = {
    */
   asSidebarPanel?: boolean | { startOpen: boolean };
   /** The type of fields that the field extension in compatible with */
-  fieldTypes: NonNullable<PluginAttributes['field_types']>;
+  fieldTypes: NonNullable<PluginAttributes['field_types']> | 'all';
   /**
    * Whether this field extension needs some configuration options before being
    * installed in a field or not. Will trigger the
