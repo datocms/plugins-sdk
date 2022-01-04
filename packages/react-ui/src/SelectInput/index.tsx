@@ -104,6 +104,7 @@ const useStyles = (isDisabled?: boolean, error?: boolean) => {
           ...provided,
           zIndex: 100,
           backgroundColor: 'var(--light-color)',
+          userSelect: 'none',
         };
       },
       multiValueLabel: (provided) => ({
