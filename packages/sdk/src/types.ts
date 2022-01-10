@@ -5,7 +5,6 @@ import {
   Item,
   ModelBlock,
   Plugin,
-  PluginAttributes,
   Role,
   Site,
   SsoUser,
@@ -139,6 +138,27 @@ export type ContentAreaSidebarItem = {
 
 export type FieldExtensionType = 'editor' | 'addon';
 
+export type FieldType =
+  | 'boolean'
+  | 'color'
+  | 'date_time'
+  | 'date'
+  | 'file'
+  | 'float'
+  | 'gallery'
+  | 'integer'
+  | 'json'
+  | 'lat_lon'
+  | 'link'
+  | 'links'
+  | 'rich_text'
+  | 'seo'
+  | 'slug'
+  | 'string'
+  | 'structured_text'
+  | 'text'
+  | 'video';
+
 /**
  * Field extensions extend the basic functionality of DatoCMS when it comes to
  * presenting record's fields to the final user. Depending on the extension type
@@ -164,8 +184,11 @@ export type ManualFieldExtension = {
    * editing page, mimicking a sidebar panel
    */
   asSidebarPanel?: boolean | { startOpen: boolean };
-  /** The type of fields that the field extension in compatible with */
-  fieldTypes: NonNullable<PluginAttributes['field_types']> | 'all';
+  /**
+   * The type of fields that the field extension in compatible with. You can use
+   * the shortcut `all` to target all types of fields
+   */
+  fieldTypes: 'all' | FieldType[];
   /**
    * Whether this field extension needs some configuration options before being
    * installed in a field or not. Will trigger the
