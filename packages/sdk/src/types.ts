@@ -291,6 +291,25 @@ export type AddonOverride = {
   initialHeight?: number;
 };
 
+/** An object expressing a custom mark for a Structured Text field */
+export type StructuredTextCustomMark = {
+  /** ID of mark */
+  id: string;
+  toolbar: {
+    /** Label to be shown on the toolbar */
+    label: string;
+    /**
+     * Icon to be shown alongside the label. Can be a FontAwesome icon name (ie.
+     * `"address-book"`) or a custom SVG definition. To maintain visual
+     * consistency with the rest of the interface, try to use FontAwesome icons
+     * whenever possible.
+     */
+    icon: Icon;
+  };
+  /** How the custom mark will be styled inside the editor */
+  appliedStyle: React.CSSProperties;
+};
+
 /** An object expressing some field extensions you want to force on a particular field */
 export type FieldExtensionOverride = {
   /** Force a field editor/sidebar extension on a field */
