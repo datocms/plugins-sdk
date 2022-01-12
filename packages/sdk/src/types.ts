@@ -1,11 +1,4 @@
-import {
-  BlockquoteType,
-  CodeType,
-  HeadingType,
-  ListType,
-  ParagraphType,
-  ThematicBreakType,
-} from 'datocms-structured-text-utils';
+import { BlockNodeTypeWithCustomStyle } from 'datocms-structured-text-utils';
 
 import {
   Account,
@@ -348,13 +341,7 @@ export type StructuredTextCustomBlockStyle = {
   /** ID of custom block style */
   id: string;
   /** The block node that can apply this style */
-  node:
-    | ParagraphType
-    | HeadingType
-    | ListType
-    | BlockquoteType
-    | CodeType
-    | ThematicBreakType;
+  node: BlockNodeTypeWithCustomStyle;
   /** ID of custom block style */
   label: string;
   /** How the block will be styled inside the editor to represent the style */
