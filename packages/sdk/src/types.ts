@@ -1111,7 +1111,7 @@ export type ItemFormAdditionalMethods = {
    * await ctx.saveCurrentItem();
    * ```
    */
-  saveCurrentItem: () => Promise<void>;
+  saveCurrentItem: (showToast?: boolean) => Promise<void>;
 };
 
 export type ItemFormMethods = RenderMethods &
