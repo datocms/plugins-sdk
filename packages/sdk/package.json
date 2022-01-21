@@ -36,7 +36,8 @@
     "url": "https://github.com/datocms/plugins-sdk/issues"
   },
   "dependencies": {
-    "penpal": "^4.1.1"
+    "penpal": "^4.1.1",
+    "datocms-structured-text-utils": "^2.0.0"
   },
   "devDependencies": {
     "typedoc": "^0.22.8"

@@ -38,6 +38,7 @@ import {
   isRenderSidebarPaneParent,
   Parent,
 } from './guards';
+import { StructuredTextCustomBlockStyle, StructuredTextCustomMark } from '.';
 
 export type SizingUtilities = {
   /**
@@ -139,6 +140,29 @@ export type FullConnectParameters = {
     field: Field,
     ctx: FieldIntentCtx,
   ) => FieldExtensionOverride | void;
+
+  /**
+   * Use this function to define a number of custom marks for a specific
+   * Structured Text field
+   *
+   * @group structuredText
+   */
+  customMarksForStructuredTextField: (
+    field: Field,
+    ctx: FieldIntentCtx,
+  ) => StructuredTextCustomMark[] | void;
+
+  /**
+   * Use this function to define a number of custom block styles for a specific
+   * Structured Text field
+   *
+   * @group structuredText
+   */
+  customBlockStylesForStructuredTextField: (
+    field: Field,
+    ctx: FieldIntentCtx,
+  ) => StructuredTextCustomBlockStyle[] | void;
+
   /**
    * This function will be called when the plugin needs to render the plugin's
    * configuration form
@@ -340,6 +364,12 @@ export async function connect(
       itemFormSidebarPanels,
       overrideFieldExtensions: toMultifield(
         configuration.overrideFieldExtensions,
+      ),
+      customMarksForStructuredTextField: toMultifield(
+        configuration.customMarksForStructuredTextField,
+      ),
+      customBlockStylesForStructuredTextField: toMultifield(
+        configuration.customBlockStylesForStructuredTextField,
       ),
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       onChange(newSettings: any) {
