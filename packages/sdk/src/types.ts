@@ -252,7 +252,7 @@ export type ItemFormOutlet = {
    * value you choose might clash with the one of another plugin!
    */
   rank?: number;
-  /** The initial height to set for the iframe that will render the sidebar panel */
+  /** The initial height to set for the iframe that will render the outlet */
   initialHeight?: number;
 };
 
