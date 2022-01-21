@@ -1222,11 +1222,9 @@ export type RenderSidebarPanelPropertiesAndMethods = RenderSidebarPanelMethods &
 
 /** Information regarding the specific outlet that you need to render */
 export type RenderItemFormOutletAdditionalProperties = {
-  mode: 'renderItemFormItemFormOutlet';
+  mode: 'renderItemFormOutlet';
   /** The ID of the outlet that needs to be rendered */
   itemFormOutletId: string;
-  /** The arbitrary `parameters` of the panel declared in the `itemFormOutlets` function */
-  parameters: Record<string, unknown>;
 };
 
 export type RenderItemFormOutletProperties = ItemFormProperties &
