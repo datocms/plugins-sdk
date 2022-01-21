@@ -1,3 +1,4 @@
+import { RenderItemFormOutletMethods } from '.';
 import {
   InitMethods,
   OnBootMethods,
@@ -31,8 +32,12 @@ export const isRenderModalParent = buildGuard<RenderModalMethods>(
   'renderModal',
 );
 
-export const isRenderSidebarPaneParent = buildGuard<RenderSidebarPanelMethods>(
+export const isRenderSidebarPanelParent = buildGuard<RenderSidebarPanelMethods>(
   'renderItemFormSidebarPanel',
+);
+
+export const isRenderItemFormOutletParent = buildGuard<RenderItemFormOutletMethods>(
+  'renderItemFormOutlet',
 );
 
 export const isRenderFieldExtensionParent = buildGuard<RenderFieldExtensionMethods>(

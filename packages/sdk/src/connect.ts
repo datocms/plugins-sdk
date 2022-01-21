@@ -23,7 +23,7 @@ import {
   RenderPageMethods,
   RenderPagePropertiesAndMethods,
   RenderSidebarPanelMethods,
-  RenderSidebarPanePropertiesAndMethods,
+  RenderSidebarPanelPropertiesAndMethods,
   SettingsAreaSidebarItemGroup,
 } from './types';
 import {
@@ -32,13 +32,20 @@ import {
   isRenderAssetSourceParent,
   isRenderConfigScreenParent,
   isRenderFieldExtensionParent,
+  isRenderItemFormOutletParent,
   isRenderManualFieldExtensionConfigScreenParent,
   isRenderModalParent,
   isRenderPageParent,
-  isRenderSidebarPaneParent,
+  isRenderSidebarPanelParent,
   Parent,
 } from './guards';
-import { StructuredTextCustomBlockStyle, StructuredTextCustomMark } from '.';
+import {
+  ItemFormOutlet,
+  RenderItemFormOutletMethods,
+  RenderItemFormOutletPropertiesAndMethods,
+  StructuredTextCustomBlockStyle,
+  StructuredTextCustomMark,
+} from '.';
 
 export type SizingUtilities = {
   /**
@@ -68,7 +75,9 @@ export type RenderPageCtx = RenderPagePropertiesAndMethods;
 export type RenderModalCtx = RenderModalPropertiesAndMethods & SizingUtilities;
 export type RenderAssetSourceCtx = RenderAssetSourcePropertiesAndMethods &
   SizingUtilities;
-export type RenderItemFormSidebarPanelCtx = RenderSidebarPanePropertiesAndMethods &
+export type RenderItemFormSidebarPanelCtx = RenderSidebarPanelPropertiesAndMethods &
+  SizingUtilities;
+export type RenderItemFormOutletCtx = RenderItemFormOutletPropertiesAndMethods &
   SizingUtilities;
 export type RenderFieldExtensionCtx = RenderFieldExtensionPropertiesAndMethods &
   SizingUtilities;
@@ -130,6 +139,15 @@ export type FullConnectParameters = {
     itemType: ModelBlock,
     ctx: IntentCtx,
   ) => ItemFormSidebarPanel[];
+
+  /**
+   * Use this function to declare custom outlets to be shown at the top of the
+   * record's editing page
+   *
+   * @group sidebarPanels
+   */
+  itemFormOutlets: (itemType: ModelBlock, ctx: IntentCtx) => ItemFormOutlet[];
+
   /**
    * Use this function to automatically force one or more field extensions to a
    * particular field
@@ -194,6 +212,16 @@ export type FullConnectParameters = {
   renderItemFormSidebarPanel: (
     sidebarPaneId: string,
     ctx: RenderItemFormSidebarPanelCtx,
+  ) => void;
+  /**
+   * This function will be called when the plugin needs to render an outlet (see
+   * the `itemFormOutlets` function)
+   *
+   * @group sidebarPanels
+   */
+  renderItemFormOutlet: (
+    itemFormOutletId: string,
+    ctx: RenderItemFormOutletCtx,
   ) => void;
   /**
    * This function will be called when the user selects one of the plugin's
@@ -338,6 +366,7 @@ export async function connect(
     contentAreaSidebarItems,
     manualFieldExtensions,
     itemFormSidebarPanels,
+    itemFormOutlets,
   } = configuration;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -362,6 +391,7 @@ export async function connect(
       contentAreaSidebarItems,
       manualFieldExtensions,
       itemFormSidebarPanels,
+      itemFormOutlets,
       overrideFieldExtensions: toMultifield(
         configuration.overrideFieldExtensions,
       ),
@@ -487,7 +517,7 @@ export async function connect(
     render(initialSettings as Settings);
   }
 
-  if (isRenderSidebarPaneParent(parent, initialSettings)) {
+  if (isRenderSidebarPanelParent(parent, initialSettings)) {
     type Settings = AsyncReturnType<RenderSidebarPanelMethods['getSettings']>;
 
     const renderUtils = buildRenderUtils(parent);
@@ -498,6 +528,27 @@ export async function connect(
       }
 
       configuration.renderItemFormSidebarPanel(settings.sidebarPaneId, {
+        ...parent,
+        ...settings,
+        ...renderUtils,
+      });
+    };
+
+    listener = render;
+    render(initialSettings as Settings);
+  }
+
+  if (isRenderItemFormOutletParent(parent, initialSettings)) {
+    type Settings = AsyncReturnType<RenderItemFormOutletMethods['getSettings']>;
+
+    const renderUtils = buildRenderUtils(parent);
+
+    const render = (settings: Settings) => {
+      if (!configuration.renderItemFormOutlet) {
+        return;
+      }
+
+      configuration.renderItemFormOutlet(settings.itemFormOutletId, {
         ...parent,
         ...settings,
         ...renderUtils,

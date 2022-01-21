@@ -99,7 +99,7 @@ export type SettingsAreaSidebarItemGroup = {
    * will be displayed by ascending `rank`. If you want to specify an explicit
    * value for `rank`, make sure to offer a way for final users to customize it
    * inside the plugin's settings form, otherwise the hardcoded value you choose
-   * might clash with the one of another plugin! *
+   * might clash with the one of another plugin!
    */
   rank?: number;
 };
@@ -133,7 +133,7 @@ export type ContentAreaSidebarItem = {
    * will be displayed by ascending `rank`. If you want to specify an explicit
    * value for `rank`, make sure to offer a way for final users to customize it
    * inside the plugin's settings form, otherwise the hardcoded value you choose
-   * might clash with the one of another plugin! *
+   * might clash with the one of another plugin!
    */
   rank?: number;
 };
@@ -234,7 +234,22 @@ export type ItemFormSidebarPanel = {
    * sorted by ascending `rank`. If you want to specify an explicit value for
    * `rank`, make sure to offer a way for final users to customize it inside the
    * plugin's settings form, otherwise the hardcoded value you choose might
-   * clash with the one of another plugin! *
+   * clash with the one of another plugin!
+   */
+  rank?: number;
+  /** The initial height to set for the iframe that will render the sidebar panel */
+  initialHeight?: number;
+};
+
+/** An outlet to be shown at the top of a record's editing page */
+export type ItemFormOutlet = {
+  /** ID of the outlet. Will be the first argument for the `renderItemFormOutlet` function */
+  id: string;
+  /**
+   * Multiple outlets will be sorted by ascending `rank`. If you want to specify
+   * an explicit value for `rank`, make sure to offer a way for final users to
+   * customize it inside the plugin's settings form, otherwise the hardcoded
+   * value you choose might clash with the one of another plugin!
    */
   rank?: number;
   /** The initial height to set for the iframe that will render the sidebar panel */
@@ -262,7 +277,7 @@ export type EditorOverride = {
    * win. If you want to specify an explicit value for `rank`, make sure to
    * offer a way for final users to customize it inside the plugin's settings
    * form, otherwise the hardcoded value you choose might clash with the one of
-   * another plugin! *
+   * another plugin!
    */
   rank?: number;
   /** The initial height to set for the iframe that will render the field extension */
@@ -286,7 +301,7 @@ export type AddonOverride = {
    * ascending `rank`. If you want to specify an explicit value for `rank`, make
    * sure to offer a way for final users to customize it inside the plugin's
    * settings form, otherwise the hardcoded value you choose might clash with
-   * the one of another plugin! *
+   * the one of another plugin!
    */
   rank?: number;
   /** The initial height to set for the iframe that will render the field extension */
@@ -1202,8 +1217,28 @@ export type RenderSidebarPanelAdditionalMethods = {
 export type RenderSidebarPanelMethods = ItemFormMethods &
   RenderSidebarPanelAdditionalMethods;
 
-export type RenderSidebarPanePropertiesAndMethods = RenderSidebarPanelMethods &
+export type RenderSidebarPanelPropertiesAndMethods = RenderSidebarPanelMethods &
   RenderSidebarPanelProperties;
+
+/** Information regarding the specific outlet that you need to render */
+export type RenderItemFormOutletAdditionalProperties = {
+  mode: 'renderItemFormOutlet';
+  /** The ID of the outlet that needs to be rendered */
+  itemFormOutletId: string;
+};
+
+export type RenderItemFormOutletProperties = ItemFormProperties &
+  RenderItemFormOutletAdditionalProperties;
+
+export type RenderItemFormOutletAdditionalMethods = {
+  getSettings: () => Promise<RenderItemFormOutletProperties>;
+};
+
+export type RenderItemFormOutletMethods = ItemFormMethods &
+  RenderItemFormOutletAdditionalMethods;
+
+export type RenderItemFormOutletPropertiesAndMethods = RenderItemFormOutletMethods &
+  RenderItemFormOutletProperties;
 
 /**
  * Information regarding the state of a specific field where you need to render
