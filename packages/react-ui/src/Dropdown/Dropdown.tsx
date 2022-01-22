@@ -120,24 +120,15 @@ export function Dropdown({
   renderTrigger,
   children,
 }: DropdownProps): JSX.Element {
-  const isClickOutsideEnabled = useRef<boolean>();
   const [isOpen, setOpen] = useState(false);
-
-  useEffect(() => {
-    isClickOutsideEnabled.current = false;
-  }, []);
 
   const handleClickOutside = useCallback(
     (event) => {
-      if (
-        isClickOutsideEnabled.current &&
-        !event.target.closest('.' + s['Dropdown__menu']) &&
-        isOpen
-      ) {
+      if (!event.target.closest('.' + s['Dropdown__menu']) && isOpen) {
         setOpen(false);
       }
     },
-    [setOpen, isOpen, isClickOutsideEnabled],
+    [setOpen, isOpen],
   );
 
   const outsideRef = useClickOutside<HTMLDivElement>(handleClickOutside);
@@ -151,21 +142,11 @@ export function Dropdown({
   }, [setOpen]);
 
   return (
-    <MediaQuery media="(max-width: 1024px)">
-      {({ matches }) => {
-        // In small devices click outside is disabled because
-        // the menu goes full screen and has a close button.
-        isClickOutsideEnabled.current = !matches;
-
-        return (
-          <DropdownContext.Provider value={{ closeMenu: handleClose }}>
-            <div className={s['Dropdown']} ref={outsideRef}>
-              {renderTrigger({ open: isOpen, onClick: handleToggle })}
-              {isOpen && children}
-            </div>
-          </DropdownContext.Provider>
-        );
-      }}
-    </MediaQuery>
+    <DropdownContext.Provider value={{ closeMenu: handleClose }}>
+      <div className={s['Dropdown']} ref={outsideRef}>
+        {renderTrigger({ open: isOpen, onClick: handleToggle })}
+        {isOpen && children}
+      </div>
+    </DropdownContext.Provider>
   );
 }

@@ -62,40 +62,6 @@
   margin: 7px 0;
 }
 
-.Dropdown__menu--fullscreen {
-  position: fixed;
-  top: var(--spacing-xl);
-  right: var(--spacing-l);
-  bottom: 1em;
-  margin-bottom: var(--spacing-xxl);
-  left: var(--spacing-l);
-  z-index: 2;
-  pointer-events: auto;
-  animation: FullscreenDropdown__appear 0.2s ease-out forwards;
-}
-@keyframes FullscreenDropdown__appear {
-  0% {
-    opacity: 0;
-    transform: translateY(100%);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.Dropdown__menu__close {
-  position: fixed;
-  text-align: center;
-  top: auto;
-  right: var(--spacing-l);
-  bottom: var(--spacing-l);
-  left: var(--spacing-l);
-  z-index: 2;
-  margin-bottom: 0;
-  animation: FullscreenDropdown__appear 0.25s ease-out forwards;
-}
-
 .Dropdown__menu__group__title {
   padding: 5px 15px 3px;
   color: var(--light-body-color);
@@ -287,45 +253,4 @@
 
 .Dropdown__menu {
   overflow-y: auto;
-}
-
-.Dropdown__menu__mobile-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 10002;
-  overflow: auto;
-
-  .Dropdown__menu {
-    -webkit-overflow-scrolling: touch;
-  }
-}
-
-.Modal__backdrop {
-  background: linear-gradient(
-    to bottom,
-    rgba(48, 48, 47, 0.9),
-    rgba(48, 48, 47, 0.7)
-  );
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 1;
-  animation: Modal__appear 0.2s var(--material-ease);
-  animation-fill-mode: both;
-  pointer-events: none;
-}
-
-@keyframes Modal__appear {
-  0% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
-  }
 }

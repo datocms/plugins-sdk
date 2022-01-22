@@ -10,30 +10,12 @@ import React, {
 import scrollIntoView from 'scroll-into-view-if-needed';
 import { useInView } from 'react-intersection-observer';
 import { Portal } from './Portal';
-import { useMediaQuery } from '../useMediaQuery';
 import { DropdownContext } from './DropdownContext';
 import { Group } from './Group';
 import { MenuContext } from './MenuContext';
 import { Option } from './Option';
 import s from './styles.module.css.json';
 import { mergeRefs } from '../mergeRefs';
-import classNames from 'classnames';
-
-const MenuMobileContainer = ({
-  children,
-}: {
-  children: React.ReactNode;
-}): JSX.Element => (
-  <Portal>
-    <div
-      className={s['Dropdown__menu__mobile-container']}
-      style={{ zIndex: 1000 }}
-    >
-      <div className={s['Modal__backdrop']} />
-      {children}
-    </div>
-  </Portal>
-);
 
 const MenuDesktopContainer = React.forwardRef<
   HTMLDivElement,
@@ -155,8 +137,6 @@ export const Menu = ({
     (child) =>
       typeof child === 'object' && 'type' in child && child.type === Group,
   );
-
-  const { matches } = useMediaQuery('(max-width: 1024px)');
 
   const addOption = useCallback(
     (id: string) => {
@@ -297,20 +277,14 @@ export const Menu = ({
     return () => window.removeEventListener('resize', reposition);
   }, [reposition]);
 
-  const Wrapper = matches ? MenuMobileContainer : MenuDesktopContainer;
-
   return (
     <>
       <div
         ref={mergeRefs(observerRef, parentRef)}
         className={s['Dropdown__spacer']}
       />
-      <Wrapper ref={menuRef}>
-        <div
-          className={classNames(s['Dropdown__menu'], {
-            [s['Dropdown__menu--fullscreen']]: matches,
-          })}
-        >
+      <MenuDesktopContainer ref={menuRef}>
+        <div className={s['Dropdown__menu']}>
           {options.length > 5 && (
             <div className={s['Dropdown__menu__search']}>
               <input
@@ -338,14 +312,7 @@ export const Menu = ({
             </div>
           </MenuContext.Provider>
         </div>
-        {matches ? (
-          <div>
-            <div className={s['Dropdown__menu__inner']}>
-              <Option closeMenuOnClick>Close</Option>
-            </div>
-          </div>
-        ) : null}
-      </Wrapper>
+      </MenuDesktopContainer>
     </>
   );
 };
