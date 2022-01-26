@@ -13,7 +13,6 @@ import { Portal } from './Portal';
 import { DropdownContext } from './DropdownContext';
 import { Group } from './Group';
 import { MenuContext } from './MenuContext';
-import { Option } from './Option';
 import s from './styles.module.css.json';
 import { mergeRefs } from '../mergeRefs';
 
