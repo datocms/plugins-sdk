@@ -144,7 +144,7 @@ export type FullConnectParameters = {
    * Use this function to declare custom outlets to be shown at the top of the
    * record's editing page
    *
-   * @group sidebarPanels
+   * @group itemFormOutlets
    */
   itemFormOutlets: (itemType: ModelBlock, ctx: IntentCtx) => ItemFormOutlet[];
 
@@ -217,7 +217,7 @@ export type FullConnectParameters = {
    * This function will be called when the plugin needs to render an outlet (see
    * the `itemFormOutlets` function)
    *
-   * @group sidebarPanels
+   * @group itemFormOutlets
    */
   renderItemFormOutlet: (
     itemFormOutletId: string,
