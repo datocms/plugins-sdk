@@ -1,5 +1,5 @@
 import connectToParent from 'penpal/lib/connectToParent';
-import { Field, ModelBlock } from './SiteApiSchema';
+import { Field, ItemType } from './SiteApiSchema';
 import {
   AssetSource,
   ContentAreaSidebarItem,
@@ -64,12 +64,12 @@ export type SizingUtilities = {
   updateHeight: (newHeight?: number) => void;
 };
 
-export type { Field, ModelBlock };
+export type { Field, ItemType };
 
 export type IntentCtx = InitPropertiesAndMethods;
 export type OnBootCtx = OnBootPropertiesAndMethods;
 export type FieldIntentCtx = InitPropertiesAndMethods & {
-  itemType: ModelBlock;
+  itemType: ItemType;
 };
 export type RenderPageCtx = RenderPagePropertiesAndMethods;
 export type RenderModalCtx = RenderModalPropertiesAndMethods & SizingUtilities;
@@ -136,7 +136,7 @@ export type FullConnectParameters = {
    * @group sidebarPanels
    */
   itemFormSidebarPanels: (
-    itemType: ModelBlock,
+    itemType: ItemType,
     ctx: IntentCtx,
   ) => ItemFormSidebarPanel[];
 
@@ -146,7 +146,7 @@ export type FullConnectParameters = {
    *
    * @group itemFormOutlets
    */
-  itemFormOutlets: (itemType: ModelBlock, ctx: IntentCtx) => ItemFormOutlet[];
+  itemFormOutlets: (itemType: ItemType, ctx: IntentCtx) => ItemFormOutlet[];
 
   /**
    * Use this function to automatically force one or more field extensions to a
@@ -278,7 +278,7 @@ function toMultifield<Result>(
     for (const field of fields) {
       const itemType = ctx.itemTypes[
         field.relationships.item_type.data.id
-      ] as ModelBlock;
+      ] as ItemType;
       result[field.id] = fn(field, { ...ctx, itemType });
     }
 

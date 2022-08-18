@@ -5,7 +5,7 @@ import {
   Field,
   Fieldset,
   Item,
-  ModelBlock,
+  ItemType,
   Plugin,
   Role,
   Site,
@@ -514,7 +514,7 @@ export type CommonProperties = {
   /** The ID of the current environment */
   environment: string;
   /** All the models of the current DatoCMS project, indexed by ID */
-  itemTypes: Partial<Record<string, ModelBlock>>;
+  itemTypes: Partial<Record<string, ItemType>>;
   /**
    * The current DatoCMS user. It can either be the owner or one of the
    * collaborators (regular or SSO).
@@ -1099,7 +1099,7 @@ export type ItemFormAdditionalProperties = {
   /** If an already persisted record is being edited, returns the full record entity */
   item: Item | null;
   /** The model for the record being edited */
-  itemType: ModelBlock;
+  itemType: ItemType;
   /** The complete internal form state */
   formValues: Record<string, unknown>;
   /** The current status of the record being edited */
@@ -1481,7 +1481,7 @@ export type RenderManualFieldExtensionConfigScreenAdditionalProperties = {
   pendingField: PendingField;
 
   /** The model for the field being edited */
-  itemType: ModelBlock;
+  itemType: ItemType;
 };
 
 export type RenderManualFieldExtensionConfigScreenProperties = RenderProperties &
