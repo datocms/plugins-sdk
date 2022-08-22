@@ -1109,13 +1109,17 @@ export type ItemFormAdditionalProperties = {
   /** Whether the form has some non-persisted changes or not */
   isFormDirty: boolean;
   /** Current number of blocks present in form state */
-  blocksUsage: {
-    /** Total number of blocks */
-    total: number;
-    /** Total number of blocks present in non-localized fields */
-    nonLocalized: number;
-    /** Total number of blocks present in localized fields, per locale */
-    perLocale: Record<string, number>;
+  blocksAnalysis: {
+    usage: {
+      /** Total number of blocks present in form state */
+      total: number;
+      /** Total number of blocks present in non-localized fields */
+      nonLocalized: number;
+      /** Total number of blocks present in localized fields, per locale */
+      perLocale: Record<string, number>;
+    };
+    /** Maximum number of blocks per item */
+    maximumPerItem: number;
   };
 };
 
