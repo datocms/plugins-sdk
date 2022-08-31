@@ -302,13 +302,13 @@ const buildRenderUtils = (parent: { setHeight: (number: number) => void }) => {
   let oldHeight: null | number = null;
 
   const updateHeight = (height?: number) => {
-    const rect = document.documentElement.getBoundingClientRect();
-
     const realHeight =
       height === undefined
-        ? // it can happen (ie. with a SelectField opening the menu), that the browser
-          // automatically scrolls down, so we need to compensate for that with .y
-          Math.ceil(rect.height - rect.y)
+        ? Math.max(
+            document.documentElement.scrollHeight,
+            document.documentElement.offsetHeight,
+            document.documentElement.clientHeight,
+          )
         : height;
 
     if (realHeight !== oldHeight) {
