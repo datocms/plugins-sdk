@@ -298,6 +298,17 @@ type AsyncReturnType<T extends (...args: any) => any> = T extends (
   : // eslint-disable-next-line @typescript-eslint/no-explicit-any
     any;
 
+function getMaxScrollHeight() {
+  const elements = document.querySelectorAll('body *');
+  let maxVal = 0;
+
+  for (let i = 0; i < elements.length; i++) {
+    maxVal = Math.max(elements[i].scrollHeight, maxVal);
+  }
+
+  return maxVal;
+}
+
 const buildRenderUtils = (parent: { setHeight: (number: number) => void }) => {
   let oldHeight: null | number = null;
 
@@ -305,9 +316,9 @@ const buildRenderUtils = (parent: { setHeight: (number: number) => void }) => {
     const realHeight =
       height === undefined
         ? Math.max(
-            document.documentElement.scrollHeight,
+            document.body.offsetHeight,
             document.documentElement.offsetHeight,
-            document.documentElement.clientHeight,
+            getMaxScrollHeight(),
           )
         : height;
 
