@@ -108,7 +108,7 @@ export function AsyncSelectField<
   return (
     <FieldWrapper
       formLabelProps={formLabelProps}
-      id="id"
+      id={id}
       required={required}
       error={error}
       hint={hint}
