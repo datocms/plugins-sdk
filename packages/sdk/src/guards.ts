@@ -24,30 +24,26 @@ export const isOnBootParent = buildGuard<OnBootMethods>('onBoot');
 
 export const isRenderPageParent = buildGuard<RenderPageMethods>('renderPage');
 
-export const isRenderConfigScreenParent = buildGuard<RenderConfigScreenMethods>(
-  'renderConfigScreen',
-);
+export const isRenderConfigScreenParent =
+  buildGuard<RenderConfigScreenMethods>('renderConfigScreen');
 
-export const isRenderModalParent = buildGuard<RenderModalMethods>(
-  'renderModal',
-);
+export const isRenderModalParent =
+  buildGuard<RenderModalMethods>('renderModal');
 
 export const isRenderSidebarPanelParent = buildGuard<RenderSidebarPanelMethods>(
   'renderItemFormSidebarPanel',
 );
 
-export const isRenderItemFormOutletParent = buildGuard<RenderItemFormOutletMethods>(
-  'renderItemFormOutlet',
-);
+export const isRenderItemFormOutletParent =
+  buildGuard<RenderItemFormOutletMethods>('renderItemFormOutlet');
 
-export const isRenderFieldExtensionParent = buildGuard<RenderFieldExtensionMethods>(
-  'renderFieldExtension',
-);
+export const isRenderFieldExtensionParent =
+  buildGuard<RenderFieldExtensionMethods>('renderFieldExtension');
 
-export const isRenderManualFieldExtensionConfigScreenParent = buildGuard<RenderManualFieldExtensionConfigScreenMethods>(
-  'renderManualFieldExtensionConfigScreen',
-);
+export const isRenderManualFieldExtensionConfigScreenParent =
+  buildGuard<RenderManualFieldExtensionConfigScreenMethods>(
+    'renderManualFieldExtensionConfigScreen',
+  );
 
-export const isRenderAssetSourceParent = buildGuard<RenderAssetSourceMethods>(
-  'renderAssetSource',
-);
+export const isRenderAssetSourceParent =
+  buildGuard<RenderAssetSourceMethods>('renderAssetSource');

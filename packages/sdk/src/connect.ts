@@ -75,14 +75,14 @@ export type RenderPageCtx = RenderPagePropertiesAndMethods;
 export type RenderModalCtx = RenderModalPropertiesAndMethods & SizingUtilities;
 export type RenderAssetSourceCtx = RenderAssetSourcePropertiesAndMethods &
   SizingUtilities;
-export type RenderItemFormSidebarPanelCtx = RenderSidebarPanelPropertiesAndMethods &
-  SizingUtilities;
+export type RenderItemFormSidebarPanelCtx =
+  RenderSidebarPanelPropertiesAndMethods & SizingUtilities;
 export type RenderItemFormOutletCtx = RenderItemFormOutletPropertiesAndMethods &
   SizingUtilities;
 export type RenderFieldExtensionCtx = RenderFieldExtensionPropertiesAndMethods &
   SizingUtilities;
-export type RenderManualFieldExtensionConfigScreenCtx = RenderManualFieldExtensionConfigScreenPropertiesAndMethods &
-  SizingUtilities;
+export type RenderManualFieldExtensionConfigScreenCtx =
+  RenderManualFieldExtensionConfigScreenPropertiesAndMethods & SizingUtilities;
 export type RenderConfigScreenCtx = RenderConfigScreenPropertiesAndMethods &
   SizingUtilities;
 
@@ -96,13 +96,15 @@ export type FullConnectParameters = {
    */
   onBoot: (ctx: OnBootCtx) => void;
   /**
-   * Use this function to declare new tabs you want to add in the top-bar of the UI
+   * Use this function to declare new tabs you want to add in the top-bar of the
+   * UI
    *
    * @group pages
    */
   mainNavigationTabs: (ctx: IntentCtx) => MainNavigationTab[];
   /**
-   * Use this function to declare new navigation sections in the Settings Area sidebar
+   * Use this function to declare new navigation sections in the Settings Area
+   * sidebar
    *
    * @group pages
    */
@@ -110,7 +112,8 @@ export type FullConnectParameters = {
     ctx: IntentCtx,
   ) => SettingsAreaSidebarItemGroup[];
   /**
-   * Use this function to declare new navigation items in the Content Area sidebar
+   * Use this function to declare new navigation items in the Content Area
+   * sidebar
    *
    * @group pages
    */
@@ -232,7 +235,8 @@ export type FullConnectParameters = {
   renderAssetSource: (assetSourceId: string, ctx: RenderAssetSourceCtx) => void;
   /**
    * This function will be called when the plugin needs to render a field
-   * extension (see the `manualFieldExtensions` and `overrideFieldExtensions` functions)
+   * extension (see the `manualFieldExtensions` and `overrideFieldExtensions`
+   * functions)
    *
    * @group forcedFieldExtensions
    */
@@ -242,7 +246,8 @@ export type FullConnectParameters = {
   ) => void;
   /**
    * This function will be called when the plugin needs to render the
-   * configuration form for installing a field extension inside a particular field
+   * configuration form for installing a field extension inside a particular
+   * field
    *
    * @group manualFieldExtensions
    */

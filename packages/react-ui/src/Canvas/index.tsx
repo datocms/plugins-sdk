@@ -35,7 +35,8 @@ export type CanvasProps = {
  * @example Color palette CSS variables
  *
  * Within the `Canvas` component, a color palette is made available as a set of
- * CSS variables, allowing you to conform to the theme of the current environment:
+ * CSS variables, allowing you to conform to the theme of the current
+ * environment:
  *
  * ```js
  * <Canvas ctx={ctx}>
@@ -528,11 +529,11 @@ export function Canvas({
   children,
   noAutoResizer,
 }: CanvasProps): JSX.Element {
-  const { mode } = (ctx as unknown) as { mode: string };
+  const { mode } = ctx as unknown as { mode: string };
 
   useEffect(() => {
     if (mode !== 'renderPage' && !noAutoResizer) {
-      const ctxWithAutoResizer = (ctx as unknown) as SizingUtilities;
+      const ctxWithAutoResizer = ctx as unknown as SizingUtilities;
       ctxWithAutoResizer.startAutoResizer();
 
       return () => {

@@ -164,7 +164,8 @@ export type FieldType =
 /**
  * Field extensions extend the basic functionality of DatoCMS when it comes to
  * presenting record's fields to the final user. Depending on the extension type
- * (`editor` or `addon`) they will be shown in different places of the interface.
+ * (`editor` or `addon`) they will be shown in different places of the
+ * interface.
  */
 export type ManualFieldExtension = {
   /**
@@ -198,7 +199,10 @@ export type ManualFieldExtension = {
    * `validateManualFieldExtensionParameters` methods
    */
   configurable?: boolean | { initialHeight: number };
-  /** The initial height to set for the iframe that will render the field extension */
+  /**
+   * The initial height to set for the iframe that will render the field
+   * extension
+   */
   initialHeight?: number;
 };
 
@@ -218,7 +222,8 @@ export type ItemFormSidebarPanel = {
   label: string;
   /**
    * An arbitrary configuration object that will be passed as the `parameters`
-   * property of the second argument of the `renderItemFormSidebarPanel` function
+   * property of the second argument of the `renderItemFormSidebarPanel`
+   * function
    */
   parameters?: Record<string, unknown>;
   /** Whether the sidebar panel will start open or collapsed */
@@ -243,7 +248,10 @@ export type ItemFormSidebarPanel = {
 
 /** An outlet to be shown at the top of a record's editing page */
 export type ItemFormOutlet = {
-  /** ID of the outlet. Will be the first argument for the `renderItemFormOutlet` function */
+  /**
+   * ID of the outlet. Will be the first argument for the `renderItemFormOutlet`
+   * function
+   */
   id: string;
   /**
    * Multiple outlets will be sorted by ascending `rank`. If you want to specify
@@ -263,7 +271,10 @@ export type EditorOverride = {
    * `renderFieldExtension` function
    */
   id: string;
-  /** Moves the field to the sidebar of the record editing page, mimicking a sidebar panel */
+  /**
+   * Moves the field to the sidebar of the record editing page, mimicking a
+   * sidebar panel
+   */
   asSidebarPanel?:
     | boolean
     | { startOpen?: boolean; placement?: ItemFormSidebarPanelPlacement };
@@ -280,7 +291,10 @@ export type EditorOverride = {
    * another plugin!
    */
   rank?: number;
-  /** The initial height to set for the iframe that will render the field extension */
+  /**
+   * The initial height to set for the iframe that will render the field
+   * extension
+   */
   initialHeight?: number;
 };
 
@@ -304,7 +318,10 @@ export type AddonOverride = {
    * the one of another plugin!
    */
   rank?: number;
-  /** The initial height to set for the iframe that will render the field extension */
+  /**
+   * The initial height to set for the iframe that will render the field
+   * extension
+   */
   initialHeight?: number;
 };
 
@@ -368,7 +385,10 @@ export type StructuredTextCustomBlockStyle = {
   rank?: number;
 };
 
-/** An object expressing some field extensions you want to force on a particular field */
+/**
+ * An object expressing some field extensions you want to force on a particular
+ * field
+ */
 export type FieldExtensionOverride = {
   /** Force a field editor/sidebar extension on a field */
   editor?: EditorOverride;
@@ -452,7 +472,10 @@ export type AssetSource = {
   modal?: {
     /** Width of the modal. Can be a number, or one of the predefined sizes */
     width?: 's' | 'm' | 'l' | 'xl' | number;
-    /** The initial height to set for the iframe that will render the modal content */
+    /**
+     * The initial height to set for the iframe that will render the modal
+     * content
+     */
     initialHeight?: number;
   };
 };
@@ -491,7 +514,10 @@ export type ConfirmChoice = {
    * clicked by the user
    */
   value: unknown;
-  /** The intent of the button. Will present the button in a different color accent. */
+  /**
+   * The intent of the button. Will present the button in a different color
+   * accent.
+   */
   intent?: 'positive' | 'negative';
 };
 
@@ -786,7 +812,10 @@ export type LoadDataMethods = {
   loadSsoUsers: () => Promise<SsoUser[]>;
 };
 
-/** These methods let you open the standard DatoCMS dialogs needed to interact with records */
+/**
+ * These methods let you open the standard DatoCMS dialogs needed to interact
+ * with records
+ */
 export type ItemDialogMethods = {
   /**
    * Opens a dialog for creating a new record. It returns a promise resolved
@@ -854,7 +883,10 @@ export type ItemDialogMethods = {
   editItem: (itemId: string) => Promise<Item | null>;
 };
 
-/** These methods can be used to show UI-consistent toast notifications to the end-user */
+/**
+ * These methods can be used to show UI-consistent toast notifications to the
+ * end-user
+ */
 export type ToastMethods = {
   /**
    * Triggers an "error" toast displaying the selected message
@@ -887,7 +919,8 @@ export type ToastMethods = {
    */
   notice: (message: string) => Promise<void>;
   /**
-   * Triggers a custom toast displaying the selected message (and optionally a CTA)
+   * Triggers a custom toast displaying the selected message (and optionally a
+   * CTA)
    *
    * @example
    *
@@ -941,7 +974,8 @@ export type UploadDialogMethods = {
   };
 
   /**
-   * Opens a dialog for editing a Media Area asset. It returns a promise resolved with:
+   * Opens a dialog for editing a Media Area asset. It returns a promise
+   * resolved with:
    *
    * - The updated asset, if the user persists some changes to the asset itself
    * - `null`, if the user closes the dialog without persisting any change
@@ -1096,7 +1130,10 @@ export type RenderMethods = LoadDataMethods &
 export type ItemFormAdditionalProperties = {
   /** The currently active locale for the record */
   locale: string;
-  /** If an already persisted record is being edited, returns the full record entity */
+  /**
+   * If an already persisted record is being edited, returns the full record
+   * entity
+   */
   item: Item | null;
   /** The model for the record being edited */
   itemType: ItemType;
@@ -1163,7 +1200,8 @@ export type ItemFormAdditionalMethods = {
   disableField: (path: string, disable: boolean) => Promise<void>;
   /**
    * Smoothly navigates to a specific field in the form. If the field is
-   * localized it will switch language tab and then navigate to the chosen field.
+   * localized it will switch language tab and then navigate to the chosen
+   * field.
    *
    * @example
    *
@@ -1250,8 +1288,8 @@ export type RenderItemFormOutletAdditionalMethods = {
 export type RenderItemFormOutletMethods = ItemFormMethods &
   RenderItemFormOutletAdditionalMethods;
 
-export type RenderItemFormOutletPropertiesAndMethods = RenderItemFormOutletMethods &
-  RenderItemFormOutletProperties;
+export type RenderItemFormOutletPropertiesAndMethods =
+  RenderItemFormOutletMethods & RenderItemFormOutletProperties;
 
 /**
  * Information regarding the state of a specific field where you need to render
@@ -1267,7 +1305,10 @@ export type RenderFieldExtensionAdditionalProperties = {
   placeholder: string;
   /** Whether the field is currently disabled or not */
   disabled: boolean;
-  /** The path in the `formValues` object where to find the current value for the field */
+  /**
+   * The path in the `formValues` object where to find the current value for the
+   * field
+   */
   fieldPath: string;
   /** The field where the field extension is installed to */
   field: Field;
@@ -1294,15 +1335,18 @@ export type RenderFieldExtensionAdditionalMethods = {
 export type RenderFieldExtensionMethods = ItemFormMethods &
   RenderFieldExtensionAdditionalMethods;
 
-export type RenderFieldExtensionPropertiesAndMethods = RenderFieldExtensionMethods &
-  RenderFieldExtensionProperties;
+export type RenderFieldExtensionPropertiesAndMethods =
+  RenderFieldExtensionMethods & RenderFieldExtensionProperties;
 
 /** Information regarding the specific custom modal that you need to render */
 export type RenderModalAdditionalProperties = {
   mode: 'renderModal';
   /** The ID of the modal that needs to be rendered */
   modalId: string;
-  /** The arbitrary `parameters` of the modal declared in the `openModal` function */
+  /**
+   * The arbitrary `parameters` of the modal declared in the `openModal`
+   * function
+   */
   parameters: Record<string, unknown>;
 };
 
@@ -1337,7 +1381,10 @@ export type RenderModalMethods = RenderMethods &
 export type RenderModalPropertiesAndMethods = RenderModalMethods &
   RenderModalProperties;
 
-/** Information regarding the specific asset source browser that you need to render */
+/**
+ * Information regarding the specific asset source browser that you need to
+ * render
+ */
 export type RenderAssetSourceAdditionalProperties = {
   mode: 'renderAssetSource';
   /** The ID of the assetSource that needs to be rendered */
@@ -1422,8 +1469,7 @@ export type RenderAssetSourceAdditionalMethods = {
    * ```js
    * await ctx.select({
    *   resource: {
-   *     url:
-   *       'https://images.unsplash.com/photo-1416339306562-f3d12fefd36f',
+   *     url: 'https://images.unsplash.com/photo-1416339306562-f3d12fefd36f',
    *     filename: 'man-drinking-coffee.jpg',
    *   },
    *   copyright: 'Royalty free (Unsplash)',
@@ -1483,7 +1529,10 @@ export type PendingField = {
  */
 export type RenderManualFieldExtensionConfigScreenAdditionalProperties = {
   mode: 'renderManualFieldExtensionConfigScreen';
-  /** The ID of the field extension for which we need to render the parameters form */
+  /**
+   * The ID of the field extension for which we need to render the parameters
+   * form
+   */
   fieldExtensionId: string;
   /**
    * The current value of the parameters (you can change the value with the
@@ -1503,8 +1552,8 @@ export type RenderManualFieldExtensionConfigScreenAdditionalProperties = {
   itemType: ItemType;
 };
 
-export type RenderManualFieldExtensionConfigScreenProperties = RenderProperties &
-  RenderManualFieldExtensionConfigScreenAdditionalProperties;
+export type RenderManualFieldExtensionConfigScreenProperties =
+  RenderProperties & RenderManualFieldExtensionConfigScreenAdditionalProperties;
 
 /**
  * These methods can be used to update the configuration object of a specific
@@ -1528,8 +1577,9 @@ export type RenderManualFieldExtensionConfigScreenMethods = RenderMethods &
   IframeMethods &
   RenderManualFieldExtensionConfigScreenAdditionalMethods;
 
-export type RenderManualFieldExtensionConfigScreenPropertiesAndMethods = RenderManualFieldExtensionConfigScreenMethods &
-  RenderManualFieldExtensionConfigScreenProperties;
+export type RenderManualFieldExtensionConfigScreenPropertiesAndMethods =
+  RenderManualFieldExtensionConfigScreenMethods &
+    RenderManualFieldExtensionConfigScreenProperties;
 
 export type RenderConfigScreenAdditionalProperties = {
   mode: 'renderConfigScreen';

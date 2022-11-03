@@ -121,14 +121,14 @@ type ErrorProp = { error?: boolean };
 export type SelectInputProps<
   Option,
   IsMulti extends boolean,
-  Group extends GroupBase<Option>
+  Group extends GroupBase<Option>,
 > = Omit<RawSelectProps<Option, IsMulti, Group>, 'theme' | 'styles'> &
   ErrorProp;
 
 export function SelectInput<
   Option = unknown,
   IsMulti extends boolean = false,
-  Group extends GroupBase<Option> = GroupBase<Option>
+  Group extends GroupBase<Option> = GroupBase<Option>,
 >({
   isDisabled,
   error,
@@ -150,13 +150,13 @@ export function SelectInput<
 export type AsyncSelectInputProps<
   Option,
   IsMulti extends boolean,
-  Group extends GroupBase<Option>
+  Group extends GroupBase<Option>,
 > = Omit<AsyncProps<Option, IsMulti, Group>, 'theme' | 'styles'> & ErrorProp;
 
 export function AsyncSelectInput<
   Option = unknown,
   IsMulti extends boolean = false,
-  Group extends GroupBase<Option> = GroupBase<Option>
+  Group extends GroupBase<Option> = GroupBase<Option>,
 >({
   isDisabled,
   error,
@@ -178,14 +178,14 @@ export function AsyncSelectInput<
 export type CreatableSelectInputProps<
   Option,
   IsMulti extends boolean,
-  Group extends GroupBase<Option>
+  Group extends GroupBase<Option>,
 > = Omit<CreatableProps<Option, IsMulti, Group>, 'theme' | 'styles'> &
   ErrorProp;
 
 export function CreatableSelectInput<
   Option = unknown,
   IsMulti extends boolean = false,
-  Group extends GroupBase<Option> = GroupBase<Option>
+  Group extends GroupBase<Option> = GroupBase<Option>,
 >({
   isDisabled,
   error,
@@ -207,14 +207,14 @@ export function CreatableSelectInput<
 export type AsyncCreatableSelectInputProps<
   Option,
   IsMulti extends boolean,
-  Group extends GroupBase<Option>
+  Group extends GroupBase<Option>,
 > = Omit<AsyncCreatableProps<Option, IsMulti, Group>, 'theme' | 'styles'> &
   ErrorProp;
 
 export function AsyncCreatableSelectInput<
   Option = unknown,
   IsMulti extends boolean = false,
-  Group extends GroupBase<Option> = GroupBase<Option>
+  Group extends GroupBase<Option> = GroupBase<Option>,
 >({
   isDisabled,
   error,
