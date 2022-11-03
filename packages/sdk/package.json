@@ -41,7 +41,7 @@
     "penpal": "^4.1.1"
   },
   "devDependencies": {
-    "typedoc": "^0.22.8"
+    "typedoc": "^0.23.20"
   },
   "gitHead": "2eb101cb92745dbcee5ac3da8a614532f1b90dd9"
 }
