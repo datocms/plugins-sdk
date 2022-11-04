@@ -16,7 +16,7 @@ import { GroupBase } from 'react-select';
 type SelectFieldProps<
   Option,
   IsMulti extends boolean,
-  Group extends GroupBase<Option>
+  Group extends GroupBase<Option>,
 > = {
   id: string;
   name: string;
@@ -34,7 +34,7 @@ type SelectFieldProps<
 export function SelectField<
   Option,
   IsMulti extends boolean,
-  Group extends GroupBase<Option>
+  Group extends GroupBase<Option>,
 >({
   id,
   name,
@@ -73,7 +73,7 @@ export function SelectField<
 type AsyncSelectFieldProps<
   Option,
   IsMulti extends boolean,
-  Group extends GroupBase<Option>
+  Group extends GroupBase<Option>,
 > = {
   id: string;
   name: string;
@@ -91,7 +91,7 @@ type AsyncSelectFieldProps<
 export function AsyncSelectField<
   Option,
   IsMulti extends boolean,
-  Group extends GroupBase<Option>
+  Group extends GroupBase<Option>,
 >({
   id,
   name,
@@ -130,7 +130,7 @@ export function AsyncSelectField<
 type CreatableSelectFieldProps<
   Option,
   IsMulti extends boolean,
-  Group extends GroupBase<Option>
+  Group extends GroupBase<Option>,
 > = {
   id: string;
   name: string;
@@ -148,7 +148,7 @@ type CreatableSelectFieldProps<
 export function CreatableSelectField<
   Option,
   IsMulti extends boolean,
-  Group extends GroupBase<Option>
+  Group extends GroupBase<Option>,
 >({
   id,
   name,
@@ -187,7 +187,7 @@ export function CreatableSelectField<
 type AsyncCreatableSelectFieldProps<
   Option,
   IsMulti extends boolean,
-  Group extends GroupBase<Option>
+  Group extends GroupBase<Option>,
 > = {
   id: string;
   name: string;
@@ -205,7 +205,7 @@ type AsyncCreatableSelectFieldProps<
 export function AsyncCreatableSelectField<
   Option,
   IsMulti extends boolean,
-  Group extends GroupBase<Option>
+  Group extends GroupBase<Option>,
 >({
   id,
   name,

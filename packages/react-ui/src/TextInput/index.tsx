@@ -8,7 +8,15 @@ export type TextInputChangeEventHandler = (
 ) => void;
 
 export type TextInputProps = {
-  type?: 'text' | 'password' | 'email' | 'number' | 'search' | 'url' | 'date' | 'time';
+  type?:
+    | 'text'
+    | 'password'
+    | 'email'
+    | 'number'
+    | 'search'
+    | 'url'
+    | 'date'
+    | 'time';
   name?: string;
   labelText?: string;
   id?: string;

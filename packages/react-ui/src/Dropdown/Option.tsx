@@ -40,9 +40,8 @@ export const Option = ({
 
   const id = useMemo(() => new Date().getTime().toString(36), []);
 
-  const { searchTerm, addOption, setClickHandlerForOption } = useContext(
-    MenuContext,
-  );
+  const { searchTerm, addOption, setClickHandlerForOption } =
+    useContext(MenuContext);
 
   const childrenArray = React.Children.toArray(children);
 
