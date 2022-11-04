@@ -1,7 +1,7 @@
 {
   "package": {
     "dependencies": {
-      "@types/node": "^16.7.13",
+      "@types/node": "^18.11.9",
       "@types/react": "^18.0.0",
       "@types/react-dom": "^18.0.0",
       "typescript": "^4.4.2",
