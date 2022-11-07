@@ -92,21 +92,21 @@ export type FullConnectParameters = {
    * This function will be called once at boot time and can be used to perform
    * ie. some initial integrity checks on the configuration.
    *
-   * @group boot
+   * @tag boot
    */
   onBoot: (ctx: OnBootCtx) => void;
   /**
    * Use this function to declare new tabs you want to add in the top-bar of the
    * UI
    *
-   * @group pages
+   * @tag pages
    */
   mainNavigationTabs: (ctx: IntentCtx) => MainNavigationTab[];
   /**
    * Use this function to declare new navigation sections in the Settings Area
    * sidebar
    *
-   * @group pages
+   * @tag pages
    */
   settingsAreaSidebarItemGroups: (
     ctx: IntentCtx,
@@ -115,28 +115,28 @@ export type FullConnectParameters = {
    * Use this function to declare new navigation items in the Content Area
    * sidebar
    *
-   * @group pages
+   * @tag pages
    */
   contentAreaSidebarItems: (ctx: IntentCtx) => ContentAreaSidebarItem[];
   /**
    * Use this function to declare new field extensions that users will be able
    * to install manually in some field
    *
-   * @group manualFieldExtensions
+   * @tag manualFieldExtensions
    */
   manualFieldExtensions: (ctx: IntentCtx) => ManualFieldExtension[];
   /**
    * Use this function to declare additional sources to be shown when users want
    * to upload new assets
    *
-   * @group assetSources
+   * @tag assetSources
    */
   assetSources: (ctx: IntentCtx) => AssetSource[] | void;
   /**
    * Use this function to declare new sidebar panels to be shown when the user
    * edits records of a particular model
    *
-   * @group sidebarPanels
+   * @tag sidebarPanels
    */
   itemFormSidebarPanels: (
     itemType: ItemType,
@@ -147,7 +147,7 @@ export type FullConnectParameters = {
    * Use this function to declare custom outlets to be shown at the top of the
    * record's editing page
    *
-   * @group itemFormOutlets
+   * @tag itemFormOutlets
    */
   itemFormOutlets: (itemType: ItemType, ctx: IntentCtx) => ItemFormOutlet[];
 
@@ -155,7 +155,7 @@ export type FullConnectParameters = {
    * Use this function to automatically force one or more field extensions to a
    * particular field
    *
-   * @group forcedFieldExtensions
+   * @tag forcedFieldExtensions
    */
   overrideFieldExtensions: (
     field: Field,
@@ -166,7 +166,7 @@ export type FullConnectParameters = {
    * Use this function to define a number of custom marks for a specific
    * Structured Text field
    *
-   * @group structuredText
+   * @tag structuredText
    */
   customMarksForStructuredTextField: (
     field: Field,
@@ -177,7 +177,7 @@ export type FullConnectParameters = {
    * Use this function to define a number of custom block styles for a specific
    * Structured Text field
    *
-   * @group structuredText
+   * @tag structuredText
    */
   customBlockStylesForStructuredTextField: (
     field: Field,
@@ -188,7 +188,7 @@ export type FullConnectParameters = {
    * This function will be called when the plugin needs to render the plugin's
    * configuration form
    *
-   * @group configScreen
+   * @tag configScreen
    */
   renderConfigScreen: (ctx: RenderConfigScreenCtx) => void;
   /**
@@ -196,21 +196,21 @@ export type FullConnectParameters = {
    * page (see the `mainNavigationTabs`, `settingsAreaSidebarItemGroups` and
    * `contentAreaSidebarItems` functions)
    *
-   * @group pages
+   * @tag pages
    */
   renderPage: (pageId: string, ctx: RenderPageCtx) => void;
   /**
    * This function will be called when the plugin requested to open a modal (see
    * the `openModal` function)
    *
-   * @group modals
+   * @tag modals
    */
   renderModal: (modalId: string, ctx: RenderModalCtx) => void;
   /**
    * This function will be called when the plugin needs to render a sidebar
    * panel (see the `itemFormSidebarPanels` function)
    *
-   * @group sidebarPanels
+   * @tag sidebarPanels
    */
   renderItemFormSidebarPanel: (
     sidebarPaneId: string,
@@ -220,7 +220,7 @@ export type FullConnectParameters = {
    * This function will be called when the plugin needs to render an outlet (see
    * the `itemFormOutlets` function)
    *
-   * @group itemFormOutlets
+   * @tag itemFormOutlets
    */
   renderItemFormOutlet: (
     itemFormOutletId: string,
@@ -230,7 +230,7 @@ export type FullConnectParameters = {
    * This function will be called when the user selects one of the plugin's
    * asset sources to upload a new media file.
    *
-   * @group assetSources
+   * @tag assetSources
    */
   renderAssetSource: (assetSourceId: string, ctx: RenderAssetSourceCtx) => void;
   /**
@@ -238,7 +238,7 @@ export type FullConnectParameters = {
    * extension (see the `manualFieldExtensions` and `overrideFieldExtensions`
    * functions)
    *
-   * @group forcedFieldExtensions
+   * @tag forcedFieldExtensions
    */
   renderFieldExtension: (
     fieldExtensionId: string,
@@ -249,7 +249,7 @@ export type FullConnectParameters = {
    * configuration form for installing a field extension inside a particular
    * field
    *
-   * @group manualFieldExtensions
+   * @tag manualFieldExtensions
    */
   renderManualFieldExtensionConfigScreen: (
     fieldExtensionId: string,
@@ -259,7 +259,7 @@ export type FullConnectParameters = {
    * This function will be called each time the configuration object changes. It
    * must return an object containing possible validation errors
    *
-   * @group manualFieldExtensions
+   * @tag manualFieldExtensions
    */
   validateManualFieldExtensionParameters: (
     fieldExtensionId: string,
