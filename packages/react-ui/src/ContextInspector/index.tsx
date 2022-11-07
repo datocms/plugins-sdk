@@ -46,16 +46,20 @@ function findChildrenById(manifest: any, id: string) {
 
 function findShortText(signature: any) {
   return (
-    (signature.comment && addFinalPeriod(signature.comment.shortText)) || null
+    (signature.comment &&
+      addFinalPeriod(
+        signature.comment.summary.map((chunk: any) => chunk.text).join(''),
+      )) ||
+    null
   );
 }
 
 function findFirstTag(signature: any, tagName: string): string | null {
-  if (!signature.comment || !signature.comment.tags) {
+  if (!signature.comment || !signature.comment.blockTags) {
     return null;
   }
 
-  const tagNode = signature.comment.tags.find(
+  const tagNode = signature.comment.blockTags.find(
     (tag: any) => tag.tag === tagName,
   );
 
@@ -63,11 +67,11 @@ function findFirstTag(signature: any, tagName: string): string | null {
     return null;
   }
 
-  return tagNode.text;
+  return tagNode.content.map((chunk: any) => chunk.text).join('');
 }
 
 function findExample(signature: any) {
-  const example = findFirstTag(signature, 'example');
+  const example = findFirstTag(signature, '@example');
 
   if (!example) {
     return null;
@@ -91,7 +95,7 @@ function findExample(signature: any) {
   return result.match(/```[a-z]*\n([\s\S]*?)\n```/)?.[1].trim();
 }
 
-function buildCtx(manifest: any, definition: any) {
+function buildCtx(manifest: any, definition: any): any {
   if (definition.type.type === 'intersection') {
     let result: any[] = [];
 
@@ -157,6 +161,12 @@ function buildCtx(manifest: any, definition: any) {
     };
   }
 
+  if (definition.type.type === 'reference') {
+    const innerDefinition = findChildrenById(manifest, definition.type.id);
+
+    return buildCtx(manifest, innerDefinition);
+  }
+
   throw new Error(`Don\t know how to handle ${definition}`);
 }
 
@@ -192,10 +202,13 @@ export function ContextInspector(): JSX.Element {
       );
 
       const hook = connectParameters.type.declaration.children.find(
-        (hook: any) => hook.signatures[0].name === (ctx as any).mode,
+        (hook: any) => hook.name === (ctx as any).mode,
       );
 
-      const signature = hook.signatures[0];
+      const signature = hook.signatures
+        ? hook.signatures[0]
+        : hook.type.declaration.signatures[0];
+
       const ctxParameter = signature.parameters.find(
         (p: any) => p.name === 'ctx',
       );
