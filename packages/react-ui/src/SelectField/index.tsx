@@ -51,7 +51,7 @@ export function SelectField<
   return (
     <FieldWrapper
       formLabelProps={formLabelProps}
-      id="id"
+      id={id}
       required={required}
       error={error}
       hint={hint}
@@ -165,7 +165,7 @@ export function CreatableSelectField<
   return (
     <FieldWrapper
       formLabelProps={formLabelProps}
-      id="id"
+      id={id}
       required={required}
       error={error}
       hint={hint}
@@ -222,7 +222,7 @@ export function AsyncCreatableSelectField<
   return (
     <FieldWrapper
       formLabelProps={formLabelProps}
-      id="id"
+      id={id}
       required={required}
       error={error}
       hint={hint}
