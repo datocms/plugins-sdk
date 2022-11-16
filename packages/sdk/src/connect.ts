@@ -1,5 +1,5 @@
 import connectToParent from 'penpal/lib/connectToParent';
-import { Field, ItemType } from './SiteApiSchema';
+import { Field, Item, ItemType } from './SiteApiSchema';
 import {
   AssetSource,
   ContentAreaSidebarItem,
@@ -95,6 +95,47 @@ export type FullConnectParameters = {
    * @tag boot
    */
   onBoot: (ctx: OnBootCtx) => void;
+
+  /**
+   * This function will be called before destroying a record. You can stop the
+   * action by returning `false`
+   *
+   * @tag beforeHooks
+   */
+  onBeforeItemDestroy: (item: Item, ctx: OnBootCtx) => Promise<boolean>;
+
+  /**
+   * This function will be called before saving a new version of a record. You
+   * can stop the action by returning `false`
+   *
+   * @tag beforeHooks
+   */
+  onBeforeItemSave: (item: Item, ctx: OnBootCtx) => Promise<boolean>;
+
+  /**
+   * This function will be called before publishing a record. You can stop the
+   * action by returning `false`
+   *
+   * @tag beforeHooks
+   */
+  onBeforeItemPublish: (item: Item, ctx: OnBootCtx) => Promise<boolean>;
+
+  /**
+   * This function will be called before unpublishing a record. You can stop the
+   * action by returning `false`
+   *
+   * @tag beforeHooks
+   */
+  onBeforeItemUnpublish: (item: Item, ctx: OnBootCtx) => Promise<boolean>;
+
+  /**
+   * This function will be called before duplicating a record. You can stop the
+   * action by returning `false`
+   *
+   * @tag beforeHooks
+   */
+  onBeforeItemDuplicate: (item: Item, ctx: OnBootCtx) => Promise<boolean>;
+
   /**
    * Use this function to declare new tabs you want to add in the top-bar of the
    * UI
@@ -387,6 +428,11 @@ export async function connect(
     manualFieldExtensions,
     itemFormSidebarPanels,
     itemFormOutlets,
+    onBeforeItemDestroy,
+    onBeforeItemPublish,
+    onBeforeItemUnpublish,
+    onBeforeItemSave,
+    onBeforeItemDuplicate,
   } = configuration;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -412,6 +458,11 @@ export async function connect(
       manualFieldExtensions,
       itemFormSidebarPanels,
       itemFormOutlets,
+      onBeforeItemDestroy,
+      onBeforeItemPublish,
+      onBeforeItemUnpublish,
+      onBeforeItemSave,
+      onBeforeItemDuplicate,
       overrideFieldExtensions: toMultifield(
         configuration.overrideFieldExtensions,
       ),
