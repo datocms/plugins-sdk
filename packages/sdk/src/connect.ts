@@ -1,5 +1,11 @@
 import connectToParent from 'penpal/lib/connectToParent';
-import { Field, Item, ItemType } from './SiteApiSchema';
+import {
+  Field,
+  Item,
+  ItemCreateSchema,
+  ItemType,
+  ItemUpdateSchema,
+} from './SiteApiSchema';
 import {
   AssetSource,
   ContentAreaSidebarItem,
@@ -86,6 +92,8 @@ export type RenderManualFieldExtensionConfigScreenCtx =
 export type RenderConfigScreenCtx = RenderConfigScreenPropertiesAndMethods &
   SizingUtilities;
 
+type MaybePromise<T> = T | Promise<T>;
+
 /** The full options you can pass to the `connect` function */
 export type FullConnectParameters = {
   /**
@@ -102,7 +110,18 @@ export type FullConnectParameters = {
    *
    * @tag beforeHooks
    */
-  onBeforeItemDestroy: (item: Item, ctx: OnBootCtx) => Promise<boolean>;
+  onBeforeItemDestroy: (item: Item, ctx: OnBootCtx) => MaybePromise<boolean>;
+
+  /**
+   * This function will be called before creating a new record. You can stop the
+   * action by returning `false`
+   *
+   * @tag beforeHooks
+   */
+  onBeforeItemCreate: (
+    payload: ItemCreateSchema,
+    ctx: OnBootCtx,
+  ) => MaybePromise<ItemCreateSchema | false>;
 
   /**
    * This function will be called before saving a new version of a record. You
@@ -110,7 +129,10 @@ export type FullConnectParameters = {
    *
    * @tag beforeHooks
    */
-  onBeforeItemSave: (item: Item, ctx: OnBootCtx) => Promise<boolean>;
+  onBeforeItemUpdate: (
+    payload: ItemUpdateSchema,
+    ctx: OnBootCtx,
+  ) => MaybePromise<ItemUpdateSchema | false>;
 
   /**
    * This function will be called before publishing a record. You can stop the
@@ -118,7 +140,7 @@ export type FullConnectParameters = {
    *
    * @tag beforeHooks
    */
-  onBeforeItemPublish: (item: Item, ctx: OnBootCtx) => Promise<boolean>;
+  onBeforeItemPublish: (item: Item, ctx: OnBootCtx) => MaybePromise<boolean>;
 
   /**
    * This function will be called before unpublishing a record. You can stop the
@@ -126,15 +148,7 @@ export type FullConnectParameters = {
    *
    * @tag beforeHooks
    */
-  onBeforeItemUnpublish: (item: Item, ctx: OnBootCtx) => Promise<boolean>;
-
-  /**
-   * This function will be called before duplicating a record. You can stop the
-   * action by returning `false`
-   *
-   * @tag beforeHooks
-   */
-  onBeforeItemDuplicate: (item: Item, ctx: OnBootCtx) => Promise<boolean>;
+  onBeforeItemUnpublish: (item: Item, ctx: OnBootCtx) => MaybePromise<boolean>;
 
   /**
    * Use this function to declare new tabs you want to add in the top-bar of the
@@ -431,8 +445,8 @@ export async function connect(
     onBeforeItemDestroy,
     onBeforeItemPublish,
     onBeforeItemUnpublish,
-    onBeforeItemSave,
-    onBeforeItemDuplicate,
+    onBeforeItemUpdate,
+    onBeforeItemCreate,
   } = configuration;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -461,8 +475,8 @@ export async function connect(
       onBeforeItemDestroy,
       onBeforeItemPublish,
       onBeforeItemUnpublish,
-      onBeforeItemSave,
-      onBeforeItemDuplicate,
+      onBeforeItemUpdate,
+      onBeforeItemCreate,
       overrideFieldExtensions: toMultifield(
         configuration.overrideFieldExtensions,
       ),
