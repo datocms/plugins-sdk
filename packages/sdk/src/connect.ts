@@ -346,17 +346,13 @@ function toMultifield<Result>(
   };
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AsyncReturnType<T extends (...args: any) => any> = T extends (
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ...args: any
 ) => Promise<infer U>
   ? U
-  : // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  T extends (...args: any) => infer U
+  : T extends (...args: any) => infer U
   ? U
-  : // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    any;
+  : any;
 
 function getMaxScrollHeight() {
   const elements = document.querySelectorAll('body *');
@@ -442,15 +438,15 @@ export async function connect(
     manualFieldExtensions,
     itemFormSidebarPanels,
     itemFormOutlets,
-    onBeforeItemDestroy,
-    onBeforeItemPublish,
-    onBeforeItemUnpublish,
-    onBeforeItemUpdate,
-    onBeforeItemCreate,
   } = configuration;
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let listener: ((newSettings: any) => void) | null = null;
+  let callMethodMergingBootCtxExecutor:
+    | ((
+        methodName: string,
+        methodArgs: any[],
+        extraCtx: Record<string, any>,
+      ) => void)
+    | null = null;
 
   const penpalConnection = connectToParent({
     methods: {
@@ -472,11 +468,6 @@ export async function connect(
       manualFieldExtensions,
       itemFormSidebarPanels,
       itemFormOutlets,
-      onBeforeItemDestroy,
-      onBeforeItemPublish,
-      onBeforeItemUnpublish,
-      onBeforeItemUpdate,
-      onBeforeItemCreate,
       overrideFieldExtensions: toMultifield(
         configuration.overrideFieldExtensions,
       ),
@@ -486,39 +477,61 @@ export async function connect(
       customBlockStylesForStructuredTextField: toMultifield(
         configuration.customBlockStylesForStructuredTextField,
       ),
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       onChange(newSettings: any) {
         if (listener) {
           listener(newSettings);
         }
       },
-      validateManualFieldExtensionParameters:
-        configuration.validateManualFieldExtensionParameters,
+      callMethodMergingBootCtx(
+        methodName: string,
+        methodArgs: any[],
+        extraCtx: Record<string, any>,
+      ) {
+        if (!callMethodMergingBootCtxExecutor) {
+          return null;
+        }
+        return callMethodMergingBootCtxExecutor(
+          methodName,
+          methodArgs,
+          extraCtx,
+        );
+      },
     },
   });
 
   const parent: Parent = await penpalConnection.promise;
   const initialSettings = await parent.getSettings();
 
-  if (isInitParent(parent, initialSettings)) {
-    // Nothing to do. Parent calls the method they need.
-  }
-
   if (isOnBootParent(parent, initialSettings)) {
     type Settings = AsyncReturnType<OnBootMethods['getSettings']>;
+    let currentSettings = initialSettings as Settings;
 
-    const render = (settings: Settings) => {
-      if (!configuration.onBoot) {
-        return;
+    listener = (newSettings: Settings) => {
+      currentSettings = newSettings;
+    };
+
+    callMethodMergingBootCtxExecutor = (
+      methodName: string,
+      methodArgs: any[],
+      extraCtx: Record<string, any>,
+    ) => {
+      if (!(methodName in configuration)) {
+        return undefined;
       }
 
-      configuration.onBoot({
+      return (configuration as any)[methodName](...methodArgs, {
         ...parent,
-        ...settings,
+        ...currentSettings,
+        ...extraCtx,
       });
     };
 
-    render(initialSettings as Settings);
+    if (configuration.onBoot) {
+      configuration.onBoot({
+        ...parent,
+        ...currentSettings,
+      });
+    }
   }
 
   if (isRenderPageParent(parent, initialSettings)) {
