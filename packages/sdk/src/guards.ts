@@ -1,6 +1,5 @@
 import { RenderItemFormOutletMethods } from '.';
 import {
-  InitMethods,
   OnBootMethods,
   RenderPageMethods,
   RenderFieldExtensionMethods,
@@ -17,8 +16,6 @@ function buildGuard<P extends Parent>(mode: string) {
   return (parent: Parent, settings: { mode: string }): parent is P =>
     settings.mode === mode;
 }
-
-export const isInitParent = buildGuard<InitMethods>('init');
 
 export const isOnBootParent = buildGuard<OnBootMethods>('onBoot');
 

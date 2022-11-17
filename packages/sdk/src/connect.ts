@@ -33,7 +33,6 @@ import {
   SettingsAreaSidebarItemGroup,
 } from './types';
 import {
-  isInitParent,
   isOnBootParent,
   isRenderAssetSourceParent,
   isRenderConfigScreenParent,
@@ -105,23 +104,37 @@ export type FullConnectParameters = {
   onBoot: (ctx: OnBootCtx) => void;
 
   /**
-   * This function will be called before destroying a record. You can stop the
+   * This function will be called before destroying records. You can stop the
    * action by returning `false`
    *
    * @tag beforeHooks
    */
-  onBeforeItemDestroy: (item: Item, ctx: OnBootCtx) => MaybePromise<boolean>;
+  onBeforeItemsDestroy: (
+    items: Item[],
+    ctx: OnBootCtx,
+  ) => MaybePromise<boolean>;
 
   /**
-   * This function will be called before creating a new record. You can stop the
+   * This function will be called before publishing records. You can stop the
    * action by returning `false`
    *
    * @tag beforeHooks
    */
-  onBeforeItemCreate: (
-    payload: ItemCreateSchema,
+  onBeforeItemsPublish: (
+    items: Item[],
     ctx: OnBootCtx,
-  ) => MaybePromise<ItemCreateSchema | false>;
+  ) => MaybePromise<boolean>;
+
+  /**
+   * This function will be called before unpublishing records. You can stop the
+   * action by returning `false`
+   *
+   * @tag beforeHooks
+   */
+  onBeforeItemsUnpublish: (
+    items: Item[],
+    ctx: OnBootCtx,
+  ) => MaybePromise<boolean>;
 
   /**
    * This function will be called before saving a new version of a record. You
@@ -129,26 +142,10 @@ export type FullConnectParameters = {
    *
    * @tag beforeHooks
    */
-  onBeforeItemUpdate: (
-    payload: ItemUpdateSchema,
+  onBeforeItemUpsert: (
+    createOrUpdateItemPayload: ItemUpdateSchema | ItemCreateSchema,
     ctx: OnBootCtx,
-  ) => MaybePromise<ItemUpdateSchema | false>;
-
-  /**
-   * This function will be called before publishing a record. You can stop the
-   * action by returning `false`
-   *
-   * @tag beforeHooks
-   */
-  onBeforeItemPublish: (item: Item, ctx: OnBootCtx) => MaybePromise<boolean>;
-
-  /**
-   * This function will be called before unpublishing a record. You can stop the
-   * action by returning `false`
-   *
-   * @tag beforeHooks
-   */
-  onBeforeItemUnpublish: (item: Item, ctx: OnBootCtx) => MaybePromise<boolean>;
+  ) => MaybePromise<boolean>;
 
   /**
    * Use this function to declare new tabs you want to add in the top-bar of the
