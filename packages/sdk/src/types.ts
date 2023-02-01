@@ -616,7 +616,7 @@ export type RenderAdditionalProperties = {
    * @deprecated Please use `.owner` instead, as the project owner can also be
    *   an organization
    */
-  account: Account;
+  account: Account | undefined;
   /** The account that is the project owner */
   owner: Account | Organization;
   /** The padding in px that must be applied to the body */
