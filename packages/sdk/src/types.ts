@@ -2,6 +2,7 @@ import { BlockNodeTypeWithCustomStyle } from 'datocms-structured-text-utils';
 
 import {
   Account,
+  Organization,
   Field,
   Fieldset,
   Item,
@@ -545,7 +546,7 @@ export type CommonProperties = {
    * The current DatoCMS user. It can either be the owner or one of the
    * collaborators (regular or SSO).
    */
-  currentUser: User | SsoUser | Account;
+  currentUser: User | SsoUser | Account | Organization;
   /** The role for the current DatoCMS user */
   currentRole: Role;
   /**
@@ -609,8 +610,15 @@ export type RenderAdditionalProperties = {
    * not present, use the `loadSsoUsers` function to load them.
    */
   ssoUsers: Partial<Record<string, SsoUser>>;
-  /** The project owner */
+  /**
+   * The account that is the project owner
+   *
+   * @deprecated Please use `.owner` instead, as the project owner can also be
+   *   an organization
+   */
   account: Account;
+  /** The account that is the project owner */
+  owner: Account | Organization;
   /** The padding in px that must be applied to the body */
   bodyPadding: [number, number, number, number];
 };
