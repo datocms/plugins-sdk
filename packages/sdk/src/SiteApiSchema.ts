@@ -8664,8 +8664,8 @@ export type SiteAttributes = {
  * "relationships".
  */
 export type SiteRelationships = {
-  account: null | {
-    data: AccountData;
+  account: {
+    data: null | AccountData;
   };
   owner: {
     data: AccountData | OrganizationData;
