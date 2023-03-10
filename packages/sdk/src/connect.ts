@@ -343,13 +343,10 @@ function toMultifield<Result>(
   };
 }
 
-type AsyncReturnType<T extends (...args: any) => any> = T extends (
-  ...args: any
-) => Promise<infer U>
-  ? U
-  : T extends (...args: any) => infer U
-  ? U
-  : any;
+// rome-ignore lint/suspicious/noExplicitAny: <explanation>
+type AwaitedReturnType<T extends (...args: any) => any> = Awaited<
+  ReturnType<T>
+>;
 
 const buildRenderUtils = (parent: { setHeight: (number: number) => void }) => {
   let oldHeight: null | number = null;
@@ -413,12 +410,13 @@ export async function connect(
     itemFormSidebarPanels,
     itemFormOutlets,
   } = configuration;
+  // rome-ignore lint/suspicious/noExplicitAny: <explanation>
   let listener: ((newSettings: any) => void) | null = null;
   let callMethodMergingBootCtxExecutor:
     | ((
         methodName: string,
-        methodArgs: any[],
-        extraCtx: Record<string, any>,
+        methodArgs: unknown[],
+        extraCtx: Record<string, unknown>,
       ) => void)
     | null = null;
 
@@ -451,15 +449,15 @@ export async function connect(
       customBlockStylesForStructuredTextField: toMultifield(
         configuration.customBlockStylesForStructuredTextField,
       ),
-      onChange(newSettings: any) {
+      onChange(newSettings: unknown) {
         if (listener) {
           listener(newSettings);
         }
       },
       callMethodMergingBootCtx(
         methodName: string,
-        methodArgs: any[],
-        extraCtx: Record<string, any>,
+        methodArgs: unknown[],
+        extraCtx: Record<string, unknown>,
       ) {
         if (!callMethodMergingBootCtxExecutor) {
           return null;
@@ -477,7 +475,7 @@ export async function connect(
   const initialSettings = await parent.getSettings();
 
   if (isOnBootParent(parent, initialSettings)) {
-    type Settings = AsyncReturnType<OnBootMethods['getSettings']>;
+    type Settings = AwaitedReturnType<OnBootMethods['getSettings']>;
     let currentSettings = initialSettings as Settings;
 
     listener = (newSettings: Settings) => {
@@ -486,13 +484,14 @@ export async function connect(
 
     callMethodMergingBootCtxExecutor = (
       methodName: string,
-      methodArgs: any[],
-      extraCtx: Record<string, any>,
+      methodArgs: unknown[],
+      extraCtx: Record<string, unknown>,
     ) => {
       if (!(methodName in configuration)) {
         return undefined;
       }
 
+      // rome-ignore lint/suspicious/noExplicitAny: <explanation>
       return (configuration as any)[methodName](...methodArgs, {
         ...parent,
         ...currentSettings,
@@ -509,7 +508,7 @@ export async function connect(
   }
 
   if (isRenderPageParent(parent, initialSettings)) {
-    type Settings = AsyncReturnType<RenderPageMethods['getSettings']>;
+    type Settings = AwaitedReturnType<RenderPageMethods['getSettings']>;
 
     const render = (settings: Settings) => {
       if (!configuration.renderPage) {
@@ -527,7 +526,7 @@ export async function connect(
   }
 
   if (isRenderConfigScreenParent(parent, initialSettings)) {
-    type Settings = AsyncReturnType<RenderConfigScreenMethods['getSettings']>;
+    type Settings = AwaitedReturnType<RenderConfigScreenMethods['getSettings']>;
 
     const renderUtils = buildRenderUtils(parent);
 
@@ -548,7 +547,7 @@ export async function connect(
   }
 
   if (isRenderModalParent(parent, initialSettings)) {
-    type Settings = AsyncReturnType<RenderModalMethods['getSettings']>;
+    type Settings = AwaitedReturnType<RenderModalMethods['getSettings']>;
 
     const renderUtils = buildRenderUtils(parent);
 
@@ -569,7 +568,7 @@ export async function connect(
   }
 
   if (isRenderAssetSourceParent(parent, initialSettings)) {
-    type Settings = AsyncReturnType<RenderAssetSourceMethods['getSettings']>;
+    type Settings = AwaitedReturnType<RenderAssetSourceMethods['getSettings']>;
 
     const renderUtils = buildRenderUtils(parent);
 
@@ -590,7 +589,7 @@ export async function connect(
   }
 
   if (isRenderSidebarPanelParent(parent, initialSettings)) {
-    type Settings = AsyncReturnType<RenderSidebarPanelMethods['getSettings']>;
+    type Settings = AwaitedReturnType<RenderSidebarPanelMethods['getSettings']>;
 
     const renderUtils = buildRenderUtils(parent);
 
@@ -611,7 +610,9 @@ export async function connect(
   }
 
   if (isRenderItemFormOutletParent(parent, initialSettings)) {
-    type Settings = AsyncReturnType<RenderItemFormOutletMethods['getSettings']>;
+    type Settings = AwaitedReturnType<
+      RenderItemFormOutletMethods['getSettings']
+    >;
 
     const renderUtils = buildRenderUtils(parent);
 
@@ -632,7 +633,9 @@ export async function connect(
   }
 
   if (isRenderFieldExtensionParent(parent, initialSettings)) {
-    type Settings = AsyncReturnType<RenderFieldExtensionMethods['getSettings']>;
+    type Settings = AwaitedReturnType<
+      RenderFieldExtensionMethods['getSettings']
+    >;
 
     const renderUtils = buildRenderUtils(parent);
 
@@ -653,7 +656,7 @@ export async function connect(
   }
 
   if (isRenderManualFieldExtensionConfigScreenParent(parent, initialSettings)) {
-    type Settings = AsyncReturnType<
+    type Settings = AwaitedReturnType<
       RenderManualFieldExtensionConfigScreenMethods['getSettings']
     >;
 
