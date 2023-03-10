@@ -351,17 +351,6 @@ type AsyncReturnType<T extends (...args: any) => any> = T extends (
   ? U
   : any;
 
-function getMaxScrollHeight() {
-  const elements = document.querySelectorAll('body *');
-  let maxVal = 0;
-
-  for (let i = 0; i < elements.length; i++) {
-    maxVal = Math.max(elements[i].scrollHeight, maxVal);
-  }
-
-  return maxVal;
-}
-
 const buildRenderUtils = (parent: { setHeight: (number: number) => void }) => {
   let oldHeight: null | number = null;
 
@@ -369,9 +358,11 @@ const buildRenderUtils = (parent: { setHeight: (number: number) => void }) => {
     const realHeight =
       height === undefined
         ? Math.max(
+            document.body.scrollHeight,
             document.body.offsetHeight,
+            document.documentElement.clientHeight,
+            document.documentElement.scrollHeight,
             document.documentElement.offsetHeight,
-            getMaxScrollHeight(),
           )
         : height;
 
@@ -381,44 +372,30 @@ const buildRenderUtils = (parent: { setHeight: (number: number) => void }) => {
     }
   };
 
-  let autoResizingActive = false;
-  let mutationObserver: MutationObserver | null = null;
-
-  const resetHeight = () => updateHeight();
+  let resizeObserver: ResizeObserver | null = null;
 
   const startAutoResizer = () => {
     updateHeight();
 
-    if (autoResizingActive) {
+    if (resizeObserver) {
       return;
     }
 
-    autoResizingActive = true;
-
-    mutationObserver = new MutationObserver(resetHeight);
-
-    mutationObserver.observe(window.document.body, {
-      attributes: true,
-      childList: true,
-      subtree: true,
-      characterData: true,
+    resizeObserver = new ResizeObserver(() => {
+      // entries[entries.length - 1].borderBoxSize[0].blockSize;
+      updateHeight();
     });
 
-    window.addEventListener('resize', resetHeight);
+    resizeObserver.observe(document.documentElement);
   };
 
   const stopAutoResizer = () => {
-    if (!autoResizingActive) {
+    if (!resizeObserver) {
       return;
     }
 
-    autoResizingActive = false;
-
-    if (mutationObserver) {
-      mutationObserver.disconnect();
-    }
-
-    window.removeEventListener('resize', resetHeight);
+    resizeObserver.disconnect();
+    resizeObserver = null;
   };
 
   return { updateHeight, startAutoResizer, stopAutoResizer };
