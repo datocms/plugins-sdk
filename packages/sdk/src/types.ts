@@ -17,6 +17,41 @@ import {
 
 export type Icon = string | { type: 'svg'; viewBox: string; content: string };
 
+export type ItemListLocationQuery = {
+  locale?: string;
+  filter?: {
+    query?: string;
+    fields?: Record<string, unknown>;
+  };
+};
+
+export type ItemPresentationInfo = {
+  /** The title to present the record */
+  title: string;
+  /** An image representative of the record */
+  imageUrl?: string;
+  /**
+   * If different plugins implement the `buildItemPresentationInfo` hook, the
+   * one with the lowest `rank` will be used. If you want to specify an explicit
+   * value for `rank`, make sure to offer a way for final users to customize it
+   * inside the plugin's settings form, otherwise the hardcoded value you choose
+   * might clash with the one of another plugin!
+   */
+  rank?: number;
+};
+
+export type InitialLocationQueryForItemSelector = {
+  locationQuery: ItemListLocationQuery;
+  /**
+   * If different plugins implement the `initialLocationQueryForItemSelector`
+   * hook, the one with the lowest `rank` will be used. If you want to specify
+   * an explicit value for `rank`, make sure to offer a way for final users to
+   * customize it inside the plugin's settings form, otherwise the hardcoded
+   * value you choose might clash with the one of another plugin!
+   */
+  rank?: number;
+};
+
 /** A tab to be displayed in the top-bar of the UI */
 export type MainNavigationTab = {
   /** Label to be shown. Must be unique. */
@@ -285,7 +320,7 @@ export type EditorOverride = {
    */
   parameters?: Record<string, unknown>;
   /**
-   * If multiple plugins override a field, the one with the highest `rank` will
+   * If multiple plugins override a field, the one with the lowest `rank` will
    * win. If you want to specify an explicit value for `rank`, make sure to
    * offer a way for final users to customize it inside the plugin's settings
    * form, otherwise the hardcoded value you choose might clash with the one of
@@ -866,8 +901,17 @@ export type ItemDialogMethods = {
    * ```
    */
   selectItem: {
-    (itemTypeId: string, options: { multiple: true }): Promise<Item[] | null>;
-    (itemTypeId: string, options?: { multiple: false }): Promise<Item | null>;
+    (
+      itemTypeId: string,
+      options: { multiple: true; initialLocationQuery?: ItemListLocationQuery },
+    ): Promise<Item[] | null>;
+    (
+      itemTypeId: string,
+      options?: {
+        multiple: false;
+        initialLocationQuery?: ItemListLocationQuery;
+      },
+    ): Promise<Item | null>;
   };
   /**
    * Opens a dialog for editing an existing record. It returns a promise

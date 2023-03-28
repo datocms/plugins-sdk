@@ -10,8 +10,10 @@ import {
   AssetSource,
   ContentAreaSidebarItem,
   FieldExtensionOverride,
+  InitialLocationQueryForItemSelector,
   InitPropertiesAndMethods,
   ItemFormSidebarPanel,
+  ItemPresentationInfo,
   MainNavigationTab,
   ManualFieldExtension,
   OnBootMethods,
@@ -146,6 +148,29 @@ export type FullConnectParameters = {
     createOrUpdateItemPayload: ItemUpdateSchema | ItemCreateSchema,
     ctx: OnBootCtx,
   ) => MaybePromise<boolean>;
+
+  /**
+   * Use this function to customize the presentation of a record action by
+   * returning `false`
+   *
+   * @tag customizeHooks
+   */
+  buildItemPresentationInfo: (
+    item: Item,
+    ctx: OnBootCtx,
+  ) => MaybePromise<ItemPresentationInfo | undefined>;
+
+  /**
+   * Use this function to customize the initial filters when opening an record
+   * selector via a "Single link" or "Multiple links" field
+   *
+   * @tag customizeHooks
+   */
+  initialLocationQueryForItemSelector: (
+    openerfield: Item,
+    itemType: ItemType,
+    ctx: OnBootCtx,
+  ) => MaybePromise<InitialLocationQueryForItemSelector | undefined>;
 
   /**
    * Use this function to declare new tabs you want to add in the top-bar of the
