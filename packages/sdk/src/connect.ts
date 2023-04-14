@@ -395,29 +395,39 @@ const buildRenderUtils = (parent: { setHeight: (number: number) => void }) => {
   };
 
   let resizeObserver: ResizeObserver | null = null;
+  let mutationObserver: MutationObserver | null = null;
+  const onMutation = () => updateHeight();
 
   const startAutoResizer = () => {
     updateHeight();
 
-    if (resizeObserver) {
-      return;
+    if (!resizeObserver) {
+      resizeObserver = new ResizeObserver(onMutation);
+      resizeObserver.observe(document.documentElement);
     }
 
-    resizeObserver = new ResizeObserver(() => {
-      // entries[entries.length - 1].borderBoxSize[0].blockSize;
-      updateHeight();
-    });
+    if (!mutationObserver) {
+      mutationObserver = new MutationObserver(onMutation);
 
-    resizeObserver.observe(document.documentElement);
+      mutationObserver.observe(window.document.body, {
+        attributes: true,
+        childList: true,
+        subtree: true,
+        characterData: true,
+      });
+    }
   };
 
   const stopAutoResizer = () => {
-    if (!resizeObserver) {
-      return;
+    if (resizeObserver) {
+      resizeObserver.disconnect();
+      resizeObserver = null;
     }
 
-    resizeObserver.disconnect();
-    resizeObserver = null;
+    if (mutationObserver) {
+      mutationObserver.disconnect();
+      mutationObserver = null;
+    }
   };
 
   return { updateHeight, startAutoResizer, stopAutoResizer };
