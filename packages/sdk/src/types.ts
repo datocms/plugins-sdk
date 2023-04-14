@@ -16,7 +16,7 @@ import {
 } from './SiteApiSchema';
 
 export type Icon =
-  | AwesomeFont5IconIdentifier
+  | AwesomeFont5SolidIconIdentifier
   | { type: 'svg'; viewBox: string; content: string };
 
 export type ItemListLocationQuery = {
@@ -1668,7 +1668,7 @@ export type OnBootMethods = RenderMethods & OnBootAdditionalMethods;
 
 export type OnBootPropertiesAndMethods = OnBootMethods & OnBootProperties;
 
-export type AwesomeFont5IconIdentifier =
+export type AwesomeFont5SolidIconIdentifier =
   | 'abacus'
   | 'acorn'
   | 'ad'
