@@ -382,9 +382,7 @@ const buildRenderUtils = (parent: { setHeight: (number: number) => void }) => {
         ? Math.max(
             document.body.scrollHeight,
             document.body.offsetHeight,
-            document.documentElement.clientHeight,
-            document.documentElement.scrollHeight,
-            document.documentElement.offsetHeight,
+            document.documentElement.getBoundingClientRect().height,
           )
         : height;
 
