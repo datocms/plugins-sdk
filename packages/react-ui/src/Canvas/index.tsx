@@ -532,7 +532,7 @@ export function Canvas({
   const { mode } = ctx as unknown as { mode: string };
 
   useEffect(() => {
-    if (mode !== 'renderPage' && !noAutoResizer) {
+    if (!['renderPage', 'itemFormSidebar'].includes(mode) && !noAutoResizer) {
       const ctxWithAutoResizer = ctx as unknown as SizingUtilities;
       ctxWithAutoResizer.startAutoResizer();
 

@@ -8,6 +8,7 @@ import {
   RenderSidebarPanelMethods,
   RenderModalMethods,
   RenderAssetSourceMethods,
+  RenderSidebarMethods,
 } from './types';
 
 export type Parent = { getSettings: () => Promise<{ mode: string }> };
@@ -29,6 +30,10 @@ export const isRenderModalParent =
 
 export const isRenderSidebarPanelParent = buildGuard<RenderSidebarPanelMethods>(
   'renderItemFormSidebarPanel',
+);
+
+export const isRenderSidebarParent = buildGuard<RenderSidebarMethods>(
+  'renderItemFormSidebar',
 );
 
 export const isRenderItemFormOutletParent =

@@ -12,6 +12,7 @@ import {
   FieldExtensionOverride,
   InitialLocationQueryForItemSelector,
   InitPropertiesAndMethods,
+  ItemFormSidebar,
   ItemFormSidebarPanel,
   ItemPresentationInfo,
   MainNavigationTab,
@@ -32,6 +33,8 @@ import {
   RenderPagePropertiesAndMethods,
   RenderSidebarPanelMethods,
   RenderSidebarPanelPropertiesAndMethods,
+  RenderSidebarPropertiesAndMethods,
+  RenderSidebarMethods,
   SettingsAreaSidebarItemGroup,
 } from './types';
 import {
@@ -44,6 +47,7 @@ import {
   isRenderModalParent,
   isRenderPageParent,
   isRenderSidebarPanelParent,
+  isRenderSidebarParent,
   Parent,
 } from './guards';
 import {
@@ -84,6 +88,8 @@ export type RenderAssetSourceCtx = RenderAssetSourcePropertiesAndMethods &
   SizingUtilities;
 export type RenderItemFormSidebarPanelCtx =
   RenderSidebarPanelPropertiesAndMethods & SizingUtilities;
+export type RenderItemFormSidebarCtx = RenderSidebarPropertiesAndMethods &
+  SizingUtilities;
 export type RenderItemFormOutletCtx = RenderItemFormOutletPropertiesAndMethods &
   SizingUtilities;
 export type RenderFieldExtensionCtx = RenderFieldExtensionPropertiesAndMethods &
@@ -221,6 +227,14 @@ export type FullConnectParameters = {
   ) => ItemFormSidebarPanel[];
 
   /**
+   * Use this function to declare new sidebar to be shown when the user edits
+   * records of a particular model
+   *
+   * @tag sidebarPanels
+   */
+  itemFormSidebars: (itemType: ItemType, ctx: IntentCtx) => ItemFormSidebar[];
+
+  /**
    * Use this function to declare custom outlets to be shown at the top of the
    * record's editing page
    *
@@ -292,6 +306,16 @@ export type FullConnectParameters = {
   renderItemFormSidebarPanel: (
     sidebarPaneId: string,
     ctx: RenderItemFormSidebarPanelCtx,
+  ) => void;
+  /**
+   * This function will be called when the plugin needs to render a sidebar (see
+   * the `itemFormSidebars` function)
+   *
+   * @tag sidebars
+   */
+  renderItemFormSidebar: (
+    sidebarId: string,
+    ctx: RenderItemFormSidebarCtx,
   ) => void;
   /**
    * This function will be called when the plugin needs to render an outlet (see
@@ -441,6 +465,7 @@ export async function connect(
     contentAreaSidebarItems,
     manualFieldExtensions,
     itemFormSidebarPanels,
+    itemFormSidebars,
     itemFormOutlets,
   } = configuration;
   // rome-ignore lint/suspicious/noExplicitAny: <explanation>
@@ -472,6 +497,7 @@ export async function connect(
       contentAreaSidebarItems,
       manualFieldExtensions,
       itemFormSidebarPanels,
+      itemFormSidebars,
       itemFormOutlets,
       overrideFieldExtensions: toMultifield(
         configuration.overrideFieldExtensions,
@@ -632,6 +658,27 @@ export async function connect(
       }
 
       configuration.renderItemFormSidebarPanel(settings.sidebarPaneId, {
+        ...parent,
+        ...settings,
+        ...renderUtils,
+      });
+    };
+
+    listener = render;
+    render(initialSettings as Settings);
+  }
+
+  if (isRenderSidebarParent(parent, initialSettings)) {
+    type Settings = AwaitedReturnType<RenderSidebarMethods['getSettings']>;
+
+    const renderUtils = buildRenderUtils(parent);
+
+    const render = (settings: Settings) => {
+      if (!configuration.renderItemFormSidebar) {
+        return;
+      }
+
+      configuration.renderItemFormSidebar(settings.sidebarId, {
         ...parent,
         ...settings,
         ...renderUtils,

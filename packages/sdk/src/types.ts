@@ -284,6 +284,32 @@ export type ItemFormSidebarPanel = {
   initialHeight?: number;
 };
 
+/** A sidebar to be shown inside the record's editing page */
+export type ItemFormSidebar = {
+  /**
+   * ID of the sidebar. Will be the first argument for the
+   * `renderItemFormSidebar` function
+   */
+  id: string;
+  /** Label to be shown on the collapsible sidebar handle */
+  label: string;
+  /**
+   * An arbitrary configuration object that will be passed as the `parameters`
+   * property of the second argument of the `renderItemFormSidebar` function
+   */
+  parameters?: Record<string, unknown>;
+  /**
+   * If multiple sidebars specify the same `placement`, they will be sorted by
+   * ascending `rank`. If you want to specify an explicit value for `rank`, make
+   * sure to offer a way for final users to customize it inside the plugin's
+   * settings form, otherwise the hardcoded value you choose might clash with
+   * the one of another plugin!
+   */
+  rank?: number;
+  /** The preferred width for the sidebar */
+  preferredWidth?: number;
+};
+
 /** An outlet to be shown at the top of a record's editing page */
 export type ItemFormOutlet = {
   /**
@@ -1324,6 +1350,31 @@ export type RenderSidebarPanelMethods = ItemFormMethods &
 
 export type RenderSidebarPanelPropertiesAndMethods = RenderSidebarPanelMethods &
   RenderSidebarPanelProperties;
+
+/** Information regarding the specific sidebar panel that you need to render */
+export type RenderSidebarAdditionalProperties = {
+  mode: 'renderItemFormSidebar';
+  /** The ID of the sidebar that needs to be rendered */
+  sidebarId: string;
+  /**
+   * The arbitrary `parameters` of the declared in the `itemFormSidebars`
+   * function
+   */
+  parameters: Record<string, unknown>;
+};
+
+export type RenderSidebarProperties = ItemFormProperties &
+  RenderSidebarAdditionalProperties;
+
+export type RenderSidebarAdditionalMethods = {
+  getSettings: () => Promise<RenderSidebarProperties>;
+};
+
+export type RenderSidebarMethods = ItemFormMethods &
+  RenderSidebarAdditionalMethods;
+
+export type RenderSidebarPropertiesAndMethods = RenderSidebarMethods &
+  RenderSidebarProperties;
 
 /** Information regarding the specific outlet that you need to render */
 export type RenderItemFormOutletAdditionalProperties = {
