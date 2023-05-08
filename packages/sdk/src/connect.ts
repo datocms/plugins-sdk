@@ -311,7 +311,7 @@ export type FullConnectParameters = {
    * This function will be called when the plugin needs to render a sidebar (see
    * the `itemFormSidebars` function)
    *
-   * @tag sidebars
+   * @tag sidebarPanels
    */
   renderItemFormSidebar: (
     sidebarId: string,
