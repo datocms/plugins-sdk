@@ -156,10 +156,10 @@ export type FullConnectParameters = {
   ) => MaybePromise<boolean>;
 
   /**
-   * Use this function to customize the presentation of a record action by
-   * returning `false`
+   * Use this function to customize the presentation of a record in records
+   * collections and "Single link" or "Multiple links" field
    *
-   * @tag customizeHooks
+   * @tag presentation
    */
   buildItemPresentationInfo: (
     item: Item,
@@ -170,7 +170,7 @@ export type FullConnectParameters = {
    * Use this function to customize the initial filters when opening an record
    * selector via a "Single link" or "Multiple links" field
    *
-   * @tag customizeHooks
+   * @tag locationQuery
    */
   initialLocationQueryForItemSelector: (
     openerfield: Item,
