@@ -1506,6 +1506,8 @@ export type NewUploadResourceAsUrl = {
    * all hosts — allowing the image to be read by DatoCMS
    */
   url: string;
+  /** Any additional headers to pass when making the request to the URL */
+  headers?: Record<string, string>;
   /**
    * Optional filename to be used to generate the final DatoCMS URL. If not
    * passed, the URL will be used
