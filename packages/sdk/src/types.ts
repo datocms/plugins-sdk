@@ -246,7 +246,7 @@ export type ManualFieldExtension = {
 
 export type ItemFormSidebarPanelPlacement = [
   'before' | 'after',
-  'info' | 'actions' | 'links' | 'history',
+  'info' | 'publishedVersion' | 'schedule' | 'links' | 'history',
 ];
 
 /** A sidebar panel to be shown inside the record's editing page */
