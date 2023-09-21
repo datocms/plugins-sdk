@@ -1,19 +1,18 @@
 import { BlockNodeTypeWithCustomStyle } from 'datocms-structured-text-utils';
+import { SchemaTypes } from '@datocms/cma-client';
 
-import {
-  Account,
-  Organization,
-  Field,
-  Fieldset,
-  Item,
-  ItemType,
-  Plugin,
-  Role,
-  Site,
-  SsoUser,
-  Upload,
-  User,
-} from './SiteApiSchema';
+type Account = SchemaTypes.Account;
+type Organization = SchemaTypes.Organization;
+type Field = SchemaTypes.Field;
+type Fieldset = SchemaTypes.Fieldset;
+type Item = SchemaTypes.Item;
+type ItemType = SchemaTypes.ItemType;
+type Plugin = SchemaTypes.Plugin;
+type Role = SchemaTypes.Role;
+type Site = SchemaTypes.Site;
+type SsoUser = SchemaTypes.SsoUser;
+type Upload = SchemaTypes.Upload;
+type User = SchemaTypes.User;
 
 export type Icon =
   | AwesomeFontIconIdentifier

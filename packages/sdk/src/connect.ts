@@ -1,11 +1,5 @@
 import connectToParent from 'penpal/lib/connectToParent';
-import {
-  Field,
-  Item,
-  ItemCreateSchema,
-  ItemType,
-  ItemUpdateSchema,
-} from './SiteApiSchema';
+import { SchemaTypes } from '@datocms/cma-client';
 import {
   AssetSource,
   ContentAreaSidebarItem,
@@ -57,6 +51,12 @@ import {
   StructuredTextCustomBlockStyle,
   StructuredTextCustomMark,
 } from '.';
+
+type Field = SchemaTypes.Field;
+type Item = SchemaTypes.Item;
+type ItemCreateSchema = SchemaTypes.ItemCreateSchema;
+type ItemType = SchemaTypes.ItemType;
+type ItemUpdateSchema = SchemaTypes.ItemUpdateSchema;
 
 export type SizingUtilities = {
   /**
