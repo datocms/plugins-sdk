@@ -1313,17 +1313,21 @@ export type ItemFormAdditionalMethods = {
    * Takes the internal form state, and transforms it into an Item entity
    * compatible with DatoCMS API.
    *
+   * When `skipUnchangedFields`, only the fields that changed value will be
+   * serialized.
+   *
    * If the required nested blocks are still not loaded, this method will return
    * `undefined`.
    *
    * @example
    *
    * ```js
-   * await ctx.formValuesToItem(ctx.formValues);
+   * await ctx.formValuesToItem(ctx.formValues, false);
    * ```
    */
   formValuesToItem: (
     formValues: Record<string, unknown>,
+    skipUnchangedFields?: boolean,
   ) => Promise<Omit<Item, 'id' | 'meta'> | undefined>;
   /**
    * Takes an Item entity, and converts it into the internal form state
