@@ -16,6 +16,8 @@
 @import './SwitchInput/styles.module.css';
 @import './TextField/styles.module.css';
 @import './TextInput/styles.module.css';
+@import './TextareaField/styles.module.css';
+@import './TextareaInput/styles.module.css';
 @import './Toolbar/Button/styles.module.css';
 @import './Toolbar/Stack/styles.module.css';
 @import './Toolbar/Title/styles.module.css';
