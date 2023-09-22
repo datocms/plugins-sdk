@@ -56,6 +56,15 @@ export interface FormProps {
  *         textInputProps={{ monospaced: true }}
  *         onChange={(newValue) => console.log(newValue)}
  *       />
+ *       <TextareaField
+ *         required
+ *         name="longText"
+ *         id="longText"
+ *         label="Long text"
+ *         value="Lorem ipsum dolor sit amet, consectetur adipiscing elit.."
+ *         hint="Enter some text"
+ *         onChange={(newValue) => console.log(newValue)}
+ *       />
  *       <SelectField
  *         name="option"
  *         id="option"

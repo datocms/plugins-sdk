@@ -19,6 +19,8 @@ export * from './SwitchField';
 export * from './SwitchInput';
 export * from './TextField';
 export * from './TextInput';
+export * from './TextareaField';
+export * from './TextareaInput';
 export * from './Toolbar';
 export * from './useClickOutside';
 export * from './useMediaQuery';

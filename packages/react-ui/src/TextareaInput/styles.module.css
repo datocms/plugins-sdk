@@ -1,0 +1,52 @@
+.TextareaInput {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--border-color);
+  appearance: none;
+  border-radius: 0;
+  background-image: none;
+  transition: border 0.2s var(--material-ease);
+  font-size: var(--font-size-m);
+  resize: none;
+  font-family: inherit;
+
+  &::placeholder {
+    color: var(--placeholder-body-color);
+  }
+
+  &:hover {
+    border-color: var(--darker-border-color);
+  }
+
+  &:focus {
+    outline: 0;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px var(--semi-transparent-accent-color);
+  }
+}
+
+.TextareaInput--monospaced {
+  font-family: var(--monospaced-font-family);
+  font-size: var(--font-size-s);
+}
+
+.TextareaInput--disabled {
+  color: var(--light-body-color);
+  border-color: var(--border-color);
+  background: var(--lighter-bg-color);
+}
+
+.TextareaInput--error {
+  border-color: var(--alert-color);
+
+  &:hover,
+  &:focus {
+    border-color: var(--alert-color);
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 3px rgba(var(--alert-color-rgb-components), 0.2);
+  }
+}
