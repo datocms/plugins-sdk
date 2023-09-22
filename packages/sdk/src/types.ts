@@ -1310,6 +1310,34 @@ export type ItemFormAdditionalMethods = {
    */
   setFieldValue: (path: string, value: unknown) => Promise<void>;
   /**
+   * Takes the internal form state, and transforms it into an Item entity
+   * compatible with DatoCMS API.
+   *
+   * If the required nested blocks are still not loaded, this method will return
+   * `undefined`.
+   *
+   * @example
+   *
+   * ```js
+   * await ctx.formValuesToItem(ctx.formValues);
+   * ```
+   */
+  formValuesToItem: (
+    formValues: Record<string, unknown>,
+  ) => Promise<Omit<Item, 'id' | 'meta'> | undefined>;
+  /**
+   * Takes an Item entity, and converts it into the internal form state
+   *
+   * @example
+   *
+   * ```js
+   * await ctx.itemToFormValues(ctx.item);
+   * ```
+   */
+  itemToFormValues: (
+    item: Omit<Item, 'id' | 'meta'>,
+  ) => Promise<Record<string, unknown>>;
+  /**
    * Triggers a submit form for current record
    *
    * @example
