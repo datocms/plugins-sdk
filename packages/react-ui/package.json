@@ -1,6 +1,6 @@
 {
   "name": "datocms-react-ui",
-  "version": "1.0.0-alpha.0",
+  "version": "1.0.0-alpha.1",
   "description": "React components to use inside DatoCMS plugins",
   "keywords": [
     "datocms",
@@ -41,7 +41,7 @@
   },
   "dependencies": {
     "classnames": "^2.3.1",
-    "datocms-plugin-sdk": "^1.0.0-alpha.0",
+    "datocms-plugin-sdk": "^1.0.0-alpha.1",
     "react-intersection-observer": "^8.31.0",
     "react-select": "^5.2.1",
     "scroll-into-view-if-needed": "^2.2.20"
@@ -57,5 +57,5 @@
     "postcss-nested": "^5.0.6",
     "typedoc": "^0.23.20"
   },
-  "gitHead": "9ee0e6cf6a4b9370220b2c0d3c795dc4e84d1213"
+  "gitHead": "3796eeadf76e0ec2112f20c69733cc34b9d3da71"
 }

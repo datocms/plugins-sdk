@@ -1,6 +1,6 @@
 {
   "name": "datocms-plugin-sdk",
-  "version": "1.0.0-alpha.0",
+  "version": "1.0.0-alpha.1",
   "description": "DatoCMS Plugin SDK",
   "keywords": [
     "datocms",
@@ -44,5 +44,5 @@
   "devDependencies": {
     "typedoc": "^0.23.20"
   },
-  "gitHead": "9ee0e6cf6a4b9370220b2c0d3c795dc4e84d1213"
+  "gitHead": "3796eeadf76e0ec2112f20c69733cc34b9d3da71"
 }
