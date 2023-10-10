@@ -74,7 +74,7 @@ export type MainNavigationTab = {
    */
   placement?: [
     'before' | 'after',
-    'content' | 'mediaArea' | 'apiExplorer' | 'settings',
+    'content' | 'media' | 'schema' | 'configuration' | 'cdaPlayground',
   ];
   /**
    * If different plugins specify the same `placement` for their tabs, they will
@@ -118,19 +118,7 @@ export type SettingsAreaSidebarItemGroup = {
    * specified, the item will be placed after the standard items provided by
    * DatoCMS itself.
    */
-  placement?: [
-    'before' | 'after',
-    (
-      | 'environment'
-      | 'project'
-      | 'permissions'
-      | 'webhooks'
-      | 'deployment'
-      | 'sso'
-      | 'auditLog'
-      | 'usage'
-    ),
-  ];
+  placement?: ['before' | 'after', 'properties' | 'permissions'];
   /**
    * If different plugins specify the same `placement` for their sections, they
    * will be displayed by ascending `rank`. If you want to specify an explicit
@@ -164,7 +152,7 @@ export type ContentAreaSidebarItem = {
    * specified, the item will be placed after the standard items provided by
    * DatoCMS itself.
    */
-  placement?: ['before' | 'after', 'menuItems' | 'settings'];
+  placement?: ['before' | 'after', 'menuItems' | 'seoPreferences'];
   /**
    * If different plugins specify the same `placement` for their panels, they
    * will be displayed by ascending `rank`. If you want to specify an explicit
