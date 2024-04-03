@@ -1,5 +1,5 @@
-import { BlockNodeTypeWithCustomStyle } from 'datocms-structured-text-utils';
 import { SchemaTypes } from '@datocms/cma-client';
+import { BlockNodeTypeWithCustomStyle } from 'datocms-structured-text-utils';
 
 type Account = SchemaTypes.Account;
 type Organization = SchemaTypes.Organization;
@@ -1236,7 +1236,10 @@ export type ItemFormProperties = RenderProperties &
  */
 export type ItemFormAdditionalMethods = {
   /**
-   * Hides/shows a specific field in the form
+   * Hides/shows a specific field in the form. Please be aware that when a field
+   * is hidden, the field editor for that field will be removed from the DOM
+   * itself, including any associated plugins. When it is shown again, its
+   * plugins will be reinitialized.
    *
    * @example
    *
