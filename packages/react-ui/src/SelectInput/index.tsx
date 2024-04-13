@@ -1,15 +1,17 @@
 import React, { useMemo } from 'react';
 import RawSelect, {
-  Props as RawSelectProps,
-  GroupBase,
-  StylesConfig,
-  ThemeConfig,
+  type Props as RawSelectProps,
+  type GroupBase,
+  type StylesConfig,
+  type ThemeConfig,
 } from 'react-select';
-import RawAsyncSelect, { AsyncProps } from 'react-select/async';
+import RawAsyncSelect, { type AsyncProps } from 'react-select/async';
 import RawAsyncCreatableSelect, {
-  AsyncCreatableProps,
+  type AsyncCreatableProps,
 } from 'react-select/async-creatable';
-import RawCreatableSelect, { CreatableProps } from 'react-select/creatable';
+import RawCreatableSelect, {
+  type CreatableProps,
+} from 'react-select/creatable';
 
 const themeConfig: ThemeConfig = (existing) => ({
   ...existing,

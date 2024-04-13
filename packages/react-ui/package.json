@@ -2,11 +2,7 @@
   "name": "datocms-react-ui",
   "version": "1.0.1",
   "description": "React components to use inside DatoCMS plugins",
-  "keywords": [
-    "datocms",
-    "plugin",
-    "sdk"
-  ],
+  "keywords": ["datocms", "plugin", "sdk"],
   "author": "Stefano Verna <s.verna@datocms.com>",
   "homepage": "https://github.com/datocms/plugins-sdk/tree/master/packages/react-ui#readme",
   "license": "MIT",
@@ -18,12 +14,7 @@
     "lib": "dist",
     "test": "__tests__"
   },
-  "files": [
-    "src",
-    "dist",
-    "styles.css",
-    "types.json"
-  ],
+  "files": ["src", "dist", "styles.css", "types.json"],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/datocms/plugins-sdk.git"

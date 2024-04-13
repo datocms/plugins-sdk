@@ -1,5 +1,9 @@
 import classNames from 'classnames';
-import React, { CSSProperties, MouseEventHandler, ReactNode } from 'react';
+import React, {
+  type CSSProperties,
+  type MouseEventHandler,
+  type ReactNode,
+} from 'react';
 import s from './styles.module.css.json';
 
 export type ButtonProps = {
@@ -25,7 +29,7 @@ export function Button({
       onClick={onClick}
       disabled={disabled}
       className={classNames(
-        s['Button'],
+        s.Button,
         {
           [s['Button--selected']]: selected,
           [s['Button--disabled']]: disabled,

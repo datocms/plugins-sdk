@@ -1,9 +1,9 @@
-import React, { ReactNode } from 'react';
+import React, { type ReactNode } from 'react';
 import {
   FieldWrapper,
-  FormLabelProps,
+  type FormLabelProps,
   TextareaInput,
-  TextareaInputProps,
+  type TextareaInputProps,
 } from '..';
 
 type TextareaFieldProps = {

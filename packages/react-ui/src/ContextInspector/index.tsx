@@ -99,7 +99,7 @@ function buildCtx(manifest: any, definition: any): any {
   if (definition.type.type === 'intersection') {
     let result: any[] = [];
 
-    definition.type.types.forEach((elementInIntersection: any) => {
+    for (const elementInIntersection of definition.type.types) {
       if (elementInIntersection.type === 'reference') {
         const innerDefinition = findChildrenById(
           manifest,
@@ -107,7 +107,7 @@ function buildCtx(manifest: any, definition: any): any {
         );
         result = [...result, buildCtx(manifest, innerDefinition)];
       }
-    });
+    }
 
     return result.flat().filter((x) => x);
   }
@@ -128,11 +128,7 @@ function buildCtx(manifest: any, definition: any): any {
       name: definition.name,
       description: findShortText(definition),
       properties: properties.map((child: any) => {
-        if (
-          child.type &&
-          child.type.declaration &&
-          child.type.declaration.signatures
-        ) {
+        if (child.type?.declaration?.signatures) {
           child.signatures = child.type.declaration.signatures;
         }
 
@@ -176,6 +172,7 @@ const ExpandablePane = ({ children, label }: any) => {
   return (
     <div className={s.panel}>
       <button
+        type="button"
         className={s.panelHandle}
         onClick={() => setOpen((open) => !open)}
       >
@@ -249,81 +246,80 @@ export function ContextInspector(): JSX.Element {
 
   return (
     <div className={s.inspector}>
-      {groups &&
-        groups.map((group) => {
-          const name = group.name
-            .replace('AdditionalMethods', 'Methods')
-            .replace('AdditionalProperties', 'Properties')
-            .replace('Methods', ' methods')
-            .replace('Properties', ' properties')
-            .replace('Utilities', ' utilities');
+      {groups?.map((group) => {
+        const name = group.name
+          .replace('AdditionalMethods', 'Methods')
+          .replace('AdditionalProperties', 'Properties')
+          .replace('Methods', ' methods')
+          .replace('Properties', ' properties')
+          .replace('Utilities', ' utilities');
 
-          return (
-            <ExpandablePane label={`${name}`} key={name}>
-              <div className={s.groupDescription}>{group.description}</div>
-              <div className={s.propertyGroup}>
-                {(group.properties || []).map((item: any) => (
-                  <div key={item.name} className={s.propertyOrMethod}>
-                    <div className={s.propertyOrMethodBody}>
-                      <a
-                        className={s.propertyOrMethodName}
-                        href={`${baseUrl}#L${item.lineNumber}`}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        {item.name}
-                        {item.type === 'function' ? '()' : ''}
-                      </a>
+        return (
+          <ExpandablePane label={`${name}`} key={name}>
+            <div className={s.groupDescription}>{group.description}</div>
+            <div className={s.propertyGroup}>
+              {(group.properties || []).map((item: any) => (
+                <div key={item.name} className={s.propertyOrMethod}>
+                  <div className={s.propertyOrMethodBody}>
+                    <a
+                      className={s.propertyOrMethodName}
+                      href={`${baseUrl}#L${item.lineNumber}`}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {item.name}
+                      {item.type === 'function' ? '()' : ''}
+                    </a>
 
-                      <div>{item.description}</div>
-                    </div>
-                    {item.type === 'property' && (
-                      <div className={s.propertyOrMethodExample}>
-                        <pre>
-                          {JSON.stringify((ctx as any)[item.name], null, 2)}
-                        </pre>
-                        <div className={s.propertyOrMethodExampleActions}>
-                          <Button
-                            type="button"
-                            buttonSize="xxs"
-                            onClick={handleCopy.bind(
-                              null,
-                              JSON.stringify((ctx as any)[item.name], null, 2),
-                            )}
-                          >
-                            Copy value
-                          </Button>
-                        </div>
-                      </div>
-                    )}
-                    {item.example && (
-                      <div className={s.propertyOrMethodExample}>
-                        <pre>{item.example}</pre>
-                        <div className={s.propertyOrMethodExampleActions}>
-                          <Button
-                            type="button"
-                            buttonSize="xxs"
-                            buttonType="primary"
-                            onClick={handleRun.bind(null, item.example)}
-                          >
-                            Run example
-                          </Button>
-                          <Button
-                            type="button"
-                            buttonSize="xxs"
-                            onClick={handleCopy.bind(null, item.example)}
-                          >
-                            Copy example
-                          </Button>
-                        </div>
-                      </div>
-                    )}
+                    <div>{item.description}</div>
                   </div>
-                ))}
-              </div>
-            </ExpandablePane>
-          );
-        })}
+                  {item.type === 'property' && (
+                    <div className={s.propertyOrMethodExample}>
+                      <pre>
+                        {JSON.stringify((ctx as any)[item.name], null, 2)}
+                      </pre>
+                      <div className={s.propertyOrMethodExampleActions}>
+                        <Button
+                          type="button"
+                          buttonSize="xxs"
+                          onClick={handleCopy.bind(
+                            null,
+                            JSON.stringify((ctx as any)[item.name], null, 2),
+                          )}
+                        >
+                          Copy value
+                        </Button>
+                      </div>
+                    </div>
+                  )}
+                  {item.example && (
+                    <div className={s.propertyOrMethodExample}>
+                      <pre>{item.example}</pre>
+                      <div className={s.propertyOrMethodExampleActions}>
+                        <Button
+                          type="button"
+                          buttonSize="xxs"
+                          buttonType="primary"
+                          onClick={handleRun.bind(null, item.example)}
+                        >
+                          Run example
+                        </Button>
+                        <Button
+                          type="button"
+                          buttonSize="xxs"
+                          onClick={handleCopy.bind(null, item.example)}
+                        >
+                          Copy example
+                        </Button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </ExpandablePane>
+        );
+      })}
     </div>
   );
 }

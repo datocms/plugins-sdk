@@ -38,7 +38,7 @@ export function Spinner({
     const barStyle: React.CSSProperties = {};
     barStyle.animationDelay = `${(i - 12) / 10}s`;
     barStyle.transform = `rotate(${i * 30}deg) translate(146%)`;
-    bars.push(<div style={barStyle} className={s['Spinner__bar']} key={i} />);
+    bars.push(<div style={barStyle} className={s.Spinner__bar} key={i} />);
   }
 
   const style: React.CSSProperties = {

@@ -1,4 +1,4 @@
-import { createContext, SyntheticEvent } from 'react';
+import { type SyntheticEvent, createContext } from 'react';
 
 type Context = {
   searchTerm: string;

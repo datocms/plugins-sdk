@@ -1,13 +1,13 @@
-import React, { ReactNode } from 'react';
+import cn from 'classnames';
+import React, { type ReactNode } from 'react';
 import {
   FieldError,
   FieldHint,
   FormLabel,
-  FormLabelProps,
+  type FormLabelProps,
   SwitchInput,
-  SwitchInputProps,
+  type SwitchInputProps,
 } from '..';
-import cn from 'classnames';
 import s from './styles.module.css.json';
 
 type SwitchFieldProps = {

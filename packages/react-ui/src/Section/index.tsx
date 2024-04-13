@@ -1,5 +1,5 @@
-import React, { CSSProperties, ReactNode } from 'react';
 import cn from 'classnames';
+import React, { type CSSProperties, type ReactNode } from 'react';
 import s from './styles.module.css.json';
 
 type SectionProps = {
@@ -72,15 +72,15 @@ export function Section({
 }: SectionProps): JSX.Element {
   return (
     <div
-      className={cn(s['Section'], { [s['Section--highlighted']]: highlighted })}
+      className={cn(s.Section, { [s['Section--highlighted']]: highlighted })}
     >
       <div
-        className={cn(s['Section__header'], headerClassName)}
+        className={cn(s.Section__header, headerClassName)}
         style={headerStyle}
       >
         <div
           className={cn(
-            s['Section__title'],
+            s.Section__title,
 
             titleClassName,
           )}
@@ -89,13 +89,13 @@ export function Section({
           {collapsible && (
             <button
               type="button"
-              className={cn(s['Section__arrow'], {
+              className={cn(s.Section__arrow, {
                 [s['Section__arrow--is-open']]: collapsible.isOpen,
               })}
               onClick={collapsible.onToggle}
             />
           )}
-          <div className={s['Section__title__content']}>{title}</div>
+          <div className={s.Section__title__content}>{title}</div>
         </div>
       </div>
       {(!collapsible || collapsible.isOpen) && children}

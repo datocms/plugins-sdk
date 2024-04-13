@@ -2,11 +2,7 @@
   "name": "datocms-plugin-sdk",
   "version": "1.0.1",
   "description": "DatoCMS Plugin SDK",
-  "keywords": [
-    "datocms",
-    "plugin",
-    "sdk"
-  ],
+  "keywords": ["datocms", "plugin", "sdk"],
   "author": "Stefano Verna <s.verna@datocms.com>",
   "homepage": "https://github.com/datocms/plugins-sdk/tree/master/packages/sdk#readme",
   "license": "MIT",
@@ -18,11 +14,7 @@
     "lib": "dist",
     "test": "__tests__"
   },
-  "files": [
-    "dist",
-    "src",
-    "types.json"
-  ],
+  "files": ["dist", "src", "types.json"],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/datocms/plugins-sdk.git"

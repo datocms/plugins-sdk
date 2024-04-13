@@ -9,5 +9,5 @@ export const Separator = (): JSX.Element | null => {
     return null;
   }
 
-  return <div className={s['Dropdown__menu__separator']} />;
+  return <div className={s.Dropdown__menu__separator} />;
 };

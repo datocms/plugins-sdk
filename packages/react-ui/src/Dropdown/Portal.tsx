@@ -1,9 +1,10 @@
+import classNames from 'classnames';
+import React from 'react';
+import { type ReactNode, useEffect, useRef } from 'react';
 import ReactDOM from 'react-dom';
-import React, { ReactNode, useEffect, useRef } from 'react';
 import { useCtx } from '..';
 import s from '../Canvas/styles.module.css.json';
 import { generateStyleFromCtx } from '../generateStyleFromCtx';
-import classNames from 'classnames';
 
 export function Portal({
   children,
@@ -36,7 +37,7 @@ export function Portal({
 
   return ReactDOM.createPortal(
     <div
-      className={classNames(s['themeVariables'], s['canvas'])}
+      className={classNames(s.themeVariables, s.canvas)}
       style={generateStyleFromCtx(ctx)}
     >
       {children}

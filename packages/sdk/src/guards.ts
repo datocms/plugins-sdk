@@ -1,14 +1,14 @@
-import { RenderItemFormOutletMethods } from '.';
-import {
+import type { RenderItemFormOutletMethods } from '.';
+import type {
   OnBootMethods,
-  RenderPageMethods,
-  RenderFieldExtensionMethods,
-  RenderConfigScreenMethods,
-  RenderManualFieldExtensionConfigScreenMethods,
-  RenderSidebarPanelMethods,
-  RenderModalMethods,
   RenderAssetSourceMethods,
+  RenderConfigScreenMethods,
+  RenderFieldExtensionMethods,
+  RenderManualFieldExtensionConfigScreenMethods,
+  RenderModalMethods,
+  RenderPageMethods,
   RenderSidebarMethods,
+  RenderSidebarPanelMethods,
 } from './types';
 
 export type Parent = { getSettings: () => Promise<{ mode: string }> };

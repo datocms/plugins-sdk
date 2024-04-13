@@ -1,5 +1,6 @@
-import React, { CSSProperties, MouseEventHandler, ReactNode } from 'react';
 import cn from 'classnames';
+import React from 'react';
+import type { CSSProperties, MouseEventHandler, ReactNode } from 'react';
 import styles from './styles.module.css.json';
 
 export type ButtonProps = {
@@ -107,12 +108,10 @@ export function Button({
       onClick={onClick}
       style={style}
     >
-      {leftIcon && (
-        <span className={styles['button__leftIcon']}>{leftIcon}</span>
-      )}
+      {leftIcon && <span className={styles.button__leftIcon}>{leftIcon}</span>}
       {children && <span>{children}</span>}
       {rightIcon && (
-        <span className={styles['button__rightIcon']}>{rightIcon}</span>
+        <span className={styles.button__rightIcon}>{rightIcon}</span>
       )}
     </button>
   );
@@ -161,12 +160,10 @@ export function ButtonLink({
       style={style}
       onClick={onClick}
     >
-      {leftIcon && (
-        <span className={styles['button__leftIcon']}>{leftIcon}</span>
-      )}
+      {leftIcon && <span className={styles.button__leftIcon}>{leftIcon}</span>}
       {children && <span>{children}</span>}
       {rightIcon && (
-        <span className={styles['button__rightIcon']}>{rightIcon}</span>
+        <span className={styles.button__rightIcon}>{rightIcon}</span>
       )}
     </a>
   );

@@ -39,7 +39,9 @@ export function useMediaQuery(media: string): MediaQueryList {
         listener: (mql) => {
           const match = list[mql.media];
           if (match) {
-            match.notifiers.forEach((updateFn) => updateFn({}));
+            for (const updateFn of match.notifiers) {
+              updateFn({});
+            }
           }
         },
       };
@@ -106,7 +108,7 @@ function getResizeObserver(): ResizeObserver | undefined {
   }
 
   resizeObserver = new ResizeObserver((entries) => {
-    entries.forEach((entry) => {
+    for (const entry of entries) {
       const node = entry.target;
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -143,7 +145,7 @@ function getResizeObserver(): ResizeObserver | undefined {
         }
         return new DOMRect(0, 0, elRect.width, elRect.height);
       });
-    });
+    }
   });
 
   return resizeObserver;

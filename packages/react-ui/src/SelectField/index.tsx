@@ -1,17 +1,17 @@
-import React, { ReactNode } from 'react';
+import React, { type ReactNode } from 'react';
+import type { GroupBase } from 'react-select';
 import {
   AsyncCreatableSelectInput,
-  AsyncCreatableSelectInputProps,
+  type AsyncCreatableSelectInputProps,
   AsyncSelectInput,
-  AsyncSelectInputProps,
+  type AsyncSelectInputProps,
   CreatableSelectInput,
-  CreatableSelectInputProps,
+  type CreatableSelectInputProps,
   FieldWrapper,
-  FormLabelProps,
+  type FormLabelProps,
   SelectInput,
-  SelectInputProps,
+  type SelectInputProps,
 } from '..';
-import { GroupBase } from 'react-select';
 
 type SelectFieldProps<
   Option,

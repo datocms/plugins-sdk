@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { CSSProperties, ReactNode } from 'react';
+import React, { type CSSProperties, type ReactNode } from 'react';
 import s from './styles.module.css.json';
 
 export type GroupProps = {
@@ -24,7 +24,7 @@ export type GroupProps = {
  */
 export function Group({ children, style, className }: GroupProps): JSX.Element {
   return (
-    <div className={classNames(s['Group'], className)} style={style}>
+    <div className={classNames(s.Group, className)} style={style}>
       {children}
     </div>
   );

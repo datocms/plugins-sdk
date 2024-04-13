@@ -1,5 +1,9 @@
 import classNames from 'classnames';
-import React, { CSSProperties, MouseEventHandler, ReactNode } from 'react';
+import React, {
+  type CSSProperties,
+  type MouseEventHandler,
+  type ReactNode,
+} from 'react';
 import s from './styles.module.css.json';
 
 export type ButtonProps = {
@@ -20,7 +24,7 @@ export function Button({
       type="button"
       onClick={onClick}
       className={classNames(
-        s['Button'],
+        s.Button,
 
         className,
       )}

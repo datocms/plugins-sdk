@@ -1,4 +1,4 @@
-import { SchemaTypes } from '@datocms/cma-client';
+import type { SchemaTypes } from '@datocms/cma-client';
 
 type Account = SchemaTypes.Account;
 type Field = SchemaTypes.Field;

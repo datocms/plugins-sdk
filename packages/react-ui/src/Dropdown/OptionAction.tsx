@@ -1,5 +1,6 @@
 import classNames from 'classnames';
-import React, { ReactNode } from 'react';
+import React from 'react';
+import type { ReactNode } from 'react';
 import { DropdownContext } from './DropdownContext';
 import s from './styles.module.css.json';
 
@@ -20,7 +21,7 @@ export const OptionAction = ({
     {(context) => (
       <button
         type="button"
-        className={classNames(s['Dropdown__menu__option__icon'], {
+        className={classNames(s.Dropdown__menu__option__icon, {
           [s['Dropdown__menu__option__icon--delete']]: red,
         })}
         onClick={(e) => {

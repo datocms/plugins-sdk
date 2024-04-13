@@ -1,12 +1,12 @@
+import cn from 'classnames';
 import React, {
   Children,
   useCallback,
-  CSSProperties,
-  FormEventHandler,
-  FormEvent,
-  ReactNode,
+  type CSSProperties,
+  type FormEventHandler,
+  type FormEvent,
+  type ReactNode,
 } from 'react';
-import cn from 'classnames';
 import styles from './styles.module.css.json';
 
 export interface FormProps {

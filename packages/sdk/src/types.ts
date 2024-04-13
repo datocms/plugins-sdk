@@ -1,5 +1,5 @@
-import { SchemaTypes } from '@datocms/cma-client';
-import { BlockNodeTypeWithCustomStyle } from 'datocms-structured-text-utils';
+import type { SchemaTypes } from '@datocms/cma-client';
+import type { BlockNodeTypeWithCustomStyle } from 'datocms-structured-text-utils';
 
 type Account = SchemaTypes.Account;
 type Organization = SchemaTypes.Organization;

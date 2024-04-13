@@ -1,5 +1,5 @@
-import React from 'react';
 import cn from 'classnames';
+import React from 'react';
 import s from './styles.module.css.json';
 
 export type SwitchInputChangeEventHandler = (
@@ -52,9 +52,9 @@ export function SwitchInput({
     onClick?.(e);
   }
 
-  const switchClassName = cn(s['switchInput'], className, {
-    [s['switchInput__checked']]: value,
-    [s['switchInput__disabled']]: disabled,
+  const switchClassName = cn(s.switchInput, className, {
+    [s.switchInput__checked]: value,
+    [s.switchInput__disabled]: disabled,
   });
 
   return (
@@ -68,7 +68,7 @@ export function SwitchInput({
       onKeyDown={onInternalKeyDown}
       onClick={onInternalClick}
     >
-      <span className={s['switchInput__inner']} />
+      <span className={s.switchInput__inner} />
     </button>
   );
 }

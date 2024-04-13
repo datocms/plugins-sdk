@@ -1,5 +1,10 @@
-import React, { ReactNode } from 'react';
-import { FieldWrapper, FormLabelProps, TextInput, TextInputProps } from '..';
+import React, { type ReactNode } from 'react';
+import {
+  FieldWrapper,
+  type FormLabelProps,
+  TextInput,
+  type TextInputProps,
+} from '..';
 
 type TextFieldProps = {
   id: string;

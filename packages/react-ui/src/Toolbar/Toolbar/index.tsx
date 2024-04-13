@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { CSSProperties, ReactNode } from 'react';
+import React, { type CSSProperties, type ReactNode } from 'react';
 import s from './styles.module.css.json';
 
 export type ToolbarProps = {
@@ -100,7 +100,7 @@ export function Toolbar({
   return (
     <div
       className={classNames(
-        s['Toolbar'],
+        s.Toolbar,
 
         className,
       )}

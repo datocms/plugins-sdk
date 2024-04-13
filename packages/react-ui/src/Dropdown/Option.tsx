@@ -118,21 +118,21 @@ export const Option = ({
     <>
       <button
         type="button"
-        className={s['Dropdown__menu__option__content']}
+        className={s.Dropdown__menu__option__content}
         ref={contentRef}
         onClick={handleClick}
       >
         {notButtons}
       </button>
       {buttons.length > 0 && (
-        <div className={s['Dropdown__menu__option__icons']}>{buttons}</div>
+        <div className={s.Dropdown__menu__option__icons}>{buttons}</div>
       )}
     </>
   );
 
   return (
     <div
-      className={classNames(s['Dropdown__menu__option'], {
+      className={classNames(s.Dropdown__menu__option, {
         [s['Dropdown__menu__option--is-active']]: active,
         [s['Dropdown__menu__option--is-disabled']]: disabled,
         [s['Dropdown__menu__option--is-valid']]: valid,

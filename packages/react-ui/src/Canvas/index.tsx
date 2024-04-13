@@ -1,12 +1,17 @@
-import React, { createContext, ReactNode, useContext, useEffect } from 'react';
-import {
+import classNames from 'classnames';
+import type {
   RenderMethods,
   RenderProperties,
   SizingUtilities,
 } from 'datocms-plugin-sdk';
-import s from './styles.module.css.json';
+import React, {
+  createContext,
+  type ReactNode,
+  useContext,
+  useEffect,
+} from 'react';
 import { generateStyleFromCtx } from '../generateStyleFromCtx';
-import classNames from 'classnames';
+import s from './styles.module.css.json';
 
 type BaseRenderPropertiesAndMethods = RenderProperties & RenderMethods;
 
@@ -550,7 +555,7 @@ export function Canvas({
   return (
     <CtxContext.Provider value={ctx}>
       <div
-        className={classNames(s['themeVariables'], s['canvas'])}
+        className={classNames(s.themeVariables, s.canvas)}
         style={generateStyleFromCtx(ctx)}
       >
         {children}

@@ -1,25 +1,29 @@
-import { RenderProperties } from 'datocms-plugin-sdk';
-import { CSSProperties } from 'react';
+import type { RenderProperties } from 'datocms-plugin-sdk';
+import type { CSSProperties } from 'react';
 
 function camelToDash(str: string) {
-  if (str != str.toLowerCase()) {
-    str = str.replace(/[A-Z]/g, (m) => '-' + m.toLowerCase());
+  if (str === str.toLowerCase()) {
+    return str;
   }
-  return str;
+  return str.replace(/[A-Z]/g, (m) => `-${m.toLowerCase()}`);
 }
 
-export function generateStyleFromCtx(ctx: RenderProperties): CSSProperties {
-  return Object.entries(ctx.theme).reduce(
-    (acc, [k, v]) => {
-      return {
-        ...acc,
-        [`--${camelToDash(k)}`]: v,
-        [`--${camelToDash(`${k}RgbComponents`)}`]:
+export function generateStyleFromCtx(
+  ctx: RenderProperties,
+  noBodyPadding = false,
+): CSSProperties {
+  return {
+    padding: noBodyPadding
+      ? undefined
+      : ctx.bodyPadding.map((p) => `${p}px`).join(' '),
+    ...Object.fromEntries(
+      Object.entries(ctx.theme).flatMap(([k, v]) => [
+        [`--${camelToDash(k)}`, v],
+        [
+          `--${camelToDash(`${k}RgbComponents`)}`,
           v.match(/rgb\((\d+, \d+, \d+)\)/)?.[1] || undefined,
-      };
-    },
-    {
-      padding: ctx.bodyPadding.map((p) => `${p}px`).join(' '),
-    },
-  );
+        ],
+      ]),
+    ),
+  };
 }

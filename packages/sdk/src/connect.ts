@@ -1,11 +1,31 @@
+import type { SchemaTypes } from '@datocms/cma-client';
 import connectToParent from 'penpal/lib/connectToParent';
-import { SchemaTypes } from '@datocms/cma-client';
+import type {
+  ItemFormOutlet,
+  RenderItemFormOutletMethods,
+  RenderItemFormOutletPropertiesAndMethods,
+  StructuredTextCustomBlockStyle,
+  StructuredTextCustomMark,
+} from '.';
 import {
+  type Parent,
+  isOnBootParent,
+  isRenderAssetSourceParent,
+  isRenderConfigScreenParent,
+  isRenderFieldExtensionParent,
+  isRenderItemFormOutletParent,
+  isRenderManualFieldExtensionConfigScreenParent,
+  isRenderModalParent,
+  isRenderPageParent,
+  isRenderSidebarPanelParent,
+  isRenderSidebarParent,
+} from './guards';
+import type {
   AssetSource,
   ContentAreaSidebarItem,
   FieldExtensionOverride,
-  InitialLocationQueryForItemSelector,
   InitPropertiesAndMethods,
+  InitialLocationQueryForItemSelector,
   ItemFormSidebar,
   ItemFormSidebarPanel,
   ItemPresentationInfo,
@@ -25,32 +45,12 @@ import {
   RenderModalPropertiesAndMethods,
   RenderPageMethods,
   RenderPagePropertiesAndMethods,
+  RenderSidebarMethods,
   RenderSidebarPanelMethods,
   RenderSidebarPanelPropertiesAndMethods,
   RenderSidebarPropertiesAndMethods,
-  RenderSidebarMethods,
   SettingsAreaSidebarItemGroup,
 } from './types';
-import {
-  isOnBootParent,
-  isRenderAssetSourceParent,
-  isRenderConfigScreenParent,
-  isRenderFieldExtensionParent,
-  isRenderItemFormOutletParent,
-  isRenderManualFieldExtensionConfigScreenParent,
-  isRenderModalParent,
-  isRenderPageParent,
-  isRenderSidebarPanelParent,
-  isRenderSidebarParent,
-  Parent,
-} from './guards';
-import {
-  ItemFormOutlet,
-  RenderItemFormOutletMethods,
-  RenderItemFormOutletPropertiesAndMethods,
-  StructuredTextCustomBlockStyle,
-  StructuredTextCustomMark,
-} from '.';
 
 type Field = SchemaTypes.Field;
 type Item = SchemaTypes.Item;
@@ -214,7 +214,7 @@ export type FullConnectParameters = {
    *
    * @tag assetSources
    */
-  assetSources: (ctx: IntentCtx) => AssetSource[] | void;
+  assetSources: (ctx: IntentCtx) => AssetSource[] | undefined;
   /**
    * Use this function to declare new sidebar panels to be shown when the user
    * edits records of a particular model
@@ -251,7 +251,7 @@ export type FullConnectParameters = {
   overrideFieldExtensions: (
     field: Field,
     ctx: FieldIntentCtx,
-  ) => FieldExtensionOverride | void;
+  ) => FieldExtensionOverride | undefined;
 
   /**
    * Use this function to define a number of custom marks for a specific
@@ -262,7 +262,7 @@ export type FullConnectParameters = {
   customMarksForStructuredTextField: (
     field: Field,
     ctx: FieldIntentCtx,
-  ) => StructuredTextCustomMark[] | void;
+  ) => StructuredTextCustomMark[] | undefined;
 
   /**
    * Use this function to define a number of custom block styles for a specific
@@ -273,7 +273,7 @@ export type FullConnectParameters = {
   customBlockStylesForStructuredTextField: (
     field: Field,
     ctx: FieldIntentCtx,
-  ) => StructuredTextCustomBlockStyle[] | void;
+  ) => StructuredTextCustomBlockStyle[] | undefined;
 
   /**
    * This function will be called when the plugin needs to render the plugin's
@@ -392,7 +392,6 @@ function toMultifield<Result>(
   };
 }
 
-// rome-ignore lint/suspicious/noExplicitAny: <explanation>
 type AwaitedReturnType<T extends (...args: any) => any> = Awaited<
   ReturnType<T>
 >;
@@ -468,7 +467,6 @@ export async function connect(
     itemFormSidebars,
     itemFormOutlets,
   } = configuration;
-  // rome-ignore lint/suspicious/noExplicitAny: <explanation>
   let listener: ((newSettings: any) => void) | null = null;
   let callMethodMergingBootCtxExecutor:
     | ((
@@ -550,7 +548,6 @@ export async function connect(
         return undefined;
       }
 
-      // rome-ignore lint/suspicious/noExplicitAny: <explanation>
       return (configuration as any)[methodName](...methodArgs, {
         ...parent,
         ...currentSettings,

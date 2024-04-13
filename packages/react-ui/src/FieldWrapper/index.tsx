@@ -1,5 +1,5 @@
-import React, { ReactNode } from 'react';
-import { FieldError, FieldHint, FormLabel, FormLabelProps } from '..';
+import React, { type ReactNode } from 'react';
+import { FieldError, FieldHint, FormLabel, type FormLabelProps } from '..';
 
 type FieldWrapperProps = {
   id: string;

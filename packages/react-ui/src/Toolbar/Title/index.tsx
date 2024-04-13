@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { CSSProperties, ReactNode } from 'react';
+import React, { type CSSProperties, type ReactNode } from 'react';
 import s from './styles.module.css.json';
 
 export type TitleProps = {
@@ -10,7 +10,7 @@ export type TitleProps = {
 
 export function Title({ children, style, className }: TitleProps): JSX.Element {
   return (
-    <div className={classNames(s['Title'], className)} style={style}>
+    <div className={classNames(s.Title, className)} style={style}>
       {children}
     </div>
   );

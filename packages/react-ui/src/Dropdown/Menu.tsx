@@ -1,20 +1,20 @@
 import React, {
   createRef,
-  SyntheticEvent,
+  type SyntheticEvent,
   useCallback,
   useContext,
   useEffect,
   useRef,
   useState,
 } from 'react';
-import scrollIntoView from 'scroll-into-view-if-needed';
 import { useInView } from 'react-intersection-observer';
-import { Portal } from './Portal';
+import scrollIntoView from 'scroll-into-view-if-needed';
+import { mergeRefs } from '../mergeRefs';
 import { DropdownContext } from './DropdownContext';
 import { Group } from './Group';
 import { MenuContext } from './MenuContext';
+import { Portal } from './Portal';
 import s from './styles.module.css.json';
-import { mergeRefs } from '../mergeRefs';
 
 const MenuDesktopContainer = React.forwardRef<
   HTMLDivElement,
@@ -33,13 +33,17 @@ const MenuDesktopContainer = React.forwardRef<
 
 function getAbsoluteHeight(el: HTMLElement) {
   const styles = window.getComputedStyle(el);
-  const margin = parseFloat(styles.marginTop) + parseFloat(styles.marginBottom);
+  const margin =
+    Number.parseFloat(styles.marginTop) +
+    Number.parseFloat(styles.marginBottom);
   return Math.ceil(el.offsetHeight + margin);
 }
 
 function getAbsoluteWidth(el: HTMLElement) {
   const styles = window.getComputedStyle(el);
-  const margin = parseFloat(styles.marginLeft) + parseFloat(styles.marginRight);
+  const margin =
+    Number.parseFloat(styles.marginLeft) +
+    Number.parseFloat(styles.marginRight);
   return Math.ceil(el.offsetWidth + margin);
 }
 
@@ -68,14 +72,14 @@ function setPosition(
     window.innerHeight || 0,
   );
 
-  const menu = panel.querySelector<HTMLElement>('.' + s['Dropdown__menu']);
+  const menu = panel.querySelector<HTMLElement>(`.${s.Dropdown__menu}`);
 
   if (!menu) {
     return;
   }
 
   const styles = window.getComputedStyle(menu);
-  const marginTop = parseFloat(styles.marginTop);
+  const marginTop = Number.parseFloat(styles.marginTop);
 
   const fitsBelow = rect.bottom + height <= windowHeight;
   const fitsAbove = rect.top - height > 0;
@@ -96,7 +100,7 @@ function setPosition(
       menu.style.maxHeight = `${windowHeight - rect.bottom - marginTop - 10}px`;
     } else {
       // eslint-disable-next-line no-param-reassign
-      panel.style.top = `0px`;
+      panel.style.top = '0px';
       menu.style.maxHeight = `${rect.top - marginTop}px`;
     }
   }
@@ -178,20 +182,18 @@ export const Menu = ({
         const delta = event.key === 'ArrowUp' ? -1 : 1;
 
         const selectedOption = contentRef.current.querySelector(
-          '.' + s['Dropdown__menu__option--is-selected'],
+          `.${s['Dropdown__menu__option--is-selected']}`,
         );
 
-        let nextOption;
+        let nextOption: Element | null;
 
         if (!selectedOption) {
           nextOption = contentRef.current.querySelector(
-            '.' + s['Dropdown__menu__option'],
+            `.${s.Dropdown__menu__option}`,
           );
         } else {
           const elements = Array.from(
-            contentRef.current.querySelectorAll(
-              '.' + s['Dropdown__menu__option'],
-            ),
+            contentRef.current.querySelectorAll(`.${s.Dropdown__menu__option}`),
           );
           const index = elements.findIndex((el) => el === selectedOption);
           const nextIndex =
@@ -223,13 +225,13 @@ export const Menu = ({
         }
 
         const selectedOption = contentRef.current.querySelector(
-          '.' + s['Dropdown__menu__option--is-selected'],
+          `.${s['Dropdown__menu__option--is-selected']}`,
         );
 
         if (selectedOption) {
           const id = (selectedOption as HTMLButtonElement).dataset.optionId;
           const option = options.find((x) => x.id === id);
-          if (option && option.handler) {
+          if (option?.handler) {
             option.handler(event);
           }
         }
@@ -280,31 +282,30 @@ export const Menu = ({
     <>
       <div
         ref={mergeRefs(observerRef, parentRef)}
-        className={s['Dropdown__spacer']}
+        className={s.Dropdown__spacer}
       />
       <MenuDesktopContainer ref={menuRef}>
-        <div className={s['Dropdown__menu']}>
+        <div className={s.Dropdown__menu}>
           {options.length > 5 && (
-            <div className={s['Dropdown__menu__search']}>
+            <div className={s.Dropdown__menu__search}>
               <input
                 type="text"
                 value={searchTerm || ''}
                 onChange={handleChange}
                 onKeyDown={handleKeyDown}
                 placeholder="Search..."
-                autoFocus
-                className={s['Dropdown__menu__search__input']}
+                className={s.Dropdown__menu__search__input}
               />
             </div>
           )}
           <MenuContext.Provider
             value={{ searchTerm, addOption, setClickHandlerForOption }}
           >
-            <div className={s['Dropdown__menu__inner']} ref={contentRef}>
+            <div className={s.Dropdown__menu__inner} ref={contentRef}>
               {anyGroup ? (
                 children
               ) : (
-                <div className={s['Dropdown__menu__group__content']}>
+                <div className={s.Dropdown__menu__group__content}>
                   {children}
                 </div>
               )}

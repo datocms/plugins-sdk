@@ -1,4 +1,5 @@
-import React, { useCallback, useState } from 'react';
+import React from 'react';
+import { useCallback, useState } from 'react';
 import { useClickOutside } from '../useClickOutside';
 import { DropdownContext } from './DropdownContext';
 import s from './styles.module.css.json';
@@ -123,7 +124,7 @@ export function Dropdown({
 
   const handleClickOutside = useCallback(
     (event) => {
-      if (!event.target.closest('.' + s['Dropdown__menu']) && isOpen) {
+      if (!event.target.closest(`.${s.Dropdown__menu}`) && isOpen) {
         setOpen(false);
       }
     },
@@ -142,7 +143,7 @@ export function Dropdown({
 
   return (
     <DropdownContext.Provider value={{ closeMenu: handleClose }}>
-      <div className={s['Dropdown']} ref={outsideRef}>
+      <div className={s.Dropdown} ref={outsideRef}>
         {renderTrigger({ open: isOpen, onClick: handleToggle })}
         {isOpen && children}
       </div>

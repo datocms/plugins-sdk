@@ -1,5 +1,6 @@
-import React, { useCallback, RefObject, ChangeEvent } from 'react';
 import cn from 'classnames';
+import React from 'react';
+import { type ChangeEvent, type RefObject, useCallback } from 'react';
 import s from './styles.module.css.json';
 
 export type TextInputChangeEventHandler = (
@@ -54,7 +55,7 @@ export const TextInput = ({
     [onChange],
   );
 
-  const classNames = cn(s['TextInput'], className, {
+  const classNames = cn(s.TextInput, className, {
     [s['TextInput--disabled']]: disabled,
     [s['TextInput--error']]: error,
     [s['TextInput--monospaced']]: monospaced,

@@ -1,10 +1,10 @@
-import { Dropdown, DropdownProps } from './Dropdown';
-import { Group, GroupProps } from './Group';
-import { Menu, MenuProps } from './Menu';
-import { Option, OptionProps } from './Option';
-import { OptionAction, OptionActionProps } from './OptionAction';
+import { Dropdown, type DropdownProps } from './Dropdown';
+import { Group, type GroupProps } from './Group';
+import { Menu, type MenuProps } from './Menu';
+import { Option, type OptionProps } from './Option';
+import { OptionAction, type OptionActionProps } from './OptionAction';
 import { Separator } from './Separator';
-import { Text, TextProps } from './Text';
+import { Text, type TextProps } from './Text';
 
 export {
   Dropdown,
