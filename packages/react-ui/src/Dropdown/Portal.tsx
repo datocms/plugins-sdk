@@ -38,7 +38,7 @@ export function Portal({
   return ReactDOM.createPortal(
     <div
       className={classNames(s.themeVariables, s.canvas)}
-      style={generateStyleFromCtx(ctx)}
+      style={generateStyleFromCtx(ctx, true)}
     >
       {children}
     </div>,

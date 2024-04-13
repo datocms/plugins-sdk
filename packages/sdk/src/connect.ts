@@ -396,6 +396,15 @@ type AwaitedReturnType<T extends (...args: any) => any> = Awaited<
   ReturnType<T>
 >;
 
+function getMaxScrollHeight() {
+  const elements = document.querySelectorAll('body *');
+  let maxVal = 0;
+  for (let i = 0; i < elements.length; i++) {
+    maxVal = Math.max(elements[i].getBoundingClientRect().bottom, maxVal);
+  }
+  return maxVal;
+}
+
 const buildRenderUtils = (parent: { setHeight: (number: number) => void }) => {
   let oldHeight: null | number = null;
 
@@ -406,6 +415,7 @@ const buildRenderUtils = (parent: { setHeight: (number: number) => void }) => {
             document.body.scrollHeight,
             document.body.offsetHeight,
             document.documentElement.getBoundingClientRect().height,
+            getMaxScrollHeight(),
           )
         : height;
 
