@@ -1428,8 +1428,6 @@ export type RenderFieldExtensionAdditionalProperties = {
   fieldExtensionId: string;
   /** The arbitrary `parameters` of the field extension */
   parameters: Record<string, unknown>;
-  /** The placeholder for the field */
-  placeholder: string;
   /** Whether the field is currently disabled or not */
   disabled: boolean;
   /**
