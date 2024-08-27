@@ -1,6 +1,6 @@
 # `datocms-plugin-sdk`
 
-Typescript SDK to build DatoCMS plugins. You can read all about the SDK in [our documentation](https://www.datocms.com/docs/plugin-sdk).
+Typescript SDK to build DatoCMS plugins. You can read all about the SDK in [our documentation](https://www.datocms.com/docs/plugin-sdk/introduction).
 
 ## Installation
 
