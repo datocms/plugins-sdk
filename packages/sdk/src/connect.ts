@@ -23,6 +23,7 @@ import {
 import type {
   AssetSource,
   ContentAreaSidebarItem,
+  EditorPage,
   FieldExtensionOverride,
   InitPropertiesAndMethods,
   InitialLocationQueryForItemSelector,
@@ -181,6 +182,12 @@ export type FullConnectParameters = {
   /**
    * Use this function to declare new tabs you want to add in the top-bar of the
    * UI
+   *
+   * @tag pages
+   */
+  editorPage: (ctx: IntentCtx) => EditorPage[];
+  /**
+   * Use this function to declare that you want to show a customized editor page after login
    *
    * @tag pages
    */
@@ -469,6 +476,7 @@ export async function connect(
 ): Promise<void> {
   const {
     assetSources,
+    editorPage,
     mainNavigationTabs,
     settingsAreaSidebarItemGroups,
     contentAreaSidebarItems,
@@ -500,6 +508,7 @@ export async function connect(
           }),
         ),
       assetSources,
+      editorPage,
       mainNavigationTabs,
       settingsAreaSidebarItemGroups,
       contentAreaSidebarItems,

@@ -53,6 +53,14 @@ export type InitialLocationQueryForItemSelector = {
   rank?: number;
 };
 
+/** Indication on where home should point to */
+export type EditorPage = {
+  /** ID of the custom editor page */
+  pointsTo: {
+    pageId: string;
+  };
+};
+
 /** A tab to be displayed in the top-bar of the UI */
 export type MainNavigationTab = {
   /** Label to be shown. Must be unique. */
