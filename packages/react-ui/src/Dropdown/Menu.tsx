@@ -97,11 +97,9 @@ function setPosition(
     if (spaceBelow > spaceAbove) {
       // eslint-disable-next-line no-param-reassign
       panel.style.top = `${rect.bottom}px`;
-      menu.style.maxHeight = `${windowHeight - rect.bottom - marginTop - 10}px`;
     } else {
       // eslint-disable-next-line no-param-reassign
       panel.style.top = '0px';
-      menu.style.maxHeight = `${rect.top - marginTop}px`;
     }
   }
 
