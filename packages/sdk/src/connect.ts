@@ -73,6 +73,8 @@ export type SizingUtilities = {
    * at the moment
    */
   updateHeight: (newHeight?: number) => void;
+  /** Wheter the auto-resizer is currently active or not */
+  isAutoResizerActive(): boolean;
 };
 
 export type { Field, ItemType };
@@ -405,7 +407,9 @@ function getMaxScrollHeight() {
   return maxVal;
 }
 
-const buildRenderUtils = (parent: { setHeight: (number: number) => void }) => {
+const buildRenderUtils = (parent: {
+  setHeight: (number: number) => void;
+}): SizingUtilities => {
   let oldHeight: null | number = null;
 
   const updateHeight = (height?: number) => {
@@ -461,7 +465,14 @@ const buildRenderUtils = (parent: { setHeight: (number: number) => void }) => {
     }
   };
 
-  return { updateHeight, startAutoResizer, stopAutoResizer };
+  const isAutoResizerActive = () => Boolean(resizeObserver);
+
+  return {
+    updateHeight,
+    startAutoResizer,
+    stopAutoResizer,
+    isAutoResizerActive,
+  };
 };
 
 export async function connect(

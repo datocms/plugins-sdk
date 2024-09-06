@@ -13,14 +13,12 @@ import React, {
 import { generateStyleFromCtx } from '../generateStyleFromCtx';
 import s from './styles.module.css.json';
 
-type BaseRenderPropertiesAndMethods = RenderProperties & RenderMethods;
+export type BaseCtx = RenderProperties & RenderMethods;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const CtxContext = createContext<BaseRenderPropertiesAndMethods | null>(
-  null,
-);
+export const CtxContext = createContext<BaseCtx | null>(null);
 
-export function useCtx<T extends BaseRenderPropertiesAndMethods>(): T {
+export function useCtx<T extends BaseCtx>(): T {
   const ctx = useContext(CtxContext);
 
   if (!ctx) {
@@ -31,7 +29,7 @@ export function useCtx<T extends BaseRenderPropertiesAndMethods>(): T {
 }
 
 export type CanvasProps = {
-  ctx: BaseRenderPropertiesAndMethods;
+  ctx: BaseCtx;
   noAutoResizer?: boolean;
   children: ReactNode;
 };

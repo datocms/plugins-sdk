@@ -1,3 +1,4 @@
+import { SizingUtilities } from 'datocms-plugin-sdk';
 import React, {
   createRef,
   type SyntheticEvent,
@@ -9,12 +10,17 @@ import React, {
 } from 'react';
 import { useInView } from 'react-intersection-observer';
 import scrollIntoView from 'scroll-into-view-if-needed';
+import { BaseCtx, useCtx } from '../Canvas';
 import { mergeRefs } from '../mergeRefs';
 import { DropdownContext } from './DropdownContext';
 import { Group } from './Group';
 import { MenuContext } from './MenuContext';
 import { Portal } from './Portal';
 import s from './styles.module.css.json';
+
+function ctxHasSizingUtils(ctx: BaseCtx): ctx is BaseCtx & SizingUtilities {
+  return 'isAutoResizerActive' in ctx;
+}
 
 const MenuDesktopContainer = React.forwardRef<
   HTMLDivElement,
@@ -51,6 +57,7 @@ function setPosition(
   panel: HTMLElement,
   parent: HTMLElement,
   alignment: 'left' | 'right',
+  isAutoResizerActive: boolean,
 ) {
   const rect = parent.getBoundingClientRect();
   const height = getAbsoluteHeight(panel);
@@ -97,11 +104,19 @@ function setPosition(
     if (spaceBelow > spaceAbove) {
       // eslint-disable-next-line no-param-reassign
       panel.style.top = `${rect.bottom}px`;
-      menu.style.maxHeight = `${windowHeight - rect.bottom - marginTop - 10}px`;
+
+      if (!isAutoResizerActive) {
+        menu.style.maxHeight = `${
+          windowHeight - rect.bottom - marginTop - 10
+        }px`;
+      }
     } else {
       // eslint-disable-next-line no-param-reassign
       panel.style.top = '0px';
-      menu.style.maxHeight = `${rect.top - marginTop}px`;
+
+      if (!isAutoResizerActive) {
+        menu.style.maxHeight = `${rect.top - marginTop}px`;
+      }
     }
   }
 
@@ -118,6 +133,7 @@ export const Menu = ({
   children,
   alignment = 'left',
 }: MenuProps): JSX.Element => {
+  const ctx = useCtx();
   const { closeMenu } = useContext(DropdownContext);
 
   const childrenArray = React.Children.toArray(children);
@@ -251,7 +267,14 @@ export const Menu = ({
 
   const reposition = useCallback(() => {
     if (menuRef.current && parentRef.current) {
-      setPosition(menuRef.current, parentRef.current, alignment);
+      const isAutoResizerActive =
+        ctxHasSizingUtils(ctx) && ctx.isAutoResizerActive();
+      setPosition(
+        menuRef.current,
+        parentRef.current,
+        alignment,
+        isAutoResizerActive,
+      );
     }
   }, [menuRef, parentRef, alignment]);
 

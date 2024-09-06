@@ -23,7 +23,7 @@
       "complexity": {
         "noBannedTypes": "off"
       },
-      "correctness":{
+      "correctness": {
         "useExhaustiveDependencies": "off"
       },
       "a11y": {
@@ -39,5 +39,13 @@
     "formatter": {
       "quoteStyle": "single"
     }
-  }
+  },
+  "overrides": [
+    {
+      "include": ["package.json"],
+      "formatter": {
+        "lineWidth": 1
+      }
+    }
+  ]
 }
