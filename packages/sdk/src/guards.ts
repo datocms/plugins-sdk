@@ -4,6 +4,7 @@ import type {
   RenderAssetSourceMethods,
   RenderConfigScreenMethods,
   RenderFieldExtensionMethods,
+  RenderItemCollectionOutletMethods,
   RenderManualFieldExtensionConfigScreenMethods,
   RenderModalMethods,
   RenderPageMethods,
@@ -38,6 +39,9 @@ export const isRenderSidebarParent = buildGuard<RenderSidebarMethods>(
 
 export const isRenderItemFormOutletParent =
   buildGuard<RenderItemFormOutletMethods>('renderItemFormOutlet');
+
+export const isRenderItemCollectionOutletParent =
+  buildGuard<RenderItemCollectionOutletMethods>('renderItemCollectionOutlet');
 
 export const isRenderFieldExtensionParent =
   buildGuard<RenderFieldExtensionMethods>('renderFieldExtension');

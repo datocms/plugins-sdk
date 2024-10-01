@@ -8,24 +8,34 @@ import type {
   StructuredTextCustomMark,
 } from '.';
 import {
-  type Parent,
   isOnBootParent,
   isRenderAssetSourceParent,
   isRenderConfigScreenParent,
   isRenderFieldExtensionParent,
+  isRenderItemCollectionOutletParent,
   isRenderItemFormOutletParent,
   isRenderManualFieldExtensionConfigScreenParent,
   isRenderModalParent,
   isRenderPageParent,
   isRenderSidebarPanelParent,
   isRenderSidebarParent,
+  type Parent,
 } from './guards';
 import type {
   AssetSource,
   ContentAreaSidebarItem,
+  DropdownAction,
+  DropdownActionGroup,
+  ExecuteFieldDropdownActionPropertiesAndMethods,
+  ExecuteItemFormDropdownActionPropertiesAndMethods,
+  ExecuteItemsDropdownActionPropertiesAndMethods,
+  ExecuteUploadsDropdownActionPropertiesAndMethods,
+  FieldDropdownActionsProperties,
   FieldExtensionOverride,
-  InitPropertiesAndMethods,
   InitialLocationQueryForItemSelector,
+  InitPropertiesAndMethods,
+  ItemCollectionOutlet,
+  ItemFormDropdownActionsProperties,
   ItemFormSidebar,
   ItemFormSidebarPanel,
   ItemPresentationInfo,
@@ -39,6 +49,8 @@ import type {
   RenderConfigScreenPropertiesAndMethods,
   RenderFieldExtensionMethods,
   RenderFieldExtensionPropertiesAndMethods,
+  RenderItemCollectionOutletMethods,
+  RenderItemCollectionOutletPropertiesAndMethods,
   RenderManualFieldExtensionConfigScreenMethods,
   RenderManualFieldExtensionConfigScreenPropertiesAndMethods,
   RenderModalMethods,
@@ -51,9 +63,11 @@ import type {
   RenderSidebarPropertiesAndMethods,
   SettingsAreaSidebarItemGroup,
 } from './types';
+import { pick } from './utils';
 
 type Field = SchemaTypes.Field;
 type Item = SchemaTypes.Item;
+type Upload = SchemaTypes.Upload;
 type ItemCreateSchema = SchemaTypes.ItemCreateSchema;
 type ItemType = SchemaTypes.ItemType;
 type ItemUpdateSchema = SchemaTypes.ItemUpdateSchema;
@@ -65,14 +79,17 @@ export type SizingUtilities = {
    * component already takes care of calling this method for you.
    */
   startAutoResizer: () => void;
+
   /** Stops resizing the iframe automatically */
   stopAutoResizer: () => void;
+
   /**
    * Triggers a change in the size of the iframe. If you don't explicitely pass
    * a `newHeight` it will be automatically calculated using the iframe content
    * at the moment
    */
   updateHeight: (newHeight?: number) => void;
+
   /** Wheter the auto-resizer is currently active or not */
   isAutoResizerActive(): boolean;
 };
@@ -80,26 +97,63 @@ export type SizingUtilities = {
 export type { Field, ItemType };
 
 export type IntentCtx = InitPropertiesAndMethods;
+
 export type OnBootCtx = OnBootPropertiesAndMethods;
+
 export type FieldIntentCtx = InitPropertiesAndMethods & {
   itemType: ItemType;
 };
+
 export type RenderPageCtx = RenderPagePropertiesAndMethods;
+
 export type RenderModalCtx = RenderModalPropertiesAndMethods & SizingUtilities;
+
 export type RenderAssetSourceCtx = RenderAssetSourcePropertiesAndMethods &
   SizingUtilities;
+
 export type RenderItemFormSidebarPanelCtx =
   RenderSidebarPanelPropertiesAndMethods & SizingUtilities;
+
 export type RenderItemFormSidebarCtx = RenderSidebarPropertiesAndMethods &
   SizingUtilities;
+
 export type RenderItemFormOutletCtx = RenderItemFormOutletPropertiesAndMethods &
   SizingUtilities;
+
 export type RenderFieldExtensionCtx = RenderFieldExtensionPropertiesAndMethods &
   SizingUtilities;
+
 export type RenderManualFieldExtensionConfigScreenCtx =
   RenderManualFieldExtensionConfigScreenPropertiesAndMethods & SizingUtilities;
+
 export type RenderConfigScreenCtx = RenderConfigScreenPropertiesAndMethods &
   SizingUtilities;
+
+export type ItemFormDropdownActionsCtx = ItemFormDropdownActionsProperties;
+
+export type FieldDropdownActionsCtx = FieldDropdownActionsProperties;
+
+export type ExecuteItemFormDropdownActionCtx =
+  ExecuteItemFormDropdownActionPropertiesAndMethods;
+
+export type ExecuteFieldDropdownActionCtx =
+  ExecuteFieldDropdownActionPropertiesAndMethods;
+
+export type ItemDropdownActionsCtx = InitPropertiesAndMethods & {
+  itemType: ItemType;
+};
+
+export type ExecuteItemsDropdownActionCtx =
+  ExecuteItemsDropdownActionPropertiesAndMethods;
+
+export type ExecuteUploadsDropdownActionCtx =
+  ExecuteItemsDropdownActionPropertiesAndMethods;
+
+export type UploadDropdownActionsCtx =
+  ExecuteUploadsDropdownActionPropertiesAndMethods;
+
+export type RenderItemCollectionOutletCtx =
+  RenderItemCollectionOutletPropertiesAndMethods & SizingUtilities;
 
 type MaybePromise<T> = T | Promise<T>;
 
@@ -187,6 +241,7 @@ export type FullConnectParameters = {
    * @tag pages
    */
   mainNavigationTabs: (ctx: IntentCtx) => MainNavigationTab[];
+
   /**
    * Use this function to declare new navigation sections in the Settings Area
    * sidebar
@@ -196,6 +251,7 @@ export type FullConnectParameters = {
   settingsAreaSidebarItemGroups: (
     ctx: IntentCtx,
   ) => SettingsAreaSidebarItemGroup[];
+
   /**
    * Use this function to declare new navigation items in the Content Area
    * sidebar
@@ -203,6 +259,7 @@ export type FullConnectParameters = {
    * @tag pages
    */
   contentAreaSidebarItems: (ctx: IntentCtx) => ContentAreaSidebarItem[];
+
   /**
    * Use this function to declare new field extensions that users will be able
    * to install manually in some field
@@ -210,6 +267,7 @@ export type FullConnectParameters = {
    * @tag manualFieldExtensions
    */
   manualFieldExtensions: (ctx: IntentCtx) => ManualFieldExtension[];
+
   /**
    * Use this function to declare additional sources to be shown when users want
    * to upload new assets
@@ -217,6 +275,7 @@ export type FullConnectParameters = {
    * @tag assetSources
    */
   assetSources: (ctx: IntentCtx) => AssetSource[] | undefined;
+
   /**
    * Use this function to declare new sidebar panels to be shown when the user
    * edits records of a particular model
@@ -243,6 +302,57 @@ export type FullConnectParameters = {
    * @tag itemFormOutlets
    */
   itemFormOutlets: (itemType: ItemType, ctx: IntentCtx) => ItemFormOutlet[];
+
+  itemFormDropdownActions: (
+    itemType: ItemType,
+    ctx: ItemFormDropdownActionsCtx,
+  ) => Array<DropdownAction | DropdownActionGroup>;
+
+  executeItemFormDropdownAction: (
+    actionId: string,
+    ctx: ExecuteItemFormDropdownActionCtx,
+  ) => Promise<void>;
+
+  fieldDropdownActions: (
+    field: Field,
+    ctx: FieldDropdownActionsCtx,
+  ) => Array<DropdownAction | DropdownActionGroup>;
+
+  executeFieldDropdownAction: (
+    actionId: string,
+    ctx: ExecuteFieldDropdownActionCtx,
+  ) => Promise<void>;
+
+  itemsDropdownActions: (
+    itemType: ItemType,
+    ctx: ItemDropdownActionsCtx,
+  ) => Array<DropdownAction | DropdownActionGroup>;
+
+  executeItemsDropdownAction: (
+    actionId: string,
+    items: Item[],
+    ctx: ExecuteItemsDropdownActionCtx,
+  ) => Promise<void>;
+
+  uploadsDropdownActions: (
+    ctx: UploadDropdownActionsCtx,
+  ) => Array<DropdownAction | DropdownActionGroup>;
+
+  executeUploadsDropdownAction: (
+    actionId: string,
+    uploads: Upload[],
+    ctx: ExecuteUploadsDropdownActionCtx,
+  ) => Promise<void>;
+
+  itemCollectionOutlets: (
+    itemType: ItemType,
+    ctx: IntentCtx,
+  ) => ItemCollectionOutlet[];
+
+  renderItemCollectionOutlet: (
+    itemCollectionOutletId: string,
+    ctx: RenderItemCollectionOutletCtx,
+  ) => void;
 
   /**
    * Use this function to automatically force one or more field extensions to a
@@ -284,6 +394,7 @@ export type FullConnectParameters = {
    * @tag configScreen
    */
   renderConfigScreen: (ctx: RenderConfigScreenCtx) => void;
+
   /**
    * This function will be called when the plugin needs to render a specific
    * page (see the `mainNavigationTabs`, `settingsAreaSidebarItemGroups` and
@@ -292,6 +403,7 @@ export type FullConnectParameters = {
    * @tag pages
    */
   renderPage: (pageId: string, ctx: RenderPageCtx) => void;
+
   /**
    * This function will be called when the plugin requested to open a modal (see
    * the `openModal` function)
@@ -299,6 +411,7 @@ export type FullConnectParameters = {
    * @tag modals
    */
   renderModal: (modalId: string, ctx: RenderModalCtx) => void;
+
   /**
    * This function will be called when the plugin needs to render a sidebar
    * panel (see the `itemFormSidebarPanels` function)
@@ -309,6 +422,7 @@ export type FullConnectParameters = {
     sidebarPaneId: string,
     ctx: RenderItemFormSidebarPanelCtx,
   ) => void;
+
   /**
    * This function will be called when the plugin needs to render a sidebar (see
    * the `itemFormSidebars` function)
@@ -319,6 +433,7 @@ export type FullConnectParameters = {
     sidebarId: string,
     ctx: RenderItemFormSidebarCtx,
   ) => void;
+
   /**
    * This function will be called when the plugin needs to render an outlet (see
    * the `itemFormOutlets` function)
@@ -329,6 +444,7 @@ export type FullConnectParameters = {
     itemFormOutletId: string,
     ctx: RenderItemFormOutletCtx,
   ) => void;
+
   /**
    * This function will be called when the user selects one of the plugin's
    * asset sources to upload a new media file.
@@ -336,6 +452,7 @@ export type FullConnectParameters = {
    * @tag assetSources
    */
   renderAssetSource: (assetSourceId: string, ctx: RenderAssetSourceCtx) => void;
+
   /**
    * This function will be called when the plugin needs to render a field
    * extension (see the `manualFieldExtensions` and `overrideFieldExtensions`
@@ -347,6 +464,7 @@ export type FullConnectParameters = {
     fieldExtensionId: string,
     ctx: RenderFieldExtensionCtx,
   ) => void;
+
   /**
    * This function will be called when the plugin needs to render the
    * configuration form for installing a field extension inside a particular
@@ -358,6 +476,7 @@ export type FullConnectParameters = {
     fieldExtensionId: string,
     ctx: RenderManualFieldExtensionConfigScreenCtx,
   ) => void;
+
   /**
    * This function will be called each time the configuration object changes. It
    * must return an object containing possible validation errors
@@ -475,25 +594,44 @@ const buildRenderUtils = (parent: {
   };
 };
 
+const hooksWithNoRendering = [
+  'assetSources',
+
+  'itemFormOutlets',
+  'itemCollectionOutlets',
+
+  'itemFormSidebarPanels',
+  'itemFormSidebars',
+
+  'mainNavigationTabs',
+  'contentAreaSidebarItems',
+  'settingsAreaSidebarItemGroups',
+
+  'manualFieldExtensions',
+
+  'itemFormDropdownActions',
+  'executeItemFormDropdownAction',
+
+  'fieldDropdownActions',
+  'executeFieldDropdownAction',
+
+  'itemsDropdownActions',
+  'executeItemsDropdownAction',
+
+  'uploadsDropdownActions',
+  'executeUploadsDropdownAction',
+] as const;
+
 export async function connect(
   configuration: Partial<FullConnectParameters> = {},
 ): Promise<void> {
-  const {
-    assetSources,
-    mainNavigationTabs,
-    settingsAreaSidebarItemGroups,
-    contentAreaSidebarItems,
-    manualFieldExtensions,
-    itemFormSidebarPanels,
-    itemFormSidebars,
-    itemFormOutlets,
-  } = configuration;
   let listener: ((newSettings: any) => void) | null = null;
   let callMethodMergingBootCtxExecutor:
     | ((
         methodName: string,
         methodArgs: unknown[],
-        extraCtx: Record<string, unknown>,
+        extraCtxProperties: Record<string, unknown>,
+        methodCallId: string,
       ) => void)
     | null = null;
 
@@ -510,14 +648,7 @@ export async function connect(
             return [key, value];
           }),
         ),
-      assetSources,
-      mainNavigationTabs,
-      settingsAreaSidebarItemGroups,
-      contentAreaSidebarItems,
-      manualFieldExtensions,
-      itemFormSidebarPanels,
-      itemFormSidebars,
-      itemFormOutlets,
+      ...pick(configuration, hooksWithNoRendering),
       overrideFieldExtensions: toMultifield(
         configuration.overrideFieldExtensions,
       ),
@@ -535,7 +666,8 @@ export async function connect(
       callMethodMergingBootCtx(
         methodName: string,
         methodArgs: unknown[],
-        extraCtx: Record<string, unknown>,
+        extraCtxProperties: Record<string, unknown>,
+        methodCallId: string,
       ) {
         if (!callMethodMergingBootCtxExecutor) {
           return null;
@@ -543,7 +675,8 @@ export async function connect(
         return callMethodMergingBootCtxExecutor(
           methodName,
           methodArgs,
-          extraCtx,
+          extraCtxProperties,
+          methodCallId,
         );
       },
     },
@@ -563,17 +696,40 @@ export async function connect(
     callMethodMergingBootCtxExecutor = (
       methodName: string,
       methodArgs: unknown[],
-      extraCtx: Record<string, unknown>,
+      extraCtxProperties: Record<string, unknown>,
+      methodCallId: string,
     ) => {
       if (!(methodName in configuration)) {
         return undefined;
       }
 
-      return (configuration as any)[methodName](...methodArgs, {
-        ...parent,
-        ...currentSettings,
-        ...extraCtx,
-      });
+      const ctxCatchingMissingMethods = new Proxy(
+        {
+          ...parent,
+          ...currentSettings,
+          ...extraCtxProperties,
+        },
+        {
+          get(target, property, receiver) {
+            if (property in target) {
+              return Reflect.get(target, property, receiver);
+            }
+
+            return (...args: any[]) => {
+              return (parent as any).missingMethodOnCtx(
+                methodCallId,
+                property,
+                args,
+              );
+            };
+          },
+        },
+      );
+
+      return (configuration as any)[methodName](
+        ...methodArgs,
+        ctxCatchingMissingMethods,
+      );
     };
 
     if (configuration.onBoot) {
@@ -724,6 +880,32 @@ export async function connect(
         ...settings,
         ...renderUtils,
       });
+    };
+
+    listener = render;
+    render(initialSettings as Settings);
+  }
+
+  if (isRenderItemCollectionOutletParent(parent, initialSettings)) {
+    type Settings = AwaitedReturnType<
+      RenderItemCollectionOutletMethods['getSettings']
+    >;
+
+    const renderUtils = buildRenderUtils(parent);
+
+    const render = (settings: Settings) => {
+      if (!configuration.renderItemCollectionOutlet) {
+        return;
+      }
+
+      configuration.renderItemCollectionOutlet(
+        settings.itemCollectionOutletId,
+        {
+          ...parent,
+          ...settings,
+          ...renderUtils,
+        },
+      );
     };
 
     listener = render;
