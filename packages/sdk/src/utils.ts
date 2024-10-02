@@ -1,3 +1,29 @@
+import type { SchemaTypes } from '@datocms/cma-client';
+import { FullConnectParameters } from './connect';
+import { Ctx } from './ctx/base';
+import { SizingUtilities } from './ctx/commonExtras/sizing';
+import {
+  ContainedPluginFrameCtx,
+  FullScreenPluginFrameCtx,
+} from './ctx/pluginFrame';
+
+type Field = SchemaTypes.Field;
+type ItemType = SchemaTypes.ItemType;
+
+export type AwaitedReturnType<T extends (...args: any) => any> = Awaited<
+  ReturnType<T>
+>;
+
+type ModeForPluginFrameCtx<T> = T extends FullScreenPluginFrameCtx<
+  infer Mode,
+  any,
+  any
+>
+  ? Mode
+  : never;
+
+export type MaybePromise<T> = T | Promise<T>;
+
 export function pick<T extends object, K extends keyof T>(
   obj: T,
   keys: readonly K[],
@@ -10,3 +36,191 @@ export function pick<T extends object, K extends keyof T>(
   }
   return result;
 }
+
+export function fromOneFieldIntoMultipleAndResultsById<Result>(
+  fn:
+    | ((
+        field: Field,
+        ctx: Ctx<any, any> & {
+          itemType: ItemType;
+        },
+      ) => Result)
+    | undefined,
+) {
+  return (fields: Field[], ctx: Ctx<any, any>): Record<string, Result> => {
+    if (!fn) {
+      return {};
+    }
+
+    const result: Record<string, Result> = {};
+
+    for (const field of fields) {
+      const itemType = ctx.itemTypes[
+        field.relationships.item_type.data.id
+      ] as ItemType;
+      result[field.id] = fn(field, { ...ctx, itemType });
+    }
+
+    return result;
+  };
+}
+
+export type Methods = {
+  getSettings: () => Promise<Properties>;
+};
+
+export type Properties<Mode extends string = string> = { mode: Mode };
+
+type OnChangeListenerFn = (newSettings: any) => void;
+
+type Bootstrapper = (
+  connectConfiguration: Partial<FullConnectParameters>,
+  methods: Methods,
+  initialProperties: Properties,
+) => undefined | OnChangeListenerFn;
+
+export function containedRenderModeBootstrapper<
+  Ctx extends ContainedPluginFrameCtx<any, {}, {}>,
+>(
+  mode: ModeForPluginFrameCtx<Ctx>,
+  callConfigurationMethod: (
+    connectConfiguration: Partial<FullConnectParameters>,
+    ctx: Ctx,
+  ) => void,
+): Bootstrapper {
+  const bootstrapper: Bootstrapper = (
+    connectConfiguration,
+    methods,
+    initialProperties,
+  ) => {
+    if (initialProperties.mode !== mode) {
+      return undefined;
+    }
+
+    const sizingUtilities = buildSizingUtilities(methods);
+
+    const render = (properties: Record<string, unknown>) => {
+      callConfigurationMethod(connectConfiguration, {
+        ...methods,
+        ...properties,
+        ...sizingUtilities,
+      } as unknown as Ctx);
+    };
+
+    render(initialProperties);
+
+    return render;
+  };
+
+  return bootstrapper;
+}
+
+export function fullScreenRenderModeBootstrapper<
+  Ctx extends FullScreenPluginFrameCtx<any, {}, {}>,
+>(
+  mode: ModeForPluginFrameCtx<Ctx>,
+  callConfigurationMethod: (
+    connectConfiguration: Partial<FullConnectParameters>,
+    ctx: Ctx,
+  ) => void,
+): Bootstrapper {
+  const bootstrapper: Bootstrapper = (
+    connectConfiguration,
+    methods,
+    initialProperties,
+  ) => {
+    if (initialProperties.mode !== mode) {
+      return undefined;
+    }
+
+    const render = (properties: Record<string, unknown>) => {
+      callConfigurationMethod(connectConfiguration, {
+        ...methods,
+        ...properties,
+      } as unknown as Ctx);
+    };
+
+    render(initialProperties);
+
+    return render;
+  };
+
+  return bootstrapper;
+}
+
+function getMaxScrollHeight() {
+  const elements = document.querySelectorAll('body *');
+  let maxVal = 0;
+  for (let i = 0; i < elements.length; i++) {
+    maxVal = Math.max(elements[i].getBoundingClientRect().bottom, maxVal);
+  }
+  return maxVal;
+}
+
+const buildSizingUtilities = (
+  methods: ContainedPluginFrameCtx<any, any, any>,
+): SizingUtilities => {
+  let oldHeight: null | number = null;
+
+  const updateHeight = (height?: number) => {
+    const realHeight =
+      height === undefined
+        ? Math.max(
+            document.body.scrollHeight,
+            document.body.offsetHeight,
+            document.documentElement.getBoundingClientRect().height,
+            getMaxScrollHeight(),
+          )
+        : height;
+
+    if (realHeight !== oldHeight) {
+      methods.setHeight(realHeight);
+      oldHeight = realHeight;
+    }
+  };
+
+  let resizeObserver: ResizeObserver | null = null;
+  let mutationObserver: MutationObserver | null = null;
+  const onMutation = () => updateHeight();
+
+  const startAutoResizer = () => {
+    updateHeight();
+
+    if (!resizeObserver) {
+      resizeObserver = new ResizeObserver(onMutation);
+      resizeObserver.observe(document.documentElement);
+    }
+
+    if (!mutationObserver) {
+      mutationObserver = new MutationObserver(onMutation);
+
+      mutationObserver.observe(window.document.body, {
+        attributes: true,
+        childList: true,
+        subtree: true,
+        characterData: true,
+      });
+    }
+  };
+
+  const stopAutoResizer = () => {
+    if (resizeObserver) {
+      resizeObserver.disconnect();
+      resizeObserver = null;
+    }
+
+    if (mutationObserver) {
+      mutationObserver.disconnect();
+      mutationObserver = null;
+    }
+  };
+
+  const isAutoResizerActive = () => Boolean(resizeObserver);
+
+  return {
+    updateHeight,
+    startAutoResizer,
+    stopAutoResizer,
+    isAutoResizerActive,
+  };
+};
