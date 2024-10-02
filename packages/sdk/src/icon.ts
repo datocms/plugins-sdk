@@ -1,3 +1,7 @@
+export type Icon =
+  | AwesomeFontIconIdentifier
+  | { type: 'svg'; viewBox: string; content: string };
+
 export type AwesomeFontIconIdentifier =
   | '0'
   | '00'

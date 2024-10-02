@@ -1,7 +1,6 @@
 import classNames from 'classnames';
 import type {
-  RenderMethods,
-  RenderProperties,
+  FullScreenPluginFrameCtx,
   SizingUtilities,
 } from 'datocms-plugin-sdk';
 import React, {
@@ -13,12 +12,12 @@ import React, {
 import { generateStyleFromCtx } from '../generateStyleFromCtx';
 import s from './styles.module.css.json';
 
-export type BaseCtx = RenderProperties & RenderMethods;
+export type BaseCtx = FullScreenPluginFrameCtx<any, {}, {}>;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const CtxContext = createContext<BaseCtx | null>(null);
 
-export function useCtx<T extends BaseCtx>(): T {
+export function useCtx<T extends BaseCtx = BaseCtx>(): T {
   const ctx = useContext(CtxContext);
 
   if (!ctx) {

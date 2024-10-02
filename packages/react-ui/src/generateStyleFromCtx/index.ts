@@ -1,5 +1,5 @@
-import type { RenderProperties } from 'datocms-plugin-sdk';
 import type { CSSProperties } from 'react';
+import { BaseCtx } from '../Canvas';
 
 function camelToDash(str: string) {
   if (str === str.toLowerCase()) {
@@ -9,7 +9,7 @@ function camelToDash(str: string) {
 }
 
 export function generateStyleFromCtx(
-  ctx: RenderProperties,
+  ctx: BaseCtx,
   noBodyPadding = false,
 ): CSSProperties {
   return {
