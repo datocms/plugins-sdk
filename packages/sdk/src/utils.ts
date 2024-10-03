@@ -37,6 +37,17 @@ export function pick<T extends object, K extends keyof T>(
   return result;
 }
 
+export function omit<T extends object, K extends keyof T>(
+  obj: T,
+  keys: readonly K[],
+): Omit<T, K> {
+  const result = { ...obj } as T;
+  for (const key of keys) {
+    delete result[key];
+  }
+  return result as Omit<T, K>;
+}
+
 export function fromOneFieldIntoMultipleAndResultsById<Result>(
   fn:
     | ((
@@ -47,9 +58,12 @@ export function fromOneFieldIntoMultipleAndResultsById<Result>(
       ) => Result)
     | undefined,
 ) {
-  return (fields: Field[], ctx: Ctx<any, any>): Record<string, Result> => {
+  return (
+    fields: Field[],
+    ctx: Ctx<any, any>,
+  ): Record<string, Result> | undefined => {
     if (!fn) {
-      return {};
+      return undefined;
     }
 
     const result: Record<string, Result> = {};
@@ -73,8 +87,12 @@ export type Properties<Mode extends string = string> = { mode: Mode };
 
 type OnChangeListenerFn = (newSettings: any) => void;
 
-type Bootstrapper = (
-  connectConfiguration: Partial<FullConnectParameters>,
+type ExtractRenderHooks<T extends Record<string, unknown>> = {
+  [K in keyof T as K extends `render${string}` ? K : never]: T[K];
+};
+
+export type Bootstrapper = (
+  connectConfiguration: Partial<ExtractRenderHooks<FullConnectParameters>>,
   methods: Methods,
   initialProperties: Properties,
 ) => undefined | OnChangeListenerFn;
@@ -84,7 +102,7 @@ export function containedRenderModeBootstrapper<
 >(
   mode: ModeForPluginFrameCtx<Ctx>,
   callConfigurationMethod: (
-    connectConfiguration: Partial<FullConnectParameters>,
+    connectConfiguration: Partial<ExtractRenderHooks<FullConnectParameters>>,
     ctx: Ctx,
   ) => void,
 ): Bootstrapper {
@@ -120,7 +138,7 @@ export function fullScreenRenderModeBootstrapper<
 >(
   mode: ModeForPluginFrameCtx<Ctx>,
   callConfigurationMethod: (
-    connectConfiguration: Partial<FullConnectParameters>,
+    connectConfiguration: Partial<ExtractRenderHooks<FullConnectParameters>>,
     ctx: Ctx,
   ) => void,
 ): Bootstrapper {

@@ -61,7 +61,11 @@ import { renderPageBootstrapper, RenderPageHook } from './hooks/renderPage';
 import type { SettingsAreaSidebarItemGroupsHook } from './hooks/settingsAreaSidebarItemGroups';
 import type { UploadsDropdownActionsHook } from './hooks/uploadsDropdownActions';
 import type { ValidateManualFieldExtensionParametersHook } from './hooks/validateManualFieldExtensionParameters';
-import { fromOneFieldIntoMultipleAndResultsById } from './utils';
+import {
+  Bootstrapper,
+  fromOneFieldIntoMultipleAndResultsById,
+  omit,
+} from './utils';
 
 /** The full options you can pass to the `connect` function */
 export type FullConnectParameters = AssetSourcesHook &
@@ -104,7 +108,7 @@ export type FullConnectParameters = AssetSourcesHook &
   ValidateManualFieldExtensionParametersHook;
 
 export async function connect(
-  configuration: Partial<FullConnectParameters> = {},
+  rawConfiguration: Partial<FullConnectParameters> = {},
 ): Promise<void> {
   let onChangeListener: ((newSettings: any) => void) | null = null;
 
@@ -113,17 +117,28 @@ export async function connect(
         methodName: string,
         methodArgs: unknown[],
         extraCtxProperties: Record<string, unknown>,
+        extraCtxMethodKeys: string[],
         methodCallId: string,
       ) => void)
     | null = null;
 
-  const hooksWithNoRendering = Object.fromEntries(
-    Object.entries(configuration).filter(([key]) => !key.startsWith('render')),
-  );
+  const configuration = {
+    ...rawConfiguration,
+    overrideFieldExtensions: fromOneFieldIntoMultipleAndResultsById(
+      rawConfiguration.overrideFieldExtensions,
+    ),
+    customMarksForStructuredTextField: fromOneFieldIntoMultipleAndResultsById(
+      rawConfiguration.customMarksForStructuredTextField,
+    ),
+    customBlockStylesForStructuredTextField:
+      fromOneFieldIntoMultipleAndResultsById(
+        rawConfiguration.customBlockStylesForStructuredTextField,
+      ),
+  };
 
   const penpalConnection = connectToParent({
     methods: {
-      sdkVersion: () => '0.2.0',
+      sdkVersion: () => '0.3.0',
       implementedHooks: () =>
         Object.fromEntries(
           Object.entries(configuration).map(([key, value]) => {
@@ -134,17 +149,16 @@ export async function connect(
             return [key, value];
           }),
         ),
-      ...hooksWithNoRendering,
-      overrideFieldExtensions: fromOneFieldIntoMultipleAndResultsById(
-        configuration.overrideFieldExtensions,
-      ),
-      customMarksForStructuredTextField: fromOneFieldIntoMultipleAndResultsById(
-        configuration.customMarksForStructuredTextField,
-      ),
-      customBlockStylesForStructuredTextField:
-        fromOneFieldIntoMultipleAndResultsById(
-          configuration.customBlockStylesForStructuredTextField,
+      // What hooks should we expose via penpal as direct callable methods by CMS?
+      // * all renderXXX hooks will be called via onChange() -> bootstrapper, so not needed
+      // * all non-render hooks ending with ctx will be called via callMethodMergingBootCtx(), so not needed
+      // * only the non-render hooks NOT ending with ctx need to be directly called by the CMS!
+      // In the following lines we're exposing more than needed (all non-render hooks).. but it's OK.
+      ...Object.fromEntries(
+        Object.entries(configuration).filter(
+          ([key]) => !key.startsWith('render'),
         ),
+      ),
       onChange(newSettings: unknown) {
         if (onChangeListener) {
           onChangeListener(newSettings);
@@ -154,6 +168,7 @@ export async function connect(
         methodName: string,
         methodArgs: unknown[],
         extraCtxProperties: Record<string, unknown>,
+        extraCtxMethodKeys: string[],
         methodCallId: string,
       ) {
         if (!callMethodMergingBootCtxExecutor) {
@@ -163,6 +178,7 @@ export async function connect(
           methodName,
           methodArgs,
           extraCtxProperties,
+          extraCtxMethodKeys,
           methodCallId,
         );
       },
@@ -183,39 +199,30 @@ export async function connect(
       methodName: string,
       methodArgs: unknown[],
       extraCtxProperties: Record<string, unknown>,
+      extraCtxMethodKeys: string[],
       methodCallId: string,
     ) => {
       if (!(methodName in configuration)) {
         return undefined;
       }
 
-      const ctxCatchingMissingMethods = new Proxy(
-        {
-          ...methods,
-          ...currentProperties,
-          ...extraCtxProperties,
-        },
-        {
-          get(target, property, receiver) {
-            if (property in target) {
-              return Reflect.get(target, property, receiver);
-            }
-
-            return (...args: any[]) => {
-              return (methods as any).missingMethodOnCtx(
+      return (configuration as any)[methodName](...methodArgs, {
+        ...omit(methods, ['getSettings', 'setHeight']),
+        ...omit(currentProperties, ['mode', 'bodyPadding']),
+        ...Object.fromEntries(
+          extraCtxMethodKeys.map((methodName) => [
+            methodName,
+            function createAdditionalMethodProxy(...args: any[]) {
+              return (methods as any).callAdditionalCtxMethod(
                 methodCallId,
-                property,
+                methodName,
                 args,
               );
-            };
-          },
-        },
-      );
-
-      return (configuration as any)[methodName](
-        ...methodArgs,
-        ctxCatchingMissingMethods,
-      );
+            },
+          ]),
+        ),
+        ...extraCtxProperties,
+      });
     };
 
     if (configuration.onBoot) {
@@ -226,7 +233,7 @@ export async function connect(
     }
   }
 
-  const availableBootstrappers = [
+  const availableBootstrappers: Bootstrapper[] = [
     renderAssetSourceBootstrapper,
     renderConfigScreenBootstrapper,
     renderFieldExtensionBootstrapper,
