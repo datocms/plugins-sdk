@@ -1,4 +1,4 @@
-import { ContainedPluginFrameCtx } from '../ctx/pluginFrame';
+import { SelfResizingPluginFrameCtx } from '../ctx/pluginFrame';
 import { containedRenderModeBootstrapper } from '../utils';
 
 export type RenderModalHook = {
@@ -10,7 +10,7 @@ export type RenderModalHook = {
    */
   renderModal: (modalId: string, ctx: RenderModalCtx) => void;
 };
-export type RenderModalCtx = ContainedPluginFrameCtx<
+export type RenderModalCtx = SelfResizingPluginFrameCtx<
   'renderModal',
   {
     /** The ID of the modal that needs to be rendered */

@@ -1,4 +1,4 @@
-import { ContainedPluginFrameCtx } from '../ctx/pluginFrame';
+import { SelfResizingPluginFrameCtx } from '../ctx/pluginFrame';
 import { containedRenderModeBootstrapper } from '../utils';
 
 export type RenderAssetSourceHook = {
@@ -11,7 +11,7 @@ export type RenderAssetSourceHook = {
   renderAssetSource: (assetSourceId: string, ctx: RenderAssetSourceCtx) => void;
 };
 
-export type RenderAssetSourceCtx = ContainedPluginFrameCtx<
+export type RenderAssetSourceCtx = SelfResizingPluginFrameCtx<
   'renderAssetSource',
   {
     /** The ID of the assetSource that needs to be rendered */

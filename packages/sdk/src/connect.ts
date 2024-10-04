@@ -18,51 +18,62 @@ import type { ItemFormSidebarsHook } from './hooks/itemFormSidebars';
 import type { ItemsDropdownActionsHook } from './hooks/itemsDropdownActions';
 import type { MainNavigationTabsHook } from './hooks/mainNavigationTabs';
 import type { ManualFieldExtensionsHook } from './hooks/manualFieldExtensions';
+import type { OnBeforeItemUpsertHook } from './hooks/onBeforeItemUpsert';
 import type { OnBeforeItemsDestroyHook } from './hooks/onBeforeItemsDestroy';
 import type { OnBeforeItemsPublishHook } from './hooks/onBeforeItemsPublish';
 import type { OnBeforeItemsUnpublishHook } from './hooks/onBeforeItemsUnpublish';
-import type { OnBeforeItemUpsertHook } from './hooks/onBeforeItemUpsert';
 import type { OnBootHook } from './hooks/onBoot';
 import type { OverrideFieldExtensionsHook } from './hooks/overrideFieldExtensions';
 import {
-  renderAssetSourceBootstrapper,
   RenderAssetSourceHook,
+  renderAssetSourceBootstrapper,
 } from './hooks/renderAssetSource';
 import {
-  renderConfigScreenBootstrapper,
   RenderConfigScreenHook,
+  renderConfigScreenBootstrapper,
 } from './hooks/renderConfigScreen';
 import {
-  renderFieldExtensionBootstrapper,
   RenderFieldExtensionHook,
+  renderFieldExtensionBootstrapper,
 } from './hooks/renderFieldExtension';
 import {
-  renderItemCollectionOutletBootstrapper,
   RenderItemCollectionOutletHook,
+  renderItemCollectionOutletBootstrapper,
 } from './hooks/renderItemCollectionOutlet';
 import {
-  renderItemFormOutletBootstrapper,
   RenderItemFormOutletHook,
+  renderItemFormOutletBootstrapper,
 } from './hooks/renderItemFormOutlet';
 import {
-  renderItemFormSidebarBootstrapper,
   RenderItemFormSidebarHook,
+  renderItemFormSidebarBootstrapper,
 } from './hooks/renderItemFormSidebar';
 import {
-  renderItemFormSidebarPanelBootstrapper,
   RenderItemFormSidebarPanelHook,
+  renderItemFormSidebarPanelBootstrapper,
 } from './hooks/renderItemFormSidebarPanel';
 import {
-  renderManualFieldExtensionConfigScreenBootstrapper,
   RenderManualFieldExtensionConfigScreenHook,
+  renderManualFieldExtensionConfigScreenBootstrapper,
 } from './hooks/renderManualFieldExtensionConfigScreen';
-import { renderModalBootstrapper, RenderModalHook } from './hooks/renderModal';
-import { renderPageBootstrapper, RenderPageHook } from './hooks/renderPage';
+import { RenderModalHook, renderModalBootstrapper } from './hooks/renderModal';
+import { RenderPageHook, renderPageBootstrapper } from './hooks/renderPage';
+import {
+  RenderUploadSidebarHook,
+  renderUploadSidebarBootstrapper,
+} from './hooks/renderUploadSidebar';
+import {
+  RenderUploadSidebarPanelHook,
+  renderUploadSidebarPanelBootstrapper,
+} from './hooks/renderUploadSidebarPanel';
 import type { SettingsAreaSidebarItemGroupsHook } from './hooks/settingsAreaSidebarItemGroups';
+import { UploadSidebarPanelsHook } from './hooks/uploadSidebarPanels';
+import { UploadSidebarsHook } from './hooks/uploadSidebars';
 import type { UploadsDropdownActionsHook } from './hooks/uploadsDropdownActions';
 import type { ValidateManualFieldExtensionParametersHook } from './hooks/validateManualFieldExtensionParameters';
 import {
   Bootstrapper,
+  ExtractRenderHooks,
   fromOneFieldIntoMultipleAndResultsById,
   omit,
 } from './utils';
@@ -103,8 +114,12 @@ export type FullConnectParameters = AssetSourcesHook &
   RenderManualFieldExtensionConfigScreenHook &
   RenderModalHook &
   RenderPageHook &
+  RenderUploadSidebarHook &
+  RenderUploadSidebarPanelHook &
   SettingsAreaSidebarItemGroupsHook &
   UploadsDropdownActionsHook &
+  UploadSidebarPanelsHook &
+  UploadSidebarsHook &
   ValidateManualFieldExtensionParametersHook;
 
 export async function connect(
@@ -233,20 +248,27 @@ export async function connect(
     }
   }
 
-  const availableBootstrappers: Bootstrapper[] = [
-    renderAssetSourceBootstrapper,
-    renderConfigScreenBootstrapper,
-    renderFieldExtensionBootstrapper,
-    renderItemCollectionOutletBootstrapper,
-    renderItemFormOutletBootstrapper,
-    renderItemFormSidebarBootstrapper,
-    renderItemFormSidebarPanelBootstrapper,
-    renderManualFieldExtensionConfigScreenBootstrapper,
-    renderModalBootstrapper,
-    renderPageBootstrapper,
-  ];
+  type EnsureAllBootstrappers = {
+    [K in keyof ExtractRenderHooks<FullConnectParameters>]: Bootstrapper<K>;
+  };
 
-  for (const bootstrapper of availableBootstrappers) {
+  const availableBootstrappers: EnsureAllBootstrappers = {
+    renderAssetSource: renderAssetSourceBootstrapper,
+    renderConfigScreen: renderConfigScreenBootstrapper,
+    renderFieldExtension: renderFieldExtensionBootstrapper,
+    renderItemCollectionOutlet: renderItemCollectionOutletBootstrapper,
+    renderItemFormOutlet: renderItemFormOutletBootstrapper,
+    renderItemFormSidebar: renderItemFormSidebarBootstrapper,
+    renderItemFormSidebarPanel: renderItemFormSidebarPanelBootstrapper,
+    renderManualFieldExtensionConfigScreen:
+      renderManualFieldExtensionConfigScreenBootstrapper,
+    renderModal: renderModalBootstrapper,
+    renderPage: renderPageBootstrapper,
+    renderUploadSidebar: renderUploadSidebarBootstrapper,
+    renderUploadSidebarPanel: renderUploadSidebarPanelBootstrapper,
+  };
+
+  for (const bootstrapper of Object.values(availableBootstrappers)) {
     const result = bootstrapper(configuration, methods, initialProperties);
 
     if (result) {

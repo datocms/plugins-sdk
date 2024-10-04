@@ -2,7 +2,7 @@ import {
   ItemFormAdditionalMethods,
   ItemFormAdditionalProperties,
 } from '../ctx/commonExtras/itemForm';
-import { FullScreenPluginFrameCtx } from '../ctx/pluginFrame';
+import { ImposedSizePluginFrameCtx } from '../ctx/pluginFrame';
 import { fullScreenRenderModeBootstrapper } from '../utils';
 
 export type RenderItemFormSidebarHook = {
@@ -18,7 +18,7 @@ export type RenderItemFormSidebarHook = {
   ) => void;
 };
 
-export type RenderItemFormSidebarCtx = FullScreenPluginFrameCtx<
+export type RenderItemFormSidebarCtx = ImposedSizePluginFrameCtx<
   'renderItemFormSidebar',
   ItemFormAdditionalProperties & {
     /** The ID of the sidebar that needs to be rendered */

@@ -1,5 +1,5 @@
 import type { SchemaTypes } from '@datocms/cma-client';
-import { ContainedPluginFrameCtx } from '../ctx/pluginFrame';
+import { SelfResizingPluginFrameCtx } from '../ctx/pluginFrame';
 import { containedRenderModeBootstrapper } from '../utils';
 
 type Field = SchemaTypes.Field;
@@ -12,44 +12,45 @@ export type RenderManualFieldExtensionConfigScreenHook = {
   ) => void;
 };
 
-export type RenderManualFieldExtensionConfigScreenCtx = ContainedPluginFrameCtx<
-  'renderManualFieldExtensionConfigScreen',
-  {
-    /**
-     * The ID of the field extension for which we need to render the parameters
-     * form
-     */
-    fieldExtensionId: string;
-    /**
-     * The current value of the parameters (you can change the value with the
-     * `setParameters` function)
-     */
-    parameters: Record<string, unknown>;
-    /**
-     * The current validation errors for the parameters (you can set them
-     * implementing the `validateManualFieldExtensionParameters` function)
-     */
-    errors: Record<string, unknown>;
+export type RenderManualFieldExtensionConfigScreenCtx =
+  SelfResizingPluginFrameCtx<
+    'renderManualFieldExtensionConfigScreen',
+    {
+      /**
+       * The ID of the field extension for which we need to render the parameters
+       * form
+       */
+      fieldExtensionId: string;
+      /**
+       * The current value of the parameters (you can change the value with the
+       * `setParameters` function)
+       */
+      parameters: Record<string, unknown>;
+      /**
+       * The current validation errors for the parameters (you can set them
+       * implementing the `validateManualFieldExtensionParameters` function)
+       */
+      errors: Record<string, unknown>;
 
-    /** The field entity that is being edited in the form */
-    pendingField: PendingField;
+      /** The field entity that is being edited in the form */
+      pendingField: PendingField;
 
-    /** The model for the field being edited */
-    itemType: ItemType;
-  },
-  {
-    /**
-     * Sets a new value for the parameters
-     *
-     * @example
-     *
-     * ```js
-     * await ctx.setParameters({ color: '#ff0000' });
-     * ```
-     */
-    setParameters: (params: Record<string, unknown>) => Promise<void>;
-  }
->;
+      /** The model for the field being edited */
+      itemType: ItemType;
+    },
+    {
+      /**
+       * Sets a new value for the parameters
+       *
+       * @example
+       *
+       * ```js
+       * await ctx.setParameters({ color: '#ff0000' });
+       * ```
+       */
+      setParameters: (params: Record<string, unknown>) => Promise<void>;
+    }
+  >;
 
 export type PendingField = {
   id?: string;

@@ -2,7 +2,7 @@ import { FullConnectParameters } from '../connect';
 import { BaseMethods, BaseProperties } from './base';
 import { IframeMethods, SizingUtilities } from './commonExtras/sizing';
 
-export type FullScreenPluginFrameCtx<
+export type ImposedSizePluginFrameCtx<
   Mode extends keyof FullConnectParameters,
   AdditionalProperties extends Record<string, unknown> = Record<string, never>,
   AdditionalMethods extends Record<string, unknown> = Record<string, never>,
@@ -17,11 +17,11 @@ export type FullScreenPluginFrameCtx<
   > &
   AdditionalMethods;
 
-export type ContainedPluginFrameCtx<
+export type SelfResizingPluginFrameCtx<
   Mode extends keyof FullConnectParameters,
   AdditionalProperties extends Record<string, unknown> = Record<string, never>,
   AdditionalMethods extends Record<string, unknown> = Record<string, never>,
-> = FullScreenPluginFrameCtx<Mode, AdditionalProperties, AdditionalMethods> &
+> = ImposedSizePluginFrameCtx<Mode, AdditionalProperties, AdditionalMethods> &
   SizingUtilities &
   IframeMethods;
 

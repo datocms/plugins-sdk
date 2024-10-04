@@ -1,4 +1,4 @@
-import { ContainedPluginFrameCtx } from '../ctx/pluginFrame';
+import { SelfResizingPluginFrameCtx } from '../ctx/pluginFrame';
 import { containedRenderModeBootstrapper } from '../utils';
 
 export type RenderConfigScreenHook = {
@@ -11,7 +11,7 @@ export type RenderConfigScreenHook = {
   renderConfigScreen: (ctx: RenderConfigScreenCtx) => void;
 };
 
-export type RenderConfigScreenCtx = ContainedPluginFrameCtx<
+export type RenderConfigScreenCtx = SelfResizingPluginFrameCtx<
   'renderConfigScreen',
   {},
   {}
