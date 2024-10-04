@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import type {
-  FullScreenPluginFrameCtx,
+  ImposedSizePluginFrameCtx,
   SizingUtilities,
 } from 'datocms-plugin-sdk';
 import React, {
@@ -12,7 +12,7 @@ import React, {
 import { generateStyleFromCtx } from '../generateStyleFromCtx';
 import s from './styles.module.css.json';
 
-export type BaseCtx = FullScreenPluginFrameCtx<any, {}, {}>;
+export type BaseCtx = ImposedSizePluginFrameCtx<any, {}, {}>;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const CtxContext = createContext<BaseCtx | null>(null);
@@ -534,10 +534,7 @@ export function Canvas({
   const { mode } = ctx as unknown as { mode: string };
 
   useEffect(() => {
-    if (
-      !['renderPage', 'renderItemFormSidebar'].includes(mode) &&
-      !noAutoResizer
-    ) {
+    if (!noAutoResizer && 'startAutoResizer' in ctx) {
       const ctxWithAutoResizer = ctx as unknown as SizingUtilities;
       ctxWithAutoResizer.startAutoResizer();
 

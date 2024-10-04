@@ -2,7 +2,7 @@ import {
   ItemFormAdditionalMethods,
   ItemFormAdditionalProperties,
 } from '../ctx/commonExtras/itemForm';
-import { ContainedPluginFrameCtx } from '../ctx/pluginFrame';
+import { SelfResizingPluginFrameCtx } from '../ctx/pluginFrame';
 import { containedRenderModeBootstrapper } from '../utils';
 
 export type RenderItemFormSidebarPanelHook = {
@@ -18,7 +18,7 @@ export type RenderItemFormSidebarPanelHook = {
   ) => void;
 };
 
-export type RenderItemFormSidebarPanelCtx = ContainedPluginFrameCtx<
+export type RenderItemFormSidebarPanelCtx = SelfResizingPluginFrameCtx<
   'renderItemFormSidebarPanel',
   ItemFormAdditionalProperties & {
     /** The ID of the sidebar panel that needs to be rendered */

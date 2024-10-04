@@ -2,7 +2,7 @@ import {
   ItemFormAdditionalMethods,
   ItemFormAdditionalProperties,
 } from '../ctx/commonExtras/itemForm';
-import { ContainedPluginFrameCtx } from '../ctx/pluginFrame';
+import { SelfResizingPluginFrameCtx } from '../ctx/pluginFrame';
 import { containedRenderModeBootstrapper } from '../utils';
 
 export type RenderItemFormOutletHook = {
@@ -18,7 +18,7 @@ export type RenderItemFormOutletHook = {
   ) => void;
 };
 
-export type RenderItemFormOutletCtx = ContainedPluginFrameCtx<
+export type RenderItemFormOutletCtx = SelfResizingPluginFrameCtx<
   'renderItemFormOutlet',
   ItemFormAdditionalProperties & {
     /** The ID of the outlet that needs to be rendered */

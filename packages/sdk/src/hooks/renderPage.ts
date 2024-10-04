@@ -1,4 +1,4 @@
-import { FullScreenPluginFrameCtx } from '../ctx/pluginFrame';
+import { ImposedSizePluginFrameCtx } from '../ctx/pluginFrame';
 import { fullScreenRenderModeBootstrapper } from '../utils';
 
 export type RenderPageHook = {
@@ -12,7 +12,7 @@ export type RenderPageHook = {
   renderPage: (pageId: string, ctx: RenderPageCtx) => void;
 };
 
-export type RenderPageCtx = FullScreenPluginFrameCtx<
+export type RenderPageCtx = ImposedSizePluginFrameCtx<
   'renderPage',
   {
     /** The ID of the page that needs to be rendered */

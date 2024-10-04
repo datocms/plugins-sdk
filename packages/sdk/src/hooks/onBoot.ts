@@ -1,4 +1,4 @@
-import { FullScreenPluginFrameCtx } from '../ctx/pluginFrame';
+import { ImposedSizePluginFrameCtx } from '../ctx/pluginFrame';
 
 export type OnBootHook = {
   /**
@@ -10,4 +10,4 @@ export type OnBootHook = {
   onBoot: (ctx: OnBootCtx) => void;
 };
 
-export type OnBootCtx = FullScreenPluginFrameCtx<'onBoot'>;
+export type OnBootCtx = ImposedSizePluginFrameCtx<'onBoot'>;

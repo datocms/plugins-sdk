@@ -1,4 +1,4 @@
-import { ContainedPluginFrameCtx } from '../ctx/pluginFrame';
+import { SelfResizingPluginFrameCtx } from '../ctx/pluginFrame';
 import { containedRenderModeBootstrapper } from '../utils';
 
 export type RenderItemCollectionOutletHook = {
@@ -8,7 +8,7 @@ export type RenderItemCollectionOutletHook = {
   ) => void;
 };
 
-export type RenderItemCollectionOutletCtx = ContainedPluginFrameCtx<
+export type RenderItemCollectionOutletCtx = SelfResizingPluginFrameCtx<
   'renderItemCollectionOutlet',
   {
     /** The ID of the outlet that needs to be rendered */

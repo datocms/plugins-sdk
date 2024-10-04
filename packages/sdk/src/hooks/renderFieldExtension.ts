@@ -4,7 +4,7 @@ import {
   ItemFormAdditionalProperties,
 } from '../ctx/commonExtras/itemForm';
 
-import { ContainedPluginFrameCtx } from '../ctx/pluginFrame';
+import { SelfResizingPluginFrameCtx } from '../ctx/pluginFrame';
 import { containedRenderModeBootstrapper } from '../utils';
 
 export type RenderFieldExtensionHook = {
@@ -21,7 +21,7 @@ export type RenderFieldExtensionHook = {
   ) => void;
 };
 
-export type RenderFieldExtensionCtx = ContainedPluginFrameCtx<
+export type RenderFieldExtensionCtx = SelfResizingPluginFrameCtx<
   'renderFieldExtension',
   ItemFormAdditionalProperties &
     FieldAdditionalProperties & {

@@ -3,8 +3,8 @@ import { FullConnectParameters } from './connect';
 import { Ctx } from './ctx/base';
 import { SizingUtilities } from './ctx/commonExtras/sizing';
 import {
-  ContainedPluginFrameCtx,
-  FullScreenPluginFrameCtx,
+  ImposedSizePluginFrameCtx,
+  SelfResizingPluginFrameCtx,
 } from './ctx/pluginFrame';
 
 type Field = SchemaTypes.Field;
@@ -14,7 +14,7 @@ export type AwaitedReturnType<T extends (...args: any) => any> = Awaited<
   ReturnType<T>
 >;
 
-type ModeForPluginFrameCtx<T> = T extends FullScreenPluginFrameCtx<
+type ModeForPluginFrameCtx<T> = T extends ImposedSizePluginFrameCtx<
   infer Mode,
   any,
   any
@@ -87,26 +87,31 @@ export type Properties<Mode extends string = string> = { mode: Mode };
 
 type OnChangeListenerFn = (newSettings: any) => void;
 
-type ExtractRenderHooks<T extends Record<string, unknown>> = {
+export type ExtractRenderHooks<T extends Record<string, unknown>> = {
   [K in keyof T as K extends `render${string}` ? K : never]: T[K];
 };
 
-export type Bootstrapper = (
-  connectConfiguration: Partial<ExtractRenderHooks<FullConnectParameters>>,
-  methods: Methods,
-  initialProperties: Properties,
-) => undefined | OnChangeListenerFn;
+export type Bootstrapper<
+  H extends keyof ExtractRenderHooks<FullConnectParameters>,
+> = {
+  (
+    connectConfiguration: Partial<ExtractRenderHooks<FullConnectParameters>>,
+    methods: Methods,
+    initialProperties: Properties,
+  ): undefined | OnChangeListenerFn;
+  mode: H;
+};
 
 export function containedRenderModeBootstrapper<
-  Ctx extends ContainedPluginFrameCtx<any, {}, {}>,
+  Ctx extends SelfResizingPluginFrameCtx<any, {}, {}>,
 >(
   mode: ModeForPluginFrameCtx<Ctx>,
   callConfigurationMethod: (
     connectConfiguration: Partial<ExtractRenderHooks<FullConnectParameters>>,
     ctx: Ctx,
   ) => void,
-): Bootstrapper {
-  const bootstrapper: Bootstrapper = (
+): Bootstrapper<Ctx['mode']> {
+  const bootstrapper: Bootstrapper<Ctx['mode']> = (
     connectConfiguration,
     methods,
     initialProperties,
@@ -130,19 +135,21 @@ export function containedRenderModeBootstrapper<
     return render;
   };
 
+  bootstrapper.mode = mode;
+
   return bootstrapper;
 }
 
 export function fullScreenRenderModeBootstrapper<
-  Ctx extends FullScreenPluginFrameCtx<any, {}, {}>,
+  Ctx extends ImposedSizePluginFrameCtx<any, {}, {}>,
 >(
   mode: ModeForPluginFrameCtx<Ctx>,
   callConfigurationMethod: (
     connectConfiguration: Partial<ExtractRenderHooks<FullConnectParameters>>,
     ctx: Ctx,
   ) => void,
-): Bootstrapper {
-  const bootstrapper: Bootstrapper = (
+): Bootstrapper<Ctx['mode']> {
+  const bootstrapper: Bootstrapper<Ctx['mode']> = (
     connectConfiguration,
     methods,
     initialProperties,
@@ -163,6 +170,8 @@ export function fullScreenRenderModeBootstrapper<
     return render;
   };
 
+  bootstrapper.mode = mode;
+
   return bootstrapper;
 }
 
@@ -176,7 +185,7 @@ function getMaxScrollHeight() {
 }
 
 const buildSizingUtilities = (
-  methods: ContainedPluginFrameCtx<any, any, any>,
+  methods: SelfResizingPluginFrameCtx<any, any, any>,
 ): SizingUtilities => {
   let oldHeight: null | number = null;
 
