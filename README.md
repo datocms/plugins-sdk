@@ -10,7 +10,7 @@
 
 # DatoCMS Plugin SDK
 
-Monorepo with Typescript libraries to help you build [DatoCMS plugins](https://www.datocms.com/docs/plugin-sdk).
+Monorepo with Typescript libraries to help you build DatoCMS plugins. See [documentation](https://www.datocms.com/docs/plugin-sdk/introduction) and [examples](https://www.datocms.com/docs/plugin-sdk/real-world-examples) for usage information.
 
 ## Packages
 
@@ -18,8 +18,6 @@ Monorepo with Typescript libraries to help you build [DatoCMS plugins](https://w
   - Typescript SDK to build DatoCMS plugins.
 - [`datocms-react-ui`](https://github.com/datocms/plugins-sdk/tree/master/packages/react-ui)
   - React component library to mimic the DatoCMS interface inside plugins.
-- [`cra-template-datocms-plugin`](https://github.com/datocms/plugins-sdk/tree/master/packages/cra-template)
-  - Create React App template to bootstrap new plugins in no time.
 
 ## License
 
