@@ -11,11 +11,8 @@ export type RenderConfigScreenHook = {
   renderConfigScreen: (ctx: RenderConfigScreenCtx) => void;
 };
 
-export type RenderConfigScreenCtx = SelfResizingPluginFrameCtx<
-  'renderConfigScreen',
-  {},
-  {}
->;
+export type RenderConfigScreenCtx =
+  SelfResizingPluginFrameCtx<'renderConfigScreen'>;
 
 export const renderConfigScreenBootstrapper =
   containedRenderModeBootstrapper<RenderConfigScreenCtx>(
