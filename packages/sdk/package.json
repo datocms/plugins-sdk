@@ -21,15 +21,15 @@
   "files": [
     "dist",
     "src",
-    "types.json"
+    "manifest.json"
   ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/datocms/plugins-sdk.git"
   },
   "scripts": {
-    "build": "tsc && tsc --project ./tsconfig.esnext.json && npm run generate-typedoc",
-    "generate-typedoc": "typedoc src/index.ts --json types.json",
+    "build": "npm run generate-doc && tsc && tsc --project ./tsconfig.esnext.json",
+    "generate-doc": "tsx generateDoc.ts && biome format --write src/manifest.ts",
     "prebuild": "rimraf dist"
   },
   "bugs": {
@@ -42,7 +42,8 @@
     "penpal": "^4.1.1"
   },
   "devDependencies": {
-    "typedoc": "^0.23.20"
+    "glob": "^11.0.0",
+    "typescript": "^5.6.2"
   },
   "gitHead": "a523642c7188862c8431027e51ab479945dde5dd"
 }

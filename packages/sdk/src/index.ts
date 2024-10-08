@@ -56,16 +56,18 @@ export * from './hooks/settingsAreaSidebarItemGroups';
 export * from './hooks/uploadsDropdownActions';
 export * from './hooks/validateManualFieldExtensionParameters';
 export * from './icon';
+export * from './manifest';
 export * from './shared';
+
 export type {
   Account,
   Field,
   Item,
   ItemType,
   Plugin,
+  Role,
   Site,
   SsoUser,
   Upload,
   User,
-  Role,
 };

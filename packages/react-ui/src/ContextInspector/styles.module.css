@@ -28,12 +28,6 @@
   border-right: 1px solid var(--border-color);
 }
 
-.groupDescription {
-  line-height: 1.2;
-  margin-bottom: 20px;
-  font-size: var(--font-size-s);
-}
-
 .propertyGroup {
   border: 1px solid var(--border-color);
   border-radius: 5px;
