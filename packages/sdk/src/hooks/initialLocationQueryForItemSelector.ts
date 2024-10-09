@@ -16,9 +16,11 @@ export type InitialLocationQueryForItemSelectorHook = {
   initialLocationQueryForItemSelector: (
     openerField: Field,
     itemType: ItemType,
-    ctx: Ctx,
+    ctx: InitialLocationQueryForItemSelectorCtx,
   ) => MaybePromise<InitialLocationQueryForItemSelector | undefined>;
 };
+
+export type InitialLocationQueryForItemSelectorCtx = Ctx;
 
 export type InitialLocationQueryForItemSelector = {
   locationQuery: ItemListLocationQuery;

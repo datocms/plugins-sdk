@@ -32,6 +32,14 @@ function copyTextToClipboard(text: string) {
   document.body.removeChild(textArea);
 }
 
+function capitalize(input: string): string {
+  const transformed = input
+    .replace(/([A-Z])/g, ' $1')
+    .trim()
+    .toLowerCase();
+  return transformed.charAt(0).toUpperCase() + transformed.slice(1);
+}
+
 const ExpandablePane = ({ children, label }: any) => {
   const [open, setOpen] = useState(false);
 
@@ -81,31 +89,28 @@ export function ContextInspector(): JSX.Element | null {
     return null;
   }
 
-  const properties = {
-    name: 'Available properties',
-    type: 'properties',
-    properties: {
-      ...manifest.baseCtx.properties,
-      ...hook.ctxArgument.additionalProperties,
-    },
-  };
-
-  const methods = {
-    name: 'Available methods',
-    type: 'methods',
-    properties: {
-      ...manifest.baseCtx.methods,
-      ...hook.ctxArgument.additionalMethods,
-    },
-  };
+  const groups = [
+    ...manifest.baseCtx.properties,
+    ...(hook.ctxArgument.additionalProperties || []),
+    ...manifest.baseCtx.methods,
+    ...(hook.ctxArgument.additionalMethods || []),
+  ];
 
   return (
     <div className={s.inspector}>
-      {[properties, methods].map((group) => {
+      {groups.map((group) => {
         return (
-          <ExpandablePane label={`${group.name}`} key={group.name}>
+          <ExpandablePane
+            label={group.name ? capitalize(group.name) : 'Other'}
+            key={group.name}
+          >
             <div className={s.propertyGroup}>
-              {Object.entries(group.properties).map(([name, info]) => (
+              {group.comment?.comment && (
+                <div className={s.groupDescription}>
+                  {group.comment?.comment}
+                </div>
+              )}
+              {Object.entries(group.items).map(([name, info]) => (
                 <div key={name} className={s.propertyOrMethod}>
                   <div className={s.propertyOrMethodBody}>
                     <a
@@ -115,12 +120,12 @@ export function ContextInspector(): JSX.Element | null {
                       rel="noreferrer"
                     >
                       {name}
-                      {group.type === 'methods' ? '()' : ''}
+                      {info.type.startsWith('(') ? info.type : `: ${info.type}`}
                     </a>
 
                     <div>{info.comment?.comment}</div>
                   </div>
-                  {group.type === 'properties' && (
+                  {!info.type.startsWith('(') && (
                     <div className={s.propertyOrMethodExample}>
                       <pre>{JSON.stringify((ctx as any)[name], null, 2)}</pre>
                       <div className={s.propertyOrMethodExampleActions}>

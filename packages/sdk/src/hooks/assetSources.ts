@@ -8,8 +8,10 @@ export type AssetSourcesHook = {
    *
    * @tag assetSources
    */
-  assetSources: (ctx: Ctx) => AssetSource[] | undefined;
+  assetSources: (ctx: AssetSourcesCtx) => AssetSource[] | undefined;
 };
+
+export type AssetSourcesCtx = Ctx;
 
 /** An additional asset source */
 export type AssetSource = {

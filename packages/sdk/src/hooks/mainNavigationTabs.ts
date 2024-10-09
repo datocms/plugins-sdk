@@ -8,8 +8,10 @@ export type MainNavigationTabsHook = {
    *
    * @tag pages
    */
-  mainNavigationTabs: (ctx: Ctx) => MainNavigationTab[];
+  mainNavigationTabs: (ctx: MainNavigationTabsCtx) => MainNavigationTab[];
 };
+
+export type MainNavigationTabsCtx = Ctx;
 
 /** A tab to be displayed in the top-bar of the UI */
 export type MainNavigationTab = {

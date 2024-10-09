@@ -10,8 +10,13 @@ export type ItemFormSidebarsHook = {
    *
    * @tag sidebarPanels
    */
-  itemFormSidebars: (itemType: ItemType, ctx: Ctx) => ItemFormSidebar[];
+  itemFormSidebars: (
+    itemType: ItemType,
+    ctx: ItemFormSidebarsCtx,
+  ) => ItemFormSidebar[];
 };
+
+export type ItemFormSidebarsCtx = Ctx;
 
 export type ItemFormSidebar = {
   /**

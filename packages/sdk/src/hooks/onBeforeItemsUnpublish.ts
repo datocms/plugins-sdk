@@ -11,5 +11,10 @@ export type OnBeforeItemsUnpublishHook = {
    *
    * @tag beforeHooks
    */
-  onBeforeItemsUnpublish: (items: Item[], ctx: Ctx) => MaybePromise<boolean>;
+  onBeforeItemsUnpublish: (
+    items: Item[],
+    ctx: OnBeforeItemsUnpublishCtx,
+  ) => MaybePromise<boolean>;
 };
+
+export type OnBeforeItemsUnpublishCtx = Ctx;

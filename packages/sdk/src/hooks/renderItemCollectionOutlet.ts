@@ -2,6 +2,12 @@ import { SelfResizingPluginFrameCtx } from '../ctx/pluginFrame';
 import { containedRenderModeBootstrapper } from '../utils';
 
 export type RenderItemCollectionOutletHook = {
+  /**
+   * This function will be called when the plugin needs to render an outlet
+   * defined by the `itemFormOutlets()` hook.
+   *
+   * @tag outlets
+   */
   renderItemCollectionOutlet: (
     itemCollectionOutletId: string,
     ctx: RenderItemCollectionOutletCtx,

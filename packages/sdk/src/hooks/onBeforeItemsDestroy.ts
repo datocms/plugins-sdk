@@ -11,5 +11,10 @@ export type OnBeforeItemsDestroyHook = {
    *
    * @tag beforeHooks
    */
-  onBeforeItemsDestroy: (items: Item[], ctx: Ctx) => MaybePromise<boolean>;
+  onBeforeItemsDestroy: (
+    items: Item[],
+    ctx: OnBeforeItemsDestroyCtx,
+  ) => MaybePromise<boolean>;
 };
+
+export type OnBeforeItemsDestroyCtx = Ctx;

@@ -7,8 +7,12 @@ export type ManualFieldExtensionsHook = {
    *
    * @tag manualFieldExtensions
    */
-  manualFieldExtensions: (ctx: Ctx) => ManualFieldExtension[];
+  manualFieldExtensions: (
+    ctx: ManualFieldExtensionsCtx,
+  ) => ManualFieldExtension[];
 };
+
+export type ManualFieldExtensionsCtx = Ctx;
 
 export type ManualFieldExtension = {
   /**

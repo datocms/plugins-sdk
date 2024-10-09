@@ -14,6 +14,8 @@ export type OnBeforeItemUpsertHook = {
    */
   onBeforeItemUpsert: (
     createOrUpdateItemPayload: ItemUpdateSchema | ItemCreateSchema,
-    ctx: Ctx,
+    ctx: OnBeforeItemUpsertCtx,
   ) => MaybePromise<boolean>;
 };
+
+export type OnBeforeItemUpsertCtx = Ctx;

@@ -4,11 +4,19 @@ import { Ctx } from '../ctx/base';
 type ItemType = SchemaTypes.ItemType;
 
 export type ItemCollectionOutletsHook = {
+  /**
+   * Use this function to declare custom outlets to be shown at the top of a
+   * collection of records of a particular model
+   *
+   * @tag outlets
+   */
   itemCollectionOutlets: (
     itemType: ItemType,
-    ctx: Ctx,
+    ctx: ItemCollectionOutletsCtx,
   ) => ItemCollectionOutlet[];
 };
+
+export type ItemCollectionOutletsCtx = Ctx;
 
 /** An outlet to be shown at the top of a record's collection page */
 export type ItemCollectionOutlet = {

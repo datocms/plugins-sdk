@@ -7,10 +7,10 @@ import { containedRenderModeBootstrapper } from '../utils';
 
 export type RenderItemFormOutletHook = {
   /**
-   * This function will be called when the plugin needs to render an outlet (see
-   * the `itemFormOutlets` function)
+   * This function will be called when the plugin needs to render an outlet
+   * defined by the `itemFormOutlets()` hook.
    *
-   * @tag itemFormOutlets
+   * @tag outlets
    */
   renderItemFormOutlet: (
     itemFormOutletId: string,

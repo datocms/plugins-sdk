@@ -14,11 +14,11 @@ export type OverrideFieldExtensionsHook = {
    */
   overrideFieldExtensions: (
     field: Field,
-    ctx: OverrideFieldExtensionsHookCtx,
+    ctx: OverrideFieldExtensionsCtx,
   ) => FieldExtensionOverride | undefined;
 };
 
-export type OverrideFieldExtensionsHookCtx = Ctx<{
+export type OverrideFieldExtensionsCtx = Ctx<{
   itemType: ItemType;
 }>;
 

@@ -13,9 +13,11 @@ export type BuildItemPresentationInfoHook = {
    */
   buildItemPresentationInfo: (
     item: Item,
-    ctx: Ctx,
+    ctx: BuildItemPresentationInfoCtx,
   ) => MaybePromise<ItemPresentationInfo | undefined>;
 };
+
+export type BuildItemPresentationInfoCtx = Ctx;
 
 export type ItemPresentationInfo = {
   /** The title to present the record */

@@ -7,8 +7,10 @@ export type UploadSidebarsHook = {
    *
    * @tag sidebarPanels
    */
-  uploadSidebars: (ctx: Ctx) => UploadSidebar[];
+  uploadSidebars: (ctx: UploadSidebarsCtx) => UploadSidebar[];
 };
+
+export type UploadSidebarsCtx = Ctx;
 
 export type UploadSidebar = {
   /**

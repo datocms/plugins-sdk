@@ -8,10 +8,15 @@ export type ItemFormOutletsHook = {
    * Use this function to declare custom outlets to be shown at the top of the
    * record's editing page
    *
-   * @tag itemFormOutlets
+   * @tag outlets
    */
-  itemFormOutlets: (itemType: ItemType, ctx: Ctx) => ItemFormOutlet[];
+  itemFormOutlets: (
+    itemType: ItemType,
+    ctx: ItemFormOutletsCtx,
+  ) => ItemFormOutlet[];
 };
+
+export type ItemFormOutletsCtx = Ctx;
 
 export type ItemFormOutlet = {
   /**

@@ -13,9 +13,11 @@ export type ItemFormSidebarPanelsHook = {
    */
   itemFormSidebarPanels: (
     itemType: ItemType,
-    ctx: Ctx,
+    ctx: ItemFormSidebarPanelsCtx,
   ) => ItemFormSidebarPanel[];
 };
+
+export type ItemFormSidebarPanelsCtx = Ctx;
 
 export type ItemFormSidebarPanel = {
   /**

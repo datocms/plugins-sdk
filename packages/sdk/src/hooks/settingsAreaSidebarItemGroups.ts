@@ -8,8 +8,12 @@ export type SettingsAreaSidebarItemGroupsHook = {
    *
    * @tag pages
    */
-  settingsAreaSidebarItemGroups: (ctx: Ctx) => SettingsAreaSidebarItemGroup[];
+  settingsAreaSidebarItemGroups: (
+    ctx: SettingsAreaSidebarItemGroupsCtx,
+  ) => SettingsAreaSidebarItemGroup[];
 };
+
+export type SettingsAreaSidebarItemGroupsCtx = Ctx;
 
 /**
  * The sidebar in the Settings Area presents a number of pages grouped by topic.

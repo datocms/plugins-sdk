@@ -18,14 +18,15 @@ export type Ctx<
   AdditionalMethods extends Record<string, unknown> = Record<string, never>,
 > = BaseProperties & AdditionalProperties & BaseMethods & AdditionalMethods;
 
-/** Generic properties available in all the hooks */
-export type BaseProperties = {
-  /** The current DatoCMS project */
-  site: Site;
-  /** The ID of the current environment */
-  environment: string;
-  /** All the models of the current DatoCMS project, indexed by ID */
-  itemTypes: Partial<Record<string, ItemType>>;
+export type BaseProperties = PluginProperties &
+  AuthenticationProperties &
+  ProjectProperties &
+  EntityReposProperties;
+
+/**
+ * Information about the current user using the CMS
+ */
+type AuthenticationProperties = {
   /**
    * The current DatoCMS user. It can either be the owner or one of the
    * collaborators (regular or SSO).
@@ -38,8 +39,38 @@ export type BaseProperties = {
    * available if `currentUserAccessToken` additional permission is granted
    */
   currentUserAccessToken: string | undefined;
+};
+
+/**
+ * Information about the current plugin. Useful to access the plugin's global
+ * configuration object.
+ */
+type PluginProperties = {
   /** The current plugin */
   plugin: Plugin;
+};
+
+/*
+ * Information about the project
+ */
+type ProjectProperties = {
+  /** The current DatoCMS project */
+  site: Site;
+
+  /** The ID of the current environment */
+  environment: string;
+
+  /** The account that is the project owner */
+  owner: Account | Organization;
+
+  /**
+   * The account that is the project owner
+   *
+   * @deprecated Please use `.owner` instead, as the project owner can also be
+   *   an organization
+   */
+  account: Account | undefined;
+
   /**
    * UI preferences of the current user (right now, only the preferred locale is
    * available)
@@ -48,46 +79,47 @@ export type BaseProperties = {
     /** Preferred locale */
     locale: string;
   };
-  /**
-   * All the fields currently loaded for the current DatoCMS project, indexed by
-   * ID. It will always contain the current model fields and all the fields of
-   * the blocks it might contain via Modular Content/Structured Text fields. If
-   * some fields you need are not present, use the `loadItemTypeFields` function
-   * to load them.
-   */
-  fields: Partial<Record<string, Field>>;
-  /**
-   * All the fieldsets currently loaded for the current DatoCMS project, indexed
-   * by ID. It will always contain the current model fields and all the fields
-   * of the blocks it might contain via Modular Content/Structured Text fields.
-   * If some fields you need are not present, use the `loadItemTypeFieldsets`
-   * function to load them.
-   */
-  fieldsets: Partial<Record<string, Fieldset>>;
+
   /** An object containing the theme colors for the current DatoCMS project */
   theme: Theme;
+};
+
+/**
+ * These properties provide access to "entity repos", that is, the collection of
+ * resources of a particular type that have been loaded by the CMS up to this
+ * moment. The entity repos are objects, indexed by the ID of the entity itself.
+ */
+type EntityReposProperties = {
+  /** All the models of the current DatoCMS project, indexed by ID */
+  itemTypes: Partial<Record<string, ItemType>>;
+
+  /**
+   * All the fields currently loaded for the current DatoCMS project, indexed by
+   * ID. If some fields you need are not present, use the `loadItemTypeFields`
+   * function to load them.
+   */
+  fields: Partial<Record<string, Field>>;
+
+  /**
+   * All the fieldsets currently loaded for the current DatoCMS project, indexed
+   * by ID. If some fields you need are not present, use the
+   * `loadItemTypeFieldsets` function to load them.
+   */
+  fieldsets: Partial<Record<string, Fieldset>>;
+
   /**
    * All the regular users currently loaded for the current DatoCMS project,
    * indexed by ID. It will always contain the current user. If some users you
    * need are not present, use the `loadUsers` function to load them.
    */
   users: Partial<Record<string, User>>;
+
   /**
    * All the SSO users currently loaded for the current DatoCMS project, indexed
    * by ID. It will always contain the current user. If some users you need are
    * not present, use the `loadSsoUsers` function to load them.
    */
   ssoUsers: Partial<Record<string, SsoUser>>;
-  /**
-   * The account that is the project owner
-   *
-   * @deprecated Please use `.owner` instead, as the project owner can also be
-   *   an organization
-   */
-  account: Account | undefined;
-  /** The account that is the project owner */
-  owner: Account | Organization;
-  /** The padding in px that must be applied to the body */
 };
 
 /** An object containing the theme colors for the current DatoCMS project */
@@ -100,7 +132,7 @@ export type Theme = {
 };
 
 export type BaseMethods = LoadDataMethods &
-  UpdateParametersMethods &
+  UpdatePluginParametersMethods &
   ToastMethods &
   ItemDialogMethods &
   UploadDialogMethods &
@@ -199,7 +231,7 @@ type LoadDataMethods = {
  * These methods can be used to update both plugin parameters and manual field
  * extensions configuration.
  */
-type UpdateParametersMethods = {
+type UpdatePluginParametersMethods = {
   /**
    * Updates the plugin parameters.
    *

@@ -11,5 +11,10 @@ export type OnBeforeItemsPublishHook = {
    *
    * @tag beforeHooks
    */
-  onBeforeItemsPublish: (items: Item[], ctx: Ctx) => MaybePromise<boolean>;
+  onBeforeItemsPublish: (
+    items: Item[],
+    ctx: OnBeforeItemsPublishCtx,
+  ) => MaybePromise<boolean>;
 };
+
+export type OnBeforeItemsPublishCtx = Ctx;

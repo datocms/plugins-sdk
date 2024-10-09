@@ -6,6 +6,15 @@ import { DropdownAction, DropdownActionGroup } from '../shared';
 type ItemType = SchemaTypes.ItemType;
 
 export type ItemFormDropdownActionsHook = {
+  /**
+   * Use this function to define custom actions (or groups of actions) to be
+   * displayed at when editing a particular record.
+   *
+   * The `executeItemFormDropdownAction()` hook will be triggered once the user
+   * clicks on one of the defined actions.
+   *
+   * @tag dropdownActions
+   */
   itemFormDropdownActions: (
     itemType: ItemType,
     ctx: ItemFormDropdownActionsCtx,

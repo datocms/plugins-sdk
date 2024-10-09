@@ -14,11 +14,11 @@ export type CustomBlockStylesForStructuredTextFieldHook = {
    */
   customBlockStylesForStructuredTextField: (
     field: Field,
-    ctx: CustomBlockStylesForStructuredTextFieldHookCtx,
+    ctx: CustomBlockStylesForStructuredTextFieldCtx,
   ) => StructuredTextCustomBlockStyle[] | undefined;
 };
 
-export type CustomBlockStylesForStructuredTextFieldHookCtx = Ctx<{
+export type CustomBlockStylesForStructuredTextFieldCtx = Ctx<{
   itemType: ItemType;
 }>;
 

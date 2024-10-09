@@ -14,11 +14,11 @@ export type CustomMarksForStructuredTextFieldHook = {
    */
   customMarksForStructuredTextField: (
     field: Field,
-    ctx: CustomMarksForStructuredTextFieldHookCtx,
+    ctx: CustomMarksForStructuredTextFieldCtx,
   ) => StructuredTextCustomMark[] | undefined;
 };
 
-export type CustomMarksForStructuredTextFieldHookCtx = Ctx<{
+export type CustomMarksForStructuredTextFieldCtx = Ctx<{
   itemType: ItemType;
 }>;
 

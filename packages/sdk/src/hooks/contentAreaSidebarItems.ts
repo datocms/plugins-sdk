@@ -7,8 +7,12 @@ export type ContentAreaSidebarItemsHook = {
    *
    * @tag sidebarItems
    */
-  contentAreaSidebarItems: (ctx: Ctx) => ContentAreaSidebarItem[];
+  contentAreaSidebarItems: (
+    ctx: ContentAreaSidebarItemsCtx,
+  ) => ContentAreaSidebarItem[];
 };
+
+export type ContentAreaSidebarItemsCtx = Ctx;
 
 export type ContentAreaSidebarItem = {
   /** Label to be shown. Must be unique. */

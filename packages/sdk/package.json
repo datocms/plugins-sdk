@@ -28,8 +28,8 @@
     "url": "git+https://github.com/datocms/plugins-sdk.git"
   },
   "scripts": {
-    "build": "npm run generate-doc && tsc && tsc --project ./tsconfig.esnext.json",
-    "generate-doc": "tsx generateDoc.ts && biome format --write src/manifest.ts",
+    "build": "npm run generate-manifest && tsc && tsc --project ./tsconfig.esnext.json",
+    "generate-manifest": "tsx generateManifest.ts && biome format --write src/manifest.ts",
     "prebuild": "rimraf dist"
   },
   "bugs": {

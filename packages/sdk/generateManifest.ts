@@ -2,27 +2,33 @@ import * as fs from 'fs';
 import * as glob from 'glob';
 import * as ts from 'typescript';
 import type {
-  AdditionalPropertiesOrMethods,
+  AdditionalPropertiesOrMethodsGroup,
+  AdditionalPropertyOrMethod,
+  CodeLocation,
   Comment,
   CtxArgument,
   HookInfo,
   Manifest,
 } from './src/manifestTypes';
 
+type SharedCtxTypes = Partial<
+  Record<string, AdditionalPropertiesOrMethodsGroup>
+>;
+
 /**
  * Extracts JSDoc comments and tags from a TypeScript node.
  * @param node - The TypeScript node to extract JSDoc from.
  * @returns An object containing the comment text and a tag if found.
  */
-function getJSDocCommentAndTag(
+function extractCommentFromNode(
   node: ts.Node,
   sourceFile: ts.SourceFile,
-): Comment | null {
+): Comment | undefined {
   // Get all the JSDoc nodes associated with this node
   const jsDocNodes = node.getChildren(sourceFile).filter(ts.isJSDoc);
 
   if (jsDocNodes.length === 0) {
-    return null;
+    return undefined;
   }
 
   const firstJsDocNode = jsDocNodes[0];
@@ -47,6 +53,18 @@ function getJSDocCommentAndTag(
   return comment;
 }
 
+function extractNodeLocation(
+  node: ts.Node,
+  sourceFile: ts.SourceFile,
+): CodeLocation {
+  return {
+    filePath: sourceFile.fileName,
+    lineNumber:
+      sourceFile.getLineAndCharacterOfPosition(node.getStart(sourceFile)).line +
+      1,
+  };
+}
+
 /**
  * Extracts properties from a TypeLiteralNode and returns them as an object.
  *
@@ -54,46 +72,59 @@ function getJSDocCommentAndTag(
  * @param sourceFile - The source file being processed.
  * @returns An object representing the properties extracted from the TypeLiteralNode.
  */
-function extractPropertiesFromTypeLiteral(
+function extractAnonymousGroupFromTypeLiteral(
   typeLiteral: ts.TypeLiteralNode,
   sourceFile: ts.SourceFile,
-): AdditionalPropertiesOrMethods {
-  const additionalProps: AdditionalPropertiesOrMethods = {};
+): AdditionalPropertiesOrMethodsGroup {
+  const items: Record<string, AdditionalPropertyOrMethod> = {};
 
   for (const member of typeLiteral.members) {
     if (ts.isPropertySignature(member)) {
       const name = (member.name as ts.Identifier).text;
       const type = member.type?.getText(sourceFile) || 'unknown';
-      const comment = getJSDocCommentAndTag(member, sourceFile);
-      const location = {
-        filePath: sourceFile.fileName,
-        lineNumber:
-          sourceFile.getLineAndCharacterOfPosition(member.getStart(sourceFile))
-            .line + 1,
-      };
-      additionalProps[name] = { comment, location, type };
+      const comment = extractCommentFromNode(member, sourceFile);
+      const location = extractNodeLocation(member, sourceFile);
+      items[name] = { comment, location, type };
     }
   }
 
-  return additionalProps;
+  return { items };
 }
 
-function extractProperties(
+function extractGroupsFromType(
   node: ts.TypeNode,
   sourceFile: ts.SourceFile,
-  sharedCtxTypes: Partial<Record<string, AdditionalPropertiesOrMethods>>,
-): AdditionalPropertiesOrMethods {
+  sharedCtxTypes: SharedCtxTypes,
+): AdditionalPropertiesOrMethodsGroup[] {
   if (ts.isTypeLiteralNode(node)) {
-    return extractPropertiesFromTypeLiteral(node, sourceFile);
+    return [extractAnonymousGroupFromTypeLiteral(node, sourceFile)];
   }
 
   if (ts.isTypeReferenceNode(node)) {
     const referenceName = node.typeName.getText(sourceFile);
 
-    const typeAlias = resolveTypeAlias(referenceName, sourceFile);
+    const typeAliasDeclaration = findTypeAliasDeclaration(
+      referenceName,
+      sourceFile,
+    );
 
-    if (typeAlias) {
-      return extractProperties(typeAlias, sourceFile, sharedCtxTypes);
+    if (typeAliasDeclaration) {
+      const groups = extractGroupsFromType(
+        typeAliasDeclaration.type,
+        sourceFile,
+        sharedCtxTypes,
+      );
+
+      if (groups.length === 1) {
+        const comment = extractCommentFromNode(
+          typeAliasDeclaration,
+          sourceFile,
+        );
+
+        return [{ name: referenceName, comment, ...groups[0] }];
+      }
+
+      return groups;
     }
 
     const additionalProperties = sharedCtxTypes[referenceName];
@@ -104,20 +135,13 @@ function extractProperties(
       );
     }
 
-    return { ...additionalProperties };
+    return [additionalProperties];
   }
 
   if (ts.isIntersectionTypeNode(node)) {
-    let accumulator: AdditionalPropertiesOrMethods = {};
-
-    for (const type of node.types) {
-      accumulator = {
-        ...accumulator,
-        ...extractProperties(type, sourceFile, sharedCtxTypes),
-      };
-    }
-
-    return accumulator;
+    return node.types.flatMap((type) =>
+      extractGroupsFromType(type, sourceFile, sharedCtxTypes, true),
+    );
   }
 
   throw new Error(
@@ -136,12 +160,12 @@ function extractProperties(
  * - For a context type like `Ctx<MyParams>`, if `MyParams` contains `{ param1: string }`,
  *   this function would return `{ param1: { ... } }`.
  */
-function extractCtxTypeArgument(
+function extractGroupsFromNthTypeArgument(
   ctxTypeNode: ts.TypeNode,
   index: number,
   sourceFile: ts.SourceFile,
-  sharedCtxTypes: Partial<Record<string, AdditionalPropertiesOrMethods>>,
-): AdditionalPropertiesOrMethods | null {
+  sharedCtxTypes: SharedCtxTypes,
+): AdditionalPropertiesOrMethodsGroup[] {
   if (!ts.isTypeReferenceNode(ctxTypeNode)) {
     throw new Error('Expected a TypeReferenceNode');
   }
@@ -149,14 +173,31 @@ function extractCtxTypeArgument(
   const typeArgument = ctxTypeNode.typeArguments?.[index];
 
   if (!typeArgument) {
-    return null;
+    return [];
   }
 
   try {
-    return extractProperties(typeArgument, sourceFile, sharedCtxTypes);
+    return extractGroupsFromType(typeArgument, sourceFile, sharedCtxTypes);
   } catch (e) {
     throw new Error(`Parsing typed argument at index ${index}: ${e.message}`);
   }
+}
+
+function findTypeAliasDeclaration(
+  typeName: string,
+  sourceFile: ts.SourceFile,
+): ts.TypeAliasDeclaration | null {
+  let resolvedType: ts.TypeAliasDeclaration | null = null;
+
+  function visit(node: ts.Node) {
+    if (ts.isTypeAliasDeclaration(node) && node.name.text === typeName) {
+      resolvedType = node;
+    }
+    ts.forEachChild(node, visit);
+  }
+
+  visit(sourceFile);
+  return resolvedType;
 }
 
 /**
@@ -169,17 +210,7 @@ function resolveTypeAlias(
   typeName: string,
   sourceFile: ts.SourceFile,
 ): ts.TypeNode | null {
-  let resolvedType: ts.TypeNode | null = null;
-
-  function visit(node: ts.Node) {
-    if (ts.isTypeAliasDeclaration(node) && node.name.text === typeName) {
-      resolvedType = node.type;
-    }
-    ts.forEachChild(node, visit);
-  }
-
-  visit(sourceFile);
-  return resolvedType;
+  return findTypeAliasDeclaration(typeName, sourceFile)?.type ?? null;
 }
 
 /**
@@ -203,8 +234,8 @@ function extractCtxArgument(
   type: ts.TypeNode,
   typeName: string,
   sourceFile: ts.SourceFile,
-  sharedCtxTypes: Partial<Record<string, AdditionalPropertiesOrMethods>>,
-): CtxArgument | null {
+  sharedCtxTypes: SharedCtxTypes,
+): CtxArgument | undefined {
   // Define mapping of context types to their parameter indices
   const ctxTypes: Record<string, [number, number]> = {
     Ctx: [0, 1],
@@ -223,14 +254,14 @@ function extractCtxArgument(
       return {
         type: ctxType,
         // Extract additional parameters from the type arguments
-        additionalProperties: extractCtxTypeArgument(
+        additionalProperties: extractGroupsFromNthTypeArgument(
           type,
           paramsIndex,
           sourceFile,
           sharedCtxTypes,
         ),
         // Extract additional methods from the type arguments
-        additionalMethods: extractCtxTypeArgument(
+        additionalMethods: extractGroupsFromNthTypeArgument(
           type,
           methodsIndex,
           sourceFile,
@@ -278,13 +309,13 @@ function extractCtxArgument(
 function extractArguments(
   parameters: ts.NodeArray<ts.ParameterDeclaration>,
   sourceFile: ts.SourceFile,
-  sharedCtxTypes: Partial<Record<string, AdditionalPropertiesOrMethods>>,
+  sharedCtxTypes: SharedCtxTypes,
 ): {
-  ctxArgument: CtxArgument | null;
+  ctxArgument?: CtxArgument;
   nonCtxArguments: Array<{ name: string; typeName: string }>;
 } {
   const nonCtxArguments: Array<{ name: string; typeName: string }> = [];
-  let ctxArgument: CtxArgument | null = null;
+  let ctxArgument: CtxArgument | undefined = undefined;
 
   for (const param of parameters) {
     const paramName = (param.name as ts.Identifier).text;
@@ -318,7 +349,7 @@ function extractArguments(
  */
 function processFile(
   filePath: string,
-  sharedCtxTypes: Partial<Record<string, AdditionalPropertiesOrMethods>>,
+  sharedCtxTypes: SharedCtxTypes,
 ): HookInfo {
   const sourceFile = ts.createSourceFile(
     filePath,
@@ -339,7 +370,7 @@ function processFile(
           member.type &&
           ts.isFunctionTypeNode(member.type)
         ) {
-          const comment = getJSDocCommentAndTag(member, sourceFile);
+          const comment = extractCommentFromNode(member, sourceFile);
           const functionName = (member.name as ts.Identifier).text;
 
           try {
@@ -356,13 +387,7 @@ function processFile(
               nonCtxArguments,
               ctxArgument,
               returnType,
-              location: {
-                filePath: filePath,
-                lineNumber:
-                  sourceFile.getLineAndCharacterOfPosition(
-                    member.getStart(sourceFile),
-                  ).line + 1,
-              },
+              location: extractNodeLocation(member, sourceFile),
             };
           } catch (error) {
             throw new Error(
@@ -385,7 +410,7 @@ function processFile(
   return hookInfo;
 }
 
-const extractPropertiesOnTypeInFilePath = (
+const extractGroupsFromTypeInFilePath = (
   filePath: string,
   typeName: string,
 ) => {
@@ -401,19 +426,31 @@ const extractPropertiesOnTypeInFilePath = (
     throw new Error(`Could not find type "${typeName}" in file ${filePath}`);
   }
 
-  return extractProperties(typeNode as ts.TypeLiteralNode, sourceFile, {});
+  return extractGroupsFromType(typeNode as ts.TypeLiteralNode, sourceFile, {});
 };
 
-const sharedCtxTypes = {
-  ItemFormAdditionalProperties: extractPropertiesOnTypeInFilePath(
+const extractGroupFromTypeInFilePath = (filePath: string, typeName: string) => {
+  const groups = extractGroupsFromTypeInFilePath(filePath, typeName);
+
+  if (groups.length !== 1) {
+    throw new Error(
+      `Expected exactly one group in type "${typeName}" in file ${filePath}`,
+    );
+  }
+
+  return groups[0];
+};
+
+const sharedCtxTypes: SharedCtxTypes = {
+  ItemFormAdditionalProperties: extractGroupFromTypeInFilePath(
     'src/ctx/commonExtras/itemForm.ts',
     'ItemFormAdditionalProperties',
   ),
-  ItemFormAdditionalMethods: extractPropertiesOnTypeInFilePath(
+  ItemFormAdditionalMethods: extractGroupFromTypeInFilePath(
     'src/ctx/commonExtras/itemForm.ts',
     'ItemFormAdditionalMethods',
   ),
-  FieldAdditionalProperties: extractPropertiesOnTypeInFilePath(
+  FieldAdditionalProperties: extractGroupFromTypeInFilePath(
     'src/ctx/commonExtras/field.ts',
     'FieldAdditionalProperties',
   ),
@@ -428,16 +465,13 @@ const hooks = hookFiles.map((file) => processFile(file, sharedCtxTypes));
 const manifest: Manifest = {
   hooks: Object.fromEntries(hooks.map((hook) => [hook.name, hook])),
   baseCtx: {
-    properties: extractPropertiesOnTypeInFilePath(
+    properties: extractGroupsFromTypeInFilePath(
       'src/ctx/base.ts',
       'BaseProperties',
     ),
-    methods: extractPropertiesOnTypeInFilePath(
-      'src/ctx/base.ts',
-      'BaseMethods',
-    ),
+    methods: extractGroupsFromTypeInFilePath('src/ctx/base.ts', 'BaseMethods'),
   },
-  selfResizingPluginFrameCtxSizingUtilities: extractPropertiesOnTypeInFilePath(
+  selfResizingPluginFrameCtxSizingUtilities: extractGroupFromTypeInFilePath(
     'src/ctx/commonExtras/sizing.ts',
     'SizingUtilities',
   ),
