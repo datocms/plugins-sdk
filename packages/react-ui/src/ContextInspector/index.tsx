@@ -1,5 +1,5 @@
 import { manifest } from 'datocms-plugin-sdk';
-import { AdditionalPropertiesOrMethodsGroup } from 'datocms-plugin-sdk/dist/types/manifestTypes';
+import { PropertiesOrMethodsGroup } from 'datocms-plugin-sdk/dist/types/manifestTypes';
 import React, { useState } from 'react';
 import { Button, useCtx } from '..';
 import s from './styles.module.css.json';
@@ -60,7 +60,7 @@ const ExpandablePane = ({ children, label }: any) => {
 
 export function Group({
   group,
-}: { group: AdditionalPropertiesOrMethodsGroup }): JSX.Element {
+}: { group: PropertiesOrMethodsGroup }): JSX.Element {
   const ctx = useCtx();
 
   const handleCopy = (text: string) => {
@@ -91,8 +91,8 @@ export function Group({
       label={group.name ? capitalize(group.name) : 'Properties and methods'}
       key={group.name}
     >
-      {group.comment?.comment && (
-        <div className={s.groupDescription}>{group.comment?.comment}</div>
+      {group.comment?.markdownText && (
+        <div className={s.groupDescription}>{group.comment?.markdownText}</div>
       )}
       <div className={s.propertyGroup}>
         {Object.entries(group.items).map(([name, info]) => (
@@ -108,7 +108,7 @@ export function Group({
                 {info.type.startsWith('(') ? info.type : `: ${info.type}`}
               </a>
 
-              <div>{info.comment?.comment}</div>
+              <div>{info.comment?.markdownText}</div>
             </div>
             {!info.type.startsWith('(') && (
               <div className={s.propertyOrMethodExample}>

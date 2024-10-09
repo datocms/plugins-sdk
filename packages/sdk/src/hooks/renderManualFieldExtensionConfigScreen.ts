@@ -23,12 +23,12 @@ export type RenderManualFieldExtensionConfigScreenCtx =
       fieldExtensionId: string;
       /**
        * The current value of the parameters (you can change the value with the
-       * `setParameters` function)
+       * `setParameters` hook)
        */
       parameters: Record<string, unknown>;
       /**
        * The current validation errors for the parameters (you can set them
-       * implementing the `validateManualFieldExtensionParameters` function)
+       * implementing the `validateManualFieldExtensionParameters` hook)
        */
       errors: Record<string, unknown>;
 

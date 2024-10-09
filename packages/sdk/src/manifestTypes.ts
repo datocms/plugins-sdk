@@ -13,16 +13,16 @@ export type Manifest = {
     /**
      * Properties in the base context.
      */
-    properties: AdditionalPropertiesOrMethodsGroup[];
+    properties: PropertiesOrMethodsGroup[];
     /**
      * Methods in the base context.
      */
-    methods: AdditionalPropertiesOrMethodsGroup[];
+    methods: PropertiesOrMethodsGroup[];
   };
   /**
    * Extra properties and methods available on every SelfResizingPluginFrameCtx context argument
    */
-  selfResizingPluginFrameCtxSizingUtilities: AdditionalPropertiesOrMethodsGroup;
+  selfResizingPluginFrameCtxSizingUtilities: PropertiesOrMethodsGroup;
 };
 
 /**
@@ -70,9 +70,9 @@ export type CodeLocation = {
 };
 
 /**
- * Type alias for additional parameters or methods in context.
+ * Type alias for parameter or method in context.
  */
-export type AdditionalPropertyOrMethod = {
+export type PropertyOrMethod = {
   /**
    * Description of the parameter or method.
    */
@@ -87,7 +87,7 @@ export type AdditionalPropertyOrMethod = {
   type: string;
 };
 
-export type AdditionalPropertiesOrMethodsGroup = {
+export type PropertiesOrMethodsGroup = {
   /**
    * Name of the group
    */
@@ -99,7 +99,7 @@ export type AdditionalPropertiesOrMethodsGroup = {
   /**
    * Type of the parameter or method.
    */
-  items: Record<string, AdditionalPropertyOrMethod>;
+  items: Record<string, PropertyOrMethod>;
 };
 
 /**
@@ -113,11 +113,11 @@ export type CtxArgument = {
   /**
    * Additional properties in the context argument, if any.
    */
-  additionalProperties?: AdditionalPropertiesOrMethodsGroup[];
+  additionalProperties?: PropertiesOrMethodsGroup[];
   /**
    * Additional methods in the context argument, if any.
    */
-  additionalMethods?: AdditionalPropertiesOrMethodsGroup[];
+  additionalMethods?: PropertiesOrMethodsGroup[];
 };
 
 /**
@@ -141,7 +141,7 @@ export type Comment = {
   /**
    * The comment itself.
    */
-  comment: string;
+  markdownText: string;
   /**
    * JSDoc tag for the comment, if any.
    */

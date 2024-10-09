@@ -7,7 +7,7 @@ type Upload = SchemaTypes.Upload;
 export type RenderUploadSidebarPanelHook = {
   /**
    * This function will be called when the plugin needs to render a sidebar panel
-   * (see the `uploadSidebarPanels` function)
+   * (see the `uploadSidebarPanels` hook)
    *
    * @tag sidebarPanels
    */

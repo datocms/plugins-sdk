@@ -4,7 +4,7 @@ import { containedRenderModeBootstrapper } from '../utils';
 export type RenderModalHook = {
   /**
    * This function will be called when the plugin requested to open a modal (see
-   * the `openModal` function)
+   * the `openModal` hook)
    *
    * @tag modals
    */

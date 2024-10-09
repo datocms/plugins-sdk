@@ -8,7 +8,7 @@ import { fullScreenRenderModeBootstrapper } from '../utils';
 export type RenderItemFormSidebarHook = {
   /**
    * This function will be called when the plugin needs to render a sidebar (see
-   * the `itemFormSidebars` function)
+   * the `itemFormSidebars` hook)
    *
    * @tag sidebarPanels
    */

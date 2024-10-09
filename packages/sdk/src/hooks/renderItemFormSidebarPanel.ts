@@ -8,7 +8,7 @@ import { containedRenderModeBootstrapper } from '../utils';
 export type RenderItemFormSidebarPanelHook = {
   /**
    * This function will be called when the plugin needs to render a sidebar panel
-   * (see the `itemFormSidebarPanels` function)
+   * (see the `itemFormSidebarPanels` hook)
    *
    * @tag sidebarPanels
    */

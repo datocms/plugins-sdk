@@ -5,8 +5,8 @@ export const manifest: Manifest = {
     validateManualFieldExtensionParameters: {
       name: 'validateManualFieldExtensionParameters',
       comment: {
-        comment:
-          'This function will be called each time the configuration object changes. It\nmust return an object containing possible validation errors',
+        markdownText:
+          'This function will be called each time the configuration object changes. It\nmust return an object containing possible validation errors.',
         tag: 'manualFieldExtensions',
       },
       nonCtxArguments: [
@@ -28,7 +28,7 @@ export const manifest: Manifest = {
     uploadsDropdownActions: {
       name: 'uploadsDropdownActions',
       comment: {
-        comment:
+        markdownText:
           'This function lets you set up custom actions (or groups of actions) that\nshow up when the user:\n\n* selects multiple assets in the Media Area for batch operations, or\n* opens up a specific asset from the Media Area.\n\nThe `executeUploadsDropdownAction()` hook will be triggered once the user\nclicks on one of the defined actions.',
         tag: 'dropdownActions',
       },
@@ -47,8 +47,8 @@ export const manifest: Manifest = {
     uploadSidebars: {
       name: 'uploadSidebars',
       comment: {
-        comment:
-          'Use this function to declare new sidebar to be shown when the user opens\nup an asset in the Media Area',
+        markdownText:
+          'Use this function to declare new sidebar to be shown when the user opens\nup an asset in the Media Area.',
         tag: 'sidebarPanels',
       },
       nonCtxArguments: [],
@@ -66,8 +66,8 @@ export const manifest: Manifest = {
     uploadSidebarPanels: {
       name: 'uploadSidebarPanels',
       comment: {
-        comment:
-          'Use this function to declare new sidebar panels to be shown when the user\nopens up an asset in the Media Area',
+        markdownText:
+          'Use this function to declare new sidebar panels to be shown when the user\nopens up an asset in the Media Area.',
         tag: 'sidebarPanels',
       },
       nonCtxArguments: [],
@@ -85,8 +85,8 @@ export const manifest: Manifest = {
     settingsAreaSidebarItemGroups: {
       name: 'settingsAreaSidebarItemGroups',
       comment: {
-        comment:
-          'Use this function to declare new navigation sections in the Settings Area\nsidebar',
+        markdownText:
+          'Use this function to declare new navigation sections in the Settings Area\nsidebar.',
         tag: 'pages',
       },
       nonCtxArguments: [],
@@ -104,8 +104,8 @@ export const manifest: Manifest = {
     renderUploadSidebarPanel: {
       name: 'renderUploadSidebarPanel',
       comment: {
-        comment:
-          'This function will be called when the plugin needs to render a sidebar panel\n(see the `uploadSidebarPanels` function)',
+        markdownText:
+          'This function will be called when the plugin needs to render a sidebar panel\n(see the `uploadSidebarPanels` hook).',
         tag: 'sidebarPanels',
       },
       nonCtxArguments: [
@@ -121,8 +121,8 @@ export const manifest: Manifest = {
             items: {
               sidebarPaneId: {
                 comment: {
-                  comment:
-                    'The ID of the sidebar panel that needs to be rendered',
+                  markdownText:
+                    'The ID of the sidebar panel that needs to be rendered.',
                 },
                 location: {
                   filePath: 'src/hooks/renderUploadSidebarPanel.ts',
@@ -132,8 +132,8 @@ export const manifest: Manifest = {
               },
               parameters: {
                 comment: {
-                  comment:
-                    'The arbitrary `parameters` of the panel declared in the\n`uploadSidebarPanels` function',
+                  markdownText:
+                    'The arbitrary `parameters` of the panel declared in the\n`uploadSidebarPanels` function.',
                 },
                 location: {
                   filePath: 'src/hooks/renderUploadSidebarPanel.ts',
@@ -143,7 +143,7 @@ export const manifest: Manifest = {
               },
               upload: {
                 comment: {
-                  comment: 'The active asset',
+                  markdownText: 'The active asset.',
                 },
                 location: {
                   filePath: 'src/hooks/renderUploadSidebarPanel.ts',
@@ -165,8 +165,8 @@ export const manifest: Manifest = {
     renderUploadSidebar: {
       name: 'renderUploadSidebar',
       comment: {
-        comment:
-          'This function will be called when the plugin needs to render a sidebar (see\nthe `uploadSidebars` function)',
+        markdownText:
+          'This function will be called when the plugin needs to render a sidebar (see\nthe `uploadSidebars` hook).',
         tag: 'sidebarPanels',
       },
       nonCtxArguments: [
@@ -182,7 +182,8 @@ export const manifest: Manifest = {
             items: {
               sidebarId: {
                 comment: {
-                  comment: 'The ID of the sidebar that needs to be rendered',
+                  markdownText:
+                    'The ID of the sidebar that needs to be rendered.',
                 },
                 location: {
                   filePath: 'src/hooks/renderUploadSidebar.ts',
@@ -192,8 +193,8 @@ export const manifest: Manifest = {
               },
               parameters: {
                 comment: {
-                  comment:
-                    'The arbitrary `parameters` of the declared in the `uploadSidebars`\nfunction',
+                  markdownText:
+                    'The arbitrary `parameters` of the declared in the `uploadSidebars`\nfunction.',
                 },
                 location: {
                   filePath: 'src/hooks/renderUploadSidebar.ts',
@@ -203,7 +204,7 @@ export const manifest: Manifest = {
               },
               upload: {
                 comment: {
-                  comment: 'The active asset',
+                  markdownText: 'The active asset.',
                 },
                 location: {
                   filePath: 'src/hooks/renderUploadSidebar.ts',
@@ -225,8 +226,8 @@ export const manifest: Manifest = {
     renderPage: {
       name: 'renderPage',
       comment: {
-        comment:
-          'This function will be called when the plugin needs to render a specific\npage (see the `mainNavigationTabs`, `settingsAreaSidebarItemGroups` and\n`contentAreaSidebarItems` functions)',
+        markdownText:
+          'This function will be called when the plugin needs to render a specific\npage (see the `mainNavigationTabs`, `settingsAreaSidebarItemGroups` and\n`contentAreaSidebarItems` functions).',
         tag: 'pages',
       },
       nonCtxArguments: [
@@ -242,7 +243,7 @@ export const manifest: Manifest = {
             items: {
               pageId: {
                 comment: {
-                  comment: 'The ID of the page that needs to be rendered',
+                  markdownText: 'The ID of the page that needs to be rendered.',
                 },
                 location: {
                   filePath: 'src/hooks/renderPage.ts',
@@ -264,8 +265,8 @@ export const manifest: Manifest = {
     renderModal: {
       name: 'renderModal',
       comment: {
-        comment:
-          'This function will be called when the plugin requested to open a modal (see\nthe `openModal` function)',
+        markdownText:
+          'This function will be called when the plugin requested to open a modal (see\nthe `openModal` hook).',
         tag: 'modals',
       },
       nonCtxArguments: [
@@ -281,7 +282,8 @@ export const manifest: Manifest = {
             items: {
               modalId: {
                 comment: {
-                  comment: 'The ID of the modal that needs to be rendered',
+                  markdownText:
+                    'The ID of the modal that needs to be rendered.',
                 },
                 location: {
                   filePath: 'src/hooks/renderModal.ts',
@@ -291,8 +293,8 @@ export const manifest: Manifest = {
               },
               parameters: {
                 comment: {
-                  comment:
-                    'The arbitrary `parameters` of the modal declared in the `openModal`\nfunction',
+                  markdownText:
+                    'The arbitrary `parameters` of the modal declared in the `openModal`\nfunction.',
                 },
                 location: {
                   filePath: 'src/hooks/renderModal.ts',
@@ -308,8 +310,8 @@ export const manifest: Manifest = {
             items: {
               resolve: {
                 comment: {
-                  comment:
-                    'A function to be called by the plugin to close the modal. The `openModal`\ncall will be resolved with the passed return value',
+                  markdownText:
+                    'A function to be called by the plugin to close the modal. The `openModal`\ncall will be resolved with the passed return value.',
                   example:
                     "const returnValue = prompt(\n  'Please specify the value to return to the caller:',\n  'success',\n);\n\nawait ctx.resolve(returnValue);",
                 },
@@ -344,8 +346,8 @@ export const manifest: Manifest = {
             items: {
               fieldExtensionId: {
                 comment: {
-                  comment:
-                    'The ID of the field extension for which we need to render the parameters\nform',
+                  markdownText:
+                    'The ID of the field extension for which we need to render the parameters\nform.',
                 },
                 location: {
                   filePath:
@@ -356,8 +358,8 @@ export const manifest: Manifest = {
               },
               parameters: {
                 comment: {
-                  comment:
-                    'The current value of the parameters (you can change the value with the\n`setParameters` function)',
+                  markdownText:
+                    'The current value of the parameters (you can change the value with the\n`setParameters` hook).',
                 },
                 location: {
                   filePath:
@@ -368,8 +370,8 @@ export const manifest: Manifest = {
               },
               errors: {
                 comment: {
-                  comment:
-                    'The current validation errors for the parameters (you can set them\nimplementing the `validateManualFieldExtensionParameters` function)',
+                  markdownText:
+                    'The current validation errors for the parameters (you can set them\nimplementing the `validateManualFieldExtensionParameters` hook).',
                 },
                 location: {
                   filePath:
@@ -380,7 +382,8 @@ export const manifest: Manifest = {
               },
               pendingField: {
                 comment: {
-                  comment: 'The field entity that is being edited in the form',
+                  markdownText:
+                    'The field entity that is being edited in the form.',
                 },
                 location: {
                   filePath:
@@ -391,7 +394,7 @@ export const manifest: Manifest = {
               },
               itemType: {
                 comment: {
-                  comment: 'The model for the field being edited',
+                  markdownText: 'The model for the field being edited.',
                 },
                 location: {
                   filePath:
@@ -408,7 +411,7 @@ export const manifest: Manifest = {
             items: {
               setParameters: {
                 comment: {
-                  comment: 'Sets a new value for the parameters',
+                  markdownText: 'Sets a new value for the parameters.',
                   example: "await ctx.setParameters({ color: '#ff0000' });",
                 },
                 location: {
@@ -431,8 +434,8 @@ export const manifest: Manifest = {
     renderItemFormSidebarPanel: {
       name: 'renderItemFormSidebarPanel',
       comment: {
-        comment:
-          'This function will be called when the plugin needs to render a sidebar panel\n(see the `itemFormSidebarPanels` function)',
+        markdownText:
+          'This function will be called when the plugin needs to render a sidebar panel\n(see the `itemFormSidebarPanels` hook).',
         tag: 'sidebarPanels',
       },
       nonCtxArguments: [
@@ -447,13 +450,13 @@ export const manifest: Manifest = {
           {
             name: 'ItemFormAdditionalProperties',
             comment: {
-              comment:
-                "These information describe the current state of the form that's being shown\nto the end-user to edit a record",
+              markdownText:
+                "These information describe the current state of the form that's being shown\nto the end-user to edit a record.",
             },
             items: {
               locale: {
                 comment: {
-                  comment: 'The currently active locale for the record',
+                  markdownText: 'The currently active locale for the record.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
@@ -463,8 +466,8 @@ export const manifest: Manifest = {
               },
               item: {
                 comment: {
-                  comment:
-                    'If an already persisted record is being edited, returns the full record\nentity',
+                  markdownText:
+                    'If an already persisted record is being edited, returns the full record\nentity.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
@@ -474,7 +477,7 @@ export const manifest: Manifest = {
               },
               itemType: {
                 comment: {
-                  comment: 'The model for the record being edited',
+                  markdownText: 'The model for the record being edited.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
@@ -484,7 +487,7 @@ export const manifest: Manifest = {
               },
               formValues: {
                 comment: {
-                  comment: 'The complete internal form state',
+                  markdownText: 'The complete internal form state.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
@@ -494,7 +497,8 @@ export const manifest: Manifest = {
               },
               itemStatus: {
                 comment: {
-                  comment: 'The current status of the record being edited',
+                  markdownText:
+                    'The current status of the record being edited.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
@@ -504,8 +508,8 @@ export const manifest: Manifest = {
               },
               isSubmitting: {
                 comment: {
-                  comment:
-                    'Whether the form is currently submitting itself or not',
+                  markdownText:
+                    'Whether the form is currently submitting itself or not.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
@@ -515,8 +519,8 @@ export const manifest: Manifest = {
               },
               isFormDirty: {
                 comment: {
-                  comment:
-                    'Whether the form has some non-persisted changes or not',
+                  markdownText:
+                    'Whether the form has some non-persisted changes or not.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
@@ -526,8 +530,8 @@ export const manifest: Manifest = {
               },
               blocksAnalysis: {
                 comment: {
-                  comment:
-                    'Provides information on how many blocks are currently present in the form',
+                  markdownText:
+                    'Provides information on how many blocks are currently present in the form.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
@@ -541,8 +545,8 @@ export const manifest: Manifest = {
             items: {
               sidebarPaneId: {
                 comment: {
-                  comment:
-                    'The ID of the sidebar panel that needs to be rendered',
+                  markdownText:
+                    'The ID of the sidebar panel that needs to be rendered.',
                 },
                 location: {
                   filePath: 'src/hooks/renderItemFormSidebarPanel.ts',
@@ -552,8 +556,8 @@ export const manifest: Manifest = {
               },
               parameters: {
                 comment: {
-                  comment:
-                    'The arbitrary `parameters` of the panel declared in the\n`itemFormSidebarPanels` function',
+                  markdownText:
+                    'The arbitrary `parameters` of the panel declared in the\n`itemFormSidebarPanels` function.',
                 },
                 location: {
                   filePath: 'src/hooks/renderItemFormSidebarPanel.ts',
@@ -568,13 +572,13 @@ export const manifest: Manifest = {
           {
             name: 'ItemFormAdditionalMethods',
             comment: {
-              comment:
-                "These methods can be used to interact with the form that's being shown to the\nend-user to edit a record",
+              markdownText:
+                "These methods can be used to interact with the form that's being shown to the\nend-user to edit a record.",
             },
             items: {
               toggleField: {
                 comment: {
-                  comment:
+                  markdownText:
                     'Hides/shows a specific field in the form. Please be aware that when a field\nis hidden, the field editor for that field will be removed from the DOM\nitself, including any associated plugins. When it is shown again, its\nplugins will be reinitialized.',
                   example:
                     "const fieldPath = prompt(\n  'Please insert the path of a field in the form',\n  ctx.fieldPath,\n);\n\nawait ctx.toggleField(fieldPath, true);",
@@ -587,7 +591,8 @@ export const manifest: Manifest = {
               },
               disableField: {
                 comment: {
-                  comment: 'Disables/re-enables a specific field in the form',
+                  markdownText:
+                    'Disables/re-enables a specific field in the form.',
                   example:
                     "const fieldPath = prompt(\n  'Please insert the path of a field in the form',\n  ctx.fieldPath,\n);\n\nawait ctx.disableField(fieldPath, true);",
                 },
@@ -599,7 +604,7 @@ export const manifest: Manifest = {
               },
               scrollToField: {
                 comment: {
-                  comment:
+                  markdownText:
                     'Smoothly navigates to a specific field in the form. If the field is\nlocalized it will switch language tab and then navigate to the chosen\nfield.',
                   example:
                     "const fieldPath = prompt(\n  'Please insert the path of a field in the form',\n  ctx.fieldPath,\n);\n\nawait ctx.scrollToField(fieldPath);",
@@ -612,7 +617,8 @@ export const manifest: Manifest = {
               },
               setFieldValue: {
                 comment: {
-                  comment: 'Changes a specific path of the `formValues` object',
+                  markdownText:
+                    'Changes a specific path of the `formValues` object.',
                   example:
                     "const fieldPath = prompt(\n  'Please insert the path of a field in the form',\n  ctx.fieldPath,\n);\n\nawait ctx.setFieldValue(fieldPath, 'new value');",
                 },
@@ -624,7 +630,7 @@ export const manifest: Manifest = {
               },
               formValuesToItem: {
                 comment: {
-                  comment:
+                  markdownText:
                     'Takes the internal form state, and transforms it into an Item entity\ncompatible with DatoCMS API.\n\nWhen `skipUnchangedFields`, only the fields that changed value will be\nserialized.\n\nIf the required nested blocks are still not loaded, this method will return\n`undefined`.',
                   example: 'await ctx.formValuesToItem(ctx.formValues, false);',
                 },
@@ -636,8 +642,8 @@ export const manifest: Manifest = {
               },
               itemToFormValues: {
                 comment: {
-                  comment:
-                    'Takes an Item entity, and converts it into the internal form state',
+                  markdownText:
+                    'Takes an Item entity, and converts it into the internal form state.',
                   example: 'await ctx.itemToFormValues(ctx.item);',
                 },
                 location: {
@@ -648,7 +654,7 @@ export const manifest: Manifest = {
               },
               saveCurrentItem: {
                 comment: {
-                  comment: 'Triggers a submit form for current record',
+                  markdownText: 'Triggers a submit form for current record.',
                   example: 'await ctx.saveCurrentItem();',
                 },
                 location: {
@@ -670,8 +676,8 @@ export const manifest: Manifest = {
     renderItemFormSidebar: {
       name: 'renderItemFormSidebar',
       comment: {
-        comment:
-          'This function will be called when the plugin needs to render a sidebar (see\nthe `itemFormSidebars` function)',
+        markdownText:
+          'This function will be called when the plugin needs to render a sidebar (see\nthe `itemFormSidebars` hook).',
         tag: 'sidebarPanels',
       },
       nonCtxArguments: [
@@ -686,13 +692,13 @@ export const manifest: Manifest = {
           {
             name: 'ItemFormAdditionalProperties',
             comment: {
-              comment:
-                "These information describe the current state of the form that's being shown\nto the end-user to edit a record",
+              markdownText:
+                "These information describe the current state of the form that's being shown\nto the end-user to edit a record.",
             },
             items: {
               locale: {
                 comment: {
-                  comment: 'The currently active locale for the record',
+                  markdownText: 'The currently active locale for the record.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
@@ -702,8 +708,8 @@ export const manifest: Manifest = {
               },
               item: {
                 comment: {
-                  comment:
-                    'If an already persisted record is being edited, returns the full record\nentity',
+                  markdownText:
+                    'If an already persisted record is being edited, returns the full record\nentity.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
@@ -713,7 +719,7 @@ export const manifest: Manifest = {
               },
               itemType: {
                 comment: {
-                  comment: 'The model for the record being edited',
+                  markdownText: 'The model for the record being edited.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
@@ -723,7 +729,7 @@ export const manifest: Manifest = {
               },
               formValues: {
                 comment: {
-                  comment: 'The complete internal form state',
+                  markdownText: 'The complete internal form state.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
@@ -733,7 +739,8 @@ export const manifest: Manifest = {
               },
               itemStatus: {
                 comment: {
-                  comment: 'The current status of the record being edited',
+                  markdownText:
+                    'The current status of the record being edited.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
@@ -743,8 +750,8 @@ export const manifest: Manifest = {
               },
               isSubmitting: {
                 comment: {
-                  comment:
-                    'Whether the form is currently submitting itself or not',
+                  markdownText:
+                    'Whether the form is currently submitting itself or not.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
@@ -754,8 +761,8 @@ export const manifest: Manifest = {
               },
               isFormDirty: {
                 comment: {
-                  comment:
-                    'Whether the form has some non-persisted changes or not',
+                  markdownText:
+                    'Whether the form has some non-persisted changes or not.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
@@ -765,8 +772,8 @@ export const manifest: Manifest = {
               },
               blocksAnalysis: {
                 comment: {
-                  comment:
-                    'Provides information on how many blocks are currently present in the form',
+                  markdownText:
+                    'Provides information on how many blocks are currently present in the form.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
@@ -780,7 +787,8 @@ export const manifest: Manifest = {
             items: {
               sidebarId: {
                 comment: {
-                  comment: 'The ID of the sidebar that needs to be rendered',
+                  markdownText:
+                    'The ID of the sidebar that needs to be rendered.',
                 },
                 location: {
                   filePath: 'src/hooks/renderItemFormSidebar.ts',
@@ -790,8 +798,8 @@ export const manifest: Manifest = {
               },
               parameters: {
                 comment: {
-                  comment:
-                    'The arbitrary `parameters` of the declared in the `itemFormSidebars`\nfunction',
+                  markdownText:
+                    'The arbitrary `parameters` of the declared in the `itemFormSidebars`\nfunction.',
                 },
                 location: {
                   filePath: 'src/hooks/renderItemFormSidebar.ts',
@@ -806,13 +814,13 @@ export const manifest: Manifest = {
           {
             name: 'ItemFormAdditionalMethods',
             comment: {
-              comment:
-                "These methods can be used to interact with the form that's being shown to the\nend-user to edit a record",
+              markdownText:
+                "These methods can be used to interact with the form that's being shown to the\nend-user to edit a record.",
             },
             items: {
               toggleField: {
                 comment: {
-                  comment:
+                  markdownText:
                     'Hides/shows a specific field in the form. Please be aware that when a field\nis hidden, the field editor for that field will be removed from the DOM\nitself, including any associated plugins. When it is shown again, its\nplugins will be reinitialized.',
                   example:
                     "const fieldPath = prompt(\n  'Please insert the path of a field in the form',\n  ctx.fieldPath,\n);\n\nawait ctx.toggleField(fieldPath, true);",
@@ -825,7 +833,8 @@ export const manifest: Manifest = {
               },
               disableField: {
                 comment: {
-                  comment: 'Disables/re-enables a specific field in the form',
+                  markdownText:
+                    'Disables/re-enables a specific field in the form.',
                   example:
                     "const fieldPath = prompt(\n  'Please insert the path of a field in the form',\n  ctx.fieldPath,\n);\n\nawait ctx.disableField(fieldPath, true);",
                 },
@@ -837,7 +846,7 @@ export const manifest: Manifest = {
               },
               scrollToField: {
                 comment: {
-                  comment:
+                  markdownText:
                     'Smoothly navigates to a specific field in the form. If the field is\nlocalized it will switch language tab and then navigate to the chosen\nfield.',
                   example:
                     "const fieldPath = prompt(\n  'Please insert the path of a field in the form',\n  ctx.fieldPath,\n);\n\nawait ctx.scrollToField(fieldPath);",
@@ -850,7 +859,8 @@ export const manifest: Manifest = {
               },
               setFieldValue: {
                 comment: {
-                  comment: 'Changes a specific path of the `formValues` object',
+                  markdownText:
+                    'Changes a specific path of the `formValues` object.',
                   example:
                     "const fieldPath = prompt(\n  'Please insert the path of a field in the form',\n  ctx.fieldPath,\n);\n\nawait ctx.setFieldValue(fieldPath, 'new value');",
                 },
@@ -862,7 +872,7 @@ export const manifest: Manifest = {
               },
               formValuesToItem: {
                 comment: {
-                  comment:
+                  markdownText:
                     'Takes the internal form state, and transforms it into an Item entity\ncompatible with DatoCMS API.\n\nWhen `skipUnchangedFields`, only the fields that changed value will be\nserialized.\n\nIf the required nested blocks are still not loaded, this method will return\n`undefined`.',
                   example: 'await ctx.formValuesToItem(ctx.formValues, false);',
                 },
@@ -874,8 +884,8 @@ export const manifest: Manifest = {
               },
               itemToFormValues: {
                 comment: {
-                  comment:
-                    'Takes an Item entity, and converts it into the internal form state',
+                  markdownText:
+                    'Takes an Item entity, and converts it into the internal form state.',
                   example: 'await ctx.itemToFormValues(ctx.item);',
                 },
                 location: {
@@ -886,7 +896,7 @@ export const manifest: Manifest = {
               },
               saveCurrentItem: {
                 comment: {
-                  comment: 'Triggers a submit form for current record',
+                  markdownText: 'Triggers a submit form for current record.',
                   example: 'await ctx.saveCurrentItem();',
                 },
                 location: {
@@ -908,7 +918,7 @@ export const manifest: Manifest = {
     renderItemFormOutlet: {
       name: 'renderItemFormOutlet',
       comment: {
-        comment:
+        markdownText:
           'This function will be called when the plugin needs to render an outlet\ndefined by the `itemFormOutlets()` hook.',
         tag: 'outlets',
       },
@@ -924,13 +934,13 @@ export const manifest: Manifest = {
           {
             name: 'ItemFormAdditionalProperties',
             comment: {
-              comment:
-                "These information describe the current state of the form that's being shown\nto the end-user to edit a record",
+              markdownText:
+                "These information describe the current state of the form that's being shown\nto the end-user to edit a record.",
             },
             items: {
               locale: {
                 comment: {
-                  comment: 'The currently active locale for the record',
+                  markdownText: 'The currently active locale for the record.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
@@ -940,8 +950,8 @@ export const manifest: Manifest = {
               },
               item: {
                 comment: {
-                  comment:
-                    'If an already persisted record is being edited, returns the full record\nentity',
+                  markdownText:
+                    'If an already persisted record is being edited, returns the full record\nentity.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
@@ -951,7 +961,7 @@ export const manifest: Manifest = {
               },
               itemType: {
                 comment: {
-                  comment: 'The model for the record being edited',
+                  markdownText: 'The model for the record being edited.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
@@ -961,7 +971,7 @@ export const manifest: Manifest = {
               },
               formValues: {
                 comment: {
-                  comment: 'The complete internal form state',
+                  markdownText: 'The complete internal form state.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
@@ -971,7 +981,8 @@ export const manifest: Manifest = {
               },
               itemStatus: {
                 comment: {
-                  comment: 'The current status of the record being edited',
+                  markdownText:
+                    'The current status of the record being edited.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
@@ -981,8 +992,8 @@ export const manifest: Manifest = {
               },
               isSubmitting: {
                 comment: {
-                  comment:
-                    'Whether the form is currently submitting itself or not',
+                  markdownText:
+                    'Whether the form is currently submitting itself or not.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
@@ -992,8 +1003,8 @@ export const manifest: Manifest = {
               },
               isFormDirty: {
                 comment: {
-                  comment:
-                    'Whether the form has some non-persisted changes or not',
+                  markdownText:
+                    'Whether the form has some non-persisted changes or not.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
@@ -1003,8 +1014,8 @@ export const manifest: Manifest = {
               },
               blocksAnalysis: {
                 comment: {
-                  comment:
-                    'Provides information on how many blocks are currently present in the form',
+                  markdownText:
+                    'Provides information on how many blocks are currently present in the form.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
@@ -1018,7 +1029,8 @@ export const manifest: Manifest = {
             items: {
               itemFormOutletId: {
                 comment: {
-                  comment: 'The ID of the outlet that needs to be rendered',
+                  markdownText:
+                    'The ID of the outlet that needs to be rendered.',
                 },
                 location: {
                   filePath: 'src/hooks/renderItemFormOutlet.ts',
@@ -1033,13 +1045,13 @@ export const manifest: Manifest = {
           {
             name: 'ItemFormAdditionalMethods',
             comment: {
-              comment:
-                "These methods can be used to interact with the form that's being shown to the\nend-user to edit a record",
+              markdownText:
+                "These methods can be used to interact with the form that's being shown to the\nend-user to edit a record.",
             },
             items: {
               toggleField: {
                 comment: {
-                  comment:
+                  markdownText:
                     'Hides/shows a specific field in the form. Please be aware that when a field\nis hidden, the field editor for that field will be removed from the DOM\nitself, including any associated plugins. When it is shown again, its\nplugins will be reinitialized.',
                   example:
                     "const fieldPath = prompt(\n  'Please insert the path of a field in the form',\n  ctx.fieldPath,\n);\n\nawait ctx.toggleField(fieldPath, true);",
@@ -1052,7 +1064,8 @@ export const manifest: Manifest = {
               },
               disableField: {
                 comment: {
-                  comment: 'Disables/re-enables a specific field in the form',
+                  markdownText:
+                    'Disables/re-enables a specific field in the form.',
                   example:
                     "const fieldPath = prompt(\n  'Please insert the path of a field in the form',\n  ctx.fieldPath,\n);\n\nawait ctx.disableField(fieldPath, true);",
                 },
@@ -1064,7 +1077,7 @@ export const manifest: Manifest = {
               },
               scrollToField: {
                 comment: {
-                  comment:
+                  markdownText:
                     'Smoothly navigates to a specific field in the form. If the field is\nlocalized it will switch language tab and then navigate to the chosen\nfield.',
                   example:
                     "const fieldPath = prompt(\n  'Please insert the path of a field in the form',\n  ctx.fieldPath,\n);\n\nawait ctx.scrollToField(fieldPath);",
@@ -1077,7 +1090,8 @@ export const manifest: Manifest = {
               },
               setFieldValue: {
                 comment: {
-                  comment: 'Changes a specific path of the `formValues` object',
+                  markdownText:
+                    'Changes a specific path of the `formValues` object.',
                   example:
                     "const fieldPath = prompt(\n  'Please insert the path of a field in the form',\n  ctx.fieldPath,\n);\n\nawait ctx.setFieldValue(fieldPath, 'new value');",
                 },
@@ -1089,7 +1103,7 @@ export const manifest: Manifest = {
               },
               formValuesToItem: {
                 comment: {
-                  comment:
+                  markdownText:
                     'Takes the internal form state, and transforms it into an Item entity\ncompatible with DatoCMS API.\n\nWhen `skipUnchangedFields`, only the fields that changed value will be\nserialized.\n\nIf the required nested blocks are still not loaded, this method will return\n`undefined`.',
                   example: 'await ctx.formValuesToItem(ctx.formValues, false);',
                 },
@@ -1101,8 +1115,8 @@ export const manifest: Manifest = {
               },
               itemToFormValues: {
                 comment: {
-                  comment:
-                    'Takes an Item entity, and converts it into the internal form state',
+                  markdownText:
+                    'Takes an Item entity, and converts it into the internal form state.',
                   example: 'await ctx.itemToFormValues(ctx.item);',
                 },
                 location: {
@@ -1113,7 +1127,7 @@ export const manifest: Manifest = {
               },
               saveCurrentItem: {
                 comment: {
-                  comment: 'Triggers a submit form for current record',
+                  markdownText: 'Triggers a submit form for current record.',
                   example: 'await ctx.saveCurrentItem();',
                 },
                 location: {
@@ -1135,7 +1149,7 @@ export const manifest: Manifest = {
     renderItemCollectionOutlet: {
       name: 'renderItemCollectionOutlet',
       comment: {
-        comment:
+        markdownText:
           'This function will be called when the plugin needs to render an outlet\ndefined by the `itemFormOutlets()` hook.',
         tag: 'outlets',
       },
@@ -1152,7 +1166,8 @@ export const manifest: Manifest = {
             items: {
               itemCollectionOutletId: {
                 comment: {
-                  comment: 'The ID of the outlet that needs to be rendered',
+                  markdownText:
+                    'The ID of the outlet that needs to be rendered.',
                 },
                 location: {
                   filePath: 'src/hooks/renderItemCollectionOutlet.ts',
@@ -1174,8 +1189,8 @@ export const manifest: Manifest = {
     renderFieldExtension: {
       name: 'renderFieldExtension',
       comment: {
-        comment:
-          'This function will be called when the plugin needs to render a field\nextension (see the `manualFieldExtensions` and `overrideFieldExtensions`\nfunctions)',
+        markdownText:
+          'This function will be called when the plugin needs to render a field\nextension (see the `manualFieldExtensions` and `overrideFieldExtensions`\nfunctions).',
         tag: 'forcedFieldExtensions',
       },
       nonCtxArguments: [
@@ -1190,13 +1205,13 @@ export const manifest: Manifest = {
           {
             name: 'ItemFormAdditionalProperties',
             comment: {
-              comment:
-                "These information describe the current state of the form that's being shown\nto the end-user to edit a record",
+              markdownText:
+                "These information describe the current state of the form that's being shown\nto the end-user to edit a record.",
             },
             items: {
               locale: {
                 comment: {
-                  comment: 'The currently active locale for the record',
+                  markdownText: 'The currently active locale for the record.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
@@ -1206,8 +1221,8 @@ export const manifest: Manifest = {
               },
               item: {
                 comment: {
-                  comment:
-                    'If an already persisted record is being edited, returns the full record\nentity',
+                  markdownText:
+                    'If an already persisted record is being edited, returns the full record\nentity.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
@@ -1217,7 +1232,7 @@ export const manifest: Manifest = {
               },
               itemType: {
                 comment: {
-                  comment: 'The model for the record being edited',
+                  markdownText: 'The model for the record being edited.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
@@ -1227,7 +1242,7 @@ export const manifest: Manifest = {
               },
               formValues: {
                 comment: {
-                  comment: 'The complete internal form state',
+                  markdownText: 'The complete internal form state.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
@@ -1237,7 +1252,8 @@ export const manifest: Manifest = {
               },
               itemStatus: {
                 comment: {
-                  comment: 'The current status of the record being edited',
+                  markdownText:
+                    'The current status of the record being edited.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
@@ -1247,8 +1263,8 @@ export const manifest: Manifest = {
               },
               isSubmitting: {
                 comment: {
-                  comment:
-                    'Whether the form is currently submitting itself or not',
+                  markdownText:
+                    'Whether the form is currently submitting itself or not.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
@@ -1258,8 +1274,8 @@ export const manifest: Manifest = {
               },
               isFormDirty: {
                 comment: {
-                  comment:
-                    'Whether the form has some non-persisted changes or not',
+                  markdownText:
+                    'Whether the form has some non-persisted changes or not.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
@@ -1269,8 +1285,8 @@ export const manifest: Manifest = {
               },
               blocksAnalysis: {
                 comment: {
-                  comment:
-                    'Provides information on how many blocks are currently present in the form',
+                  markdownText:
+                    'Provides information on how many blocks are currently present in the form.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
@@ -1283,13 +1299,14 @@ export const manifest: Manifest = {
           {
             name: 'FieldAdditionalProperties',
             comment: {
-              comment:
+              markdownText:
                 'These information describe the current state of the field where this plugin\nis applied to.',
             },
             items: {
               disabled: {
                 comment: {
-                  comment: 'Whether the field is currently disabled or not',
+                  markdownText:
+                    'Whether the field is currently disabled or not.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/field.ts',
@@ -1299,8 +1316,8 @@ export const manifest: Manifest = {
               },
               fieldPath: {
                 comment: {
-                  comment:
-                    'The path in the `formValues` object where to find the current value for the\nfield',
+                  markdownText:
+                    'The path in the `formValues` object where to find the current value for the\nfield.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/field.ts',
@@ -1310,8 +1327,8 @@ export const manifest: Manifest = {
               },
               field: {
                 comment: {
-                  comment:
-                    'The field where the field extension is installed to',
+                  markdownText:
+                    'The field where the field extension is installed to.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/field.ts',
@@ -1321,8 +1338,8 @@ export const manifest: Manifest = {
               },
               parentField: {
                 comment: {
-                  comment:
-                    'If the field extension is installed in a field of a block, returns the top\nlevel Modular Content/Structured Text field containing the block itself',
+                  markdownText:
+                    'If the field extension is installed in a field of a block, returns the top\nlevel Modular Content/Structured Text field containing the block itself.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/field.ts',
@@ -1332,7 +1349,7 @@ export const manifest: Manifest = {
               },
               block: {
                 comment: {
-                  comment:
+                  markdownText:
                     'If the field extension is installed in a field of a block, returns the ID\nof the block — or `undefined` if the block is still not persisted — and the\nblock model.',
                 },
                 location: {
@@ -1347,8 +1364,8 @@ export const manifest: Manifest = {
             items: {
               fieldExtensionId: {
                 comment: {
-                  comment:
-                    'The ID of the field extension that needs to be rendered',
+                  markdownText:
+                    'The ID of the field extension that needs to be rendered.',
                 },
                 location: {
                   filePath: 'src/hooks/renderFieldExtension.ts',
@@ -1358,7 +1375,8 @@ export const manifest: Manifest = {
               },
               parameters: {
                 comment: {
-                  comment: 'The arbitrary `parameters` of the field extension',
+                  markdownText:
+                    'The arbitrary `parameters` of the field extension.',
                 },
                 location: {
                   filePath: 'src/hooks/renderFieldExtension.ts',
@@ -1373,13 +1391,13 @@ export const manifest: Manifest = {
           {
             name: 'ItemFormAdditionalMethods',
             comment: {
-              comment:
-                "These methods can be used to interact with the form that's being shown to the\nend-user to edit a record",
+              markdownText:
+                "These methods can be used to interact with the form that's being shown to the\nend-user to edit a record.",
             },
             items: {
               toggleField: {
                 comment: {
-                  comment:
+                  markdownText:
                     'Hides/shows a specific field in the form. Please be aware that when a field\nis hidden, the field editor for that field will be removed from the DOM\nitself, including any associated plugins. When it is shown again, its\nplugins will be reinitialized.',
                   example:
                     "const fieldPath = prompt(\n  'Please insert the path of a field in the form',\n  ctx.fieldPath,\n);\n\nawait ctx.toggleField(fieldPath, true);",
@@ -1392,7 +1410,8 @@ export const manifest: Manifest = {
               },
               disableField: {
                 comment: {
-                  comment: 'Disables/re-enables a specific field in the form',
+                  markdownText:
+                    'Disables/re-enables a specific field in the form.',
                   example:
                     "const fieldPath = prompt(\n  'Please insert the path of a field in the form',\n  ctx.fieldPath,\n);\n\nawait ctx.disableField(fieldPath, true);",
                 },
@@ -1404,7 +1423,7 @@ export const manifest: Manifest = {
               },
               scrollToField: {
                 comment: {
-                  comment:
+                  markdownText:
                     'Smoothly navigates to a specific field in the form. If the field is\nlocalized it will switch language tab and then navigate to the chosen\nfield.',
                   example:
                     "const fieldPath = prompt(\n  'Please insert the path of a field in the form',\n  ctx.fieldPath,\n);\n\nawait ctx.scrollToField(fieldPath);",
@@ -1417,7 +1436,8 @@ export const manifest: Manifest = {
               },
               setFieldValue: {
                 comment: {
-                  comment: 'Changes a specific path of the `formValues` object',
+                  markdownText:
+                    'Changes a specific path of the `formValues` object.',
                   example:
                     "const fieldPath = prompt(\n  'Please insert the path of a field in the form',\n  ctx.fieldPath,\n);\n\nawait ctx.setFieldValue(fieldPath, 'new value');",
                 },
@@ -1429,7 +1449,7 @@ export const manifest: Manifest = {
               },
               formValuesToItem: {
                 comment: {
-                  comment:
+                  markdownText:
                     'Takes the internal form state, and transforms it into an Item entity\ncompatible with DatoCMS API.\n\nWhen `skipUnchangedFields`, only the fields that changed value will be\nserialized.\n\nIf the required nested blocks are still not loaded, this method will return\n`undefined`.',
                   example: 'await ctx.formValuesToItem(ctx.formValues, false);',
                 },
@@ -1441,8 +1461,8 @@ export const manifest: Manifest = {
               },
               itemToFormValues: {
                 comment: {
-                  comment:
-                    'Takes an Item entity, and converts it into the internal form state',
+                  markdownText:
+                    'Takes an Item entity, and converts it into the internal form state.',
                   example: 'await ctx.itemToFormValues(ctx.item);',
                 },
                 location: {
@@ -1453,7 +1473,7 @@ export const manifest: Manifest = {
               },
               saveCurrentItem: {
                 comment: {
-                  comment: 'Triggers a submit form for current record',
+                  markdownText: 'Triggers a submit form for current record.',
                   example: 'await ctx.saveCurrentItem();',
                 },
                 location: {
@@ -1475,8 +1495,8 @@ export const manifest: Manifest = {
     renderConfigScreen: {
       name: 'renderConfigScreen',
       comment: {
-        comment:
-          "This function will be called when the plugin needs to render the plugin's\nconfiguration form",
+        markdownText:
+          "This function will be called when the plugin needs to render the plugin's\nconfiguration form.",
         tag: 'configScreen',
       },
       nonCtxArguments: [],
@@ -1494,7 +1514,7 @@ export const manifest: Manifest = {
     renderAssetSource: {
       name: 'renderAssetSource',
       comment: {
-        comment:
+        markdownText:
           "This function will be called when the user selects one of the plugin's\nasset sources to upload a new media file.",
         tag: 'assetSources',
       },
@@ -1511,8 +1531,8 @@ export const manifest: Manifest = {
             items: {
               assetSourceId: {
                 comment: {
-                  comment:
-                    'The ID of the assetSource that needs to be rendered',
+                  markdownText:
+                    'The ID of the assetSource that needs to be rendered.',
                 },
                 location: {
                   filePath: 'src/hooks/renderAssetSource.ts',
@@ -1528,7 +1548,7 @@ export const manifest: Manifest = {
             items: {
               select: {
                 comment: {
-                  comment:
+                  markdownText:
                     'Function to be called when the user selects the asset: it will trigger the\ncreation of a new `Upload` that will be added in the Media Area.',
                   example:
                     "await ctx.select({\n  resource: {\n    url: 'https://images.unsplash.com/photo-1416339306562-f3d12fefd36f',\n    filename: 'man-drinking-coffee.jpg',\n  },\n  copyright: 'Royalty free (Unsplash)',\n  author: 'Jeff Sheldon',\n  notes: 'A man drinking a coffee',\n  tags: ['man', 'coffee'],\n});",
@@ -1552,8 +1572,8 @@ export const manifest: Manifest = {
     overrideFieldExtensions: {
       name: 'overrideFieldExtensions',
       comment: {
-        comment:
-          'Use this function to automatically force one or more field extensions to a\nparticular field',
+        markdownText:
+          'Use this function to automatically force one or more field extensions to a\nparticular field.',
         tag: 'forcedFieldExtensions',
       },
       nonCtxArguments: [
@@ -1588,7 +1608,7 @@ export const manifest: Manifest = {
     onBoot: {
       name: 'onBoot',
       comment: {
-        comment:
+        markdownText:
           'This function will be called once at boot time and can be used to perform\nie. some initial integrity checks on the configuration.',
         tag: 'boot',
       },
@@ -1607,8 +1627,8 @@ export const manifest: Manifest = {
     onBeforeItemsUnpublish: {
       name: 'onBeforeItemsUnpublish',
       comment: {
-        comment:
-          'This function will be called before unpublishing records. You can stop the\naction by returning `false`',
+        markdownText:
+          'This function will be called before unpublishing records. You can stop the\naction by returning `false`.',
         tag: 'beforeHooks',
       },
       nonCtxArguments: [
@@ -1631,8 +1651,8 @@ export const manifest: Manifest = {
     onBeforeItemsPublish: {
       name: 'onBeforeItemsPublish',
       comment: {
-        comment:
-          'This function will be called before publishing records. You can stop the\naction by returning `false`',
+        markdownText:
+          'This function will be called before publishing records. You can stop the\naction by returning `false`.',
         tag: 'beforeHooks',
       },
       nonCtxArguments: [
@@ -1655,8 +1675,8 @@ export const manifest: Manifest = {
     onBeforeItemsDestroy: {
       name: 'onBeforeItemsDestroy',
       comment: {
-        comment:
-          'This function will be called before destroying records. You can stop the\naction by returning `false`',
+        markdownText:
+          'This function will be called before destroying records. You can stop the\naction by returning `false`.',
         tag: 'beforeHooks',
       },
       nonCtxArguments: [
@@ -1679,8 +1699,8 @@ export const manifest: Manifest = {
     onBeforeItemUpsert: {
       name: 'onBeforeItemUpsert',
       comment: {
-        comment:
-          'This function will be called before saving a new version of a record. You\ncan stop the action by returning `false`',
+        markdownText:
+          'This function will be called before saving a new version of a record. You\ncan stop the action by returning `false`.',
         tag: 'beforeHooks',
       },
       nonCtxArguments: [
@@ -1703,8 +1723,8 @@ export const manifest: Manifest = {
     manualFieldExtensions: {
       name: 'manualFieldExtensions',
       comment: {
-        comment:
-          'Use this function to declare new field extensions that users will be able\nto install manually in some field',
+        markdownText:
+          'Use this function to declare new field extensions that users will be able\nto install manually in some field.',
         tag: 'manualFieldExtensions',
       },
       nonCtxArguments: [],
@@ -1722,8 +1742,8 @@ export const manifest: Manifest = {
     mainNavigationTabs: {
       name: 'mainNavigationTabs',
       comment: {
-        comment:
-          'Use this function to declare new tabs you want to add in the top-bar of the\nUI',
+        markdownText:
+          'Use this function to declare new tabs you want to add in the top-bar of the\nUI.',
         tag: 'pages',
       },
       nonCtxArguments: [],
@@ -1741,7 +1761,7 @@ export const manifest: Manifest = {
     itemsDropdownActions: {
       name: 'itemsDropdownActions',
       comment: {
-        comment:
+        markdownText:
           'This function lets you set up custom actions (or groups of actions) that\nshow up when the user:\n\n* selects multiple records in the collection view for batch operations, or\n* starts editing a specific record.\n\nThe `executeItemsDropdownAction()` hook will be triggered once the user\nclicks on one of the defined actions.',
         tag: 'dropdownActions',
       },
@@ -1777,8 +1797,8 @@ export const manifest: Manifest = {
     itemFormSidebars: {
       name: 'itemFormSidebars',
       comment: {
-        comment:
-          'Use this function to declare new sidebar to be shown when the user edits\nrecords of a particular model',
+        markdownText:
+          'Use this function to declare new sidebar to be shown when the user edits\nrecords of a particular model.',
         tag: 'sidebarPanels',
       },
       nonCtxArguments: [
@@ -1801,8 +1821,8 @@ export const manifest: Manifest = {
     itemFormSidebarPanels: {
       name: 'itemFormSidebarPanels',
       comment: {
-        comment:
-          'Use this function to declare new sidebar panels to be shown when the user\nedits records of a particular model',
+        markdownText:
+          'Use this function to declare new sidebar panels to be shown when the user\nedits records of a particular model.',
         tag: 'sidebarPanels',
       },
       nonCtxArguments: [
@@ -1825,8 +1845,8 @@ export const manifest: Manifest = {
     itemFormOutlets: {
       name: 'itemFormOutlets',
       comment: {
-        comment:
-          "Use this function to declare custom outlets to be shown at the top of the\nrecord's editing page",
+        markdownText:
+          "Use this function to declare custom outlets to be shown at the top of the\nrecord's editing page.",
         tag: 'outlets',
       },
       nonCtxArguments: [
@@ -1849,7 +1869,7 @@ export const manifest: Manifest = {
     itemFormDropdownActions: {
       name: 'itemFormDropdownActions',
       comment: {
-        comment:
+        markdownText:
           'Use this function to define custom actions (or groups of actions) to be\ndisplayed at when editing a particular record.\n\nThe `executeItemFormDropdownAction()` hook will be triggered once the user\nclicks on one of the defined actions.',
         tag: 'dropdownActions',
       },
@@ -1865,13 +1885,13 @@ export const manifest: Manifest = {
           {
             name: 'ItemFormAdditionalProperties',
             comment: {
-              comment:
-                "These information describe the current state of the form that's being shown\nto the end-user to edit a record",
+              markdownText:
+                "These information describe the current state of the form that's being shown\nto the end-user to edit a record.",
             },
             items: {
               locale: {
                 comment: {
-                  comment: 'The currently active locale for the record',
+                  markdownText: 'The currently active locale for the record.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
@@ -1881,8 +1901,8 @@ export const manifest: Manifest = {
               },
               item: {
                 comment: {
-                  comment:
-                    'If an already persisted record is being edited, returns the full record\nentity',
+                  markdownText:
+                    'If an already persisted record is being edited, returns the full record\nentity.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
@@ -1892,7 +1912,7 @@ export const manifest: Manifest = {
               },
               itemType: {
                 comment: {
-                  comment: 'The model for the record being edited',
+                  markdownText: 'The model for the record being edited.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
@@ -1902,7 +1922,7 @@ export const manifest: Manifest = {
               },
               formValues: {
                 comment: {
-                  comment: 'The complete internal form state',
+                  markdownText: 'The complete internal form state.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
@@ -1912,7 +1932,8 @@ export const manifest: Manifest = {
               },
               itemStatus: {
                 comment: {
-                  comment: 'The current status of the record being edited',
+                  markdownText:
+                    'The current status of the record being edited.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
@@ -1922,8 +1943,8 @@ export const manifest: Manifest = {
               },
               isSubmitting: {
                 comment: {
-                  comment:
-                    'Whether the form is currently submitting itself or not',
+                  markdownText:
+                    'Whether the form is currently submitting itself or not.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
@@ -1933,8 +1954,8 @@ export const manifest: Manifest = {
               },
               isFormDirty: {
                 comment: {
-                  comment:
-                    'Whether the form has some non-persisted changes or not',
+                  markdownText:
+                    'Whether the form has some non-persisted changes or not.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
@@ -1944,8 +1965,8 @@ export const manifest: Manifest = {
               },
               blocksAnalysis: {
                 comment: {
-                  comment:
-                    'Provides information on how many blocks are currently present in the form',
+                  markdownText:
+                    'Provides information on how many blocks are currently present in the form.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
@@ -1967,8 +1988,8 @@ export const manifest: Manifest = {
     itemCollectionOutlets: {
       name: 'itemCollectionOutlets',
       comment: {
-        comment:
-          'Use this function to declare custom outlets to be shown at the top of a\ncollection of records of a particular model',
+        markdownText:
+          'Use this function to declare custom outlets to be shown at the top of a\ncollection of records of a particular model.',
         tag: 'outlets',
       },
       nonCtxArguments: [
@@ -1991,8 +2012,8 @@ export const manifest: Manifest = {
     initialLocationQueryForItemSelector: {
       name: 'initialLocationQueryForItemSelector',
       comment: {
-        comment:
-          'Use this function to customize the initial filters when opening a record\nselector via a "Single link" or "Multiple links" field',
+        markdownText:
+          'Use this function to customize the initial filters when opening a record\nselector via a "Single link" or "Multiple links" field.',
         tag: 'locationQuery',
       },
       nonCtxArguments: [
@@ -2020,7 +2041,7 @@ export const manifest: Manifest = {
     fieldDropdownActions: {
       name: 'fieldDropdownActions',
       comment: {
-        comment:
+        markdownText:
           'Use this function to define custom actions (or groups of actions) to be\ndisplayed at the individual field level in the record editing form.\n\nThe `executeFieldDropdownAction()` hook will be triggered once the user\nclicks on one of the defined actions.',
         tag: 'dropdownActions',
       },
@@ -2036,13 +2057,13 @@ export const manifest: Manifest = {
           {
             name: 'ItemFormAdditionalProperties',
             comment: {
-              comment:
-                "These information describe the current state of the form that's being shown\nto the end-user to edit a record",
+              markdownText:
+                "These information describe the current state of the form that's being shown\nto the end-user to edit a record.",
             },
             items: {
               locale: {
                 comment: {
-                  comment: 'The currently active locale for the record',
+                  markdownText: 'The currently active locale for the record.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
@@ -2052,8 +2073,8 @@ export const manifest: Manifest = {
               },
               item: {
                 comment: {
-                  comment:
-                    'If an already persisted record is being edited, returns the full record\nentity',
+                  markdownText:
+                    'If an already persisted record is being edited, returns the full record\nentity.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
@@ -2063,7 +2084,7 @@ export const manifest: Manifest = {
               },
               itemType: {
                 comment: {
-                  comment: 'The model for the record being edited',
+                  markdownText: 'The model for the record being edited.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
@@ -2073,7 +2094,7 @@ export const manifest: Manifest = {
               },
               formValues: {
                 comment: {
-                  comment: 'The complete internal form state',
+                  markdownText: 'The complete internal form state.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
@@ -2083,7 +2104,8 @@ export const manifest: Manifest = {
               },
               itemStatus: {
                 comment: {
-                  comment: 'The current status of the record being edited',
+                  markdownText:
+                    'The current status of the record being edited.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
@@ -2093,8 +2115,8 @@ export const manifest: Manifest = {
               },
               isSubmitting: {
                 comment: {
-                  comment:
-                    'Whether the form is currently submitting itself or not',
+                  markdownText:
+                    'Whether the form is currently submitting itself or not.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
@@ -2104,8 +2126,8 @@ export const manifest: Manifest = {
               },
               isFormDirty: {
                 comment: {
-                  comment:
-                    'Whether the form has some non-persisted changes or not',
+                  markdownText:
+                    'Whether the form has some non-persisted changes or not.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
@@ -2115,8 +2137,8 @@ export const manifest: Manifest = {
               },
               blocksAnalysis: {
                 comment: {
-                  comment:
-                    'Provides information on how many blocks are currently present in the form',
+                  markdownText:
+                    'Provides information on how many blocks are currently present in the form.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
@@ -2129,13 +2151,14 @@ export const manifest: Manifest = {
           {
             name: 'FieldAdditionalProperties',
             comment: {
-              comment:
+              markdownText:
                 'These information describe the current state of the field where this plugin\nis applied to.',
             },
             items: {
               disabled: {
                 comment: {
-                  comment: 'Whether the field is currently disabled or not',
+                  markdownText:
+                    'Whether the field is currently disabled or not.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/field.ts',
@@ -2145,8 +2168,8 @@ export const manifest: Manifest = {
               },
               fieldPath: {
                 comment: {
-                  comment:
-                    'The path in the `formValues` object where to find the current value for the\nfield',
+                  markdownText:
+                    'The path in the `formValues` object where to find the current value for the\nfield.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/field.ts',
@@ -2156,8 +2179,8 @@ export const manifest: Manifest = {
               },
               field: {
                 comment: {
-                  comment:
-                    'The field where the field extension is installed to',
+                  markdownText:
+                    'The field where the field extension is installed to.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/field.ts',
@@ -2167,8 +2190,8 @@ export const manifest: Manifest = {
               },
               parentField: {
                 comment: {
-                  comment:
-                    'If the field extension is installed in a field of a block, returns the top\nlevel Modular Content/Structured Text field containing the block itself',
+                  markdownText:
+                    'If the field extension is installed in a field of a block, returns the top\nlevel Modular Content/Structured Text field containing the block itself.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/field.ts',
@@ -2178,7 +2201,7 @@ export const manifest: Manifest = {
               },
               block: {
                 comment: {
-                  comment:
+                  markdownText:
                     'If the field extension is installed in a field of a block, returns the ID\nof the block — or `undefined` if the block is still not persisted — and the\nblock model.',
                 },
                 location: {
@@ -2201,7 +2224,7 @@ export const manifest: Manifest = {
     executeUploadsDropdownAction: {
       name: 'executeUploadsDropdownAction',
       comment: {
-        comment:
+        markdownText:
           'Use this function to execute a particular dropdown action defined via\nthe `uploadsDropdownActions()` hook.',
         tag: 'dropdownActions',
       },
@@ -2241,7 +2264,7 @@ export const manifest: Manifest = {
     executeItemsDropdownAction: {
       name: 'executeItemsDropdownAction',
       comment: {
-        comment:
+        markdownText:
           'Use this function to execute a particular dropdown action defined via\nthe `itemsDropdownActions()` hook.',
         tag: 'dropdownActions',
       },
@@ -2281,7 +2304,7 @@ export const manifest: Manifest = {
     executeItemFormDropdownAction: {
       name: 'executeItemFormDropdownAction',
       comment: {
-        comment:
+        markdownText:
           'Use this function to execute a particular dropdown action defined via\nthe `itemFormDropdownActions()` hook.',
         tag: 'dropdownActions',
       },
@@ -2297,13 +2320,13 @@ export const manifest: Manifest = {
           {
             name: 'ItemFormAdditionalProperties',
             comment: {
-              comment:
-                "These information describe the current state of the form that's being shown\nto the end-user to edit a record",
+              markdownText:
+                "These information describe the current state of the form that's being shown\nto the end-user to edit a record.",
             },
             items: {
               locale: {
                 comment: {
-                  comment: 'The currently active locale for the record',
+                  markdownText: 'The currently active locale for the record.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
@@ -2313,8 +2336,8 @@ export const manifest: Manifest = {
               },
               item: {
                 comment: {
-                  comment:
-                    'If an already persisted record is being edited, returns the full record\nentity',
+                  markdownText:
+                    'If an already persisted record is being edited, returns the full record\nentity.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
@@ -2324,7 +2347,7 @@ export const manifest: Manifest = {
               },
               itemType: {
                 comment: {
-                  comment: 'The model for the record being edited',
+                  markdownText: 'The model for the record being edited.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
@@ -2334,7 +2357,7 @@ export const manifest: Manifest = {
               },
               formValues: {
                 comment: {
-                  comment: 'The complete internal form state',
+                  markdownText: 'The complete internal form state.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
@@ -2344,7 +2367,8 @@ export const manifest: Manifest = {
               },
               itemStatus: {
                 comment: {
-                  comment: 'The current status of the record being edited',
+                  markdownText:
+                    'The current status of the record being edited.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
@@ -2354,8 +2378,8 @@ export const manifest: Manifest = {
               },
               isSubmitting: {
                 comment: {
-                  comment:
-                    'Whether the form is currently submitting itself or not',
+                  markdownText:
+                    'Whether the form is currently submitting itself or not.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
@@ -2365,8 +2389,8 @@ export const manifest: Manifest = {
               },
               isFormDirty: {
                 comment: {
-                  comment:
-                    'Whether the form has some non-persisted changes or not',
+                  markdownText:
+                    'Whether the form has some non-persisted changes or not.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
@@ -2376,8 +2400,8 @@ export const manifest: Manifest = {
               },
               blocksAnalysis: {
                 comment: {
-                  comment:
-                    'Provides information on how many blocks are currently present in the form',
+                  markdownText:
+                    'Provides information on how many blocks are currently present in the form.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
@@ -2403,13 +2427,13 @@ export const manifest: Manifest = {
           {
             name: 'ItemFormAdditionalMethods',
             comment: {
-              comment:
-                "These methods can be used to interact with the form that's being shown to the\nend-user to edit a record",
+              markdownText:
+                "These methods can be used to interact with the form that's being shown to the\nend-user to edit a record.",
             },
             items: {
               toggleField: {
                 comment: {
-                  comment:
+                  markdownText:
                     'Hides/shows a specific field in the form. Please be aware that when a field\nis hidden, the field editor for that field will be removed from the DOM\nitself, including any associated plugins. When it is shown again, its\nplugins will be reinitialized.',
                   example:
                     "const fieldPath = prompt(\n  'Please insert the path of a field in the form',\n  ctx.fieldPath,\n);\n\nawait ctx.toggleField(fieldPath, true);",
@@ -2422,7 +2446,8 @@ export const manifest: Manifest = {
               },
               disableField: {
                 comment: {
-                  comment: 'Disables/re-enables a specific field in the form',
+                  markdownText:
+                    'Disables/re-enables a specific field in the form.',
                   example:
                     "const fieldPath = prompt(\n  'Please insert the path of a field in the form',\n  ctx.fieldPath,\n);\n\nawait ctx.disableField(fieldPath, true);",
                 },
@@ -2434,7 +2459,7 @@ export const manifest: Manifest = {
               },
               scrollToField: {
                 comment: {
-                  comment:
+                  markdownText:
                     'Smoothly navigates to a specific field in the form. If the field is\nlocalized it will switch language tab and then navigate to the chosen\nfield.',
                   example:
                     "const fieldPath = prompt(\n  'Please insert the path of a field in the form',\n  ctx.fieldPath,\n);\n\nawait ctx.scrollToField(fieldPath);",
@@ -2447,7 +2472,8 @@ export const manifest: Manifest = {
               },
               setFieldValue: {
                 comment: {
-                  comment: 'Changes a specific path of the `formValues` object',
+                  markdownText:
+                    'Changes a specific path of the `formValues` object.',
                   example:
                     "const fieldPath = prompt(\n  'Please insert the path of a field in the form',\n  ctx.fieldPath,\n);\n\nawait ctx.setFieldValue(fieldPath, 'new value');",
                 },
@@ -2459,7 +2485,7 @@ export const manifest: Manifest = {
               },
               formValuesToItem: {
                 comment: {
-                  comment:
+                  markdownText:
                     'Takes the internal form state, and transforms it into an Item entity\ncompatible with DatoCMS API.\n\nWhen `skipUnchangedFields`, only the fields that changed value will be\nserialized.\n\nIf the required nested blocks are still not loaded, this method will return\n`undefined`.',
                   example: 'await ctx.formValuesToItem(ctx.formValues, false);',
                 },
@@ -2471,8 +2497,8 @@ export const manifest: Manifest = {
               },
               itemToFormValues: {
                 comment: {
-                  comment:
-                    'Takes an Item entity, and converts it into the internal form state',
+                  markdownText:
+                    'Takes an Item entity, and converts it into the internal form state.',
                   example: 'await ctx.itemToFormValues(ctx.item);',
                 },
                 location: {
@@ -2483,7 +2509,7 @@ export const manifest: Manifest = {
               },
               saveCurrentItem: {
                 comment: {
-                  comment: 'Triggers a submit form for current record',
+                  markdownText: 'Triggers a submit form for current record.',
                   example: 'await ctx.saveCurrentItem();',
                 },
                 location: {
@@ -2505,7 +2531,7 @@ export const manifest: Manifest = {
     executeFieldDropdownAction: {
       name: 'executeFieldDropdownAction',
       comment: {
-        comment:
+        markdownText:
           'Use this function to execute a particular dropdown action defined via\nthe `fieldDropdownActions()` hook.',
         tag: 'dropdownActions',
       },
@@ -2521,13 +2547,13 @@ export const manifest: Manifest = {
           {
             name: 'ItemFormAdditionalProperties',
             comment: {
-              comment:
-                "These information describe the current state of the form that's being shown\nto the end-user to edit a record",
+              markdownText:
+                "These information describe the current state of the form that's being shown\nto the end-user to edit a record.",
             },
             items: {
               locale: {
                 comment: {
-                  comment: 'The currently active locale for the record',
+                  markdownText: 'The currently active locale for the record.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
@@ -2537,8 +2563,8 @@ export const manifest: Manifest = {
               },
               item: {
                 comment: {
-                  comment:
-                    'If an already persisted record is being edited, returns the full record\nentity',
+                  markdownText:
+                    'If an already persisted record is being edited, returns the full record\nentity.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
@@ -2548,7 +2574,7 @@ export const manifest: Manifest = {
               },
               itemType: {
                 comment: {
-                  comment: 'The model for the record being edited',
+                  markdownText: 'The model for the record being edited.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
@@ -2558,7 +2584,7 @@ export const manifest: Manifest = {
               },
               formValues: {
                 comment: {
-                  comment: 'The complete internal form state',
+                  markdownText: 'The complete internal form state.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
@@ -2568,7 +2594,8 @@ export const manifest: Manifest = {
               },
               itemStatus: {
                 comment: {
-                  comment: 'The current status of the record being edited',
+                  markdownText:
+                    'The current status of the record being edited.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
@@ -2578,8 +2605,8 @@ export const manifest: Manifest = {
               },
               isSubmitting: {
                 comment: {
-                  comment:
-                    'Whether the form is currently submitting itself or not',
+                  markdownText:
+                    'Whether the form is currently submitting itself or not.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
@@ -2589,8 +2616,8 @@ export const manifest: Manifest = {
               },
               isFormDirty: {
                 comment: {
-                  comment:
-                    'Whether the form has some non-persisted changes or not',
+                  markdownText:
+                    'Whether the form has some non-persisted changes or not.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
@@ -2600,8 +2627,8 @@ export const manifest: Manifest = {
               },
               blocksAnalysis: {
                 comment: {
-                  comment:
-                    'Provides information on how many blocks are currently present in the form',
+                  markdownText:
+                    'Provides information on how many blocks are currently present in the form.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
@@ -2614,13 +2641,14 @@ export const manifest: Manifest = {
           {
             name: 'FieldAdditionalProperties',
             comment: {
-              comment:
+              markdownText:
                 'These information describe the current state of the field where this plugin\nis applied to.',
             },
             items: {
               disabled: {
                 comment: {
-                  comment: 'Whether the field is currently disabled or not',
+                  markdownText:
+                    'Whether the field is currently disabled or not.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/field.ts',
@@ -2630,8 +2658,8 @@ export const manifest: Manifest = {
               },
               fieldPath: {
                 comment: {
-                  comment:
-                    'The path in the `formValues` object where to find the current value for the\nfield',
+                  markdownText:
+                    'The path in the `formValues` object where to find the current value for the\nfield.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/field.ts',
@@ -2641,8 +2669,8 @@ export const manifest: Manifest = {
               },
               field: {
                 comment: {
-                  comment:
-                    'The field where the field extension is installed to',
+                  markdownText:
+                    'The field where the field extension is installed to.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/field.ts',
@@ -2652,8 +2680,8 @@ export const manifest: Manifest = {
               },
               parentField: {
                 comment: {
-                  comment:
-                    'If the field extension is installed in a field of a block, returns the top\nlevel Modular Content/Structured Text field containing the block itself',
+                  markdownText:
+                    'If the field extension is installed in a field of a block, returns the top\nlevel Modular Content/Structured Text field containing the block itself.',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/field.ts',
@@ -2663,7 +2691,7 @@ export const manifest: Manifest = {
               },
               block: {
                 comment: {
-                  comment:
+                  markdownText:
                     'If the field extension is installed in a field of a block, returns the ID\nof the block — or `undefined` if the block is still not persisted — and the\nblock model.',
                 },
                 location: {
@@ -2690,13 +2718,13 @@ export const manifest: Manifest = {
           {
             name: 'ItemFormAdditionalMethods',
             comment: {
-              comment:
-                "These methods can be used to interact with the form that's being shown to the\nend-user to edit a record",
+              markdownText:
+                "These methods can be used to interact with the form that's being shown to the\nend-user to edit a record.",
             },
             items: {
               toggleField: {
                 comment: {
-                  comment:
+                  markdownText:
                     'Hides/shows a specific field in the form. Please be aware that when a field\nis hidden, the field editor for that field will be removed from the DOM\nitself, including any associated plugins. When it is shown again, its\nplugins will be reinitialized.',
                   example:
                     "const fieldPath = prompt(\n  'Please insert the path of a field in the form',\n  ctx.fieldPath,\n);\n\nawait ctx.toggleField(fieldPath, true);",
@@ -2709,7 +2737,8 @@ export const manifest: Manifest = {
               },
               disableField: {
                 comment: {
-                  comment: 'Disables/re-enables a specific field in the form',
+                  markdownText:
+                    'Disables/re-enables a specific field in the form.',
                   example:
                     "const fieldPath = prompt(\n  'Please insert the path of a field in the form',\n  ctx.fieldPath,\n);\n\nawait ctx.disableField(fieldPath, true);",
                 },
@@ -2721,7 +2750,7 @@ export const manifest: Manifest = {
               },
               scrollToField: {
                 comment: {
-                  comment:
+                  markdownText:
                     'Smoothly navigates to a specific field in the form. If the field is\nlocalized it will switch language tab and then navigate to the chosen\nfield.',
                   example:
                     "const fieldPath = prompt(\n  'Please insert the path of a field in the form',\n  ctx.fieldPath,\n);\n\nawait ctx.scrollToField(fieldPath);",
@@ -2734,7 +2763,8 @@ export const manifest: Manifest = {
               },
               setFieldValue: {
                 comment: {
-                  comment: 'Changes a specific path of the `formValues` object',
+                  markdownText:
+                    'Changes a specific path of the `formValues` object.',
                   example:
                     "const fieldPath = prompt(\n  'Please insert the path of a field in the form',\n  ctx.fieldPath,\n);\n\nawait ctx.setFieldValue(fieldPath, 'new value');",
                 },
@@ -2746,7 +2776,7 @@ export const manifest: Manifest = {
               },
               formValuesToItem: {
                 comment: {
-                  comment:
+                  markdownText:
                     'Takes the internal form state, and transforms it into an Item entity\ncompatible with DatoCMS API.\n\nWhen `skipUnchangedFields`, only the fields that changed value will be\nserialized.\n\nIf the required nested blocks are still not loaded, this method will return\n`undefined`.',
                   example: 'await ctx.formValuesToItem(ctx.formValues, false);',
                 },
@@ -2758,8 +2788,8 @@ export const manifest: Manifest = {
               },
               itemToFormValues: {
                 comment: {
-                  comment:
-                    'Takes an Item entity, and converts it into the internal form state',
+                  markdownText:
+                    'Takes an Item entity, and converts it into the internal form state.',
                   example: 'await ctx.itemToFormValues(ctx.item);',
                 },
                 location: {
@@ -2770,7 +2800,7 @@ export const manifest: Manifest = {
               },
               saveCurrentItem: {
                 comment: {
-                  comment: 'Triggers a submit form for current record',
+                  markdownText: 'Triggers a submit form for current record.',
                   example: 'await ctx.saveCurrentItem();',
                 },
                 location: {
@@ -2792,8 +2822,8 @@ export const manifest: Manifest = {
     customMarksForStructuredTextField: {
       name: 'customMarksForStructuredTextField',
       comment: {
-        comment:
-          'Use this function to define a number of custom marks for a specific\nStructured Text field',
+        markdownText:
+          'Use this function to define a number of custom marks for a specific\nStructured Text field.',
         tag: 'structuredText',
       },
       nonCtxArguments: [
@@ -2828,8 +2858,8 @@ export const manifest: Manifest = {
     customBlockStylesForStructuredTextField: {
       name: 'customBlockStylesForStructuredTextField',
       comment: {
-        comment:
-          'Use this function to define a number of custom block styles for a specific\nStructured Text field',
+        markdownText:
+          'Use this function to define a number of custom block styles for a specific\nStructured Text field.',
         tag: 'structuredText',
       },
       nonCtxArguments: [
@@ -2865,8 +2895,8 @@ export const manifest: Manifest = {
     contentAreaSidebarItems: {
       name: 'contentAreaSidebarItems',
       comment: {
-        comment:
-          'Use this function to declare new items in the content area sidebar',
+        markdownText:
+          'Use this function to declare new items in the content area sidebar.',
         tag: 'sidebarItems',
       },
       nonCtxArguments: [],
@@ -2884,8 +2914,8 @@ export const manifest: Manifest = {
     buildItemPresentationInfo: {
       name: 'buildItemPresentationInfo',
       comment: {
-        comment:
-          'Use this function to customize the presentation of a record in records\ncollections and "Single link" or "Multiple links" field',
+        markdownText:
+          'Use this function to customize the presentation of a record in records\ncollections and "Single link" or "Multiple links" field.',
         tag: 'presentation',
       },
       nonCtxArguments: [
@@ -2908,8 +2938,8 @@ export const manifest: Manifest = {
     assetSources: {
       name: 'assetSources',
       comment: {
-        comment:
-          'Use this function to declare additional sources to be shown when users want\nto upload new assets',
+        markdownText:
+          'Use this function to declare additional sources to be shown when users want\nto upload new assets.',
         tag: 'assetSources',
       },
       nonCtxArguments: [],
@@ -2930,13 +2960,13 @@ export const manifest: Manifest = {
       {
         name: 'PluginProperties',
         comment: {
-          comment:
+          markdownText:
             "Information about the current plugin. Useful to access the plugin's global\nconfiguration object.",
         },
         items: {
           plugin: {
             comment: {
-              comment: 'The current plugin',
+              markdownText: 'The current plugin.',
             },
             location: {
               filePath: 'src/ctx/base.ts',
@@ -2949,12 +2979,12 @@ export const manifest: Manifest = {
       {
         name: 'AuthenticationProperties',
         comment: {
-          comment: 'Information about the current user using the CMS',
+          markdownText: 'Information about the current user using the CMS.',
         },
         items: {
           currentUser: {
             comment: {
-              comment:
+              markdownText:
                 'The current DatoCMS user. It can either be the owner or one of the\ncollaborators (regular or SSO).',
             },
             location: {
@@ -2965,7 +2995,7 @@ export const manifest: Manifest = {
           },
           currentRole: {
             comment: {
-              comment: 'The role for the current DatoCMS user',
+              markdownText: 'The role for the current DatoCMS user.',
             },
             location: {
               filePath: 'src/ctx/base.ts',
@@ -2975,8 +3005,8 @@ export const manifest: Manifest = {
           },
           currentUserAccessToken: {
             comment: {
-              comment:
-                'The access token to perform API calls on behalf of the current user. Only\navailable if `currentUserAccessToken` additional permission is granted',
+              markdownText:
+                'The access token to perform API calls on behalf of the current user. Only\navailable if `currentUserAccessToken` additional permission is granted.',
             },
             location: {
               filePath: 'src/ctx/base.ts',
@@ -2991,7 +3021,7 @@ export const manifest: Manifest = {
         items: {
           site: {
             comment: {
-              comment: 'The current DatoCMS project',
+              markdownText: 'The current DatoCMS project.',
             },
             location: {
               filePath: 'src/ctx/base.ts',
@@ -3001,7 +3031,7 @@ export const manifest: Manifest = {
           },
           environment: {
             comment: {
-              comment: 'The ID of the current environment',
+              markdownText: 'The ID of the current environment.',
             },
             location: {
               filePath: 'src/ctx/base.ts',
@@ -3011,7 +3041,7 @@ export const manifest: Manifest = {
           },
           owner: {
             comment: {
-              comment: 'The account that is the project owner',
+              markdownText: 'The account that is the project owner.',
             },
             location: {
               filePath: 'src/ctx/base.ts',
@@ -3021,7 +3051,7 @@ export const manifest: Manifest = {
           },
           account: {
             comment: {
-              comment: 'The account that is the project owner',
+              markdownText: 'The account that is the project owner.',
             },
             location: {
               filePath: 'src/ctx/base.ts',
@@ -3031,8 +3061,8 @@ export const manifest: Manifest = {
           },
           ui: {
             comment: {
-              comment:
-                'UI preferences of the current user (right now, only the preferred locale is\navailable)',
+              markdownText:
+                'UI preferences of the current user (right now, only the preferred locale is\navailable).',
             },
             location: {
               filePath: 'src/ctx/base.ts',
@@ -3042,8 +3072,8 @@ export const manifest: Manifest = {
           },
           theme: {
             comment: {
-              comment:
-                'An object containing the theme colors for the current DatoCMS project',
+              markdownText:
+                'An object containing the theme colors for the current DatoCMS project.',
             },
             location: {
               filePath: 'src/ctx/base.ts',
@@ -3056,14 +3086,14 @@ export const manifest: Manifest = {
       {
         name: 'EntityReposProperties',
         comment: {
-          comment:
+          markdownText:
             'These properties provide access to "entity repos", that is, the collection of\nresources of a particular type that have been loaded by the CMS up to this\nmoment. The entity repos are objects, indexed by the ID of the entity itself.',
         },
         items: {
           itemTypes: {
             comment: {
-              comment:
-                'All the models of the current DatoCMS project, indexed by ID',
+              markdownText:
+                'All the models of the current DatoCMS project, indexed by ID.',
             },
             location: {
               filePath: 'src/ctx/base.ts',
@@ -3073,7 +3103,7 @@ export const manifest: Manifest = {
           },
           fields: {
             comment: {
-              comment:
+              markdownText:
                 'All the fields currently loaded for the current DatoCMS project, indexed by\nID. If some fields you need are not present, use the `loadItemTypeFields`\nfunction to load them.',
             },
             location: {
@@ -3084,7 +3114,7 @@ export const manifest: Manifest = {
           },
           fieldsets: {
             comment: {
-              comment:
+              markdownText:
                 'All the fieldsets currently loaded for the current DatoCMS project, indexed\nby ID. If some fields you need are not present, use the\n`loadItemTypeFieldsets` function to load them.',
             },
             location: {
@@ -3095,7 +3125,7 @@ export const manifest: Manifest = {
           },
           users: {
             comment: {
-              comment:
+              markdownText:
                 'All the regular users currently loaded for the current DatoCMS project,\nindexed by ID. It will always contain the current user. If some users you\nneed are not present, use the `loadUsers` function to load them.',
             },
             location: {
@@ -3106,7 +3136,7 @@ export const manifest: Manifest = {
           },
           ssoUsers: {
             comment: {
-              comment:
+              markdownText:
                 'All the SSO users currently loaded for the current DatoCMS project, indexed\nby ID. It will always contain the current user. If some users you need are\nnot present, use the `loadSsoUsers` function to load them.',
             },
             location: {
@@ -3122,13 +3152,13 @@ export const manifest: Manifest = {
       {
         name: 'LoadDataMethods',
         comment: {
-          comment:
-            'These methods can be used to asyncronously load additional information your\nplugin needs to work',
+          markdownText:
+            'These methods can be used to asyncronously load additional information your\nplugin needs to work.',
         },
         items: {
           loadItemTypeFields: {
             comment: {
-              comment:
+              markdownText:
                 'Loads all the fields for a specific model (or block). Fields will be\nreturned and will also be available in the the `fields` property.',
               example:
                 "const itemTypeId = prompt('Please insert a model ID:');\n\nconst fields = await ctx.loadItemTypeFields(itemTypeId);\n\nctx.notice(\n  `Success! ${fields\n    .map((field) => field.attributes.api_key)\n    .join(', ')}`,\n);",
@@ -3141,7 +3171,7 @@ export const manifest: Manifest = {
           },
           loadItemTypeFieldsets: {
             comment: {
-              comment:
+              markdownText:
                 'Loads all the fieldsets for a specific model (or block). Fieldsets will be\nreturned and will also be available in the the `fieldsets` property.',
               example:
                 "const itemTypeId = prompt('Please insert a model ID:');\n\nconst fieldsets = await ctx.loadItemTypeFieldsets(itemTypeId);\n\nctx.notice(\n  `Success! ${fieldsets\n    .map((fieldset) => fieldset.attributes.title)\n    .join(', ')}`,\n);",
@@ -3154,7 +3184,7 @@ export const manifest: Manifest = {
           },
           loadFieldsUsingPlugin: {
             comment: {
-              comment:
+              markdownText:
                 'Loads all the fields in the project that are currently using the plugin for\none of its manual field extensions.',
               example:
                 "const fields = await ctx.loadFieldsUsingPlugin();\n\nctx.notice(\n  `Success! ${fields\n    .map((field) => field.attributes.api_key)\n    .join(', ')}`,\n);",
@@ -3167,7 +3197,7 @@ export const manifest: Manifest = {
           },
           loadUsers: {
             comment: {
-              comment:
+              markdownText:
                 'Loads all regular users. Users will be returned and will also be available\nin the the `users` property.',
               example:
                 "const users = await ctx.loadUsers();\n\nctx.notice(`Success! ${users.map((user) => user.id).join(', ')}`);",
@@ -3180,7 +3210,7 @@ export const manifest: Manifest = {
           },
           loadSsoUsers: {
             comment: {
-              comment:
+              markdownText:
                 'Loads all SSO users. Users will be returned and will also be available in\nthe the `ssoUsers` property.',
               example:
                 "const users = await ctx.loadSsoUsers();\n\nctx.notice(`Success! ${users.map((user) => user.id).join(', ')}`);",
@@ -3196,13 +3226,13 @@ export const manifest: Manifest = {
       {
         name: 'UpdatePluginParametersMethods',
         comment: {
-          comment:
+          markdownText:
             'These methods can be used to update both plugin parameters and manual field\nextensions configuration.',
         },
         items: {
           updatePluginParameters: {
             comment: {
-              comment:
+              markdownText:
                 'Updates the plugin parameters.\n\nAlways check `ctx.currentRole.meta.final_permissions.can_edit_schema`\nbefore calling this, as the user might not have the permission to perform\nthe operation.',
               example:
                 "await ctx.updatePluginParameters({ debugMode: true });\nawait ctx.notice('Plugin parameters successfully updated!');",
@@ -3215,7 +3245,7 @@ export const manifest: Manifest = {
           },
           updateFieldAppearance: {
             comment: {
-              comment:
+              markdownText:
                 'Performs changes in the appearance of a field. You can install/remove a\nmanual field extension, or tweak their parameters. If multiple changes are\npassed, they will be applied sequencially.\n\nAlways check `ctx.currentRole.meta.final_permissions.can_edit_schema`\nbefore calling this, as the user might not have the permission to perform\nthe operation.',
               example:
                 "const fields = await ctx.loadFieldsUsingPlugin();\n\nif (fields.length === 0) {\n  ctx.alert('No field is using this plugin as a manual extension!');\n  return;\n}\n\nfor (const field of fields) {\n  const { appearance } = field.attributes;\n  const operations = [];\n\n  if (appearance.editor === ctx.plugin.id) {\n    operations.push({\n      operation: 'updateEditor',\n      newParameters: {\n        ...appearance.parameters,\n        foo: 'bar',\n      },\n    });\n  }\n\n  appearance.addons.forEach((addon, i) => {\n    if (addon.id !== ctx.plugin.id) {\n      return;\n    }\n\n    operations.push({\n      operation: 'updateAddon',\n      index: i,\n      newParameters: { ...addon.parameters, foo: 'bar' },\n    });\n  });\n\n  await ctx.updateFieldAppearance(field.id, operations);\n  ctx.notice(`Successfully edited field ${field.attributes.api_key}`);\n}",
@@ -3231,14 +3261,14 @@ export const manifest: Manifest = {
       {
         name: 'ToastMethods',
         comment: {
-          comment:
-            'These methods can be used to show UI-consistent toast notifications to the\nend-user',
+          markdownText:
+            'These methods can be used to show UI-consistent toast notifications to the\nend-user.',
         },
         items: {
           alert: {
             comment: {
-              comment:
-                'Triggers an "error" toast displaying the selected message',
+              markdownText:
+                'Triggers an "error" toast displaying the selected message.',
               example:
                 "const message = prompt(\n  'Please insert a message:',\n  'This is an alert message!',\n);\n\nawait ctx.alert(message);",
             },
@@ -3250,8 +3280,8 @@ export const manifest: Manifest = {
           },
           notice: {
             comment: {
-              comment:
-                'Triggers a "success" toast displaying the selected message',
+              markdownText:
+                'Triggers a "success" toast displaying the selected message.',
               example:
                 "const message = prompt(\n  'Please insert a message:',\n  'This is a notice message!',\n);\n\nawait ctx.notice(message);",
             },
@@ -3263,8 +3293,8 @@ export const manifest: Manifest = {
           },
           customToast: {
             comment: {
-              comment:
-                'Triggers a custom toast displaying the selected message (and optionally a\nCTA)',
+              markdownText:
+                'Triggers a custom toast displaying the selected message (and optionally a\nCTA).',
               example:
                 "const result = await ctx.customToast({\n  type: 'warning',\n  message: 'Just a sample warning notification!',\n  dismissOnPageChange: true,\n  dismissAfterTimeout: 5000,\n  cta: {\n    label: 'Execute call-to-action',\n    value: 'cta',\n  },\n});\n\nif (result === 'cta') {\n  ctx.notice(`Clicked CTA!`);\n}",
             },
@@ -3279,13 +3309,13 @@ export const manifest: Manifest = {
       {
         name: 'ItemDialogMethods',
         comment: {
-          comment:
-            'These methods let you open the standard DatoCMS dialogs needed to interact\nwith records',
+          markdownText:
+            'These methods let you open the standard DatoCMS dialogs needed to interact\nwith records.',
         },
         items: {
           createNewItem: {
             comment: {
-              comment:
+              markdownText:
                 'Opens a dialog for creating a new record. It returns a promise resolved\nwith the newly created record or `null` if the user closes the dialog\nwithout creating anything.',
               example:
                 "const itemTypeId = prompt('Please insert a model ID:');\n\nconst item = await ctx.createNewItem(itemTypeId);\n\nif (item) {\n  ctx.notice(`Success! ${item.id}`);\n} else {\n  ctx.alert('Closed!');\n}",
@@ -3298,7 +3328,7 @@ export const manifest: Manifest = {
           },
           selectItem: {
             comment: {
-              comment:
+              markdownText:
                 'Opens a dialog for selecting one (or multiple) record(s) from a list of\nexisting records of type `itemTypeId`. It returns a promise resolved with\nthe selected record(s), or `null` if the user closes the dialog without\nchoosing any record.',
               example:
                 "const itemTypeId = prompt('Please insert a model ID:');\n\nconst items = await ctx.selectItem(itemTypeId, { multiple: true });\n\nif (items) {\n  ctx.notice(`Success! ${items.map((i) => i.id).join(', ')}`);\n} else {\n  ctx.alert('Closed!');\n}",
@@ -3311,7 +3341,7 @@ export const manifest: Manifest = {
           },
           editItem: {
             comment: {
-              comment:
+              markdownText:
                 'Opens a dialog for editing an existing record. It returns a promise\nresolved with the edited record, or `null` if the user closes the dialog\nwithout persisting any change.',
               example:
                 "const itemId = prompt('Please insert a record ID:');\n\nconst item = await ctx.editItem(itemId);\n\nif (item) {\n  ctx.notice(`Success! ${item.id}`);\n} else {\n  ctx.alert('Closed!');\n}",
@@ -3327,13 +3357,13 @@ export const manifest: Manifest = {
       {
         name: 'UploadDialogMethods',
         comment: {
-          comment:
-            'These methods let you open the standard DatoCMS dialogs needed to interact\nwith Media Area assets',
+          markdownText:
+            'These methods let you open the standard DatoCMS dialogs needed to interact\nwith Media Area assets.',
         },
         items: {
           selectUpload: {
             comment: {
-              comment:
+              markdownText:
                 'Opens a dialog for selecting one (or multiple) existing asset(s). It\nreturns a promise resolved with the selected asset(s), or `null` if the\nuser closes the dialog without selecting any upload.',
               example:
                 "const item = await ctx.selectUpload({ multiple: false });\n\nif (item) {\n  ctx.notice(`Success! ${item.id}`);\n} else {\n  ctx.alert('Closed!');\n}",
@@ -3346,8 +3376,8 @@ export const manifest: Manifest = {
           },
           editUpload: {
             comment: {
-              comment:
-                'Opens a dialog for editing a Media Area asset. It returns a promise\nresolved with:\n\n- The updated asset, if the user persists some changes to the asset itself\n- `null`, if the user closes the dialog without persisting any change\n- An asset structure with an additional `deleted` property set to true, if\n  the user deletes the asset',
+              markdownText:
+                'Opens a dialog for editing a Media Area asset. It returns a promise\nresolved with:\n\n- The updated asset, if the user persists some changes to the asset itself\n- `null`, if the user closes the dialog without persisting any change\n- An asset structure with an additional `deleted` property set to true, if\n  the user deletes the asset.',
               example:
                 "const uploadId = prompt('Please insert an asset ID:');\n\nconst item = await ctx.editUpload(uploadId);\n\nif (item) {\n  ctx.notice(`Success! ${item.id}`);\n} else {\n  ctx.alert('Closed!');\n}",
             },
@@ -3359,7 +3389,7 @@ export const manifest: Manifest = {
           },
           editUploadMetadata: {
             comment: {
-              comment:
+              markdownText:
                 'Opens a dialog for editing a "single asset" field structure. It returns a\npromise resolved with the updated structure, or `null` if the user closes\nthe dialog without persisting any change.',
               example:
                 "const uploadId = prompt('Please insert an asset ID:');\n\nconst result = await ctx.editUploadMetadata({\n  upload_id: uploadId,\n  alt: null,\n  title: null,\n  custom_data: {},\n  focal_point: null,\n});\n\nif (result) {\n  ctx.notice(`Success! ${JSON.stringify(result)}`);\n} else {\n  ctx.alert('Closed!');\n}",
@@ -3375,14 +3405,14 @@ export const manifest: Manifest = {
       {
         name: 'CustomDialogMethods',
         comment: {
-          comment:
-            'These methods can be used to open custom dialogs/confirmation panels',
+          markdownText:
+            'These methods can be used to open custom dialogs/confirmation panels.',
         },
         items: {
           openModal: {
             comment: {
-              comment:
-                'Opens a custom modal. Returns a promise resolved with what the modal itself\nreturns calling the `resolve()` function',
+              markdownText:
+                'Opens a custom modal. Returns a promise resolved with what the modal itself\nreturns calling the `resolve()` function.',
               example:
                 "const result = await ctx.openModal({\n  id: 'regular',\n  title: 'Custom title!',\n  width: 'l',\n  parameters: { foo: 'bar' },\n});\n\nif (result) {\n  ctx.notice(`Success! ${JSON.stringify(result)}`);\n} else {\n  ctx.alert('Closed!');\n}",
             },
@@ -3394,8 +3424,8 @@ export const manifest: Manifest = {
           },
           openConfirm: {
             comment: {
-              comment:
-                'Opens a UI-consistent confirmation dialog. Returns a promise resolved with\nthe value of the choice made by the user',
+              markdownText:
+                'Opens a UI-consistent confirmation dialog. Returns a promise resolved with\nthe value of the choice made by the user.',
               example:
                 "const result = await ctx.openConfirm({\n  title: 'Custom title',\n  content:\n    'Lorem Ipsum is simply dummy text of the printing and typesetting industry',\n  choices: [\n    {\n      label: 'Positive',\n      value: 'positive',\n      intent: 'positive',\n    },\n    {\n      label: 'Negative',\n      value: 'negative',\n      intent: 'negative',\n    },\n  ],\n  cancel: {\n    label: 'Cancel',\n    value: false,\n  },\n});\n\nif (result) {\n  ctx.notice(`Success! ${result}`);\n} else {\n  ctx.alert('Cancelled!');\n}",
             },
@@ -3410,13 +3440,14 @@ export const manifest: Manifest = {
       {
         name: 'NavigateMethods',
         comment: {
-          comment:
-            'These methods can be used to take the user to different pages',
+          markdownText:
+            'These methods can be used to take the user to different pages.',
         },
         items: {
           navigateTo: {
             comment: {
-              comment: 'Moves the user to another URL internal to the backend',
+              markdownText:
+                'Moves the user to another URL internal to the backend.',
               example: "await ctx.navigateTo('/');",
             },
             location: {
@@ -3432,13 +3463,13 @@ export const manifest: Manifest = {
   selfResizingPluginFrameCtxSizingUtilities: {
     name: 'SizingUtilities',
     comment: {
-      comment:
-        'A number of methods that you can use to control the size of the plugin frame',
+      markdownText:
+        'A number of methods that you can use to control the size of the plugin frame.',
     },
     items: {
       startAutoResizer: {
         comment: {
-          comment:
+          markdownText:
             "Listens for DOM changes and automatically calls `setHeight` when it detects\na change. If you're using `datocms-react-ui` package, the `<Canvas />`\ncomponent already takes care of calling this method for you.",
         },
         location: {
@@ -3449,7 +3480,7 @@ export const manifest: Manifest = {
       },
       stopAutoResizer: {
         comment: {
-          comment: 'Stops resizing the iframe automatically',
+          markdownText: 'Stops resizing the iframe automatically.',
         },
         location: {
           filePath: 'src/ctx/commonExtras/sizing.ts',
@@ -3459,8 +3490,8 @@ export const manifest: Manifest = {
       },
       updateHeight: {
         comment: {
-          comment:
-            "Triggers a change in the size of the iframe. If you don't explicitely pass\na `newHeight` it will be automatically calculated using the iframe content\nat the moment",
+          markdownText:
+            "Triggers a change in the size of the iframe. If you don't explicitely pass\na `newHeight` it will be automatically calculated using the iframe content\nat the moment.",
         },
         location: {
           filePath: 'src/ctx/commonExtras/sizing.ts',

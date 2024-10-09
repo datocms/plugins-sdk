@@ -1,19 +1,17 @@
-import * as fs from 'node:fs';
 import * as glob from 'glob';
+import * as fs from 'node:fs';
 import * as ts from 'typescript';
 import type {
-  AdditionalPropertiesOrMethodsGroup,
-  AdditionalPropertyOrMethod,
   CodeLocation,
   Comment,
   CtxArgument,
   HookInfo,
   Manifest,
+  PropertiesOrMethodsGroup,
+  PropertyOrMethod,
 } from './src/manifestTypes';
 
-type SharedCtxTypes = Partial<
-  Record<string, AdditionalPropertiesOrMethodsGroup>
->;
+type SharedCtxTypes = Partial<Record<string, PropertiesOrMethodsGroup>>;
 
 /**
  * Extracts JSDoc comments and tags from a TypeScript node.
@@ -33,8 +31,10 @@ function extractCommentFromNode(
 
   const firstJsDocNode = jsDocNodes[0];
 
+  const text = (firstJsDocNode.comment || '').toString();
+
   const comment: Comment = {
-    comment: (firstJsDocNode.comment || '').toString(),
+    markdownText: text.endsWith('.') ? text : `${text}.`,
   };
 
   if (firstJsDocNode.tags) {
@@ -75,8 +75,8 @@ function extractNodeLocation(
 function extractAnonymousGroupFromTypeLiteral(
   typeLiteral: ts.TypeLiteralNode,
   sourceFile: ts.SourceFile,
-): AdditionalPropertiesOrMethodsGroup {
-  const items: Record<string, AdditionalPropertyOrMethod> = {};
+): PropertiesOrMethodsGroup {
+  const items: Record<string, PropertyOrMethod> = {};
 
   for (const member of typeLiteral.members) {
     if (ts.isPropertySignature(member)) {
@@ -92,9 +92,9 @@ function extractAnonymousGroupFromTypeLiteral(
 }
 
 function mergeUnnamedGroups(
-  groups: AdditionalPropertiesOrMethodsGroup[],
-): AdditionalPropertiesOrMethodsGroup[] {
-  const mergedItems: Record<string, AdditionalPropertyOrMethod> = {}; // To collect merged items
+  groups: PropertiesOrMethodsGroup[],
+): PropertiesOrMethodsGroup[] {
+  const mergedItems: Record<string, PropertyOrMethod> = {}; // To collect merged items
 
   const filteredGroups = groups.filter((group) => {
     // If group has no name and no comment, merge its items
@@ -119,7 +119,7 @@ function extractGroupsFromType(
   node: ts.TypeNode,
   sourceFile: ts.SourceFile,
   sharedCtxTypes: SharedCtxTypes,
-): AdditionalPropertiesOrMethodsGroup[] {
+): PropertiesOrMethodsGroup[] {
   if (ts.isTypeLiteralNode(node)) {
     return [extractAnonymousGroupFromTypeLiteral(node, sourceFile)];
   }
@@ -164,7 +164,7 @@ function extractGroupsFromType(
 
   if (ts.isIntersectionTypeNode(node)) {
     return node.types.flatMap((type) =>
-      extractGroupsFromType(type, sourceFile, sharedCtxTypes, true),
+      extractGroupsFromType(type, sourceFile, sharedCtxTypes),
     );
   }
 
@@ -189,7 +189,7 @@ function extractGroupsFromNthTypeArgument(
   index: number,
   sourceFile: ts.SourceFile,
   sharedCtxTypes: SharedCtxTypes,
-): AdditionalPropertiesOrMethodsGroup[] {
+): PropertiesOrMethodsGroup[] {
   if (!ts.isTypeReferenceNode(ctxTypeNode)) {
     throw new Error('Expected a TypeReferenceNode');
   }
