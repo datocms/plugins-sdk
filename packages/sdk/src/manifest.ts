@@ -3041,7 +3041,8 @@ export const manifest: Manifest = {
           },
           owner: {
             comment: {
-              markdownText: 'The account that is the project owner.',
+              markdownText:
+                'The account/organization that is the project owner.',
             },
             location: {
               filePath: 'src/ctx/base.ts',
@@ -3052,6 +3053,8 @@ export const manifest: Manifest = {
           account: {
             comment: {
               markdownText: 'The account that is the project owner.',
+              deprecatedMarkdownText:
+                'Please use `.owner` instead, as the project owner can also be\nan organization',
             },
             location: {
               filePath: 'src/ctx/base.ts',

@@ -143,11 +143,15 @@ export type Comment = {
    */
   markdownText: string;
   /**
-   * JSDoc tag for the comment, if any.
+   * JSDoc tag, if any.
    */
   tag?: string;
   /**
-   * Example or example code for the comment, if any.
+   * Example or example code, if any.
    */
   example?: string;
+  /**
+   * Info about deprecation, if any.
+   */
+  deprecatedMarkdownText?: string;
 };

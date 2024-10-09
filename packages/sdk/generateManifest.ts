@@ -47,6 +47,9 @@ function extractCommentFromNode(
           ?.toString()
           .replace(/(^```[^\n]*\n)|(\n```$)/g, '');
       }
+      if (tag.tagName.text === 'deprecated') {
+        comment.deprecatedMarkdownText = tag.comment?.toString();
+      }
     }
   }
 

@@ -60,7 +60,7 @@ type ProjectProperties = {
   /** The ID of the current environment */
   environment: string;
 
-  /** The account that is the project owner */
+  /** The account/organization that is the project owner */
   owner: Account | Organization;
 
   /**
