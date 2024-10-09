@@ -1,4 +1,4 @@
-import * as fs from 'fs';
+import * as fs from 'node:fs';
 import * as glob from 'glob';
 import * as ts from 'typescript';
 import type {
@@ -91,6 +91,30 @@ function extractAnonymousGroupFromTypeLiteral(
   return { items };
 }
 
+function mergeUnnamedGroups(
+  groups: AdditionalPropertiesOrMethodsGroup[],
+): AdditionalPropertiesOrMethodsGroup[] {
+  const mergedItems: Record<string, AdditionalPropertyOrMethod> = {}; // To collect merged items
+
+  const filteredGroups = groups.filter((group) => {
+    // If group has no name and no comment, merge its items
+    if (!group.name && !group.comment) {
+      Object.assign(mergedItems, group.items); // Merge the items
+      return false; // Exclude this group from the final array
+    }
+    return true; // Keep the group if it has a name or comment
+  });
+
+  // If there were any unnamed/uncommented groups, add the merged result as a new group
+  if (Object.keys(mergedItems).length > 0) {
+    filteredGroups.push({
+      items: mergedItems, // Merged items from unnamed/uncommented groups
+    });
+  }
+
+  return filteredGroups;
+}
+
 function extractGroupsFromType(
   node: ts.TypeNode,
   sourceFile: ts.SourceFile,
@@ -124,7 +148,7 @@ function extractGroupsFromType(
         return [{ name: referenceName, comment, ...groups[0] }];
       }
 
-      return groups;
+      return mergeUnnamedGroups(groups);
     }
 
     const additionalProperties = sharedCtxTypes[referenceName];
@@ -430,7 +454,23 @@ const extractGroupsFromTypeInFilePath = (
 };
 
 const extractGroupFromTypeInFilePath = (filePath: string, typeName: string) => {
-  const groups = extractGroupsFromTypeInFilePath(filePath, typeName);
+  const sourceFile = ts.createSourceFile(
+    filePath,
+    fs.readFileSync(filePath).toString(),
+    ts.ScriptTarget.Latest,
+  );
+
+  const typeAliasDeclaration = findTypeAliasDeclaration(typeName, sourceFile);
+
+  if (!typeAliasDeclaration) {
+    throw new Error(`Could not find type "${typeName}" in file ${filePath}`);
+  }
+
+  const groups = extractGroupsFromType(
+    typeAliasDeclaration.type as ts.TypeLiteralNode,
+    sourceFile,
+    {},
+  );
 
   if (groups.length !== 1) {
     throw new Error(
@@ -438,7 +478,9 @@ const extractGroupFromTypeInFilePath = (filePath: string, typeName: string) => {
     );
   }
 
-  return groups[0];
+  const comment = extractCommentFromNode(typeAliasDeclaration, sourceFile);
+
+  return { name: typeName, comment, ...groups[0] };
 };
 
 const sharedCtxTypes: SharedCtxTypes = {

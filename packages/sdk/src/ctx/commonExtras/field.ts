@@ -3,6 +3,10 @@ import type { SchemaTypes } from '@datocms/cma-client';
 type Field = SchemaTypes.Field;
 type ItemType = SchemaTypes.ItemType;
 
+/**
+ * These information describe the current state of the field where this plugin
+ * is applied to.
+ */
 export type FieldAdditionalProperties = {
   /** Whether the field is currently disabled or not */
   disabled: boolean;

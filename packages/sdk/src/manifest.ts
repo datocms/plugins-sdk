@@ -445,6 +445,11 @@ export const manifest: Manifest = {
         type: 'SelfResizingPluginFrameCtx',
         additionalProperties: [
           {
+            name: 'ItemFormAdditionalProperties',
+            comment: {
+              comment:
+                "These information describe the current state of the form that's being shown\nto the end-user to edit a record",
+            },
             items: {
               locale: {
                 comment: {
@@ -521,13 +526,14 @@ export const manifest: Manifest = {
               },
               blocksAnalysis: {
                 comment: {
-                  comment: 'Current number of blocks present in form state',
+                  comment:
+                    'Provides information on how many blocks are currently present in the form',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
                   lineNumber: 29,
                 },
-                type: '{\n    usage: {\n      /** Total number of blocks present in form state */\n      total: number;\n      /** Total number of blocks present in non-localized fields */\n      nonLocalized: number;\n      /** Total number of blocks present in localized fields, per locale */\n      perLocale: Record<string, number>;\n    };\n    /** Maximum number of blocks per item */\n    maximumPerItem: number;\n  }',
+                type: 'BlocksAnalysis',
               },
             },
           },
@@ -560,6 +566,11 @@ export const manifest: Manifest = {
         ],
         additionalMethods: [
           {
+            name: 'ItemFormAdditionalMethods',
+            comment: {
+              comment:
+                "These methods can be used to interact with the form that's being shown to the\nend-user to edit a record",
+            },
             items: {
               toggleField: {
                 comment: {
@@ -570,7 +581,7 @@ export const manifest: Manifest = {
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
-                  lineNumber: 65,
+                  lineNumber: 68,
                 },
                 type: '(path: string, show: boolean) => Promise<void>',
               },
@@ -582,7 +593,7 @@ export const manifest: Manifest = {
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
-                  lineNumber: 80,
+                  lineNumber: 83,
                 },
                 type: '(path: string, disable: boolean) => Promise<void>',
               },
@@ -595,7 +606,7 @@ export const manifest: Manifest = {
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
-                  lineNumber: 97,
+                  lineNumber: 100,
                 },
                 type: '(path: string, locale?: string) => Promise<void>',
               },
@@ -607,7 +618,7 @@ export const manifest: Manifest = {
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
-                  lineNumber: 112,
+                  lineNumber: 115,
                 },
                 type: '(path: string, value: unknown) => Promise<void>',
               },
@@ -619,7 +630,7 @@ export const manifest: Manifest = {
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
-                  lineNumber: 129,
+                  lineNumber: 132,
                 },
                 type: "(\n    formValues: Record<string, unknown>,\n    skipUnchangedFields?: boolean,\n  ) => Promise<Omit<Item, 'id' | 'meta'> | undefined>",
               },
@@ -631,7 +642,7 @@ export const manifest: Manifest = {
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
-                  lineNumber: 142,
+                  lineNumber: 145,
                 },
                 type: "(\n    item: Omit<Item, 'id' | 'meta'>,\n  ) => Promise<Record<string, unknown>>",
               },
@@ -642,7 +653,7 @@ export const manifest: Manifest = {
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
-                  lineNumber: 154,
+                  lineNumber: 157,
                 },
                 type: '(showToast?: boolean) => Promise<void>',
               },
@@ -673,6 +684,11 @@ export const manifest: Manifest = {
         type: 'ImposedSizePluginFrameCtx',
         additionalProperties: [
           {
+            name: 'ItemFormAdditionalProperties',
+            comment: {
+              comment:
+                "These information describe the current state of the form that's being shown\nto the end-user to edit a record",
+            },
             items: {
               locale: {
                 comment: {
@@ -749,13 +765,14 @@ export const manifest: Manifest = {
               },
               blocksAnalysis: {
                 comment: {
-                  comment: 'Current number of blocks present in form state',
+                  comment:
+                    'Provides information on how many blocks are currently present in the form',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
                   lineNumber: 29,
                 },
-                type: '{\n    usage: {\n      /** Total number of blocks present in form state */\n      total: number;\n      /** Total number of blocks present in non-localized fields */\n      nonLocalized: number;\n      /** Total number of blocks present in localized fields, per locale */\n      perLocale: Record<string, number>;\n    };\n    /** Maximum number of blocks per item */\n    maximumPerItem: number;\n  }',
+                type: 'BlocksAnalysis',
               },
             },
           },
@@ -787,6 +804,11 @@ export const manifest: Manifest = {
         ],
         additionalMethods: [
           {
+            name: 'ItemFormAdditionalMethods',
+            comment: {
+              comment:
+                "These methods can be used to interact with the form that's being shown to the\nend-user to edit a record",
+            },
             items: {
               toggleField: {
                 comment: {
@@ -797,7 +819,7 @@ export const manifest: Manifest = {
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
-                  lineNumber: 65,
+                  lineNumber: 68,
                 },
                 type: '(path: string, show: boolean) => Promise<void>',
               },
@@ -809,7 +831,7 @@ export const manifest: Manifest = {
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
-                  lineNumber: 80,
+                  lineNumber: 83,
                 },
                 type: '(path: string, disable: boolean) => Promise<void>',
               },
@@ -822,7 +844,7 @@ export const manifest: Manifest = {
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
-                  lineNumber: 97,
+                  lineNumber: 100,
                 },
                 type: '(path: string, locale?: string) => Promise<void>',
               },
@@ -834,7 +856,7 @@ export const manifest: Manifest = {
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
-                  lineNumber: 112,
+                  lineNumber: 115,
                 },
                 type: '(path: string, value: unknown) => Promise<void>',
               },
@@ -846,7 +868,7 @@ export const manifest: Manifest = {
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
-                  lineNumber: 129,
+                  lineNumber: 132,
                 },
                 type: "(\n    formValues: Record<string, unknown>,\n    skipUnchangedFields?: boolean,\n  ) => Promise<Omit<Item, 'id' | 'meta'> | undefined>",
               },
@@ -858,7 +880,7 @@ export const manifest: Manifest = {
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
-                  lineNumber: 142,
+                  lineNumber: 145,
                 },
                 type: "(\n    item: Omit<Item, 'id' | 'meta'>,\n  ) => Promise<Record<string, unknown>>",
               },
@@ -869,7 +891,7 @@ export const manifest: Manifest = {
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
-                  lineNumber: 154,
+                  lineNumber: 157,
                 },
                 type: '(showToast?: boolean) => Promise<void>',
               },
@@ -900,6 +922,11 @@ export const manifest: Manifest = {
         type: 'SelfResizingPluginFrameCtx',
         additionalProperties: [
           {
+            name: 'ItemFormAdditionalProperties',
+            comment: {
+              comment:
+                "These information describe the current state of the form that's being shown\nto the end-user to edit a record",
+            },
             items: {
               locale: {
                 comment: {
@@ -976,13 +1003,14 @@ export const manifest: Manifest = {
               },
               blocksAnalysis: {
                 comment: {
-                  comment: 'Current number of blocks present in form state',
+                  comment:
+                    'Provides information on how many blocks are currently present in the form',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
                   lineNumber: 29,
                 },
-                type: '{\n    usage: {\n      /** Total number of blocks present in form state */\n      total: number;\n      /** Total number of blocks present in non-localized fields */\n      nonLocalized: number;\n      /** Total number of blocks present in localized fields, per locale */\n      perLocale: Record<string, number>;\n    };\n    /** Maximum number of blocks per item */\n    maximumPerItem: number;\n  }',
+                type: 'BlocksAnalysis',
               },
             },
           },
@@ -1003,6 +1031,11 @@ export const manifest: Manifest = {
         ],
         additionalMethods: [
           {
+            name: 'ItemFormAdditionalMethods',
+            comment: {
+              comment:
+                "These methods can be used to interact with the form that's being shown to the\nend-user to edit a record",
+            },
             items: {
               toggleField: {
                 comment: {
@@ -1013,7 +1046,7 @@ export const manifest: Manifest = {
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
-                  lineNumber: 65,
+                  lineNumber: 68,
                 },
                 type: '(path: string, show: boolean) => Promise<void>',
               },
@@ -1025,7 +1058,7 @@ export const manifest: Manifest = {
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
-                  lineNumber: 80,
+                  lineNumber: 83,
                 },
                 type: '(path: string, disable: boolean) => Promise<void>',
               },
@@ -1038,7 +1071,7 @@ export const manifest: Manifest = {
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
-                  lineNumber: 97,
+                  lineNumber: 100,
                 },
                 type: '(path: string, locale?: string) => Promise<void>',
               },
@@ -1050,7 +1083,7 @@ export const manifest: Manifest = {
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
-                  lineNumber: 112,
+                  lineNumber: 115,
                 },
                 type: '(path: string, value: unknown) => Promise<void>',
               },
@@ -1062,7 +1095,7 @@ export const manifest: Manifest = {
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
-                  lineNumber: 129,
+                  lineNumber: 132,
                 },
                 type: "(\n    formValues: Record<string, unknown>,\n    skipUnchangedFields?: boolean,\n  ) => Promise<Omit<Item, 'id' | 'meta'> | undefined>",
               },
@@ -1074,7 +1107,7 @@ export const manifest: Manifest = {
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
-                  lineNumber: 142,
+                  lineNumber: 145,
                 },
                 type: "(\n    item: Omit<Item, 'id' | 'meta'>,\n  ) => Promise<Record<string, unknown>>",
               },
@@ -1085,7 +1118,7 @@ export const manifest: Manifest = {
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
-                  lineNumber: 154,
+                  lineNumber: 157,
                 },
                 type: '(showToast?: boolean) => Promise<void>',
               },
@@ -1155,6 +1188,11 @@ export const manifest: Manifest = {
         type: 'SelfResizingPluginFrameCtx',
         additionalProperties: [
           {
+            name: 'ItemFormAdditionalProperties',
+            comment: {
+              comment:
+                "These information describe the current state of the form that's being shown\nto the end-user to edit a record",
+            },
             items: {
               locale: {
                 comment: {
@@ -1231,17 +1269,23 @@ export const manifest: Manifest = {
               },
               blocksAnalysis: {
                 comment: {
-                  comment: 'Current number of blocks present in form state',
+                  comment:
+                    'Provides information on how many blocks are currently present in the form',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
                   lineNumber: 29,
                 },
-                type: '{\n    usage: {\n      /** Total number of blocks present in form state */\n      total: number;\n      /** Total number of blocks present in non-localized fields */\n      nonLocalized: number;\n      /** Total number of blocks present in localized fields, per locale */\n      perLocale: Record<string, number>;\n    };\n    /** Maximum number of blocks per item */\n    maximumPerItem: number;\n  }',
+                type: 'BlocksAnalysis',
               },
             },
           },
           {
+            name: 'FieldAdditionalProperties',
+            comment: {
+              comment:
+                'These information describe the current state of the field where this plugin\nis applied to.',
+            },
             items: {
               disabled: {
                 comment: {
@@ -1249,7 +1293,7 @@ export const manifest: Manifest = {
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/field.ts',
-                  lineNumber: 8,
+                  lineNumber: 12,
                 },
                 type: 'boolean',
               },
@@ -1260,7 +1304,7 @@ export const manifest: Manifest = {
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/field.ts',
-                  lineNumber: 13,
+                  lineNumber: 17,
                 },
                 type: 'string',
               },
@@ -1271,7 +1315,7 @@ export const manifest: Manifest = {
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/field.ts',
-                  lineNumber: 15,
+                  lineNumber: 19,
                 },
                 type: 'Field',
               },
@@ -1282,7 +1326,7 @@ export const manifest: Manifest = {
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/field.ts',
-                  lineNumber: 20,
+                  lineNumber: 24,
                 },
                 type: 'Field | undefined',
               },
@@ -1293,7 +1337,7 @@ export const manifest: Manifest = {
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/field.ts',
-                  lineNumber: 26,
+                  lineNumber: 30,
                 },
                 type: 'undefined | { id: string | undefined; blockModel: ItemType }',
               },
@@ -1327,6 +1371,11 @@ export const manifest: Manifest = {
         ],
         additionalMethods: [
           {
+            name: 'ItemFormAdditionalMethods',
+            comment: {
+              comment:
+                "These methods can be used to interact with the form that's being shown to the\nend-user to edit a record",
+            },
             items: {
               toggleField: {
                 comment: {
@@ -1337,7 +1386,7 @@ export const manifest: Manifest = {
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
-                  lineNumber: 65,
+                  lineNumber: 68,
                 },
                 type: '(path: string, show: boolean) => Promise<void>',
               },
@@ -1349,7 +1398,7 @@ export const manifest: Manifest = {
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
-                  lineNumber: 80,
+                  lineNumber: 83,
                 },
                 type: '(path: string, disable: boolean) => Promise<void>',
               },
@@ -1362,7 +1411,7 @@ export const manifest: Manifest = {
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
-                  lineNumber: 97,
+                  lineNumber: 100,
                 },
                 type: '(path: string, locale?: string) => Promise<void>',
               },
@@ -1374,7 +1423,7 @@ export const manifest: Manifest = {
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
-                  lineNumber: 112,
+                  lineNumber: 115,
                 },
                 type: '(path: string, value: unknown) => Promise<void>',
               },
@@ -1386,7 +1435,7 @@ export const manifest: Manifest = {
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
-                  lineNumber: 129,
+                  lineNumber: 132,
                 },
                 type: "(\n    formValues: Record<string, unknown>,\n    skipUnchangedFields?: boolean,\n  ) => Promise<Omit<Item, 'id' | 'meta'> | undefined>",
               },
@@ -1398,7 +1447,7 @@ export const manifest: Manifest = {
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
-                  lineNumber: 142,
+                  lineNumber: 145,
                 },
                 type: "(\n    item: Omit<Item, 'id' | 'meta'>,\n  ) => Promise<Record<string, unknown>>",
               },
@@ -1409,7 +1458,7 @@ export const manifest: Manifest = {
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
-                  lineNumber: 154,
+                  lineNumber: 157,
                 },
                 type: '(showToast?: boolean) => Promise<void>',
               },
@@ -1814,6 +1863,11 @@ export const manifest: Manifest = {
         type: 'Ctx',
         additionalProperties: [
           {
+            name: 'ItemFormAdditionalProperties',
+            comment: {
+              comment:
+                "These information describe the current state of the form that's being shown\nto the end-user to edit a record",
+            },
             items: {
               locale: {
                 comment: {
@@ -1890,13 +1944,14 @@ export const manifest: Manifest = {
               },
               blocksAnalysis: {
                 comment: {
-                  comment: 'Current number of blocks present in form state',
+                  comment:
+                    'Provides information on how many blocks are currently present in the form',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
                   lineNumber: 29,
                 },
-                type: '{\n    usage: {\n      /** Total number of blocks present in form state */\n      total: number;\n      /** Total number of blocks present in non-localized fields */\n      nonLocalized: number;\n      /** Total number of blocks present in localized fields, per locale */\n      perLocale: Record<string, number>;\n    };\n    /** Maximum number of blocks per item */\n    maximumPerItem: number;\n  }',
+                type: 'BlocksAnalysis',
               },
             },
           },
@@ -1979,6 +2034,11 @@ export const manifest: Manifest = {
         type: 'Ctx',
         additionalProperties: [
           {
+            name: 'ItemFormAdditionalProperties',
+            comment: {
+              comment:
+                "These information describe the current state of the form that's being shown\nto the end-user to edit a record",
+            },
             items: {
               locale: {
                 comment: {
@@ -2055,17 +2115,23 @@ export const manifest: Manifest = {
               },
               blocksAnalysis: {
                 comment: {
-                  comment: 'Current number of blocks present in form state',
+                  comment:
+                    'Provides information on how many blocks are currently present in the form',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
                   lineNumber: 29,
                 },
-                type: '{\n    usage: {\n      /** Total number of blocks present in form state */\n      total: number;\n      /** Total number of blocks present in non-localized fields */\n      nonLocalized: number;\n      /** Total number of blocks present in localized fields, per locale */\n      perLocale: Record<string, number>;\n    };\n    /** Maximum number of blocks per item */\n    maximumPerItem: number;\n  }',
+                type: 'BlocksAnalysis',
               },
             },
           },
           {
+            name: 'FieldAdditionalProperties',
+            comment: {
+              comment:
+                'These information describe the current state of the field where this plugin\nis applied to.',
+            },
             items: {
               disabled: {
                 comment: {
@@ -2073,7 +2139,7 @@ export const manifest: Manifest = {
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/field.ts',
-                  lineNumber: 8,
+                  lineNumber: 12,
                 },
                 type: 'boolean',
               },
@@ -2084,7 +2150,7 @@ export const manifest: Manifest = {
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/field.ts',
-                  lineNumber: 13,
+                  lineNumber: 17,
                 },
                 type: 'string',
               },
@@ -2095,7 +2161,7 @@ export const manifest: Manifest = {
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/field.ts',
-                  lineNumber: 15,
+                  lineNumber: 19,
                 },
                 type: 'Field',
               },
@@ -2106,7 +2172,7 @@ export const manifest: Manifest = {
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/field.ts',
-                  lineNumber: 20,
+                  lineNumber: 24,
                 },
                 type: 'Field | undefined',
               },
@@ -2117,7 +2183,7 @@ export const manifest: Manifest = {
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/field.ts',
-                  lineNumber: 26,
+                  lineNumber: 30,
                 },
                 type: 'undefined | { id: string | undefined; blockModel: ItemType }',
               },
@@ -2229,6 +2295,11 @@ export const manifest: Manifest = {
         type: 'Ctx',
         additionalProperties: [
           {
+            name: 'ItemFormAdditionalProperties',
+            comment: {
+              comment:
+                "These information describe the current state of the form that's being shown\nto the end-user to edit a record",
+            },
             items: {
               locale: {
                 comment: {
@@ -2305,13 +2376,14 @@ export const manifest: Manifest = {
               },
               blocksAnalysis: {
                 comment: {
-                  comment: 'Current number of blocks present in form state',
+                  comment:
+                    'Provides information on how many blocks are currently present in the form',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
                   lineNumber: 29,
                 },
-                type: '{\n    usage: {\n      /** Total number of blocks present in form state */\n      total: number;\n      /** Total number of blocks present in non-localized fields */\n      nonLocalized: number;\n      /** Total number of blocks present in localized fields, per locale */\n      perLocale: Record<string, number>;\n    };\n    /** Maximum number of blocks per item */\n    maximumPerItem: number;\n  }',
+                type: 'BlocksAnalysis',
               },
             },
           },
@@ -2329,6 +2401,11 @@ export const manifest: Manifest = {
         ],
         additionalMethods: [
           {
+            name: 'ItemFormAdditionalMethods',
+            comment: {
+              comment:
+                "These methods can be used to interact with the form that's being shown to the\nend-user to edit a record",
+            },
             items: {
               toggleField: {
                 comment: {
@@ -2339,7 +2416,7 @@ export const manifest: Manifest = {
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
-                  lineNumber: 65,
+                  lineNumber: 68,
                 },
                 type: '(path: string, show: boolean) => Promise<void>',
               },
@@ -2351,7 +2428,7 @@ export const manifest: Manifest = {
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
-                  lineNumber: 80,
+                  lineNumber: 83,
                 },
                 type: '(path: string, disable: boolean) => Promise<void>',
               },
@@ -2364,7 +2441,7 @@ export const manifest: Manifest = {
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
-                  lineNumber: 97,
+                  lineNumber: 100,
                 },
                 type: '(path: string, locale?: string) => Promise<void>',
               },
@@ -2376,7 +2453,7 @@ export const manifest: Manifest = {
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
-                  lineNumber: 112,
+                  lineNumber: 115,
                 },
                 type: '(path: string, value: unknown) => Promise<void>',
               },
@@ -2388,7 +2465,7 @@ export const manifest: Manifest = {
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
-                  lineNumber: 129,
+                  lineNumber: 132,
                 },
                 type: "(\n    formValues: Record<string, unknown>,\n    skipUnchangedFields?: boolean,\n  ) => Promise<Omit<Item, 'id' | 'meta'> | undefined>",
               },
@@ -2400,7 +2477,7 @@ export const manifest: Manifest = {
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
-                  lineNumber: 142,
+                  lineNumber: 145,
                 },
                 type: "(\n    item: Omit<Item, 'id' | 'meta'>,\n  ) => Promise<Record<string, unknown>>",
               },
@@ -2411,7 +2488,7 @@ export const manifest: Manifest = {
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
-                  lineNumber: 154,
+                  lineNumber: 157,
                 },
                 type: '(showToast?: boolean) => Promise<void>',
               },
@@ -2442,6 +2519,11 @@ export const manifest: Manifest = {
         type: 'Ctx',
         additionalProperties: [
           {
+            name: 'ItemFormAdditionalProperties',
+            comment: {
+              comment:
+                "These information describe the current state of the form that's being shown\nto the end-user to edit a record",
+            },
             items: {
               locale: {
                 comment: {
@@ -2518,17 +2600,23 @@ export const manifest: Manifest = {
               },
               blocksAnalysis: {
                 comment: {
-                  comment: 'Current number of blocks present in form state',
+                  comment:
+                    'Provides information on how many blocks are currently present in the form',
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
                   lineNumber: 29,
                 },
-                type: '{\n    usage: {\n      /** Total number of blocks present in form state */\n      total: number;\n      /** Total number of blocks present in non-localized fields */\n      nonLocalized: number;\n      /** Total number of blocks present in localized fields, per locale */\n      perLocale: Record<string, number>;\n    };\n    /** Maximum number of blocks per item */\n    maximumPerItem: number;\n  }',
+                type: 'BlocksAnalysis',
               },
             },
           },
           {
+            name: 'FieldAdditionalProperties',
+            comment: {
+              comment:
+                'These information describe the current state of the field where this plugin\nis applied to.',
+            },
             items: {
               disabled: {
                 comment: {
@@ -2536,7 +2624,7 @@ export const manifest: Manifest = {
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/field.ts',
-                  lineNumber: 8,
+                  lineNumber: 12,
                 },
                 type: 'boolean',
               },
@@ -2547,7 +2635,7 @@ export const manifest: Manifest = {
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/field.ts',
-                  lineNumber: 13,
+                  lineNumber: 17,
                 },
                 type: 'string',
               },
@@ -2558,7 +2646,7 @@ export const manifest: Manifest = {
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/field.ts',
-                  lineNumber: 15,
+                  lineNumber: 19,
                 },
                 type: 'Field',
               },
@@ -2569,7 +2657,7 @@ export const manifest: Manifest = {
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/field.ts',
-                  lineNumber: 20,
+                  lineNumber: 24,
                 },
                 type: 'Field | undefined',
               },
@@ -2580,7 +2668,7 @@ export const manifest: Manifest = {
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/field.ts',
-                  lineNumber: 26,
+                  lineNumber: 30,
                 },
                 type: 'undefined | { id: string | undefined; blockModel: ItemType }',
               },
@@ -2600,6 +2688,11 @@ export const manifest: Manifest = {
         ],
         additionalMethods: [
           {
+            name: 'ItemFormAdditionalMethods',
+            comment: {
+              comment:
+                "These methods can be used to interact with the form that's being shown to the\nend-user to edit a record",
+            },
             items: {
               toggleField: {
                 comment: {
@@ -2610,7 +2703,7 @@ export const manifest: Manifest = {
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
-                  lineNumber: 65,
+                  lineNumber: 68,
                 },
                 type: '(path: string, show: boolean) => Promise<void>',
               },
@@ -2622,7 +2715,7 @@ export const manifest: Manifest = {
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
-                  lineNumber: 80,
+                  lineNumber: 83,
                 },
                 type: '(path: string, disable: boolean) => Promise<void>',
               },
@@ -2635,7 +2728,7 @@ export const manifest: Manifest = {
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
-                  lineNumber: 97,
+                  lineNumber: 100,
                 },
                 type: '(path: string, locale?: string) => Promise<void>',
               },
@@ -2647,7 +2740,7 @@ export const manifest: Manifest = {
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
-                  lineNumber: 112,
+                  lineNumber: 115,
                 },
                 type: '(path: string, value: unknown) => Promise<void>',
               },
@@ -2659,7 +2752,7 @@ export const manifest: Manifest = {
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
-                  lineNumber: 129,
+                  lineNumber: 132,
                 },
                 type: "(\n    formValues: Record<string, unknown>,\n    skipUnchangedFields?: boolean,\n  ) => Promise<Omit<Item, 'id' | 'meta'> | undefined>",
               },
@@ -2671,7 +2764,7 @@ export const manifest: Manifest = {
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
-                  lineNumber: 142,
+                  lineNumber: 145,
                 },
                 type: "(\n    item: Omit<Item, 'id' | 'meta'>,\n  ) => Promise<Record<string, unknown>>",
               },
@@ -2682,7 +2775,7 @@ export const manifest: Manifest = {
                 },
                 location: {
                   filePath: 'src/ctx/commonExtras/itemForm.ts',
-                  lineNumber: 154,
+                  lineNumber: 157,
                 },
                 type: '(showToast?: boolean) => Promise<void>',
               },
@@ -3337,6 +3430,11 @@ export const manifest: Manifest = {
     ],
   },
   selfResizingPluginFrameCtxSizingUtilities: {
+    name: 'SizingUtilities',
+    comment: {
+      comment:
+        'A number of methods that you can use to control the size of the plugin frame',
+    },
     items: {
       startAutoResizer: {
         comment: {
@@ -3345,7 +3443,7 @@ export const manifest: Manifest = {
         },
         location: {
           filePath: 'src/ctx/commonExtras/sizing.ts',
-          lineNumber: 7,
+          lineNumber: 8,
         },
         type: '() => void',
       },
@@ -3355,7 +3453,7 @@ export const manifest: Manifest = {
         },
         location: {
           filePath: 'src/ctx/commonExtras/sizing.ts',
-          lineNumber: 10,
+          lineNumber: 11,
         },
         type: '() => void',
       },
@@ -3366,7 +3464,7 @@ export const manifest: Manifest = {
         },
         location: {
           filePath: 'src/ctx/commonExtras/sizing.ts',
-          lineNumber: 17,
+          lineNumber: 18,
         },
         type: '(newHeight?: number) => void',
       },

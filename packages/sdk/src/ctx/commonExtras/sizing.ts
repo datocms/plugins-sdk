@@ -1,3 +1,4 @@
+/** A number of methods that you can use to control the size of the plugin frame */
 export type SizingUtilities = {
   /**
    * Listens for DOM changes and automatically calls `setHeight` when it detects
