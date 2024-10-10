@@ -1150,7 +1150,7 @@ export const manifest: Manifest = {
       name: 'renderItemCollectionOutlet',
       comment: {
         markdownText:
-          'This function will be called when the plugin needs to render an outlet\ndefined by the `itemFormOutlets()` hook.',
+          'This function will be called when the plugin needs to render an outlet\ndefined by the `itemCollectionOutlets()` hook.',
         tag: 'outlets',
       },
       nonCtxArguments: [
@@ -1171,9 +1171,20 @@ export const manifest: Manifest = {
                 },
                 location: {
                   filePath: 'src/hooks/renderItemCollectionOutlet.ts',
-                  lineNumber: 21,
+                  lineNumber: 24,
                 },
                 type: 'string',
+              },
+              itemType: {
+                comment: {
+                  markdownText:
+                    'The model for which the outlet is being rendered.',
+                },
+                location: {
+                  filePath: 'src/hooks/renderItemCollectionOutlet.ts',
+                  lineNumber: 26,
+                },
+                type: 'ItemType',
               },
             },
           },
@@ -1183,7 +1194,7 @@ export const manifest: Manifest = {
       returnType: 'void',
       location: {
         filePath: 'src/hooks/renderItemCollectionOutlet.ts',
-        lineNumber: 11,
+        lineNumber: 14,
       },
     },
     renderFieldExtension: {

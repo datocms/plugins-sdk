@@ -1,10 +1,13 @@
+import type { SchemaTypes } from '@datocms/cma-client';
 import { SelfResizingPluginFrameCtx } from '../ctx/pluginFrame';
 import { containedRenderModeBootstrapper } from '../utils';
+
+type ItemType = SchemaTypes.ItemType;
 
 export type RenderItemCollectionOutletHook = {
   /**
    * This function will be called when the plugin needs to render an outlet
-   * defined by the `itemFormOutlets()` hook.
+   * defined by the `itemCollectionOutlets()` hook.
    *
    * @tag outlets
    */
@@ -19,6 +22,8 @@ export type RenderItemCollectionOutletCtx = SelfResizingPluginFrameCtx<
   {
     /** The ID of the outlet that needs to be rendered */
     itemCollectionOutletId: string;
+    /** The model for which the outlet is being rendered */
+    itemType: ItemType;
   }
 >;
 
