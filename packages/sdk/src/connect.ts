@@ -156,12 +156,8 @@ export async function connect(
       sdkVersion: () => '0.3.0',
       implementedHooks: () =>
         Object.fromEntries(
-          Object.entries(configuration).map(([key, value]) => {
-            if (typeof value === 'function') {
-              return [key, true];
-            }
-
-            return [key, value];
+          Object.keys(rawConfiguration).map((hook) => {
+            return [hook, true];
           }),
         ),
       // What hooks should we expose via penpal as direct callable methods by CMS?
