@@ -98,7 +98,7 @@ export const manifest: Manifest = {
       returnType: 'SettingsAreaSidebarItemGroup[]',
       location: {
         filePath: 'src/hooks/settingsAreaSidebarItemGroups.ts',
-        lineNumber: 11,
+        lineNumber: 19,
       },
     },
     renderUploadSidebarPanel: {

@@ -1,5 +1,13 @@
 import { Ctx } from '../ctx/base';
-import { Icon } from '../icon';
+import {
+  isArray,
+  isNullish,
+  isNumber,
+  isPlacement,
+  isRecord,
+  isString,
+} from '../guardUtils.js';
+import { Icon, isIcon } from '../icon';
 
 export type SettingsAreaSidebarItemGroupsHook = {
   /**
@@ -57,3 +65,33 @@ export type SettingsAreaSidebarItem = {
     pageId: string;
   };
 };
+
+export function isSettingsAreaSidebarItemGroup(
+  value: unknown,
+): value is SettingsAreaSidebarItemGroup {
+  return (
+    isRecord(value) &&
+    isString(value.label) &&
+    isArray(value.items, isSettingsAreaSidebarItem) &&
+    (isNullish(value.placement) || isPlacement(value.placement)) &&
+    (isNullish(value.rank) || isNumber(value.rank))
+  );
+}
+
+export function isSettingsAreaSidebarItem(
+  value: unknown,
+): value is SettingsAreaSidebarItem {
+  return (
+    isRecord(value) &&
+    isString(value.label) &&
+    isIcon(value.icon) &&
+    isRecord(value.pointsTo) &&
+    isString(value.pointsTo.pageId)
+  );
+}
+
+export function isReturnTypeOfSettingsAreaSidebarItemGroupsHook(
+  value: unknown,
+): value is SettingsAreaSidebarItemGroup[] {
+  return isArray(value, isSettingsAreaSidebarItemGroup);
+}
