@@ -1,6 +1,18 @@
+import { isRecord, isString } from './guardUtils.js';
+
 export type Icon =
   | AwesomeFontIconIdentifier
   | { type: 'svg'; viewBox: string; content: string };
+
+export function isIcon(value: unknown): value is Icon {
+  return (
+    isString(value) ||
+    (isRecord(value) &&
+      value.type === 'svg' &&
+      isString(value.viewBox) &&
+      isString(value.content))
+  );
+}
 
 export type AwesomeFontIconIdentifier =
   | '0'

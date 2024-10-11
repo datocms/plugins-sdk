@@ -1,4 +1,12 @@
 import { Ctx } from '../ctx/base';
+import {
+  isArray,
+  isBoolean,
+  isNullish,
+  isNumber,
+  isRecord,
+  isString,
+} from '../guardUtils.js';
 
 export type ManualFieldExtensionsHook = {
   /**
@@ -14,6 +22,12 @@ export type ManualFieldExtensionsHook = {
 
 export type ManualFieldExtensionsCtx = Ctx;
 
+/**
+ * An object expressing a field extension that users will be able
+ * to install manually in some field
+ *
+ * @see {isManualFieldExtension}
+ */
 export type ManualFieldExtension = {
   /**
    * ID of field extension. Will be the first argument for the
@@ -80,3 +94,31 @@ export type FieldType =
   | 'structured_text'
   | 'text'
   | 'video';
+
+/**
+ * Checks if the provided value is a ManualFieldExtension.
+ * @param value - The value to check.
+ * @returns True if the value is a ManualFieldExtension, otherwise false.
+ */
+export function isManualFieldExtension(
+  value: unknown,
+): value is ManualFieldExtension {
+  return (
+    isRecord(value) &&
+    isString(value.id) &&
+    isString(value.name) &&
+    isString(value.type) &&
+    ['editor', 'addon'].includes(value.type) &&
+    (isNullish(value.asSidebarPanel) ||
+      isBoolean(value.asSidebarPanel) ||
+      (isRecord(value.asSidebarPanel) &&
+        isBoolean(value.asSidebarPanel.startOpen))) &&
+    ((isString(value.fieldTypes) && value.fieldTypes === 'all') ||
+      isArray(value.fieldTypes, isString)) &&
+    (isNullish(value.configurable) ||
+      isBoolean(value.configurable) ||
+      (isRecord(value.configurable) &&
+        isNumber(value.configurable.initialHeight))) &&
+    (isNullish(value.initialHeight) || isNumber(value.initialHeight))
+  );
+}

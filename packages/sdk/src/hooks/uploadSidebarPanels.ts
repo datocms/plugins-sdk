@@ -1,4 +1,12 @@
 import { Ctx } from '../ctx/base';
+import {
+  isBoolean,
+  isNullish,
+  isNumber,
+  isPlacement,
+  isRecord,
+  isString,
+} from '../guardUtils.js';
 
 export type UploadSidebarPanelsHook = {
   /**
@@ -12,6 +20,12 @@ export type UploadSidebarPanelsHook = {
 
 export type UploadSidebarPanelsCtx = Ctx;
 
+/**
+ * An object expressing a sidebar panel to be shown when the user
+ * opens up an asset in the Media Area
+ *
+ * @see {isUploadSidebarPanel}
+ */
 export type UploadSidebarPanel = {
   /**
    * ID of the panel. Will be the first argument for the
@@ -57,3 +71,23 @@ export type UploadSidebarPanelPlacement = [
     | 'replace'
   ),
 ];
+
+/**
+ * Type guard for UploadSidebarPanel
+ * @param value - The value to check
+ * @returns True if the value is an UploadSidebarPanel
+ */
+export function isUploadSidebarPanel(
+  value: unknown,
+): value is UploadSidebarPanel {
+  return (
+    isRecord(value) &&
+    isString(value.id) &&
+    isString(value.label) &&
+    (isNullish(value.parameters) || isRecord(value.parameters)) &&
+    (isNullish(value.startOpen) || isBoolean(value.startOpen)) &&
+    (isNullish(value.placement) || isPlacement(value.placement)) &&
+    (isNullish(value.rank) || isNumber(value.rank)) &&
+    (isNullish(value.initialHeight) || isNumber(value.initialHeight))
+  );
+}

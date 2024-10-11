@@ -1,5 +1,6 @@
 import type { SchemaTypes } from '@datocms/cma-client';
 import { Ctx } from '../ctx/base';
+import { isNullish, isNumber, isRecord, isString } from '../guardUtils.js';
 
 type ItemType = SchemaTypes.ItemType;
 
@@ -18,6 +19,12 @@ export type ItemFormSidebarsHook = {
 
 export type ItemFormSidebarsCtx = Ctx;
 
+/**
+ * An object expressing a sidebar to be shown when the user edits
+ * records of a particular model
+ *
+ * @see {isItemFormSidebar}
+ */
 export type ItemFormSidebar = {
   /**
    * ID of the sidebar. Will be the first argument for the
@@ -42,3 +49,19 @@ export type ItemFormSidebar = {
   /** The preferred width for the sidebar */
   preferredWidth?: number;
 };
+
+/**
+ * Type guard to check if the value is an ItemFormSidebar.
+ * @param value - The value to check.
+ * @returns true if the value is an ItemFormSidebar, false otherwise.
+ */
+export function isItemFormSidebar(value: unknown): value is ItemFormSidebar {
+  return (
+    isRecord(value) &&
+    isString(value.id) &&
+    isString(value.label) &&
+    (isNullish(value.parameters) || isRecord(value.parameters)) &&
+    (isNullish(value.rank) || isNumber(value.rank)) &&
+    (isNullish(value.preferredWidth) || isNumber(value.preferredWidth))
+  );
+}

@@ -55,7 +55,7 @@
       "returnType": "UploadSidebar[]",
       "location": {
         "filePath": "src/hooks/uploadSidebars.ts",
-        "lineNumber": 10
+        "lineNumber": 11
       }
     },
     "uploadSidebarPanels": {
@@ -73,7 +73,7 @@
       "returnType": "UploadSidebarPanel[]",
       "location": {
         "filePath": "src/hooks/uploadSidebarPanels.ts",
-        "lineNumber": 10
+        "lineNumber": 18
       }
     },
     "settingsAreaSidebarItemGroups": {
@@ -1478,7 +1478,7 @@
               "itemType": {
                 "location": {
                   "filePath": "src/hooks/overrideFieldExtensions.ts",
-                  "lineNumber": 22
+                  "lineNumber": 31
                 },
                 "type": "ItemType"
               }
@@ -1490,7 +1490,7 @@
       "returnType": "FieldExtensionOverride | undefined",
       "location": {
         "filePath": "src/hooks/overrideFieldExtensions.ts",
-        "lineNumber": 15
+        "lineNumber": 24
       }
     },
     "onBoot": {
@@ -1618,7 +1618,7 @@
       "returnType": "ManualFieldExtension[]",
       "location": {
         "filePath": "src/hooks/manualFieldExtensions.ts",
-        "lineNumber": 10
+        "lineNumber": 18
       }
     },
     "mainNavigationTabs": {
@@ -1636,7 +1636,7 @@
       "returnType": "MainNavigationTab[]",
       "location": {
         "filePath": "src/hooks/mainNavigationTabs.ts",
-        "lineNumber": 11
+        "lineNumber": 18
       }
     },
     "itemsDropdownActions": {
@@ -1694,7 +1694,7 @@
       "returnType": "ItemFormSidebar[]",
       "location": {
         "filePath": "src/hooks/itemFormSidebars.ts",
-        "lineNumber": 13
+        "lineNumber": 14
       }
     },
     "itemFormSidebarPanels": {
@@ -1717,7 +1717,7 @@
       "returnType": "ItemFormSidebarPanel[]",
       "location": {
         "filePath": "src/hooks/itemFormSidebarPanels.ts",
-        "lineNumber": 14
+        "lineNumber": 22
       }
     },
     "itemFormOutlets": {
@@ -1740,7 +1740,7 @@
       "returnType": "ItemFormOutlet[]",
       "location": {
         "filePath": "src/hooks/itemFormOutlets.ts",
-        "lineNumber": 13
+        "lineNumber": 14
       }
     },
     "itemFormDropdownActions": {
@@ -1875,7 +1875,7 @@
       "returnType": "ItemCollectionOutlet[]",
       "location": {
         "filePath": "src/hooks/itemCollectionOutlets.ts",
-        "lineNumber": 13
+        "lineNumber": 14
       }
     },
     "initialLocationQueryForItemSelector": {
@@ -2649,7 +2649,7 @@
               "itemType": {
                 "location": {
                   "filePath": "src/hooks/customMarksForStructuredTextField.ts",
-                  "lineNumber": 22
+                  "lineNumber": 29
                 },
                 "type": "ItemType"
               }
@@ -2661,7 +2661,7 @@
       "returnType": "StructuredTextCustomMark[] | undefined",
       "location": {
         "filePath": "src/hooks/customMarksForStructuredTextField.ts",
-        "lineNumber": 15
+        "lineNumber": 22
       }
     },
     "customBlockStylesForStructuredTextField": {
@@ -2684,7 +2684,7 @@
               "itemType": {
                 "location": {
                   "filePath": "src/hooks/customBlockStylesForStructuredTextField.ts",
-                  "lineNumber": 22
+                  "lineNumber": 23
                 },
                 "type": "ItemType"
               }
@@ -2696,7 +2696,7 @@
       "returnType": "StructuredTextCustomBlockStyle[] | undefined",
       "location": {
         "filePath": "src/hooks/customBlockStylesForStructuredTextField.ts",
-        "lineNumber": 15
+        "lineNumber": 16
       }
     },
     "contentAreaSidebarItems": {
@@ -2714,7 +2714,7 @@
       "returnType": "ContentAreaSidebarItem[]",
       "location": {
         "filePath": "src/hooks/contentAreaSidebarItems.ts",
-        "lineNumber": 10
+        "lineNumber": 17
       }
     },
     "buildItemPresentationInfo": {
@@ -2737,7 +2737,7 @@
       "returnType": "MaybePromise<ItemPresentationInfo | undefined>",
       "location": {
         "filePath": "src/hooks/buildItemPresentationInfo.ts",
-        "lineNumber": 14
+        "lineNumber": 15
       }
     },
     "assetSources": {
@@ -2755,7 +2755,7 @@
       "returnType": "AssetSource[] | undefined",
       "location": {
         "filePath": "src/hooks/assetSources.ts",
-        "lineNumber": 11
+        "lineNumber": 12
       }
     }
   },

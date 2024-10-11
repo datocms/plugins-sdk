@@ -1,5 +1,6 @@
 import type { SchemaTypes } from '@datocms/cma-client';
 import { Ctx } from '../ctx/base';
+import { isNullish, isNumber, isRecord, isString } from '../guardUtils.js';
 import type { MaybePromise } from '../utils';
 
 type Item = SchemaTypes.Item;
@@ -19,6 +20,11 @@ export type BuildItemPresentationInfoHook = {
 
 export type BuildItemPresentationInfoCtx = Ctx;
 
+/**
+ * An object expressing how a record should be presented in the interface
+ *
+ * @see {isItemPresentationInfo}
+ */
 export type ItemPresentationInfo = {
   /** The title to present the record */
   title: string;
@@ -33,3 +39,19 @@ export type ItemPresentationInfo = {
    */
   rank?: number;
 };
+
+/**
+ * Checks if the value is an ItemPresentationInfo type.
+ * @param value The value to check.
+ * @returns True if the value is an ItemPresentationInfo, false otherwise.
+ */
+export function isItemPresentationInfo(
+  value: unknown,
+): value is ItemPresentationInfo {
+  return (
+    isRecord(value) &&
+    isString(value.title) &&
+    (isNullish(value.imageUrl) || isString(value.imageUrl)) &&
+    (isNullish(value.rank) || isNumber(value.rank))
+  );
+}

@@ -1,5 +1,6 @@
 import type { SchemaTypes } from '@datocms/cma-client';
 import { Ctx } from '../ctx/base';
+import { isNullish, isNumber, isRecord, isString } from '../guardUtils.js';
 
 type ItemType = SchemaTypes.ItemType;
 
@@ -18,7 +19,11 @@ export type ItemCollectionOutletsHook = {
 
 export type ItemCollectionOutletsCtx = Ctx;
 
-/** An outlet to be shown at the top of a record's collection page */
+/**
+ * An object expressing an outlet to be shown at the top of a record's collection page
+ *
+ * @see {isItemCollectionOutlet}
+ */
 export type ItemCollectionOutlet = {
   /**
    * ID of the outlet. Will be the first argument for the `renderItemCollectionOutlet`
@@ -35,3 +40,19 @@ export type ItemCollectionOutlet = {
   /** The initial height to set for the iframe that will render the outlet */
   initialHeight?: number;
 };
+
+/**
+ * Checks if the given value is an ItemCollectionOutlet.
+ * @param value - The value to check.
+ * @returns True if the value is an ItemCollectionOutlet, false otherwise.
+ */
+export function isItemCollectionOutlet(
+  value: unknown,
+): value is ItemCollectionOutlet {
+  return (
+    isRecord(value) &&
+    isString(value.id) &&
+    (isNullish(value.rank) || isNumber(value.rank)) &&
+    (isNullish(value.initialHeight) || isNumber(value.initialHeight))
+  );
+}

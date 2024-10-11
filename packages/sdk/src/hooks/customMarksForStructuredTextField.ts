@@ -1,6 +1,13 @@
 import type { SchemaTypes } from '@datocms/cma-client';
 import { Ctx } from '../ctx/base';
-import { Icon } from '../icon';
+import {
+  isNullish,
+  isNumber,
+  isPlacement,
+  isRecord,
+  isString,
+} from '../guardUtils.js';
+import { Icon, isIcon } from '../icon';
 
 type Field = SchemaTypes.Field;
 type ItemType = SchemaTypes.ItemType;
@@ -22,7 +29,11 @@ export type CustomMarksForStructuredTextFieldCtx = Ctx<{
   itemType: ItemType;
 }>;
 
-/** An object expressing a custom mark for a Structured Text field */
+/**
+ * An object expressing a custom mark for a Structured Text field
+ *
+ * @see {isStructuredTextCustomMark}
+ */
 export type StructuredTextCustomMark = {
   /** ID of mark */
   id: string;
@@ -62,3 +73,23 @@ export type StructuredTextCustomMarkPlacement = [
   'before' | 'after',
   'strong' | 'emphasis' | 'underline' | 'code' | 'highlight' | 'strikethrough',
 ];
+
+/**
+ * Checks if the given value is a StructuredTextCustomMark.
+ * @param value The value to check.
+ * @returns True if the value is a StructuredTextCustomMark, false otherwise.
+ */
+export function isStructuredTextCustomMark(
+  value: unknown,
+): value is StructuredTextCustomMark {
+  return (
+    isRecord(value) &&
+    isString(value.id) &&
+    isString(value.label) &&
+    isIcon(value.icon) &&
+    (isNullish(value.placement) || isPlacement(value.placement)) &&
+    (isNullish(value.rank) || isNumber(value.rank)) &&
+    (isNullish(value.keyboardShortcut) || isString(value.keyboardShortcut)) &&
+    isRecord(value.appliedStyle)
+  );
+}

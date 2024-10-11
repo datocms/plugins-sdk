@@ -1,6 +1,7 @@
 import type { SchemaTypes } from '@datocms/cma-client';
 import { BlockNodeTypeWithCustomStyle } from 'datocms-structured-text-utils';
 import { Ctx } from '../ctx/base';
+import { isNullish, isNumber, isRecord, isString } from '../guardUtils.js';
 
 type Field = SchemaTypes.Field;
 type ItemType = SchemaTypes.ItemType;
@@ -22,7 +23,11 @@ export type CustomBlockStylesForStructuredTextFieldCtx = Ctx<{
   itemType: ItemType;
 }>;
 
-/** An object expressing a custom block style for a Structured Text field */
+/**
+ * An object expressing a custom block style for a Structured Text field
+ *
+ * @see {isStructuredTextCustomBlockStyle}
+ */
 export type StructuredTextCustomBlockStyle = {
   /** ID of custom block style */
   id: string;
@@ -40,3 +45,20 @@ export type StructuredTextCustomBlockStyle = {
    */
   rank?: number;
 };
+
+/**
+ * Checks if the given value is a StructuredTextCustomBlockStyle.
+ * @param value - The value to check.
+ * @returns True if the value is a StructuredTextCustomBlockStyle, otherwise false.
+ */
+export function isStructuredTextCustomBlockStyle(
+  value: unknown,
+): value is StructuredTextCustomBlockStyle {
+  return (
+    isRecord(value) &&
+    isString(value.id) &&
+    isString(value.label) &&
+    isString(value.node) &&
+    (isNullish(value.rank) || isNumber(value.rank))
+  );
+}

@@ -60,7 +60,7 @@ export const manifest: Manifest = {
       returnType: 'UploadSidebar[]',
       location: {
         filePath: 'src/hooks/uploadSidebars.ts',
-        lineNumber: 10,
+        lineNumber: 11,
       },
     },
     uploadSidebarPanels: {
@@ -79,7 +79,7 @@ export const manifest: Manifest = {
       returnType: 'UploadSidebarPanel[]',
       location: {
         filePath: 'src/hooks/uploadSidebarPanels.ts',
-        lineNumber: 10,
+        lineNumber: 18,
       },
     },
     settingsAreaSidebarItemGroups: {
@@ -1601,7 +1601,7 @@ export const manifest: Manifest = {
               itemType: {
                 location: {
                   filePath: 'src/hooks/overrideFieldExtensions.ts',
-                  lineNumber: 22,
+                  lineNumber: 31,
                 },
                 type: 'ItemType',
               },
@@ -1613,7 +1613,7 @@ export const manifest: Manifest = {
       returnType: 'FieldExtensionOverride | undefined',
       location: {
         filePath: 'src/hooks/overrideFieldExtensions.ts',
-        lineNumber: 15,
+        lineNumber: 24,
       },
     },
     onBoot: {
@@ -1747,7 +1747,7 @@ export const manifest: Manifest = {
       returnType: 'ManualFieldExtension[]',
       location: {
         filePath: 'src/hooks/manualFieldExtensions.ts',
-        lineNumber: 10,
+        lineNumber: 18,
       },
     },
     mainNavigationTabs: {
@@ -1766,7 +1766,7 @@ export const manifest: Manifest = {
       returnType: 'MainNavigationTab[]',
       location: {
         filePath: 'src/hooks/mainNavigationTabs.ts',
-        lineNumber: 11,
+        lineNumber: 18,
       },
     },
     itemsDropdownActions: {
@@ -1826,7 +1826,7 @@ export const manifest: Manifest = {
       returnType: 'ItemFormSidebar[]',
       location: {
         filePath: 'src/hooks/itemFormSidebars.ts',
-        lineNumber: 13,
+        lineNumber: 14,
       },
     },
     itemFormSidebarPanels: {
@@ -1850,7 +1850,7 @@ export const manifest: Manifest = {
       returnType: 'ItemFormSidebarPanel[]',
       location: {
         filePath: 'src/hooks/itemFormSidebarPanels.ts',
-        lineNumber: 14,
+        lineNumber: 22,
       },
     },
     itemFormOutlets: {
@@ -1874,7 +1874,7 @@ export const manifest: Manifest = {
       returnType: 'ItemFormOutlet[]',
       location: {
         filePath: 'src/hooks/itemFormOutlets.ts',
-        lineNumber: 13,
+        lineNumber: 14,
       },
     },
     itemFormDropdownActions: {
@@ -2017,7 +2017,7 @@ export const manifest: Manifest = {
       returnType: 'ItemCollectionOutlet[]',
       location: {
         filePath: 'src/hooks/itemCollectionOutlets.ts',
-        lineNumber: 13,
+        lineNumber: 14,
       },
     },
     initialLocationQueryForItemSelector: {
@@ -2851,7 +2851,7 @@ export const manifest: Manifest = {
               itemType: {
                 location: {
                   filePath: 'src/hooks/customMarksForStructuredTextField.ts',
-                  lineNumber: 22,
+                  lineNumber: 29,
                 },
                 type: 'ItemType',
               },
@@ -2863,7 +2863,7 @@ export const manifest: Manifest = {
       returnType: 'StructuredTextCustomMark[] | undefined',
       location: {
         filePath: 'src/hooks/customMarksForStructuredTextField.ts',
-        lineNumber: 15,
+        lineNumber: 22,
       },
     },
     customBlockStylesForStructuredTextField: {
@@ -2888,7 +2888,7 @@ export const manifest: Manifest = {
                 location: {
                   filePath:
                     'src/hooks/customBlockStylesForStructuredTextField.ts',
-                  lineNumber: 22,
+                  lineNumber: 23,
                 },
                 type: 'ItemType',
               },
@@ -2900,7 +2900,7 @@ export const manifest: Manifest = {
       returnType: 'StructuredTextCustomBlockStyle[] | undefined',
       location: {
         filePath: 'src/hooks/customBlockStylesForStructuredTextField.ts',
-        lineNumber: 15,
+        lineNumber: 16,
       },
     },
     contentAreaSidebarItems: {
@@ -2919,7 +2919,7 @@ export const manifest: Manifest = {
       returnType: 'ContentAreaSidebarItem[]',
       location: {
         filePath: 'src/hooks/contentAreaSidebarItems.ts',
-        lineNumber: 10,
+        lineNumber: 17,
       },
     },
     buildItemPresentationInfo: {
@@ -2943,7 +2943,7 @@ export const manifest: Manifest = {
       returnType: 'MaybePromise<ItemPresentationInfo | undefined>',
       location: {
         filePath: 'src/hooks/buildItemPresentationInfo.ts',
-        lineNumber: 14,
+        lineNumber: 15,
       },
     },
     assetSources: {
@@ -2962,7 +2962,7 @@ export const manifest: Manifest = {
       returnType: 'AssetSource[] | undefined',
       location: {
         filePath: 'src/hooks/assetSources.ts',
-        lineNumber: 11,
+        lineNumber: 12,
       },
     },
   },

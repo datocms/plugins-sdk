@@ -1,6 +1,6 @@
 import type { SchemaTypes } from '@datocms/cma-client';
 import { Ctx, ItemListLocationQuery } from '../ctx/base';
-
+import { isNullish, isNumber, isRecord } from '../guardUtils.js';
 import { MaybePromise } from '../utils';
 
 type Field = SchemaTypes.Field;
@@ -22,6 +22,11 @@ export type InitialLocationQueryForItemSelectorHook = {
 
 export type InitialLocationQueryForItemSelectorCtx = Ctx;
 
+/**
+ * An object expressing which filters should be applied to the record selector
+ *
+ * @see {isInitialLocationQueryForItemSelector}
+ */
 export type InitialLocationQueryForItemSelector = {
   locationQuery: ItemListLocationQuery;
   /**
@@ -33,3 +38,18 @@ export type InitialLocationQueryForItemSelector = {
    */
   rank?: number;
 };
+
+/**
+ * Type guard for InitialLocationQueryForItemSelector
+ * @param value - The value to check
+ * @returns True if value is of type InitialLocationQueryForItemSelector, false otherwise
+ */
+export function isInitialLocationQueryForItemSelector(
+  value: unknown,
+): value is InitialLocationQueryForItemSelector {
+  return (
+    isRecord(value) &&
+    isRecord(value.locationQuery) &&
+    (isNullish(value.rank) || isNumber(value.rank))
+  );
+}

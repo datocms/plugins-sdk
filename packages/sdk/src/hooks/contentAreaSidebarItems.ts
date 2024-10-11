@@ -1,5 +1,12 @@
 import { Ctx } from '../ctx/base';
-import { Icon } from '../icon';
+import {
+  isNullish,
+  isNumber,
+  isPlacement,
+  isRecord,
+  isString,
+} from '../guardUtils.js';
+import { Icon, isIcon } from '../icon';
 
 export type ContentAreaSidebarItemsHook = {
   /**
@@ -14,6 +21,11 @@ export type ContentAreaSidebarItemsHook = {
 
 export type ContentAreaSidebarItemsCtx = Ctx;
 
+/**
+ * An object expressing an item in the content area sidebar
+ *
+ * @see {isContentAreaSidebarItem}
+ */
 export type ContentAreaSidebarItem = {
   /** Label to be shown. Must be unique. */
   label: string;
@@ -43,3 +55,22 @@ export type ContentAreaSidebarItem = {
    */
   rank?: number;
 };
+
+/**
+ * Checks if the value is a ContentAreaSidebarItem.
+ * @param value - The value to check.
+ * @returns True if the value is a ContentAreaSidebarItem, false otherwise.
+ */
+export function isContentAreaSidebarItem(
+  value: unknown,
+): value is ContentAreaSidebarItem {
+  return (
+    isRecord(value) &&
+    isString(value.label) &&
+    isIcon(value.icon) &&
+    isRecord(value.pointsTo) &&
+    isString(value.pointsTo.pageId) &&
+    (isNullish(value.placement) || isPlacement(value.placement)) &&
+    (isNullish(value.rank) || isNumber(value.rank))
+  );
+}

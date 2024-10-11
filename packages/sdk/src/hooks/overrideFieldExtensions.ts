@@ -1,5 +1,14 @@
 import type { SchemaTypes } from '@datocms/cma-client';
 import { Ctx } from '../ctx/base';
+import {
+  isArray,
+  isBoolean,
+  isNullish,
+  isNumber,
+  isPlacement,
+  isRecord,
+  isString,
+} from '../guardUtils.js';
 import { ItemFormSidebarPanelPlacement } from '../shared';
 
 type Field = SchemaTypes.Field;
@@ -25,6 +34,8 @@ export type OverrideFieldExtensionsCtx = Ctx<{
 /**
  * An object expressing some field extensions you want to force on a particular
  * field
+ *
+ * @see {isFieldExtensionOverride}
  */
 export type FieldExtensionOverride = {
   /** Force a field editor/sidebar extension on a field */
@@ -93,3 +104,56 @@ export type AddonOverride = {
    */
   initialHeight?: number;
 };
+
+/**
+ * Checks if the value is a FieldExtensionOverride.
+ * @param value The value to check.
+ * @returns True if the value is a FieldExtensionOverride, false otherwise.
+ */
+export function isFieldExtensionOverride(
+  value: unknown,
+): value is FieldExtensionOverride {
+  return (
+    isNullish(value) ||
+    (isRecord(value) &&
+      (isNullish(value.editor) || isEditorOverride(value.editor)) &&
+      (isNullish(value.addons) || isArray(value.addons, isAddonOverride)))
+  );
+}
+
+/**
+ * Checks if the value is an EditorOverride.
+ * @param value The value to check.
+ * @returns True if the value is an EditorOverride, false otherwise.
+ */
+export function isEditorOverride(value: unknown): value is EditorOverride {
+  return (
+    isRecord(value) &&
+    isString(value.id) &&
+    (isNullish(value.asSidebarPanel) ||
+      isBoolean(value.asSidebarPanel) ||
+      (isRecord(value.asSidebarPanel) &&
+        (isNullish(value.asSidebarPanel.startOpen) ||
+          isBoolean(value.asSidebarPanel.startOpen)) &&
+        (isNullish(value.asSidebarPanel.placement) ||
+          isPlacement(value.asSidebarPanel.placement)))) &&
+    (isNullish(value.parameters) || isRecord(value.parameters)) &&
+    (isNullish(value.rank) || isNumber(value.rank)) &&
+    (isNullish(value.initialHeight) || isNumber(value.initialHeight))
+  );
+}
+
+/**
+ * Checks if the value is an AddonOverride.
+ * @param value The value to check.
+ * @returns True if the value is an AddonOverride, false otherwise.
+ */
+export function isAddonOverride(value: unknown): value is AddonOverride {
+  return (
+    isRecord(value) &&
+    isString(value.id) &&
+    (isNullish(value.parameters) || isRecord(value.parameters)) &&
+    (isNullish(value.rank) || isNumber(value.rank)) &&
+    (isNullish(value.initialHeight) || isNumber(value.initialHeight))
+  );
+}

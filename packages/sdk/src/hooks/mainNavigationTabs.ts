@@ -1,5 +1,12 @@
 import { Ctx } from '../ctx/base';
-import { Icon } from '../icon';
+import {
+  isNullish,
+  isNumber,
+  isPlacement,
+  isRecord,
+  isString,
+} from '../guardUtils.js';
+import { Icon, isIcon } from '../icon';
 
 export type MainNavigationTabsHook = {
   /**
@@ -13,7 +20,11 @@ export type MainNavigationTabsHook = {
 
 export type MainNavigationTabsCtx = Ctx;
 
-/** A tab to be displayed in the top-bar of the UI */
+/**
+ * An object expressing a tab to be displayed in the top-bar of the UI
+ *
+ * @see {isMainNavigationTab}
+ */
 export type MainNavigationTab = {
   /** Label to be shown. Must be unique. */
   label: string;
@@ -45,3 +56,22 @@ export type MainNavigationTab = {
    */
   rank?: number;
 };
+
+/**
+ * Checks if the given value is a MainNavigationTab.
+ * @param value The value to check.
+ * @returns True if the value is a MainNavigationTab, false otherwise.
+ */
+export function isMainNavigationTab(
+  value: unknown,
+): value is MainNavigationTab {
+  return (
+    isRecord(value) &&
+    isString(value.label) &&
+    isIcon(value.icon) &&
+    isRecord(value.pointsTo) &&
+    isString(value.pointsTo.pageId) &&
+    (isNullish(value.placement) || isPlacement(value.placement)) &&
+    (isNullish(value.rank) || isNumber(value.rank))
+  );
+}

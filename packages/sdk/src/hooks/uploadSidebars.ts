@@ -1,4 +1,5 @@
 import { Ctx } from '../ctx/base';
+import { isNullish, isNumber, isRecord, isString } from '../guardUtils.js';
 
 export type UploadSidebarsHook = {
   /**
@@ -12,6 +13,12 @@ export type UploadSidebarsHook = {
 
 export type UploadSidebarsCtx = Ctx;
 
+/**
+ * An object expressing a sidebar to be shown when the user opens
+ * up an asset in the Media Area
+ *
+ * @see {isUploadSidebar}
+ */
 export type UploadSidebar = {
   /**
    * ID of the sidebar. Will be the first argument for the
@@ -36,3 +43,19 @@ export type UploadSidebar = {
   /** The preferred width for the sidebar */
   preferredWidth?: number;
 };
+
+/**
+ * Checks if the provided value is an UploadSidebar.
+ * @param value - The value to check.
+ * @returns True if the value is an UploadSidebar, otherwise false.
+ */
+export function isUploadSidebar(value: unknown): value is UploadSidebar {
+  return (
+    isRecord(value) &&
+    isString(value.id) &&
+    isString(value.label) &&
+    (isNullish(value.parameters) || isRecord(value.parameters)) &&
+    (isNullish(value.rank) || isNumber(value.rank)) &&
+    (isNullish(value.preferredWidth) || isNumber(value.preferredWidth))
+  );
+}

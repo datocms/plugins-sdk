@@ -1,5 +1,18 @@
-import { Icon } from './icon';
+import {
+  isArray,
+  isBoolean,
+  isNullish,
+  isNumber,
+  isRecord,
+  isString,
+} from './guardUtils.js';
+import { Icon, isIcon } from './icon';
 
+/**
+ * An object expressing a dropdown action to be shown in the interface
+ *
+ * @see {isDropdownAction}
+ */
 export type DropdownAction = {
   /**
    * ID of action. Will be the first argument for the
@@ -38,6 +51,11 @@ export type DropdownAction = {
   rank?: number;
 };
 
+/**
+ * An object expressing a dropdown submenu containing actions to be shown in the interface
+ *
+ * @see {isDropdownActionGroup}
+ */
 export type DropdownActionGroup = {
   /** Label to be shown. Must be unique. */
   label: string;
@@ -65,3 +83,32 @@ export type ItemFormSidebarPanelPlacement = [
   'before' | 'after',
   'info' | 'publishedVersion' | 'schedule' | 'links' | 'history',
 ];
+
+export function isDropdownAction(value: unknown): value is DropdownAction {
+  if (!isRecord(value)) return false;
+
+  return (
+    isString(value.id) &&
+    (isNullish(value.parameters) || isRecord(value.parameters)) &&
+    isString(value.label) &&
+    isIcon(value.icon) &&
+    (isNullish(value.active) || isBoolean(value.active)) &&
+    (isNullish(value.alert) || isBoolean(value.alert)) &&
+    (isNullish(value.disabled) || isBoolean(value.disabled)) &&
+    (isNullish(value.closeMenuOnClick) || isBoolean(value.closeMenuOnClick)) &&
+    (isNullish(value.rank) || isNumber(value.rank))
+  );
+}
+
+export function isDropdownActionGroup(
+  value: unknown,
+): value is DropdownActionGroup {
+  if (!isRecord(value)) return false;
+
+  return (
+    isString(value.label) &&
+    isIcon(value.icon) &&
+    isArray(value.actions, isDropdownAction) &&
+    (isNullish(value.rank) || isNumber(value.rank))
+  );
+}

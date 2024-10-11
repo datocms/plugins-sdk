@@ -1,5 +1,13 @@
 import type { SchemaTypes } from '@datocms/cma-client';
 import { Ctx } from '../ctx/base';
+import {
+  isBoolean,
+  isNullish,
+  isNumber,
+  isPlacement,
+  isRecord,
+  isString,
+} from '../guardUtils.js';
 import { ItemFormSidebarPanelPlacement } from '../shared';
 
 type ItemType = SchemaTypes.ItemType;
@@ -19,6 +27,12 @@ export type ItemFormSidebarPanelsHook = {
 
 export type ItemFormSidebarPanelsCtx = Ctx;
 
+/**
+ * An object expressing a sidebar panel to be shown when the user
+ * edits records of a particular model
+ *
+ * @see {isItemFormSidebarPanel}
+ */
 export type ItemFormSidebarPanel = {
   /**
    * ID of the panel. Will be the first argument for the
@@ -52,3 +66,23 @@ export type ItemFormSidebarPanel = {
   /** The initial height to set for the iframe that will render the sidebar panel */
   initialHeight?: number;
 };
+
+/**
+ * Checks if the given value is an ItemFormSidebarPanel.
+ * @param value - The value to check.
+ * @returns True if the value is an ItemFormSidebarPanel, false otherwise.
+ */
+export function isItemFormSidebarPanel(
+  value: unknown,
+): value is ItemFormSidebarPanel {
+  return (
+    isRecord(value) &&
+    isString(value.id) &&
+    isString(value.label) &&
+    (isNullish(value.parameters) || isRecord(value.parameters)) &&
+    (isNullish(value.startOpen) || isBoolean(value.startOpen)) &&
+    (isNullish(value.placement) || isPlacement(value.placement)) &&
+    (isNullish(value.rank) || isNumber(value.rank)) &&
+    (isNullish(value.initialHeight) || isNumber(value.initialHeight))
+  );
+}
