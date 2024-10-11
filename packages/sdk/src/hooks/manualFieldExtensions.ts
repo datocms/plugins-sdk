@@ -95,11 +95,6 @@ export type FieldType =
   | 'text'
   | 'video';
 
-/**
- * Checks if the provided value is a ManualFieldExtension.
- * @param value - The value to check.
- * @returns True if the value is a ManualFieldExtension, otherwise false.
- */
 export function isManualFieldExtension(
   value: unknown,
 ): value is ManualFieldExtension {
@@ -121,4 +116,10 @@ export function isManualFieldExtension(
         isNumber(value.configurable.initialHeight))) &&
     (isNullish(value.initialHeight) || isNumber(value.initialHeight))
   );
+}
+
+export function isReturnTypeOfManualFieldExtensionsHook(
+  value: unknown,
+): value is ManualFieldExtension[] {
+  return isArray(value, isManualFieldExtension);
 }

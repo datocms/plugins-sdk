@@ -1,5 +1,6 @@
 import { Ctx } from '../ctx/base';
 import {
+  isArray,
   isNullish,
   isNumber,
   isPlacement,
@@ -57,11 +58,6 @@ export type MainNavigationTab = {
   rank?: number;
 };
 
-/**
- * Checks if the given value is a MainNavigationTab.
- * @param value The value to check.
- * @returns True if the value is a MainNavigationTab, false otherwise.
- */
 export function isMainNavigationTab(
   value: unknown,
 ): value is MainNavigationTab {
@@ -74,4 +70,10 @@ export function isMainNavigationTab(
     (isNullish(value.placement) || isPlacement(value.placement)) &&
     (isNullish(value.rank) || isNumber(value.rank))
   );
+}
+
+export function isReturnTypeOfMainNavigationTabsHook(
+  value: unknown,
+): value is MainNavigationTab[] {
+  return isArray(value, isMainNavigationTab);
 }

@@ -112,3 +112,13 @@ export function isDropdownActionGroup(
     (isNullish(value.rank) || isNumber(value.rank))
   );
 }
+
+export function isDropdownActionOrGroupArray(
+  value: unknown,
+): value is Array<DropdownAction | DropdownActionGroup> {
+  return isArray(
+    value,
+    (innerValue) =>
+      isDropdownAction(innerValue) || isDropdownActionGroup(innerValue),
+  );
+}

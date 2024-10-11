@@ -40,11 +40,6 @@ export type ItemPresentationInfo = {
   rank?: number;
 };
 
-/**
- * Checks if the value is an ItemPresentationInfo type.
- * @param value The value to check.
- * @returns True if the value is an ItemPresentationInfo, false otherwise.
- */
 export function isItemPresentationInfo(
   value: unknown,
 ): value is ItemPresentationInfo {
@@ -54,4 +49,10 @@ export function isItemPresentationInfo(
     (isNullish(value.imageUrl) || isString(value.imageUrl)) &&
     (isNullish(value.rank) || isNumber(value.rank))
   );
+}
+
+export function isReturnTypeOfBuildItemPresentationInfoHook(
+  value: unknown,
+): value is ItemPresentationInfo | undefined {
+  return isNullish(value) || isItemPresentationInfo(value);
 }

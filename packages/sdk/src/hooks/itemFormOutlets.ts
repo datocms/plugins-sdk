@@ -1,6 +1,12 @@
 import type { SchemaTypes } from '@datocms/cma-client';
 import { Ctx } from '../ctx/base';
-import { isNullish, isNumber, isRecord, isString } from '../guardUtils.js';
+import {
+  isArray,
+  isNullish,
+  isNumber,
+  isRecord,
+  isString,
+} from '../guardUtils.js';
 
 type ItemType = SchemaTypes.ItemType;
 
@@ -41,11 +47,6 @@ export type ItemFormOutlet = {
   initialHeight?: number;
 };
 
-/**
- * Checks if the given value is an ItemFormOutlet.
- * @param value - The value to check.
- * @returns True if the value is an ItemFormOutlet, false otherwise.
- */
 export function isItemFormOutlet(value: unknown): value is ItemFormOutlet {
   return (
     isRecord(value) &&
@@ -53,4 +54,10 @@ export function isItemFormOutlet(value: unknown): value is ItemFormOutlet {
     (isNullish(value.rank) || isNumber(value.rank)) &&
     (isNullish(value.initialHeight) || isNumber(value.initialHeight))
   );
+}
+
+export function isReturnTypeOfItemFormOutletsHook(
+  value: unknown,
+): value is ItemFormOutlet[] {
+  return isArray(value, isItemFormOutlet);
 }

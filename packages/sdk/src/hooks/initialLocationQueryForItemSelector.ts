@@ -39,11 +39,6 @@ export type InitialLocationQueryForItemSelector = {
   rank?: number;
 };
 
-/**
- * Type guard for InitialLocationQueryForItemSelector
- * @param value - The value to check
- * @returns True if value is of type InitialLocationQueryForItemSelector, false otherwise
- */
 export function isInitialLocationQueryForItemSelector(
   value: unknown,
 ): value is InitialLocationQueryForItemSelector {
@@ -52,4 +47,10 @@ export function isInitialLocationQueryForItemSelector(
     isRecord(value.locationQuery) &&
     (isNullish(value.rank) || isNumber(value.rank))
   );
+}
+
+export function isReturnTypeOfInitialLocationQueryForItemSelectorHook(
+  value: unknown,
+): value is InitialLocationQueryForItemSelector | undefined {
+  return isNullish(value) || isInitialLocationQueryForItemSelector(value);
 }

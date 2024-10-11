@@ -1,5 +1,6 @@
 import { Ctx } from '../ctx/base';
 import {
+  isArray,
   isNullish,
   isNumber,
   isPlacement,
@@ -56,11 +57,6 @@ export type ContentAreaSidebarItem = {
   rank?: number;
 };
 
-/**
- * Checks if the value is a ContentAreaSidebarItem.
- * @param value - The value to check.
- * @returns True if the value is a ContentAreaSidebarItem, false otherwise.
- */
 export function isContentAreaSidebarItem(
   value: unknown,
 ): value is ContentAreaSidebarItem {
@@ -73,4 +69,10 @@ export function isContentAreaSidebarItem(
     (isNullish(value.placement) || isPlacement(value.placement)) &&
     (isNullish(value.rank) || isNumber(value.rank))
   );
+}
+
+export function isReturnTypeOfContentAreaSidebarItemsHook(
+  value: unknown,
+): value is ContentAreaSidebarItem[] {
+  return isArray(value, isContentAreaSidebarItem);
 }

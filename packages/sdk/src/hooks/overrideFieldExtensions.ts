@@ -105,11 +105,6 @@ export type AddonOverride = {
   initialHeight?: number;
 };
 
-/**
- * Checks if the value is a FieldExtensionOverride.
- * @param value The value to check.
- * @returns True if the value is a FieldExtensionOverride, false otherwise.
- */
 export function isFieldExtensionOverride(
   value: unknown,
 ): value is FieldExtensionOverride {
@@ -121,11 +116,6 @@ export function isFieldExtensionOverride(
   );
 }
 
-/**
- * Checks if the value is an EditorOverride.
- * @param value The value to check.
- * @returns True if the value is an EditorOverride, false otherwise.
- */
 export function isEditorOverride(value: unknown): value is EditorOverride {
   return (
     isRecord(value) &&
@@ -143,11 +133,6 @@ export function isEditorOverride(value: unknown): value is EditorOverride {
   );
 }
 
-/**
- * Checks if the value is an AddonOverride.
- * @param value The value to check.
- * @returns True if the value is an AddonOverride, false otherwise.
- */
 export function isAddonOverride(value: unknown): value is AddonOverride {
   return (
     isRecord(value) &&
@@ -156,4 +141,10 @@ export function isAddonOverride(value: unknown): value is AddonOverride {
     (isNullish(value.rank) || isNumber(value.rank)) &&
     (isNullish(value.initialHeight) || isNumber(value.initialHeight))
   );
+}
+
+export function isReturnTypeOfOverrideFieldExtensionsHook(
+  value: unknown,
+): value is FieldExtensionOverride | undefined {
+  return isNullish(value) || isFieldExtensionOverride(value);
 }

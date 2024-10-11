@@ -1,6 +1,7 @@
 import type { SchemaTypes } from '@datocms/cma-client';
 import { Ctx } from '../ctx/base';
 import {
+  isArray,
   isBoolean,
   isNullish,
   isNumber,
@@ -67,11 +68,6 @@ export type ItemFormSidebarPanel = {
   initialHeight?: number;
 };
 
-/**
- * Checks if the given value is an ItemFormSidebarPanel.
- * @param value - The value to check.
- * @returns True if the value is an ItemFormSidebarPanel, false otherwise.
- */
 export function isItemFormSidebarPanel(
   value: unknown,
 ): value is ItemFormSidebarPanel {
@@ -85,4 +81,10 @@ export function isItemFormSidebarPanel(
     (isNullish(value.rank) || isNumber(value.rank)) &&
     (isNullish(value.initialHeight) || isNumber(value.initialHeight))
   );
+}
+
+export function isReturnTypeOfItemFormSidebarPanelsHook(
+  value: unknown,
+): value is ItemFormSidebarPanel[] {
+  return isArray(value, isItemFormSidebarPanel);
 }

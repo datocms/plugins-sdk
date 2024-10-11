@@ -1,5 +1,11 @@
 import { Ctx } from '../ctx/base';
-import { isNullish, isNumber, isRecord, isString } from '../guardUtils.js';
+import {
+  isArray,
+  isNullish,
+  isNumber,
+  isRecord,
+  isString,
+} from '../guardUtils.js';
 import { Icon, isIcon } from '../icon';
 
 export type AssetSourcesHook = {
@@ -49,11 +55,6 @@ export type AssetSource = {
   };
 };
 
-/**
- * Type guard for AssetSource.
- * @param value - The value to check.
- * @returns true if the value is an AssetSource, false otherwise.
- */
 export function isAssetSource(value: unknown): value is AssetSource {
   if (isNullish(value)) return false;
   if (!isRecord(value)) return false;
@@ -72,4 +73,10 @@ export function isAssetSource(value: unknown): value is AssetSource {
           isNumber(modal.width)) &&
         (isNullish(modal.initialHeight) || isNumber(modal.initialHeight))))
   );
+}
+
+export function isReturnTypeOfAssetSourcesHook(
+  value: unknown,
+): value is AssetSource[] | undefined {
+  return isNullish(value) || isArray(value, isAssetSource);
 }

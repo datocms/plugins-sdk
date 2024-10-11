@@ -1,6 +1,7 @@
 import type { SchemaTypes } from '@datocms/cma-client';
 import { Ctx } from '../ctx/base';
 import {
+  isArray,
   isNullish,
   isNumber,
   isPlacement,
@@ -74,11 +75,6 @@ export type StructuredTextCustomMarkPlacement = [
   'strong' | 'emphasis' | 'underline' | 'code' | 'highlight' | 'strikethrough',
 ];
 
-/**
- * Checks if the given value is a StructuredTextCustomMark.
- * @param value The value to check.
- * @returns True if the value is a StructuredTextCustomMark, false otherwise.
- */
 export function isStructuredTextCustomMark(
   value: unknown,
 ): value is StructuredTextCustomMark {
@@ -92,4 +88,10 @@ export function isStructuredTextCustomMark(
     (isNullish(value.keyboardShortcut) || isString(value.keyboardShortcut)) &&
     isRecord(value.appliedStyle)
   );
+}
+
+export function isReturnTypeOfCustomMarksForStructuredTextFieldHook(
+  value: unknown,
+): value is StructuredTextCustomMark[] | undefined {
+  return isNullish(value) || isArray(value, isStructuredTextCustomMark);
 }

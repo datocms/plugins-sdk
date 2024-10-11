@@ -1,5 +1,6 @@
 import { Ctx } from '../ctx/base';
 import {
+  isArray,
   isBoolean,
   isNullish,
   isNumber,
@@ -72,11 +73,6 @@ export type UploadSidebarPanelPlacement = [
   ),
 ];
 
-/**
- * Type guard for UploadSidebarPanel
- * @param value - The value to check
- * @returns True if the value is an UploadSidebarPanel
- */
 export function isUploadSidebarPanel(
   value: unknown,
 ): value is UploadSidebarPanel {
@@ -90,4 +86,10 @@ export function isUploadSidebarPanel(
     (isNullish(value.rank) || isNumber(value.rank)) &&
     (isNullish(value.initialHeight) || isNumber(value.initialHeight))
   );
+}
+
+export function isReturnTypeOfUploadSidebarPanelsHook(
+  value: unknown,
+): value is UploadSidebarPanel[] {
+  return isArray(value, isUploadSidebarPanel);
 }

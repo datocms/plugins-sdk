@@ -19,7 +19,7 @@
       "returnType": "Record<string, unknown> | Promise<Record<string, unknown>>",
       "location": {
         "filePath": "src/hooks/validateManualFieldExtensionParameters.ts",
-        "lineNumber": 8
+        "lineNumber": 10
       }
     },
     "uploadsDropdownActions": {
@@ -55,7 +55,7 @@
       "returnType": "UploadSidebar[]",
       "location": {
         "filePath": "src/hooks/uploadSidebars.ts",
-        "lineNumber": 11
+        "lineNumber": 17
       }
     },
     "uploadSidebarPanels": {
@@ -73,7 +73,7 @@
       "returnType": "UploadSidebarPanel[]",
       "location": {
         "filePath": "src/hooks/uploadSidebarPanels.ts",
-        "lineNumber": 18
+        "lineNumber": 19
       }
     },
     "settingsAreaSidebarItemGroups": {
@@ -1636,7 +1636,7 @@
       "returnType": "MainNavigationTab[]",
       "location": {
         "filePath": "src/hooks/mainNavigationTabs.ts",
-        "lineNumber": 18
+        "lineNumber": 19
       }
     },
     "itemsDropdownActions": {
@@ -1694,7 +1694,7 @@
       "returnType": "ItemFormSidebar[]",
       "location": {
         "filePath": "src/hooks/itemFormSidebars.ts",
-        "lineNumber": 14
+        "lineNumber": 20
       }
     },
     "itemFormSidebarPanels": {
@@ -1717,7 +1717,7 @@
       "returnType": "ItemFormSidebarPanel[]",
       "location": {
         "filePath": "src/hooks/itemFormSidebarPanels.ts",
-        "lineNumber": 22
+        "lineNumber": 23
       }
     },
     "itemFormOutlets": {
@@ -1740,7 +1740,7 @@
       "returnType": "ItemFormOutlet[]",
       "location": {
         "filePath": "src/hooks/itemFormOutlets.ts",
-        "lineNumber": 14
+        "lineNumber": 20
       }
     },
     "itemFormDropdownActions": {
@@ -1875,7 +1875,7 @@
       "returnType": "ItemCollectionOutlet[]",
       "location": {
         "filePath": "src/hooks/itemCollectionOutlets.ts",
-        "lineNumber": 14
+        "lineNumber": 20
       }
     },
     "initialLocationQueryForItemSelector": {
@@ -2649,7 +2649,7 @@
               "itemType": {
                 "location": {
                   "filePath": "src/hooks/customMarksForStructuredTextField.ts",
-                  "lineNumber": 29
+                  "lineNumber": 30
                 },
                 "type": "ItemType"
               }
@@ -2661,7 +2661,7 @@
       "returnType": "StructuredTextCustomMark[] | undefined",
       "location": {
         "filePath": "src/hooks/customMarksForStructuredTextField.ts",
-        "lineNumber": 22
+        "lineNumber": 23
       }
     },
     "customBlockStylesForStructuredTextField": {
@@ -2684,7 +2684,7 @@
               "itemType": {
                 "location": {
                   "filePath": "src/hooks/customBlockStylesForStructuredTextField.ts",
-                  "lineNumber": 23
+                  "lineNumber": 29
                 },
                 "type": "ItemType"
               }
@@ -2696,7 +2696,7 @@
       "returnType": "StructuredTextCustomBlockStyle[] | undefined",
       "location": {
         "filePath": "src/hooks/customBlockStylesForStructuredTextField.ts",
-        "lineNumber": 16
+        "lineNumber": 22
       }
     },
     "contentAreaSidebarItems": {
@@ -2714,7 +2714,7 @@
       "returnType": "ContentAreaSidebarItem[]",
       "location": {
         "filePath": "src/hooks/contentAreaSidebarItems.ts",
-        "lineNumber": 17
+        "lineNumber": 18
       }
     },
     "buildItemPresentationInfo": {
@@ -2755,7 +2755,7 @@
       "returnType": "AssetSource[] | undefined",
       "location": {
         "filePath": "src/hooks/assetSources.ts",
-        "lineNumber": 12
+        "lineNumber": 18
       }
     }
   },

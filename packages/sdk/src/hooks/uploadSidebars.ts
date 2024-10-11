@@ -1,5 +1,11 @@
 import { Ctx } from '../ctx/base';
-import { isNullish, isNumber, isRecord, isString } from '../guardUtils.js';
+import {
+  isArray,
+  isNullish,
+  isNumber,
+  isRecord,
+  isString,
+} from '../guardUtils.js';
 
 export type UploadSidebarsHook = {
   /**
@@ -44,11 +50,6 @@ export type UploadSidebar = {
   preferredWidth?: number;
 };
 
-/**
- * Checks if the provided value is an UploadSidebar.
- * @param value - The value to check.
- * @returns True if the value is an UploadSidebar, otherwise false.
- */
 export function isUploadSidebar(value: unknown): value is UploadSidebar {
   return (
     isRecord(value) &&
@@ -58,4 +59,10 @@ export function isUploadSidebar(value: unknown): value is UploadSidebar {
     (isNullish(value.rank) || isNumber(value.rank)) &&
     (isNullish(value.preferredWidth) || isNumber(value.preferredWidth))
   );
+}
+
+export function isReturnTypeOfUploadSidebarsHook(
+  value: unknown,
+): value is UploadSidebar[] {
+  return isArray(value, isUploadSidebar);
 }
