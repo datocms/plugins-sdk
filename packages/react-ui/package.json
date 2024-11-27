@@ -1,6 +1,6 @@
 {
   "name": "datocms-react-ui",
-  "version": "2.0.9",
+  "version": "2.0.10",
   "description": "React components to use inside DatoCMS plugins",
   "keywords": [
     "datocms",
