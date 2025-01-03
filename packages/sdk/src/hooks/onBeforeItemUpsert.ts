@@ -18,4 +18,25 @@ export type OnBeforeItemUpsertHook = {
   ) => MaybePromise<boolean>;
 };
 
-export type OnBeforeItemUpsertCtx = Ctx;
+export type OnBeforeItemUpsertCtx = Ctx<
+  {},
+  {
+    /**
+     * Smoothly navigates to a specific field in the form. If the field is
+     * localized it will switch language tab and then navigate to the chosen
+     * field.
+     *
+     * @example
+     *
+     * ```js
+     * const fieldPath = prompt(
+     *   'Please insert the path of a field in the form',
+     *   ctx.fieldPath,
+     * );
+     *
+     * await ctx.scrollToField(fieldPath);
+     * ```
+     */
+    scrollToField: (path: string, locale?: string) => Promise<void>;
+  }
+>;

@@ -1722,8 +1722,30 @@ export const manifest: Manifest = {
       ],
       ctxArgument: {
         type: 'Ctx',
-        additionalProperties: [],
-        additionalMethods: [],
+        additionalProperties: [
+          {
+            items: {},
+          },
+        ],
+        additionalMethods: [
+          {
+            items: {
+              scrollToField: {
+                comment: {
+                  markdownText:
+                    'Smoothly navigates to a specific field in the form. If the field is\nlocalized it will switch language tab and then navigate to the chosen\nfield.',
+                  example:
+                    "const fieldPath = prompt(\n  'Please insert the path of a field in the form',\n  ctx.fieldPath,\n);\n\nawait ctx.scrollToField(fieldPath);",
+                },
+                location: {
+                  filePath: 'src/hooks/onBeforeItemUpsert.ts',
+                  lineNumber: 40,
+                },
+                type: '(path: string, locale?: string) => Promise<void>',
+              },
+            },
+          },
+        ],
       },
       returnType: 'MaybePromise<boolean>',
       location: {
