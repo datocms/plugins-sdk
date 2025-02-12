@@ -7,6 +7,7 @@ import type { CustomMarksForStructuredTextFieldHook } from './hooks/customMarksF
 import type { ExecuteFieldDropdownActionHook } from './hooks/executeFieldDropdownAction';
 import type { ExecuteItemFormDropdownActionHook } from './hooks/executeItemFormDropdownAction';
 import type { ExecuteItemsDropdownActionHook } from './hooks/executeItemsDropdownAction';
+import type { ExecuteSchemaItemTypeDropdownActionHook } from './hooks/executeSchemaItemTypeDropdownAction';
 import type { ExecuteUploadsDropdownActionHook } from './hooks/executeUploadsDropdownAction';
 import type { FieldDropdownActionsHook } from './hooks/fieldDropdownActions';
 import type { InitialLocationQueryForItemSelectorHook } from './hooks/initialLocationQueryForItemSelector';
@@ -66,6 +67,7 @@ import {
   RenderUploadSidebarPanelHook,
   renderUploadSidebarPanelBootstrapper,
 } from './hooks/renderUploadSidebarPanel';
+import type { SchemaItemTypeDropdownActionsHook } from './hooks/schemaItemTypeDropdownActions';
 import type { SettingsAreaSidebarItemGroupsHook } from './hooks/settingsAreaSidebarItemGroups';
 import { UploadSidebarPanelsHook } from './hooks/uploadSidebarPanels';
 import { UploadSidebarsHook } from './hooks/uploadSidebars';
@@ -87,6 +89,7 @@ export type FullConnectParameters = AssetSourcesHook &
   ExecuteFieldDropdownActionHook &
   ExecuteItemFormDropdownActionHook &
   ExecuteItemsDropdownActionHook &
+  ExecuteSchemaItemTypeDropdownActionHook &
   ExecuteUploadsDropdownActionHook &
   FieldDropdownActionsHook &
   InitialLocationQueryForItemSelectorHook &
@@ -116,6 +119,7 @@ export type FullConnectParameters = AssetSourcesHook &
   RenderPageHook &
   RenderUploadSidebarHook &
   RenderUploadSidebarPanelHook &
+  SchemaItemTypeDropdownActionsHook &
   SettingsAreaSidebarItemGroupsHook &
   UploadsDropdownActionsHook &
   UploadSidebarPanelsHook &

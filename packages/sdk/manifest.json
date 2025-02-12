@@ -94,6 +94,29 @@
         "lineNumber": 19
       }
     },
+    "schemaItemTypeDropdownActions": {
+      "name": "schemaItemTypeDropdownActions",
+      "comment": {
+        "markdownText": "Use this function to define custom actions (or groups of actions) for a model/block model in the Schema section.\n\nThe `executeSchemaItemTypeDropdownAction()` hook will be triggered once the user\nclicks on one of the defined actions.",
+        "tag": "dropdownActions"
+      },
+      "nonCtxArguments": [
+        {
+          "name": "itemType",
+          "typeName": "ItemType"
+        }
+      ],
+      "ctxArgument": {
+        "type": "Ctx",
+        "additionalProperties": [],
+        "additionalMethods": []
+      },
+      "returnType": "Array<DropdownAction | DropdownActionGroup>",
+      "location": {
+        "filePath": "src/hooks/schemaItemTypeDropdownActions.ts",
+        "lineNumber": 16
+      }
+    },
     "renderUploadSidebarPanel": {
       "name": "renderUploadSidebarPanel",
       "comment": {
@@ -2131,6 +2154,45 @@
       "returnType": "Promise<void>",
       "location": {
         "filePath": "src/hooks/executeUploadsDropdownAction.ts",
+        "lineNumber": 13
+      }
+    },
+    "executeSchemaItemTypeDropdownAction": {
+      "name": "executeSchemaItemTypeDropdownAction",
+      "comment": {
+        "markdownText": "Use this function to execute a particular dropdown action defined via\nthe `schemaItemTypeDropdownActions()` hook.",
+        "tag": "dropdownActions"
+      },
+      "nonCtxArguments": [
+        {
+          "name": "actionId",
+          "typeName": "string"
+        },
+        {
+          "name": "itemType",
+          "typeName": "ItemType"
+        }
+      ],
+      "ctxArgument": {
+        "type": "Ctx",
+        "additionalProperties": [
+          {
+            "items": {
+              "parameters": {
+                "location": {
+                  "filePath": "src/hooks/executeSchemaItemTypeDropdownAction.ts",
+                  "lineNumber": 23
+                },
+                "type": "Record<string, unknown> | undefined"
+              }
+            }
+          }
+        ],
+        "additionalMethods": []
+      },
+      "returnType": "Promise<void>",
+      "location": {
+        "filePath": "src/hooks/executeSchemaItemTypeDropdownAction.ts",
         "lineNumber": 13
       }
     },
