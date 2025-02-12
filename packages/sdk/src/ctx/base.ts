@@ -60,6 +60,9 @@ type ProjectProperties = {
   /** The ID of the current environment */
   environment: string;
 
+  /** Whether the current environment is the primary one */
+  isEnvironmentPrimary: boolean;
+
   /** The account/organization that is the project owner */
   owner: Account | Organization;
 

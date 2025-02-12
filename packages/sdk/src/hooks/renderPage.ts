@@ -17,6 +17,13 @@ export type RenderPageCtx = ImposedSizePluginFrameCtx<
   {
     /** The ID of the page that needs to be rendered */
     pageId: string;
+
+    /** Current page location */
+    location: {
+      pathname: string;
+      search: string;
+      hash: string;
+    };
   }
 >;
 
