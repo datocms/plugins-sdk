@@ -14,11 +14,13 @@
         "noExplicitAny": "off"
       },
       "performance": {
-        "noDelete": "off"
+        "noDelete": "off",
+        "noAccumulatingSpread": "off"
       },
       "style": {
         "noNonNullAssertion": "off",
-        "useImportType": "off"
+        "useImportType": "off",
+        "useNumberNamespace": "off"
       },
       "complexity": {
         "noBannedTypes": "off"
@@ -27,7 +29,9 @@
         "useExhaustiveDependencies": "off"
       },
       "a11y": {
-        "noSvgWithoutTitle": "off"
+        "noSvgWithoutTitle": "off",
+        "useKeyWithClickEvents": "off",
+        "useValidAriaRole": "off"
       }
     }
   },

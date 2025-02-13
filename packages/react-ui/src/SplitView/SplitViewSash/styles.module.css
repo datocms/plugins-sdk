@@ -1,0 +1,68 @@
+.SplitViewSash {
+  height: 100%;
+  position: absolute;
+  top: 0;
+  transition: background-color 0.2s 0.15s;
+  background-color: rgba(var(--light-color-components), 0);
+  width: 100%;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.SplitViewSash:hover,
+.SplitViewSash--dragging {
+  background-color: var(--light-color);
+}
+
+.SplitViewSash:hover:has(.SplitViewSash__content:hover),
+.SplitViewSash--dragging:has(.SplitViewSash__content:hover) {
+  background-color: transparent;
+}
+
+.SplitViewSash--no-resize {
+  pointer-events: none;
+}
+
+.SplitViewSash--vertical {
+  cursor: col-resize;
+}
+
+.SplitViewSash--horizontal {
+  cursor: row-resize;
+}
+
+.SplitViewSash__content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 15px 0;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.SplitViewSash__content__button {
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  background: white;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  color: var(--light-body-color);
+}
+
+.SplitViewSash__content__button svg {
+  display: block;
+  fill: currentColor;
+}
+
+.SplitViewSash__content:hover .SplitViewSash__content__button {
+  background: var(--light-bg-color);
+  color: var(--base-body-color);
+}

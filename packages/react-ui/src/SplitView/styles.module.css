@@ -1,0 +1,22 @@
+.SplitView {
+  flex: 1;
+  height: 100%;
+  position: relative;
+  width: 100%;
+}
+
+.SplitView--dragging.SplitView--vertical {
+  cursor: col-resize;
+}
+
+.SplitView--dragging.SplitView--horizontal {
+  cursor: row-resize;
+}
+
+.SplitView--disable-select {
+  user-select: none;
+}
+
+.SplitView--disable-select .SplitViewPane {
+  pointer-events: none;
+}

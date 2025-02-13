@@ -106,3 +106,63 @@ export function CaretUpIcon({
     </svg>
   );
 }
+
+export function ChevronsLeftIcon({
+  width = '1em',
+  height = '1em',
+  style,
+  className,
+}: IconProps): JSX.Element {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 512 512"
+      width={width}
+      height={height}
+      style={style}
+      className={className}
+    >
+      <path d="M47 239c-9.4 9.4-9.4 24.6 0 33.9L239 465c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9L97.9 256 273 81c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0L47 239zM431 47L239 239c-9.4 9.4-9.4 24.6 0 33.9L431 465c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-175-175L465 81c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0z" />
+    </svg>
+  );
+}
+
+export function ChevronsRightIcon({
+  width = '1em',
+  height = '1em',
+  style,
+  className,
+}: IconProps): JSX.Element {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 512 512"
+      width={width}
+      height={height}
+      style={style}
+      className={className}
+    >
+      <path d="M465 239c9.4 9.4 9.4 24.6 0 33.9L273 465c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l175-175L239 81c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0L465 239zM81 47L273 239c9.4 9.4 9.4 24.6 0 33.9L81 465c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l175-175L47 81c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0z" />
+    </svg>
+  );
+}
+
+export function SidebarFlipIcon({
+  width = '1em',
+  height = '1em',
+  style,
+  className,
+}: IconProps): JSX.Element {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 512 512"
+      width={width}
+      height={height}
+      style={style}
+      className={className}
+    >
+      <path d="M288 80V432H64c-8.8 0-16-7.2-16-16V96c0-8.8 7.2-16 16-16H288zM512 96c0-35.3-28.7-64-64-64H64C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V96zm-64 24c0 13.3-10.7 24-24 24H376c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24zm-24 72c13.3 0 24 10.7 24 24s-10.7 24-24 24H376c-13.3 0-24-10.7-24-24s10.7-24 24-24h48zm24 120c0 13.3-10.7 24-24 24H376c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24z" />
+    </svg>
+  );
+}

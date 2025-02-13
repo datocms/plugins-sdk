@@ -1,0 +1,103 @@
+.VerticalSplitPane__expand {
+  transition: all 0.3s cubic-bezier(0.55, 0, 0.1, 1);
+  background: white;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.VerticalSplitPane__expand:hover {
+  background: var(--light-bg-color);
+  animation: VerticalSplitPane__expand 0.6s cubic-bezier(0.55, 0, 0.1, 1);
+}
+
+.VerticalSplitPane__expand.VerticalSplitPane__expand {
+  border-right: 1px solid var(--border-color);
+  transform-origin: left;
+}
+
+.VerticalSplitPane__expand--left {
+}
+
+.VerticalSplitPane__expand.VerticalSplitPane__expand--right {
+  border-left: 1px solid var(--border-color);
+  transform-origin: right;
+}
+
+@keyframes VerticalSplitPane__expand {
+  0% {
+    transform: scaleX(1);
+  }
+  50% {
+    transform: scaleX(2);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+.VerticalSplitPaneOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(48, 48, 47, 0.5),
+    rgba(48, 48, 47, 0.3)
+  );
+  z-index: 12;
+  height: 100%;
+  overflow: hidden;
+}
+
+.VerticalSplitPaneOverlay__primary {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+}
+
+.VerticalSplitPaneOverlay__primary--left {
+  margin-right: 20px;
+}
+
+.VerticalSplitPaneOverlay__primary--right {
+  margin-left: 20px;
+}
+
+.VerticalSplitPaneOverlay__secondary {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background: white;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+}
+
+.VerticalSplitPaneOverlay__secondary--left {
+  left: 0;
+}
+
+.VerticalSplitPaneOverlay__secondary--right {
+  right: 0;
+}
+
+.VerticalSplitPaneOverlay__sash {
+  position: absolute;
+  height: 100%;
+  top: 0;
+}
+
+.VerticalSplitPaneOverlay__secondary--left .VerticalSplitPaneOverlay__sash {
+  right: 0;
+}
+
+.VerticalSplitPaneOverlay__secondary--right .VerticalSplitPaneOverlay__sash {
+  left: 0;
+}
