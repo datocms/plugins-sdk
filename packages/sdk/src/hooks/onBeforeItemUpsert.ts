@@ -17,7 +17,7 @@ export type OnBeforeItemUpsertHook = {
    * serverside validation & saving will continue as usual.
    *
    * Clientside validations are not affected by this hook, since those occur
-   * asynchronously and independently on individual fields' onBlur() events.
+   * asynchronously and independently on individual fields' `onBlur()` events.
    *
    * @tag beforeHooks
    */
