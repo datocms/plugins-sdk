@@ -146,7 +146,16 @@ export type FullConnectParameters = {
 
   /**
    * This function will be called before saving a new version of a record. You
-   * can stop the action by returning `false`
+   * can stop the action by returning `false`. Doing so will intercept the Save
+   * button's handler, preventing the record save or creation.
+   *
+   * This hooks fires BEFORE serverside validation. If you return `false`,
+   * nothing will get sent to our server and no serverside validation or
+   * save will occur. If you return `true`, this hook will run first and then
+   * serverside validation & saving will continue as usual.
+   *
+   * Clientside validations are not affected by this hook, since those occur
+   * asynchronously and independently on individual fields' onBlur() events.
    *
    * @tag beforeHooks
    */
@@ -384,7 +393,7 @@ function toMultifield<Result>(
     for (const field of fields) {
       const itemType = ctx.itemTypes[
         field.relationships.item_type.data.id
-      ] as ItemType;
+        ] as ItemType;
       result[field.id] = fn(field, { ...ctx, itemType });
     }
 
@@ -412,11 +421,11 @@ const buildRenderUtils = (parent: { setHeight: (number: number) => void }) => {
     const realHeight =
       height === undefined
         ? Math.max(
-            document.body.scrollHeight,
-            document.body.offsetHeight,
-            document.documentElement.getBoundingClientRect().height,
-            getMaxScrollHeight(),
-          )
+          document.body.scrollHeight,
+          document.body.offsetHeight,
+          document.documentElement.getBoundingClientRect().height,
+          getMaxScrollHeight(),
+        )
         : height;
 
     if (realHeight !== oldHeight) {
@@ -480,10 +489,10 @@ export async function connect(
   let listener: ((newSettings: any) => void) | null = null;
   let callMethodMergingBootCtxExecutor:
     | ((
-        methodName: string,
-        methodArgs: unknown[],
-        extraCtx: Record<string, unknown>,
-      ) => void)
+    methodName: string,
+    methodArgs: unknown[],
+    extraCtx: Record<string, unknown>,
+  ) => void)
     | null = null;
 
   const penpalConnection = connectToParent({
