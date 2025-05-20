@@ -8,7 +8,16 @@ type ItemCreateSchema = SchemaTypes.ItemCreateSchema;
 export type OnBeforeItemUpsertHook = {
   /**
    * This function will be called before saving a new version of a record. You
-   * can stop the action by returning `false`
+   * can stop the action by returning `false`. Doing so will intercept the Save
+   * button's handler, preventing the record save or creation.
+   *
+   * This hooks fires BEFORE serverside validation. If you return `false`,
+   * nothing will get sent to our server and no serverside validation or
+   * save will occur. If you return `true`, this hook will run first and then
+   * serverside validation & saving will continue as usual.
+   *
+   * Clientside validations are not affected by this hook, since those occur
+   * asynchronously and independently on individual fields' onBlur() events.
    *
    * @tag beforeHooks
    */

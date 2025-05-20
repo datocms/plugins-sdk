@@ -1745,7 +1745,7 @@ export const manifest: Manifest = {
       name: 'onBeforeItemUpsert',
       comment: {
         markdownText:
-          'This function will be called before saving a new version of a record. You\ncan stop the action by returning `false`.',
+          "This function will be called before saving a new version of a record. You\ncan stop the action by returning `false`. Doing so will intercept the Save\nbutton's handler, preventing the record save or creation.\n\nThis hooks fires BEFORE serverside validation. If you return `false`,\nnothing will get sent to our server and no serverside validation or\nsave will occur. If you return `true`, this hook will run first and then\nserverside validation & saving will continue as usual.\n\nClientside validations are not affected by this hook, since those occur\nasynchronously and independently on individual fields' onBlur() events.",
         tag: 'beforeHooks',
       },
       nonCtxArguments: [
@@ -1773,7 +1773,7 @@ export const manifest: Manifest = {
                 },
                 location: {
                   filePath: 'src/hooks/onBeforeItemUpsert.ts',
-                  lineNumber: 40,
+                  lineNumber: 49,
                 },
                 type: '(path: string, locale?: string) => Promise<void>',
               },
@@ -1784,7 +1784,7 @@ export const manifest: Manifest = {
       returnType: 'MaybePromise<boolean>',
       location: {
         filePath: 'src/hooks/onBeforeItemUpsert.ts',
-        lineNumber: 15,
+        lineNumber: 24,
       },
     },
     manualFieldExtensions: {
