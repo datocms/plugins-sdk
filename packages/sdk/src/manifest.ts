@@ -1745,7 +1745,7 @@ export const manifest: Manifest = {
       name: 'onBeforeItemUpsert',
       comment: {
         markdownText:
-          "This function will be called before saving a new version of a record. You\ncan stop the action by returning `false`. Doing so will intercept the Save\nbutton's handler, preventing the record save or creation.\n\nThis hooks fires BEFORE serverside validation. If you return `false`,\nnothing will get sent to our server and no serverside validation or\nsave will occur. If you return `true`, this hook will run first and then\nserverside validation & saving will continue as usual.\n\nClientside validations are not affected by this hook, since those occur\nasynchronously and independently on individual fields' onBlur() events.",
+          'This hook is called when the user attempts to save a record. You can use it to block record saving.\n\nIf you return `false`, the record will NOT be saved. A small on-page error will say "A plugin blocked the action".\nHowever, for better UX, consider also using `ctx.alert()` to better explain to the user why their save was blocked.\n\nIf you return `true`, the save will proceed as normal.\n\nThis hook runs BEFORE serverside validation. You can use it to do your own additional validation before returning.\nClientside validations are not affected by this hook, since those occur on individual fields\' `onBlur()` events.',
         tag: 'beforeHooks',
       },
       nonCtxArguments: [
@@ -1773,7 +1773,7 @@ export const manifest: Manifest = {
                 },
                 location: {
                   filePath: 'src/hooks/onBeforeItemUpsert.ts',
-                  lineNumber: 49,
+                  lineNumber: 47,
                 },
                 type: '(path: string, locale?: string) => Promise<void>',
               },
@@ -1784,7 +1784,7 @@ export const manifest: Manifest = {
       returnType: 'MaybePromise<boolean>',
       location: {
         filePath: 'src/hooks/onBeforeItemUpsert.ts',
-        lineNumber: 24,
+        lineNumber: 22,
       },
     },
     manualFieldExtensions: {
