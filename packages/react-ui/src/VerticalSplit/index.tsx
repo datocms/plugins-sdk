@@ -36,7 +36,6 @@ function calculateSizes({
   return primaryPane === 'right' ? [realSize] : ['auto', realSize];
 }
 
-
 /**
  * @example Resizable, left primary panel
  *

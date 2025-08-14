@@ -1,8 +1,44 @@
 import { isRecord, isString } from './guardUtils.js';
 
-export type Icon =
-  | AwesomeFontIconIdentifier
-  | { type: 'svg'; viewBox: string; content: string };
+export type Icon = AwesomeFontIconIdentifier | SvgDefinition;
+
+/**
+ * Defines a custom SVG icon for use in DatoCMS plugins.
+ *
+ * To create an SVG definition from an existing SVG file:
+ * 1. Grab the `viewBox` attribute from your SVG element (e.g., "0 0 24 24")
+ * 2. Grab everything between the `<svg>` tags as the content (all the paths, circles, etc.)
+ *
+ * @example
+ * ```typescript
+ * // From this SVG:
+ * // <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+ * //   <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+ * // </svg>
+ *
+ * const starIcon: SvgDefinition = {
+ *   type: 'svg',
+ *   viewBox: '0 0 24 24',
+ *   content: '<path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>'
+ * };
+ * ```
+ */
+export type SvgDefinition = {
+  /** Always set to 'svg' to indicate this is a custom SVG icon */
+  type: 'svg';
+
+  /**
+   * The viewBox attribute from your SVG element (e.g., "0 0 24 24").
+   * This defines the coordinate system and aspect ratio of the SVG.
+   */
+  viewBox: string;
+
+  /**
+   * The inner content of your SVG element — everything between the opening and closing <svg> tags.
+   * This includes all paths, circles, rectangles, and other SVG elements that make up your icon.
+   */
+  content: string;
+};
 
 export function isIcon(value: unknown): value is Icon {
   return (
@@ -14,6 +50,13 @@ export function isIcon(value: unknown): value is Icon {
   );
 }
 
+/**
+ * Font Awesome icon identifier for use in DatoCMS plugins.
+ *
+ * Use Font Awesome icons for consistent visual styling across the admin interface.
+ * This is the recommended approach for most plugin icons, with custom SVGs reserved
+ * primarily for brand/company logos where Font Awesome doesn't have an appropriate match.
+ */
 export type AwesomeFontIconIdentifier =
   | '0'
   | '00'
