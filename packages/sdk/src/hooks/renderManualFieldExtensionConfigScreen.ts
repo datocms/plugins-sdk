@@ -56,14 +56,14 @@ export type PendingField = {
   id?: string;
   type: 'field';
   attributes: {
-    api_key: Field['attributes']['api_key'];
-    appearance: Field['attributes']['appearance'];
-    default_value: Field['attributes']['default_value'];
-    field_type: Field['attributes']['field_type'];
-    hint: Field['attributes']['hint'];
-    label: Field['attributes']['label'];
-    localized: Field['attributes']['localized'];
-    validators: Field['attributes']['validators'];
+    api_key: Field['api_key'];
+    appearance: Field['appearance'];
+    default_value: Field['default_value'];
+    field_type: Field['field_type'];
+    hint: Field['hint'];
+    label: Field['label'];
+    localized: Field['localized'];
+    validators: Field['validators'];
   };
 };
 
