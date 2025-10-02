@@ -70,7 +70,7 @@ export function fromOneFieldIntoMultipleAndResultsById<Result>(
 
     for (const field of fields) {
       const itemType = ctx.itemTypes[
-        field.item_type.id
+        field.relationships.item_type.data.id
       ] as ItemType;
       result[field.id] = fn(field, { ...ctx, itemType });
     }
