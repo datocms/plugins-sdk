@@ -79,6 +79,9 @@ export type RenderInspectorCtx = ImposedSizePluginFrameCtx<
     /** The ID of the inspector that needs to be rendered */
     inspectorId: string;
 
+    /** The ID of the record the currently is highlighted by the user */
+    highlightedItemId: string | undefined;
+
     /** Current page location */
     location: {
       pathname: string;

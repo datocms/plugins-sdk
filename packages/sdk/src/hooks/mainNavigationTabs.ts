@@ -74,7 +74,8 @@ export function isMainNavigationTab(
     isRecord(value.pointsTo) &&
     (isString(value.pointsTo.pageId) ||
       (isString(value.pointsTo.inspectorId) &&
-       (isNullish(value.pointsTo.preferredWidth) || isNumber(value.pointsTo.preferredWidth)))) &&
+        (isNullish(value.pointsTo.preferredWidth) ||
+          isNumber(value.pointsTo.preferredWidth)))) &&
     (isNullish(value.placement) || isPlacement(value.placement)) &&
     (isNullish(value.rank) || isNumber(value.rank))
   );

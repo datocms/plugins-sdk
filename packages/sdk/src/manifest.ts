@@ -1313,13 +1313,24 @@ export const manifest: Manifest = {
                 },
                 type: 'string',
               },
+              highlightedItemId: {
+                comment: {
+                  markdownText:
+                    'The ID of the record the currently is highlighted by the user.',
+                },
+                location: {
+                  filePath: 'src/hooks/renderInspector.ts',
+                  lineNumber: 83,
+                },
+                type: 'string | undefined',
+              },
               location: {
                 comment: {
                   markdownText: 'Current page location.',
                 },
                 location: {
                   filePath: 'src/hooks/renderInspector.ts',
-                  lineNumber: 83,
+                  lineNumber: 86,
                 },
                 type: '{\n      pathname: string;\n      search: string;\n      hash: string;\n    }',
               },
@@ -1338,7 +1349,7 @@ export const manifest: Manifest = {
                 },
                 location: {
                   filePath: 'src/hooks/renderInspector.ts',
-                  lineNumber: 133,
+                  lineNumber: 136,
                 },
                 type: '(\n      mode: InspectorMode,\n      options?: SetInspectorModeOptions,\n    ) => Promise<void>',
               },
@@ -1351,7 +1362,7 @@ export const manifest: Manifest = {
                 },
                 location: {
                   filePath: 'src/hooks/renderInspector.ts',
-                  lineNumber: 154,
+                  lineNumber: 157,
                 },
                 type: '(data: {\n      /** The title to show in the inspector header */\n      title: string;\n      /** Array of record IDs to display in the list */\n      itemIds: string[];\n    }) => Promise<void>',
               },
