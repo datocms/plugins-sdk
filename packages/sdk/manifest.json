@@ -1139,6 +1139,130 @@
         "lineNumber": 14
       }
     },
+    "renderInspectorPanel": {
+      "name": "renderInspectorPanel",
+      "comment": {
+        "markdownText": "This function will be called when an inspector needs to render a specific\npanel (see the `renderInspector` and `setInspectorMode` functions).",
+        "tag": "inspector"
+      },
+      "nonCtxArguments": [
+        {
+          "name": "panelId",
+          "typeName": "string"
+        }
+      ],
+      "ctxArgument": {
+        "type": "ImposedSizePluginFrameCtx",
+        "additionalProperties": [
+          {
+            "items": {
+              "panelId": {
+                "comment": {
+                  "markdownText": "The ID of the inspector panel that needs to be rendered."
+                },
+                "location": {
+                  "filePath": "src/hooks/renderInspectorPanel.ts",
+                  "lineNumber": 18
+                },
+                "type": "string"
+              },
+              "parameters": {
+                "comment": {
+                  "markdownText": "The arbitrary `parameters` of the modal declared in the `setInspectorMode`\nfunction."
+                },
+                "location": {
+                  "filePath": "src/hooks/renderInspectorPanel.ts",
+                  "lineNumber": 24
+                },
+                "type": "Record<string, unknown>"
+              }
+            }
+          }
+        ],
+        "additionalMethods": []
+      },
+      "returnType": "void",
+      "location": {
+        "filePath": "src/hooks/renderInspectorPanel.ts",
+        "lineNumber": 11
+      }
+    },
+    "renderInspector": {
+      "name": "renderInspector",
+      "comment": {
+        "markdownText": "This function will be called when the plugin needs to render a specific\ninspector. Inspectors provide a side panel interface for displaying and\ninteracting with content alongside a custom interface.",
+        "tag": "inspector",
+        "example": "connect({\n  renderInspector(inspectorId, ctx) {\n    render(\n      <div>\n        <h1>Inspector: {inspectorId}</h1>\n        <button onClick={() => ctx.setInspectorMode({\n          type: 'itemEditor',\n          itemId: 'some-item-id'\n        })}>\n          Show Item Editor\n        </button>\n      </div>\n    );\n  }\n});"
+      },
+      "nonCtxArguments": [
+        {
+          "name": "inspectorId",
+          "typeName": "string"
+        }
+      ],
+      "ctxArgument": {
+        "type": "ImposedSizePluginFrameCtx",
+        "additionalProperties": [
+          {
+            "items": {
+              "inspectorId": {
+                "comment": {
+                  "markdownText": "The ID of the inspector that needs to be rendered."
+                },
+                "location": {
+                  "filePath": "src/hooks/renderInspector.ts",
+                  "lineNumber": 80
+                },
+                "type": "string"
+              },
+              "location": {
+                "comment": {
+                  "markdownText": "Current page location."
+                },
+                "location": {
+                  "filePath": "src/hooks/renderInspector.ts",
+                  "lineNumber": 83
+                },
+                "type": "{\n      pathname: string;\n      search: string;\n      hash: string;\n    }"
+              }
+            }
+          }
+        ],
+        "additionalMethods": [
+          {
+            "items": {
+              "setInspectorMode": {
+                "comment": {
+                  "markdownText": "Changes the current display mode of the inspector. This allows the plugin\nto dynamically switch between showing a record list, record editor, or custom\npanel within the inspector interface.",
+                  "example": "// Switch to record editor mode\nawait ctx.setInspectorMode({\n  type: 'itemEditor',\n  itemId: 'item-123',\n  fieldPath: 'title'\n});\n\n// Switch to record list mode\nawait ctx.setInspectorMode({ type: 'itemList' });\nawait ctx.setInspectorItemListData({\n  title: 'Related Records',\n  itemIds: ['item-1', 'item-2', 'item-3']\n});\n\n// Switch to custom panel mode\nawait ctx.setInspectorMode({\n  type: 'customPanel',\n  panelId: 'my-custom-panel',\n  parameters: { filter: 'active' }\n});\n\n// Low intent mode change - won't interrupt editing with unsaved changes\nawait ctx.setInspectorMode(\n  { type: 'itemList' },\n  { ignoreIfUnsavedChanges: true }\n);"
+                },
+                "location": {
+                  "filePath": "src/hooks/renderInspector.ts",
+                  "lineNumber": 133
+                },
+                "type": "(\n      mode: InspectorMode,\n      options?: SetInspectorModeOptions,\n    ) => Promise<void>"
+              },
+              "setInspectorItemListData": {
+                "comment": {
+                  "markdownText": "Sets the data for the item list inspector mode.",
+                  "example": "// Set the item list data\nawait ctx.setInspectorItemListData({\n  title: 'Related Records',\n  itemIds: ['item-1', 'item-2', 'item-3']\n});\n\n// Switch to item list mode\nawait ctx.setInspectorMode({ type: 'itemList' });"
+                },
+                "location": {
+                  "filePath": "src/hooks/renderInspector.ts",
+                  "lineNumber": 154
+                },
+                "type": "(data: {\n      /** The title to show in the inspector header */\n      title: string;\n      /** Array of record IDs to display in the list */\n      itemIds: string[];\n    }) => Promise<void>"
+              }
+            }
+          }
+        ]
+      },
+      "returnType": "void",
+      "location": {
+        "filePath": "src/hooks/renderInspector.ts",
+        "lineNumber": 73
+      }
+    },
     "renderFieldExtension": {
       "name": "renderFieldExtension",
       "comment": {

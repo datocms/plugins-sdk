@@ -53,6 +53,8 @@ export * from './hooks/renderItemFormSidebarPanel';
 export * from './hooks/renderManualFieldExtensionConfigScreen';
 export * from './hooks/renderModal';
 export * from './hooks/renderPage';
+export * from './hooks/renderInspector';
+export * from './hooks/renderInspectorPanel';
 export * from './hooks/renderUploadSidebar';
 export * from './hooks/renderUploadSidebarPanel';
 export * from './hooks/schemaItemTypeDropdownActions';

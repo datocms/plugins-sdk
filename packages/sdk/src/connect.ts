@@ -38,6 +38,14 @@ import {
   renderFieldExtensionBootstrapper,
 } from './hooks/renderFieldExtension';
 import {
+  RenderInspectorHook,
+  renderInspectorBootstrapper,
+} from './hooks/renderInspector';
+import {
+  RenderInspectorPanelHook,
+  renderInspectorPanelBootstrapper,
+} from './hooks/renderInspectorPanel';
+import {
   RenderItemCollectionOutletHook,
   renderItemCollectionOutletBootstrapper,
 } from './hooks/renderItemCollectionOutlet';
@@ -117,6 +125,8 @@ export type FullConnectParameters = AssetSourcesHook &
   RenderManualFieldExtensionConfigScreenHook &
   RenderModalHook &
   RenderPageHook &
+  RenderInspectorHook &
+  RenderInspectorPanelHook &
   RenderUploadSidebarHook &
   RenderUploadSidebarPanelHook &
   SchemaItemTypeDropdownActionsHook &
@@ -264,6 +274,8 @@ export async function connect(
       renderManualFieldExtensionConfigScreenBootstrapper,
     renderModal: renderModalBootstrapper,
     renderPage: renderPageBootstrapper,
+    renderInspector: renderInspectorBootstrapper,
+    renderInspectorPanel: renderInspectorPanelBootstrapper,
     renderUploadSidebar: renderUploadSidebarBootstrapper,
     renderUploadSidebarPanel: renderUploadSidebarPanelBootstrapper,
   };

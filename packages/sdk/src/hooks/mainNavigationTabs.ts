@@ -37,9 +37,15 @@ export type MainNavigationTab = {
    */
   icon: Icon;
   /** ID of the page linked to the tab */
-  pointsTo: {
-    pageId: string;
-  };
+  pointsTo:
+    | {
+        pageId: string;
+      }
+    | {
+        inspectorId: string;
+        /** The preferred width for the sidebar */
+        preferredWidth?: number;
+      };
   /**
    * Expresses where you want to place the tab in the top-bar. If not specified,
    * the tab will be placed after the standard tabs provided by DatoCMS itself.
@@ -66,7 +72,9 @@ export function isMainNavigationTab(
     isString(value.label) &&
     isIcon(value.icon) &&
     isRecord(value.pointsTo) &&
-    isString(value.pointsTo.pageId) &&
+    (isString(value.pointsTo.pageId) ||
+      (isString(value.pointsTo.inspectorId) &&
+       (isNullish(value.pointsTo.preferredWidth) || isNumber(value.pointsTo.preferredWidth)))) &&
     (isNullish(value.placement) || isPlacement(value.placement)) &&
     (isNullish(value.rank) || isNumber(value.rank))
   );
