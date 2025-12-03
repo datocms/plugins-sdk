@@ -9,6 +9,7 @@
 @import "./FieldHint/styles.module.css";
 @import "./Form/styles.module.css";
 @import "./FormLabel/styles.module.css";
+@import "./HotKey/styles.module.css";
 @import "./Section/styles.module.css";
 @import "./SidebarPanel/styles.module.css";
 @import "./Spinner/styles.module.css";
@@ -22,6 +23,7 @@
 @import "./Toolbar/Stack/styles.module.css";
 @import "./Toolbar/Title/styles.module.css";
 @import "./Toolbar/Toolbar/styles.module.css";
+@import "./Tooltip/TooltipContent/styles.module.css";
 @import "./Dropdown/styles.module.css";
 @import "./SplitView/SplitViewPane/styles.module.css";
 @import "./SplitView/SplitViewSash/styles.module.css";
