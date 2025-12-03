@@ -36,7 +36,7 @@ export type MainNavigationTab = {
    * whenever possible.
    */
   icon: Icon;
-  /** ID of the page linked to the tab */
+  /** ID of the page/inspector linked to the tab */
   pointsTo:
     | {
         pageId: string;
@@ -45,6 +45,16 @@ export type MainNavigationTab = {
         inspectorId: string;
         /** The preferred width for the sidebar */
         preferredWidth?: number;
+        /** The inspector panel to render when first loaded */
+        initialInspectorPanel?: {
+          /** ID of the inspector panel to render */
+          panelId: string;
+          /**
+           * An arbitrary configuration object that will be passed as the `parameters`
+           * property of the second argument of the `renderInspectorPanel` function
+           */
+          parameters?: Record<string, unknown>;
+        };
       };
   /**
    * Expresses where you want to place the tab in the top-bar. If not specified,
