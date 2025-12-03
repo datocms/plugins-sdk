@@ -1,8 +1,10 @@
-import * as React from 'react';
 import { useMergeRefs } from '@floating-ui/react';
+import * as React from 'react';
 import { useTooltipState } from '../utils';
 
-export type TooltipTriggerProps = React.HTMLProps<HTMLElement>;
+export type TooltipTriggerProps = {
+  children: React.ReactElement;
+};
 
 /**
  * TooltipTrigger wraps the element that triggers the tooltip on hover/focus.
@@ -44,8 +46,10 @@ export type TooltipTriggerProps = React.HTMLProps<HTMLElement>;
  * </Canvas>;
  * ```
  */
-export const TooltipTrigger = React.forwardRef<HTMLElement, TooltipTriggerProps>(
-  function TooltipTrigger({ children, ...props }, propRef) {
+export const TooltipTrigger = React.forwardRef<
+  HTMLElement,
+  TooltipTriggerProps
+>(function TooltipTrigger({ children, ...props }, propRef) {
   const state = useTooltipState();
 
   const childrenRef = (children as any).ref;
@@ -64,5 +68,4 @@ export const TooltipTrigger = React.forwardRef<HTMLElement, TooltipTriggerProps>
       'data-state': state.open ? 'open' : 'closed',
     }),
   );
-  },
-);
+});

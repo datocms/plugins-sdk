@@ -1,13 +1,17 @@
-import * as React from 'react';
 import {
   FloatingPortal,
-  useMergeRefs,
   useDelayGroup,
   useDelayGroupContext,
+  useMergeRefs,
   useTransitionStyles,
 } from '@floating-ui/react';
+import * as React from 'react';
 import { Canvas, useCtx } from '../../Canvas';
-import { useTooltipState, getSharedPortalRoot, releaseSharedPortalRoot } from '../utils';
+import {
+  getSharedPortalRoot,
+  releaseSharedPortalRoot,
+  useTooltipState,
+} from '../utils';
 import s from './styles.module.css.json';
 
 export type TooltipContentProps = {
@@ -77,8 +81,10 @@ export type TooltipContentProps = {
  * </Canvas>;
  * ```
  */
-export const TooltipContent = React.forwardRef<HTMLDivElement, TooltipContentProps>(
-  function TooltipContent({ children }, propRef) {
+export const TooltipContent = React.forwardRef<
+  HTMLDivElement,
+  TooltipContentProps
+>(function TooltipContent({ children }, propRef) {
   const ctx = useCtx();
   const state = useTooltipState();
   const { isInstantPhase, currentId } = useDelayGroupContext();
@@ -136,5 +142,4 @@ export const TooltipContent = React.forwardRef<HTMLDivElement, TooltipContentPro
       </Canvas>
     </FloatingPortal>
   );
-  },
-);
+});

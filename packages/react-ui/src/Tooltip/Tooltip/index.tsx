@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { TooltipContext, useTooltip, TooltipOptions } from '../utils';
+import { TooltipContext, TooltipOptions, useTooltip } from '../utils';
 
 export type TooltipProps = {
   children?: React.ReactNode;
