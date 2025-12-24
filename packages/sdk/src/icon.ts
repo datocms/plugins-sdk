@@ -1,6 +1,10 @@
-import { isRecord, isString } from './guardUtils.js';
+import { isEmoji, isRecord, isString } from './guardUtils.js';
 
-export type Icon = AwesomeFontIconIdentifier | SvgDefinition;
+export type Icon = AwesomeFontIconIdentifier | SvgDefinition | EmojiDefinition;
+
+export function isIcon(value: unknown): value is Icon {
+  return isString(value) || isSvgDefinition(value) || isEmojiDefinition(value);
+}
 
 /**
  * Defines a custom SVG icon for use in DatoCMS plugins.
@@ -40,14 +44,38 @@ export type SvgDefinition = {
   content: string;
 };
 
-export function isIcon(value: unknown): value is Icon {
+export function isSvgDefinition(value: unknown): value is SvgDefinition {
   return (
-    isString(value) ||
-    (isRecord(value) &&
-      value.type === 'svg' &&
-      isString(value.viewBox) &&
-      isString(value.content))
+    isRecord(value) &&
+    value.type === 'svg' &&
+    isString(value.viewBox) &&
+    isString(value.content)
   );
+}
+
+/**
+ * Defines an emoji icon for use in DatoCMS plugins.
+ *
+ * @example
+ * ```typescript
+ * const starIcon: EmojiDefinition = {
+ *   type: 'emoji',
+ *   emoji: '⭐'
+ * };
+ * ```
+ */
+export type EmojiDefinition = {
+  /** Always set to 'emoji' to indicate this is an emoji icon */
+  type: 'emoji';
+
+  /**
+   * A string contaning a single emoji.
+   */
+  emoji: string;
+};
+
+export function isEmojiDefinition(value: unknown): value is EmojiDefinition {
+  return isRecord(value) && value.type === 'emoji' && isEmoji(value.emoji);
 }
 
 /**
