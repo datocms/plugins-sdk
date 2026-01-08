@@ -1,6 +1,6 @@
 {
   "name": "datocms-plugin-sdk",
-  "version": "2.0.18",
+  "version": "2.1.0-alpha.0",
   "description": "DatoCMS Plugin SDK",
   "keywords": [
     "datocms",
@@ -39,6 +39,7 @@
     "@datocms/cma-client": "*",
     "@types/react": "^17.0.3",
     "datocms-structured-text-utils": "^2.0.0",
+    "emoji-regex-xs": "*",
     "penpal": "^4.1.1"
   },
   "devDependencies": {
