@@ -7,7 +7,7 @@ import {
   isRecord,
   isString,
 } from '../guardUtils.js';
-import { Icon, isIcon } from '../icon';
+import { IconWithEmoji, isIconWithEmoji } from '../icon';
 
 export type ContentAreaSidebarItemsHook = {
   /**
@@ -32,11 +32,11 @@ export type ContentAreaSidebarItem = {
   label: string;
   /**
    * Icon to be shown alongside the label. Can be a FontAwesome icon name (ie.
-   * `"address-book"`) or a custom SVG definition. To maintain visual
+   * `"address-book"`), a custom SVG definition, or an emoji. To maintain visual
    * consistency with the rest of the interface, try to use FontAwesome icons
    * whenever possible.
    */
-  icon: Icon;
+  icon: IconWithEmoji;
   /** ID of the page linked to the item */
   pointsTo: {
     pageId: string;
@@ -63,7 +63,7 @@ export function isContentAreaSidebarItem(
   return (
     isRecord(value) &&
     isString(value.label) &&
-    isIcon(value.icon) &&
+    isIconWithEmoji(value.icon) &&
     isRecord(value.pointsTo) &&
     isString(value.pointsTo.pageId) &&
     (isNullish(value.placement) || isPlacement(value.placement)) &&

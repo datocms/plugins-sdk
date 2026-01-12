@@ -1,9 +1,9 @@
 import { isEmoji, isRecord, isString } from './guardUtils.js';
 
-export type Icon = AwesomeFontIconIdentifier | SvgDefinition | EmojiDefinition;
+export type Icon = AwesomeFontIconIdentifier | SvgDefinition;
 
 export function isIcon(value: unknown): value is Icon {
-  return isString(value) || isSvgDefinition(value) || isEmojiDefinition(value);
+  return isString(value) || isSvgDefinition(value);
 }
 
 /**
@@ -76,6 +76,16 @@ export type EmojiDefinition = {
 
 export function isEmojiDefinition(value: unknown): value is EmojiDefinition {
   return isRecord(value) && value.type === 'emoji' && isEmoji(value.emoji);
+}
+
+/**
+ * Extended icon type that includes emoji support in addition to Font Awesome and SVG icons.
+ * This type is specifically used for content area sidebar items where emoji icons are supported.
+ */
+export type IconWithEmoji = Icon | EmojiDefinition;
+
+export function isIconWithEmoji(value: unknown): value is IconWithEmoji {
+  return isIcon(value) || isEmojiDefinition(value);
 }
 
 /**
