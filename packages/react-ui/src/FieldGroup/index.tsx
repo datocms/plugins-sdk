@@ -17,9 +17,11 @@ export function FieldGroup({
 
   return (
     <div {...otherProps} className={classNames}>
-      {React.Children.map(children, (child) => (
-        <div className={styles.FieldGroup__item}>{child}</div>
-      ))}
+      {React.Children.map(
+        children,
+        (child) =>
+          child && <div className={styles.FieldGroup__item}>{child}</div>,
+      )}
     </div>
   );
 }

@@ -1,33 +1,33 @@
 .themeVariables {
   /* Colors */
-  --base-body-color: rgb(52, 54, 58);
   --base-body-color-rgb-components: 52, 54, 58;
-  --light-body-color: rgb(132, 132, 132);
+  --base-body-color: rgb(var(--base-body-color));
   --light-body-color-rgb-components: 132, 132, 132;
-  --placeholder-body-color: rgb(198, 198, 198);
+  --light-body-color: rgb(var(--light-body-color));
   --placeholder-body-color-rgb-components: 198, 198, 198;
-  --light-bg-color: rgb(245, 245, 245);
+  --placeholder-body-color: rgb(var(--placeholder-body-color));
   --light-bg-color-rgb-components: 245, 245, 245;
-  --lighter-bg-color: rgb(248, 248, 248);
+  --light-bg-color: rgb(var(--light-bg-color));
   --lighter-bg-color-rgb-components: 248, 248, 248;
-  --disabled-bg-color: rgb(237, 237, 237);
+  --lighter-bg-color: rgb(var(--lighter-bg-color));
   --disabled-bg-color-rgb-components: 237, 237, 237;
-  --border-color: rgb(240, 240, 240);
+  --disabled-bg-color: rgb(var(--disabled-bg-color));
   --border-color-rgb-components: 240, 240, 240;
-  --darker-border-color: rgb(215, 215, 215);
+  --border-color: rgb(var(--border-color));
   --darker-border-color-rgb-components: 215, 215, 215;
-  --alert-color: rgb(255, 94, 73);
+  --darker-border-color: rgb(var(--darker-border-color));
   --alert-color-rgb-components: 255, 94, 73;
-  --warning-color: rgb(255, 215, 0);
+  --alert-color: rgb(var(--alert-color));
   --warning-color-rgb-components: 255, 215, 0;
-  --notice-color: rgb(70, 215, 0);
+  --warning-color: rgb(var(--warning-color));
   --notice-color-rgb-components: 70, 215, 0;
-  --warning-bg-color: rgb(255, 255, 229);
+  --notice-color: rgb(var(--notice-color));
   --warning-bg-color-rgb-components: 255, 255, 229;
-  --add-color: rgb(76, 176, 109);
+  --warning-bg-color: rgb(var(--warning-bg-color));
   --add-color-rgb-components: 76, 176, 109;
-  --remove-color: rgb(235, 87, 106);
+  --add-color: rgb(var(--add-color));
   --remove-color-rgb-components: 235, 87, 106;
+  --remove-color: rgb(var(--remove-color));
 
   /* Fonts */
   --base-font-family: 'colfax-web', 'Roboto', 'Helvetica Neue', Helvetica,
