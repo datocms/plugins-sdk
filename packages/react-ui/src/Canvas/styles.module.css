@@ -1,39 +1,41 @@
 .themeVariables {
   /* Colors */
   --base-body-color-rgb-components: 52, 54, 58;
-  --base-body-color: rgb(var(--base-body-color));
+  --base-body-color: rgb(var(--base-body-color-components));
   --light-body-color-rgb-components: 132, 132, 132;
-  --light-body-color: rgb(var(--light-body-color));
+  --light-body-color: rgb(var(--light-body-color-components));
   --placeholder-body-color-rgb-components: 198, 198, 198;
-  --placeholder-body-color: rgb(var(--placeholder-body-color));
+  --placeholder-body-color: rgb(var(--placeholder-body-color-components));
   --light-bg-color-rgb-components: 245, 245, 245;
-  --light-bg-color: rgb(var(--light-bg-color));
+  --light-bg-color: rgb(var(--light-bg-color-components));
   --lighter-bg-color-rgb-components: 248, 248, 248;
-  --lighter-bg-color: rgb(var(--lighter-bg-color));
+  --lighter-bg-color: rgb(var(--lighter-bg-color-components));
   --disabled-bg-color-rgb-components: 237, 237, 237;
-  --disabled-bg-color: rgb(var(--disabled-bg-color));
+  --disabled-bg-color: rgb(var(--disabled-bg-color-components));
   --border-color-rgb-components: 240, 240, 240;
-  --border-color: rgb(var(--border-color));
+  --border-color: rgb(var(--border-color-components));
   --darker-border-color-rgb-components: 215, 215, 215;
-  --darker-border-color: rgb(var(--darker-border-color));
+  --darker-border-color: rgb(var(--darker-border-color-components));
   --alert-color-rgb-components: 255, 94, 73;
-  --alert-color: rgb(var(--alert-color));
+  --alert-color: rgb(var(--alert-color-components));
   --warning-color-rgb-components: 255, 215, 0;
-  --warning-color: rgb(var(--warning-color));
+  --warning-color: rgb(var(--warning-color-components));
   --notice-color-rgb-components: 70, 215, 0;
-  --notice-color: rgb(var(--notice-color));
+  --notice-color: rgb(var(--notice-color-components));
   --warning-bg-color-rgb-components: 255, 255, 229;
-  --warning-bg-color: rgb(var(--warning-bg-color));
+  --warning-bg-color: rgb(var(--warning-bg-color-components));
   --add-color-rgb-components: 76, 176, 109;
-  --add-color: rgb(var(--add-color));
+  --add-color: rgb(var(--add-color-components));
   --remove-color-rgb-components: 235, 87, 106;
-  --remove-color: rgb(var(--remove-color));
+  --remove-color: rgb(var(--remove-color-components));
 
   /* Fonts */
-  --base-font-family: 'colfax-web', 'Roboto', 'Helvetica Neue', Helvetica,
-    Roboto, Arial, sans-serif;
-  --monospaced-font-family: 'Roboto Mono', 'Menlo', 'Bitstream Vera Sans Mono',
-    Consolas, Courier, monospace;
+  --base-font-family:
+    'colfax-web', 'Roboto', 'Helvetica Neue', Helvetica, Roboto, Arial,
+    sans-serif;
+  --monospaced-font-family:
+    'Roboto Mono', 'Menlo', 'Bitstream Vera Sans Mono', Consolas, Courier,
+    monospace;
   --font-weight-bold: 500;
 
   /* Spacing */
