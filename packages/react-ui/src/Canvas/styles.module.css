@@ -1,33 +1,33 @@
 .themeVariables {
   /* Colors */
   --base-body-color-rgb-components: 52, 54, 58;
-  --base-body-color: rgb(var(--base-body-color-components));
+  --base-body-color: rgb(var(--base-body-color-rgb-components));
   --light-body-color-rgb-components: 132, 132, 132;
-  --light-body-color: rgb(var(--light-body-color-components));
+  --light-body-color: rgb(var(--light-body-color-rgb-components));
   --placeholder-body-color-rgb-components: 198, 198, 198;
-  --placeholder-body-color: rgb(var(--placeholder-body-color-components));
+  --placeholder-body-color: rgb(var(--placeholder-body-color-rgb-components));
   --light-bg-color-rgb-components: 245, 245, 245;
-  --light-bg-color: rgb(var(--light-bg-color-components));
+  --light-bg-color: rgb(var(--light-bg-color-rgb-components));
   --lighter-bg-color-rgb-components: 248, 248, 248;
-  --lighter-bg-color: rgb(var(--lighter-bg-color-components));
+  --lighter-bg-color: rgb(var(--lighter-bg-color-rgb-components));
   --disabled-bg-color-rgb-components: 237, 237, 237;
-  --disabled-bg-color: rgb(var(--disabled-bg-color-components));
+  --disabled-bg-color: rgb(var(--disabled-bg-color-rgb-components));
   --border-color-rgb-components: 240, 240, 240;
-  --border-color: rgb(var(--border-color-components));
+  --border-color: rgb(var(--border-color-rgb-components));
   --darker-border-color-rgb-components: 215, 215, 215;
-  --darker-border-color: rgb(var(--darker-border-color-components));
+  --darker-border-color: rgb(var(--darker-border-color-rgb-components));
   --alert-color-rgb-components: 255, 94, 73;
-  --alert-color: rgb(var(--alert-color-components));
+  --alert-color: rgb(var(--alert-color-rgb-components));
   --warning-color-rgb-components: 255, 215, 0;
-  --warning-color: rgb(var(--warning-color-components));
+  --warning-color: rgb(var(--warning-color-rgb-components));
   --notice-color-rgb-components: 70, 215, 0;
-  --notice-color: rgb(var(--notice-color-components));
+  --notice-color: rgb(var(--notice-color-rgb-components));
   --warning-bg-color-rgb-components: 255, 255, 229;
-  --warning-bg-color: rgb(var(--warning-bg-color-components));
+  --warning-bg-color: rgb(var(--warning-bg-color-rgb-components));
   --add-color-rgb-components: 76, 176, 109;
-  --add-color: rgb(var(--add-color-components));
+  --add-color: rgb(var(--add-color-rgb-components));
   --remove-color-rgb-components: 235, 87, 106;
-  --remove-color: rgb(var(--remove-color-components));
+  --remove-color: rgb(var(--remove-color-rgb-components));
 
   /* Fonts */
   --base-font-family:
