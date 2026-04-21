@@ -1,33 +1,46 @@
 .themeVariables {
-  /* Colors */
+  /**
+   * @deprecated LEGACY COLOR VARIABLES — DO NOT USE IN NEW CODE.
+   *
+   * The color variables below are kept strictly for backward compatibility
+   * with third-party plugins authored before the semantic color token
+   * system. Each one now resolves to its closest semantic token, so it
+   * follows the active theme (including dark mode).
+   *
+   * The colors in this block will be removed in a future major version.
+   * Migrate to the `--color--*` semantic tokens (see the `Canvas` JSDoc
+   * for the full list). The non-color tokens further below (fonts, spacing,
+   * font-sizes, easings) are stable and will remain.
+   */
+  /* Colors (deprecated) */
   --base-body-color-rgb-components: 52, 54, 58;
-  --base-body-color: rgb(var(--base-body-color-rgb-components));
+  --base-body-color: var(--color--ink);
   --light-body-color-rgb-components: 132, 132, 132;
-  --light-body-color: rgb(var(--light-body-color-rgb-components));
+  --light-body-color: var(--color--ink-subtle);
   --placeholder-body-color-rgb-components: 198, 198, 198;
-  --placeholder-body-color: rgb(var(--placeholder-body-color-rgb-components));
+  --placeholder-body-color: var(--color--ink-placeholder);
   --light-bg-color-rgb-components: 245, 245, 245;
-  --light-bg-color: rgb(var(--light-bg-color-rgb-components));
+  --light-bg-color: var(--color--surface-muted);
   --lighter-bg-color-rgb-components: 248, 248, 248;
-  --lighter-bg-color: rgb(var(--lighter-bg-color-rgb-components));
+  --lighter-bg-color: var(--color--surface-muted);
   --disabled-bg-color-rgb-components: 237, 237, 237;
-  --disabled-bg-color: rgb(var(--disabled-bg-color-rgb-components));
+  --disabled-bg-color: var(--color--disabled--surface);
   --border-color-rgb-components: 240, 240, 240;
-  --border-color: rgb(var(--border-color-rgb-components));
+  --border-color: var(--color--border);
   --darker-border-color-rgb-components: 215, 215, 215;
-  --darker-border-color: rgb(var(--darker-border-color-rgb-components));
+  --darker-border-color: var(--color--border-hover);
   --alert-color-rgb-components: 255, 94, 73;
-  --alert-color: rgb(var(--alert-color-rgb-components));
+  --alert-color: var(--color--feedback-fail--ink);
   --warning-color-rgb-components: 255, 215, 0;
-  --warning-color: rgb(var(--warning-color-rgb-components));
+  --warning-color: var(--color--feedback-warning--ink);
   --notice-color-rgb-components: 70, 215, 0;
-  --notice-color: rgb(var(--notice-color-rgb-components));
+  --notice-color: var(--color--feedback-success--ink);
   --warning-bg-color-rgb-components: 255, 255, 229;
-  --warning-bg-color: rgb(var(--warning-bg-color-rgb-components));
+  --warning-bg-color: var(--color--feedback-warning--surface);
   --add-color-rgb-components: 76, 176, 109;
-  --add-color: rgb(var(--add-color-rgb-components));
+  --add-color: var(--color--diff-added--surface);
   --remove-color-rgb-components: 235, 87, 106;
-  --remove-color: rgb(var(--remove-color-rgb-components));
+  --remove-color: var(--color--diff-removed--surface);
 
   /* Fonts */
   --base-font-family:
@@ -39,6 +52,7 @@
   --font-weight-bold: 500;
 
   /* Spacing */
+  --spacing-xs: calc(0.25 * 12 * 0.0625rem);
   --spacing-s: calc(0.5 * 12 * 0.0625rem);
   --spacing-m: calc(1 * 12 * 0.0625rem);
   --spacing-l: calc(2 * 12 * 0.0625rem);
@@ -46,6 +60,7 @@
   --spacing-xxl: calc(5 * 12 * 0.0625rem);
   --spacing-xxxl: calc(8 * 12 * 0.0625rem);
 
+  --negative-spacing-xs: calc(-0.25 * 12 * 0.0625rem);
   --negative-spacing-s: calc(-0.5 * 12 * 0.0625rem);
   --negative-spacing-m: calc(-1 * 12 * 0.0625rem);
   --negative-spacing-l: calc(-2 * 12 * 0.0625rem);
@@ -71,7 +86,8 @@
   font-family: var(--base-font-family);
   -webkit-text-size-adjust: 100%;
   line-height: 1.5;
-  color: var(--base-body-color);
+  color: var(--color--ink);
+  background: var(--color--surface);
   font-size: var(--font-size-m);
   text-rendering: optimizeLegibility;
 }

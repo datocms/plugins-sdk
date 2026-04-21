@@ -16,7 +16,7 @@
   -ms-user-select: text;
   user-select: text;
   margin-bottom: 0;
-  color: var(--base-body-color);
+  color: var(--color--ink);
 }
 
 .switchField__below {

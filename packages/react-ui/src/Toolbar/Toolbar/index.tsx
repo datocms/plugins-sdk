@@ -23,7 +23,7 @@ export type ToolbarProps = {
  *       display: 'flex',
  *       justifyContent: 'center',
  *       alignItems: 'center',
- *       background: 'var(--light-bg-color)',
+ *       background: 'var(--color--surface-muted)',
  *       height: '150px',
  *     }}
  *   >
@@ -54,7 +54,7 @@ export type ToolbarProps = {
  *       display: 'flex',
  *       justifyContent: 'center',
  *       alignItems: 'center',
- *       background: 'var(--light-bg-color)',
+ *       background: 'var(--color--surface-muted)',
  *       height: '150px',
  *     }}
  *   >
@@ -83,7 +83,7 @@ export type ToolbarProps = {
  *       display: 'flex',
  *       justifyContent: 'center',
  *       alignItems: 'center',
- *       background: 'var(--light-bg-color)',
+ *       background: 'var(--color--surface-muted)',
  *       height: '150px',
  *     }}
  *   >

@@ -102,8 +102,33 @@ type ProjectProperties = {
     locale: string;
   };
 
-  /** An object containing the theme colors for the current DatoCMS project */
+  /**
+   * An object containing the theme colors for the current DatoCMS project
+   *
+   * @deprecated Use `semanticColorTokensTheme` instead. This property is kept
+   *   for backward compatibility with third-party plugins.
+   */
   theme: Theme;
+
+  /**
+   * Semantic color tokens for the current DatoCMS project, pre-computed by
+   * the host. A map of CSS custom property names (e.g.
+   * `--color--raised--surface`) to their resolved values for the current
+   * color scheme.
+   */
+  semanticColorTokensTheme: SemanticColorTokensTheme;
+
+  /**
+   * The appearance color scheme the host CMS is currently using. Resolved —
+   * `'system'` is already expanded to `'light'` or `'dark'` by the host.
+   *
+   * The SDK runtime reflects this onto `document.documentElement` as
+   * `data-theme="light"` / `data-theme="dark"` so plugin CSS can branch
+   * with `[data-theme="dark"] { … }` selectors. For non-CSS decisions
+   * (choosing a logo asset, a syntax-highlighting preset, …) branch on
+   * `ctx.colorScheme` directly.
+   */
+  colorScheme: 'light' | 'dark';
 };
 
 /**
@@ -144,7 +169,12 @@ type EntityReposProperties = {
   ssoUsers: Partial<Record<string, SsoUser>>;
 };
 
-/** An object containing the theme colors for the current DatoCMS project */
+/**
+ * An object containing the theme colors for the current DatoCMS project
+ *
+ * @deprecated Use `SemanticColorTokensTheme` instead. This type is kept for
+ *   backward compatibility with third-party plugins.
+ */
 export type Theme = {
   primaryColor: string;
   accentColor: string;
@@ -152,6 +182,21 @@ export type Theme = {
   lightColor: string;
   darkColor: string;
 };
+
+/**
+ * Semantic color tokens for the current DatoCMS project, pre-computed by the
+ * host. Only available on DatoCMS hosts that support the new token system.
+ *
+ * Each key is a ready-to-use CSS custom property name (including the leading
+ * `--`), and each value is the resolved color for the host's current color
+ * scheme — e.g. `{ '--color--raised--surface': 'oklch(…)' }`. The SDK applies
+ * these verbatim onto the plugin canvas, so plugin CSS can reference them
+ * directly with `var(--color--raised--surface)`.
+ *
+ * The token set is whatever the host sends; it is intentionally untyped so it
+ * can evolve on the host without an SDK release.
+ */
+export type SemanticColorTokensTheme = Record<string, string>;
 
 export type BaseMethods = LoadDataMethods &
   UpdatePluginParametersMethods &

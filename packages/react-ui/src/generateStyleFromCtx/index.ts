@@ -1,5 +1,5 @@
 import type { CSSProperties } from 'react';
-import { BaseCtx } from '../Canvas';
+import type { BaseCtx } from '../Canvas';
 
 function camelToDash(str: string) {
   if (str === str.toLowerCase()) {
@@ -16,6 +16,7 @@ export function generateStyleFromCtx(
     padding: noBodyPadding
       ? undefined
       : ctx.bodyPadding.map((p) => `${p}px`).join(' '),
+    // Legacy, deprecated color tokens
     ...Object.fromEntries(
       Object.entries(ctx.theme).flatMap(([k, v]) => [
         [`--${camelToDash(k)}`, v],
@@ -25,5 +26,10 @@ export function generateStyleFromCtx(
         ],
       ]),
     ),
+    // Semantic color tokens arrive keyed by their final CSS custom property
+    // name (e.g. `--color--raised--surface`), so they're applied verbatim. The
+    // SDK stays agnostic of the token vocabulary: whatever the host sends ends
+    // up on the canvas, and plugin CSS references it with `var(--…)`.
+    ...ctx.semanticColorTokensTheme,
   };
 }

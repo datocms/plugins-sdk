@@ -1,6 +1,6 @@
 .formLabel {
   display: flex;
-  color: var(--light-body-color);
+  color: var(--color--ink-subtle);
   margin-bottom: var(--spacing-s);
   align-items: center;
 
@@ -12,7 +12,7 @@
 }
 
 .formLabel--error {
-  color: var(--alert-color);
+  color: var(--color--feedback-fail--ink);
 }
 
 .formLabel__label {

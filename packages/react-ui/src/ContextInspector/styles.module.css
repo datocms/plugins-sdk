@@ -3,7 +3,7 @@
 }
 
 .panel {
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--color--border);
 }
 
 .panelHandle {
@@ -12,20 +12,20 @@
   box-sizing: border-box;
   width: 100%;
   font-weight: var(--font-weight-bold);
-  background: var(--light-bg-color);
+  background: var(--color--surface-muted);
   border: 0;
   padding: 5px 10px;
   cursor: pointer;
 
   &:hover {
-    background: var(--lighter-bg-color);
+    background: var(--color--surface-hover);
   }
 }
 
 .panelBody {
   padding: 20px;
-  border-left: 1px solid var(--border-color);
-  border-right: 1px solid var(--border-color);
+  border-left: 1px solid var(--color--border);
+  border-right: 1px solid var(--color--border);
 }
 
 .groupDescription {
@@ -35,12 +35,12 @@
 }
 
 .propertyGroup {
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--color--border);
   border-radius: 5px;
 }
 
 .propertyOrMethod {
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--color--border);
   line-height: 1.2;
 
   p {
@@ -57,7 +57,7 @@
 
   pre {
     padding: 15px;
-    background: var(--light-bg-color);
+    background: var(--color--surface-muted);
     font-size: 0.8em;
     margin: 0;
     max-height: 240px;
@@ -69,7 +69,7 @@
   display: block;
   text-decoration: none;
   font-weight: bold;
-  color: var(--light-body-color);
+  color: var(--color--ink-subtle);
   font-family: var(--monospaced-font-family);
   font-size: 0.9em;
   margin-bottom: 5px;
@@ -81,7 +81,7 @@
 
 .propertyOrMethodExampleActions {
   padding: 15px;
-  background: white;
+  background: var(--color--surface);
   display: flex;
 
   > * {
