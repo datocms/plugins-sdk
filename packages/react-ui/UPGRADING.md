@@ -51,13 +51,26 @@ icons render with `fill="currentColor"` and inherit the surrounding
 
 ### Deprecated CSS variables
 
-The legacy color custom properties (`--border-color`, `--base-body-color`,
-`--alert-color`, `--add-color`, etc.) are still defined for backward
-compatibility. Each one now resolves to the closest semantic token first,
-falling back to its original light-mode value if the token is unavailable.
+Two groups of legacy color variables remain available for backward
+compatibility, but **both are deprecated and will be removed in a future
+major version**. Migrate everything to the `--color--*` semantic tokens.
 
-These will be removed in a future major version. Migrate to the
-`--color--*` tokens documented above.
+**Structural legacy vars** — defined inside `<Canvas>` (e.g.
+`--border-color`, `--base-body-color`, `--light-bg-color`, `--alert-color`,
+`--add-color`, `--remove-color`, …). Each one now resolves to the closest
+semantic token first, falling back to its original light-mode value if the
+token is unavailable. So a v3 plugin that still uses them will follow the
+active theme.
+
+**Theme-derived legacy vars** — `--accent-color`, `--primary-color`,
+`--light-color`, `--dark-color`, `--semi-transparent-accent-color` (plus
+their `*-rgb-components` counterparts). These are emitted from the
+deprecated `ctx.theme` field, which the host now pins to **light values
+only**, regardless of the active theme. Mixing these with the new
+`--color--*` tokens in dark mode will produce a light accent on a dark
+surface — visibly mismatched. Replace them with the corresponding
+semantic tokens (`--color--accent--surface`, `--color--accent--ink`,
+`--color--primary--surface`, etc.).
 
 Non-color tokens (`--spacing-*`, `--font-size-*`, `--font-weight-bold`,
 `--material-ease`, font families) are stable and remain available.
