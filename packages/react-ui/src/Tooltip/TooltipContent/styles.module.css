@@ -1,7 +1,7 @@
 .tooltip {
   padding: 10px 15px;
-  box-shadow: 0 1px 9px rgba(0, 0, 0, 0.2);
-  background: white;
+  box-shadow: 0 1px 9px var(--color--shadow);
+  background: var(--color--raised--surface);
   border-radius: 4px;
   max-width: 400px;
   word-wrap: break-word;

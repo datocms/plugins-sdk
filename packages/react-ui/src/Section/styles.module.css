@@ -9,7 +9,7 @@
   right: -30px;
   bottom: -20px;
   left: -30px;
-  box-shadow: 0 0 0 4px var(--accent-color);
+  box-shadow: 0 0 0 4px var(--color--focus--border);
   border-radius: 4px;
   animation: pageContentSectionHighligh 4s 0.25s ease-in-out forwards;
   pointer-events: none;
@@ -30,7 +30,7 @@
     left: 0;
     right: 0;
     height: 1px;
-    background-color: var(--border-color);
+    background-color: var(--color--border);
     z-index: 1;
   }
 }
@@ -42,7 +42,7 @@
   margin-right: var(--spacing-l);
   padding-left: var(--spacing-m);
   padding-right: var(--spacing-m);
-  background-color: white;
+  background-color: var(--color--surface);
   position: relative;
   z-index: 2;
   display: inline-flex;
@@ -66,7 +66,7 @@
     width: 0;
     border-top: 6px solid transparent;
     border-bottom: 6px solid transparent;
-    border-left: 6px solid var(--base-body-color);
+    border-left: 6px solid var(--color--ink);
     left: 14px;
     top: 50%;
     margin-top: -6px;
@@ -85,14 +85,14 @@
 
 @keyframes pageContentSectionHighligh {
   0% {
-    box-shadow: 0 0 0 4px var(--accent-color),
-      0 0 0 4px rgba(var(--accent-color-rgb-components), 0.7);
+    box-shadow: 0 0 0 4px var(--color--focus--border),
+      0 0 0 4px var(--color--focus--outline);
   }
   15% {
-    box-shadow: 0 0 0 4px var(--accent-color), 0 0 0 80px transparent;
+    box-shadow: 0 0 0 4px var(--color--focus--border), 0 0 0 80px transparent;
   }
   75% {
-    box-shadow: 0 0 0 4px var(--accent-color), 0 0 0 80px transparent;
+    box-shadow: 0 0 0 4px var(--color--focus--border), 0 0 0 80px transparent;
   }
   100% {
     box-shadow: 0 0 0 4px transparent, 0 0 0 80px transparent;

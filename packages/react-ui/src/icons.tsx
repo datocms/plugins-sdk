@@ -16,6 +16,7 @@ export function BackIcon({
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
+      fill="currentColor"
       viewBox="0 0 256 512"
       width={width}
       height={height}
@@ -36,6 +37,7 @@ export function SidebarLeftArrowIcon({
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
+      fill="currentColor"
       viewBox="0 0 448 512"
       width={width}
       height={height}
@@ -56,6 +58,7 @@ export function SidebarRightArrowIcon({
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
+      fill="currentColor"
       viewBox="0 0 448 512"
       width={width}
       height={height}
@@ -76,6 +79,7 @@ export function CaretDownIcon({
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
+      fill="currentColor"
       viewBox="0 0 320 512"
       width={width}
       height={height}
@@ -96,6 +100,7 @@ export function CaretUpIcon({
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
+      fill="currentColor"
       viewBox="0 0 320 512"
       width={width}
       height={height}
@@ -116,6 +121,7 @@ export function ChevronsLeftIcon({
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
+      fill="currentColor"
       viewBox="0 0 512 512"
       width={width}
       height={height}
@@ -136,6 +142,7 @@ export function ChevronsRightIcon({
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
+      fill="currentColor"
       viewBox="0 0 512 512"
       width={width}
       height={height}
@@ -156,6 +163,7 @@ export function SidebarFlipIcon({
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
+      fill="currentColor"
       viewBox="0 0 512 512"
       width={width}
       height={height}

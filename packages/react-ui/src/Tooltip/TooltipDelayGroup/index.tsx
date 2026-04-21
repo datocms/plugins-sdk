@@ -87,8 +87,8 @@ export type TooltipDelayGroupProps = {
  *       display: 'flex',
  *       gap: 'var(--spacing-xs)',
  *       padding: 'var(--spacing-s)',
- *       borderRadius: 'var(--border-radius-m)',
- *       backgroundColor: 'var(--light-bg-color)'
+ *       borderRadius: '4px',
+ *       backgroundColor: 'var(--color--surface-muted)'
  *     }}>
  *       <Tooltip>
  *         <TooltipTrigger>

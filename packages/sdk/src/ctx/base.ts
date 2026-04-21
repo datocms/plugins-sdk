@@ -83,8 +83,20 @@ type ProjectProperties = {
     locale: string;
   };
 
-  /** An object containing the theme colors for the current DatoCMS project */
+  /**
+   * An object containing the theme colors for the current DatoCMS project
+   *
+   * @deprecated Use `semanticColorTokensTheme` instead. This property is kept
+   *   for backward compatibility with third-party plugins.
+   */
   theme: Theme;
+
+  /**
+   * Semantic color tokens for the current DatoCMS project, pre-computed by
+   * the host. Only available on DatoCMS hosts that support the new token
+   * system.
+   */
+  semanticColorTokensTheme: SemanticColorTokensTheme;
 };
 
 /**
@@ -125,7 +137,12 @@ type EntityReposProperties = {
   ssoUsers: Partial<Record<string, SsoUser>>;
 };
 
-/** An object containing the theme colors for the current DatoCMS project */
+/**
+ * An object containing the theme colors for the current DatoCMS project
+ *
+ * @deprecated Use `SemanticColorTokensTheme` instead. This type is kept for
+ *   backward compatibility with third-party plugins.
+ */
 export type Theme = {
   primaryColor: string;
   accentColor: string;
@@ -133,6 +150,162 @@ export type Theme = {
   lightColor: string;
   darkColor: string;
 };
+
+/**
+ * Known semantic color tokens provided by the DatoCMS host.
+ * All properties are optional — the host may not send all of them.
+ *
+ * camelCase keys are converted to kebab-case CSS custom properties via
+ * `camelToDash`. For example, `colorRaisedSurface` becomes
+ * `--color-raised-surface`.
+ */
+type KnownSemanticColorTokens = {
+  /* --- Standalone --- */
+  colorSurface?: string;
+  colorSurfaceHover?: string;
+  colorSurfaceMuted?: string;
+  colorInk?: string;
+  colorInkSubtle?: string;
+  colorInkHover?: string;
+  colorInkMuted?: string;
+  colorInkPlaceholder?: string;
+  colorInkPrimary?: string;
+  colorInkAccent?: string;
+  colorInkDisabled?: string;
+  colorBorder?: string;
+  colorBorderHover?: string;
+
+  /* --- Context: raised --- */
+  colorRaisedSurface?: string;
+  colorRaisedSurfaceHover?: string;
+  colorRaisedSurfaceActive?: string;
+
+  /* --- Context: primary --- */
+  colorPrimarySurface?: string;
+  colorPrimarySurfaceHover?: string;
+  colorPrimarySurfaceActive?: string;
+  colorPrimarySurfaceMuted?: string;
+  colorPrimaryInk?: string;
+  colorPrimaryBorder?: string;
+
+  /* --- Context: tinted --- */
+  colorTintedSurface?: string;
+  colorTintedSurfaceHover?: string;
+  colorTintedSurfaceActive?: string;
+  colorTintedInk?: string;
+
+  /* --- Context: accent --- */
+  colorAccentSurface?: string;
+  colorAccentInk?: string;
+
+  /* --- Context: selected --- */
+  colorSelectedSurface?: string;
+  colorSelectedInk?: string;
+  colorSelectedBorder?: string;
+
+  /* --- Context: disabled --- */
+  colorDisabledSurface?: string;
+  colorDisabledInk?: string;
+
+  /* --- Context: danger --- */
+  colorDangerSurface?: string;
+  colorDangerInk?: string;
+
+  /* --- Context: enterprise --- */
+  colorEnterpriseSurface?: string;
+
+  /* --- Context: focus --- */
+  colorFocusBorder?: string;
+  colorFocusOutline?: string;
+
+  /* --- Feedback --- */
+  colorFeedbackFailInk?: string;
+  colorFeedbackFailBorder?: string;
+  colorFeedbackFailOutline?: string;
+  colorFeedbackWarningInk?: string;
+  colorFeedbackWarningSurface?: string;
+  colorFeedbackSuccessInk?: string;
+  colorFeedbackWarningBorder?: string;
+  colorFeedbackSuccessBorder?: string;
+
+  /* --- Context: highlight --- */
+  colorHighlightSurface?: string;
+
+  /* --- Diffs --- */
+  colorDiffAddedSurface?: string;
+  colorDiffRemovedSurface?: string;
+  colorDiffChangedSurface?: string;
+  colorDiffAddedSurfaceSubtle?: string;
+  colorDiffRemovedSurfaceSubtle?: string;
+  colorDiffChangedSurfaceSubtle?: string;
+  colorDiffAddedOutlineSubtle?: string;
+  colorDiffRemovedOutlineSubtle?: string;
+  colorDiffChangedOutlineSubtle?: string;
+  colorDiffChangedBorder?: string;
+  colorDiffChangedBorderNegative?: string;
+
+  /* --- Status --- */
+  colorStatusDraftInk?: string;
+  colorStatusOutdatedInk?: string;
+  colorStatusPublishedInk?: string;
+
+  /* --- Backdrop --- */
+  colorBackdropSurface?: string;
+  colorBackdropInk?: string;
+
+  /* --- Overlay --- */
+  colorOverlaySurface?: string;
+  colorOverlaySurfaceSubtle?: string;
+  colorOverlayInk?: string;
+
+  /* --- Stacked --- */
+  colorStackedSurfaceBase?: string;
+  colorStackedSurface?: string;
+  colorStackedSurfaceRaised?: string;
+  colorStackedInk?: string;
+  colorStackedInkSubtle?: string;
+  colorStackedBorder?: string;
+  colorStackedSurfaceHover?: string;
+  colorStackedSurfaceTranslucent?: string;
+  colorStackedSurfaceButton?: string;
+  colorStackedSurfaceButtonActive?: string;
+
+  /* --- Progress --- */
+  colorProgressTrack?: string;
+  colorProgressFill?: string;
+  colorProgressFillHover?: string;
+
+  /* --- Tooltip --- */
+  colorTooltipSurface?: string;
+  colorTooltipSurfaceHover?: string;
+  colorTooltipInk?: string;
+  colorTooltipInkSubtle?: string;
+
+  /* --- Code --- */
+  colorCodeSurface?: string;
+  colorCodeInk?: string;
+
+  /* --- Shadows --- */
+  colorShadowSubtle?: string;
+  colorShadow?: string;
+  colorShadowStrong?: string;
+
+  /* --- Scrollbar --- */
+  colorScrollbar?: string;
+
+  /* --- Shadow composites --- */
+  shadowElevated?: string;
+  shadowFloat?: string;
+  shadowAmbient?: string;
+};
+
+/**
+ * Semantic color tokens for the current DatoCMS project, pre-computed by the
+ * host. Known tokens get autocomplete; unknown tokens are accepted via the
+ * index signature for forward compatibility.
+ */
+export type SemanticColorTokensTheme = KnownSemanticColorTokens &
+  Record<string, string>;
 
 export type BaseMethods = LoadDataMethods &
   UpdatePluginParametersMethods &

@@ -18,15 +18,15 @@ const themeConfig: ThemeConfig = (existing) => ({
   borderRadius: 0,
   colors: {
     ...existing.colors,
-    primary25: 'var(--semi-transparent-accent-color)',
+    primary25: 'var(--color--surface-hover)',
     // disabled
-    neutral10: 'var(--border-color)',
+    neutral10: 'var(--color--border)',
     // normal
-    neutral20: 'var(--border-color)',
+    neutral20: 'var(--color--border)',
     // focused
-    primary: 'var(--accent-color)',
+    primary: 'var(--color--focus--border)',
     // hover
-    neutral30: 'var(--darker-border-color)',
+    neutral30: 'var(--color--border-hover)',
   },
 });
 
@@ -35,7 +35,7 @@ const useStyles = (isDisabled?: boolean, error?: boolean) => {
     return {
       placeholder: (provided) => ({
         ...provided,
-        color: 'var(--placeholder-body-color)',
+        color: 'var(--color--ink-placeholder)',
       }),
       container: (provided) => {
         return {
@@ -55,27 +55,37 @@ const useStyles = (isDisabled?: boolean, error?: boolean) => {
         if (isFocused) {
           return {
             ...result,
-            borderColor: error ? 'var(--alert-color)' : 'var(--accent-color)',
-            backgroundColor: isDisabled ? 'var(--disabled-color)' : 'white',
+            borderColor: error
+              ? 'var(--color--feedback-fail--border)'
+              : 'var(--color--focus--border)',
+            backgroundColor: isDisabled
+              ? 'var(--color--disabled--surface)'
+              : 'var(--color--surface)',
             boxShadow: `0 0 0 3px ${
               error
-                ? 'rgba(var(--alert-color-rgb-components), 0.2)'
-                : 'var(--semi-transparent-accent-color)'
+                ? 'var(--color--feedback-fail--outline)'
+                : 'var(--color--focus--outline)'
             }`,
             '&:hover': {
-              borderColor: error ? 'var(--alert-color)' : 'var(--accent-color)',
+              borderColor: error
+                ? 'var(--color--feedback-fail--border)'
+                : 'var(--color--focus--border)',
             },
           };
         }
 
         return {
           ...result,
-          borderColor: error ? 'var(--alert-color)' : 'var(--border-color)',
-          backgroundColor: isDisabled ? 'var(--disabled-color)' : 'white',
+          borderColor: error
+            ? 'var(--color--feedback-fail--border)'
+            : 'var(--color--border)',
+          backgroundColor: isDisabled
+            ? 'var(--color--disabled--surface)'
+            : 'var(--color--surface)',
           '&:hover': {
             borderColor: error
-              ? 'var(--alert-color)'
-              : 'var(--darker-border-color)',
+              ? 'var(--color--feedback-fail--border)'
+              : 'var(--color--border-hover)',
           },
         };
       },
@@ -88,24 +98,35 @@ const useStyles = (isDisabled?: boolean, error?: boolean) => {
           ...provided,
           zIndex: 1000,
           minWidth: 250,
+          backgroundColor: 'var(--color--raised--surface)',
         };
       },
-      input: (provided) => {
-        const result = {
-          ...provided,
+      singleValue: (provided) => ({
+        ...provided,
+        color: 'var(--color--ink)',
+      }),
+      input: (provided) => ({
+        ...provided,
+        color: 'var(--color--ink)',
+        boxShadow: 'none',
+        'input:focus': {
           boxShadow: 'none',
-          'input:focus': {
-            boxShadow: 'none',
-          },
-        };
-
-        return result;
-      },
+        },
+      }),
+      option: (provided, { isFocused, isSelected }) => ({
+        ...provided,
+        backgroundColor: isSelected
+          ? 'var(--color--selected--surface)'
+          : isFocused
+            ? 'var(--color--surface-hover)'
+            : undefined,
+        color: 'var(--color--ink)',
+      }),
       multiValue: (provided) => {
         return {
           ...provided,
           zIndex: 100,
-          backgroundColor: 'var(--light-color)',
+          backgroundColor: 'var(--color--tinted--surface)',
           userSelect: 'none',
         };
       },

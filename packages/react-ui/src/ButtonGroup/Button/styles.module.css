@@ -2,8 +2,8 @@
   font-family: inherit;
   cursor: pointer;
   line-height: inherit;
-  background-color: white;
-  color: var(--base-body-color);
+  background-color: var(--color--surface);
+  color: var(--color--ink);
   -webkit-appearance: none;
   -moz-appearance: none;
   font-size: inherit;
@@ -11,22 +11,20 @@
   border: 0;
   padding: 0;
   padding: 7px 13px;
-  border-right: 1px solid var(--border-color);
-  border: 1px solid var(--border-color);
-  border-left-width: 0;
+  border: 1px solid var(--color--border);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-column: center;
-  color: rgba(var(--base-body-color-rgb-components, 0.6));
+  color: var(--color--ink-subtle);
 }
 
 .Button:hover {
-  background-color: var(--light-bg-color);
+  background-color: var(--color--surface-hover);
 }
 
 .Button svg {
-  fill: var(--light-body-color);
+  fill: var(--color--ink-subtle);
 }
 
 .Button--s {
@@ -35,31 +33,31 @@
 
 .Button--disabled {
   cursor: not-allowed;
-  color: var(--light-body-color);
+  color: var(--color--disabled--ink);
 }
 
 .Button--disabled:hover {
-  background: white;
+  background: var(--color--surface);
 }
 
 .Button--selected {
-  background-color: var(--accent-color);
-  border-color: var(--accent-color);
-  color: white;
+  background-color: var(--color--accent--surface);
+  border-color: var(--color--selected--border);
+  color: var(--color--accent--ink);
 }
 
 .Button--selected svg {
-  fill: white;
+  fill: var(--color--accent--ink);
 }
 
 .Button--selected:hover {
-  background-color: var(--accent-color);
+  background-color: var(--color--accent--surface);
 }
 
 .Button--selected:hover,
 .Button--selected.Button--disabled {
-  background-color: rgba(var(--accent-color-rgb-components), 0.8);
-  border-color: rgba(var(--accent-color-rgb-components), 0.8);
+  background-color: var(--color--accent--surface);
+  border-color: var(--color--selected--border);
 }
 
 .Button:first-child {

@@ -10,35 +10,37 @@
 
 .Dropdown__menu__search {
   padding: 7px;
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--color--border);
 }
 
 .Dropdown__menu__search__input {
   display: block;
   box-sizing: border-box;
   width: 100%;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--color--border);
   appearance: none;
+  background-color: var(--color--surface);
   background-image: none;
   transition: border 0.2s var(--material-ease);
   resize: none;
   font-family: inherit;
+  color: inherit;
   padding: 8px;
   border-radius: 3px;
   font-size: 0.9em;
 
   &::placeholder {
-    color: var(--placeholder-body-color);
+    color: var(--color--ink-placeholder);
   }
 
   &:hover {
-    border-color: var(--darker-border-color);
+    border-color: var(--color--border-hover);
   }
 
   &:focus {
     outline: 0;
-    border-color: var(--accent-color);
-    box-shadow: 0 0 0 3px var(--semi-transparent-accent-color);
+    border-color: var(--color--focus--border);
+    box-shadow: 0 0 0 3px var(--color--focus--outline);
   }
 }
 
@@ -49,8 +51,8 @@
 
 .Dropdown__menu {
   min-width: 200px;
-  background-color: white;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  background-color: var(--color--raised--surface);
+  box-shadow: 0 3px 10px var(--color--shadow);
   border-radius: 4px;
   margin-bottom: var(--spacing-xl);
   padding: 1px 0;
@@ -64,8 +66,8 @@
 
 .Dropdown__menu__group__title {
   padding: 5px 15px 3px;
-  color: var(--light-body-color);
-  background-color: var(--light-bg-color);
+  color: var(--color--ink-subtle);
+  background-color: var(--color--surface-muted);
   text-transform: uppercase;
   font-size: var(--font-size-xs);
 }
@@ -77,7 +79,7 @@
 .Dropdown__menu__text {
   text-align: left;
   padding: 4px 15px;
-  color: var(--light-body-color);
+  color: var(--color--ink-subtle);
   position: relative;
   display: block;
   line-height: 1.2;
@@ -86,7 +88,7 @@
 .Dropdown__menu__option {
   text-align: left;
   padding: 4px 15px;
-  color: var(--base-body-color);
+  color: var(--color--ink);
   position: relative;
   text-decoration: none;
   white-space: nowrap;
@@ -95,7 +97,7 @@
 
   &:hover,
   &:focus {
-    background-color: var(--light-bg-color);
+    background-color: var(--color--surface-hover);
   }
 
   & > a {
@@ -106,7 +108,7 @@
 }
 
 .Dropdown__menu__option--is-selected {
-  background-color: var(--light-bg-color);
+  background-color: var(--color--selected--surface);
 }
 
 .Dropdown__menu__option--is-disabled {
@@ -118,19 +120,19 @@
 }
 
 .Dropdown__menu__option--is-dangerous {
-  color: var(--alert-color);
+  color: var(--color--feedback-fail--ink);
 
   svg {
-    fill: var(--alert-color);
+    fill: var(--color--feedback-fail--ink);
   }
 
   &:hover,
   &:focus {
-    background-color: var(--alert-color);
-    color: white;
+    background-color: var(--color--danger--surface);
+    color: var(--color--danger--ink);
 
     svg {
-      fill: white;
+      fill: var(--color--danger--ink);
     }
   }
 }
@@ -161,7 +163,7 @@
     border-radius: 4px;
     height: 8px;
     width: 8px;
-    background-color: var(--alert-color);
+    background-color: var(--color--danger--surface);
   }
 }
 
@@ -186,8 +188,8 @@
     padding-right: 8px;
     display: inline-block;
     vertical-align: middle;
-    color: var(--light-body-color);
-    fill: var(--light-body-color);
+    color: var(--color--ink-subtle);
+    fill: var(--color--ink-subtle);
   }
 }
 
@@ -202,7 +204,7 @@
   cursor: pointer;
   line-height: inherit;
   background-color: transparent;
-  color: var(--base-body-color);
+  color: var(--color--ink);
   -webkit-appearance: none;
   -moz-appearance: none;
   box-sizing: border-box;
@@ -213,7 +215,7 @@
   width: auto;
   opacity: 0;
   line-height: 10px;
-  color: var(--light-body-color);
+  color: var(--color--ink-subtle);
   padding: 3px;
   font-size: 13px;
   position: relative;
@@ -234,21 +236,21 @@
   }
 
   svg {
-    fill: var(--light-body-color);
+    fill: var(--color--ink-subtle);
   }
 }
 
 .Dropdown__menu__option__icon--delete {
-  color: var(--alert-color);
+  color: var(--color--feedback-fail--ink);
   svg {
-    fill: var(--alert-color);
+    fill: var(--color--feedback-fail--ink);
   }
 }
 
 .Dropdown__menu__separator {
   margin: 8px 0;
   height: 1px;
-  background-color: var(--border-color);
+  background-color: var(--color--border);
 }
 
 .Dropdown__menu {

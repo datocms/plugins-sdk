@@ -61,7 +61,7 @@ function calculateSizes({
  *           Main content
  *         </div>
  *       </div>
- *       <div style={{ display: 'flex', flexDirection: 'column', height: '100%', borderLeft: '1px solid var(--border-color)' }}>
+ *       <div style={{ display: 'flex', flexDirection: 'column', height: '100%', borderLeft: '1px solid var(--color--border)' }}>
  *         <Toolbar>
  *           <ToolbarStack stackSize="l">
  *             <ToolbarTitle>Secondary</ToolbarTitle>
@@ -108,7 +108,7 @@ function calculateSizes({
  *           Sidebar
  *         </div>
  *       </div>
- *       <div style={{ display: 'flex', flexDirection: 'column', height: '100%', borderLeft: '1px solid var(--border-color)' }}>
+ *       <div style={{ display: 'flex', flexDirection: 'column', height: '100%', borderLeft: '1px solid var(--color--border)' }}>
  *         <Toolbar>
  *           <ToolbarStack stackSize="l">
  *             <ToolbarTitle>Primary</ToolbarTitle>
@@ -168,7 +168,7 @@ function calculateSizes({
  *                display: 'flex',
  *                flexDirection: 'column',
  *                height: '100%',
- *                borderLeft: '1px solid var(--border-color)',
+ *                borderLeft: '1px solid var(--color--border)',
  *              }}
  *            >
  *              <Toolbar>
@@ -233,7 +233,7 @@ function calculateSizes({
  *                display: 'flex',
  *                flexDirection: 'column',
  *                height: '100%',
- *                borderLeft: '1px solid var(--border-color)',
+ *                borderLeft: '1px solid var(--color--border)',
  *              }}
  *            >
  *              <Toolbar>

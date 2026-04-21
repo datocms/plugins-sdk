@@ -7,7 +7,7 @@
   cursor: pointer;
   line-height: inherit;
   background-color: transparent;
-  color: var(--base-body-color);
+  color: var(--color--ink);
   -webkit-appearance: none;
   -moz-appearance: none;
   border-radius: 4px;
@@ -32,56 +32,56 @@
 }
 
 .buttonType-muted {
-  background-color: var(--light-color);
-  color: var(--accent-color);
+  background-color: var(--color--tinted--surface);
+  color: var(--color--tinted--ink);
 
   &.disabled {
-    background-color: var(--light-bg-color);
-    color: rgba(0, 0, 0, 0.2);
+    background-color: var(--color--disabled--surface);
+    color: var(--color--disabled--ink);
 
     &:hover,
     &:focus,
     &:active {
-      color: rgba(0, 0, 0, 0.2);
+      color: var(--color--disabled--ink);
     }
   }
 }
 
 .buttonType-primary {
-  background-color: var(--accent-color);
-  color: white;
+  background-color: var(--color--primary--surface);
+  color: var(--color--primary--ink);
 
   &:hover,
   &:focus,
   &:active {
-    color: white;
+    color: var(--color--primary--ink);
   }
 
   &.disabled {
-    background-color: var(--disabled-bg-color);
-    color: rgba(0, 0, 0, 0.2);
+    background-color: var(--color--disabled--surface);
+    color: var(--color--disabled--ink);
     &:hover,
     &:focus,
     &:active {
-      color: rgba(0, 0, 0, 0.2);
+      color: var(--color--disabled--ink);
     }
   }
 }
 
 .buttonType-negative {
-  background-color: var(--alert-color);
-  color: white;
+  background-color: var(--color--danger--surface);
+  color: var(--color--danger--ink);
 
   &:hover,
   &:focus,
   &:active {
-    color: white;
-    background-color: var(--alert-color);
+    color: var(--color--danger--ink);
+    background-color: var(--color--danger--surface);
   }
 
   &.disabled {
-    background-color: var(--disabled-bg-color);
-    color: rgba(0, 0, 0, 0.2);
+    background-color: var(--color--disabled--surface);
+    color: var(--color--disabled--ink);
   }
 }
 
@@ -128,7 +128,7 @@
   line-height: 0.6;
 
   svg {
-    fill: var(--accent-color);
+    fill: var(--color--ink-accent);
   }
 }
 

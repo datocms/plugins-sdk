@@ -12,7 +12,7 @@
 
 .Spinner__bar {
   animation: Spinner__spin 1.2s linear infinite;
-  background-color: var(--light-body-color);
+  background-color: var(--color--ink-subtle);
   position: absolute;
   width: 40%;
   height: 14%;

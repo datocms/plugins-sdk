@@ -1,7 +1,7 @@
 .Toolbar {
   display: flex;
-  border-bottom: 1px solid var(--border-color);
-  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--color--border);
+  border-top: 1px solid var(--color--border);
   align-items: stretch;
   position: relative;
 }

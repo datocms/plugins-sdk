@@ -34,281 +34,84 @@ export type CanvasProps = {
 };
 
 /**
- * @example Color palette CSS variables
+ * @example Semantic color token CSS variables
  *
- * Within the `Canvas` component, a color palette is made available as a set of
+ * Within the `Canvas` component, semantic color tokens are made available as
  * CSS variables, allowing you to conform to the theme of the current
- * environment:
+ * environment (including dark mode):
  *
  * ```js
  * <Canvas ctx={ctx}>
- *   <Section title="Text colors">
+ *   <Section title="Standalone">
  *     <table>
  *       <tbody>
- *         <tr>
- *           <td>
- *             <code>--base-body-color</code>
- *           </td>
- *           <td width="30%">
- *             <div
- *               style={{
- *                 width: '30px',
- *                 height: '30px',
- *                 background: 'var(--base-body-color)',
- *               }}
- *             />
- *           </td>
- *         </tr>
- *         <tr>
- *           <td>
- *             <code>--light-body-color</code>
- *           </td>
- *           <td width="30%">
- *             <div
- *               style={{
- *                 width: '30px',
- *                 height: '30px',
- *                 background: 'var(--light-body-color)',
- *               }}
- *             />
- *           </td>
- *         </tr>
- *         <tr>
- *           <td>
- *             <code>--placeholder-body-color</code>
- *           </td>
- *           <td width="30%">
- *             <div
- *               style={{
- *                 width: '30px',
- *                 height: '30px',
- *                 background: 'var(--placeholder-body-color)',
- *               }}
- *             />
- *           </td>
- *         </tr>
+ *         {[
+ *           '--color--surface',
+ *           '--color--surface-hover',
+ *           '--color--surface-muted',
+ *           '--color--ink',
+ *           '--color--ink-subtle',
+ *           '--color--ink-placeholder',
+ *           '--color--ink-accent',
+ *           '--color--border',
+ *           '--color--border-hover',
+ *         ].map((v) => (
+ *           <tr key={v}>
+ *             <td><code>{v}</code></td>
+ *             <td width="30%">
+ *               <div style={{ width: '30px', height: '30px', background: `var(${v})` }} />
+ *             </td>
+ *           </tr>
+ *         ))}
  *       </tbody>
  *     </table>
  *   </Section>
- *   <Section title="UI colors">
+ *   <Section title="Contexts">
  *     <table>
  *       <tbody>
- *         <tr>
- *           <td>
- *             <code>--light-bg-color</code>
- *           </td>
- *           <td width="30%">
- *             <div
- *               style={{
- *                 width: '30px',
- *                 height: '30px',
- *                 background: 'var(--light-bg-color)',
- *               }}
- *             />
- *           </td>
- *         </tr>
- *         <tr>
- *           <td>
- *             <code>--lighter-bg-color</code>
- *           </td>
- *           <td width="30%">
- *             <div
- *               style={{
- *                 width: '30px',
- *                 height: '30px',
- *                 background: 'var(--lighter-bg-color)',
- *               }}
- *             />
- *           </td>
- *         </tr>
- *         <tr>
- *           <td>
- *             <code>--disabled-bg-color</code>
- *           </td>
- *           <td width="30%">
- *             <div
- *               style={{
- *                 width: '30px',
- *                 height: '30px',
- *                 background: 'var(--disabled-bg-color)',
- *               }}
- *             />
- *           </td>
- *         </tr>
- *         <tr>
- *           <td>
- *             <code>--border-color</code>
- *           </td>
- *           <td width="30%">
- *             <div
- *               style={{
- *                 width: '30px',
- *                 height: '30px',
- *                 background: 'var(--border-color)',
- *               }}
- *             />
- *           </td>
- *         </tr>
- *         <tr>
- *           <td>
- *             <code>--darker-border-color</code>
- *           </td>
- *           <td width="30%">
- *             <div
- *               style={{
- *                 width: '30px',
- *                 height: '30px',
- *                 background: 'var(--darker-border-color)',
- *               }}
- *             />
- *           </td>
- *         </tr>
- *         <tr>
- *           <td>
- *             <code>--alert-color</code>
- *           </td>
- *           <td width="30%">
- *             <div
- *               style={{
- *                 width: '30px',
- *                 height: '30px',
- *                 background: 'var(--alert-color)',
- *               }}
- *             />
- *           </td>
- *         </tr>
- *         <tr>
- *           <td>
- *             <code>--warning-color</code>
- *           </td>
- *           <td width="30%">
- *             <div
- *               style={{
- *                 width: '30px',
- *                 height: '30px',
- *                 background: 'var(--warning-color)',
- *               }}
- *             />
- *           </td>
- *         </tr>
- *         <tr>
- *           <td>
- *             <code>--notice-color</code>
- *           </td>
- *           <td width="30%">
- *             <div
- *               style={{
- *                 width: '30px',
- *                 height: '30px',
- *                 background: 'var(--notice-color)',
- *               }}
- *             />
- *           </td>
- *         </tr>
- *         <tr>
- *           <td>
- *             <code>--warning-bg-color</code>
- *           </td>
- *           <td width="30%">
- *             <div
- *               style={{
- *                 width: '30px',
- *                 height: '30px',
- *                 background: 'var(--warning-bg-color)',
- *               }}
- *             />
- *           </td>
- *         </tr>
- *         <tr>
- *           <td>
- *             <code>--add-color</code>
- *           </td>
- *           <td width="30%">
- *             <div
- *               style={{
- *                 width: '30px',
- *                 height: '30px',
- *                 background: 'var(--add-color)',
- *               }}
- *             />
- *           </td>
- *         </tr>
- *         <tr>
- *           <td>
- *             <code>--remove-color</code>
- *           </td>
- *           <td width="30%">
- *             <div
- *               style={{
- *                 width: '30px',
- *                 height: '30px',
- *                 background: 'var(--remove-color)',
- *               }}
- *             />
- *           </td>
- *         </tr>
+ *         {[
+ *           '--color--primary--surface',
+ *           '--color--primary--ink',
+ *           '--color--tinted--surface',
+ *           '--color--tinted--ink',
+ *           '--color--accent--surface',
+ *           '--color--accent--ink',
+ *           '--color--selected--surface',
+ *           '--color--danger--surface',
+ *           '--color--danger--ink',
+ *           '--color--disabled--surface',
+ *           '--color--disabled--ink',
+ *           '--color--focus--border',
+ *           '--color--focus--outline',
+ *         ].map((v) => (
+ *           <tr key={v}>
+ *             <td><code>{v}</code></td>
+ *             <td width="30%">
+ *               <div style={{ width: '30px', height: '30px', background: `var(${v})` }} />
+ *             </td>
+ *           </tr>
+ *         ))}
  *       </tbody>
  *     </table>
  *   </Section>
- *   <Section title="Project-specific colors">
+ *   <Section title="Feedback">
  *     <table>
  *       <tbody>
- *         <tr>
- *           <td>
- *             <code>--accent-color</code>
- *           </td>
- *           <td width="30%">
- *             <div
- *               style={{
- *                 width: '30px',
- *                 height: '30px',
- *                 background: 'var(--accent-color)',
- *               }}
- *             />
- *           </td>
- *         </tr>
- *         <tr>
- *           <td>
- *             <code>--primary-color</code>
- *           </td>
- *           <td width="30%">
- *             <div
- *               style={{
- *                 width: '30px',
- *                 height: '30px',
- *                 background: 'var(--primary-color)',
- *               }}
- *             />
- *           </td>
- *         </tr>
- *         <tr>
- *           <td>
- *             <code>--light-color</code>
- *           </td>
- *           <td width="30%">
- *             <div
- *               style={{
- *                 width: '30px',
- *                 height: '30px',
- *                 background: 'var(--light-color)',
- *               }}
- *             />
- *           </td>
- *         </tr>
- *         <tr>
- *           <td>
- *             <code>--dark-color</code>
- *           </td>
- *           <td width="30%">
- *             <div
- *               style={{
- *                 width: '30px',
- *                 height: '30px',
- *                 background: 'var(--dark-color)',
- *               }}
- *             />
- *           </td>
- *         </tr>
+ *         {[
+ *           '--color--feedback-fail--ink',
+ *           '--color--feedback-fail--border',
+ *           '--color--feedback-warning--ink',
+ *           '--color--feedback-warning--surface',
+ *           '--color--feedback-success--ink',
+ *           '--color--feedback-success--border',
+ *         ].map((v) => (
+ *           <tr key={v}>
+ *             <td><code>{v}</code></td>
+ *             <td width="30%">
+ *               <div style={{ width: '30px', height: '30px', background: `var(${v})` }} />
+ *             </td>
+ *           </tr>
+ *         ))}
  *       </tbody>
  *     </table>
  *   </Section>
@@ -443,7 +246,7 @@ export type CanvasProps = {
  *         <td>
  *           <div
  *             style={{
- *               background: 'var(--accent-color)',
+ *               background: 'var(--color--accent--surface)',
  *               width: 'var(--spacing-s)',
  *               height: 'var(--spacing-s)',
  *             }}
@@ -457,7 +260,7 @@ export type CanvasProps = {
  *         <td>
  *           <div
  *             style={{
- *               background: 'var(--accent-color)',
+ *               background: 'var(--color--accent--surface)',
  *               width: 'var(--spacing-m)',
  *               height: 'var(--spacing-m)',
  *             }}
@@ -471,7 +274,7 @@ export type CanvasProps = {
  *         <td>
  *           <div
  *             style={{
- *               background: 'var(--accent-color)',
+ *               background: 'var(--color--accent--surface)',
  *               width: 'var(--spacing-l)',
  *               height: 'var(--spacing-l)',
  *             }}
@@ -485,7 +288,7 @@ export type CanvasProps = {
  *         <td>
  *           <div
  *             style={{
- *               background: 'var(--accent-color)',
+ *               background: 'var(--color--accent--surface)',
  *               width: 'var(--spacing-xl)',
  *               height: 'var(--spacing-xl)',
  *             }}
@@ -499,7 +302,7 @@ export type CanvasProps = {
  *         <td>
  *           <div
  *             style={{
- *               background: 'var(--accent-color)',
+ *               background: 'var(--color--accent--surface)',
  *               width: 'var(--spacing-xxl)',
  *               height: 'var(--spacing-xxl)',
  *             }}
@@ -513,7 +316,7 @@ export type CanvasProps = {
  *         <td>
  *           <div
  *             style={{
- *               background: 'var(--accent-color)',
+ *               background: 'var(--color--accent--surface)',
  *               width: 'var(--spacing-xxxl)',
  *               height: 'var(--spacing-xxxl)',
  *             }}
