@@ -92,6 +92,11 @@ const useStyles = (isDisabled?: boolean, error?: boolean) => {
       multiValueRemove: (provided) => ({
         ...provided,
         cursor: 'pointer',
+        color: 'var(--color--tinted--ink)',
+        ':hover': {
+          backgroundColor: 'var(--color--tinted--surface-hover)',
+          color: 'var(--color--tinted--ink)',
+        },
       }),
       menu: (provided) => {
         return {
@@ -134,6 +139,7 @@ const useStyles = (isDisabled?: boolean, error?: boolean) => {
         ...provided,
         fontSize: 'inherit',
         padding: 3,
+        color: 'var(--color--tinted--ink)',
       }),
     };
   }, [isDisabled, error]);

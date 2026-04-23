@@ -136,6 +136,15 @@ export type FullConnectParameters = AssetSourcesHook &
   UploadSidebarsHook &
   ValidateManualFieldExtensionParametersHook;
 
+function applyColorScheme(properties: unknown): void {
+  if (typeof document === 'undefined') return;
+  const next = (properties as { colorScheme?: 'light' | 'dark' } | null)
+    ?.colorScheme;
+  if (next !== 'light' && next !== 'dark') return;
+  if (document.documentElement.dataset.theme === next) return;
+  document.documentElement.dataset.theme = next;
+}
+
 export async function connect(
   rawConfiguration: Partial<FullConnectParameters> = {},
 ): Promise<void> {
@@ -185,6 +194,7 @@ export async function connect(
         ),
       ),
       onChange(newSettings: unknown) {
+        applyColorScheme(newSettings);
         if (onChangeListener) {
           onChangeListener(newSettings);
         }
@@ -212,6 +222,7 @@ export async function connect(
 
   const methods = await penpalConnection.promise;
   const initialProperties = await methods.getSettings();
+  applyColorScheme(initialProperties);
 
   if (initialProperties.mode === 'onBoot') {
     let currentProperties = initialProperties;

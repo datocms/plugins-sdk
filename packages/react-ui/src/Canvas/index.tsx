@@ -36,84 +36,186 @@ export type CanvasProps = {
 /**
  * @example Semantic color token CSS variables
  *
- * Within the `Canvas` component, semantic color tokens are made available as
- * CSS variables, allowing you to conform to the theme of the current
- * environment (including dark mode):
+ * Inside `Canvas`, the host exposes a full semantic color palette as CSS
+ * custom properties. Components should reference these tokens directly —
+ * they adapt to the user's active theme (including dark mode)
+ * automatically.
+ *
+ * ### How to read a token name
+ *
+ * ```
+ * --color--{property}                 // standalone (one -- after color)
+ * --color--{context}--{property}      // context pair (two -- after color)
+ * ```
+ *
+ * **Properties** — `surface` (backgrounds), `ink` (text/icons),
+ * `border` (1px lines), `outline` (focus rings), plus `fill` / `track`
+ * for progress bars.
+ *
+ * **Standalone** tokens work on any neutral page. **Contexts** are
+ * self-contained environments: always pair a `surface` with the `ink`,
+ * `border`, and hover states from the *same* context. Never mix — e.g.
+ * don't put `--color--primary--ink` on `--color--danger--surface`.
+ *
+ * Non-color tokens `--shadow--elevated` / `--shadow--float` /
+ * `--shadow--ambient` are ready-made `box-shadow` composites.
  *
  * ```js
  * <Canvas ctx={ctx}>
- *   <Section title="Standalone">
- *     <table>
- *       <tbody>
- *         {[
- *           '--color--surface',
- *           '--color--surface-hover',
- *           '--color--surface-muted',
- *           '--color--ink',
- *           '--color--ink-subtle',
- *           '--color--ink-placeholder',
- *           '--color--ink-accent',
- *           '--color--border',
- *           '--color--border-hover',
- *         ].map((v) => (
- *           <tr key={v}>
- *             <td><code>{v}</code></td>
- *             <td width="30%">
- *               <div style={{ width: '30px', height: '30px', background: `var(${v})` }} />
- *             </td>
- *           </tr>
- *         ))}
- *       </tbody>
- *     </table>
+ *   <Section title="Standalone — use on any neutral page">
+ *     <table><tbody>
+ *       {[
+ *         ['--color--surface',          'Default page background'],
+ *         ['--color--surface-hover',    'Hovered row / list item'],
+ *         ['--color--surface-muted',    'Muted section / card background'],
+ *         ['--color--ink',              'Primary text'],
+ *         ['--color--ink-subtle',       'Secondary text / captions'],
+ *         ['--color--ink-hover',        'Text under hover'],
+ *         ['--color--ink-muted',        'De-emphasized text'],
+ *         ['--color--ink-placeholder',  'Input placeholder text'],
+ *         ['--color--ink-primary',      'Brand-highlighted text / icons'],
+ *         ['--color--ink-accent',       'Links / accent text'],
+ *         ['--color--ink-disabled',     'Disabled text'],
+ *         ['--color--border',           'Default 1px border'],
+ *         ['--color--border-hover',     'Border under hover'],
+ *       ].map(([t, d]) => (
+ *         <tr key={t}>
+ *           <td><code>{t}</code></td>
+ *           <td style={{ color: 'var(--color--ink-subtle)' }}>{d}</td>
+ *           <td width="40"><div style={{ width: '30px', height: '30px', background: `var(${t})`, border: '1px solid var(--color--border)' }} /></td>
+ *         </tr>
+ *       ))}
+ *     </tbody></table>
  *   </Section>
- *   <Section title="Contexts">
- *     <table>
- *       <tbody>
- *         {[
- *           '--color--primary--surface',
- *           '--color--primary--ink',
- *           '--color--tinted--surface',
- *           '--color--tinted--ink',
- *           '--color--accent--surface',
- *           '--color--accent--ink',
- *           '--color--selected--surface',
- *           '--color--danger--surface',
- *           '--color--danger--ink',
- *           '--color--disabled--surface',
- *           '--color--disabled--ink',
- *           '--color--focus--border',
- *           '--color--focus--outline',
- *         ].map((v) => (
- *           <tr key={v}>
- *             <td><code>{v}</code></td>
- *             <td width="30%">
- *               <div style={{ width: '30px', height: '30px', background: `var(${v})` }} />
- *             </td>
- *           </tr>
- *         ))}
- *       </tbody>
- *     </table>
+ *
+ *   <Section title="Context: raised — modals, dropdowns, popovers">
+ *     <table><tbody>
+ *       {['--color--raised--surface', '--color--raised--surface-hover', '--color--raised--surface-active']
+ *         .map((t) => (<tr key={t}><td><code>{t}</code></td><td width="40"><div style={{ width: '30px', height: '30px', background: `var(${t})`, border: '1px solid var(--color--border)' }} /></td></tr>))}
+ *     </tbody></table>
  *   </Section>
- *   <Section title="Feedback">
- *     <table>
- *       <tbody>
- *         {[
- *           '--color--feedback-fail--ink',
- *           '--color--feedback-fail--border',
- *           '--color--feedback-warning--ink',
- *           '--color--feedback-warning--surface',
- *           '--color--feedback-success--ink',
- *           '--color--feedback-success--border',
- *         ].map((v) => (
- *           <tr key={v}>
- *             <td><code>{v}</code></td>
- *             <td width="30%">
- *               <div style={{ width: '30px', height: '30px', background: `var(${v})` }} />
- *             </td>
- *           </tr>
- *         ))}
- *       </tbody>
- *     </table>
+ *
+ *   <Section title="Context: primary — main call-to-action buttons, badges, nav">
+ *     <table><tbody>
+ *       {['--color--primary--surface', '--color--primary--surface-hover', '--color--primary--surface-active', '--color--primary--surface-muted', '--color--primary--ink', '--color--primary--border']
+ *         .map((t) => (<tr key={t}><td><code>{t}</code></td><td width="40"><div style={{ width: '30px', height: '30px', background: `var(${t})`, border: '1px solid var(--color--border)' }} /></td></tr>))}
+ *     </tbody></table>
+ *   </Section>
+ *
+ *   <Section title="Context: tinted — subtle brand-tinted surfaces">
+ *     <table><tbody>
+ *       {['--color--tinted--surface', '--color--tinted--surface-hover', '--color--tinted--surface-active', '--color--tinted--ink']
+ *         .map((t) => (<tr key={t}><td><code>{t}</code></td><td width="40"><div style={{ width: '30px', height: '30px', background: `var(${t})`, border: '1px solid var(--color--border)' }} /></td></tr>))}
+ *     </tbody></table>
+ *   </Section>
+ *
+ *   <Section title="Context: accent, selected, disabled, danger, enterprise">
+ *     <table><tbody>
+ *       {['--color--accent--surface', '--color--accent--ink',
+ *         '--color--selected--surface', '--color--selected--ink', '--color--selected--border',
+ *         '--color--disabled--surface', '--color--disabled--ink',
+ *         '--color--danger--surface', '--color--danger--ink',
+ *         '--color--enterprise--surface']
+ *         .map((t) => (<tr key={t}><td><code>{t}</code></td><td width="40"><div style={{ width: '30px', height: '30px', background: `var(${t})`, border: '1px solid var(--color--border)' }} /></td></tr>))}
+ *     </tbody></table>
+ *   </Section>
+ *
+ *   <Section title="Context: focus — focus rings and outlines">
+ *     <table><tbody>
+ *       {['--color--focus--border', '--color--focus--outline']
+ *         .map((t) => (<tr key={t}><td><code>{t}</code></td><td width="40"><div style={{ width: '30px', height: '30px', background: `var(${t})`, border: '1px solid var(--color--border)' }} /></td></tr>))}
+ *     </tbody></table>
+ *   </Section>
+ *
+ *   <Section title="Feedback — validation and form states">
+ *     <table><tbody>
+ *       {['--color--feedback-fail--ink', '--color--feedback-fail--border', '--color--feedback-fail--outline',
+ *         '--color--feedback-warning--ink', '--color--feedback-warning--surface', '--color--feedback-warning--border',
+ *         '--color--feedback-success--ink', '--color--feedback-success--border']
+ *         .map((t) => (<tr key={t}><td><code>{t}</code></td><td width="40"><div style={{ width: '30px', height: '30px', background: `var(${t})`, border: '1px solid var(--color--border)' }} /></td></tr>))}
+ *     </tbody></table>
+ *   </Section>
+ *
+ *   <Section title="Context: highlight — rich text inline highlights">
+ *     <table><tbody>
+ *       {['--color--highlight--surface']
+ *         .map((t) => (<tr key={t}><td><code>{t}</code></td><td width="40"><div style={{ width: '30px', height: '30px', background: `var(${t})`, border: '1px solid var(--color--border)' }} /></td></tr>))}
+ *     </tbody></table>
+ *   </Section>
+ *
+ *   <Section title="Diffs — content versioning (added / removed / changed)">
+ *     <table><tbody>
+ *       {['--color--diff-added--surface', '--color--diff-removed--surface', '--color--diff-changed--surface',
+ *         '--color--diff-added--surface-subtle', '--color--diff-removed--surface-subtle', '--color--diff-changed--surface-subtle',
+ *         '--color--diff-added--outline-subtle', '--color--diff-removed--outline-subtle', '--color--diff-changed--outline-subtle',
+ *         '--color--diff-changed--border', '--color--diff-changed--border-negative']
+ *         .map((t) => (<tr key={t}><td><code>{t}</code></td><td width="40"><div style={{ width: '30px', height: '30px', background: `var(${t})`, border: '1px solid var(--color--border)' }} /></td></tr>))}
+ *     </tbody></table>
+ *   </Section>
+ *
+ *   <Section title="Status — publishing workflow badges (ink-only)">
+ *     <table><tbody>
+ *       {['--color--status-draft--ink', '--color--status-outdated--ink', '--color--status-published--ink']
+ *         .map((t) => (<tr key={t}><td><code>{t}</code></td><td><span style={{ color: `var(${t})`, fontWeight: 'bold' }}>Sample text</span></td></tr>))}
+ *     </tbody></table>
+ *   </Section>
+ *
+ *   <Section title="Backdrop & overlay — scrims and floating UI">
+ *     <table><tbody>
+ *       {['--color--backdrop--surface', '--color--backdrop--ink',
+ *         '--color--overlay--surface', '--color--overlay--surface-subtle', '--color--overlay--ink']
+ *         .map((t) => (<tr key={t}><td><code>{t}</code></td><td width="40"><div style={{ width: '30px', height: '30px', background: `var(${t})`, border: '1px solid var(--color--border)' }} /></td></tr>))}
+ *     </tbody></table>
+ *   </Section>
+ *
+ *   <Section title="Stacked — dark layered UI (uploaders, media players)">
+ *     <p>Stacked gives you three layers of depth (base → surface → raised) plus buttons, borders and a translucent fill. Use it when a dark inline panel needs internal hierarchy.</p>
+ *     <table><tbody>
+ *       {['--color--stacked--surface-base', '--color--stacked--surface', '--color--stacked--surface-raised',
+ *         '--color--stacked--surface-hover', '--color--stacked--surface-translucent',
+ *         '--color--stacked--surface-button', '--color--stacked--surface-button-active',
+ *         '--color--stacked--ink', '--color--stacked--ink-subtle', '--color--stacked--border']
+ *         .map((t) => (<tr key={t}><td><code>{t}</code></td><td width="40"><div style={{ width: '30px', height: '30px', background: `var(${t})`, border: '1px solid var(--color--border)' }} /></td></tr>))}
+ *     </tbody></table>
+ *   </Section>
+ *
+ *   <Section title="Progress — bar track and fill">
+ *     <table><tbody>
+ *       {['--color--progress--track', '--color--progress--fill', '--color--progress--fill-hover']
+ *         .map((t) => (<tr key={t}><td><code>{t}</code></td><td width="40"><div style={{ width: '30px', height: '30px', background: `var(${t})`, border: '1px solid var(--color--border)' }} /></td></tr>))}
+ *     </tbody></table>
+ *   </Section>
+ *
+ *   <Section title="Tooltip — small dark floating labels">
+ *     <table><tbody>
+ *       {['--color--tooltip--surface', '--color--tooltip--surface-hover', '--color--tooltip--ink', '--color--tooltip--ink-subtle']
+ *         .map((t) => (<tr key={t}><td><code>{t}</code></td><td width="40"><div style={{ width: '30px', height: '30px', background: `var(${t})`, border: '1px solid var(--color--border)' }} /></td></tr>))}
+ *     </tbody></table>
+ *   </Section>
+ *
+ *   <Section title="Code — dark code blocks, logs, error traces">
+ *     <table><tbody>
+ *       {['--color--code--surface', '--color--code--ink']
+ *         .map((t) => (<tr key={t}><td><code>{t}</code></td><td width="40"><div style={{ width: '30px', height: '30px', background: `var(${t})`, border: '1px solid var(--color--border)' }} /></td></tr>))}
+ *     </tbody></table>
+ *   </Section>
+ *
+ *   <Section title="Shadow colors and scrollbar">
+ *     <table><tbody>
+ *       {['--color--shadow-subtle', '--color--shadow', '--color--shadow-strong', '--color--scrollbar']
+ *         .map((t) => (<tr key={t}><td><code>{t}</code></td><td width="40"><div style={{ width: '30px', height: '30px', background: `var(${t})`, border: '1px solid var(--color--border)' }} /></td></tr>))}
+ *     </tbody></table>
+ *   </Section>
+ *
+ *   <Section title="Shadow composites — drop-in box-shadow values">
+ *     <div style={{ display: 'flex', gap: 'var(--spacing-l)', padding: 'var(--spacing-l)' }}>
+ *       {['--shadow--elevated', '--shadow--float', '--shadow--ambient'].map((t) => (
+ *         <div key={t} style={{ textAlign: 'center' }}>
+ *           <div style={{ width: '80px', height: '80px', background: 'var(--color--surface)', borderRadius: '4px', boxShadow: `var(${t})` }} />
+ *           <code style={{ display: 'block', marginTop: 'var(--spacing-s)', fontSize: 'var(--font-size-xs)' }}>{t}</code>
+ *         </div>
+ *       ))}
+ *     </div>
  *   </Section>
  * </Canvas>;
  * ```

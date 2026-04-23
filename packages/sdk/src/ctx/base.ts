@@ -97,6 +97,18 @@ type ProjectProperties = {
    * system.
    */
   semanticColorTokensTheme: SemanticColorTokensTheme;
+
+  /**
+   * The appearance color scheme the host CMS is currently using. Resolved —
+   * `'system'` is already expanded to `'light'` or `'dark'` by the host.
+   *
+   * The SDK runtime reflects this onto `document.documentElement` as
+   * `data-theme="light"` / `data-theme="dark"` so plugin CSS can branch
+   * with `[data-theme="dark"] { … }` selectors. For non-CSS decisions
+   * (choosing a logo asset, a syntax-highlighting preset, …) branch on
+   * `ctx.colorScheme` directly.
+   */
+  colorScheme: 'light' | 'dark';
 };
 
 /**

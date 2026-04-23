@@ -18,6 +18,18 @@ of truth for plugin theming and supports dark mode.
   the `--accent-color` / `--light-color` / `--primary-color` /
   `--dark-color` / `--semi-transparent-accent-color` CSS vars derived
   from it) keep rendering exactly as they did before.
+- `ctx.colorScheme` — `'light'` or `'dark'`. The host has already resolved
+  `'system'` for you. The SDK runtime also writes
+  `document.documentElement.dataset.theme` to `"light"` / `"dark"` on
+  initial handshake and on every ctx update, so you can theme with CSS
+  selectors like:
+
+  ```css
+  [data-theme="dark"] .my-panel { background: #222; }
+  ```
+
+  For non-CSS decisions (picking a logo asset, a syntax-highlighting
+  preset, …) branch on `ctx.colorScheme` directly.
 
 > **Host contract.** `ctx.theme` is light-only; `ctx.semanticColorTokensTheme`
 > is theme-aware. This split keeps existing plugins safe by construction

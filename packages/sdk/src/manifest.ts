@@ -3360,6 +3360,17 @@ export const manifest: Manifest = {
             },
             type: 'SemanticColorTokensTheme',
           },
+          colorScheme: {
+            comment: {
+              markdownText:
+                'The appearance color scheme the host CMS is currently using. Resolved —\n`\'system\'` is already expanded to `\'light\'` or `\'dark\'` by the host.\n\nThe SDK runtime reflects this onto `document.documentElement` as\n`data-theme="light"` / `data-theme="dark"` so plugin CSS can branch\nwith `[data-theme="dark"] { … }` selectors. For non-CSS decisions\n(choosing a logo asset, a syntax-highlighting preset, …) branch on\n`ctx.colorScheme` directly.',
+            },
+            location: {
+              filePath: 'src/ctx/base.ts',
+              lineNumber: 111,
+            },
+            type: "'light' | 'dark'",
+          },
         },
       },
       {
@@ -3376,7 +3387,7 @@ export const manifest: Manifest = {
             },
             location: {
               filePath: 'src/ctx/base.ts',
-              lineNumber: 109,
+              lineNumber: 121,
             },
             type: 'Partial<Record<string, ItemType>>',
           },
@@ -3387,7 +3398,7 @@ export const manifest: Manifest = {
             },
             location: {
               filePath: 'src/ctx/base.ts',
-              lineNumber: 116,
+              lineNumber: 128,
             },
             type: 'Partial<Record<string, Field>>',
           },
@@ -3398,7 +3409,7 @@ export const manifest: Manifest = {
             },
             location: {
               filePath: 'src/ctx/base.ts',
-              lineNumber: 123,
+              lineNumber: 135,
             },
             type: 'Partial<Record<string, Fieldset>>',
           },
@@ -3409,7 +3420,7 @@ export const manifest: Manifest = {
             },
             location: {
               filePath: 'src/ctx/base.ts',
-              lineNumber: 130,
+              lineNumber: 142,
             },
             type: 'Partial<Record<string, User>>',
           },
@@ -3420,7 +3431,7 @@ export const manifest: Manifest = {
             },
             location: {
               filePath: 'src/ctx/base.ts',
-              lineNumber: 137,
+              lineNumber: 149,
             },
             type: 'Partial<Record<string, SsoUser>>',
           },
@@ -3444,7 +3455,7 @@ export const manifest: Manifest = {
             },
             location: {
               filePath: 'src/ctx/base.ts',
-              lineNumber: 341,
+              lineNumber: 353,
             },
             type: '(itemTypeId: string) => Promise<Field[]>',
           },
@@ -3457,7 +3468,7 @@ export const manifest: Manifest = {
             },
             location: {
               filePath: 'src/ctx/base.ts',
-              lineNumber: 360,
+              lineNumber: 372,
             },
             type: '(itemTypeId: string) => Promise<Fieldset[]>',
           },
@@ -3470,7 +3481,7 @@ export const manifest: Manifest = {
             },
             location: {
               filePath: 'src/ctx/base.ts',
-              lineNumber: 377,
+              lineNumber: 389,
             },
             type: '() => Promise<Field[]>',
           },
@@ -3483,7 +3494,7 @@ export const manifest: Manifest = {
             },
             location: {
               filePath: 'src/ctx/base.ts',
-              lineNumber: 390,
+              lineNumber: 402,
             },
             type: '() => Promise<User[]>',
           },
@@ -3496,7 +3507,7 @@ export const manifest: Manifest = {
             },
             location: {
               filePath: 'src/ctx/base.ts',
-              lineNumber: 403,
+              lineNumber: 415,
             },
             type: '() => Promise<SsoUser[]>',
           },
@@ -3518,7 +3529,7 @@ export const manifest: Manifest = {
             },
             location: {
               filePath: 'src/ctx/base.ts',
-              lineNumber: 425,
+              lineNumber: 437,
             },
             type: '(params: Record<string, unknown>) => Promise<void>',
           },
@@ -3531,7 +3542,7 @@ export const manifest: Manifest = {
             },
             location: {
               filePath: 'src/ctx/base.ts',
-              lineNumber: 476,
+              lineNumber: 488,
             },
             type: '(\n    fieldId: string,\n    changes: FieldAppearanceChange[],\n  ) => Promise<void>',
           },
@@ -3553,7 +3564,7 @@ export const manifest: Manifest = {
             },
             location: {
               filePath: 'src/ctx/base.ts',
-              lineNumber: 581,
+              lineNumber: 593,
             },
             type: '(message: string) => Promise<void>',
           },
@@ -3566,7 +3577,7 @@ export const manifest: Manifest = {
             },
             location: {
               filePath: 'src/ctx/base.ts',
-              lineNumber: 596,
+              lineNumber: 608,
             },
             type: '(message: string) => Promise<void>',
           },
@@ -3579,7 +3590,7 @@ export const manifest: Manifest = {
             },
             location: {
               filePath: 'src/ctx/base.ts',
-              lineNumber: 620,
+              lineNumber: 632,
             },
             type: '<CtaValue = unknown>(\n    toast: Toast<CtaValue>,\n  ) => Promise<CtaValue | null>',
           },
@@ -3601,7 +3612,7 @@ export const manifest: Manifest = {
             },
             location: {
               filePath: 'src/ctx/base.ts',
-              lineNumber: 506,
+              lineNumber: 518,
             },
             type: '(itemTypeId: string) => Promise<Item | null>',
           },
@@ -3614,7 +3625,7 @@ export const manifest: Manifest = {
             },
             location: {
               filePath: 'src/ctx/base.ts',
-              lineNumber: 527,
+              lineNumber: 539,
             },
             type: '{\n    (\n      itemTypeId: string,\n      options: { multiple: true; initialLocationQuery?: ItemListLocationQuery },\n    ): Promise<Item[] | null>;\n    (\n      itemTypeId: string,\n      options?: {\n        multiple: false;\n        initialLocationQuery?: ItemListLocationQuery;\n      },\n    ): Promise<Item | null>;\n  }',
           },
@@ -3627,7 +3638,7 @@ export const manifest: Manifest = {
             },
             location: {
               filePath: 'src/ctx/base.ts',
-              lineNumber: 559,
+              lineNumber: 571,
             },
             type: '(itemId: string) => Promise<Item | null>',
           },
@@ -3649,7 +3660,7 @@ export const manifest: Manifest = {
             },
             location: {
               filePath: 'src/ctx/base.ts',
-              lineNumber: 647,
+              lineNumber: 659,
             },
             type: '{\n    (options: { multiple: true }): Promise<Upload[] | null>;\n    (options?: { multiple: false }): Promise<Upload | null>;\n  }',
           },
@@ -3662,7 +3673,7 @@ export const manifest: Manifest = {
             },
             location: {
               filePath: 'src/ctx/base.ts',
-              lineNumber: 675,
+              lineNumber: 687,
             },
             type: '(\n    uploadId: string,\n  ) => Promise<(Upload & { deleted?: true }) | null>',
           },
@@ -3675,7 +3686,7 @@ export const manifest: Manifest = {
             },
             location: {
               filePath: 'src/ctx/base.ts',
-              lineNumber: 703,
+              lineNumber: 715,
             },
             type: '(\n    /** The "single asset" field structure */\n    fileFieldValue: FileFieldValue,\n    /** Shows metadata information for a specific locale */\n    locale?: string,\n  ) => Promise<FileFieldValue | null>',
           },
@@ -3697,7 +3708,7 @@ export const manifest: Manifest = {
             },
             location: {
               filePath: 'src/ctx/base.ts',
-              lineNumber: 734,
+              lineNumber: 746,
             },
             type: '(modal: Modal) => Promise<unknown>',
           },
@@ -3710,7 +3721,7 @@ export const manifest: Manifest = {
             },
             location: {
               filePath: 'src/ctx/base.ts',
-              lineNumber: 771,
+              lineNumber: 783,
             },
             type: '(options: ConfirmOptions) => Promise<unknown>',
           },
@@ -3731,7 +3742,7 @@ export const manifest: Manifest = {
             },
             location: {
               filePath: 'src/ctx/base.ts',
-              lineNumber: 785,
+              lineNumber: 797,
             },
             type: '(path: string) => Promise<void>',
           },
