@@ -63,6 +63,25 @@ type ProjectProperties = {
   /** Whether the current environment is the primary one */
   isEnvironmentPrimary: boolean;
 
+  /**
+   * The URL of the Content Delivery API (GraphQL) endpoint for the current
+   * project and environment.
+   *
+   * In the vast majority of cases you don't need this: the CDA endpoint is at a
+   * well-known, stable URL. It's exposed here only to support DatoCMS internal
+   * testing against non-production environments (e.g. staging).
+   */
+  cdaEndpointUrl: string;
+
+  /**
+   * The base URL of the Content Management API.
+   *
+   * In the vast majority of cases you don't need this: the CMA lives at a
+   * well-known, stable URL. It's exposed here only to support DatoCMS internal
+   * testing against non-production environments (e.g. staging).
+   */
+  cmaBaseUrl: string;
+
   /** The account/organization that is the project owner */
   owner: Account | Organization;
 
