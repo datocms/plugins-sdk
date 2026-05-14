@@ -38,7 +38,7 @@
   "dependencies": {
     "@datocms/cma-client": "*",
     "@types/react": "^17.0.3",
-    "datocms-structured-text-utils": "^2.0.0",
+    "datocms-structured-text-utils": "^5.1.16",
     "emoji-regex-xs": "*",
     "penpal": "^4.1.1"
   },
