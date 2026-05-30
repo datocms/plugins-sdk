@@ -61,7 +61,7 @@ const useStyles = (isDisabled?: boolean, error?: boolean) => {
             backgroundColor: isDisabled
               ? 'var(--color--disabled--surface)'
               : 'var(--color--surface)',
-            boxShadow: `0 0 0 3px ${
+            boxShadow: `0 0 0 4px ${
               error
                 ? 'var(--color--feedback-fail--outline)'
                 : 'var(--color--focus--outline)'

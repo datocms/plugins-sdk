@@ -25,7 +25,7 @@
   &:focus {
     outline: 0;
     border-color: var(--color--focus--border);
-    box-shadow: 0 0 0 3px var(--color--focus--outline);
+    box-shadow: 0 0 0 4px var(--color--focus--outline);
   }
 }
 
@@ -49,6 +49,6 @@
   }
 
   &:focus {
-    box-shadow: 0 0 0 3px var(--color--feedback-fail--outline);
+    box-shadow: 0 0 0 4px var(--color--feedback-fail--outline);
   }
 }

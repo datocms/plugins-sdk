@@ -40,7 +40,7 @@
   &:focus {
     outline: 0;
     border-color: var(--color--focus--border);
-    box-shadow: 0 0 0 3px var(--color--focus--outline);
+    box-shadow: 0 0 0 4px var(--color--focus--outline);
   }
 }
 
@@ -120,10 +120,10 @@
 }
 
 .Dropdown__menu__option--is-dangerous {
-  color: var(--color--feedback-fail--ink);
+  color: var(--color--danger--ink);
 
   svg {
-    fill: var(--color--feedback-fail--ink);
+    fill: var(--color--danger--ink);
   }
 
   &:hover,
@@ -241,9 +241,9 @@
 }
 
 .Dropdown__menu__option__icon--delete {
-  color: var(--color--feedback-fail--ink);
+  color: var(--color--danger--ink);
   svg {
-    fill: var(--color--feedback-fail--ink);
+    fill: var(--color--danger--ink);
   }
 }
 
