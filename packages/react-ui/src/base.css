@@ -87,3 +87,20 @@ body {
   padding: 0;
   margin: 0;
 }
+
+/**
+ * Theme the page-level (viewport) scrollbar to match the canvas.
+ *
+ * `html`/`body` live outside the `Canvas` wrapper, so they don't inherit the
+ * canvas color variables. The `Canvas` component mirrors the
+ * `--color--scrollbar--fill` token onto `document.documentElement` (see
+ * `Canvas/index.tsx`) so this rule can resolve it. `scrollbar-color` is
+ * inherited, so this also covers `body` and anything scrolling at the page
+ * level. Kept in a layer so a plugin developer's own unlayered
+ * `scrollbar-color` rule always wins, regardless of specificity.
+ */
+@layer datocms-react-ui {
+  html {
+    scrollbar-color: var(--color--scrollbar--fill) transparent;
+  }
+}

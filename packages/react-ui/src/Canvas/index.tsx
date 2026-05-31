@@ -638,6 +638,31 @@ export function Canvas({
     return undefined;
   }, [mode, noAutoResizer]);
 
+  // The semantic color tokens are only set on the canvas wrapper, so the page
+  // itself (`html`/`body`, outside the wrapper) can't reference them. Mirror
+  // the scrollbar token onto the document root so the page-level scrollbar can
+  // be themed too (consumed by the layered `html` rule in `base.css`).
+  const scrollbarFill = ctx.semanticColorTokensTheme['--color--scrollbar--fill'];
+
+  useEffect(() => {
+    if (typeof document === 'undefined' || !scrollbarFill) {
+      return undefined;
+    }
+
+    const property = '--color--scrollbar--fill';
+    const root = document.documentElement;
+    const previous = root.style.getPropertyValue(property);
+    root.style.setProperty(property, scrollbarFill);
+
+    return () => {
+      if (previous) {
+        root.style.setProperty(property, previous);
+      } else {
+        root.style.removeProperty(property);
+      }
+    };
+  }, [scrollbarFill]);
+
   return (
     <CtxContext.Provider value={ctx}>
       <div
