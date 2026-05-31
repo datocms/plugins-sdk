@@ -24,17 +24,28 @@ of truth for plugin theming and supports dark mode.
   `--dark-color` / `--semi-transparent-accent-color` CSS vars derived
   from it) keep rendering exactly as they did before.
 - `ctx.colorScheme` — `'light'` or `'dark'`. The host has already resolved
-  `'system'` for you. The SDK runtime also writes
-  `document.documentElement.dataset.colorScheme` to `"light"` / `"dark"`
-  on initial handshake and on every ctx update, so you can theme with CSS
-  selectors like:
+  `'system'` for you. On initial handshake and on every ctx update, the SDK
+  runtime reflects this onto `document.documentElement` two ways:
 
-  ```css
-  [data-color-scheme="dark"] .my-panel { background: #222; }
-  ```
+  - the `data-color-scheme="light"` / `data-color-scheme="dark"` attribute,
+    so you can theme with explicit CSS selectors:
+
+    ```css
+    [data-color-scheme="dark"] .my-panel { background: #222; }
+    ```
+
+  - the actual `color-scheme` CSS property, so [`light-dark()`][light-dark]
+    resolves to the correct branch (and native form controls / scrollbars
+    match the active scheme) anywhere in your plugin frame:
+
+    ```css
+    .my-panel { background: light-dark(#fff, #222); }
+    ```
 
   For non-CSS decisions (picking a logo asset, a syntax-highlighting
   preset, …) branch on `ctx.colorScheme` directly.
+
+[light-dark]: https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/light-dark
 
 > **Host contract.** `ctx.theme` always returns light-mode colors;
 > `ctx.semanticColorTokensTheme` is theme-aware. This lets plugins upgrade

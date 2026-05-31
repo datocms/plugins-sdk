@@ -122,12 +122,14 @@ type ProjectProperties = {
    * The appearance color scheme the host CMS is currently using. Resolved —
    * `'system'` is already expanded to `'light'` or `'dark'` by the host.
    *
-   * The SDK runtime reflects this onto `document.documentElement` as
-   * `data-color-scheme="light"` / `data-color-scheme="dark"` so plugin CSS
-   * can branch with `[data-color-scheme="dark"] { … }` selectors. For
-   * non-CSS decisions
-   * (choosing a logo asset, a syntax-highlighting preset, …) branch on
-   * `ctx.colorScheme` directly.
+   * The SDK runtime reflects this onto `document.documentElement` two ways:
+   * the `data-color-scheme="light"` / `data-color-scheme="dark"` attribute,
+   * so plugin CSS can branch with `[data-color-scheme="dark"] { … }`
+   * selectors; and the actual `color-scheme` CSS property, so `light-dark()`
+   * resolves to the correct branch (and native form controls / scrollbars
+   * match) everywhere in the plugin frame. For non-CSS decisions (choosing a
+   * logo asset, a syntax-highlighting preset, …) branch on `ctx.colorScheme`
+   * directly.
    */
   colorScheme: 'light' | 'dark';
 };

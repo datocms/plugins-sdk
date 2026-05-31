@@ -143,6 +143,12 @@ function applyColorScheme(properties: unknown): void {
   if (next !== 'light' && next !== 'dark') return;
   if (document.documentElement.dataset.colorScheme === next) return;
   document.documentElement.dataset.colorScheme = next;
+  // Also set the actual `color-scheme` CSS property on the root so that
+  // `light-dark()` resolves to the correct branch and native form controls /
+  // scrollbars match — everywhere in the plugin frame, including DOM rendered
+  // outside any `Canvas`/portal. The `data-color-scheme` attribute above is
+  // just a hook for explicit CSS branching; it doesn't drive `light-dark()`.
+  document.documentElement.style.colorScheme = next;
 }
 
 export async function connect(
