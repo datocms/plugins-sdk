@@ -75,27 +75,28 @@ export function Section({
       className={cn(s.Section, { [s['Section--highlighted']]: highlighted })}
     >
       <div
-        className={cn(s.Section__header, headerClassName)}
+        className={cn(
+          s.Section__header,
+          { [s['Section__header--clickable']]: collapsible },
+          headerClassName,
+        )}
         style={headerStyle}
+        onClick={collapsible ? collapsible.onToggle : undefined}
       >
         <div
-          className={cn(
-            s.Section__title,
-
-            titleClassName,
-          )}
+          className={cn(s.Section__title, titleClassName)}
           style={titleStyle}
         >
-          {collapsible && (
-            <button
-              type="button"
-              className={cn(s.Section__arrow, {
-                [s['Section__arrow--is-open']]: collapsible.isOpen,
-              })}
-              onClick={collapsible.onToggle}
-            />
-          )}
-          <div className={s.Section__title__content}>{title}</div>
+          <span className={s.Section__title__content}>
+            {collapsible && (
+              <div
+                className={cn(s.Section__arrow, {
+                  [s['Section__arrow--is-open']]: collapsible.isOpen,
+                })}
+              />
+            )}
+            {title}
+          </span>
         </div>
       </div>
       {(!collapsible || collapsible.isOpen) && children}

@@ -30,7 +30,8 @@
   "scripts": {
     "build": "npm run generate-manifest && tsc && tsc --project ./tsconfig.esnext.json",
     "generate-manifest": "tsx generateManifest.ts && biome format --write src/manifest.ts",
-    "prebuild": "rimraf dist"
+    "prebuild": "rimraf dist",
+    "install-in-place": "npm run build && rm -rf $INSTALL_PATH/node_modules/datocms-plugin-sdk/dist && cp -rf dist manifest.json $INSTALL_PATH/node_modules/datocms-plugin-sdk"
   },
   "bugs": {
     "url": "https://github.com/datocms/plugins-sdk/issues"
