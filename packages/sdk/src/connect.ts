@@ -141,8 +141,8 @@ function applyColorScheme(properties: unknown): void {
   const next = (properties as { colorScheme?: 'light' | 'dark' } | null)
     ?.colorScheme;
   if (next !== 'light' && next !== 'dark') return;
-  if (document.documentElement.dataset.theme === next) return;
-  document.documentElement.dataset.theme = next;
+  if (document.documentElement.dataset.colorScheme === next) return;
+  document.documentElement.dataset.colorScheme = next;
 }
 
 export async function connect(

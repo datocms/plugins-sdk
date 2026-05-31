@@ -25,12 +25,12 @@ of truth for plugin theming and supports dark mode.
   from it) keep rendering exactly as they did before.
 - `ctx.colorScheme` — `'light'` or `'dark'`. The host has already resolved
   `'system'` for you. The SDK runtime also writes
-  `document.documentElement.dataset.theme` to `"light"` / `"dark"` on
-  initial handshake and on every ctx update, so you can theme with CSS
+  `document.documentElement.dataset.colorScheme` to `"light"` / `"dark"`
+  on initial handshake and on every ctx update, so you can theme with CSS
   selectors like:
 
   ```css
-  [data-theme="dark"] .my-panel { background: #222; }
+  [data-color-scheme="dark"] .my-panel { background: #222; }
   ```
 
   For non-CSS decisions (picking a logo asset, a syntax-highlighting
