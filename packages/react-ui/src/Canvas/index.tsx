@@ -63,158 +63,347 @@ export type CanvasProps = {
  *
  * ```js
  * <Canvas ctx={ctx}>
- *   <Section title="Standalone — use on any neutral page">
- *     <table><tbody>
- *       {[
- *         ['--color--surface',          'Default page background'],
- *         ['--color--surface-hover',    'Hovered row / list item'],
- *         ['--color--surface-muted',    'Muted section / card background'],
- *         ['--color--ink',              'Primary text'],
- *         ['--color--ink-subtle',       'Secondary text / captions'],
- *         ['--color--ink-hover',        'Text under hover'],
- *         ['--color--ink-muted',        'De-emphasized text'],
- *         ['--color--ink-placeholder',  'Input placeholder text'],
- *         ['--color--ink-primary',      'Brand-highlighted text / icons'],
- *         ['--color--ink-accent',       'Links / accent text'],
- *         ['--color--ink-disabled',     'Disabled text'],
- *         ['--color--border',           'Default 1px border'],
- *         ['--color--border-hover',     'Border under hover'],
- *       ].map(([t, d]) => (
- *         <tr key={t}>
- *           <td><code>{t}</code></td>
- *           <td style={{ color: 'var(--color--ink-subtle)' }}>{d}</td>
- *           <td width="40"><div style={{ width: '30px', height: '30px', background: `var(${t})`, border: '1px solid var(--color--border)' }} /></td>
- *         </tr>
- *       ))}
- *     </tbody></table>
- *   </Section>
- *
- *   <Section title="Context: raised — modals, dropdowns, popovers">
- *     <table><tbody>
- *       {['--color--raised--surface', '--color--raised--surface-hover', '--color--raised--surface-active']
- *         .map((t) => (<tr key={t}><td><code>{t}</code></td><td width="40"><div style={{ width: '30px', height: '30px', background: `var(${t})`, border: '1px solid var(--color--border)' }} /></td></tr>))}
- *     </tbody></table>
- *   </Section>
- *
- *   <Section title="Context: primary — main call-to-action buttons, badges, nav">
- *     <table><tbody>
- *       {['--color--primary--surface', '--color--primary--surface-hover', '--color--primary--surface-active', '--color--primary--surface-muted', '--color--primary--ink', '--color--primary--border']
- *         .map((t) => (<tr key={t}><td><code>{t}</code></td><td width="40"><div style={{ width: '30px', height: '30px', background: `var(${t})`, border: '1px solid var(--color--border)' }} /></td></tr>))}
- *     </tbody></table>
- *   </Section>
- *
- *   <Section title="Context: tinted — subtle brand-tinted surfaces">
- *     <table><tbody>
- *       {['--color--tinted--surface', '--color--tinted--surface-hover', '--color--tinted--surface-active', '--color--tinted--ink', '--color--tinted--border']
- *         .map((t) => (<tr key={t}><td><code>{t}</code></td><td width="40"><div style={{ width: '30px', height: '30px', background: `var(${t})`, border: '1px solid var(--color--border)' }} /></td></tr>))}
- *     </tbody></table>
- *   </Section>
- *
- *   <Section title="Context: accent, selected, disabled, danger">
- *     <table><tbody>
- *       {['--color--accent--surface', '--color--accent--ink',
- *         '--color--selected--surface', '--color--selected--ink', '--color--selected--border',
- *         '--color--disabled--surface', '--color--disabled--ink',
- *         '--color--danger--surface', '--color--danger--ink']
- *         .map((t) => (<tr key={t}><td><code>{t}</code></td><td width="40"><div style={{ width: '30px', height: '30px', background: `var(${t})`, border: '1px solid var(--color--border)' }} /></td></tr>))}
- *     </tbody></table>
- *   </Section>
- *
- *   <Section title="Context: focus — focus rings and outlines">
- *     <table><tbody>
- *       {['--color--focus--border', '--color--focus--outline']
- *         .map((t) => (<tr key={t}><td><code>{t}</code></td><td width="40"><div style={{ width: '30px', height: '30px', background: `var(${t})`, border: '1px solid var(--color--border)' }} /></td></tr>))}
- *     </tbody></table>
- *   </Section>
- *
- *   <Section title="Feedback — validation and form states">
- *     <table><tbody>
- *       {['--color--feedback-fail--ink', '--color--feedback-fail--border', '--color--feedback-fail--outline', '--color--feedback-fail--surface',
- *         '--color--feedback-warning--ink', '--color--feedback-warning--border', '--color--feedback-warning--outline', '--color--feedback-warning--surface',
- *         '--color--feedback-success--ink', '--color--feedback-success--border', '--color--feedback-success--outline', '--color--feedback-success--surface']
- *         .map((t) => (<tr key={t}><td><code>{t}</code></td><td width="40"><div style={{ width: '30px', height: '30px', background: `var(${t})`, border: '1px solid var(--color--border)' }} /></td></tr>))}
- *     </tbody></table>
- *   </Section>
- *
- *   <Section title="Context: highlight — rich text inline highlights">
- *     <table><tbody>
- *       {['--color--highlight--surface']
- *         .map((t) => (<tr key={t}><td><code>{t}</code></td><td width="40"><div style={{ width: '30px', height: '30px', background: `var(${t})`, border: '1px solid var(--color--border)' }} /></td></tr>))}
- *     </tbody></table>
- *   </Section>
- *
- *   <Section title="Diffs — content versioning (added / removed / changed)">
- *     <table><tbody>
- *       {['--color--diff-added--surface', '--color--diff-added--outline', '--color--diff-added--ink', '--color--diff-added--ink-subtle',
- *         '--color--diff-removed--surface', '--color--diff-removed--outline', '--color--diff-removed--ink', '--color--diff-removed--ink-subtle',
- *         '--color--diff-changed--surface', '--color--diff-changed--outline']
- *         .map((t) => (<tr key={t}><td><code>{t}</code></td><td width="40"><div style={{ width: '30px', height: '30px', background: `var(${t})`, border: '1px solid var(--color--border)' }} /></td></tr>))}
- *     </tbody></table>
- *   </Section>
- *
- *   <Section title="Status — publishing workflow badges (ink-only)">
- *     <table><tbody>
- *       {['--color--status-draft--ink', '--color--status-outdated--ink', '--color--status-published--ink']
- *         .map((t) => (<tr key={t}><td><code>{t}</code></td><td><span style={{ color: `var(${t})`, fontWeight: 'bold' }}>Sample text</span></td></tr>))}
- *     </tbody></table>
- *   </Section>
- *
- *   <Section title="Backdrop & overlay — scrims and floating UI">
- *     <table><tbody>
- *       {['--color--backdrop--surface', '--color--backdrop--ink',
- *         '--color--overlay--surface', '--color--overlay--surface-hover', '--color--overlay--surface-active', '--color--overlay--ink']
- *         .map((t) => (<tr key={t}><td><code>{t}</code></td><td width="40"><div style={{ width: '30px', height: '30px', background: `var(${t})`, border: '1px solid var(--color--border)' }} /></td></tr>))}
- *     </tbody></table>
- *   </Section>
- *
- *   <Section title="Stacked — dark layered UI (uploaders, media players)">
- *     <p>Stacked gives you layered dark surfaces (base → upper) plus action buttons, borders and ink tones. Use it when a dark inline panel needs internal hierarchy.</p>
- *     <table><tbody>
- *       {['--color--stacked--surface', '--color--stacked--surface-upper',
- *         '--color--stacked--surface-action', '--color--stacked--surface-action-hover', '--color--stacked--surface-action-active',
- *         '--color--stacked--ink', '--color--stacked--ink-subtle', '--color--stacked--border']
- *         .map((t) => (<tr key={t}><td><code>{t}</code></td><td width="40"><div style={{ width: '30px', height: '30px', background: `var(${t})`, border: '1px solid var(--color--border)' }} /></td></tr>))}
- *     </tbody></table>
- *   </Section>
- *
- *   <Section title="Progress — bar track and fill">
- *     <table><tbody>
- *       {['--color--progress--track', '--color--progress--fill', '--color--progress--fill-hover']
- *         .map((t) => (<tr key={t}><td><code>{t}</code></td><td width="40"><div style={{ width: '30px', height: '30px', background: `var(${t})`, border: '1px solid var(--color--border)' }} /></td></tr>))}
- *     </tbody></table>
- *   </Section>
- *
- *   <Section title="Tooltip — small dark floating labels">
- *     <table><tbody>
- *       {['--color--tooltip--surface', '--color--tooltip--surface-hover', '--color--tooltip--ink', '--color--tooltip--ink-subtle']
- *         .map((t) => (<tr key={t}><td><code>{t}</code></td><td width="40"><div style={{ width: '30px', height: '30px', background: `var(${t})`, border: '1px solid var(--color--border)' }} /></td></tr>))}
- *     </tbody></table>
- *   </Section>
- *
- *   <Section title="Code — dark code blocks, logs, error traces">
- *     <table><tbody>
- *       {['--color--code--surface', '--color--code--ink']
- *         .map((t) => (<tr key={t}><td><code>{t}</code></td><td width="40"><div style={{ width: '30px', height: '30px', background: `var(${t})`, border: '1px solid var(--color--border)' }} /></td></tr>))}
- *     </tbody></table>
- *   </Section>
- *
- *   <Section title="Scrollbar">
- *     <table><tbody>
- *       {['--color--scrollbar--fill']
- *         .map((t) => (<tr key={t}><td><code>{t}</code></td><td width="40"><div style={{ width: '30px', height: '30px', background: `var(${t})`, border: '1px solid var(--color--border)' }} /></td></tr>))}
- *     </tbody></table>
- *   </Section>
- *
- *   <Section title="Shadow composites — drop-in box-shadow values">
- *     <div style={{ display: 'flex', gap: 'var(--spacing-l)', padding: 'var(--spacing-l)' }}>
- *       {['--shadow--raised', '--shadow--floating', '--shadow--lifted', '--shadow--ambient'].map((t) => (
- *         <div key={t} style={{ textAlign: 'center' }}>
- *           <div style={{ width: '80px', height: '80px', background: 'var(--color--surface)', borderRadius: '4px', boxShadow: `var(${t})` }} />
- *           <code style={{ display: 'block', marginTop: 'var(--spacing-s)', fontSize: 'var(--font-size-xs)' }}>{t}</code>
- *         </div>
- *       ))}
- *     </div>
- *   </Section>
+ *   <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-l)' }}>
+ *     <StateManager initial={true}>
+ *       {(isOpen, setOpen) => (
+ *         <Section
+ *           title="Standalone — use on any neutral page"
+ *           collapsible={{ isOpen, onToggle: () => setOpen((v) => !v) }}
+ *         >
+ *           <Swatches
+ *             tokens={[
+ *               ['--color--surface', 'Default page background'],
+ *               ['--color--surface-hover', 'Hovered row / list item'],
+ *               ['--color--surface-muted', 'Muted section / card background'],
+ *               ['--color--ink', 'Primary text'],
+ *               ['--color--ink-subtle', 'Secondary text / captions'],
+ *               ['--color--ink-hover', 'Text under hover'],
+ *               ['--color--ink-muted', 'De-emphasized text'],
+ *               ['--color--ink-placeholder', 'Input placeholder text'],
+ *               ['--color--ink-primary', 'Brand-highlighted text / icons'],
+ *               ['--color--ink-accent', 'Links / accent text'],
+ *               ['--color--ink-disabled', 'Disabled text'],
+ *               ['--color--border', 'Default 1px border'],
+ *               ['--color--border-hover', 'Border under hover'],
+ *             ]}
+ *           />
+ *         </Section>
+ *       )}
+ *     </StateManager>
+ *   
+ *     <StateManager initial={false}>
+ *       {(isOpen, setOpen) => (
+ *         <Section
+ *           title="Context: raised — modals, dropdowns, popovers"
+ *           collapsible={{ isOpen, onToggle: () => setOpen((v) => !v) }}
+ *         >
+ *           <Swatches
+ *             tokens={[
+ *               '--color--surface-raised',
+ *               '--color--surface-raised-hover',
+ *               '--color--surface-raised-active',
+ *             ]}
+ *           />
+ *         </Section>
+ *       )}
+ *     </StateManager>
+ *   
+ *     <StateManager initial={false}>
+ *       {(isOpen, setOpen) => (
+ *         <Section
+ *           title="Context: primary — main call-to-action buttons, badges, nav"
+ *           collapsible={{ isOpen, onToggle: () => setOpen((v) => !v) }}
+ *         >
+ *           <Swatches
+ *             tokens={[
+ *               '--color--primary--surface',
+ *               '--color--primary--surface-hover',
+ *               '--color--primary--surface-active',
+ *               '--color--primary--surface-muted',
+ *               '--color--primary--ink',
+ *               '--color--primary--border',
+ *             ]}
+ *           />
+ *         </Section>
+ *       )}
+ *     </StateManager>
+ *   
+ *     <StateManager initial={false}>
+ *       {(isOpen, setOpen) => (
+ *         <Section
+ *           title="Context: tinted — subtle brand-tinted surfaces"
+ *           collapsible={{ isOpen, onToggle: () => setOpen((v) => !v) }}
+ *         >
+ *           <Swatches
+ *             tokens={[
+ *               '--color--tinted--surface',
+ *               '--color--tinted--surface-hover',
+ *               '--color--tinted--surface-active',
+ *               '--color--tinted--ink',
+ *               '--color--tinted--border',
+ *             ]}
+ *           />
+ *         </Section>
+ *       )}
+ *     </StateManager>
+ *   
+ *     <StateManager initial={false}>
+ *       {(isOpen, setOpen) => (
+ *         <Section
+ *           title="Context: accent — emphasized non-primary surfaces"
+ *           collapsible={{ isOpen, onToggle: () => setOpen((v) => !v) }}
+ *         >
+ *           <Swatches tokens={['--color--accent--surface', '--color--accent--ink']} />
+ *         </Section>
+ *       )}
+ *     </StateManager>
+ *   
+ *     <StateManager initial={false}>
+ *       {(isOpen, setOpen) => (
+ *         <Section
+ *           title="Context: selected — active selection state"
+ *           collapsible={{ isOpen, onToggle: () => setOpen((v) => !v) }}
+ *         >
+ *           <Swatches
+ *             tokens={[
+ *               '--color--selected--surface',
+ *               '--color--selected--ink',
+ *               '--color--selected--border',
+ *             ]}
+ *           />
+ *         </Section>
+ *       )}
+ *     </StateManager>
+ *   
+ *     <StateManager initial={false}>
+ *       {(isOpen, setOpen) => (
+ *         <Section
+ *           title="Context: disabled — inactive controls"
+ *           collapsible={{ isOpen, onToggle: () => setOpen((v) => !v) }}
+ *         >
+ *           <Swatches tokens={['--color--disabled--surface', '--color--disabled--ink']} />
+ *         </Section>
+ *       )}
+ *     </StateManager>
+ *   
+ *     <StateManager initial={false}>
+ *       {(isOpen, setOpen) => (
+ *         <Section
+ *           title="Context: danger — destructive actions"
+ *           collapsible={{ isOpen, onToggle: () => setOpen((v) => !v) }}
+ *         >
+ *           <Swatches tokens={['--color--danger--surface', '--color--danger--ink']} />
+ *         </Section>
+ *       )}
+ *     </StateManager>
+ *   
+ *     <StateManager initial={false}>
+ *       {(isOpen, setOpen) => (
+ *         <Section
+ *           title="Context: focus — focus rings and outlines"
+ *           collapsible={{ isOpen, onToggle: () => setOpen((v) => !v) }}
+ *         >
+ *           <Swatches tokens={['--color--focus--border', '--color--focus--outline']} />
+ *         </Section>
+ *       )}
+ *     </StateManager>
+ *   
+ *     <StateManager initial={false}>
+ *       {(isOpen, setOpen) => (
+ *         <Section
+ *           title="Feedback — validation and form states"
+ *           collapsible={{ isOpen, onToggle: () => setOpen((v) => !v) }}
+ *         >
+ *           <Swatches
+ *             tokens={[
+ *               '--color--feedback-fail--ink',
+ *               '--color--feedback-fail--border',
+ *               '--color--feedback-fail--outline',
+ *               '--color--feedback-fail--surface',
+ *               '--color--feedback-warning--ink',
+ *               '--color--feedback-warning--border',
+ *               '--color--feedback-warning--outline',
+ *               '--color--feedback-warning--surface',
+ *               '--color--feedback-success--ink',
+ *               '--color--feedback-success--border',
+ *               '--color--feedback-success--outline',
+ *               '--color--feedback-success--surface',
+ *             ]}
+ *           />
+ *         </Section>
+ *       )}
+ *     </StateManager>
+ *   
+ *     <StateManager initial={false}>
+ *       {(isOpen, setOpen) => (
+ *         <Section
+ *           title="Context: highlight — rich text inline highlights"
+ *           collapsible={{ isOpen, onToggle: () => setOpen((v) => !v) }}
+ *         >
+ *           <Swatches tokens={['--color--highlight--surface']} />
+ *         </Section>
+ *       )}
+ *     </StateManager>
+ *   
+ *     <StateManager initial={false}>
+ *       {(isOpen, setOpen) => (
+ *         <Section
+ *           title="Diffs — content versioning (added / removed / changed)"
+ *           collapsible={{ isOpen, onToggle: () => setOpen((v) => !v) }}
+ *         >
+ *           <Swatches
+ *             tokens={[
+ *               '--color--diff-added--surface',
+ *               '--color--diff-added--outline',
+ *               '--color--diff-added--ink',
+ *               '--color--diff-added--ink-subtle',
+ *               '--color--diff-removed--surface',
+ *               '--color--diff-removed--outline',
+ *               '--color--diff-removed--ink',
+ *               '--color--diff-removed--ink-subtle',
+ *               '--color--diff-changed--surface',
+ *               '--color--diff-changed--outline',
+ *             ]}
+ *           />
+ *         </Section>
+ *       )}
+ *     </StateManager>
+ *   
+ *     <StateManager initial={false}>
+ *       {(isOpen, setOpen) => (
+ *         <Section
+ *           title="Status — publishing workflow badges (ink-only)"
+ *           collapsible={{ isOpen, onToggle: () => setOpen((v) => !v) }}
+ *         >
+ *           <Swatches
+ *             kind="text"
+ *             tokens={[
+ *               '--color--status-draft--ink',
+ *               '--color--status-outdated--ink',
+ *               '--color--status-published--ink',
+ *             ]}
+ *           />
+ *         </Section>
+ *       )}
+ *     </StateManager>
+ *   
+ *     <StateManager initial={false}>
+ *       {(isOpen, setOpen) => (
+ *         <Section
+ *           title="Backdrop & overlay — scrims and floating UI"
+ *           collapsible={{ isOpen, onToggle: () => setOpen((v) => !v) }}
+ *         >
+ *           <Swatches
+ *             tokens={[
+ *               '--color--backdrop--surface',
+ *               '--color--backdrop--ink',
+ *               '--color--overlay--surface',
+ *               '--color--overlay--surface-hover',
+ *               '--color--overlay--surface-active',
+ *               '--color--overlay--ink',
+ *             ]}
+ *           />
+ *         </Section>
+ *       )}
+ *     </StateManager>
+ *   
+ *     <StateManager initial={false}>
+ *       {(isOpen, setOpen) => (
+ *         <Section
+ *           title="Stacked — dark layered UI (uploaders, media players)"
+ *           collapsible={{ isOpen, onToggle: () => setOpen((v) => !v) }}
+ *         >
+ *           <p>
+ *             Stacked gives you layered dark surfaces (base → upper) plus action buttons, borders and
+ *             ink tones. Use it when a dark inline panel needs internal hierarchy.
+ *           </p>
+ *           <Swatches
+ *             tokens={[
+ *               '--color--stacked--surface',
+ *               '--color--stacked--surface-upper',
+ *               '--color--stacked--surface-action',
+ *               '--color--stacked--surface-action-hover',
+ *               '--color--stacked--surface-action-active',
+ *               '--color--stacked--ink',
+ *               '--color--stacked--ink-subtle',
+ *               '--color--stacked--border',
+ *             ]}
+ *           />
+ *         </Section>
+ *       )}
+ *     </StateManager>
+ *   
+ *     <StateManager initial={false}>
+ *       {(isOpen, setOpen) => (
+ *         <Section
+ *           title="Progress — bar track and fill"
+ *           collapsible={{ isOpen, onToggle: () => setOpen((v) => !v) }}
+ *         >
+ *           <Swatches
+ *             tokens={[
+ *               '--color--progress--track',
+ *               '--color--progress--fill',
+ *               '--color--progress--fill-hover',
+ *             ]}
+ *           />
+ *         </Section>
+ *       )}
+ *     </StateManager>
+ *   
+ *     <StateManager initial={false}>
+ *       {(isOpen, setOpen) => (
+ *         <Section
+ *           title="Tooltip — small dark floating labels"
+ *           collapsible={{ isOpen, onToggle: () => setOpen((v) => !v) }}
+ *         >
+ *           <Swatches
+ *             tokens={[
+ *               '--color--tooltip--surface',
+ *               '--color--tooltip--surface-hover',
+ *               '--color--tooltip--ink',
+ *               '--color--tooltip--ink-subtle',
+ *             ]}
+ *           />
+ *         </Section>
+ *       )}
+ *     </StateManager>
+ *   
+ *     <StateManager initial={false}>
+ *       {(isOpen, setOpen) => (
+ *         <Section
+ *           title="Code — dark code blocks, logs, error traces"
+ *           collapsible={{ isOpen, onToggle: () => setOpen((v) => !v) }}
+ *         >
+ *           <Swatches tokens={['--color--code--surface', '--color--code--ink']} />
+ *         </Section>
+ *       )}
+ *     </StateManager>
+ *   
+ *     <StateManager initial={false}>
+ *       {(isOpen, setOpen) => (
+ *         <Section
+ *           title="Scrollbar"
+ *           collapsible={{ isOpen, onToggle: () => setOpen((v) => !v) }}
+ *         >
+ *           <Swatches tokens={['--color--scrollbar--fill']} />
+ *         </Section>
+ *       )}
+ *     </StateManager>
+ *   
+ *     <StateManager initial={false}>
+ *       {(isOpen, setOpen) => (
+ *         <Section
+ *           title="Shadow composites — drop-in box-shadow values"
+ *           collapsible={{ isOpen, onToggle: () => setOpen((v) => !v) }}
+ *         >
+ *           <Swatches
+ *             kind="shadow"
+ *             tokens={['--shadow--raised', '--shadow--floating', '--shadow--lifted', '--shadow--ambient']}
+ *           />
+ *         </Section>
+ *       )}
+ *     </StateManager>
+ *   </div>
  * </Canvas>;
  * ```
  *

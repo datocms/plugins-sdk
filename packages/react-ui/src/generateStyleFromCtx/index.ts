@@ -27,7 +27,7 @@ export function generateStyleFromCtx(
       ]),
     ),
     // Semantic color tokens arrive keyed by their final CSS custom property
-    // name (e.g. `--color--raised--surface`), so they're applied verbatim. The
+    // name (e.g. `--color--surface-raised`), so they're applied verbatim. The
     // SDK stays agnostic of the token vocabulary: whatever the host sends ends
     // up on the canvas, and plugin CSS references it with `var(--…)`.
     ...ctx.semanticColorTokensTheme,

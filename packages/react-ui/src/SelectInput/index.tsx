@@ -103,7 +103,7 @@ const useStyles = (isDisabled?: boolean, error?: boolean) => {
           ...provided,
           zIndex: 1000,
           minWidth: 250,
-          backgroundColor: 'var(--color--raised--surface)',
+          backgroundColor: 'var(--color--surface-raised)',
           boxShadow: 'var(--shadow--floating)',
         };
       },

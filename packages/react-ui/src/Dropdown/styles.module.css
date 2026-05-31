@@ -51,7 +51,7 @@
 
 .Dropdown__menu {
   min-width: 200px;
-  background-color: var(--color--raised--surface);
+  background-color: var(--color--surface-raised);
   box-shadow: var(--shadow--floating);
   border-radius: 4px;
   margin-bottom: var(--spacing-xl);
