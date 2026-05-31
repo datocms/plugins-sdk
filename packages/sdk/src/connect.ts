@@ -176,7 +176,7 @@ export async function connect(
 
   const penpalConnection = connectToParent({
     methods: {
-      sdkVersion: () => '0.3.0',
+      sdkVersion: () => '0.3.1',
       implementedHooks: () =>
         Object.fromEntries(
           Object.keys(rawConfiguration).map((hook) => {
