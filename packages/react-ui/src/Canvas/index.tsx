@@ -34,32 +34,65 @@ export type CanvasProps = {
 };
 
 /**
- * @example Semantic color token CSS variables
+ * @example Colors
  *
- * Inside `Canvas`, the host exposes a full semantic color palette as CSS
- * custom properties. Components should reference these tokens directly —
- * they adapt to the user's active theme (including dark mode)
- * automatically.
+ * A full semantic color palette is exposed inside `Canvas` as `--color--*` CSS variables.
  *
- * ### How to read a token name
+ * Regarding dark mode, `ctx.colorScheme` resolves to `'light'` or `'dark'`. The SDK runtime also sets `data-color-scheme` on `<html>` so selectors like `[data-color-scheme="dark"] {…}` work out of the box.
  *
+ * #### Token name shape
+ *
+ * Tokens follow one of two name shapes:
+ *
+ * | Shape | Meaning |
+ * | --- | --- |
+ * | `--color--{property}` | standalone (one `--` after color) |
+ * | `--color--{context}--{property}` | context pair (two `--` after color) |
+ *
+ * **Properties** are the role a color plays:
+ *
+ * | Property | Role |
+ * | --- | --- |
+ * | `surface` | backgrounds |
+ * | `ink` | text and icons |
+ * | `border` | 1px lines |
+ * | `outline` | focus rings and block-level rings |
+ * | `fill` / `track` | indicator fills and their backgrounds |
+ *
+ * **Standalone tokens** are for neutral page chrome; use them by default. Elevated neutral surfaces (modals, dropdowns, popovers) are standalone too, with hover and active variants for the raised layer. Pair them with the standalone ink tokens.
+ *
+ * **Context tokens** describe a self-contained mini-environment (a primary CTA, a danger button). Contexts come in two shapes:
+ *
+ * 1. **Ink-owning contexts**: signal contexts (primary, danger, accent, tinted, selected, feedback) and dark/inverted elevation contexts (overlay, backdrop, stacked, tooltip, code). Each defines an ink balanced on its own surface, so always pair surface and ink from the *same* context.
+ * 2. **Single-property contexts**: focus (outline/border), progress (fill/track), highlight (surface), scrollbar (fill). Not surface+ink environments; the pairing rule doesn't apply.
+ *
+ * > [!WARNING] Never cross ink-owning contexts
+ * > Don't put a primary ink on a danger surface, or an accent surface under a tinted ink. Each ink-owning context is contrast-balanced as a unit, and mixing produces illegible combinations, especially in dark mode.
+ *
+ * #### Defining custom colors
+ *
+ * Reserve custom colors for things genuinely outside the design system, such as brand illustrations, data-viz palettes, vendor-specific UI. Most needs ("primary button color", "error state") are already covered by tokens. When a custom color is justified, define it once per theme using the `[data-color-scheme="dark"]` selector that the SDK already sets:
+ *
+ * ```css
+ * .my-plugin {
+ *   --my-brand: #4a90e2;
+ * }
+ *
+ * [data-color-scheme="dark"] .my-plugin {
+ *   --my-brand: #6aa9ec;
+ * }
+ *
+ * .my-plugin__cta {
+ *   background: var(--my-brand);
+ *   color: var(--color--primary--ink);
+ * }
  * ```
- * --color--{property}                 // standalone (one -- after color)
- * --color--{context}--{property}      // context pair (two -- after color)
- * ```
  *
- * **Properties** — `surface` (backgrounds), `ink` (text/icons),
- * `border` (1px lines), `outline` (focus rings), plus `fill` / `track`
- * for progress bars.
+ * For non-CSS branching (image sources, third-party widget themes, syntax-highlighting presets), branch on `ctx.colorScheme` directly, e.g. `<img src={ctx.colorScheme === 'dark' ? logoDark : logoLight} />`. On modern browsers, the CSS `light-dark()` function is a more concise alternative to the per-theme variable pattern above.
  *
- * **Standalone** tokens work on any neutral page. **Contexts** are
- * self-contained environments: always pair a `surface` with the `ink`,
- * `border`, and hover states from the *same* context. Never mix — e.g.
- * don't put `--color--primary--ink` on `--color--danger--surface`.
+ * #### Available tokens
  *
- * Non-color tokens `--shadow--raised` / `--shadow--floating` /
- * `--shadow--lifted` / `--shadow--ambient` are ready-made `box-shadow`
- * composites.
+ * A swatch for every available token, grouped by context.
  *
  * ```js
  * <Canvas ctx={ctx}>
@@ -67,338 +100,394 @@ export type CanvasProps = {
  *     <StateManager initial={true}>
  *       {(isOpen, setOpen) => (
  *         <Section
- *           title="Standalone — use on any neutral page"
- *           collapsible={{ isOpen, onToggle: () => setOpen((v) => !v) }}
- *         >
- *           <Swatches
- *             tokens={[
- *               ['--color--surface', 'Default page background'],
- *               ['--color--surface-hover', 'Hovered row / list item'],
- *               ['--color--surface-muted', 'Muted section / card background'],
- *               ['--color--ink', 'Primary text'],
- *               ['--color--ink-subtle', 'Secondary text / captions'],
- *               ['--color--ink-hover', 'Text under hover'],
- *               ['--color--ink-muted', 'De-emphasized text'],
- *               ['--color--ink-placeholder', 'Input placeholder text'],
- *               ['--color--ink-primary', 'Brand-highlighted text / icons'],
- *               ['--color--ink-accent', 'Links / accent text'],
- *               ['--color--ink-disabled', 'Disabled text'],
- *               ['--color--border', 'Default 1px border'],
- *               ['--color--border-hover', 'Border under hover'],
- *             ]}
- *           />
- *         </Section>
- *       )}
- *     </StateManager>
- *   
- *     <StateManager initial={false}>
- *       {(isOpen, setOpen) => (
- *         <Section
- *           title="Context: raised — modals, dropdowns, popovers"
- *           collapsible={{ isOpen, onToggle: () => setOpen((v) => !v) }}
- *         >
- *           <Swatches
- *             tokens={[
- *               '--color--surface-raised',
- *               '--color--surface-raised-hover',
- *               '--color--surface-raised-active',
- *             ]}
- *           />
- *         </Section>
- *       )}
- *     </StateManager>
- *   
- *     <StateManager initial={false}>
- *       {(isOpen, setOpen) => (
- *         <Section
- *           title="Context: primary — main call-to-action buttons, badges, nav"
- *           collapsible={{ isOpen, onToggle: () => setOpen((v) => !v) }}
- *         >
- *           <Swatches
- *             tokens={[
- *               '--color--primary--surface',
- *               '--color--primary--surface-hover',
- *               '--color--primary--surface-active',
- *               '--color--primary--surface-muted',
- *               '--color--primary--ink',
- *               '--color--primary--border',
- *             ]}
- *           />
- *         </Section>
- *       )}
- *     </StateManager>
- *   
- *     <StateManager initial={false}>
- *       {(isOpen, setOpen) => (
- *         <Section
- *           title="Context: tinted — subtle brand-tinted surfaces"
- *           collapsible={{ isOpen, onToggle: () => setOpen((v) => !v) }}
- *         >
- *           <Swatches
- *             tokens={[
- *               '--color--tinted--surface',
- *               '--color--tinted--surface-hover',
- *               '--color--tinted--surface-active',
- *               '--color--tinted--ink',
- *               '--color--tinted--border',
- *             ]}
- *           />
- *         </Section>
- *       )}
- *     </StateManager>
- *   
- *     <StateManager initial={false}>
- *       {(isOpen, setOpen) => (
- *         <Section
- *           title="Context: accent — emphasized non-primary surfaces"
- *           collapsible={{ isOpen, onToggle: () => setOpen((v) => !v) }}
- *         >
- *           <Swatches tokens={['--color--accent--surface', '--color--accent--ink']} />
- *         </Section>
- *       )}
- *     </StateManager>
- *   
- *     <StateManager initial={false}>
- *       {(isOpen, setOpen) => (
- *         <Section
- *           title="Context: selected — active selection state"
- *           collapsible={{ isOpen, onToggle: () => setOpen((v) => !v) }}
- *         >
- *           <Swatches
- *             tokens={[
- *               '--color--selected--surface',
- *               '--color--selected--ink',
- *               '--color--selected--border',
- *             ]}
- *           />
- *         </Section>
- *       )}
- *     </StateManager>
- *   
- *     <StateManager initial={false}>
- *       {(isOpen, setOpen) => (
- *         <Section
- *           title="Context: disabled — inactive controls"
- *           collapsible={{ isOpen, onToggle: () => setOpen((v) => !v) }}
- *         >
- *           <Swatches tokens={['--color--disabled--surface', '--color--disabled--ink']} />
- *         </Section>
- *       )}
- *     </StateManager>
- *   
- *     <StateManager initial={false}>
- *       {(isOpen, setOpen) => (
- *         <Section
- *           title="Context: danger — destructive actions"
- *           collapsible={{ isOpen, onToggle: () => setOpen((v) => !v) }}
- *         >
- *           <Swatches tokens={['--color--danger--surface', '--color--danger--ink']} />
- *         </Section>
- *       )}
- *     </StateManager>
- *   
- *     <StateManager initial={false}>
- *       {(isOpen, setOpen) => (
- *         <Section
- *           title="Context: focus — focus rings and outlines"
- *           collapsible={{ isOpen, onToggle: () => setOpen((v) => !v) }}
- *         >
- *           <Swatches tokens={['--color--focus--border', '--color--focus--outline']} />
- *         </Section>
- *       )}
- *     </StateManager>
- *   
- *     <StateManager initial={false}>
- *       {(isOpen, setOpen) => (
- *         <Section
- *           title="Feedback — validation and form states"
- *           collapsible={{ isOpen, onToggle: () => setOpen((v) => !v) }}
- *         >
- *           <Swatches
- *             tokens={[
- *               '--color--feedback-fail--ink',
- *               '--color--feedback-fail--border',
- *               '--color--feedback-fail--outline',
- *               '--color--feedback-fail--surface',
- *               '--color--feedback-warning--ink',
- *               '--color--feedback-warning--border',
- *               '--color--feedback-warning--outline',
- *               '--color--feedback-warning--surface',
- *               '--color--feedback-success--ink',
- *               '--color--feedback-success--border',
- *               '--color--feedback-success--outline',
- *               '--color--feedback-success--surface',
- *             ]}
- *           />
- *         </Section>
- *       )}
- *     </StateManager>
- *   
- *     <StateManager initial={false}>
- *       {(isOpen, setOpen) => (
- *         <Section
- *           title="Context: highlight — rich text inline highlights"
- *           collapsible={{ isOpen, onToggle: () => setOpen((v) => !v) }}
- *         >
- *           <Swatches tokens={['--color--highlight--surface']} />
- *         </Section>
- *       )}
- *     </StateManager>
- *   
- *     <StateManager initial={false}>
- *       {(isOpen, setOpen) => (
- *         <Section
- *           title="Diffs — content versioning (added / removed / changed)"
- *           collapsible={{ isOpen, onToggle: () => setOpen((v) => !v) }}
- *         >
- *           <Swatches
- *             tokens={[
- *               '--color--diff-added--surface',
- *               '--color--diff-added--outline',
- *               '--color--diff-added--ink',
- *               '--color--diff-added--ink-subtle',
- *               '--color--diff-removed--surface',
- *               '--color--diff-removed--outline',
- *               '--color--diff-removed--ink',
- *               '--color--diff-removed--ink-subtle',
- *               '--color--diff-changed--surface',
- *               '--color--diff-changed--outline',
- *             ]}
- *           />
- *         </Section>
- *       )}
- *     </StateManager>
- *   
- *     <StateManager initial={false}>
- *       {(isOpen, setOpen) => (
- *         <Section
- *           title="Status — publishing workflow badges (ink-only)"
- *           collapsible={{ isOpen, onToggle: () => setOpen((v) => !v) }}
- *         >
- *           <Swatches
- *             kind="text"
- *             tokens={[
- *               '--color--status-draft--ink',
- *               '--color--status-outdated--ink',
- *               '--color--status-published--ink',
- *             ]}
- *           />
- *         </Section>
- *       )}
- *     </StateManager>
- *   
- *     <StateManager initial={false}>
- *       {(isOpen, setOpen) => (
- *         <Section
- *           title="Backdrop & overlay — scrims and floating UI"
- *           collapsible={{ isOpen, onToggle: () => setOpen((v) => !v) }}
- *         >
- *           <Swatches
- *             tokens={[
- *               '--color--backdrop--surface',
- *               '--color--backdrop--ink',
- *               '--color--overlay--surface',
- *               '--color--overlay--surface-hover',
- *               '--color--overlay--surface-active',
- *               '--color--overlay--ink',
- *             ]}
- *           />
- *         </Section>
- *       )}
- *     </StateManager>
- *   
- *     <StateManager initial={false}>
- *       {(isOpen, setOpen) => (
- *         <Section
- *           title="Stacked — dark layered UI (uploaders, media players)"
+ *           title="Standalone"
  *           collapsible={{ isOpen, onToggle: () => setOpen((v) => !v) }}
  *         >
  *           <p>
- *             Stacked gives you layered dark surfaces (base → upper) plus action buttons, borders and
- *             ink tones. Use it when a dark inline panel needs internal hierarchy.
+ *             One-level tokens that work on any neutral page. The <code>surface</code>, <code>ink</code> and <code>border</code> families cover the page background, body text and dividers; the <code>surface-raised</code> variants belong to the elevated layer used by modals, dropdowns and popovers.
  *           </p>
  *           <Swatches
  *             tokens={[
- *               '--color--stacked--surface',
- *               '--color--stacked--surface-upper',
- *               '--color--stacked--surface-action',
- *               '--color--stacked--surface-action-hover',
- *               '--color--stacked--surface-action-active',
- *               '--color--stacked--ink',
- *               '--color--stacked--ink-subtle',
- *               '--color--stacked--border',
+ *               ['--color--surface', 'Page background everything else sits on'],
+ *               ['--color--surface-hover', 'Hovered row inside lists and tables'],
+ *               ['--color--surface-muted', 'Background of muted section panels and quiet cards'],
+ *               ['--color--surface-raised', 'Elevated layer for modals, dropdowns and popovers'],
+ *               ['--color--surface-raised-hover', 'Hovered option inside a dropdown menu'],
+ *               ['--color--surface-raised-active', 'Focused or pressed option inside a dropdown menu'],
+ *               ['--color--ink', 'Primary body text'],
+ *               ['--color--ink-subtle', 'Secondary text, captions, helper labels'],
+ *               ['--color--ink-hover', 'Toolbar icon and link fill on hover'],
+ *               ['--color--ink-muted', 'Deemphasized text that should recede'],
+ *               ['--color--ink-placeholder', 'Empty-input placeholder text'],
+ *               ['--color--ink-primary', 'Theme-colored text and icons for branded labels'],
+ *               ['--color--ink-accent', 'Inline links and accent text'],
+ *               ['--color--ink-disabled', 'Label color on disabled inputs and buttons'],
+ *               ['--color--border', 'Default 1px divider between cards, rows and sections'],
+ *               ['--color--border-hover', 'Border of an input or card when hovered'],
  *             ]}
  *           />
  *         </Section>
  *       )}
  *     </StateManager>
- *   
+ *
  *     <StateManager initial={false}>
  *       {(isOpen, setOpen) => (
  *         <Section
- *           title="Progress — bar track and fill"
+ *           title="Context: primary"
  *           collapsible={{ isOpen, onToggle: () => setOpen((v) => !v) }}
  *         >
+ *           <p>
+ *             The project's brand hue (the color the user picked for their DatoCMS project) at full strength. Reach for it on the main call-to-action button on a page, and on badges or navigation bars that need to stand out.
+ *           </p>
  *           <Swatches
  *             tokens={[
- *               '--color--progress--track',
- *               '--color--progress--fill',
- *               '--color--progress--fill-hover',
+ *               ['--color--primary--surface', 'Resting background of a primary call-to-action button'],
+ *               ['--color--primary--surface-hover', 'Hovered primary button background'],
+ *               ['--color--primary--surface-active', 'Pressed primary button background'],
+ *               ['--color--primary--surface-muted', 'Muted variant of the primary surface'],
+ *               ['--color--primary--ink', 'Text and icon color sitting on a primary surface'],
+ *               ['--color--primary--border', 'Thin border drawn on top of a primary surface'],
  *             ]}
  *           />
  *         </Section>
  *       )}
  *     </StateManager>
- *   
+ *
  *     <StateManager initial={false}>
  *       {(isOpen, setOpen) => (
  *         <Section
- *           title="Tooltip — small dark floating labels"
+ *           title="Context: tinted"
  *           collapsible={{ isOpen, onToggle: () => setOpen((v) => !v) }}
  *         >
+ *           <p>
+ *             A subtle wash of the same project brand hue for secondary actions and chips: quieter than primary, still clearly on-brand.
+ *           </p>
  *           <Swatches
  *             tokens={[
- *               '--color--tooltip--surface',
- *               '--color--tooltip--surface-hover',
- *               '--color--tooltip--ink',
- *               '--color--tooltip--ink-subtle',
+ *               ['--color--tinted--surface', 'Resting background of secondary brand-tinted buttons'],
+ *               ['--color--tinted--surface-hover', 'Hovered tinted button background'],
+ *               ['--color--tinted--surface-active', 'Pressed tinted button background'],
+ *               ['--color--tinted--ink', 'Text and icon color on a tinted surface'],
+ *               ['--color--tinted--border', 'Thin border drawn on top of a tinted surface'],
  *             ]}
  *           />
  *         </Section>
  *       )}
  *     </StateManager>
- *   
+ *
  *     <StateManager initial={false}>
  *       {(isOpen, setOpen) => (
  *         <Section
- *           title="Code — dark code blocks, logs, error traces"
+ *           title="Context: accent"
  *           collapsible={{ isOpen, onToggle: () => setOpen((v) => !v) }}
  *         >
- *           <Swatches tokens={['--color--code--surface', '--color--code--ink']} />
+ *           <p>
+ *             A different stop on the same project brand hue, picked to stand out against neutral chrome without competing with the primary call-to-action. Good for accent badges, highlighted cards and small inline action chips.
+ *           </p>
+ *           <Swatches
+ *             tokens={[
+ *               ['--color--accent--surface', 'Background of badges and accent-colored inline panels'],
+ *               ['--color--accent--ink', 'Text and icon color sitting on an accent surface'],
+ *             ]}
+ *           />
  *         </Section>
  *       )}
  *     </StateManager>
- *   
+ *
+ *     <StateManager initial={false}>
+ *       {(isOpen, setOpen) => (
+ *         <Section
+ *           title="Context: selected"
+ *           collapsible={{ isOpen, onToggle: () => setOpen((v) => !v) }}
+ *         >
+ *           <p>
+ *             The active selection state: the highlighted entry in a list or tree, the currently picked option in a radio or choice group, the chosen card in a gallery.
+ *           </p>
+ *           <Swatches
+ *             tokens={[
+ *               ['--color--selected--surface', 'Background of the currently active entry in a list or tree'],
+ *               ['--color--selected--surface-hover', 'Hover on an entry that is already selected'],
+ *               ['--color--selected--ink', 'Text and icon color inside the selected entry'],
+ *               ['--color--selected--border', 'Border or outline ring drawn around a selected option or card'],
+ *             ]}
+ *           />
+ *         </Section>
+ *       )}
+ *     </StateManager>
+ *
+ *     <StateManager initial={false}>
+ *       {(isOpen, setOpen) => (
+ *         <Section
+ *           title="Context: disabled"
+ *           collapsible={{ isOpen, onToggle: () => setOpen((v) => !v) }}
+ *         >
+ *           <p>
+ *             The flat, low-contrast pair applied to non-interactive controls: disabled buttons, disabled selects and disabled toggles.
+ *           </p>
+ *           <Swatches
+ *             tokens={[
+ *               ['--color--disabled--surface', 'Background of a disabled button or control'],
+ *               ['--color--disabled--ink', 'Label and icon color on a disabled control'],
+ *             ]}
+ *           />
+ *         </Section>
+ *       )}
+ *     </StateManager>
+ *
+ *     <StateManager initial={false}>
+ *       {(isOpen, setOpen) => (
+ *         <Section
+ *           title="Context: danger"
+ *           collapsible={{ isOpen, onToggle: () => setOpen((v) => !v) }}
+ *         >
+ *           <p>
+ *             Reserved for destructive actions, such as Delete, Remove or Reset operations.
+ *           </p>
+ *           <Swatches
+ *             tokens={[
+ *               ['--color--danger--surface', 'Background of destructive action buttons like Delete'],
+ *               ['--color--danger--ink', 'Text and icon color on a danger surface'],
+ *             ]}
+ *           />
+ *         </Section>
+ *       )}
+ *     </StateManager>
+ *
+ *     <StateManager initial={false}>
+ *       {(isOpen, setOpen) => (
+ *         <Section
+ *           title="Context: focus"
+ *           collapsible={{ isOpen, onToggle: () => setOpen((v) => !v) }}
+ *         >
+ *           <p>
+ *             The keyboard-focus ring drawn around inputs, buttons and any other focusable control. Pair <code>border</code> on the element itself with <code>outline</code> as a soft halo.
+ *           </p>
+ *           <Swatches
+ *             tokens={[
+ *               ['--color--focus--border', 'Border color of the focused element'],
+ *               ['--color--focus--outline', 'Soft outline ring drawn around the focused element'],
+ *             ]}
+ *           />
+ *         </Section>
+ *       )}
+ *     </StateManager>
+ *
+ *     <StateManager initial={false}>
+ *       {(isOpen, setOpen) => (
+ *         <Section
+ *           title="Feedback"
+ *           collapsible={{ isOpen, onToggle: () => setOpen((v) => !v) }}
+ *         >
+ *           <p>
+ *             Validation states for forms and notifications: red for failures, yellow for warnings, green for successes. Each set follows the same four-property shape (ink, border, outline, surface), so you can swap the tone without touching layout.
+ *           </p>
+ *           <Swatches
+ *             tokens={[
+ *               ['--color--feedback-fail--ink', 'Error message text and the icon on an invalid field'],
+ *               ['--color--feedback-fail--border', 'Border around an invalid input or alert toast'],
+ *               ['--color--feedback-fail--outline', 'Soft halo around an invalid field on focus'],
+ *               ['--color--feedback-fail--surface', 'Background of error banners and alert toasts'],
+ *               ['--color--feedback-warning--ink', 'Text on warning banners and warning toasts'],
+ *               ['--color--feedback-warning--border', 'Border around warning banners and modified-state pills'],
+ *               ['--color--feedback-warning--outline', 'Soft halo for warning emphasis'],
+ *               ['--color--feedback-warning--surface', 'Background of warning banners and plugin notices'],
+ *               ['--color--feedback-success--ink', 'Text on success toasts and success banners'],
+ *               ['--color--feedback-success--border', 'Border around success banners'],
+ *               ['--color--feedback-success--outline', 'Soft halo for success emphasis'],
+ *               ['--color--feedback-success--surface', 'Background of success toasts'],
+ *             ]}
+ *           />
+ *         </Section>
+ *       )}
+ *     </StateManager>
+ *
+ *     <StateManager initial={false}>
+ *       {(isOpen, setOpen) => (
+ *         <Section
+ *           title="Context: highlight"
+ *           collapsible={{ isOpen, onToggle: () => setOpen((v) => !v) }}
+ *         >
+ *           <p>
+ *             The yellow marker pen for inline rich-text highlights inside Structured Text editors.
+ *           </p>
+ *           <Swatches
+ *             tokens={[
+ *               ['--color--highlight--surface', 'Background of a highlighted span inside a rich text editor'],
+ *             ]}
+ *           />
+ *         </Section>
+ *       )}
+ *     </StateManager>
+ *
+ *     <StateManager initial={false}>
+ *       {(isOpen, setOpen) => (
+ *         <Section
+ *           title="Diffs"
+ *           collapsible={{ isOpen, onToggle: () => setOpen((v) => !v) }}
+ *         >
+ *           <p>
+ *             Content-versioning palette across three intents: green for added, red for removed, blue for changed. Inline text diffs use the surface tint; block-level revision panels use the outline. For positive/negative rule indicators, the left-border tone depends on whether the rule was just edited: a subtle ink when stable, a vivid one when freshly changed. The changed variant has no ink stops, since rule borders are only ever green or red.
+ *           </p>
+ *           <Swatches
+ *             tokens={[
+ *               ['--color--diff-added--surface', 'Background of inline added text inside a text diff'],
+ *               ['--color--diff-added--outline', 'Outline drawn around a block-level added revision panel'],
+ *               ['--color--diff-added--ink', 'Left-border color of a positive rule when it was recently changed (vivid)'],
+ *               ['--color--diff-added--ink-subtle', 'Left-border color of a positive rule when it was not recently changed'],
+ *               ['--color--diff-removed--surface', 'Background of inline removed text inside a text diff'],
+ *               ['--color--diff-removed--outline', 'Outline drawn around a block-level removed revision panel'],
+ *               ['--color--diff-removed--ink', 'Left-border color of a negative rule when it was recently changed (vivid)'],
+ *               ['--color--diff-removed--ink-subtle', 'Left-border color of a negative rule when it was not recently changed'],
+ *               ['--color--diff-changed--surface', 'Background of inline changed text inside a text diff'],
+ *               ['--color--diff-changed--outline', 'Outline drawn around a block-level changed revision panel'],
+ *             ]}
+ *           />
+ *         </Section>
+ *       )}
+ *     </StateManager>
+ *
+ *     <StateManager initial={false}>
+ *       {(isOpen, setOpen) => (
+ *         <Section
+ *           title="Status"
+ *           collapsible={{ isOpen, onToggle: () => setOpen((v) => !v) }}
+ *         >
+ *           <p>
+ *             Publishing-workflow status dots. Ink-only because the colored dot is the whole marker, no surface or border needed.
+ *           </p>
+ *           <Swatches
+ *             kind="text"
+ *             tokens={[
+ *               ['--color--status-draft--ink', 'Dot color for records that exist only as a draft'],
+ *               ['--color--status-outdated--ink', 'Dot color for published records with unpublished changes'],
+ *               ['--color--status-published--ink', 'Dot color for fully published records'],
+ *             ]}
+ *           />
+ *         </Section>
+ *       )}
+ *     </StateManager>
+ *
+ *     <StateManager initial={false}>
+ *       {(isOpen, setOpen) => (
+ *         <Section
+ *           title="Backdrop and overlay"
+ *           collapsible={{ isOpen, onToggle: () => setOpen((v) => !v) }}
+ *         >
+ *           <p>
+ *             Two scrims for two jobs. The backdrop is the full-screen dim painted behind a modal dialog. The overlay is the lighter scrim that sits on top of media or thumbnails and hosts reversed buttons designed to read against dark imagery.
+ *           </p>
+ *           <Swatches
+ *             tokens={[
+ *               ['--color--backdrop--surface', 'Full-screen dim behind modals and dialogs'],
+ *               ['--color--backdrop--ink', 'Icon color for controls drawn directly on the backdrop, e.g. a modal close button'],
+ *               ['--color--overlay--surface', 'Scrim painted over media thumbnails and image cards'],
+ *               ['--color--overlay--surface-hover', 'Hover background of a reversed button floating on dark media'],
+ *               ['--color--overlay--surface-active', 'Pressed background of a reversed button on dark media'],
+ *               ['--color--overlay--ink', 'Text and icon color inside reversed buttons on overlay surfaces'],
+ *             ]}
+ *           />
+ *         </Section>
+ *       )}
+ *     </StateManager>
+ *
+ *     <StateManager initial={false}>
+ *       {(isOpen, setOpen) => (
+ *         <Section
+ *           title="Stacked"
+ *           collapsible={{ isOpen, onToggle: () => setOpen((v) => !v) }}
+ *         >
+ *           <p>
+ *             Layered dark inline areas, the kind used for asset uploaders and audio/video players. The wrapper paints the base surface; an inner detail panel sits a layer up; transparent action buttons gain visibility on hover and press.
+ *           </p>
+ *           <Swatches
+ *             tokens={[
+ *               ['--color--stacked--surface', 'Base layer of a dark inline panel'],
+ *               ['--color--stacked--surface-upper', 'Inner detail panel sitting one layer above the base'],
+ *               ['--color--stacked--surface-action', 'Resting background of action buttons inside a stacked panel (transparent)'],
+ *               ['--color--stacked--surface-action-hover', 'Hovered action button inside a stacked panel'],
+ *               ['--color--stacked--surface-action-active', 'Pressed action button inside a stacked panel'],
+ *               ['--color--stacked--ink', 'Main text and values on a stacked surface'],
+ *               ['--color--stacked--ink-subtle', 'Field labels and secondary text on a stacked surface'],
+ *               ['--color--stacked--border', 'Column rules and dividers inside a stacked panel'],
+ *             ]}
+ *           />
+ *         </Section>
+ *       )}
+ *     </StateManager>
+ *
+ *     <StateManager initial={false}>
+ *       {(isOpen, setOpen) => (
+ *         <Section
+ *           title="Progress"
+ *           collapsible={{ isOpen, onToggle: () => setOpen((v) => !v) }}
+ *         >
+ *           <p>
+ *             Horizontal progress bars used to report quota usage, upload advancement and similar percentage indicators.
+ *           </p>
+ *           <Swatches
+ *             tokens={[
+ *               ['--color--progress--track', 'Empty portion of the bar (the background track)'],
+ *               ['--color--progress--fill', 'Filled portion of the bar, drawn in the brand color'],
+ *               ['--color--progress--fill-hover', 'Fill color when the bar is hovered'],
+ *             ]}
+ *           />
+ *         </Section>
+ *       )}
+ *     </StateManager>
+ *
+ *     <StateManager initial={false}>
+ *       {(isOpen, setOpen) => (
+ *         <Section
+ *           title="Tooltip"
+ *           collapsible={{ isOpen, onToggle: () => setOpen((v) => !v) }}
+ *         >
+ *           <p>
+ *             Small dark floating labels: the plain tooltip shown on hover, and the keyboard-hint variant that pairs a description with a keyboard shortcut.
+ *           </p>
+ *           <Swatches
+ *             tokens={[
+ *               ['--color--tooltip--surface', 'Background of standard and keyboard-hint tooltips'],
+ *               ['--color--tooltip--surface-hover', 'Hover background for interactive controls living inside a tooltip'],
+ *               ['--color--tooltip--ink', 'Primary text inside a tooltip'],
+ *               ['--color--tooltip--ink-subtle', 'Secondary text inside a tooltip, e.g. the keyboard shortcut hint'],
+ *             ]}
+ *           />
+ *         </Section>
+ *       )}
+ *     </StateManager>
+ *
+ *     <StateManager initial={false}>
+ *       {(isOpen, setOpen) => (
+ *         <Section
+ *           title="Code"
+ *           collapsible={{ isOpen, onToggle: () => setOpen((v) => !v) }}
+ *         >
+ *           <p>
+ *             The dark monospaced surface used by build logs, error traces and other terminal-style output.
+ *           </p>
+ *           <Swatches
+ *             tokens={[
+ *               ['--color--code--surface', 'Background of code blocks, log panes and error traces'],
+ *               ['--color--code--ink', 'Monospaced text color rendered on a code surface'],
+ *             ]}
+ *           />
+ *         </Section>
+ *       )}
+ *     </StateManager>
+ *
  *     <StateManager initial={false}>
  *       {(isOpen, setOpen) => (
  *         <Section
  *           title="Scrollbar"
  *           collapsible={{ isOpen, onToggle: () => setOpen((v) => !v) }}
  *         >
- *           <Swatches tokens={['--color--scrollbar--fill']} />
- *         </Section>
- *       )}
- *     </StateManager>
- *   
- *     <StateManager initial={false}>
- *       {(isOpen, setOpen) => (
- *         <Section
- *           title="Shadow composites — drop-in box-shadow values"
- *           collapsible={{ isOpen, onToggle: () => setOpen((v) => !v) }}
- *         >
+ *           <p>
+ *             Tint applied globally to the native scrollbar thumb. Most visible in Firefox and on systems that keep scrollbars always on.
+ *           </p>
  *           <Swatches
- *             kind="shadow"
- *             tokens={['--shadow--raised', '--shadow--floating', '--shadow--lifted', '--shadow--ambient']}
+ *             tokens={[
+ *               ['--color--scrollbar--fill', 'Color of the native scrollbar thumb across the whole app'],
+ *             ]}
  *           />
  *         </Section>
  *       )}
@@ -407,213 +496,57 @@ export type CanvasProps = {
  * </Canvas>;
  * ```
  *
- * @example Typography CSS variables
+ * @example Shadows
  *
- * Typography is a foundational element in UI design. Good typography
- * establishes a strong, cohesive visual hierarchy and presents content clearly
- * and efficiently to users. Within the `Canvas` component, a set of CSS
- * variables is available allowing your plugin to conform to the overall
- * look&feel of DatoCMS:
+ * Four ready-made `box-shadow` composites (raised, floating, lifted, ambient). Drop them straight into a `box-shadow` property.
  *
  * ```js
  * <Canvas ctx={ctx}>
- *   <table>
- *     <tbody>
- *       <tr>
- *         <td>
- *           <code>--font-size-xxs</code>
- *         </td>
- *         <td>
- *           <div style={{ fontSize: 'var(--font-size-xxs)' }}>
- *             Size XXS
- *           </div>
- *         </td>
- *       </tr>
- *       <tr>
- *         <td>
- *           <code>--font-size-xs</code>
- *         </td>
- *         <td>
- *           <div style={{ fontSize: 'var(--font-size-xs)' }}>Size XS</div>
- *         </td>
- *       </tr>
- *       <tr>
- *         <td>
- *           <code>--font-size-s</code>
- *         </td>
- *         <td>
- *           <div style={{ fontSize: 'var(--font-size-s)' }}>Size S</div>
- *         </td>
- *       </tr>
- *       <tr>
- *         <td>
- *           <code>--font-size-m</code>
- *         </td>
- *         <td>
- *           <div style={{ fontSize: 'var(--font-size-m)' }}>Size M</div>
- *         </td>
- *       </tr>
- *       <tr>
- *         <td>
- *           <code>--font-size-l</code>
- *         </td>
- *         <td>
- *           <div
- *             style={{
- *               fontSize: 'var(--font-size-l)',
- *               fontWeight: 'var(--font-weight-bold)',
- *             }}
- *           >
- *             Size L
- *           </div>
- *         </td>
- *       </tr>
- *       <tr>
- *         <td>
- *           <code>--font-size-xl</code>
- *         </td>
- *         <td>
- *           <div
- *             style={{
- *               fontSize: 'var(--font-size-xl)',
- *               fontWeight: 'var(--font-weight-bold)',
- *             }}
- *           >
- *             Size XL
- *           </div>
- *         </td>
- *       </tr>
- *       <tr>
- *         <td>
- *           <code>--font-size-xxl</code>
- *         </td>
- *         <td>
- *           <div
- *             style={{
- *               fontSize: 'var(--font-size-xxl)',
- *               fontWeight: 'var(--font-weight-bold)',
- *             }}
- *           >
- *             Size XXL
- *           </div>
- *         </td>
- *       </tr>
- *       <tr>
- *         <td>
- *           <code>--font-size-xxxl</code>
- *         </td>
- *         <td>
- *           <div
- *             style={{
- *               fontSize: 'var(--font-size-xxxl)',
- *               fontWeight: 'var(--font-weight-bold)',
- *             }}
- *           >
- *             Size XXXL
- *           </div>
- *         </td>
- *       </tr>
- *     </tbody>
- *   </table>
+ *   <Swatches
+ *     kind="shadow"
+ *     tokens={['--shadow--raised', '--shadow--floating', '--shadow--lifted', '--shadow--ambient']}
+ *   />
  * </Canvas>;
  * ```
  *
- * @example Spacing CSS variables
+ * @example Typography
  *
- * The following CSS variables are available as well, to mimick the spacing
- * between elements used by the main DatoCMS application. Negative spacing
- * variables are available too (`--negative-spacing-<SIZE>`).
+ * Typography is a foundational element in UI design. Good typography establishes a strong, cohesive visual hierarchy and presents content clearly and efficiently to users. Within the `Canvas` component, a set of CSS variables is available allowing your plugin to conform to the overall look&feel of DatoCMS:
  *
  * ```js
  * <Canvas ctx={ctx}>
- *   <table>
- *     <tbody>
- *       <tr>
- *         <td>
- *           <code>--spacing-s</code>
- *         </td>
- *         <td>
- *           <div
- *             style={{
- *               background: 'var(--color--accent--surface)',
- *               width: 'var(--spacing-s)',
- *               height: 'var(--spacing-s)',
- *             }}
- *           />
- *         </td>
- *       </tr>
- *       <tr>
- *         <td>
- *           <code>--spacing-m</code>
- *         </td>
- *         <td>
- *           <div
- *             style={{
- *               background: 'var(--color--accent--surface)',
- *               width: 'var(--spacing-m)',
- *               height: 'var(--spacing-m)',
- *             }}
- *           />
- *         </td>
- *       </tr>
- *       <tr>
- *         <td>
- *           <code>--spacing-l</code>
- *         </td>
- *         <td>
- *           <div
- *             style={{
- *               background: 'var(--color--accent--surface)',
- *               width: 'var(--spacing-l)',
- *               height: 'var(--spacing-l)',
- *             }}
- *           />
- *         </td>
- *       </tr>
- *       <tr>
- *         <td>
- *           <code>--spacing-xl</code>
- *         </td>
- *         <td>
- *           <div
- *             style={{
- *               background: 'var(--color--accent--surface)',
- *               width: 'var(--spacing-xl)',
- *               height: 'var(--spacing-xl)',
- *             }}
- *           />
- *         </td>
- *       </tr>
- *       <tr>
- *         <td>
- *           <code>--spacing-xxl</code>
- *         </td>
- *         <td>
- *           <div
- *             style={{
- *               background: 'var(--color--accent--surface)',
- *               width: 'var(--spacing-xxl)',
- *               height: 'var(--spacing-xxl)',
- *             }}
- *           />
- *         </td>
- *       </tr>
- *       <tr>
- *         <td>
- *           <code>--spacing-xxxl</code>
- *         </td>
- *         <td>
- *           <div
- *             style={{
- *               background: 'var(--color--accent--surface)',
- *               width: 'var(--spacing-xxxl)',
- *               height: 'var(--spacing-xxxl)',
- *             }}
- *           />
- *         </td>
- *       </tr>
- *     </tbody>
- *   </table>
+ *   <Swatches
+ *     kind="font-size"
+ *     tokens={[
+ *       '--font-size-xxs',
+ *       '--font-size-xs',
+ *       '--font-size-s',
+ *       '--font-size-m',
+ *       '--font-size-l',
+ *       '--font-size-xl',
+ *       '--font-size-xxl',
+ *       '--font-size-xxxl',
+ *     ]}
+ *   />
+ * </Canvas>;
+ * ```
+ *
+ * @example Spacing
+ *
+ * The following CSS variables are available as well, to mimick the spacing between elements used by the main DatoCMS application. Negative spacing variables are available too (`--negative-spacing-<SIZE>`).
+ *
+ * ```js
+ * <Canvas ctx={ctx}>
+ *   <Spacings
+ *     tokens={[
+ *       '--spacing-s',
+ *       '--spacing-m',
+ *       '--spacing-l',
+ *       '--spacing-xl',
+ *       '--spacing-xxl',
+ *       '--spacing-xxxl',
+ *     ]}
+ *   />
  * </Canvas>;
  * ```
  */
