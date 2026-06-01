@@ -12,7 +12,7 @@
 }
 
 .formLabel--error {
-  color: var(--color--feedback-fail--ink);
+  color: var(--color--ink-danger);
 }
 
 .formLabel__label {

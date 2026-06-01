@@ -1,5 +1,5 @@
 .fieldError {
-  color: var(--color--feedback-fail--ink);
+  color: var(--color--ink-danger);
   line-height: 1.2;
   font-size: var(--font-size-xs);
   margin-top: var(--spacing-s);

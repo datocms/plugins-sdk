@@ -41,14 +41,14 @@
 }
 
 .TextareaInput--error {
-  border-color: var(--color--feedback-fail--border);
+  border-color: var(--color--danger-soft--border);
 
   &:hover,
   &:focus {
-    border-color: var(--color--feedback-fail--border);
+    border-color: var(--color--danger-soft--border);
   }
 
   &:focus {
-    box-shadow: 0 0 0 4px var(--color--feedback-fail--outline);
+    box-shadow: 0 0 0 4px var(--color--danger-soft--outline);
   }
 }

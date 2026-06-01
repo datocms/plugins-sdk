@@ -32,8 +32,8 @@
 }
 
 .buttonType-muted {
-  background-color: var(--color--tinted--surface);
-  color: var(--color--tinted--ink);
+  background-color: var(--color--primary-soft--surface);
+  color: var(--color--primary-soft--ink);
 
   &.disabled {
     background-color: var(--color--disabled--surface);
@@ -137,7 +137,7 @@
   line-height: 0.6;
 
   svg {
-    fill: var(--color--ink-accent);
+    fill: var(--color--ink-link);
   }
 }
 

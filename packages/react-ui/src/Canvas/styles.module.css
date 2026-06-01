@@ -30,13 +30,13 @@
   --darker-border-color-rgb-components: 215, 215, 215;
   --darker-border-color: var(--color--border-hover);
   --alert-color-rgb-components: 255, 94, 73;
-  --alert-color: var(--color--feedback-fail--ink);
+  --alert-color: var(--color--ink-danger);
   --warning-color-rgb-components: 255, 215, 0;
-  --warning-color: var(--color--feedback-warning--ink);
+  --warning-color: var(--color--ink-warning);
   --notice-color-rgb-components: 70, 215, 0;
-  --notice-color: var(--color--feedback-success--ink);
+  --notice-color: var(--color--ink-success);
   --warning-bg-color-rgb-components: 255, 255, 229;
-  --warning-bg-color: var(--color--feedback-warning--surface);
+  --warning-bg-color: var(--color--warning-soft--surface);
   --add-color-rgb-components: 76, 176, 109;
   --add-color: var(--color--diff-added--surface);
   --remove-color-rgb-components: 235, 87, 106;

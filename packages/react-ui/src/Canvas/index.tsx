@@ -104,7 +104,7 @@ export type CanvasProps = {
  *           collapsible={{ isOpen, onToggle: () => setOpen((v) => !v) }}
  *         >
  *           <p>
- *             One-level tokens that work on any neutral page. The <code>surface</code>, <code>ink</code> and <code>border</code> families cover the page background, body text and dividers; the <code>surface-raised</code> variants belong to the elevated layer used by modals, dropdowns and popovers.
+ *             One-level tokens that work on any neutral page. The <code>surface</code>, <code>ink</code> and <code>border</code> families cover the page background, body text and dividers; the <code>surface-raised</code> variants belong to the elevated layer used by modals, dropdowns and popovers. The tone-on-neutral inks (<code>ink-danger</code>, <code>ink-warning</code>, <code>ink-success</code>) color text and icons on a neutral surface; inside a toned panel use that context's own ink instead.
  *           </p>
  *           <Swatches
  *             tokens={[
@@ -120,7 +120,10 @@ export type CanvasProps = {
  *               ['--color--ink-muted', 'Deemphasized text that should recede'],
  *               ['--color--ink-placeholder', 'Empty-input placeholder text'],
  *               ['--color--ink-primary', 'Theme-colored text and icons for branded labels'],
- *               ['--color--ink-accent', 'Inline links and accent text'],
+ *               ['--color--ink-link', 'Inline links and accent text'],
+ *               ['--color--ink-danger', 'Error text or icon on a neutral surface'],
+ *               ['--color--ink-warning', 'Warning text or icon on a neutral surface'],
+ *               ['--color--ink-success', 'Success text or icon on a neutral surface'],
  *               ['--color--ink-disabled', 'Label color on disabled inputs and buttons'],
  *               ['--color--border', 'Default 1px divider between cards, rows and sections'],
  *               ['--color--border-hover', 'Border of an input or card when hovered'],
@@ -137,7 +140,7 @@ export type CanvasProps = {
  *           collapsible={{ isOpen, onToggle: () => setOpen((v) => !v) }}
  *         >
  *           <p>
- *             The project's brand hue (the color the user picked for their DatoCMS project) at full strength. Reach for it on the main call-to-action button on a page, and on badges or navigation bars that need to stand out.
+ *             The project's brand hue (the color the user picked for their DatoCMS project) at full strength. Reach for it on the main call-to-action button on a page, and on badges or navigation bars that need to stand out. The <code>surface-secondary</code> variant is a quieter brand surface step (for accent badges and inline action chips) that keeps the same white <code>ink</code>.
  *           </p>
  *           <Swatches
  *             tokens={[
@@ -145,7 +148,8 @@ export type CanvasProps = {
  *               ['--color--primary--surface-hover', 'Hovered primary button background'],
  *               ['--color--primary--surface-active', 'Pressed primary button background'],
  *               ['--color--primary--surface-muted', 'Muted variant of the primary surface'],
- *               ['--color--primary--ink', 'Text and icon color sitting on a primary surface'],
+ *               ['--color--primary--surface-secondary', 'Quieter brand surface for accent badges and inline chips'],
+ *               ['--color--primary--ink', 'Text and icon color sitting on any primary surface'],
  *               ['--color--primary--border', 'Thin border drawn on top of a primary surface'],
  *             ]}
  *           />
@@ -156,38 +160,19 @@ export type CanvasProps = {
  *     <StateManager initial={false}>
  *       {(isOpen, setOpen) => (
  *         <Section
- *           title="Context: tinted"
+ *           title="Context: primary-soft"
  *           collapsible={{ isOpen, onToggle: () => setOpen((v) => !v) }}
  *         >
  *           <p>
- *             A subtle wash of the same project brand hue for secondary actions and chips: quieter than primary, still clearly on-brand.
+ *             A soft panel in the same project brand hue: a pale brand surface paired with saturated brand ink. Quieter than primary, still clearly on-brand, for secondary actions, chips and tinted callouts.
  *           </p>
  *           <Swatches
  *             tokens={[
- *               ['--color--tinted--surface', 'Resting background of secondary brand-tinted buttons'],
- *               ['--color--tinted--surface-hover', 'Hovered tinted button background'],
- *               ['--color--tinted--surface-active', 'Pressed tinted button background'],
- *               ['--color--tinted--ink', 'Text and icon color on a tinted surface'],
- *               ['--color--tinted--border', 'Thin border drawn on top of a tinted surface'],
- *             ]}
- *           />
- *         </Section>
- *       )}
- *     </StateManager>
- *
- *     <StateManager initial={false}>
- *       {(isOpen, setOpen) => (
- *         <Section
- *           title="Context: accent"
- *           collapsible={{ isOpen, onToggle: () => setOpen((v) => !v) }}
- *         >
- *           <p>
- *             A different stop on the same project brand hue, picked to stand out against neutral chrome without competing with the primary call-to-action. Good for accent badges, highlighted cards and small inline action chips.
- *           </p>
- *           <Swatches
- *             tokens={[
- *               ['--color--accent--surface', 'Background of badges and accent-colored inline panels'],
- *               ['--color--accent--ink', 'Text and icon color sitting on an accent surface'],
+ *               ['--color--primary-soft--surface', 'Resting background of secondary brand-tinted buttons'],
+ *               ['--color--primary-soft--surface-hover', 'Hovered tinted button background'],
+ *               ['--color--primary-soft--surface-active', 'Pressed tinted button background'],
+ *               ['--color--primary-soft--ink', 'Text and icon color on a soft brand surface'],
+ *               ['--color--primary-soft--border', 'Thin border drawn on top of a soft brand surface'],
  *             ]}
  *           />
  *         </Section>
@@ -275,26 +260,26 @@ export type CanvasProps = {
  *     <StateManager initial={false}>
  *       {(isOpen, setOpen) => (
  *         <Section
- *           title="Feedback"
+ *           title="Signal tones"
  *           collapsible={{ isOpen, onToggle: () => setOpen((v) => !v) }}
  *         >
  *           <p>
- *             Validation states for forms and notifications: red for failures, yellow for warnings, green for successes. Each set follows the same four-property shape (ink, border, outline, surface), so you can swap the tone without touching layout.
+ *             Soft panels for validation states and notifications: red for failures, amber for warnings, green for successes. Each <code>-soft</code> context is a pale surface paired with saturated ink, following the same four-property shape (surface, ink, border, outline), so you can swap the tone without touching layout. For a colored message on a plain neutral surface, reach for the standalone <code>ink-danger</code>, <code>ink-warning</code> and <code>ink-success</code> instead.
  *           </p>
  *           <Swatches
  *             tokens={[
- *               ['--color--feedback-fail--ink', 'Error message text and the icon on an invalid field'],
- *               ['--color--feedback-fail--border', 'Border around an invalid input or alert toast'],
- *               ['--color--feedback-fail--outline', 'Soft halo around an invalid field on focus'],
- *               ['--color--feedback-fail--surface', 'Background of error banners and alert toasts'],
- *               ['--color--feedback-warning--ink', 'Text on warning banners and warning toasts'],
- *               ['--color--feedback-warning--border', 'Border around warning banners and modified-state pills'],
- *               ['--color--feedback-warning--outline', 'Soft halo for warning emphasis'],
- *               ['--color--feedback-warning--surface', 'Background of warning banners and plugin notices'],
- *               ['--color--feedback-success--ink', 'Text on success toasts and success banners'],
- *               ['--color--feedback-success--border', 'Border around success banners'],
- *               ['--color--feedback-success--outline', 'Soft halo for success emphasis'],
- *               ['--color--feedback-success--surface', 'Background of success toasts'],
+ *               ['--color--danger-soft--surface', 'Background of error banners and alert toasts'],
+ *               ['--color--danger-soft--ink', 'Error message text and the icon inside an error panel'],
+ *               ['--color--danger-soft--border', 'Border around an invalid input or alert toast'],
+ *               ['--color--danger-soft--outline', 'Soft halo around an invalid field on focus'],
+ *               ['--color--warning-soft--surface', 'Background of warning banners and plugin notices'],
+ *               ['--color--warning-soft--ink', 'Text inside warning banners and warning toasts'],
+ *               ['--color--warning-soft--border', 'Border around warning banners and modified-state pills'],
+ *               ['--color--warning-soft--outline', 'Soft halo for warning emphasis'],
+ *               ['--color--success-soft--surface', 'Background of success toasts'],
+ *               ['--color--success-soft--ink', 'Text inside success toasts and success banners'],
+ *               ['--color--success-soft--border', 'Border around success banners'],
+ *               ['--color--success-soft--outline', 'Soft halo for success emphasis'],
  *             ]}
  *           />
  *         </Section>

@@ -13,7 +13,7 @@
 
 .SplitViewSash:hover,
 .SplitViewSash--dragging {
-  background-color: var(--color--tinted--surface);
+  background-color: var(--color--primary-soft--surface);
 }
 
 .SplitViewSash:hover:has(.SplitViewSash__content:hover),

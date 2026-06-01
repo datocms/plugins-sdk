@@ -31,14 +31,14 @@ follow the host's active theme:
 
 - `--color--surface`, `--color--surface-hover`, `--color--surface-muted`, …
 - `--color--ink`, `--color--ink-subtle`, `--color--ink-placeholder`,
-  `--color--ink-accent`, …
+  `--color--ink-link`, `--color--ink-danger`, …
 - `--color--border`, `--color--border-hover`
 - Per-context variants: `--color--primary--surface`, `--color--primary--ink`,
-  `--color--tinted--surface`, `--color--accent--ink`,
+  `--color--primary--surface-secondary`, `--color--primary-soft--surface`,
   `--color--selected--surface`, `--color--disabled--surface`,
   `--color--danger--surface`, …
-- Feedback: `--color--feedback-fail--ink`,
-  `--color--feedback-warning--surface`, `--color--feedback-success--ink`, …
+- Signal tones: `--color--danger-soft--surface`,
+  `--color--warning-soft--surface`, `--color--success-soft--ink`, …
 - Plus diff, status, overlay, stacked, progress, tooltip, code and shadow
   groups.
 
@@ -69,7 +69,7 @@ deprecated `ctx.theme` field, which the host now pins to **light values
 only**, regardless of the active theme. Mixing these with the new
 `--color--*` tokens in dark mode will produce a light accent on a dark
 surface — visibly mismatched. Replace them with the corresponding
-semantic tokens (`--color--accent--surface`, `--color--accent--ink`,
+semantic tokens (`--color--primary--surface-secondary`, `--color--primary--ink`,
 `--color--primary--surface`, etc.).
 
 Non-color tokens (`--spacing-*`, `--font-size-*`, `--font-weight-bold`,

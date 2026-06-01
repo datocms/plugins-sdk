@@ -17,6 +17,6 @@
 
 .hotKeyKey {
   padding: 5px 8px;
-  background: var(--color--tinted--surface);
+  background: var(--color--primary-soft--surface);
   border-radius: 3px;
 }

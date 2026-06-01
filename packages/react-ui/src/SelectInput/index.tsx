@@ -56,19 +56,19 @@ const useStyles = (isDisabled?: boolean, error?: boolean) => {
           return {
             ...result,
             borderColor: error
-              ? 'var(--color--feedback-fail--border)'
+              ? 'var(--color--danger-soft--border)'
               : 'var(--color--focus--border)',
             backgroundColor: isDisabled
               ? 'var(--color--disabled--surface)'
               : 'var(--color--surface)',
             boxShadow: `0 0 0 4px ${
               error
-                ? 'var(--color--feedback-fail--outline)'
+                ? 'var(--color--danger-soft--outline)'
                 : 'var(--color--focus--outline)'
             }`,
             '&:hover': {
               borderColor: error
-                ? 'var(--color--feedback-fail--border)'
+                ? 'var(--color--danger-soft--border)'
                 : 'var(--color--focus--border)',
             },
           };
@@ -77,14 +77,14 @@ const useStyles = (isDisabled?: boolean, error?: boolean) => {
         return {
           ...result,
           borderColor: error
-            ? 'var(--color--feedback-fail--border)'
+            ? 'var(--color--danger-soft--border)'
             : 'var(--color--border)',
           backgroundColor: isDisabled
             ? 'var(--color--disabled--surface)'
             : 'var(--color--surface)',
           '&:hover': {
             borderColor: error
-              ? 'var(--color--feedback-fail--border)'
+              ? 'var(--color--danger-soft--border)'
               : 'var(--color--border-hover)',
           },
         };
@@ -92,10 +92,10 @@ const useStyles = (isDisabled?: boolean, error?: boolean) => {
       multiValueRemove: (provided) => ({
         ...provided,
         cursor: 'pointer',
-        color: 'var(--color--tinted--ink)',
+        color: 'var(--color--primary-soft--ink)',
         ':hover': {
-          backgroundColor: 'var(--color--tinted--surface-hover)',
-          color: 'var(--color--tinted--ink)',
+          backgroundColor: 'var(--color--primary-soft--surface-hover)',
+          color: 'var(--color--primary-soft--ink)',
         },
       }),
       menu: (provided) => {
@@ -132,7 +132,7 @@ const useStyles = (isDisabled?: boolean, error?: boolean) => {
         return {
           ...provided,
           zIndex: 100,
-          backgroundColor: 'var(--color--tinted--surface)',
+          backgroundColor: 'var(--color--primary-soft--surface)',
           userSelect: 'none',
         };
       },
@@ -140,7 +140,7 @@ const useStyles = (isDisabled?: boolean, error?: boolean) => {
         ...provided,
         fontSize: 'inherit',
         padding: 3,
-        color: 'var(--color--tinted--ink)',
+        color: 'var(--color--primary-soft--ink)',
       }),
     };
   }, [isDisabled, error]);

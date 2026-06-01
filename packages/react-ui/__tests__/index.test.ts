@@ -36,7 +36,7 @@ describe('generateStyleFromCtx', () => {
       semanticColorTokensTheme: {
         '--color--surface': 'rgb(255, 255, 255)',
         '--color--ink': 'rgb(52, 54, 58)',
-        '--color--feedback-fail--ink': 'rgb(255, 94, 73)',
+        '--color--ink-danger': 'rgb(255, 94, 73)',
         '--shadow--raised': '0 1px 2px rgba(0, 0, 0, 0.1)',
       },
     };
@@ -45,7 +45,7 @@ describe('generateStyleFromCtx', () => {
 
     expect(style['--color--surface']).toBe('rgb(255, 255, 255)');
     expect(style['--color--ink']).toBe('rgb(52, 54, 58)');
-    expect(style['--color--feedback-fail--ink']).toBe('rgb(255, 94, 73)');
+    expect(style['--color--ink-danger']).toBe('rgb(255, 94, 73)');
     expect(style['--shadow--raised']).toBe('0 1px 2px rgba(0, 0, 0, 0.1)');
 
     // Semantic tokens are passed through as-is — no RGB-component derivation.
