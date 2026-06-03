@@ -477,6 +477,45 @@ export type CanvasProps = {
  *         </Section>
  *       )}
  *     </StateManager>
+ *
+ *     <StateManager initial={false}>
+ *       {(isOpen, setOpen) => (
+ *         <Section
+ *           title="Field type groups"
+ *           collapsible={{ isOpen, onToggle: () => setOpen((v) => !v) }}
+ *         >
+ *           <p>
+ *             Fixed-hue soft chips for field type group icons. Each context exposes a <code>surface</code> (chip background) and an <code>ink</code> (icon fill). The hues are not brand-adaptive — they are fixed across projects and automatically flip between a pale surface with saturated ink in light mode and a deep surface with bright ink in dark mode.
+ *           </p>
+ *           <Swatches
+ *             tokens={[
+ *               ['--color--field-group-text--surface', 'Chip background for text/string/structured-text fields'],
+ *               ['--color--field-group-text--ink', 'Icon fill for text/string/structured-text fields'],
+ *               ['--color--field-group-rich-text--surface', 'Chip background for rich-text and single-block fields'],
+ *               ['--color--field-group-rich-text--ink', 'Icon fill for rich-text and single-block fields'],
+ *               ['--color--field-group-media--surface', 'Chip background for file, gallery and video fields'],
+ *               ['--color--field-group-media--ink', 'Icon fill for file, gallery and video fields'],
+ *               ['--color--field-group-datetime--surface', 'Chip background for date and date-time fields'],
+ *               ['--color--field-group-datetime--ink', 'Icon fill for date and date-time fields'],
+ *               ['--color--field-group-number--surface', 'Chip background for integer and float fields'],
+ *               ['--color--field-group-number--ink', 'Icon fill for integer and float fields'],
+ *               ['--color--field-group-boolean--surface', 'Chip background for boolean fields'],
+ *               ['--color--field-group-boolean--ink', 'Icon fill for boolean fields'],
+ *               ['--color--field-group-location--surface', 'Chip background for lat/lon fields'],
+ *               ['--color--field-group-location--ink', 'Icon fill for lat/lon fields'],
+ *               ['--color--field-group-color--surface', 'Chip background for color fields'],
+ *               ['--color--field-group-color--ink', 'Icon fill for color fields'],
+ *               ['--color--field-group-seo--surface', 'Chip background for slug and SEO fields'],
+ *               ['--color--field-group-seo--ink', 'Icon fill for slug and SEO fields'],
+ *               ['--color--field-group-reference--surface', 'Chip background for link and links fields'],
+ *               ['--color--field-group-reference--ink', 'Icon fill for link and links fields'],
+ *               ['--color--field-group-json--surface', 'Chip background for JSON fields'],
+ *               ['--color--field-group-json--ink', 'Icon fill for JSON fields'],
+ *             ]}
+ *           />
+ *         </Section>
+ *       )}
+ *     </StateManager>
  *   </div>
  * </Canvas>;
  * ```
