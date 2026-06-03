@@ -63,11 +63,11 @@ export type CanvasProps = {
  *
  * **Context tokens** describe a self-contained mini-environment (a primary CTA, a danger button). Contexts come in two shapes:
  *
- * 1. **Ink-owning contexts**: signal contexts (primary, danger, accent, tinted, selected, feedback) and dark/inverted elevation contexts (overlay, backdrop, stacked, tooltip, code). Each defines an ink balanced on its own surface, so always pair surface and ink from the *same* context.
- * 2. **Single-property contexts**: focus (outline/border), progress (fill/track), highlight (surface), scrollbar (fill). Not surface+ink environments; the pairing rule doesn't apply.
+ * 1.  **Ink-owning contexts**: signal contexts (primary, primary-soft, danger, danger-soft, warning-soft, success-soft, selected) and dark/inverted elevation contexts (overlay, backdrop, stacked, tooltip, code). Each defines an ink balanced on its own surface, so always pair surface and ink from the *same* context.
+ * 2.  **Single-property contexts**: focus (outline/border), progress (fill/track), highlight (surface), scrollbar (fill). Not surface+ink environments; the pairing rule doesn't apply.
  *
  * > [!WARNING] Never cross ink-owning contexts
- * > Don't put a primary ink on a danger surface, or an accent surface under a tinted ink. Each ink-owning context is contrast-balanced as a unit, and mixing produces illegible combinations, especially in dark mode.
+ * > Don't put a primary ink on a danger surface, or a danger-soft surface under a warning-soft ink. Each ink-owning context is contrast-balanced as a unit, and mixing produces illegible combinations, especially in dark mode.
  *
  * #### Defining custom colors
  *
@@ -209,10 +209,9 @@ export type CanvasProps = {
  *           <p>
  *             The flat, low-contrast pair applied to non-interactive controls: disabled buttons, disabled selects and disabled toggles.
  *           </p>
- *           <Swatches
+ *           <PairSwatches
  *             tokens={[
- *               ['--color--disabled--surface', 'Background of a disabled button or control'],
- *               ['--color--disabled--ink', 'Label and icon color on a disabled control'],
+ *               ['--color--disabled--surface', '--color--disabled--ink', 'Disabled button or control: muted background with low-contrast label'],
  *             ]}
  *           />
  *         </Section>
@@ -228,10 +227,9 @@ export type CanvasProps = {
  *           <p>
  *             Reserved for destructive actions, such as Delete, Remove or Reset operations.
  *           </p>
- *           <Swatches
+ *           <PairSwatches
  *             tokens={[
- *               ['--color--danger--surface', 'Background of destructive action buttons like Delete'],
- *               ['--color--danger--ink', 'Text and icon color on a danger surface'],
+ *               ['--color--danger--surface', '--color--danger--ink', 'Destructive action button: vivid red surface with white label'],
  *             ]}
  *           />
  *         </Section>
@@ -341,7 +339,6 @@ export type CanvasProps = {
  *             Publishing-workflow status dots. Ink-only because the colored dot is the whole marker, no surface or border needed.
  *           </p>
  *           <Swatches
- *             kind="text"
  *             tokens={[
  *               ['--color--status-draft--ink', 'Dot color for records that exist only as a draft'],
  *               ['--color--status-outdated--ink', 'Dot color for published records with unpublished changes'],
@@ -361,10 +358,13 @@ export type CanvasProps = {
  *           <p>
  *             Two scrims for two jobs. The backdrop is the full-screen dim painted behind a modal dialog. The overlay is the lighter scrim that sits on top of media or thumbnails and hosts reversed buttons designed to read against dark imagery.
  *           </p>
+ *           <PairSwatches
+ *             tokens={[
+ *               ['--color--backdrop--surface', '--color--backdrop--ink', 'Full-screen modal dim with icon color for close controls'],
+ *             ]}
+ *           />
  *           <Swatches
  *             tokens={[
- *               ['--color--backdrop--surface', 'Full-screen dim behind modals and dialogs'],
- *               ['--color--backdrop--ink', 'Icon color for controls drawn directly on the backdrop, e.g. a modal close button'],
  *               ['--color--overlay--surface', 'Scrim painted over media thumbnails and image cards'],
  *               ['--color--overlay--surface-hover', 'Hover background of a reversed button floating on dark media'],
  *               ['--color--overlay--surface-active', 'Pressed background of a reversed button on dark media'],
@@ -450,10 +450,9 @@ export type CanvasProps = {
  *           <p>
  *             The dark monospaced surface used by build logs, error traces and other terminal-style output.
  *           </p>
- *           <Swatches
+ *           <PairSwatches
  *             tokens={[
- *               ['--color--code--surface', 'Background of code blocks, log panes and error traces'],
- *               ['--color--code--ink', 'Monospaced text color rendered on a code surface'],
+ *               ['--color--code--surface', '--color--code--ink', 'Dark monospaced surface with its text color'],
  *             ]}
  *           />
  *         </Section>
@@ -487,30 +486,19 @@ export type CanvasProps = {
  *           <p>
  *             Fixed-hue soft chips for field type group icons. Each context exposes a <code>surface</code> (chip background) and an <code>ink</code> (icon fill). The hues are not brand-adaptive — they are fixed across projects and automatically flip between a pale surface with saturated ink in light mode and a deep surface with bright ink in dark mode.
  *           </p>
- *           <Swatches
+ *           <PairSwatches
  *             tokens={[
- *               ['--color--field-group-text--surface', 'Chip background for text/string/structured-text fields'],
- *               ['--color--field-group-text--ink', 'Icon fill for text/string/structured-text fields'],
- *               ['--color--field-group-rich-text--surface', 'Chip background for rich-text and single-block fields'],
- *               ['--color--field-group-rich-text--ink', 'Icon fill for rich-text and single-block fields'],
- *               ['--color--field-group-media--surface', 'Chip background for file, gallery and video fields'],
- *               ['--color--field-group-media--ink', 'Icon fill for file, gallery and video fields'],
- *               ['--color--field-group-datetime--surface', 'Chip background for date and date-time fields'],
- *               ['--color--field-group-datetime--ink', 'Icon fill for date and date-time fields'],
- *               ['--color--field-group-number--surface', 'Chip background for integer and float fields'],
- *               ['--color--field-group-number--ink', 'Icon fill for integer and float fields'],
- *               ['--color--field-group-boolean--surface', 'Chip background for boolean fields'],
- *               ['--color--field-group-boolean--ink', 'Icon fill for boolean fields'],
- *               ['--color--field-group-location--surface', 'Chip background for lat/lon fields'],
- *               ['--color--field-group-location--ink', 'Icon fill for lat/lon fields'],
- *               ['--color--field-group-color--surface', 'Chip background for color fields'],
- *               ['--color--field-group-color--ink', 'Icon fill for color fields'],
- *               ['--color--field-group-seo--surface', 'Chip background for slug and SEO fields'],
- *               ['--color--field-group-seo--ink', 'Icon fill for slug and SEO fields'],
- *               ['--color--field-group-reference--surface', 'Chip background for link and links fields'],
- *               ['--color--field-group-reference--ink', 'Icon fill for link and links fields'],
- *               ['--color--field-group-json--surface', 'Chip background for JSON fields'],
- *               ['--color--field-group-json--ink', 'Icon fill for JSON fields'],
+ *               ['--color--field-group-text--surface', '--color--field-group-text--ink', 'Text / string / structured-text fields'],
+ *               ['--color--field-group-rich-text--surface', '--color--field-group-rich-text--ink', 'Rich-text and single-block fields'],
+ *               ['--color--field-group-media--surface', '--color--field-group-media--ink', 'File, gallery and video fields'],
+ *               ['--color--field-group-datetime--surface', '--color--field-group-datetime--ink', 'Date and date-time fields'],
+ *               ['--color--field-group-number--surface', '--color--field-group-number--ink', 'Integer and float fields'],
+ *               ['--color--field-group-boolean--surface', '--color--field-group-boolean--ink', 'Boolean fields'],
+ *               ['--color--field-group-location--surface', '--color--field-group-location--ink', 'Lat/lon fields'],
+ *               ['--color--field-group-color--surface', '--color--field-group-color--ink', 'Color fields'],
+ *               ['--color--field-group-seo--surface', '--color--field-group-seo--ink', 'Slug and SEO fields'],
+ *               ['--color--field-group-reference--surface', '--color--field-group-reference--ink', 'Link and links fields'],
+ *               ['--color--field-group-json--surface', '--color--field-group-json--ink', 'JSON fields'],
  *             ]}
  *           />
  *         </Section>
@@ -599,7 +587,7 @@ export function Canvas({
   // itself (`html`/`body`, outside the wrapper) can't reference them. Mirror
   // the scrollbar token onto the document root so the page-level scrollbar can
   // be themed too (consumed by the layered `html` rule in `base.css`).
-  const scrollbarFill = ctx.semanticColorTokensTheme['--color--scrollbar--fill'];
+  const scrollbarFill = ctx.cssDesignTokens['--color--scrollbar--fill'];
 
   useEffect(() => {
     if (typeof document === 'undefined' || !scrollbarFill) {

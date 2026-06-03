@@ -1,6 +1,6 @@
 # Upgrading datocms-react-ui
 
-## v3.0.0 — Semantic color tokens and dark-mode support
+## v2.2.0 — Semantic color tokens and dark-mode support
 
 This release reworks the color system around the host's semantic color
 tokens. The CMS now computes a full color palette for the active theme

@@ -1,14 +1,14 @@
 # Upgrading datocms-plugin-sdk
 
-## v3.0.0 — Semantic color tokens
+## v2.2.0 — Semantic color tokens
 
-The plugin context now exposes a `semanticColorTokensTheme` field with the
+The plugin context now exposes a `cssDesignTokens` field with the
 active color palette for the current DatoCMS host. This is the new source
 of truth for plugin theming and supports dark mode.
 
 ### What's new
 
-- `ctx.semanticColorTokensTheme` — a `Record<string, string>` mapping CSS
+- `ctx.cssDesignTokens` — a `Record<string, string>` mapping CSS
   custom property names to their resolved values (e.g.
   `{ '--color--surface': '…', '--color--primary--surface': '…' }`). The host
   computes these for the user's **active theme**, light or dark per the
@@ -16,7 +16,7 @@ of truth for plugin theming and supports dark mode.
   keeps no token list of its own, so the vocabulary can evolve host-side
   without an SDK release. If you use `datocms-react-ui`, `Canvas` injects
   these onto the canvas for you; otherwise apply them yourself, e.g.
-  `Object.assign(document.documentElement.style, ctx.semanticColorTokensTheme)`.
+  `Object.assign(document.documentElement.style, ctx.cssDesignTokens)`.
 - `ctx.theme` — still present and unchanged in shape, but **deprecated**.
   The host now pins this field to **light-mode values only**, regardless
   of the user's active theme, so existing plugins that read it (or use
@@ -48,7 +48,7 @@ of truth for plugin theming and supports dark mode.
 [light-dark]: https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/light-dark
 
 > **Host contract.** `ctx.theme` always returns light-mode colors;
-> `ctx.semanticColorTokensTheme` is theme-aware. This lets plugins upgrade
+> `ctx.cssDesignTokens` is theme-aware. This lets plugins upgrade
 > to the latest version without breaking, and opt into the active theme by
 > reading the new field.
 
@@ -59,5 +59,5 @@ If your plugin uses `datocms-react-ui`, see
 changes are there, including the dark-mode audit checklist.
 
 If your plugin reads `ctx.theme` directly, you can keep doing so for now.
-Migrating to `ctx.semanticColorTokensTheme` will let your plugin follow
+Migrating to `ctx.cssDesignTokens` will let your plugin follow
 the user's active theme (including dark mode).

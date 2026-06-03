@@ -9,7 +9,7 @@ const baseCtx = {
     lightColor: 'rgb(219, 234, 254)',
     darkColor: 'rgb(0, 33, 90)',
   },
-  semanticColorTokensTheme: {},
+  cssDesignTokens: {},
 };
 
 describe('generateStyleFromCtx', () => {
@@ -33,7 +33,7 @@ describe('generateStyleFromCtx', () => {
   it('applies semantic color tokens verbatim, keyed by their CSS variable name', () => {
     const ctx = {
       ...baseCtx,
-      semanticColorTokensTheme: {
+      cssDesignTokens: {
         '--color--surface': 'rgb(255, 255, 255)',
         '--color--ink': 'rgb(52, 54, 58)',
         '--color--ink-danger': 'rgb(255, 94, 73)',
@@ -53,8 +53,8 @@ describe('generateStyleFromCtx', () => {
     expect(style['--color--ink-rgb-components']).toBeUndefined();
   });
 
-  it('works when semanticColorTokensTheme is undefined', () => {
-    const { semanticColorTokensTheme, ...ctx } = baseCtx;
+  it('works when cssDesignTokens is undefined', () => {
+    const { cssDesignTokens, ...ctx } = baseCtx;
     const style = generateStyleFromCtx(ctx as any) as any;
 
     expect(style['--primary-color']).toBe('rgb(0, 76, 209)');
@@ -62,10 +62,10 @@ describe('generateStyleFromCtx', () => {
     expect(style['--color--surface']).toBeUndefined();
   });
 
-  it('works when semanticColorTokensTheme is an empty object', () => {
+  it('works when cssDesignTokens is an empty object', () => {
     const ctx = {
       ...baseCtx,
-      semanticColorTokensTheme: {},
+      cssDesignTokens: {},
     };
 
     const style = generateStyleFromCtx(ctx as any) as any;
@@ -80,7 +80,7 @@ describe('generateStyleFromCtx', () => {
   it('forwards arbitrary host tokens the SDK has never heard of', () => {
     const ctx = {
       ...baseCtx,
-      semanticColorTokensTheme: {
+      cssDesignTokens: {
         '--color--brand-new--surface': 'rgb(100, 200, 50)',
       },
     };

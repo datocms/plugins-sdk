@@ -30,6 +30,6 @@ export function generateStyleFromCtx(
     // name (e.g. `--color--surface-raised`), so they're applied verbatim. The
     // SDK stays agnostic of the token vocabulary: whatever the host sends ends
     // up on the canvas, and plugin CSS references it with `var(--…)`.
-    ...ctx.semanticColorTokensTheme,
+    ...ctx.cssDesignTokens,
   };
 }

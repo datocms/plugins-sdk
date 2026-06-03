@@ -105,7 +105,7 @@ type ProjectProperties = {
   /**
    * An object containing the theme colors for the current DatoCMS project
    *
-   * @deprecated Use `semanticColorTokensTheme` instead. This property is kept
+   * @deprecated Use `cssDesignTokens` instead. This property is kept
    *   for backward compatibility with third-party plugins.
    */
   theme: Theme;
@@ -116,7 +116,7 @@ type ProjectProperties = {
    * `--color--raised--surface`) to their resolved values for the current
    * color scheme.
    */
-  semanticColorTokensTheme: SemanticColorTokensTheme;
+  cssDesignTokens: cssDesignTokens;
 
   /**
    * The appearance color scheme the host CMS is currently using. Resolved —
@@ -175,7 +175,7 @@ type EntityReposProperties = {
 /**
  * An object containing the theme colors for the current DatoCMS project
  *
- * @deprecated Use `SemanticColorTokensTheme` instead. This type is kept for
+ * @deprecated Use `cssDesignTokens` instead. This type is kept for
  *   backward compatibility with third-party plugins.
  */
 export type Theme = {
@@ -199,7 +199,7 @@ export type Theme = {
  * The token set is whatever the host sends; it is intentionally untyped so it
  * can evolve on the host without an SDK release.
  */
-export type SemanticColorTokensTheme = Record<string, string>;
+export type cssDesignTokens = Record<string, string>;
 
 export type BaseMethods = LoadDataMethods &
   UpdatePluginParametersMethods &

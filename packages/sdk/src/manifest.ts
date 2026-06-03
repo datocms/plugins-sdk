@@ -3363,7 +3363,7 @@ export const manifest: Manifest = {
               markdownText:
                 'An object containing the theme colors for the current DatoCMS project.',
               deprecatedMarkdownText:
-                'Use `semanticColorTokensTheme` instead. This property is kept\nfor backward compatibility with third-party plugins.',
+                'Use `cssDesignTokens` instead. This property is kept\nfor backward compatibility with third-party plugins.',
             },
             location: {
               filePath: 'src/ctx/base.ts',
@@ -3371,7 +3371,7 @@ export const manifest: Manifest = {
             },
             type: 'Theme',
           },
-          semanticColorTokensTheme: {
+          cssDesignTokens: {
             comment: {
               markdownText:
                 'Semantic color tokens for the current DatoCMS project, pre-computed by\nthe host. A map of CSS custom property names (e.g.\n`--color--raised--surface`) to their resolved values for the current\ncolor scheme.',
@@ -3380,7 +3380,7 @@ export const manifest: Manifest = {
               filePath: 'src/ctx/base.ts',
               lineNumber: 119,
             },
-            type: 'SemanticColorTokensTheme',
+            type: 'cssDesignTokens',
           },
           colorScheme: {
             comment: {
