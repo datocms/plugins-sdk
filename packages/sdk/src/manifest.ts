@@ -3380,7 +3380,7 @@ export const manifest: Manifest = {
               filePath: 'src/ctx/base.ts',
               lineNumber: 119,
             },
-            type: 'cssDesignTokens',
+            type: 'CssDesignTokens',
           },
           colorScheme: {
             comment: {

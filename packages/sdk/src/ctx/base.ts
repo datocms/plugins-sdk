@@ -116,7 +116,7 @@ type ProjectProperties = {
    * `--color--raised--surface`) to their resolved values for the current
    * color scheme.
    */
-  cssDesignTokens: cssDesignTokens;
+  cssDesignTokens: CssDesignTokens;
 
   /**
    * The appearance color scheme the host CMS is currently using. Resolved —
@@ -199,7 +199,7 @@ export type Theme = {
  * The token set is whatever the host sends; it is intentionally untyped so it
  * can evolve on the host without an SDK release.
  */
-export type cssDesignTokens = Record<string, string>;
+export type CssDesignTokens = Record<string, string>;
 
 export type BaseMethods = LoadDataMethods &
   UpdatePluginParametersMethods &
