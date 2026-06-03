@@ -49,6 +49,7 @@
 
 .switchInput__checked {
   background-color: var(--color--primary--surface);
+  border-color: var(--color--primary--surface);
 
   .switchInput__inner {
     left: 6px;
