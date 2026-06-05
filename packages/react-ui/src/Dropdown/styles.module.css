@@ -120,12 +120,6 @@
 }
 
 .Dropdown__menu__option--is-dangerous {
-  color: var(--color--danger--ink);
-
-  svg {
-    fill: var(--color--danger--ink);
-  }
-
   &:hover,
   &:focus {
     background-color: var(--color--danger--surface);
@@ -133,6 +127,7 @@
 
     svg {
       fill: var(--color--danger--ink);
+      color: var(--color--danger--ink);
     }
   }
 }
@@ -188,8 +183,8 @@
     padding-right: 8px;
     display: inline-block;
     vertical-align: middle;
-    color: var(--color--ink-subtle);
     fill: var(--color--ink-subtle);
+    color: var(--color--ink-subtle);
   }
 }
 
@@ -237,6 +232,7 @@
 
   svg {
     fill: var(--color--ink-subtle);
+    color: var(--color--ink-subtle);
   }
 }
 
@@ -244,6 +240,7 @@
   color: var(--color--danger--ink);
   svg {
     fill: var(--color--danger--ink);
+    color: var(--color--danger--ink);
   }
 }
 

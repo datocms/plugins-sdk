@@ -138,6 +138,7 @@
 
   svg {
     fill: var(--color--ink-link);
+    color: var(--color--ink-link);
   }
 }
 

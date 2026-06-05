@@ -25,6 +25,7 @@
 
 .Button svg {
   fill: var(--color--ink-subtle);
+  color: var(--color--ink-subtle);
 }
 
 .Button--s {
@@ -47,6 +48,7 @@
 
 .Button--selected svg {
   fill: var(--color--primary--ink);
+  color: var(--color--primary--ink);
 }
 
 .Button--selected:hover {
