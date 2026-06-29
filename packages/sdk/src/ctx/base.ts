@@ -585,6 +585,7 @@ type UploadDialogMethods = {
    *   title: null,
    *   custom_data: {},
    *   focal_point: null,
+   *   poster_time: null,
    * });
    *
    * if (result) {
@@ -758,6 +759,9 @@ export type FileFieldValue = {
   /** Object with arbitrary metadata related to the asset */
   // eslint-disable-next-line camelcase
   custom_data: Record<string, string>;
+  /** Poster time in seconds (only for video assets) */
+  // eslint-disable-next-line camelcase
+  poster_time: number | null;
 };
 
 /** A modal to present to the user */
