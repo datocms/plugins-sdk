@@ -102,6 +102,8 @@ export type NewUpload = {
         /** Vertical position expressed as float between 0 and 1 */
         y: number;
       } | null;
+      /** Poster time in seconds (only for video assets) */
+      poster_time?: number | null;
     };
   };
 };

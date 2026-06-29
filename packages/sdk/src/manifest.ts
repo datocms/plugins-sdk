@@ -3704,11 +3704,11 @@ export const manifest: Manifest = {
               markdownText:
                 'Opens a dialog for editing a "single asset" field structure. It returns a\npromise resolved with the updated structure, or `null` if the user closes\nthe dialog without persisting any change.',
               example:
-                "const uploadId = prompt('Please insert an asset ID:');\n\nconst result = await ctx.editUploadMetadata({\n  upload_id: uploadId,\n  alt: null,\n  title: null,\n  custom_data: {},\n  focal_point: null,\n});\n\nif (result) {\n  ctx.notice(`Success! ${JSON.stringify(result)}`);\n} else {\n  ctx.alert('Closed!');\n}",
+                "const uploadId = prompt('Please insert an asset ID:');\n\nconst result = await ctx.editUploadMetadata({\n  upload_id: uploadId,\n  alt: null,\n  title: null,\n  custom_data: {},\n  focal_point: null,\n  poster_time: null,\n});\n\nif (result) {\n  ctx.notice(`Success! ${JSON.stringify(result)}`);\n} else {\n  ctx.alert('Closed!');\n}",
             },
             location: {
               filePath: 'src/ctx/base.ts',
-              lineNumber: 597,
+              lineNumber: 598,
             },
             type: '(\n    /** The "single asset" field structure */\n    fileFieldValue: FileFieldValue,\n    /** Shows metadata information for a specific locale */\n    locale?: string,\n  ) => Promise<FileFieldValue | null>',
           },
@@ -3730,7 +3730,7 @@ export const manifest: Manifest = {
             },
             location: {
               filePath: 'src/ctx/base.ts',
-              lineNumber: 628,
+              lineNumber: 629,
             },
             type: '(modal: Modal) => Promise<unknown>',
           },
@@ -3743,7 +3743,7 @@ export const manifest: Manifest = {
             },
             location: {
               filePath: 'src/ctx/base.ts',
-              lineNumber: 665,
+              lineNumber: 666,
             },
             type: '(options: ConfirmOptions) => Promise<unknown>',
           },
@@ -3764,7 +3764,7 @@ export const manifest: Manifest = {
             },
             location: {
               filePath: 'src/ctx/base.ts',
-              lineNumber: 679,
+              lineNumber: 680,
             },
             type: '(path: string) => Promise<void>',
           },
