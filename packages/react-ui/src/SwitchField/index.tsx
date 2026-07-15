@@ -41,6 +41,7 @@ export function SwitchField({
         <div className={s.switchField__switchInput}>
           <SwitchInput
             {...switchInputProps}
+            id={id}
             name={name}
             value={value}
             onChange={onChange}
