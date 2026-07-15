@@ -10,14 +10,24 @@
 
 # DatoCMS Plugin SDK
 
-Monorepo with Typescript libraries to help you build DatoCMS plugins. See [documentation](https://www.datocms.com/docs/plugin-sdk/introduction) and [examples](https://www.datocms.com/docs/plugin-sdk/real-world-examples) for usage information.
+Monorepo with the TypeScript libraries used to build DatoCMS plugins.
+
+## Building a plugin?
+
+You should not need to install these packages manually. Follow our [Build your first plugin](https://www.datocms.com/docs/plugin-sdk/build-your-first-plugin#set-up-your-project) guide to easily scaffold a plugin with both packages already set up. 
+
+From there, the [Plugin SDK documentation](https://www.datocms.com/docs/plugin-sdk/introduction) and [real-world examples](https://www.datocms.com/docs/plugin-sdk/real-world-examples) cover everything else.
 
 ## Packages
 
 - [`datocms-plugin-sdk`](https://github.com/datocms/plugins-sdk/tree/master/packages/sdk)
-  - Typescript SDK to build DatoCMS plugins.
+  - TypeScript SDK to build DatoCMS plugins.
 - [`datocms-react-ui`](https://github.com/datocms/plugins-sdk/tree/master/packages/react-ui)
   - React component library to mimic the DatoCMS interface inside plugins.
+
+## Developing
+
+To work on the packages themselves (e.g. to prepare a PR or debug an issue in the framework itself), see the "Developing" section of each package's README: [`datocms-plugin-sdk`](https://github.com/datocms/plugins-sdk/blob/master/packages/sdk/README.md#developing), [`datocms-react-ui`](https://github.com/datocms/plugins-sdk/blob/master/packages/react-ui/README.md#developing). Both are developed in this Lerna monorepo and released in lockstep.
 
 ## License
 
