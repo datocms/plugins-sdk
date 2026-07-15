@@ -8,14 +8,16 @@
 }
 
 .switchField__label {
-  line-height: 1.1;
   flex: 1;
   line-height: 20px;
-  -moz-user-select: text;
-  -ms-user-select: text;
-  user-select: text;
   margin-bottom: 0;
   color: var(--color--ink);
+
+  /* Match the button cursors */
+  cursor: pointer;
+  &--disabled {
+    cursor: no-drop;
+  }
 }
 
 .switchField__below {

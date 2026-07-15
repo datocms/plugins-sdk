@@ -51,7 +51,11 @@ export function SwitchField({
           {...formLabelProps}
           htmlFor={id}
           required={required}
-          className={cn(s.switchField__label, formLabelProps?.className)}
+          className={cn(
+            s.switchField__label,
+            switchInputProps?.disabled && s['switchField__label--disabled'],
+            formLabelProps?.className,
+          )}
           error={!!error}
         >
           {label}
