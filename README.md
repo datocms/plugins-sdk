@@ -27,7 +27,7 @@ From there, the [Plugin SDK documentation](https://www.datocms.com/docs/plugin-s
 
 ## Developing
 
-To work on the packages themselves (e.g. to prepare a PR or debug an issue in the framework itself), see the "Developing" section of each package's README: [`datocms-plugin-sdk`](https://github.com/datocms/plugins-sdk/blob/master/packages/sdk/README.md#developing), [`datocms-react-ui`](https://github.com/datocms/plugins-sdk/blob/master/packages/react-ui/README.md#developing). Both are developed in this npm-workspaces monorepo and released in lockstep.
+To work on the packages themselves (e.g. to prepare a PR or debug an issue in the framework itself), see the "Developing" section of each package's README: [`datocms-plugin-sdk`](https://github.com/datocms/plugins-sdk/blob/master/packages/sdk/README.md#developing), [`datocms-react-ui`](https://github.com/datocms/plugins-sdk/blob/master/packages/react-ui/README.md#developing). Both are developed in this npm-workspaces monorepo, and share a version number whenever they are released together.
 
 ## Releasing
 

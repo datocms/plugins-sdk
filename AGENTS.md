@@ -1,6 +1,6 @@
 # DatoCMS Plugin SDK monorepo
 
-npm-workspaces monorepo, built with Turborepo and released with Changesets, using **fixed/lockstep versioning** (both packages always share one version number). It contains two npm packages:
+npm-workspaces monorepo, built with Turborepo and released with Changesets, using **`linked` versioning** (packages released together share one version number; a package nobody touched keeps the version it had). It contains two npm packages:
 
 - `packages/sdk` → `datocms-plugin-sdk` — core TypeScript SDK for building DatoCMS plugins
 - `packages/react-ui` → `datocms-react-ui` — React components mimicking the DatoCMS UI; depends on `datocms-plugin-sdk`
@@ -29,7 +29,7 @@ Use it instead of `npm link` (a symlinked React library breaks with duplicate-Re
 
 - Every user-visible change needs a changeset (`npx changeset`) in the same PR, or it ships with no release note. `patch` is for bug fixes only; new API surface is `minor`.
 - Releasing (maintainers only): `npm run publish` from the root, on a clean `master`. It builds and tests, applies the pending changesets, publishes to npm, then tags, pushes, and opens the GitHub releases. An interrupted release is resumed by re-running it, never undone. See `bin/publish.mjs`.
-- One `name@X.Y.Z` tag and one GitHub release **per package**. `changeset publish` does the publishing and the tagging itself, in that order and only for the packages npm accepted, so a tag can't outlive a failed publish. What is being released comes from `changeset publish-plan --output`, not from anything the script reconstructs. Each release's body is that package's own `CHANGELOG.md` section — in a fixed group the non-originating package's section is just its dependency bump, which is the honest thing to show. Releases up to v2.2.7 used a single `vX.Y.Z` tag instead; those tags stay where they are.
+- One `name@X.Y.Z` tag and one GitHub release **per package**. `changeset publish` does the publishing and the tagging itself, in that order and only for the packages npm accepted, so a tag can't outlive a failed publish. What is being released comes from `changeset publish-plan --output`, not from anything the script reconstructs. Each release's body is that package's own `CHANGELOG.md` section — when a package moved only because the other one did, that section is just its dependency bump, which is the honest thing to show. Releases up to v2.2.7 used a single `vX.Y.Z` tag instead; those tags stay where they are.
 
 ## More detail
 

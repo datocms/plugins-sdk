@@ -10,7 +10,7 @@ Plugins scaffolded from the official plugin template already include the SDK (al
 
 ## Developing
 
-This package is developed in the [`datocms/plugins-sdk`](https://github.com/datocms/plugins-sdk) repository, an npm-workspaces monorepo (a single Git repo hosting multiple npm packages) built with [Turborepo](https://turborepo.com/) and released with [Changesets](https://github.com/changesets/changesets), which keeps their version number shared. The monorepo contains two packages, released in lockstep:
+This package is developed in the [`datocms/plugins-sdk`](https://github.com/datocms/plugins-sdk) repository, an npm-workspaces monorepo (a single Git repo hosting multiple npm packages) built with [Turborepo](https://turborepo.com/) and released with [Changesets](https://github.com/changesets/changesets). The monorepo contains two packages, which share a version number whenever they are released together:
 
 - `datocms-plugin-sdk` — this core plugin SDK;
 - [`datocms-react-ui`](https://github.com/datocms/plugins-sdk/tree/master/packages/react-ui) — a React component library that depends on it.
@@ -44,4 +44,4 @@ rm -rf node_modules/datocms-plugin-sdk node_modules/.vite && npm install
 
 Every user-visible change needs a changeset: run `npx changeset` from the repo root in the same PR, pick the bump level (`patch` is for bug fixes only, new API surface is `minor`) and commit the file it writes under `.changeset/`.
 
-To release, from an up-to-date, clean `master`, run `npm run publish` from the repo root. It builds and tests, applies the pending changesets — bumping **both** packages to the same version (fixed group) and writing the `CHANGELOG.md`s — publishes to npm, and only then tags each package `name@X.Y.Z`, pushes, and publishes a GitHub release per tag, whose notes come straight from those changelog entries. An interrupted release is resumed by re-running it, never undone. Use `npm run publish-next` for a prerelease under the `next` dist-tag.
+To release, from an up-to-date, clean `master`, run `npm run publish` from the repo root. It builds and tests, applies the pending changesets — bumping whichever packages changed, and writing their `CHANGELOG.md`s — publishes to npm, and only then tags each package `name@X.Y.Z`, pushes, and publishes a GitHub release per tag, whose notes come straight from those changelog entries. An interrupted release is resumed by re-running it, never undone. Use `npm run publish-next` for a prerelease under the `next` dist-tag.

@@ -4,8 +4,8 @@
   "commit": false,
   "access": "public",
   "baseBranch": "master",
-  "fixed": [["datocms-plugin-sdk", "datocms-react-ui"]],
-  "linked": [],
+  "fixed": [],
+  "linked": [["datocms-plugin-sdk", "datocms-react-ui"]],
   "updateInternalDependencies": "patch",
   "ignore": []
 }

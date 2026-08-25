@@ -10,10 +10,26 @@ At release time `npm run publish` consumes every pending file: it computes the
 resulting version, updates the `package.json`s and the `CHANGELOG.md`s, and
 deletes the files.
 
-`datocms-plugin-sdk` and `datocms-react-ui` are a `fixed` group: they always
-share the same version and are released together, exactly as they were under
-Lerna. So the package list inside a changeset matters far less than the bump
-level you pick.
+`datocms-plugin-sdk` and `datocms-react-ui` are a `linked` group: anything
+released together lands on the same version, but a package nobody touched keeps
+the version it had. This is the exact translation of what Lerna's
+`"version": "2.2.7"` did.
+
+So the package list inside a changeset does matter. List every package whose
+*own* behaviour changed — but not the ones that merely depend on it, which
+changesets handles by itself. In practice:
+
+- a fix in `datocms-react-ui` alone takes it to 2.2.8 and leaves
+  `datocms-plugin-sdk` at 2.2.7;
+- a `minor` in `datocms-plugin-sdk` alone takes it to 2.3.0 and leaves
+  `datocms-react-ui` at 2.2.7, because `^2.2.7` already allows 2.3.0;
+- a `major` in `datocms-plugin-sdk` takes **both** to 3.0.0 — the range breaks,
+  so `datocms-react-ui` has to move, and being linked it moves to the same
+  version rather than to 2.2.8.
+
+That last case is what the group buys: the two never end up at versions that
+contradict each other, like a `datocms-react-ui@2.2.8` that requires
+`datocms-plugin-sdk@^3.0.0`.
 
 ## Which bump level?
 

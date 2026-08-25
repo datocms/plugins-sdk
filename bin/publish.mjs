@@ -196,14 +196,18 @@ const main = async () => {
 
   if (bumping) {
     step('Committing the release');
-    // `release: v2.2.7` when everything moved together — which for a fixed
-    // group is every time — and the explicit list if the versions ever diverge.
+    // A `linked` group shares one version across whatever it releases
+    // together, so `release: v3.0.0` is right when both packages move — but a
+    // release can now carry one package alone, and calling that "v2.2.8" would
+    // claim the other moved too. Name it instead when it is the only one.
     const tags = plan.map((entry) => `${entry.name}@${entry.version}`);
     const versions = new Set(plan.map((entry) => entry.version));
     const subject =
-      versions.size === 1
-        ? `release: v${[...versions][0]}`
-        : `release: ${tags.join(', ')}`;
+      tags.length === 1
+        ? `release: ${tags[0]}`
+        : versions.size === 1
+          ? `release: v${[...versions][0]}`
+          : `release: ${tags.join(', ')}`;
     run('git', ['add', '-A']);
     run('git', ['commit', '-m', subject]);
   }
