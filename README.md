@@ -42,15 +42,15 @@ released together.
 2. **Release.** From an up-to-date, clean `master`, run `npm run publish`.
    It builds and tests first, then applies the pending changesets (bumping the
    versions and writing the `CHANGELOG.md`s), publishes to npm, and only then
-   tags `vX.Y.Z`, pushes, and publishes the GitHub release — its notes are the
-   changelog entries changesets just wrote.
+   tags each package `name@X.Y.Z`, pushes, and publishes one GitHub release per
+   tag — its notes are the changelog entries changesets just wrote.
 
 If a release is interrupted, **do not undo anything**: run `npm run publish`
 again. It detects that some package is still missing from the registry and
 resumes the publish instead of starting a new release.
 
 `npm run publish-next` does the same under the `next` dist-tag, leaving
-`latest` untouched; its GitHub release is marked as a prerelease, so it doesn't
+`latest` untouched; its GitHub releases are marked as prereleases, so they don't
 become the repository's "Latest release" either.
 
 ## License

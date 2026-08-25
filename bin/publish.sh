@@ -49,7 +49,6 @@ packages() {
     }
   '
 }
-version() { node -p "require('./packages/sdk/package.json').version"; }
 pending_changesets() { find .changeset -maxdepth 1 -name '*.md' ! -name 'README.md' | wc -l | tr -d ' '; }
 
 # The resume condition: at least one package whose local version is not yet on
@@ -63,6 +62,24 @@ unpublished() {
   echo "${missing# }"
 }
 
+# The packages this release covers, reconstructed after the fact: the ones whose
+# current version has no `name@version` tag yet. Only the resume path needs this
+# — a fresh release knows the answer exactly, by diffing the versions across the
+# bump. It is deliberately generous: on the very first release under this tagging
+# scheme *nothing* is tagged, so a resumed first release also re-announces
+# packages that never moved. That costs a redundant GitHub release, once.
+untagged_packages() {
+  local name ver loc
+  while read -r name ver loc; do
+    # An `if` rather than `[ ... ] && echo`: under `set -e` an AND-list that
+    # ends false is the loop body's exit status, so an already-tagged *last*
+    # package would abort the whole script.
+    if ! git rev-parse -q --verify "refs/tags/$name@$ver" >/dev/null; then
+      echo "$name $ver $loc"
+    fi
+  done < <(packages)
+}
+
 # The section of a package's CHANGELOG for one version, without its "## x.y.z"
 # heading — changesets has already written exactly the prose we want.
 changelog_section() { # $1 = package location, $2 = version
@@ -73,51 +90,16 @@ changelog_section() { # $1 = package location, $2 = version
   awk -v want="## $2" '$0 == want { found = 1; next } found && /^## / { exit } found' "$1/CHANGELOG.md"
 }
 
-# True when a changelog section says something a human wrote, as opposed to the
-# dependency bookkeeping every package in a fixed group accumulates:
-#
-#     - Updated dependencies [5b90e51]
-#       - datocms-plugin-sdk@2.2.7
-#
-# A bullet counts as prose unless it is exactly one of those lines.
-has_prose() {
-  grep -vE '^- Updated dependencies( \[[0-9a-f]+\])?$|^ *- [^ ]+@[0-9][^ ]*$' <<<"$1" | grep -qE '^- '
-}
-
-# The packages that landed on the release version — i.e. the ones this release
-# actually publishes. Today that is both of them, because the `fixed` group in
-# .changeset/config.json names them and a fixed group moves as one. Asserting
-# that rather than assuming it is what keeps the footer honest if a third
-# package is ever added to packages/: joining the lockstep group should be an
-# explicit decision, and until someone takes it the new package would otherwise
-# be listed as "released in lockstep" at the version it has been sitting at.
-released_packages() {
-  local name ver loc
-  while read -r name ver loc; do
-    # An `if` rather than `[ ... ] && echo`: under `set -e` an AND-list that
-    # ends false is the loop body's exit status, so a non-matching *last*
-    # package would abort the whole script — right at the release notes, after
-    # npm and git have already been written to.
-    if [ "$ver" = "$1" ]; then
-      echo "$name $ver $loc"
-    fi
-  done < <(packages)
-}
-
-# The body of the GitHub release. The packages move in lockstep, so one release
-# covers them all — but only the ones with something to say get a section, or
-# the page fills up with each package restating that the others moved too. The
-# footer keeps every published package visible.
-release_notes() {
-  local name ver loc section shipped=""
-  while read -r name ver loc; do
-    shipped="$shipped
-- $name@$ver"
-    section="$(changelog_section "$loc" "$VERSION")"
-    has_prose "$section" || continue
-    printf '## %s\n%s\n\n' "$name" "$section"
-  done < <(released_packages "$VERSION")
-  printf -- '---\n\nReleased in lockstep:%s\n' "$shipped"
+# `release: v2.2.7` when everything moved together — which for a fixed group is
+# every time — and the explicit list if the versions ever diverge.
+commit_subject() { # $1 = "name version location" lines
+  local versions
+  versions="$(awk '{print $2}' <<<"$1" | sort -u)"
+  if [ "$(wc -l <<<"$versions")" -eq 1 ]; then
+    echo "release: v$versions"
+  else
+    awk '{ printf "%s%s@%s", sep, $1, $2; sep = ", " } END { print "" }' <<<"$1" | sed 's/^/release: /'
+  fi
 }
 
 # ---------------------------------------------------------------------------
@@ -153,15 +135,14 @@ if [ "$(pending_changesets)" -eq 0 ]; then
   MISSING="$(unpublished)"
   [ -n "$MISSING" ] || fail "no pending changesets: there is nothing to release.
   Describe your changes with 'npx changeset' first."
-  step "Resuming the interrupted release of v$(version)"
+  step "Resuming an interrupted release"
   echo "still missing from npm:$(printf ' %s' $MISSING)"
-  RESUMING=1
+  RELEASING="$(untagged_packages)"
+  [ -n "$RELEASING" ] || fail "every package is already tagged at its current version.
+  A release that died after tagging cannot be resumed by this script: push the tags
+  and create the missing GitHub releases by hand."
 else
-  RESUMING=0
-fi
-
-if [ "$RESUMING" -eq 0 ]; then
-  CURRENT="$(version)"
+  BEFORE="$(packages)"
 
   # -------------------------------------------------------------------------
   # Everything that can fail. Nothing has been mutated yet, so a network
@@ -180,32 +161,28 @@ if [ "$RESUMING" -eq 0 ]; then
   step "Applying pending changesets"
   npx changeset version
 
-  NEXT="$(version)"
-  [ "$NEXT" != "$CURRENT" ] || fail "changeset version did not bump anything."
-  echo "$CURRENT -> $NEXT"
+  # Read package by package rather than as a single "the version": in a linked
+  # group only some of them move, and there is no one version to read.
+  RELEASING="$(awk 'NR == FNR { was[$1] = $2; next } was[$1] != $2' <(echo "$BEFORE") <(packages))"
+  [ -n "$RELEASING" ] || fail "changeset version did not bump anything."
+  awk 'NR == FNR { was[$1] = $2; next }
+       was[$1] != $2 { printf "  %s: %s -> %s\n", $1, (($1 in was) ? was[$1] : "new"), $2 }' \
+    <(echo "$BEFORE") <(packages)
 
-  [ -n "$(unpublished)" ] || fail "version $NEXT is already on npm. Aborting before overwriting anything."
+  [ -n "$(unpublished)" ] || fail "these versions are already on npm. Aborting before overwriting anything."
 
   step "Refreshing the lockfile"
   npm install --package-lock-only
 
-  step "Committing v$NEXT"
+  step "Committing the release"
   git add -A
-  git commit -m "v$NEXT"
+  git commit -m "$(commit_subject "$RELEASING")"
 fi
-
-VERSION="$(version)"
 
 # ---------------------------------------------------------------------------
 # The irreversible step, npm first.
-#
-# --no-git-tag: changesets would tag every package separately
-# (datocms-plugin-sdk@2.2.7, datocms-react-ui@2.2.7). The two move in lockstep,
-# so we tag the release once, below, the way this repo always has. Tagging after
-# the publish keeps the property that matters: a tag can only exist for a
-# version that is actually on the registry.
 # ---------------------------------------------------------------------------
-step "Publishing v$VERSION to npm"
+step "Publishing to npm"
 if [ -n "$DIST_TAG" ]; then
   npx changeset publish --no-git-tag --tag "$DIST_TAG"
 else
@@ -214,37 +191,49 @@ fi
 
 # ---------------------------------------------------------------------------
 # git follows npm.
+#
+# `changeset git-tag` writes one annotated `name@version` tag per package,
+# skipping any that already exist. We drive it rather than letting `changeset
+# publish` tag inline (hence --no-git-tag above) only for the ordering: tagging
+# after the publish keeps the property that matters, that a tag can only exist
+# for a version which is actually on the registry.
 # ---------------------------------------------------------------------------
-step "Tagging v$VERSION"
-if git rev-parse -q --verify "refs/tags/v$VERSION" >/dev/null; then
-  echo "v$VERSION already tagged"
-else
-  git tag -a "v$VERSION" -m "v$VERSION"
-fi
+step "Tagging"
+npx changeset git-tag
 
 step "Pushing to GitHub"
 git push --follow-tags origin "$BRANCH"
 
 # ---------------------------------------------------------------------------
-# The release notes. Last, because it's the only step a human can redo by hand
-# from the changelog if it goes wrong.
+# The release notes: one GitHub release per tag, its body the CHANGELOG section
+# changesets just wrote. Last, because it's the only step a human can redo by
+# hand from the changelog if it goes wrong.
 # ---------------------------------------------------------------------------
 step "Publishing the release notes"
-if gh release view "v$VERSION" >/dev/null 2>&1; then
-  echo "the v$VERSION release already exists, leaving it alone"
-else
+
+while read -r name ver loc; do
+  tag="$name@$ver"
+
   # A prerelease must not become the repo's "Latest release": that's reserved
-  # for whatever is on the `latest` dist-tag.
+  # for whatever is on the `latest` dist-tag. Decided per package, not once for
+  # the run, so one prerelease version can't mark the others.
   PRERELEASE=""
-  case "$VERSION" in *-*) PRERELEASE="--prerelease" ;; esac
   [ -z "$DIST_TAG" ] || PRERELEASE="--prerelease"
+  case "$ver" in *-*) PRERELEASE="--prerelease" ;; esac
 
-  release_notes | gh release create "v$VERSION" --title "v$VERSION" --notes-file - $PRERELEASE
-fi
+  if gh release view "$tag" >/dev/null 2>&1; then
+    echo "$tag: the release already exists, leaving it alone"
+    continue
+  fi
+  section="$(changelog_section "$loc" "$ver")"
+  # A package released for the first time has no changelog entry to quote.
+  [ -n "$section" ] || section="Released \`$tag\`."
+  printf '%s\n' "$section" | \
+    gh release create "$tag" --title "$tag" --verify-tag --notes-file - $PRERELEASE
+done <<<"$RELEASING"
 
-# Asked for rather than parsed out of `gh release create`, so the link is the
-# same whether we just created the release or found one already there.
-RELEASE_URL="$(gh release view "v$VERSION" --json url --jq .url 2>/dev/null || true)"
-
-printf '\n\033[32mReleased v%s\033[0m\n' "$VERSION"
-[ -z "$RELEASE_URL" ] || printf '%s\n' "$RELEASE_URL"
+printf '\n\033[32mReleased\033[0m\n'
+while read -r name ver loc; do
+  printf '  %s@%s  %s\n' "$name" "$ver" \
+    "$(gh release view "$name@$ver" --json url --jq .url 2>/dev/null || true)"
+done <<<"$RELEASING"
