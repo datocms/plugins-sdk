@@ -34,5 +34,8 @@ untouched. It works in two modes:
   recorded in `.changeset/pre.json`, which you commit. Run
   `npx changeset pre exit` when the line is done.
 
+Either way the GitHub release is marked as a prerelease, so it never becomes
+the repository's "Latest release".
+
 `npm run publish` refuses to run while `.changeset/pre.json` exists, so a
 forgotten pre mode can't quietly turn a real release into a prerelease.
