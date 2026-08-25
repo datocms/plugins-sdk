@@ -28,10 +28,26 @@ fail() { printf '\n\033[31mAborted: %s\033[0m\n' "$1" >&2; exit 1; }
 
 BRANCH="$(git rev-parse --abbrev-ref HEAD)"
 
-# Every workspace package, as "name version location" triples.
+# Every publishable workspace package, as "name version location" triples.
+#
+# Read off the filesystem rather than asked of npm: `npm query` resolves
+# workspace locations through node_modules, which during a release rehearsal is
+# a symlink to another checkout, so it answers with paths outside the copy you
+# are actually rehearsing.
 packages() {
-  npm query .workspace --no-workspaces-update 2>/dev/null \
-    | node -e 'let s="";process.stdin.on("data",c=>s+=c).on("end",()=>{for(const p of JSON.parse(s))console.log(p.name,p.version,p.location)})'
+  node -e '
+    const fs = require("node:fs"), path = require("node:path");
+    for (const pattern of require("./package.json").workspaces) {
+      const dir = path.dirname(pattern);
+      for (const entry of fs.readdirSync(dir).sort()) {
+        const location = path.join(dir, entry);
+        let pkg;
+        try { pkg = JSON.parse(fs.readFileSync(path.join(location, "package.json"), "utf8")); } catch { continue; }
+        if (pkg.private) continue;
+        console.log(pkg.name, pkg.version, location);
+      }
+    }
+  '
 }
 version() { node -p "require('./packages/sdk/package.json').version"; }
 pending_changesets() { find .changeset -maxdepth 1 -name '*.md' ! -name 'README.md' | wc -l | tr -d ' '; }
@@ -53,15 +69,31 @@ changelog_section() { # $1 = package location, $2 = version
   awk -v want="## $2" '$0 == want { found = 1; next } found && /^## / { exit } found' "$1/CHANGELOG.md"
 }
 
-# The body of the GitHub release: every package's entry for this version, under
-# its own heading. The packages move in lockstep, so one release covers them all.
+# True when a changelog section says something a human wrote, as opposed to the
+# dependency bookkeeping every package in a fixed group accumulates:
+#
+#     - Updated dependencies [5b90e51]
+#       - datocms-plugin-sdk@2.2.7
+#
+# A bullet counts as prose unless it is exactly one of those lines.
+has_prose() {
+  grep -vE '^- Updated dependencies( \[[0-9a-f]+\])?$|^ *- [^ ]+@[0-9][^ ]*$' <<<"$1" | grep -qE '^- '
+}
+
+# The body of the GitHub release. The packages move in lockstep, so one release
+# covers them all — but only the ones with something to say get a section, or
+# the page fills up with each package restating that the others moved too. The
+# footer keeps every published package visible.
 release_notes() {
-  local name ver loc section
+  local name ver loc section shipped=""
   while read -r name ver loc; do
+    shipped="$shipped
+- $name@$ver"
     section="$(changelog_section "$loc" "$VERSION")"
-    [ -n "$section" ] || continue
+    has_prose "$section" || continue
     printf '## %s\n%s\n\n' "$name" "$section"
   done < <(packages)
+  printf -- '---\n\nReleased in lockstep:%s\n' "$shipped"
 }
 
 # ---------------------------------------------------------------------------
