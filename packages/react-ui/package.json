@@ -56,6 +56,8 @@
     "postcss-import": "^14.0.2",
     "postcss-modules": "^4.2.2",
     "postcss-nested": "^5.0.6",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "typedoc": "^0.26.7"
   },
   "gitHead": "6b88a998f0807c7da1e17afa6a8f0336aed7497f"
