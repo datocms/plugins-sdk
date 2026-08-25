@@ -28,8 +28,8 @@ Use it instead of `npm link` (a symlinked React library breaks with duplicate-Re
 ## Gotchas
 
 - Every user-visible change needs a changeset (`npx changeset`) in the same PR, or it ships with no release note. `patch` is for bug fixes only; new API surface is `minor`.
-- Releasing (maintainers only): `npm run publish` from the root, on a clean `master`. It builds and tests, applies the pending changesets, publishes to npm, then tags, pushes, and opens the GitHub releases. An interrupted release is resumed by re-running it, never undone. See `bin/publish.sh`.
-- One `name@X.Y.Z` tag and one GitHub release **per package**, both written from what `changeset git-tag` tags. `changeset publish` still runs with `--no-git-tag`, now only so the tagging happens *after* the publish and never before. Each release's body is that package's own `CHANGELOG.md` section — in a fixed group the non-originating package's section is just its dependency bump, which is the honest thing to show. Releases up to v2.2.7 used a single `vX.Y.Z` tag instead; those tags stay where they are.
+- Releasing (maintainers only): `npm run publish` from the root, on a clean `master`. It builds and tests, applies the pending changesets, publishes to npm, then tags, pushes, and opens the GitHub releases. An interrupted release is resumed by re-running it, never undone. See `bin/publish.mjs`.
+- One `name@X.Y.Z` tag and one GitHub release **per package**. `changeset publish` does the publishing and the tagging itself, in that order and only for the packages npm accepted, so a tag can't outlive a failed publish. What is being released comes from `changeset publish-plan --output`, not from anything the script reconstructs. Each release's body is that package's own `CHANGELOG.md` section — in a fixed group the non-originating package's section is just its dependency bump, which is the honest thing to show. Releases up to v2.2.7 used a single `vX.Y.Z` tag instead; those tags stay where they are.
 
 ## More detail
 
