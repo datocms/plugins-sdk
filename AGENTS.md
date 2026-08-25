@@ -28,8 +28,8 @@ Use it instead of `npm link` (a symlinked React library breaks with duplicate-Re
 ## Gotchas
 
 - Every user-visible change needs a changeset (`npx changeset`) in the same PR, or it ships with no release note. `patch` is for bug fixes only; new API surface is `minor`.
-- Releasing (maintainers only): `npm run publish` from the root, on a clean `master`. It builds and tests, applies the pending changesets, publishes to npm, then tags and pushes. An interrupted release is resumed by re-running it, never undone. See `bin/publish.sh`.
-- Git tags are per-package now (`datocms-plugin-sdk@2.2.7`), not the single `vX.Y.Z` Lerna used to create.
+- Releasing (maintainers only): `npm run publish` from the root, on a clean `master`. It builds and tests, applies the pending changesets, publishes to npm, then tags `vX.Y.Z`, pushes, and opens the GitHub release. An interrupted release is resumed by re-running it, never undone. See `bin/publish.sh`.
+- One `vX.Y.Z` tag per release, as always — `changeset publish` runs with `--no-git-tag` so it doesn't tag each package separately. The tag carries a GitHub release whose body is assembled from both `CHANGELOG.md`s.
 
 ## More detail
 

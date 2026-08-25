@@ -28,10 +28,10 @@ fail() { printf '\n\033[31mAborted: %s\033[0m\n' "$1" >&2; exit 1; }
 
 BRANCH="$(git rev-parse --abbrev-ref HEAD)"
 
-# Every workspace package, as "name version" pairs.
+# Every workspace package, as "name version location" triples.
 packages() {
   npm query .workspace --no-workspaces-update 2>/dev/null \
-    | node -e 'let s="";process.stdin.on("data",c=>s+=c).on("end",()=>{for(const p of JSON.parse(s))console.log(p.name,p.version)})'
+    | node -e 'let s="";process.stdin.on("data",c=>s+=c).on("end",()=>{for(const p of JSON.parse(s))console.log(p.name,p.version,p.location)})'
 }
 version() { node -p "require('./packages/sdk/package.json').version"; }
 pending_changesets() { find .changeset -maxdepth 1 -name '*.md' ! -name 'README.md' | wc -l | tr -d ' '; }
@@ -40,11 +40,28 @@ pending_changesets() { find .changeset -maxdepth 1 -name '*.md' ! -name 'README.
 # the registry. Checking a single package would be wrong — a release can die
 # after publishing the first one.
 unpublished() {
-  local name ver missing=""
-  while read -r name ver; do
+  local name ver loc missing=""
+  while read -r name ver loc; do
     npm view "$name@$ver" version >/dev/null 2>&1 || missing="$missing $name@$ver"
   done < <(packages)
   echo "${missing# }"
+}
+
+# The section of a package's CHANGELOG for one version, without its "## x.y.z"
+# heading — changesets has already written exactly the prose we want.
+changelog_section() { # $1 = package location, $2 = version
+  awk -v want="## $2" '$0 == want { found = 1; next } found && /^## / { exit } found' "$1/CHANGELOG.md"
+}
+
+# The body of the GitHub release: every package's entry for this version, under
+# its own heading. The packages move in lockstep, so one release covers them all.
+release_notes() {
+  local name ver loc section
+  while read -r name ver loc; do
+    section="$(changelog_section "$loc" "$VERSION")"
+    [ -n "$section" ] || continue
+    printf '## %s\n%s\n\n' "$name" "$section"
+  done < <(packages)
 }
 
 # ---------------------------------------------------------------------------
@@ -67,6 +84,9 @@ git fetch --quiet origin "$BRANCH"
   fail "$BRANCH and origin/$BRANCH have diverged. Pull (or push) first."
 
 npm whoami >/dev/null 2>&1 || fail "you are not logged in to npm. Run 'npm login'."
+
+command -v gh >/dev/null 2>&1 || fail "the GitHub CLI is not installed, so the release notes can't be published."
+gh auth status >/dev/null 2>&1 || fail "you are not logged in to GitHub. Run 'gh auth login'."
 
 echo "on $BRANCH, in sync with origin, npm user: $(npm whoami)"
 
@@ -121,20 +141,49 @@ fi
 VERSION="$(version)"
 
 # ---------------------------------------------------------------------------
-# The irreversible step. npm first; changeset creates the git tags only for the
-# packages it actually managed to publish.
+# The irreversible step, npm first.
+#
+# --no-git-tag: changesets would tag every package separately
+# (datocms-plugin-sdk@2.2.7, datocms-react-ui@2.2.7). The two move in lockstep,
+# so we tag the release once, below, the way this repo always has. Tagging after
+# the publish keeps the property that matters: a tag can only exist for a
+# version that is actually on the registry.
 # ---------------------------------------------------------------------------
 step "Publishing v$VERSION to npm"
 if [ -n "$DIST_TAG" ]; then
-  npx changeset publish --tag "$DIST_TAG"
+  npx changeset publish --no-git-tag --tag "$DIST_TAG"
 else
-  npx changeset publish
+  npx changeset publish --no-git-tag
 fi
 
 # ---------------------------------------------------------------------------
 # git follows npm.
 # ---------------------------------------------------------------------------
+step "Tagging v$VERSION"
+if git rev-parse -q --verify "refs/tags/v$VERSION" >/dev/null; then
+  echo "v$VERSION already tagged"
+else
+  git tag -a "v$VERSION" -m "v$VERSION"
+fi
+
 step "Pushing to GitHub"
 git push --follow-tags origin "$BRANCH"
+
+# ---------------------------------------------------------------------------
+# The release notes. Last, because it's the only step a human can redo by hand
+# from the changelog if it goes wrong.
+# ---------------------------------------------------------------------------
+step "Publishing the release notes"
+if gh release view "v$VERSION" >/dev/null 2>&1; then
+  echo "the v$VERSION release already exists, leaving it alone"
+else
+  # A prerelease must not become the repo's "Latest release": that's reserved
+  # for whatever is on the `latest` dist-tag.
+  PRERELEASE=""
+  case "$VERSION" in *-*) PRERELEASE="--prerelease" ;; esac
+  [ -z "$DIST_TAG" ] || PRERELEASE="--prerelease"
+
+  release_notes | gh release create "v$VERSION" --title "v$VERSION" --notes-file - $PRERELEASE
+fi
 
 printf '\n\033[32mReleased v%s\033[0m\n' "$VERSION"

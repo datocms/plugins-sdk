@@ -44,6 +44,6 @@ rm -rf node_modules/datocms-react-ui node_modules/.vite && npm install
 
 Every user-visible change needs a changeset: run `npx changeset` from the repo root in the same PR, pick the bump level (`patch` is for bug fixes only, new API surface is `minor`) and commit the file it writes under `.changeset/`.
 
-To release, from an up-to-date, clean `master`, run `npm run publish` from the repo root. It builds and tests, applies the pending changesets — bumping **both** packages to the same version (fixed group) and writing the `CHANGELOG.md`s — publishes to npm, and only then tags (`datocms-react-ui@X.Y.Z`) and pushes. An interrupted release is resumed by re-running it, never undone. Use `npm run publish-next` for a prerelease under the `next` dist-tag.
+To release, from an up-to-date, clean `master`, run `npm run publish` from the repo root. It builds and tests, applies the pending changesets — bumping **both** packages to the same version (fixed group) and writing the `CHANGELOG.md`s — publishes to npm, and only then tags the release `vX.Y.Z`, pushes, and publishes the GitHub release, whose notes come straight from those changelog entries. An interrupted release is resumed by re-running it, never undone. Use `npm run publish-next` for a prerelease under the `next` dist-tag.
 
 For deeper architectural notes (CSS Modules pipeline, dual CJS/ESM output, theming via `ctx`), see [`AGENTS.md`](https://github.com/datocms/plugins-sdk/blob/master/packages/react-ui/AGENTS.md) in this directory.
