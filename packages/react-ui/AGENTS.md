@@ -172,8 +172,8 @@ Allows rapid iteration when developing the UI library alongside a plugin project
 On a fresh checkout, package-local commands fail (missing binaries, missing SDK types) until the monorepo is set up from the repo root:
 
 ```bash
-npm install && npx lerna bootstrap   # root tooling + per-package dependencies
-npx lerna run build                  # builds datocms-plugin-sdk first, then this package
+npm install          # workspaces: one install at the root wires up both packages
+npm run build        # turbo; builds datocms-plugin-sdk first, then this package
 ```
 
 ### Building

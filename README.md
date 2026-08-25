@@ -27,7 +27,29 @@ From there, the [Plugin SDK documentation](https://www.datocms.com/docs/plugin-s
 
 ## Developing
 
-To work on the packages themselves (e.g. to prepare a PR or debug an issue in the framework itself), see the "Developing" section of each package's README: [`datocms-plugin-sdk`](https://github.com/datocms/plugins-sdk/blob/master/packages/sdk/README.md#developing), [`datocms-react-ui`](https://github.com/datocms/plugins-sdk/blob/master/packages/react-ui/README.md#developing). Both are developed in this Lerna monorepo and released in lockstep.
+To work on the packages themselves (e.g. to prepare a PR or debug an issue in the framework itself), see the "Developing" section of each package's README: [`datocms-plugin-sdk`](https://github.com/datocms/plugins-sdk/blob/master/packages/sdk/README.md#developing), [`datocms-react-ui`](https://github.com/datocms/plugins-sdk/blob/master/packages/react-ui/README.md#developing). Both are developed in this npm-workspaces monorepo and released in lockstep.
+
+## Releasing
+
+Maintainers only. The two packages share one version number and are always
+released together.
+
+1. **Describe your change.** Run `npx changeset` in the same PR that makes the
+   change: it asks which packages are affected and whether the bump is a
+   patch/minor/major, then writes a small markdown file under `.changeset/`
+   which you commit. `patch` is for bug fixes only; new API surface is
+   `minor`. See [`.changeset/README.md`](.changeset/README.md).
+2. **Release.** From an up-to-date, clean `master`, run `npm run publish`.
+   It builds and tests first, then applies the pending changesets (bumping the
+   versions and writing the `CHANGELOG.md`s), publishes to npm, and only then
+   tags and pushes to GitHub.
+
+If a release is interrupted, **do not undo anything**: run `npm run publish`
+again. It detects that some package is still missing from the registry and
+resumes the publish instead of starting a new release.
+
+`npm run publish-next` does the same under the `next` dist-tag, leaving
+`latest` untouched.
 
 ## License
 
