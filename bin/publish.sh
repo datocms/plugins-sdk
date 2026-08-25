@@ -186,4 +186,9 @@ else
   release_notes | gh release create "v$VERSION" --title "v$VERSION" --notes-file - $PRERELEASE
 fi
 
+# Asked for rather than parsed out of `gh release create`, so the link is the
+# same whether we just created the release or found one already there.
+RELEASE_URL="$(gh release view "v$VERSION" --json url --jq .url 2>/dev/null || true)"
+
 printf '\n\033[32mReleased v%s\033[0m\n' "$VERSION"
+[ -z "$RELEASE_URL" ] || printf '%s\n' "$RELEASE_URL"
