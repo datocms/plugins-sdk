@@ -26,5 +26,9 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: npm
       - run: npm ci
+      # Before the build on purpose: the generated files biome is configured to
+      # skip do not exist yet, so a mistake in that configuration fails here
+      # rather than passing by accident.
+      - run: npm run lint
       - run: npm run build
       - run: npm test

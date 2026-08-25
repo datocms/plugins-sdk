@@ -25,6 +25,7 @@
   "scripts": {
     "test": "node --trace-warnings --experimental-vm-modules node_modules/jest/bin/jest.js",
     "build": "turbo run build",
+    "lint": "biome ci packages",
     "changeset": "changeset",
     "publish": "node bin/publish.mjs",
     "publish-next": "node bin/publish.mjs --tag next",
