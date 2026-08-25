@@ -3,8 +3,13 @@
   "organizeImports": {
     "enabled": true
   },
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  },
   "files": {
-    "ignore": ["dist", "node_modules", "packages/sdk/types.json"]
+    "ignore": ["dist", "node_modules", "packages/sdk/manifest.json"]
   },
   "linter": {
     "enabled": true,
