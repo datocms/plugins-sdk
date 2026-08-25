@@ -66,6 +66,10 @@ unpublished() {
 # The section of a package's CHANGELOG for one version, without its "## x.y.z"
 # heading — changesets has already written exactly the prose we want.
 changelog_section() { # $1 = package location, $2 = version
+  # A package that has never been released under changesets has no CHANGELOG.md
+  # yet, and awk failing inside a `section="$(...)"` assignment would abort the
+  # whole script under `set -e` — at the release notes, after npm and git.
+  [ -f "$1/CHANGELOG.md" ] || return 0
   awk -v want="## $2" '$0 == want { found = 1; next } found && /^## / { exit } found' "$1/CHANGELOG.md"
 }
 
@@ -80,6 +84,26 @@ has_prose() {
   grep -vE '^- Updated dependencies( \[[0-9a-f]+\])?$|^ *- [^ ]+@[0-9][^ ]*$' <<<"$1" | grep -qE '^- '
 }
 
+# The packages that landed on the release version — i.e. the ones this release
+# actually publishes. Today that is both of them, because the `fixed` group in
+# .changeset/config.json names them and a fixed group moves as one. Asserting
+# that rather than assuming it is what keeps the footer honest if a third
+# package is ever added to packages/: joining the lockstep group should be an
+# explicit decision, and until someone takes it the new package would otherwise
+# be listed as "released in lockstep" at the version it has been sitting at.
+released_packages() {
+  local name ver loc
+  while read -r name ver loc; do
+    # An `if` rather than `[ ... ] && echo`: under `set -e` an AND-list that
+    # ends false is the loop body's exit status, so a non-matching *last*
+    # package would abort the whole script — right at the release notes, after
+    # npm and git have already been written to.
+    if [ "$ver" = "$1" ]; then
+      echo "$name $ver $loc"
+    fi
+  done < <(packages)
+}
+
 # The body of the GitHub release. The packages move in lockstep, so one release
 # covers them all — but only the ones with something to say get a section, or
 # the page fills up with each package restating that the others moved too. The
@@ -92,7 +116,7 @@ release_notes() {
     section="$(changelog_section "$loc" "$VERSION")"
     has_prose "$section" || continue
     printf '## %s\n%s\n\n' "$name" "$section"
-  done < <(packages)
+  done < <(released_packages "$VERSION")
   printf -- '---\n\nReleased in lockstep:%s\n' "$shipped"
 }
 
