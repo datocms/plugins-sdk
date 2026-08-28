@@ -27,9 +27,9 @@
     "build": "turbo run build",
     "lint": "biome ci packages",
     "changeset": "changeset",
-    "publish": "node bin/publish.mjs",
-    "publish-next": "node bin/publish.mjs --tag next",
-    "format": "biome check packages --apply && biome format --write packages",
+    "publish": "node toolchain/publish.mjs",
+    "publish-next": "node toolchain/publish.mjs --tag next",
+    "format": "biome check toolchain packages --apply && biome format --write toolchain packages",
     "prepare": "husky"
   },
   "license": "MIT",
