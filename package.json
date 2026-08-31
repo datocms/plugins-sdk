@@ -7,7 +7,7 @@
   "devDependencies": {
     "@biomejs/biome": "1.6.4",
     "@changesets/cli": "^3.0.1",
-    "@manypkg/get-packages": "^3.1.0",
+    "@datocms/release-toolchain": "github:datocms/release-toolchain#v1.0.0",
     "@types/jest": "^29.2.1",
     "@typescript-eslint/eslint-plugin": "^5.42.0",
     "@typescript-eslint/parser": "^5.42.0",
@@ -28,8 +28,8 @@
     "build": "turbo run build",
     "lint": "biome ci packages",
     "changeset": "changeset",
-    "publish": "node toolchain/publish.mjs",
-    "publish-next": "node toolchain/publish.mjs --tag next",
+    "release": "release-toolchain",
+    "release:next": "release-toolchain --tag next",
     "format": "biome check toolchain packages --apply && biome format --write toolchain packages",
     "prepare": "husky"
   },
