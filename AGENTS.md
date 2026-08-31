@@ -28,7 +28,7 @@ Use it instead of `npm link` (a symlinked React library breaks with duplicate-Re
 ## Gotchas
 
 - Every user-visible change needs a changeset (`npx changeset`) in the same PR, or it ships with no release note. `patch` is for bug fixes only; new API surface is `minor`.
-- Releasing (maintainers only): `npm run publish` from the root, on a clean `master`. It builds and tests, applies the pending changesets, publishes to npm, then tags, pushes, and opens the GitHub releases. An interrupted release is resumed by re-running it, never undone. See `toolchain/publish.mjs`.
+- Releasing (maintainers only): `npm run release` from the root, on a clean `master`. It builds and tests, applies the pending changesets, publishes to npm, then tags, pushes, and opens the GitHub releases. An interrupted release is resumed by re-running it, never undone. The script is [`@datocms/release-toolchain`](https://github.com/datocms/release-toolchain), shared by every DatoCMS repository and pinned here by git tag.
 - One `name@X.Y.Z` tag and one GitHub release **per package**. `changeset publish` does the publishing and the tagging itself, in that order and only for the packages npm accepted, so a tag can't outlive a failed publish. What is being released comes from `changeset publish-plan --output`, not from anything the script reconstructs. Each release's body is that package's own `CHANGELOG.md` section — when a package moved only because the other one did, that section is just its dependency bump, which is the honest thing to show. Releases up to v2.2.7 used a single `vX.Y.Z` tag instead; those tags stay where they are.
 
 ## More detail
