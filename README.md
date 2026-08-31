@@ -29,6 +29,24 @@ From there, the [Plugin SDK documentation](https://www.datocms.com/docs/plugin-s
 
 To work on the packages themselves (e.g. to prepare a PR or debug an issue in the framework itself), see the "Developing" section of each package's README: [`datocms-plugin-sdk`](https://github.com/datocms/plugins-sdk/blob/master/packages/sdk/README.md#developing), [`datocms-react-ui`](https://github.com/datocms/plugins-sdk/blob/master/packages/react-ui/README.md#developing). Both are developed in this npm-workspaces monorepo, and share a version number whenever they are released together.
 
+## Trying a change before it's released
+
+Every push to a branch here publishes a preview of both packages, which you can
+install into a real plugin — no npm release, no `npm link`:
+
+```
+npm i https://pkg.pr.new/datocms-plugin-sdk@<commit-sha>
+npm i https://pkg.pr.new/datocms-react-ui@<commit-sha>
+```
+
+The exact URLs show up in the commit's check run on GitHub, and in a comment on
+the pull request once there is one. Installing one preview pulls in the previews
+of its siblings built from the same commit, so a change spanning several
+packages can be tried as one coherent set.
+
+Previews are throwaway: they are never published to npm, and the URL stops
+resolving after a while. Never commit one to a `package.json` that ships.
+
 ## Releasing
 
 Maintainers only. The two packages share one version number and are always
