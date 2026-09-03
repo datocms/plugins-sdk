@@ -1,17 +1,17 @@
-import type { SchemaTypes } from '@datocms/cma-client';
+import type { RawApiTypes } from '@datocms/cma-client';
 
-type Account = SchemaTypes.Account;
-type Field = SchemaTypes.Field;
-type Fieldset = SchemaTypes.Fieldset;
-type Item = SchemaTypes.Item;
-type ItemType = SchemaTypes.ItemType;
-type Organization = SchemaTypes.Organization;
-type Plugin = SchemaTypes.Plugin;
-type Role = SchemaTypes.Role;
-type Site = SchemaTypes.Site;
-type SsoUser = SchemaTypes.SsoUser;
-type Upload = SchemaTypes.Upload;
-type User = SchemaTypes.User;
+type Account = RawApiTypes.Account;
+type Field = RawApiTypes.Field;
+type Fieldset = RawApiTypes.Fieldset;
+type Item = RawApiTypes.Item;
+type ItemType = RawApiTypes.ItemType;
+type Organization = RawApiTypes.Organization;
+type Plugin = RawApiTypes.Plugin;
+type Role = RawApiTypes.Role;
+type Site = RawApiTypes.Site;
+type SsoUser = RawApiTypes.SsoUser;
+type Upload = RawApiTypes.Upload;
+type User = RawApiTypes.User;
 
 export type Ctx<
   AdditionalProperties extends Record<string, unknown> = Record<string, never>,

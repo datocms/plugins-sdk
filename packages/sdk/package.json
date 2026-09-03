@@ -37,7 +37,7 @@
     "url": "https://github.com/datocms/plugins-sdk/issues"
   },
   "dependencies": {
-    "@datocms/cma-client": "^5.0.0",
+    "@datocms/cma-client": "^6.1.0",
     "@types/react": "^17.0.3",
     "datocms-structured-text-utils": "^5.1.16",
     "emoji-regex-xs": "^2.0.0",

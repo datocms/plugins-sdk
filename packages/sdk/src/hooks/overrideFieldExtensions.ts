@@ -1,4 +1,4 @@
-import type { SchemaTypes } from '@datocms/cma-client';
+import type { RawApiTypes } from '@datocms/cma-client';
 import { Ctx } from '../ctx/base';
 import {
   isArray,
@@ -11,8 +11,8 @@ import {
 } from '../guardUtils.js';
 import { ItemFormSidebarPanelPlacement } from '../shared';
 
-type Field = SchemaTypes.Field;
-type ItemType = SchemaTypes.ItemType;
+type Field = RawApiTypes.Field;
+type ItemType = RawApiTypes.ItemType;
 
 export type OverrideFieldExtensionsHook = {
   /**

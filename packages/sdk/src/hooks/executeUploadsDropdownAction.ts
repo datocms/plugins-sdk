@@ -1,7 +1,7 @@
-import type { SchemaTypes } from '@datocms/cma-client';
+import type { RawApiTypes } from '@datocms/cma-client';
 import { Ctx } from '../ctx/base';
 
-type Upload = SchemaTypes.Upload;
+type Upload = RawApiTypes.Upload;
 
 export type ExecuteUploadsDropdownActionHook = {
   /**

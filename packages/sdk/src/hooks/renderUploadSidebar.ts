@@ -1,8 +1,8 @@
-import type { SchemaTypes } from '@datocms/cma-client';
+import type { RawApiTypes } from '@datocms/cma-client';
 import { ImposedSizePluginFrameCtx } from '../ctx/pluginFrame';
 import { fullScreenRenderModeBootstrapper } from '../utils';
 
-type Upload = SchemaTypes.Upload;
+type Upload = RawApiTypes.Upload;
 
 export type RenderUploadSidebarHook = {
   /**

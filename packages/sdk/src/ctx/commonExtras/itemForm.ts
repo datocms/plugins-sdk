@@ -1,7 +1,7 @@
-import type { SchemaTypes } from '@datocms/cma-client';
+import type { RawApiTypes } from '@datocms/cma-client';
 
-type Item = SchemaTypes.Item;
-type ItemType = SchemaTypes.ItemType;
+type Item = RawApiTypes.Item;
+type ItemType = RawApiTypes.ItemType;
 
 /**
  * These information describe the current state of the form that's being shown

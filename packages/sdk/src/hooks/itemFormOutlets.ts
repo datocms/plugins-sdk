@@ -1,4 +1,4 @@
-import type { SchemaTypes } from '@datocms/cma-client';
+import type { RawApiTypes } from '@datocms/cma-client';
 import { Ctx } from '../ctx/base';
 import {
   isArray,
@@ -8,7 +8,7 @@ import {
   isString,
 } from '../guardUtils.js';
 
-type ItemType = SchemaTypes.ItemType;
+type ItemType = RawApiTypes.ItemType;
 
 export type ItemFormOutletsHook = {
   /**

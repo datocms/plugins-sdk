@@ -1,9 +1,9 @@
-import type { SchemaTypes } from '@datocms/cma-client';
+import type { RawApiTypes } from '@datocms/cma-client';
 import { SelfResizingPluginFrameCtx } from '../ctx/pluginFrame';
 import { containedRenderModeBootstrapper } from '../utils';
 
-type Field = SchemaTypes.Field;
-type ItemType = SchemaTypes.ItemType;
+type Field = RawApiTypes.Field;
+type ItemType = RawApiTypes.ItemType;
 
 export type RenderManualFieldExtensionConfigScreenHook = {
   renderManualFieldExtensionConfigScreen: (

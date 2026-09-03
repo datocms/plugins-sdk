@@ -1,10 +1,10 @@
-import type { SchemaTypes } from '@datocms/cma-client';
+import type { RawApiTypes } from '@datocms/cma-client';
 import { Ctx, ItemListLocationQuery } from '../ctx/base';
 import { isNullish, isNumber, isRecord } from '../guardUtils.js';
 import { MaybePromise } from '../utils';
 
-type Field = SchemaTypes.Field;
-type ItemType = SchemaTypes.ItemType;
+type Field = RawApiTypes.Field;
+type ItemType = RawApiTypes.ItemType;
 
 export type InitialLocationQueryForItemSelectorHook = {
   /**

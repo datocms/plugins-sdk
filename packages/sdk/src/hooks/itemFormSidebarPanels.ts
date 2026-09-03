@@ -1,4 +1,4 @@
-import type { SchemaTypes } from '@datocms/cma-client';
+import type { RawApiTypes } from '@datocms/cma-client';
 import { Ctx } from '../ctx/base';
 import {
   isArray,
@@ -11,7 +11,7 @@ import {
 } from '../guardUtils.js';
 import { ItemFormSidebarPanelPlacement } from '../shared';
 
-type ItemType = SchemaTypes.ItemType;
+type ItemType = RawApiTypes.ItemType;
 
 export type ItemFormSidebarPanelsHook = {
   /**

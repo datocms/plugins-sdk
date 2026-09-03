@@ -1,15 +1,15 @@
-import type { SchemaTypes } from '@datocms/cma-client';
+import type { RawApiTypes } from '@datocms/cma-client';
 
-type Account = SchemaTypes.Account;
-type Field = SchemaTypes.Field;
-type Item = SchemaTypes.Item;
-type ItemType = SchemaTypes.ItemType;
-type Plugin = SchemaTypes.Plugin;
-type Site = SchemaTypes.Site;
-type SsoUser = SchemaTypes.SsoUser;
-type Upload = SchemaTypes.Upload;
-type User = SchemaTypes.User;
-type Role = SchemaTypes.Role;
+type Account = RawApiTypes.Account;
+type Field = RawApiTypes.Field;
+type Item = RawApiTypes.Item;
+type ItemType = RawApiTypes.ItemType;
+type Plugin = RawApiTypes.Plugin;
+type Site = RawApiTypes.Site;
+type SsoUser = RawApiTypes.SsoUser;
+type Upload = RawApiTypes.Upload;
+type User = RawApiTypes.User;
+type Role = RawApiTypes.Role;
 
 export * from './connect';
 export * from './ctx/base';

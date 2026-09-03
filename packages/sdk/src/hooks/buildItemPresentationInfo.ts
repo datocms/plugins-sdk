@@ -1,9 +1,9 @@
-import type { SchemaTypes } from '@datocms/cma-client';
+import type { RawApiTypes } from '@datocms/cma-client';
 import { Ctx } from '../ctx/base';
 import { isNullish, isNumber, isRecord, isString } from '../guardUtils.js';
 import type { MaybePromise } from '../utils';
 
-type Item = SchemaTypes.Item;
+type Item = RawApiTypes.Item;
 
 export type BuildItemPresentationInfoHook = {
   /**

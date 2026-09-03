@@ -1,8 +1,8 @@
-import type { SchemaTypes } from '@datocms/cma-client';
+import type { RawApiTypes } from '@datocms/cma-client';
 import { Ctx } from '../ctx/base';
 import { MaybePromise } from '../utils';
 
-type Item = SchemaTypes.Item;
+type Item = RawApiTypes.Item;
 
 export type OnBeforeItemsDestroyHook = {
   /**

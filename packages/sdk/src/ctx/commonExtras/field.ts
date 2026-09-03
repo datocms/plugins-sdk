@@ -1,7 +1,7 @@
-import type { SchemaTypes } from '@datocms/cma-client';
+import type { RawApiTypes } from '@datocms/cma-client';
 
-type Field = SchemaTypes.Field;
-type ItemType = SchemaTypes.ItemType;
+type Field = RawApiTypes.Field;
+type ItemType = RawApiTypes.ItemType;
 
 /**
  * These information describe the current state of the field where this plugin

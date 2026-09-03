@@ -1,9 +1,9 @@
-import type { SchemaTypes } from '@datocms/cma-client';
+import type { RawApiTypes } from '@datocms/cma-client';
 import { Ctx } from '../ctx/base';
 import { MaybePromise } from '../utils';
 
-type ItemUpdateSchema = SchemaTypes.ItemUpdateSchema;
-type ItemCreateSchema = SchemaTypes.ItemCreateSchema;
+type ItemUpdateSchema = RawApiTypes.ItemUpdateSchema;
+type ItemCreateSchema = RawApiTypes.ItemCreateSchema;
 
 export type OnBeforeItemUpsertHook = {
   /**

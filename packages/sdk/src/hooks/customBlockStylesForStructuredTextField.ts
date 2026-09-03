@@ -1,4 +1,4 @@
-import type { SchemaTypes } from '@datocms/cma-client';
+import type { RawApiTypes } from '@datocms/cma-client';
 import { BlockNodeTypeWithCustomStyle } from 'datocms-structured-text-utils';
 import { Ctx } from '../ctx/base';
 import {
@@ -9,8 +9,8 @@ import {
   isString,
 } from '../guardUtils.js';
 
-type Field = SchemaTypes.Field;
-type ItemType = SchemaTypes.ItemType;
+type Field = RawApiTypes.Field;
+type ItemType = RawApiTypes.ItemType;
 
 export type CustomBlockStylesForStructuredTextFieldHook = {
   /**

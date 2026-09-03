@@ -1,10 +1,10 @@
-import type { SchemaTypes } from '@datocms/cma-client';
+import type { RawApiTypes } from '@datocms/cma-client';
 import { Ctx } from '../ctx/base';
 import { FieldAdditionalProperties } from '../ctx/commonExtras/field';
 import { ItemFormAdditionalProperties } from '../ctx/commonExtras/itemForm';
 import { DropdownAction, DropdownActionGroup } from '../shared';
 
-type Field = SchemaTypes.Field;
+type Field = RawApiTypes.Field;
 
 export type FieldDropdownActionsHook = {
   /**

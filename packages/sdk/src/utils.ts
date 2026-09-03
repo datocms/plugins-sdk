@@ -1,4 +1,4 @@
-import type { SchemaTypes } from '@datocms/cma-client';
+import type { RawApiTypes } from '@datocms/cma-client';
 import { FullConnectParameters } from './connect';
 import { Ctx } from './ctx/base';
 import { SizingUtilities } from './ctx/commonExtras/sizing';
@@ -7,8 +7,8 @@ import {
   SelfResizingPluginFrameCtx,
 } from './ctx/pluginFrame';
 
-type Field = SchemaTypes.Field;
-type ItemType = SchemaTypes.ItemType;
+type Field = RawApiTypes.Field;
+type ItemType = RawApiTypes.ItemType;
 
 export type AwaitedReturnType<T extends (...args: any) => any> = Awaited<
   ReturnType<T>

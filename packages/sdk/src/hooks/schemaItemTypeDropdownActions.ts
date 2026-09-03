@@ -1,8 +1,8 @@
-import type { SchemaTypes } from '@datocms/cma-client';
+import type { RawApiTypes } from '@datocms/cma-client';
 import { Ctx } from '../ctx/base';
 import { DropdownAction, DropdownActionGroup } from '../shared';
 
-type ItemType = SchemaTypes.ItemType;
+type ItemType = RawApiTypes.ItemType;
 
 export type SchemaItemTypeDropdownActionsHook = {
   /**

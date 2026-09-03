@@ -1,8 +1,8 @@
-import { SchemaTypes } from '@datocms/cma-client';
+import type { RawApiTypes } from '@datocms/cma-client';
 import { SelfResizingPluginFrameCtx } from '../ctx/pluginFrame';
 import { containedRenderModeBootstrapper } from '../utils';
 
-type Upload = SchemaTypes.Upload;
+type Upload = RawApiTypes.Upload;
 
 export type RenderUploadSidebarPanelHook = {
   /**
