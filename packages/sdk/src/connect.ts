@@ -182,7 +182,11 @@ export async function connect(
 
   const penpalConnection = connectToParent({
     methods: {
-      sdkVersion: () => '0.3.1',
+      // Protocol revision, not the npm version: it's bumped by hand whenever
+      // the host needs to tell what a plugin understands. 0.4.0 says this
+      // plugin reads an asset's `default_field_metadata` with `alt`, `title`
+      // and `custom_data` keyed by locale, rather than one hash per locale.
+      sdkVersion: () => '0.4.0',
       implementedHooks: () =>
         Object.fromEntries(
           Object.keys(rawConfiguration).map((hook) => {
