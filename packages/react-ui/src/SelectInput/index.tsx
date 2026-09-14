@@ -60,7 +60,7 @@ const useStyles = (isDisabled?: boolean, error?: boolean) => {
               : 'var(--color--focus--border)',
             backgroundColor: isDisabled
               ? 'var(--color--disabled--surface)'
-              : 'var(--color--surface)',
+              : 'var(--color--surface-raised)',
             boxShadow: `0 0 0 4px ${
               error
                 ? 'var(--color--danger-soft--outline)'
@@ -81,7 +81,7 @@ const useStyles = (isDisabled?: boolean, error?: boolean) => {
             : 'var(--color--border)',
           backgroundColor: isDisabled
             ? 'var(--color--disabled--surface)'
-            : 'var(--color--surface)',
+            : 'var(--color--surface-raised)',
           '&:hover': {
             borderColor: error
               ? 'var(--color--danger-soft--border)'

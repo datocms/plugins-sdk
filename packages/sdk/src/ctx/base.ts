@@ -132,6 +132,19 @@ type ProjectProperties = {
    * directly.
    */
   colorScheme: 'light' | 'dark';
+
+  /**
+   * Font size of the host's `<html>` element, in CSS pixels. The host steps
+   * it with the viewport width, so the SDK runtime mirrors it onto the
+   * plugin's `<html>`: `rem` units, and with them every `--font-size-*` and
+   * `--spacing-*` token, then measure the same inside the frame as outside.
+   *
+   * Typed as required for parity with the other appearance fields (e.g.
+   * `colorScheme`), but only hosts new enough to send it populate it: a plugin
+   * running inside an older host reads `undefined` at runtime. Guard for that
+   * if you consume the value directly.
+   */
+  rootFontSize: number;
 };
 
 /**
