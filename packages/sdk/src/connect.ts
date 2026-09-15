@@ -162,7 +162,12 @@ function applyRootFontSize(next: number | undefined): void {
   // The host's <html> font size steps with the viewport width; mirroring it
   // makes rem-based sizes (every --font-size-* and --spacing-* token) measure
   // the same on both sides of the iframe boundary.
-  document.documentElement.style.fontSize = `${next}px`;
+  const px = `${next}px`;
+  // `applyHostAppearance` runs on every ctx update (i.e. every keystroke in a
+  // sibling field). Writing `fontSize` unconditionally would reflow the whole
+  // rem-based frame each time, so only touch the DOM when the value changed.
+  if (document.documentElement.style.fontSize === px) return;
+  document.documentElement.style.fontSize = px;
 }
 
 function applyColorScheme(next: 'light' | 'dark' | undefined): void {
