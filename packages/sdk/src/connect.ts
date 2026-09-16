@@ -136,10 +136,41 @@ export type FullConnectParameters = AssetSourcesHook &
   UploadSidebarsHook &
   ValidateManualFieldExtensionParametersHook;
 
-function applyColorScheme(properties: unknown): void {
+type HostAppearance = {
+  colorScheme?: 'light' | 'dark';
+  rootFontSize?: number;
+};
+
+/**
+ * Mirrors the host's appearance onto the plugin's `<html>`: color scheme and
+ * root font size. Runs on the first settings read and on every `onChange`.
+ */
+function applyHostAppearance(properties: unknown): void {
   if (typeof document === 'undefined') return;
-  const next = (properties as { colorScheme?: 'light' | 'dark' } | null)
-    ?.colorScheme;
+  const { colorScheme, rootFontSize } =
+    (properties as HostAppearance | null) ?? {};
+  applyColorScheme(colorScheme);
+  applyRootFontSize(rootFontSize);
+}
+
+function applyRootFontSize(next: number | undefined): void {
+  // Hosts that predate the property leave the plugin's own default in place.
+  // Reject non-positive/non-finite values too: a host bug or a transient 0
+  // during boot would otherwise set `font-size: 0px` and collapse every
+  // rem-based size in the plugin to nothing.
+  if (typeof next !== 'number' || !Number.isFinite(next) || next <= 0) return;
+  // The host's <html> font size steps with the viewport width; mirroring it
+  // makes rem-based sizes (every --font-size-* and --spacing-* token) measure
+  // the same on both sides of the iframe boundary.
+  const px = `${next}px`;
+  // `applyHostAppearance` runs on every ctx update (i.e. every keystroke in a
+  // sibling field). Writing `fontSize` unconditionally would reflow the whole
+  // rem-based frame each time, so only touch the DOM when the value changed.
+  if (document.documentElement.style.fontSize === px) return;
+  document.documentElement.style.fontSize = px;
+}
+
+function applyColorScheme(next: 'light' | 'dark' | undefined): void {
   if (next !== 'light' && next !== 'dark') return;
   if (document.documentElement.dataset.colorScheme === next) return;
   document.documentElement.dataset.colorScheme = next;
@@ -180,6 +211,18 @@ export async function connect(
       ),
   };
 
+  // Chromium deliberately slows the deserialization of cross-origin messages
+  // of 16 KB or more when `event.data` is read before `event.origin`: it
+  // re-deserializes the payload 4-8 times in a throwaway isolate to mask
+  // timing (MaskDeserializationTimings in message_event.cc). Penpal 4 reads
+  // `data` first. `message` events target `window` directly, so this listener
+  // runs before Penpal's simply because it is registered first (added before
+  // connectToParent below); reading `origin` here clears the flag for the
+  // event, so every message takes the fast path. The value is returned, not
+  // discarded, so that minifiers with `pure_getters` enabled keep the read.
+  // No-op where deserialization is eager (Firefox, Safari).
+  window.addEventListener('message', (event) => event.origin, true);
+
   const penpalConnection = connectToParent({
     methods: {
       // Protocol revision, not the npm version: it's bumped by hand whenever
@@ -204,7 +247,7 @@ export async function connect(
         ),
       ),
       onChange(newSettings: unknown) {
-        applyColorScheme(newSettings);
+        applyHostAppearance(newSettings);
         if (onChangeListener) {
           onChangeListener(newSettings);
         }
@@ -231,8 +274,9 @@ export async function connect(
   });
 
   const methods = await penpalConnection.promise;
+
   const initialProperties = await methods.getSettings();
-  applyColorScheme(initialProperties);
+  applyHostAppearance(initialProperties);
 
   if (initialProperties.mode === 'onBoot') {
     let currentProperties = initialProperties;
