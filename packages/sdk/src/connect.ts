@@ -158,7 +158,7 @@ function applyRootFontSize(next: number | undefined): void {
   // Reject non-positive/non-finite values too: a host bug or a transient 0
   // during boot would otherwise set `font-size: 0px` and collapse every
   // rem-based size in the plugin to nothing.
-  if (typeof next !== 'number' || !(next > 0)) return;
+  if (typeof next !== 'number' || !Number.isFinite(next) || next <= 0) return;
   // The host's <html> font size steps with the viewport width; mirroring it
   // makes rem-based sizes (every --font-size-* and --spacing-* token) measure
   // the same on both sides of the iframe boundary.
