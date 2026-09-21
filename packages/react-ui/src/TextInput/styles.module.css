@@ -6,7 +6,7 @@
   border: 1px solid var(--color--border);
   appearance: none;
   border-radius: 0;
-  background-color: var(--color--surface);
+  background-color: var(--color--surface-raised);
   background-image: none;
   transition: border 0.2s var(--material-ease);
   font-size: var(--font-size-m);

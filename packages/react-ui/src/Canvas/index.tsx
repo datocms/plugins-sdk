@@ -104,14 +104,14 @@ export type CanvasProps = {
  *           collapsible={{ isOpen, onToggle: () => setOpen((v) => !v) }}
  *         >
  *           <p>
- *             One-level tokens that work on any neutral page. The <code>surface</code>, <code>ink</code> and <code>border</code> families cover the page background, body text and dividers; the <code>surface-raised</code> variants belong to the elevated layer used by modals, dropdowns and popovers. The tone-on-neutral inks (<code>ink-danger</code>, <code>ink-warning</code>, <code>ink-success</code>) color text and icons on a neutral surface; inside a toned panel use that context's own ink instead.
+ *             One-level tokens that work on any neutral page. The <code>surface</code>, <code>ink</code> and <code>border</code> families cover the page background, body text and dividers; the <code>surface-raised</code> variants belong to the elevated layer used by form controls, modals, dropdowns and popovers. The tone-on-neutral inks (<code>ink-danger</code>, <code>ink-warning</code>, <code>ink-success</code>) color text and icons on a neutral surface; inside a toned panel use that context's own ink instead.
  *           </p>
  *           <Swatches
  *             tokens={[
  *               ['--color--surface', 'Page background everything else sits on'],
  *               ['--color--surface-hover', 'Hovered row inside lists and tables'],
  *               ['--color--surface-muted', 'Background of muted section panels and quiet cards'],
- *               ['--color--surface-raised', 'Elevated layer for modals, dropdowns and popovers'],
+ *               ['--color--surface-raised', 'Elevated layer for form controls, modals, dropdowns and popovers'],
  *               ['--color--surface-raised-hover', 'Hovered option inside a dropdown menu'],
  *               ['--color--surface-raised-active', 'Focused or pressed option inside a dropdown menu'],
  *               ['--color--ink', 'Primary body text'],
