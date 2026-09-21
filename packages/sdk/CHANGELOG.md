@@ -1,5 +1,15 @@
 # datocms-plugin-sdk
 
+## 2.5.0
+
+### Minor Changes
+
+- b3e97d8: New `ctx.rootFontSize`: the font size of the host's `<html>` element, in CSS pixels. The host steps it with the viewport width (14.4, 15 or 16 px), and the SDK runtime now mirrors it onto the plugin's `<html>`, so `rem` units and every rem-based token (`--font-size-*`, `--spacing-*`) measure the same inside the frame as in the surrounding UI.
+
+### Patch Changes
+
+- b3e97d8: Faster host → plugin messaging in Chromium. Chrome deliberately slows the deserialization of cross-origin messages of 16 KB or more when `event.data` is read before `event.origin` (it re-deserializes the payload 4-8 times to mask timing), and Penpal 4 reads `data` first. The SDK now registers a capture-phase `message` listener that reads `event.origin` before Penpal runs, which makes every host message take the fast path: a 266 KB ctx went from ~7 ms to ~1 ms per message in Chrome. Firefox and Safari deserialize eagerly and are unaffected.
+
 ## 2.4.2
 
 ### Patch Changes
