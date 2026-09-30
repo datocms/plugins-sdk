@@ -137,8 +137,10 @@
   line-height: 0.6;
 
   svg {
-    fill: var(--color--ink-link);
-    color: var(--color--ink-link);
+    fill: currentColor;
+    /* Not redundant: icons painting via `currentColor` (e.g. FontAwesome) would
+       otherwise pick up a plugin's own `color` rule on the svg */
+    color: currentColor;
   }
 }
 
