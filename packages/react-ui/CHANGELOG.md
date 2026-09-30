@@ -1,5 +1,11 @@
 # datocms-react-ui
 
+## 2.5.1
+
+### Patch Changes
+
+- 3ba4a96: `Button` icons now take the button's own text color instead of always using the link color. This fixes accent-colored icons on red `negative` buttons, on `primary` buttons, and on disabled buttons.
+
 ## 2.5.0
 
 ### Patch Changes
