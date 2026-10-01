@@ -35,9 +35,25 @@
 }
 
 .TextareaInput--disabled {
-  color: var(--color--disabled--ink);
+  /* `disabled-field--*` fall back to the pre-context tokens on older hosts */
+  color: var(--color--disabled-field--ink, var(--color--disabled--ink));
   border-color: var(--color--border);
-  background: var(--color--disabled--surface);
+  background: var(
+    --color--disabled-field--surface,
+    var(--color--disabled--surface)
+  );
+
+  /* like the CMS, a disabled field doesn't react to hover */
+  &:hover {
+    border-color: var(--color--border);
+  }
+
+  &::placeholder {
+    color: var(
+      --color--disabled-field--ink-placeholder,
+      var(--color--ink-placeholder)
+    );
+  }
 }
 
 .TextareaInput--error {
