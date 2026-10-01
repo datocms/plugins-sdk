@@ -11,9 +11,10 @@ const disabledFieldInkPlaceholder =
   'var(--color--disabled-field--ink-placeholder, var(--color--ink-placeholder))';
 
 /**
- * Maps react-select's palette slots to DatoCMS tokens, mirroring the CMS's own
- * `SelectInput/useThemeProps.ts`. Every slot react-select reads is mapped, so
- * none falls back to its hardcoded (light-only) greys.
+ * Maps react-select's palette slots to DatoCMS tokens, slot for slot like the
+ * CMS's own `SelectInput/useThemeProps.ts`. Like the CMS, it leaves
+ * `neutral60` (focused indicator) and `primary50` (pressed option) on
+ * react-select's defaults.
  */
 export const themeConfig = (existing: Theme): Theme => ({
   ...existing,
@@ -32,8 +33,8 @@ export const themeConfig = (existing: Theme): Theme => ({
     neutral40: 'var(--color--ink-disabled)',
     // value text
     neutral80: 'var(--color--ink)',
-    // focused border
-    primary: 'var(--color--focus--border)',
+    // selected option background
+    primary: 'var(--color--selected--surface)',
     // option hover background
     primary25: 'var(--color--surface-raised-hover)',
   },

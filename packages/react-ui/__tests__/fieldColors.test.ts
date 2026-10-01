@@ -48,7 +48,7 @@ const callStyle = (key: string, state: Record<string, unknown>, styles: any) =>
 describe('SelectInput themeConfig', () => {
   const { colors, borderRadius } = themeConfig(reactSelectDefaultTheme);
 
-  it('maps every palette slot react-select reads to a DatoCMS token, like the CMS', () => {
+  it('maps the palette slots the CMS maps, to the same tokens', () => {
     expect(borderRadius).toBe(0);
     expect(colors).toMatchObject({
       neutral0: 'var(--color--surface-raised)',
@@ -57,20 +57,9 @@ describe('SelectInput themeConfig', () => {
       neutral30: 'var(--color--border-hover)',
       neutral40: 'var(--color--ink-disabled)',
       neutral80: 'var(--color--ink)',
-      primary: 'var(--color--focus--border)',
+      primary: 'var(--color--selected--surface)',
       primary25: 'var(--color--surface-raised-hover)',
     });
-  });
-
-  it('leaves no slot it maps on a hardcoded react-select grey', () => {
-    for (const slot of [
-      'neutral0',
-      'neutral10',
-      'neutral40',
-      'neutral80',
-    ] as const) {
-      expect(colors[slot]).toMatch(/^var\(--color--/);
-    }
   });
 });
 

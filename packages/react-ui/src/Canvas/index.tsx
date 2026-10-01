@@ -225,7 +225,7 @@ export type CanvasProps = {
  *           collapsible={{ isOpen, onToggle: () => setOpen((v) => !v) }}
  *         >
  *           <p>
- *             Disabled and read-only text fields and selects. The value must stay readable, and an empty field's placeholder must still read as "empty". Older DatoCMS versions don't send these tokens, so fall back to the <code>disabled</code> context, e.g. <code>var(--color--disabled-field--surface, var(--color--disabled--surface))</code>.
+ *             Disabled and read-only text fields and selects. The value must stay readable, and an empty field's placeholder must still read as "empty". Older DatoCMS versions don't send these tokens, so give each one a fallback: <code>disabled--surface</code> and <code>disabled--ink</code> for the surface and ink, and <code>ink-placeholder</code> for the placeholder, e.g. <code>var(--color--disabled-field--surface, var(--color--disabled--surface))</code>.
  *           </p>
  *           <PairSwatches
  *             tokens={[
