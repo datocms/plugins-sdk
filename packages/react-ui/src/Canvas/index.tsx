@@ -207,11 +207,30 @@ export type CanvasProps = {
  *           collapsible={{ isOpen, onToggle: () => setOpen((v) => !v) }}
  *         >
  *           <p>
- *             The flat, low-contrast pair applied to non-interactive controls: disabled buttons, disabled selects and disabled toggles.
+ *             The flat, low-contrast pair applied to non-interactive controls: disabled buttons, switches and checkboxes.
  *           </p>
  *           <PairSwatches
  *             tokens={[
  *               ['--color--disabled--surface', '--color--disabled--ink', 'Disabled button or control: muted background with low-contrast label'],
+ *             ]}
+ *           />
+ *         </Section>
+ *       )}
+ *     </StateManager>
+ *
+ *     <StateManager initial={false}>
+ *       {(isOpen, setOpen) => (
+ *         <Section
+ *           title="Context: disabled-field"
+ *           collapsible={{ isOpen, onToggle: () => setOpen((v) => !v) }}
+ *         >
+ *           <p>
+ *             Disabled and read-only text fields and selects. The value must stay readable, and an empty field's placeholder must still read as "empty". Older DatoCMS versions don't send these tokens, so give each one a fallback: <code>disabled--surface</code> and <code>disabled--ink</code> for the surface and ink, and <code>ink-placeholder</code> for the placeholder, e.g. <code>var(--color--disabled-field--surface, var(--color--disabled--surface))</code>.
+ *           </p>
+ *           <PairSwatches
+ *             tokens={[
+ *               ['--color--disabled-field--surface', '--color--disabled-field--ink', 'Value of a disabled or read-only field'],
+ *               ['--color--disabled-field--surface', '--color--disabled-field--ink-placeholder', 'Placeholder of an empty disabled or read-only field'],
  *             ]}
  *           />
  *         </Section>
