@@ -1,0 +1,175 @@
+/* The space above or below an item of a list (a block, a record), where
+   the user adds an item at that position. The whole rectangle between two
+   items, with its part of the gutter, is the trigger. The gap never changes
+   its height, so the content does not move.
+
+   The item that holds the gap must have a position, and it sets these
+   values:
+   --InsertGap-size: the space between two items.
+   --InsertGap-gutter: the width of the column at the left of the items,
+   where the grip is. */
+
+/* [data-near]: the pointer is near the gap (see pointerNearGap.ts) */
+@custom-selector :--InsertGap-shown
+  [data-near],
+  :hover,
+  :focus-within,
+  :has(.Dropdown.is-open);
+
+@custom-selector :--InsertGap-active
+  :hover,
+  :has(.InsertGap__bar:focus-visible),
+  :has(.Dropdown.is-open);
+
+.InsertGap {
+  /* 1 when the gap shows its button, 0 when it hides it */
+  --InsertGap-on: 0;
+  /* 1 when the user is on the gap */
+  --InsertGap-active: 0;
+  /* The time that the pointer must stay before the gap shows its button.
+     The pointer can go across the list and the buttons do not flash. The
+     gap hides its button with no delay. */
+  --InsertGap-delay: 0.1s;
+
+  position: absolute;
+  right: 0;
+  left: calc(-1 * var(--InsertGap-gutter));
+  z-index: 3;
+  height: var(--InsertGap-size);
+
+  &:--InsertGap-shown {
+    --InsertGap-on: 1;
+  }
+  &:--InsertGap-active {
+    --InsertGap-active: 1;
+  }
+  &:is(:focus-within, :has(.Dropdown.is-open)) {
+    --InsertGap-delay: 0s;
+  }
+}
+.InsertGap--before {
+  top: calc(-1 * var(--InsertGap-size));
+}
+.InsertGap--after {
+  top: 100%;
+}
+/* All the gap is a button. The menu of the button shows below the start of
+   the gap, where the small button is. */
+.InsertGap > .Dropdown {
+  position: absolute;
+  inset: 0;
+}
+.InsertGap__bar {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  cursor: pointer;
+  background: none;
+  border: 0;
+
+  &:focus-visible {
+    outline: none;
+  }
+}
+/* The small button in the gutter shows the keyboard focus of the bar. Thus
+   the bar must not also get the ring of _base.css, or two rings show.
+   ":where" keeps the specificity of that ring. */
+:where(.InsertGap__bar):focus-visible {
+  box-shadow: none;
+}
+/* The small button is only a picture: the bar is the button. It is higher
+   than the gap, thus it takes the pointer only while it shows. */
+.InsertGap__plus {
+  /* The icon is 1em of the text, and the box adds a small space around it */
+  --InsertGap-plus-size: calc(1em + var(--spacing-s));
+
+  position: absolute;
+  top: calc(50% - var(--InsertGap-plus-size) / 2);
+  left: calc((var(--InsertGap-gutter) - var(--InsertGap-plus-size)) / 2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--InsertGap-plus-size);
+  height: var(--InsertGap-plus-size);
+  font-size: var(--font-size-xs);
+  pointer-events: none;
+  border-radius: var(--radius-s);
+  opacity: var(--InsertGap-on);
+  /* The button waits only when it shows (see --InsertGap-delay) */
+  transition: opacity 0.1s ease-in-out
+    calc(var(--InsertGap-on) * var(--InsertGap-delay));
+
+  /* The area that takes the pointer is larger than the picture, so the
+     button is easy to click. It does not go below the picture, where the
+     grip of the next item is. */
+  &::before {
+    position: absolute;
+    inset: var(--negative-spacing-s) var(--negative-spacing-s) 0;
+    content: "";
+  }
+  svg {
+    display: block;
+    width: 1em;
+    height: 1em;
+    fill: var(--color--ink-subtle);
+  }
+  .InsertGap:--InsertGap-shown & {
+    pointer-events: auto;
+  }
+  .InsertGap:--InsertGap-active & {
+    background-color: var(--color--primary-soft--surface);
+
+    svg {
+      fill: var(--color--primary-soft--ink);
+    }
+  }
+  .InsertGap__bar:focus-visible & {
+    box-shadow: var(--focus-ring);
+  }
+}
+/* When the user is on the gap, the line is the same as the line that shows
+   where a dragged item goes (see _DropIndicator.css). */
+.InsertGap__line {
+  --InsertGap-line-color: var(--color--border);
+  --InsertGap-line-thickness: calc(1px + var(--InsertGap-active) * 1px);
+  /* The line starts to grow after the small button shows */
+  --InsertGap-line-delay: calc(
+    var(--InsertGap-on) *
+    (var(--InsertGap-delay) + 0.1s)
+  );
+
+  position: absolute;
+  top: calc(50% - var(--InsertGap-line-thickness) / 2);
+  right: 0;
+  left: var(--InsertGap-gutter);
+  height: var(--InsertGap-line-thickness);
+  pointer-events: none;
+  background-color: var(--InsertGap-line-color);
+  border-radius: var(--radius-full);
+  opacity: var(--InsertGap-on);
+  transform: scaleX(var(--InsertGap-on));
+  transform-origin: left center;
+  transition:
+    transform 0.5s var(--ease-out) var(--InsertGap-line-delay),
+    opacity 0.2s ease-out var(--InsertGap-line-delay),
+    background-color 0.15s ease-out;
+
+  .InsertGap:--InsertGap-active & {
+    --InsertGap-line-color: var(--color--selected--border);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .InsertGap__line {
+    transform: none;
+    transition:
+      opacity 0.2s ease-out var(--InsertGap-line-delay),
+      background-color 0.15s ease-out;
+  }
+}
+@media (hover: none) {
+  .InsertGap {
+    --InsertGap-on: 1;
+  }
+}

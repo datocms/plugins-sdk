@@ -1,0 +1,31 @@
+.IdText {
+  font-family: var(--monospaced-font-family);
+  white-space: nowrap;
+}
+
+.IdText-labeled {
+  white-space: nowrap;
+}
+.IdText-labeled__separator {
+  margin-right: 0.4em;
+
+  /* Nothing is before the ID (for example, the model is hidden): no
+     separator */
+  .IdText-labeled:first-child > & {
+    display: none;
+  }
+}
+
+/* The hover comes from ".button--ghost-inline". The overflow is on the ID,
+   not on the button: the button must not clip its surface. */
+.CopyableId {
+  display: inline-flex;
+  max-width: 100%;
+  vertical-align: bottom;
+
+  .IdText {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

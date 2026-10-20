@@ -1,0 +1,264 @@
+.SidebarTree__node {
+  /* The tree sets the left padding of each node to indent it. Out of a tree,
+     the first child gives the inset. The node is an inset row (see
+     "--row-inset"): the margin and the padding together put the content at
+     the inset of the sidebar. */
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding-right: calc(var(--spacing-m) - var(--row-inset));
+  margin: 0 var(--row-inset) var(--row-gap);
+  text-decoration: none;
+  border-radius: var(--row-radius);
+
+  /* The background has no transition: the hover is instant, as in the other
+     inset rows (see "--row-inset") */
+  transition:
+    margin 0.2s var(--material-ease),
+    padding 0.2s var(--material-ease),
+    border-radius 0.2s var(--material-ease),
+    box-shadow 0.2s var(--material-ease);
+
+  > * {
+    flex-grow: 0;
+    flex-shrink: 0;
+    white-space: nowrap;
+
+    &:first-child {
+      padding-left: calc(var(--spacing-m) - var(--row-inset));
+    }
+  }
+
+  /* The first row has the inset above it, and the last row has the inset
+     below it, as on the sides. The pane adds no padding (see Pane).
+     The drop space of the tree can come after the last row. */
+  &:first-child {
+    margin-top: var(--row-inset);
+  }
+  &:last-child,
+  &:has(+ .SortableTree__tail:last-child) {
+    margin-bottom: var(--row-inset);
+  }
+
+  /* The link or button of the row gets the focus, and the row shows it */
+  &:has(> .SidebarTree__node__main:focus-visible) {
+    box-shadow: inset 0 0 0 2px var(--color--focus--border);
+  }
+
+  /* Hover (not active): subtle neutral surface */
+  &:hover:not(.SidebarTree__node--active) {
+    background-color: var(--color--surface-hover);
+  }
+
+  /* The whole node is the drag handle. The browser takes the drag preview
+     from the node. Thus the node is a raised card when the user pushes the
+     mouse button on it and while the user drags it. A push on the toggle or on the
+     actions does not make the card. */
+  &.SidebarTree__node--editing {
+    cursor: grab;
+
+    &:has(> .SidebarTree__node__main:active),
+    &.SidebarTree__node--is-dragging {
+      cursor: grabbing;
+      background-color: var(--color--surface-raised);
+      box-shadow:
+        inset 0 0 0 1px var(--color--border-hover),
+        var(--shadow--lifted);
+    }
+  }
+
+  &.SidebarTree__node--is-not-droppable {
+    cursor: no-drop;
+    opacity: 0.5;
+  }
+}
+
+/* Active (selected): branded surface + paired ink */
+.SidebarTree__node--active {
+  background-color: var(--color--selected--surface);
+
+  & .SidebarTree__node__name {
+    font-weight: bold;
+    color: var(--color--selected--ink);
+  }
+  & .SidebarTree__node__text {
+    color: var(--color--selected--ink);
+    opacity: 0.75;
+  }
+  & .SidebarTree__node__icon svg,
+  & .SidebarTree__node__actions .button:not(:hover, :focus-visible) svg {
+    fill: var(--color--selected--ink);
+  }
+
+  &:hover {
+    background-color: var(--color--selected--surface-hover);
+  }
+}
+.SidebarTree__node__icon {
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+  justify-content: center;
+  width: 1rem;
+  padding-right: var(--spacing-m);
+  text-decoration: none;
+  cursor: inherit;
+
+  svg {
+    fill: var(--color--ink-subtle);
+  }
+}
+/* The link or button of the row. Its "::after" covers all the row, thus a
+   click on any part of the row goes to it. The toggle and the actions are
+   above it. */
+.SidebarTree__node > .SidebarTree__node__main {
+  display: flex;
+  flex-grow: 1;
+  flex-shrink: 1;
+  align-items: center;
+  min-width: 0;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  outline: none;
+
+  &::after {
+    position: absolute;
+    inset: 0;
+    content: "";
+  }
+}
+/* The row shows the keyboard focus of its link or button. Thus the link or
+   button must not also get the ring of _base.css, or two rings show.
+   ":where" keeps the specificity of that ring. */
+:where(.SidebarTree__node__main):focus-visible {
+  box-shadow: none;
+}
+.SidebarTree__node > .SidebarTree__node__main--static {
+  cursor: default;
+}
+/* The link or button covers all the row. In edit mode, and when the row
+   refuses a drop, it must show the cursor of the row ("grab", "grabbing" or
+   "no-drop"), not its own cursor. */
+.SidebarTree__node--editing > .SidebarTree__node__main,
+.SidebarTree__node--is-not-droppable > .SidebarTree__node__main {
+  cursor: inherit;
+}
+.SidebarTree__node__toggle,
+.SidebarTree__node__actions {
+  position: relative;
+  z-index: 1;
+}
+.SidebarTree__node__toggle {
+  /* Buttons are "border-box". The toggle must have the same width as the
+     other icons, thus it is "content-box" as they are. */
+  box-sizing: content-box;
+  margin: 0;
+  font: inherit;
+  cursor: pointer;
+  background: none;
+  border: 0;
+}
+/* A toggle without children is not a button. It is below the link or button
+   of the row, thus a click on it goes to the row, with the cursor of the
+   row. */
+span.SidebarTree__node__toggle {
+  position: static;
+  z-index: auto;
+}
+/* When no node of the list has children (for example, a list without groups,
+   or a filtered tree), there are no carets to align with. Thus the empty
+   toggles have no width. They keep their left padding, which is the inset of
+   the row. In edit mode they keep their width: they show the grip. */
+.Pane:not(:has(button.SidebarTree__node__toggle)) .SidebarTree__node:not(
+    .SidebarTree__node--editing
+  )
+  > span.SidebarTree__node__toggle {
+  width: 0;
+  padding-right: 0;
+}
+.SidebarTree__node__text {
+  flex-grow: 1;
+  flex-shrink: 1;
+  min-width: 0;
+  padding-top: calc(0.6 * var(--space-unit));
+  padding-bottom: calc(0.6 * var(--space-unit));
+  color: var(--color--ink-subtle);
+}
+.SidebarTree__node__title,
+.SidebarTree__node__details {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.SidebarTree__node__name {
+  flex-shrink: 1;
+  font-size: var(--font-size-m);
+  color: var(--color--ink);
+}
+.SidebarTree__node__details {
+  font-size: var(--font-size-xs);
+}
+.SidebarTree__node__trailing {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  padding-left: var(--spacing-s);
+}
+/* The grip is in the column of the toggle. A node without children shows
+   it in place of the empty toggle. A node with children shows it in place of
+   the chevron on hover. Then the toggle lets the mouse go through to the
+   node. The user can drag from the grip, and a click on the node expands
+   it or collapses it. The keyboard can still use the toggle. */
+.SidebarTree__node__grip {
+  display: none;
+  align-items: center;
+  justify-content: center;
+
+  /* The subtle ink, as every other grip (see .DragHandle) */
+  svg {
+    fill: var(--color--ink-subtle);
+  }
+}
+.SidebarTree__node--editing {
+  > span.SidebarTree__node__toggle > .SidebarTree__node__grip {
+    display: flex;
+  }
+
+  @media (hover: hover) {
+    &:hover > button.SidebarTree__node__toggle {
+      pointer-events: none;
+
+      > .Chevron {
+        display: none;
+      }
+      > .SidebarTree__node__grip {
+        display: flex;
+      }
+    }
+  }
+}
+/* On touch devices there is no hover, thus the actions of each node are
+   always visible */
+@media (hover: none) {
+  .SidebarTree__node .SidebarTree__node__actions {
+    display: flex;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .SidebarTree__node {
+    transition: none;
+  }
+}
+.SidebarTree__node__actions {
+  display: none;
+
+  /* Stay in the layout while the menu is open too. The menu is anchored to
+     the Dropdown, thus a hidden trigger moves the menu. */
+  .SidebarTree__node:hover &,
+  .SidebarTree__node:focus-within &,
+  &.is-open {
+    display: flex;
+  }
+}

@@ -1,0 +1,267 @@
+.form {
+  fieldset {
+    padding: var(--spacing-l);
+    margin-bottom: var(--spacing-l);
+    border-color: var(--color--border);
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+    legend {
+      padding: 0 var(--spacing-m);
+      margin: 0 calc(-1 * var(--spacing-m));
+      font-size: var(--font-size-xl);
+    }
+  }
+  hr {
+    margin-top: var(--spacing-l);
+    margin-bottom: var(--spacing-l);
+  }
+}
+/* The text of the label fills the line, and the menu and the info of the
+   field go at the right end. A label with a menu is as tall as the menu. */
+.form__label {
+  position: relative;
+  display: flex;
+  gap: var(--spacing-s);
+  align-items: center;
+  margin-bottom: var(--spacing-s);
+}
+.form__label__text {
+  flex: 1;
+  min-width: 0;
+}
+.form__label__optional {
+  margin-left: 0.3em;
+  color: var(--color--ink-subtle);
+}
+.form__label__icon {
+  display: inline-block;
+  margin-left: var(--spacing-s);
+  vertical-align: text-top;
+
+  svg {
+    display: block;
+    fill: var(--color--ink-subtle);
+  }
+}
+.form__label__info {
+  flex: none;
+  margin-left: auto;
+  font-size: var(--font-size-xs);
+  color: var(--color--ink-subtle);
+}
+/* The menu of the field. It shows on hover and on focus. */
+.form__label__menu {
+  flex: none;
+  margin-left: auto;
+  opacity: 0;
+  transition: opacity 0.2s var(--material-ease);
+
+  /* The label of a switch is in the switch, not directly in the field */
+  @media (hover: hover) {
+    .form__field:hover > .form__label > &,
+    .form__field--switch:hover .form__label > &,
+    .form__field:where(:has(> .SwitchInput)):hover .form__label > &,
+    .form__label:hover > & {
+      opacity: 1;
+    }
+  }
+
+  .form__label:focus & {
+    opacity: 1;
+  }
+}
+:root {
+  /* The space between two fields, one under the other. A block of your own
+     between the fields uses it to keep the rhythm of the form. */
+  --form-field-gap: var(--spacing-l);
+}
+.form__field {
+  position: relative;
+  margin-bottom: var(--form-field-gap);
+  scroll-margin-top: var(--spacing-xxxl);
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+  &:first-child:last-child {
+    width: 100%;
+  }
+}
+/* A field around a switch has no label above the switch, thus the hint and
+   the error start under the label of the switch. `Field` of the apps also
+   adds the class, because its input can wrap the switch in another element.
+   `:where` keeps the specificity of the class, thus `SwitchList` can reset
+   the margin. */
+:is(.form__field--switch, .form__field:where(:has(> .SwitchInput)))
+  :is(.form__hint, .form__error) {
+  margin-left: calc(var(--switch-width) + var(--switch-gap));
+}
+.form__field--less-margin {
+  margin-bottom: var(--spacing-m);
+}
+.form__field--black-label {
+  .form__label {
+    color: var(--color--ink);
+  }
+}
+.form__field-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-m);
+  align-items: stretch;
+
+  > span {
+    display: flex;
+    align-items: center;
+  }
+}
+/* A cell goes to a new line when the row is too narrow for it. This
+   occurs also in a narrow modal or panel, not only in a narrow window.
+   A flex-basis of 0 keeps the 2:1 ratio of a wide cell. */
+.form__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--form-field-gap) var(--spacing-m);
+}
+.form__row__cell {
+  flex: 1 1 0;
+  min-width: 12rem;
+}
+.form__row__cell--wide {
+  flex-grow: 2;
+}
+.form__field--inline {
+  display: inline-block;
+  margin-bottom: 0;
+  vertical-align: middle;
+
+  :--all-text-inputs {
+    display: inline-block;
+    width: auto;
+  }
+}
+.form__field--invalid {
+  > .form__label {
+    color: var(--color--danger-soft--ink);
+
+    a {
+      color: var(--color--danger-soft--ink);
+    }
+  }
+}
+/* Field puts aria-invalid on its input. The attribute also finds an input
+   that is inside a wrapper (PasswordInput). */
+:--all-text-inputs,
+textarea {
+  .form__field--invalid > &,
+  &[aria-invalid="true"] {
+    border-color: var(--color--danger-soft--border);
+  }
+}
+:--all-text-inputs-focus,
+textarea:focus {
+  .form__field--invalid > &,
+  &[aria-invalid="true"] {
+    box-shadow: 0 0 0 4px var(--color--danger-soft--outline);
+  }
+}
+/* A form directly in a dialog (with ModalBody and ModalFooter): the error
+   is above ModalBody, thus it needs the space of the dialog around it */
+.Modal__content__inner > form > .form__global-error {
+  margin: var(--Modal-inset) var(--Modal-inset) 0;
+}
+.form__error {
+  position: relative;
+  margin-top: var(--spacing-s);
+  font-size: var(--font-size-m);
+  line-height: 1.2;
+  color: var(--color--danger-soft--ink);
+
+  /* token-audit-disable-next-line cross-context -- special case, does not make sense to add a semantic token */
+  &::before {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    margin-right: 8px;
+    content: "";
+    background-color: var(--color--danger--surface);
+    border-radius: var(--radius-full);
+
+    /* token-audit-disable-next-line color-mix -- special case, does not make sense to add a semantic token */
+    box-shadow: 0 0 20px 5px
+      color-mix(in oklch, var(--color--danger-soft--ink) 40%, transparent);
+
+    animation: glow 6s infinite ease-in-out;
+  }
+  a {
+    color: var(--color--danger-soft--ink);
+  }
+}
+.form__hint {
+  margin-top: var(--spacing-s);
+  font-size: var(--font-size-m);
+  line-height: 1.2;
+  color: var(--color--ink-subtle);
+}
+.form__hint__docs {
+  display: block;
+  margin-top: var(--spacing-s);
+  color: var(--color--ink-link);
+  text-decoration: underline;
+
+  svg {
+    display: inline-block;
+    margin-right: 0.5em;
+    vertical-align: middle;
+    fill: var(--color--ink-link);
+  }
+}
+.form__hint__warning {
+  padding-left: var(--spacing-m);
+  margin-top: var(--spacing-s);
+  font-size: var(--font-size-m);
+  line-height: 1.2;
+  border-left: 5px solid var(--color--warning-soft--border);
+
+  svg {
+    display: inline-block;
+    margin-right: 0.5em;
+    vertical-align: middle;
+    fill: var(--color--warning-soft--ink);
+  }
+}
+.form__input--large.form__input--large {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+.form__input--small {
+  font-size: var(--font-size-xs);
+}
+.form__input--code {
+  font-family: var(--monospaced-font-family);
+  font-size: var(--monospaced-font-size);
+  letter-spacing: -0.02em;
+}
+.form__input--milli {
+  font-size: var(--font-size-m);
+}
+
+@keyframes glow {
+  0% {
+    /* token-audit-disable-next-line color-mix -- special case, does not make sense to add a semantic token */
+    box-shadow: 0 0 20px 5px
+      color-mix(in oklch, var(--color--danger-soft--ink) 40%, transparent);
+  }
+  50% {
+    /* token-audit-disable-next-line color-mix -- special case, does not make sense to add a semantic token */
+    box-shadow: 0 0 20px 5px var(--color--danger-soft--ink);
+    transform: scale(0.5);
+  }
+  100% {
+    /* token-audit-disable-next-line color-mix -- special case, does not make sense to add a semantic token */
+    box-shadow: 0 0 20px 5px
+      color-mix(in oklch, var(--color--danger-soft--ink) 40%, transparent);
+  }
+}

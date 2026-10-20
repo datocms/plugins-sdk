@@ -1,0 +1,9 @@
+{
+  "contextInspector.everyHook": "Available on every hook",
+  "contextInspector.example": "Example of {name}",
+  "contextInspector.hookSpecific": "Hook-specific",
+  "contextInspector.runExample": "Run example",
+  "contextInspector.runFailed": "The example failed. See the console of the browser for the error.",
+  "contextInspector.untitledGroup": "Properties and methods",
+  "contextInspector.value": "Value of {name}"
+}

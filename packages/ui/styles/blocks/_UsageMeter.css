@@ -1,0 +1,41 @@
+/* See UsageMeter.tsx. Over the limit, the color tells if the owner pays for
+   the extra usage (warning) or if the usage stopped (danger). */
+.UsageMeter {
+  display: flex;
+  gap: 2px;
+  height: 6px;
+  overflow: hidden;
+  background: var(--color--progress--track);
+  border-radius: var(--radius-xs);
+}
+.UsageMeter__within {
+  background: var(--color--progress--fill);
+}
+.UsageMeter__over {
+  background: var(--color--fill-warning);
+
+  .UsageMeter--blocked & {
+    background: var(--color--fill-danger);
+  }
+}
+/* Like an icon, the ring has the size of the text around it */
+.UsageRing {
+  width: 1em;
+  height: 1em;
+  fill: none;
+  stroke-width: 3;
+  transform: rotate(-90deg);
+}
+.UsageRing__track {
+  stroke: var(--color--progress--track);
+}
+.UsageRing__fill {
+  stroke: var(--color--progress--fill);
+
+  .UsageRing--over & {
+    stroke: var(--color--fill-warning);
+  }
+  .UsageRing--over.UsageRing--blocked & {
+    stroke: var(--color--fill-danger);
+  }
+}

@@ -1,0 +1,20 @@
+/* The space under the last row of a SortableTree. A drop in it moves the
+   item to the end of the first level. It has a height only during a drag
+   of an item of the tree, thus it does not change the layout at rest. It is
+   at the end of the tree, thus its height does not move the rows. */
+.SortableTree__tail {
+  position: relative;
+  height: 0;
+
+  &.is-active {
+    height: 32px;
+  }
+}
+/* The box of the drop line. It has the left and right edges of a row of the
+   first level (SortableTree.tsx measures them). Thus the line and its dot
+   are at the same place as the line of a row. */
+.SortableTree__tail-line {
+  position: absolute;
+  top: 0;
+  height: 0;
+}

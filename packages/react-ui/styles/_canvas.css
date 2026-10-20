@@ -1,0 +1,13 @@
+/* The host gives the color tokens on the Canvas element and on the wrapper
+   of each portal (Canvas--portal), not on the body. Thus the color that the
+   body gives to its text cannot read them: the Canvas gives it again. */
+.Canvas {
+  color: var(--color--ink);
+}
+
+/* The wrapper of a portal has no box: the content of the portal places
+   itself (fixed or absolute), as at the end of the body. The custom
+   properties still go down to the content. */
+.Canvas--portal {
+  display: contents;
+}

@@ -1,0 +1,38 @@
+.FramedImage {
+  max-width: 300px;
+}
+.FramedImage__button {
+  display: block;
+  padding: 0;
+  cursor: zoom-in;
+  background: none;
+  border: 0;
+  border-radius: var(--radius-s);
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: var(--focus-ring);
+  }
+}
+.FramedImage__image {
+  display: block;
+  width: 100%;
+  border: 1px solid var(--color--border);
+  border-radius: var(--radius-s);
+  transition: border-color 0.1s ease-in-out;
+
+  .FramedImage__button:hover & {
+    border-color: var(--color--border-hover);
+  }
+}
+.FramedImage__caption {
+  margin-top: var(--spacing-m);
+  font-size: var(--font-size-m);
+  line-height: 1.2;
+  color: var(--color--ink-subtle);
+  text-align: center;
+}
+.FramedImage__large {
+  display: block;
+  width: 100%;
+}

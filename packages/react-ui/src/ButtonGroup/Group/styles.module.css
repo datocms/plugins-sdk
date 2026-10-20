@@ -1,6 +1,0 @@
-.Group {
-  display: flex;
-  align-items: stretch;
-  background-color: var(--color--surface);
-  overflow: hidden;
-}

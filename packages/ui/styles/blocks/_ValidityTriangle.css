@@ -1,0 +1,34 @@
+.ValidityTriangle--published,
+.ValidityTriangle--current,
+.ValidityTriangle--threat {
+  vertical-align: text-top;
+  fill: var(--color--fill-danger);
+}
+.ValidityTriangle__wrapper {
+  display: inline-flex;
+  align-items: center;
+  margin-left: var(--spacing-s);
+  vertical-align: middle;
+
+  svg {
+    display: block;
+  }
+}
+/* The two triangles of a record are one pair: the triangle of the current
+   version goes partly behind the triangle of the published version. */
+.ValidityTriangle__wrapper > svg:first-child:not(:only-child) {
+  position: relative;
+  z-index: 1;
+}
+.ValidityTriangle__wrapper > svg + svg {
+  margin-inline-start: calc(-1 * var(--spacing-s));
+}
+.ValidityTriangle__hint {
+  display: flex;
+  gap: var(--spacing-s);
+  align-items: center;
+
+  svg {
+    flex: none;
+  }
+}

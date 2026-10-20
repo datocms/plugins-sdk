@@ -1,0 +1,87 @@
+/* Use the <Pill> component, or <PillTrigger> for a dropdown. The pill has no
+   margin: the parent sets the space around it. The padding is in the width,
+   thus a long pill stays in its parent (max-width) and its text gets the
+   ellipsis. */
+.Pill {
+  --chevron-color: currentColor;
+
+  box-sizing: border-box;
+  display: inline-flex;
+  gap: 0.35em;
+  align-items: center;
+  max-width: 100%;
+  padding: 1px 8px;
+  margin: 0;
+  font-family: inherit;
+  font-size: var(--font-size-xs);
+  font-weight: normal;
+  line-height: 1.5;
+  vertical-align: middle;
+  white-space: nowrap;
+  text-decoration: none;
+  border: 0;
+  border-radius: var(--radius-full);
+
+  > span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  > svg {
+    flex: none;
+    fill: currentColor;
+  }
+  > .ItemTypeEmoji {
+    flex: none;
+    line-height: 1;
+  }
+}
+.Pill--neutral {
+  color: var(--color--ink-subtle);
+  background-color: var(--color--surface-muted);
+}
+.Pill--accent {
+  color: var(--color--primary--ink);
+  background-color: var(--color--primary--surface);
+}
+.Pill--soft {
+  color: var(--color--primary-soft--ink);
+  background-color: var(--color--primary-soft--surface);
+}
+.Pill--danger {
+  color: var(--color--danger-soft--ink);
+  background-color: var(--color--danger-soft--surface);
+}
+.Pill--warning {
+  color: var(--color--warning-soft--ink);
+  background-color: var(--color--warning-soft--surface);
+}
+.Pill--success {
+  color: var(--color--success-soft--ink);
+  background-color: var(--color--success-soft--surface);
+}
+.Pill--hint {
+  cursor: help;
+}
+.Pill--clickable {
+  cursor: pointer;
+  transition:
+    background-color 0.15s,
+    color 0.15s;
+
+  &.Pill--neutral:hover,
+  &.Pill--neutral:focus-visible,
+  &.Pill--neutral.is-open {
+    color: var(--color--ink);
+    background-color: var(--color--surface-hover);
+  }
+  &.Pill--accent:hover,
+  &.Pill--accent:focus-visible,
+  &.Pill--accent.is-open {
+    background-color: var(--color--primary--surface-hover);
+  }
+  &.Pill--soft:hover,
+  &.Pill--soft:focus-visible,
+  &.Pill--soft.is-open {
+    background-color: var(--color--primary-soft--surface-hover);
+  }
+}

@@ -1,0 +1,50 @@
+.HighlightElement {
+  position: relative;
+
+  &:before {
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    pointer-events: none;
+    content: "";
+    border-radius: var(--radius-s);
+    box-shadow: var(--focus-ring);
+    animation: highlightElement 4s 0.25s ease-in-out forwards;
+  }
+}
+
+.HighlightElement--outline:before {
+  top: var(--negative-spacing-m);
+  right: var(--negative-spacing-m);
+  bottom: var(--negative-spacing-m);
+  left: var(--negative-spacing-m);
+}
+
+.HighlightElement--faster:before {
+  animation: highlightElement 2s 0.25s ease-in-out forwards;
+}
+
+@keyframes highlightElement {
+  0% {
+    /* token-audit-disable-next-line color-mix -- decorative highlight pulse, both tokens are focus context */
+    box-shadow:
+      var(--focus-ring),
+      0 0 0 4px
+      color-mix(in oklch, var(--color--focus--border) 70%, transparent);
+  }
+  15% {
+    box-shadow:
+      var(--focus-ring),
+      0 0 0 80px transparent;
+  }
+  75% {
+    box-shadow:
+      var(--focus-ring),
+      0 0 0 80px transparent;
+  }
+  100% {
+    box-shadow:
+      0 0 0 4px transparent,
+      0 0 0 80px transparent;
+  }
+}

@@ -1,0 +1,101 @@
+/* See EntityRow.tsx. It has no surface and no hover: the container gives
+   them. */
+.EntityRow {
+  display: flex;
+  flex: 1 1 auto;
+  gap: var(--spacing-m);
+  align-items: center;
+  min-width: 0;
+  line-height: 1.2;
+}
+/* The minimum height is the height of the image: an entity on one line has
+   the same height with and without an image (chips that are side by side) */
+.EntityRow--inline {
+  /* The width and the height of the image: 20px on one line, 32px in a row
+     (layout="row") */
+  --EntityRow-image-size: 20px;
+
+  gap: var(--spacing-s);
+  min-height: var(--EntityRow-image-size);
+}
+.EntityRow--row {
+  --EntityRow-image-size: 32px;
+}
+.EntityRow__image {
+  display: block;
+  flex: none;
+  width: var(--EntityRow-image-size);
+  height: var(--EntityRow-image-size);
+  overflow: hidden;
+
+  > * {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+}
+.EntityRow--inline .EntityRow__image {
+  border-radius: var(--radius-xs);
+}
+.EntityRow--row .EntityRow__image {
+  border-radius: var(--radius-s);
+}
+.EntityRow__content {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-width: 0;
+}
+/* For a record, the kicker is the model. It starts the line, thus a model
+   shows its emoji (see "Model Names" in src/components/AGENTS.md). */
+.EntityRow__kicker {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: var(--font-size-xs);
+  line-height: 1.1;
+  color: var(--color--ink-subtle);
+  white-space: nowrap;
+}
+.EntityRow__title {
+  display: flex;
+  gap: var(--spacing-s);
+  align-items: center;
+  min-width: 0;
+
+  /* The gap gives the space: the margin of the triangles is for a text */
+  > .ValidityTriangle__wrapper {
+    margin-left: 0;
+  }
+}
+.EntityRow__title__text {
+  flex: 0 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.EntityRow--multiline-title .EntityRow__title__text {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  white-space: normal;
+}
+.EntityRow__aside {
+  flex: none;
+  font-size: var(--font-size-xs);
+  color: var(--color--ink-subtle);
+  white-space: nowrap;
+}
+/* The same size and ink as .EntityRow__kicker. An empty slot (for example a
+   presence without users) takes no space. */
+.EntityRow__details {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: var(--font-size-xs);
+  color: var(--color--ink-subtle);
+  white-space: nowrap;
+
+  &:empty {
+    display: none;
+  }
+}

@@ -1,0 +1,178 @@
+.AvatarStack {
+  display: flex;
+  margin-right: 8px;
+
+  > * {
+    position: relative;
+    z-index: 2;
+    margin-right: -8px;
+  }
+}
+.Avatar {
+  /* A rounded square with the radius of the controls, not a circle, so an
+     avatar has the same shape as a button or an icon button next to it. */
+  --Avatar-radius: var(--radius-s);
+  /* The ring of the regular and the large avatars (see below). The image and
+     the initials touch the ring, so their radius is the outer radius minus
+     the ring width. */
+  --Avatar-ring: 0px;
+  --Avatar-inner-radius: calc(var(--Avatar-radius) - var(--Avatar-ring));
+
+  position: relative;
+  box-sizing: border-box;
+  display: block;
+  width: var(--Avatar-size);
+  height: var(--Avatar-size);
+  text-align: center;
+  text-decoration: none;
+  background-color: var(--color--surface-raised);
+  border-radius: var(--Avatar-radius);
+
+  img,
+  .Avatar__initials {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    border-radius: var(--Avatar-inner-radius);
+  }
+}
+.Avatar__initials {
+  display: block;
+  flex: none;
+  padding: 0;
+
+  /* The SVG draws its own rounded square: a CSS border-radius does not clip
+     an inline SVG cleanly. The SVG has no viewBox, so the user units are
+     pixels and the corner radius can follow the token. Alone, there is no
+     ring, thus the radius is the radius of the controls. */
+  rect {
+    rx: var(--Avatar-inner-radius, var(--radius-s));
+    fill: var(--Avatar-surface);
+  }
+
+  text {
+    fill: var(--Avatar-ink);
+  }
+}
+/* A surface color from data (`surface={{ color }}`): the ink is white or
+   dark, the one with more contrast. The color comes from the data, thus the
+   two inks do not change with the color scheme. */
+.Avatar__initials--light-ink {
+  --Avatar-ink: #fff;
+}
+.Avatar__initials--dark-ink {
+  --Avatar-ink: rgb(0 0 0 / 75%);
+}
+.Avatar__person {
+  position: absolute;
+  inset: 0;
+  width: 55%;
+  height: 55%;
+  margin: auto;
+  color: var(--color--ink-subtle);
+}
+.Avatar__initials--muted {
+  --Avatar-surface: var(--color--surface-muted);
+  --Avatar-ink: var(--color--ink-subtle);
+}
+/* The hues of the initials. They are local to the avatar, not semantic
+   tokens. The values are the same as the field group chips. Light mode has
+   a pale surface and a saturated ink. Dark mode has a deep surface and a
+   light ink. */
+.Avatar__initials--hue-1 {
+  --Avatar-surface: #fff8d6;
+  --Avatar-ink: #998100;
+
+  [data-color-scheme="dark"] & {
+    --Avatar-surface: #2d2500;
+    --Avatar-ink: #e6c840;
+  }
+}
+.Avatar__initials--hue-2 {
+  --Avatar-surface: #defce2;
+  --Avatar-ink: #1d9f2f;
+
+  [data-color-scheme="dark"] & {
+    --Avatar-surface: #003909;
+    --Avatar-ink: #72d980;
+  }
+}
+.Avatar__initials--hue-3 {
+  --Avatar-surface: #e5fbf9;
+  --Avatar-ink: #38ada3;
+
+  [data-color-scheme="dark"] & {
+    --Avatar-surface: #00322f;
+    --Avatar-ink: #70d9d2;
+  }
+}
+.Avatar__initials--hue-4 {
+  --Avatar-surface: #ddecfc;
+  --Avatar-ink: #1b5899;
+
+  [data-color-scheme="dark"] & {
+    --Avatar-surface: #00183d;
+    --Avatar-ink: #7db2f2;
+  }
+}
+.Avatar__initials--hue-5 {
+  --Avatar-surface: #e2e2fa;
+  --Avatar-ink: #38388d;
+
+  [data-color-scheme="dark"] & {
+    --Avatar-surface: #11113d;
+    --Avatar-ink: #9a9ae8;
+  }
+}
+.Avatar__initials--hue-6 {
+  --Avatar-surface: #fef0e2;
+  --Avatar-ink: #d76f0e;
+
+  [data-color-scheme="dark"] & {
+    --Avatar-surface: #3a1e00;
+    --Avatar-ink: #f5b96a;
+  }
+}
+.Avatar__initials--hue-7 {
+  --Avatar-surface: #fde5e3;
+  --Avatar-ink: #c82b1d;
+
+  [data-color-scheme="dark"] & {
+    --Avatar-surface: #3d0a06;
+    --Avatar-ink: #f4a9a3;
+  }
+}
+.Avatar__initials--hue-8 {
+  --Avatar-surface: #f8dffa;
+  --Avatar-ink: #7e2e86;
+
+  [data-color-scheme="dark"] & {
+    --Avatar-surface: #280030;
+    --Avatar-ink: #de9de6;
+  }
+}
+.Avatar--small {
+  --Avatar-size: 20px;
+}
+.Avatar--regular {
+  --Avatar-size: 30px;
+  --Avatar-ring: 2px;
+
+  /* token-audit-disable-next-line mismatch -- ring matches the page surface to separate stacked avatars */
+  border: var(--Avatar-ring) solid var(--color--surface);
+}
+.Avatar--large {
+  --Avatar-size: 40px;
+  --Avatar-ring: 3px;
+
+  /* token-audit-disable-next-line mismatch -- ring matches the page surface to separate stacked avatars */
+  border: var(--Avatar-ring) solid var(--color--surface);
+}
+/* One look for all the sizes: the outline covers the ring of the regular and
+   the large avatars, and goes around the small avatar, which has no ring. */
+.Avatar.is-active {
+  outline: max(var(--Avatar-ring), 2px) solid var(--color--selected--border);
+  outline-offset: calc(-1 * var(--Avatar-ring));
+}

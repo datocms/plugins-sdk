@@ -1,0 +1,213 @@
+.Modal {
+  position: fixed;
+  inset: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+/* The panel is near the top of the viewport, not at the center, thus it does
+   not move when its content changes height (for example when the user opens
+   another tab). When the panel is taller than the viewport, all the layer
+   scrolls. */
+.Modal--dialog {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--spacing-m);
+
+  @media (--lap) {
+    padding: max(var(--spacing-l), 8vh) var(--spacing-l) var(--spacing-l);
+  }
+}
+.Modal__backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: var(--color--backdrop--surface);
+  backdrop-filter: blur(4px);
+  animation: Modal__backdrop__appear 0.2s var(--ease-out);
+  animation-fill-mode: both;
+}
+.Modal__content {
+  /* The space between the edges of the panel and its content. The title of
+     the header, the body and the footer line up on it. Content with
+     "freeContent" and no Modal.Body uses it to stay in line with them. */
+  --Modal-inset: var(--spacing-l);
+
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  container: modal-content / inline-size;
+  animation: Modal__content__appear 0.2s var(--ease-out);
+  animation-fill-mode: both;
+
+  .Modal--fullscreen & {
+    position: absolute;
+    inset: 0;
+    box-sizing: border-box;
+
+    @media (min-width: 1250px) {
+      position: absolute;
+      top: 5%;
+      right: 5%;
+      bottom: 5%;
+      left: 5%;
+      width: 90%;
+    }
+  }
+  .Modal--dialog & {
+    position: relative;
+    flex-shrink: 0;
+    width: 100%;
+  }
+}
+/* When a dialog opens, the script moves the focus to the dialog or to its
+   h1, for screen readers. The user cannot interact with these elements,
+   thus they must not show the ring of _base.css. ":where" keeps the
+   specificity of that ring. */
+:where(.Modal__content, .Modal__content h1):focus-visible {
+  box-shadow: none;
+}
+/* The close button is on the backdrop, out of the panel, because the toolbars
+   of the panel have buttons on the right */
+.Modal__close.button--ghost {
+  --button-ghost-ink: var(--color--backdrop--ink);
+  --button-ghost-hover-ink: var(--color--backdrop--ink);
+  /* token-audit-disable-next-line color-mix -- no hover surface token on the backdrop: a tint of its ink */
+  --button-ghost-hover-surface: color-mix(
+    in oklch,
+    var(--color--backdrop--ink) 15%,
+    transparent
+  );
+  --button-ghost-pressed-ink: var(--color--backdrop--ink);
+
+  align-self: flex-end;
+  /* A square with the height of the toolbar of the panel, thus the icon is
+     in line with the toolbar */
+  width: var(--Toolbar-height);
+  height: var(--Toolbar-height);
+  /* Larger than "button--large": the button is alone on the backdrop, far
+     from the panel, thus it must be easy to see */
+  font-size: var(--font-size-xxl);
+  /* Out of the panel, at its right, with a small gap, thus the hover
+     surface does not touch the panel */
+  @container modal-content (max-width: calc(100vw - 120px)) {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    margin-left: var(--spacing-s);
+  }
+}
+.Modal__content__inner {
+  position: relative;
+  flex: 1;
+  padding-top: 1px;
+  background: var(--color--surface);
+  border-radius: var(--radius-m) var(--radius-m) 0 0;
+  box-shadow: var(--shadow--lifted);
+
+  /* The content does not go out of the round corners. "clip" does not make
+     a scroll container, thus the sticky elements in the panel still work. */
+  .Modal--fullscreen & {
+    overflow: clip;
+  }
+
+  .Modal--dialog & {
+    display: flow-root;
+    padding-top: 0;
+    background: var(--color--surface-raised);
+    border: 1px solid var(--color--border);
+    border-radius: var(--radius-m);
+  }
+
+  /* In dark mode, the shadow has its own light edge. A visible border makes
+     a double edge. The transparent border keeps the size of the dialog. */
+  [data-color-scheme="dark"] .Modal--dialog & {
+    border-color: transparent;
+  }
+}
+/* The header is a toolbar (see "_Toolbar.css"), thus the title looks the
+   same as the titles of the other toolbars. The padding moves the content of
+   the toolbar to the same left and right edges as the content of the
+   dialog. */
+.Toolbar.Modal__header {
+  padding-inline: calc(var(--Modal-inset) - var(--Toolbar-inset));
+}
+/* The close button moves to the right by half the space around its icon.
+   Thus the icon, not the hover surface, aligns with the right edge of the
+   content. The selector must be more specific than the margin of the last
+   child of ".Toolbar". */
+.Toolbar.Modal__header > .Modal__header__close {
+  margin-right: calc(
+    var(--Toolbar-inset) -
+    (1lh + 2 * var(--button-pad-y) - 1em) /
+    2
+  );
+}
+.Modal__floating-close {
+  position: absolute;
+  top: var(--spacing-m);
+  right: var(--spacing-m);
+  z-index: 3;
+}
+.Modal__body {
+  position: relative;
+  padding: var(--Modal-inset);
+}
+/* The radius is the radius of the panel minus its border */
+.Modal__footer {
+  display: flex;
+  gap: var(--spacing-m);
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-m) var(--Modal-inset);
+  background-color: var(--color--surface-muted);
+  border-top: 1px solid var(--color--border);
+  border-radius: 0 0 calc(var(--radius-m) - 1px) calc(var(--radius-m) - 1px);
+}
+/* When the dialog has a footer, "Cancel" in the footer closes it. Thus the
+   close button at the top does not show. */
+.Modal__content__inner:has(.Modal__footer) {
+  .Modal__header__close,
+  .Modal__floating-close {
+    display: none;
+  }
+}
+/* "Cancel" moves to the left by its padding. Thus its text, not its hover
+   surface, aligns with the left edge of the content. */
+.Modal__footer__cancel {
+  margin-left: calc(-1 * var(--button-pad-x));
+}
+.Modal__footer__actions {
+  display: flex;
+  gap: var(--spacing-s);
+  align-items: center;
+  margin-left: auto;
+}
+@keyframes Modal__backdrop__appear {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* The keyframe at 100% sets "transform: none". Thus, after the animation, the
+   panel is not a containing block for the fixed elements in it. */
+@keyframes Modal__content__appear {
+  0% {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .Modal__content {
+    animation-name: Modal__backdrop__appear;
+  }
+}

@@ -1,0 +1,82 @@
+/* The actions also show when the menu of an action is open
+   (.Dropdown.is-open). */
+.EmptySlot {
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: calc(4 * var(--space-unit));
+  padding: 0 var(--spacing-m);
+  font: inherit;
+  background-color: var(--color--surface-raised);
+  border: 1px solid var(--color--border);
+  border-radius: var(--radius-s);
+  transition: border-color 0.1s ease-in-out;
+
+  .DropTarget.is-over & {
+    background-color: transparent;
+  }
+}
+button.EmptySlot {
+  cursor: pointer;
+
+  &:is(:hover, :focus-visible) {
+    border-color: var(--color--border-hover);
+  }
+  &:focus-visible {
+    outline: none;
+    box-shadow: var(--focus-ring);
+  }
+}
+.EmptySlot__message {
+  font-size: var(--font-size-m);
+  color: var(--color--ink-subtle);
+  transition: opacity 0.15s ease-out;
+}
+.EmptySlot__actions {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  gap: var(--spacing-s);
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.15s ease-out;
+
+  /* The buttons are small, so they have space above and below them in the
+     row */
+  .button--small {
+    --button-pad-y: 0.3em;
+  }
+}
+.EmptySlot--with-actions:is(
+    :hover,
+    :focus-within,
+    :focus-visible,
+    :has(.Dropdown.is-open)
+  ) {
+  > .EmptySlot__message {
+    opacity: 0;
+  }
+  > .EmptySlot__actions {
+    opacity: 1;
+  }
+}
+.DropTarget.is-over .EmptySlot--with-actions {
+  > .EmptySlot__message {
+    opacity: 1;
+  }
+  > .EmptySlot__actions {
+    opacity: 0;
+  }
+}
+@media (hover: none) {
+  .EmptySlot--with-actions > .EmptySlot__message {
+    opacity: 0;
+  }
+  .EmptySlot--with-actions > .EmptySlot__actions {
+    opacity: 1;
+  }
+}

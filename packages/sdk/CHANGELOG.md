@@ -1,5 +1,30 @@
 # datocms-plugin-sdk
 
+## 2.6.0-next.0
+
+### Minor Changes
+
+- Add `explicitConfirmation` and `acknowledgement` to the options of `ctx.openConfirm`
+  
+  The confirmation panel of a plugin can now ask for the same checks as the
+  panels of the CMS itself, before the choices turn on:
+  
+  - `explicitConfirmation: { label, confirmString }`: the user must type
+    `confirmString` (for example the name of a project) in an input
+  - `acknowledgement`: the label of a switch that the user must turn on
+  
+  Both are optional. A CMS that is older than this release ignores them and
+  shows the panel without the checks.
+- Add the date and time preferences of the user to `ctx.ui`
+  
+  `ctx.ui` had only `locale`. It now also carries the settings the CMS itself uses
+  to show dates and times, so a plugin can format them the way the user sees them
+  everywhere else:
+  
+  - `dateFormat`: a `date-fns` pattern, such as `dd/MM/yyyy`
+  - `timezone`: an IANA time zone, such as `Europe/Rome`
+  - `twentyFourHour`: `true` for a 24-hour clock, `false` for a 12-hour one
+
 ## 2.5.0
 
 ### Minor Changes

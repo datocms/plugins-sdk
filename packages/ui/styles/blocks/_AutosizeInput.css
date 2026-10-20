@@ -1,0 +1,39 @@
+/*
+ * An input with the width of its text (see AutosizeInput.tsx). The hidden
+ * copy of the text and the input are in the same grid cell. The copy sets the
+ * width of the cell, and the input fills the cell.
+ */
+.AutosizeInput {
+  /* The default values are the padding and the border of a standard input */
+  --autosize-input-padding-inline: var(--input-padding);
+  --autosize-input-border-inline: 1px;
+  display: inline-grid;
+  min-width: 0;
+  max-width: 100%;
+
+  &::after {
+    visibility: hidden;
+    grid-area: 1 / 1;
+    height: 0;
+    padding-inline: var(--autosize-input-padding-inline);
+    overflow: hidden;
+    font: inherit;
+    white-space: pre;
+    /* The space keeps room for the caret after the last character */
+    content: attr(data-value) " ";
+    border-inline: var(--autosize-input-border-inline) solid transparent;
+  }
+  /* Two classes, thus the global input styles cannot change the box */
+  &.AutosizeInput > input {
+    box-sizing: border-box;
+    grid-area: 1 / 1;
+    /* While the browser sizes the cell, a percentage width counts as "auto",
+     * and an input with "auto" width asks for about 20 characters. Thus the
+     * input asks for no width, and the min-width makes it fill the cell. */
+    width: 0;
+    min-width: 100%;
+    padding-inline: var(--autosize-input-padding-inline);
+    font: inherit;
+    border-inline-width: var(--autosize-input-border-inline);
+  }
+}

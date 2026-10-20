@@ -1,0 +1,276 @@
+.Page {
+  /* The padding of the page. The hairlines of the section titles go out into
+     it. */
+  --Page-inset: var(--spacing-l);
+  position: relative;
+  z-index: 2;
+  max-width: 650px;
+  min-height: 60vh;
+  padding-top: var(--Page-inset);
+  padding-right: var(--Page-inset);
+  padding-bottom: var(--Page-inset);
+  padding-left: var(--Page-inset);
+  margin: 0 auto;
+
+  @media (--palm) {
+    --Page-inset: var(--spacing-m);
+  }
+  @media screen and (min-width: 1400px) {
+    padding-top: calc(4 * var(--space-unit));
+    padding-right: calc(4 * var(--space-unit));
+    padding-bottom: calc(4 * var(--space-unit));
+    padding-left: calc(4 * var(--space-unit));
+  }
+}
+.Page--large {
+  max-width: 800px;
+}
+.Page--wide {
+  max-width: 1200px;
+}
+.Page--start {
+  margin: 0;
+}
+.Page__content {
+  position: relative;
+  margin-bottom: var(--spacing-xl);
+}
+/* The space under the description is the same as the space under the section
+   title above it */
+.Page__content__section__description {
+  margin-bottom: var(--spacing-l);
+  color: var(--color--ink-subtle);
+}
+.Page__content__section {
+  position: relative;
+  margin-top: calc(4 * var(--space-unit));
+  margin-bottom: calc(4 * var(--space-unit));
+
+  &:first-child {
+    margin-top: 0;
+  }
+}
+.Page__content__section__title {
+  display: flex;
+  gap: var(--spacing-m);
+  align-items: center;
+  margin-right: calc(-1 * var(--Page-inset, var(--spacing-l)));
+  margin-bottom: var(--spacing-l);
+  margin-left: calc(-1 * var(--Page-inset, var(--spacing-l)));
+
+  &:before,
+  &:after {
+    height: 1px;
+    content: "";
+    /* token-audit-disable-next-line mismatch -- 1px hairline rules flanking the title */
+    background-color: var(--color--border);
+  }
+  &:before {
+    width: calc(var(--Page-inset, var(--spacing-l)) - var(--spacing-m));
+  }
+  &:after {
+    flex: 1;
+    margin-right: var(--Page-inset, var(--spacing-l));
+  }
+  > * {
+    flex-shrink: 0;
+    font-size: var(--font-size-xl);
+    font-weight: bold;
+  }
+}
+.Page__content__section__text {
+  margin-bottom: var(--spacing-l);
+  line-height: 1.5;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  & a {
+    font-weight: 600;
+    color: var(--color--ink-link);
+  }
+}
+.Page__collapseToggle {
+  display: flex;
+  gap: var(--spacing-s);
+  align-items: center;
+  min-width: 0;
+  padding: 0;
+  font-family: inherit;
+  line-height: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  background: none;
+  border: 0;
+  text-rendering: inherit;
+
+  &:disabled {
+    cursor: default;
+  }
+}
+
+/* See PageGroup.tsx. A framed card: the header and the footer are strips
+   with a hairline between them and the body. */
+.Page__group {
+  /* The padding of the title strip, of the body and of the footer of a
+     group. The content of a flush group uses it to keep its text in line
+     with the title. */
+  --Page__group-padding: var(--spacing-l);
+
+  position: relative;
+  margin-bottom: var(--spacing-l);
+  background-color: var(--color--surface-raised);
+  border: 1px solid var(--color--border);
+  border-radius: var(--radius-s);
+
+  @media (--palm) {
+    --Page__group-padding: var(--spacing-m);
+  }
+}
+/* The border of the tone is on a layer over the neutral border of the card. The
+   mask fades it from the top right corner, thus the color goes into the
+   neutral border. The pale border is the outline of the context: its border
+   is the strong red of an invalid field. The layer is under the content
+   (z-index -1) but over the background of the group: "isolation" makes the
+   group a stacking context. */
+.Page__group--danger,
+.Page__group--warning {
+  isolation: isolate;
+
+  &::before {
+    position: absolute;
+    inset: -1px;
+    z-index: -1;
+    pointer-events: none;
+    content: "";
+    background-image: radial-gradient(
+      ellipse at top right,
+      var(--Page__group-tint),
+      transparent 45%
+    );
+    border: 1px solid var(--Page__group-outline);
+    border-radius: inherit;
+    mask-image: radial-gradient(at top right, black, transparent);
+  }
+}
+.Page__group--danger {
+  --Page__group-tint: var(--color--danger-soft--surface);
+  --Page__group-outline: var(--color--danger-soft--outline);
+}
+.Page__group--warning {
+  --Page__group-tint: var(--color--warning-soft--surface);
+  --Page__group-outline: var(--color--warning-soft--outline);
+}
+/* The content before a group can have no margin under it (a CardList). The
+   margins collapse, thus between two groups the space stays the same. */
+.Page__content > * + .Page__group,
+.Page__content > * + :has(> .Page__group:first-child) {
+  margin-top: var(--spacing-l);
+}
+/* A form can be around one group (the group is its last child), thus only
+   the last group of the content loses the space under it */
+.Page__content > .Page__group:last-child,
+.Page__content > :last-child > .Page__group:last-child {
+  margin-bottom: 0;
+}
+.Page__group__header {
+  display: flex;
+  gap: var(--spacing-m);
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-m) var(--Page__group-padding);
+  border-bottom: 1px solid var(--color--border);
+
+  /* A closed group shows only its header */
+  &:last-child {
+    border-bottom: 0;
+  }
+}
+.Page__group__title {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  font-size: var(--font-size-l);
+  font-weight: 600;
+  line-height: 1.2;
+}
+.Page__group__actions {
+  display: flex;
+  flex: none;
+  gap: var(--spacing-s);
+  align-items: center;
+}
+.Page__group__body {
+  min-width: 0;
+  padding: var(--Page__group-padding);
+
+  /* The padding is the space under the content. The margin of the last
+     field would add to it. */
+  > :last-child {
+    margin-bottom: 0;
+  }
+}
+/* The content goes to the edges of the card. The card is the frame of a
+   table, thus the table loses its own border and its margin. */
+.Page__group__body--flush {
+  padding: 0;
+
+  & > .Table {
+    margin-bottom: 0;
+  }
+
+  & > .Table .Table__content {
+    border: 0;
+    border-radius: 0 0 var(--radius-s) var(--radius-s);
+  }
+
+  /* The border of the card is the side border of the CardList. A line
+     stays only between the CardList and the other parts of the body. The
+     CardList clips its rows, thus their hover gets the corners of the
+     card. */
+  & > .CardList {
+    --CardList-inner-radius: 0;
+
+    overflow: clip;
+    border-inline: 0;
+    border-radius: 0;
+
+    &:first-child {
+      border-top: 0;
+    }
+
+    &:last-child {
+      border-bottom: 0;
+      border-bottom-right-radius: var(--radius-s);
+      border-bottom-left-radius: var(--radius-s);
+    }
+
+    .CardList__header,
+    .CardList__row {
+      padding-inline: var(--Page__group-padding);
+    }
+
+    .CardList__body {
+      padding: var(--Page__group-padding);
+    }
+
+    /* The content of the button starts where the text of the rows starts */
+    .CardList__footer {
+      padding-inline: var(--Page__group-padding);
+
+      .button {
+        margin-left: calc(-1 * var(--button-pad-x));
+      }
+    }
+  }
+}
+.Page__group__inset {
+  padding: var(--Page__group-padding);
+}
+.Page__group__footer {
+  padding: var(--spacing-m) var(--Page__group-padding);
+  color: var(--color--ink-subtle);
+  border-top: 1px solid var(--color--border);
+}

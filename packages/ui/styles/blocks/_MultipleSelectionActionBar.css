@@ -1,0 +1,50 @@
+.MultipleSelectionActionBar {
+  /* The z-index comes from NewZIndex, as for the other floating layers */
+  position: absolute;
+  bottom: var(--spacing-l);
+  left: 50%;
+  transform: translateX(-50%);
+  transition:
+    opacity 0.2s ease-out,
+    transform 0.2s ease-out;
+
+  &.show-enter {
+    opacity: 0;
+    transform: translate(-50%, 50px);
+  }
+  &.show-enter.show-enter-active {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+  &.show-exit {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+  &.show-exit.show-exit-active {
+    opacity: 0;
+    transform: translate(-50%, 50px);
+  }
+}
+.MultipleSelectionActionBar--window {
+  position: fixed;
+}
+.MultipleSelectionActionBar__actions {
+  display: flex;
+  gap: var(--floating-bar--gap);
+  align-items: center;
+}
+.MultipleSelectionActionBar__button-group {
+  display: flex;
+
+  .button--micro {
+    &:first-child:not(:last-child) {
+      margin-right: 1px;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+    &:last-child:not(:first-child) {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+  }
+}

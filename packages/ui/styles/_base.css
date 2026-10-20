@@ -1,0 +1,315 @@
+html,
+body {
+  height: 100%;
+  background-color: var(--color--surface);
+}
+/* On a phone, all the interface is a step smaller. The sizes and the spaces
+   are in rem (see --px-to-rem), thus they all follow the root size. */
+html {
+  font-size: 14px;
+
+  @media (--lap) {
+    font-size: 15px;
+  }
+}
+body {
+  font-family: var(--base-font-family);
+  font-synthesis-weight: none;
+  font-size: var(--font-size-m);
+  -webkit-text-size-adjust: 100%;
+  height: 100%;
+  line-height: 1.4;
+  color: var(--color--ink);
+  text-rendering: optimizeLegibility;
+}
+a {
+  color: var(--color--ink);
+  text-decoration: underline;
+}
+ul,
+ol,
+blockquote {
+  padding-left: 0;
+  margin: 0;
+}
+li {
+  list-style-type: none;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hgroup,
+ul,
+ol,
+dd,
+p,
+figure,
+pre,
+table,
+fieldset,
+hr,
+form {
+  margin: 0;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+}
+:--all-text-inputs,
+textarea {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  padding: var(--input-padding);
+  font-size: var(--font-size-m);
+  color: var(--color--ink);
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  resize: none;
+  background-color: var(--color--surface-raised);
+  background-image: none;
+  border: 1px solid var(--color--border);
+  border-radius: var(--radius-s);
+  transition: border 0.2s var(--material-ease);
+}
+*:focus {
+  outline: 0;
+}
+/* Safety net: elements with no component-specific :focus treatment still
+   get a visible keyboard-focus ring. Low specificity (0,1,0) means any
+   existing `:focus`/`:focus-visible` rule elsewhere keeps taking priority
+   over this one. */
+*:focus-visible {
+  box-shadow: var(--focus-ring);
+}
+/* Components with their own focus treatment remove this ring in their
+   own files, with ":where(...):focus-visible { box-shadow: none }". The
+   blocks load after this file, thus at the same specificity they win. */
+input[type="number"]::-ms-tooltip {
+  display: none;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  margin: 0;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+}
+button,
+input[type="submit"] {
+  background-image: none;
+  border-radius: 0;
+}
+:--all-text-inputs-hover,
+textarea:hover {
+  border-color: var(--color--border-hover);
+}
+:--all-text-inputs-focus,
+textarea:focus {
+  border-color: var(--color--focus--border);
+  box-shadow: var(--focus-ring);
+}
+:--all-text-inputs,
+textarea {
+  /* The cursor is the default one, because the user can still read and
+     select the value */
+  &[disabled][disabled] {
+    color: var(--color--disabled-field--ink);
+    cursor: default;
+    background: var(--color--disabled-field--surface);
+    border-color: var(--color--border);
+
+    &::placeholder {
+      color: var(--color--disabled-field--ink-placeholder);
+    }
+  }
+  /* A read-only field has the regular colors, but no hover: the user
+     cannot change the value. The user can still focus it and select the
+     text. */
+  &[readonly]:not(:focus):hover {
+    border-color: var(--color--border);
+  }
+  &::placeholder {
+    color: var(--color--ink-placeholder);
+  }
+}
+/* The space after a checkbox. The rule has the specificity of one element,
+   thus it wins over "input { margin: 0 }" in _normalize.css, and the class
+   of a component still wins over it. */
+input:where([type="checkbox"]) {
+  margin: 0 0.4em 0 0;
+}
+/* The border is darker than the border of a field: the box is small, and it
+   must read as a control on its own. The rule has no specificity, thus the
+   class of a component always wins (for example to hide the checkbox of a
+   switch). */
+:where(input[type="checkbox"]) {
+  position: relative;
+  box-sizing: border-box;
+  display: inline-grid;
+  flex: none;
+  place-content: center;
+  width: 1.15em;
+  height: 1.15em;
+  vertical-align: -0.2em;
+  appearance: none;
+  cursor: pointer;
+  background-color: var(--color--surface-raised);
+  border: 1px solid var(--color--border-control);
+  border-radius: var(--radius-s);
+  transition:
+    background-color 0.15s var(--material-ease),
+    border-color 0.15s var(--material-ease),
+    box-shadow 0.15s var(--material-ease);
+
+  &::before {
+    width: 0.75em;
+    height: 0.75em;
+    content: "";
+    background-color: var(--color--primary--ink);
+    mask:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8.5l3.2 3.2L13 4.8' fill='none' stroke='black' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
+      center / contain no-repeat;
+    transform: scale(0);
+    transition: transform 0.15s var(--material-ease);
+  }
+  /* A read-only checkbox (aria-readonly) has the colors of a normal
+     checkbox, but it does not react to the pointer */
+  &:not(:disabled, [aria-readonly="true"]):hover,
+  label:not(:has(:disabled, [aria-readonly="true"])):hover
+    &:not(:disabled, [aria-readonly="true"]) {
+    border-color: var(--color--border-control-hover);
+  }
+  &[aria-readonly="true"] {
+    cursor: default;
+  }
+  &:checked {
+    background-color: var(--color--primary--surface);
+    border-color: var(--color--primary--surface);
+
+    &::before {
+      transform: scale(1);
+    }
+    &:not(:disabled, [aria-readonly="true"]):hover,
+    label:not(:has(:disabled, [aria-readonly="true"])):hover
+      &:not(:disabled, [aria-readonly="true"]) {
+      background-color: var(--color--primary--surface-hover);
+      border-color: var(--color--primary--surface-hover);
+    }
+  }
+  &:focus-visible {
+    outline: none;
+    border-color: var(--color--focus--border);
+    box-shadow: var(--focus-ring);
+  }
+  /* A disabled checkbox keeps its state clear: the box keeps the border of
+     a control, and a checked box gets the neutral fill (not the brand) with
+     a mark in the color of the surface. */
+  &:disabled {
+    cursor: default;
+    background-color: transparent;
+    border-color: var(--color--border-control);
+
+    &::before {
+      background-color: var(--color--disabled-field--surface);
+    }
+  }
+  &:disabled:checked {
+    background-color: var(--color--disabled-field--fill);
+    border-color: var(--color--disabled-field--fill);
+  }
+}
+pre,
+code {
+  font-family: var(--monospaced-font-family);
+}
+hr {
+  color: var(--color--border);
+  border: none;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+}
+th,
+td {
+  text-align: left;
+}
+img {
+  max-width: 100%;
+}
+legend {
+  font-weight: bold;
+  color: var(--color--ink-subtle);
+  letter-spacing: 0;
+}
+strong {
+  font-weight: bold;
+}
+input:-webkit-autofill {
+  color: inherit !important;
+  background-color: transparent !important;
+}
+svg {
+  fill: var(--color--ink);
+}
+button {
+  box-sizing: border-box;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  text-align: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  outline: inherit;
+  background: none;
+  border: none;
+}
+* {
+  scrollbar-color: var(--color--scrollbar--fill) transparent;
+  scrollbar-width: thin;
+
+  &::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: transparent !important;
+    background-clip: padding-box;
+    border: 3px solid transparent;
+    border-radius: var(--radius-full);
+  }
+  &::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+}
+
+.DisplayContents {
+  display: contents;
+}
+
+/* The element stays in the accessibility tree, thus a screen reader reads it
+   and finds a heading in it. `display: none` would remove it. */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  white-space: nowrap;
+  border: 0;
+  clip-path: inset(50%);
+}

@@ -1,0 +1,150 @@
+/* Only as wide as its content: the blank slate does not cover the content at
+   its sides */
+.blank-slate--area {
+  position: absolute;
+  inset: 0;
+  width: fit-content;
+  max-width: 100%;
+  height: fit-content;
+  margin: auto;
+}
+/* In the flow. The flex box centers the blank slate when a caller gives it a
+   minimum height. */
+.blank-slate--inline,
+.blank-slate--section {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+/* The frame of an empty slot separates the blank slate from the content above
+   and below it */
+.blank-slate--section {
+  padding-block: var(--spacing-l);
+  background-color: var(--color--surface-raised);
+  border: 1px solid var(--color--border);
+  border-radius: var(--radius-s);
+}
+.blank-slate__inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-s);
+  align-items: flex-start;
+  max-width: 350px;
+  padding: var(--spacing-l);
+  line-height: 1.4;
+  text-align: left;
+}
+/* These containers of a page are only as tall as their content. While they
+   contain an area blank slate, they do not hold it. Thus the blank slate stays
+   in the center of the scrolling area. */
+:is(.Page, .Page__content, .Table, .ListArea):has(.blank-slate--area) {
+  position: static;
+}
+.blank-slate--small .blank-slate__inner {
+  max-width: 230px;
+
+  .blank-slate__title {
+    font-size: var(--font-size-l);
+  }
+}
+.blank-slate--centered .blank-slate__inner {
+  align-items: center;
+  color: var(--color--ink-subtle);
+  text-align: center;
+
+  /* With only a title, the title is a plain message, not a heading */
+  .blank-slate__title {
+    font-size: var(--font-size-m);
+    font-weight: normal;
+  }
+}
+.blank-slate__icon {
+  display: flex;
+  margin-bottom: var(--spacing-s);
+
+  svg {
+    width: 32px;
+    height: 32px;
+    fill: currentColor;
+  }
+}
+/* Spinner--centered is "position: absolute" at 50%. This box holds the
+   spinner in the place of the icon. */
+.blank-slate__spinner {
+  position: relative;
+  width: 32px;
+  height: 32px;
+}
+.blank-slate__title {
+  font-size: var(--font-size-xl);
+  font-weight: bold;
+  line-height: 1.2;
+}
+/* A box under the title with the raw text of an error. It is quiet,
+   because the user reads the title and the description first. */
+.blank-slate__code {
+  align-self: stretch;
+  padding: var(--spacing-s) var(--spacing-m);
+  font-family: var(--monospaced-font-family);
+  font-size: var(--font-size-xs);
+  line-height: 1.4;
+  color: var(--color--ink-subtle);
+  word-break: break-word;
+  background-color: var(--color--surface-muted);
+  border-radius: var(--radius-s);
+}
+/* The description can have a button after the text */
+.blank-slate__description {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-m);
+  align-items: flex-start;
+}
+.blank-slate__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-s);
+  align-items: center;
+  margin-top: var(--spacing-s);
+}
+/* The content can have a form, thus it uses all the width */
+.blank-slate__content {
+  align-self: stretch;
+}
+.blank-slate__description,
+.blank-slate__content {
+  color: var(--color--ink-subtle);
+
+  p,
+  pre {
+    margin-bottom: 10px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  a:not([class]) {
+    font-weight: bold;
+    color: inherit;
+    border-color: inherit;
+
+    &:hover {
+      color: var(--color--ink);
+    }
+  }
+}
+/* Tabular figures keep the line in the same position while the digits
+   change */
+.blank-slate__caption {
+  font-size: var(--font-size-xs);
+  font-variant-numeric: tabular-nums;
+  color: var(--color--ink-subtle);
+}
+/* Only the status icon shows the color of the error. A red title and a red
+   text are hard to read and look too alarming. */
+.blank-slate--error .blank-slate__icon {
+  color: var(--color--danger-soft--ink);
+}

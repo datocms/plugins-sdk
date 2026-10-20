@@ -1,0 +1,56 @@
+/* It fills the content of its Pane, which is "position: relative", and
+   scrolls. */
+.SettingsMenu {
+  position: absolute;
+  inset: 0;
+  overflow: auto;
+}
+/* The notice has the inset and the icon column of the rows above it */
+.SettingsMenu__notice {
+  display: flex;
+  gap: var(--spacing-m);
+  align-items: center;
+  padding: var(--spacing-s) calc(var(--spacing-m) - var(--row-inset));
+  margin: 0 var(--row-inset);
+  font-size: var(--font-size-xs);
+  line-height: 1.25;
+  text-decoration: none;
+  border: 1px solid var(--color--border);
+  border-radius: var(--row-radius);
+
+  &:hover,
+  &:focus-visible {
+    background-color: var(--color--surface-hover);
+  }
+  svg {
+    flex-shrink: 0;
+    width: 1rem;
+    height: 1rem;
+    fill: var(--color--ink-subtle);
+  }
+}
+/* The padding is the inset above the first group and below the last group:
+   the pane adds no padding (see Pane). */
+.SettingsMenu__groups {
+  padding-top: var(--spacing-l);
+  padding-bottom: var(--spacing-l);
+}
+.SettingsMenu__group {
+  margin-bottom: var(--spacing-l);
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+.SettingsMenu__group__name {
+  position: relative;
+  padding-right: var(--spacing-m);
+  padding-left: var(--spacing-m);
+  margin-bottom: var(--spacing-s);
+}
+
+.SettingsMenu__end--new-tab svg {
+  width: 0.75em;
+  height: 0.75em;
+  fill: var(--color--ink-subtle);
+}

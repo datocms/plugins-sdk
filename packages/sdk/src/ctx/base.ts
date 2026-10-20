@@ -94,12 +94,18 @@ type ProjectProperties = {
   account: Account | undefined;
 
   /**
-   * UI preferences of the current user (right now, only the preferred locale is
-   * available)
+   * UI preferences of the current user: the preferred locale, and the
+   * settings that the CMS uses to format dates and times
    */
   ui: {
     /** Preferred locale */
     locale: string;
+    /** Preferred date format, as a `date-fns` pattern, for example `dd/MM/yyyy` */
+    dateFormat: string;
+    /** Preferred time zone, as an IANA name, for example `Europe/Rome` */
+    timezone: string;
+    /** Whether times use a 24-hour clock (`true`) or a 12-hour clock */
+    twentyFourHour: boolean;
   };
 
   /**
@@ -814,6 +820,24 @@ export type ConfirmOptions = {
   choices: ConfirmChoice[];
   /** The cancel option to present to the user */
   cancel: ConfirmChoice;
+  /**
+   * Asks the user to type a text before the choices turn on. Use it for an
+   * action that the user cannot undo.
+   */
+  explicitConfirmation?: ConfirmExplicitConfirmation;
+  /**
+   * The label of a switch that is off at first. The user must turn it on
+   * before the choices turn on.
+   */
+  acknowledgement?: string;
+};
+
+/** The text input of a `openConfirm` panel: see `explicitConfirmation` */
+export type ConfirmExplicitConfirmation = {
+  /** The label above the input */
+  label: string;
+  /** The text that the user must type, for example the name of a project */
+  confirmString: string;
 };
 
 /** A choice presented in a `openConfirm` panel */

@@ -1,0 +1,17 @@
+.FeedbackDot {
+  display: inline-block;
+  width: 0.7em;
+  min-width: 0.7em;
+}
+.FeedbackDot--success {
+  fill: var(--color--fill-success);
+}
+.FeedbackDot--warning {
+  fill: var(--color--fill-warning);
+}
+.FeedbackDot--danger {
+  fill: var(--color--fill-danger);
+}
+.FeedbackDot--neutral {
+  fill: var(--color--ink-disabled);
+}

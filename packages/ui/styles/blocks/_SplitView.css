@@ -1,0 +1,340 @@
+.SplitView {
+  position: relative;
+  flex: 1;
+  width: 100%;
+  height: 100%;
+}
+.SplitView--dragging {
+  &.SplitView--vertical {
+    cursor: col-resize;
+  }
+  &.SplitView--horizontal {
+    cursor: row-resize;
+  }
+}
+.SplitViewPane {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+
+  > main {
+    height: 100%;
+  }
+}
+.SplitViewSash {
+  position: absolute;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+
+  /* On hover and during a drag, a line of 2px goes over the 1px border of
+     the pane. A fill of all the sash shows two lines (its edges) around the
+     border. */
+  &::after {
+    position: absolute;
+    pointer-events: none;
+    content: "";
+    border: 0 solid transparent;
+    transition: border-color 0.1s ease-out;
+  }
+}
+.SplitViewSash--vertical::after {
+  top: 0;
+  bottom: 0;
+  left: calc(50% - 1px);
+  border-left-width: 2px;
+}
+.SplitViewSash--horizontal::after {
+  top: calc(50% - 1px);
+  right: 0;
+  left: 0;
+  border-top-width: 2px;
+}
+.SplitViewSash:hover::after {
+  border-color: var(--color--border-hover);
+}
+.SplitViewSash--dragging::after {
+  border-color: var(--color--focus--border);
+}
+/* The pointer on the button does not resize, thus no line */
+.SplitViewSash:has(.SplitViewSash__content:hover)::after {
+  border-color: transparent;
+}
+
+.SplitViewSash--no-resize {
+  pointer-events: none;
+}
+.SplitViewSash--vertical {
+  cursor: col-resize;
+}
+.SplitViewSash--horizontal {
+  cursor: row-resize;
+}
+
+.SplitViewSash__content {
+  /* The horizontal position of the button, from the center of the sash */
+  --SplitViewSash-x: -50%;
+  /* The distance from the final position while the button is hidden */
+  --SplitViewSash-reveal-offset: 0px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  padding: 8px 0;
+  font: inherit;
+  color: inherit;
+  pointer-events: auto;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  transform: translate(var(--SplitViewSash-x), -50%);
+  transition:
+    opacity 0.2s var(--material-ease),
+    transform 0.2s var(--material-ease);
+}
+/* A button shows when the pointer is in the pane (see SplitPane).
+   It stops out of the pane, on the side of the page, a small gap from the
+   border. While it is hidden, it is toward the pane. When it shows, it moves
+   out of the pane, thus the movement gets the attention of the user. */
+.SplitViewSash__content--reveal-from-left {
+  --SplitViewSash-x: 6px;
+  --SplitViewSash-reveal-offset: -12px;
+}
+.SplitViewSash__content--reveal-from-right {
+  --SplitViewSash-x: calc(-100% - 6px);
+  --SplitViewSash-reveal-offset: 12px;
+}
+.SplitViewSash__content--hidden {
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(
+    calc(var(--SplitViewSash-x) + var(--SplitViewSash-reveal-offset)),
+    -50%
+  );
+}
+.SplitViewSash__content--hidden:focus-visible {
+  pointer-events: auto;
+  opacity: 1;
+  transform: translate(var(--SplitViewSash-x), -50%);
+}
+@media (hover: none) {
+  .SplitViewSash__content--hidden {
+    pointer-events: auto;
+    opacity: 1;
+    transform: translate(var(--SplitViewSash-x), -50%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .SplitViewSash__content {
+    transition: opacity 0.2s;
+  }
+  .SplitViewSash__content--hidden {
+    transform: translate(var(--SplitViewSash-x), -50%);
+  }
+}
+.SplitViewSash__content__button {
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  font-size: 12px;
+  color: var(--color--ink-subtle);
+  background: var(--color--surface);
+  border: 1px solid var(--color--border);
+  border-radius: var(--radius-s);
+  box-shadow: var(--shadow--floating);
+
+  svg {
+    display: block;
+    fill: currentColor;
+  }
+  .SplitViewSash__content:hover & {
+    color: var(--color--ink);
+    background: var(--color--surface-muted);
+  }
+}
+/* The button of the sash of a pane is as big as the rail that takes the place
+   of the collapsed pane */
+.SplitViewSash__content--reveal-from-left .SplitViewSash__content__button,
+.SplitViewSash__content--reveal-from-right .SplitViewSash__content__button {
+  box-sizing: border-box;
+  width: var(--SplitPane-rail-size);
+  height: var(--SplitPane-rail-size);
+  font-size: 14px;
+}
+body.SplitView--disable-select {
+  user-select: none;
+
+  .SplitViewPane {
+    pointer-events: none;
+  }
+}
+/* A collapsed pane (or a pane that floats over the page) leaves a rail, thus
+   the user sees where the pane went. */
+.SplitPane__rail {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 0;
+  padding-top: calc((var(--Toolbar-height) - 28px) / 2);
+  color: var(--color--ink-subtle);
+  cursor: pointer;
+  background: var(--color--surface);
+  border: 0;
+  transition:
+    background-color 0.15s,
+    color 0.15s;
+
+  &:hover,
+  &.SplitPane__rail--active {
+    color: var(--color--ink);
+    background: var(--color--surface-muted);
+  }
+  &:focus-visible {
+    outline: none;
+    box-shadow: inset 0 0 0 4px var(--color--focus--outline);
+  }
+}
+/* Each Pane has a right border. A rail on the right thus already has the
+   border of the page at its left, and needs no border of its own. */
+.SplitPane__rail--left {
+  border-right: 1px solid var(--color--border);
+}
+.SplitPane__rail__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  font-size: 14px;
+  border-radius: var(--radius-s);
+
+  svg {
+    display: block;
+    fill: currentColor;
+  }
+}
+
+/* Owns the positioning context for the SplitView and the secondary host, so
+   the host's measured `left`/`width` and the overlay's `inset: 0` are always
+   relative to the split view's own box, not to whatever positioned ancestor
+   the caller happens to render. Mirrors .SplitView's sizing. */
+.SplitPane {
+  position: relative;
+  flex: 1;
+  width: 100%;
+  height: 100%;
+}
+.SplitPane__secondary-host {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+}
+.SplitPane--size-animated {
+  .SplitViewPane,
+  .SplitViewSash,
+  .SplitPane__secondary-host,
+  .SplitPaneOverlay__secondary {
+    transition:
+      width var(--SplitPane-size-duration) var(--material-ease),
+      min-width var(--SplitPane-size-duration) var(--material-ease),
+      left var(--SplitPane-size-duration) var(--material-ease);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .SplitPane--size-animated {
+    .SplitViewPane,
+    .SplitViewSash,
+    .SplitPane__secondary-host,
+    .SplitPaneOverlay__secondary {
+      transition: none;
+    }
+  }
+}
+.SplitPane__secondary-host__pane {
+  position: absolute;
+  inset: 0;
+  overflow-y: auto;
+}
+
+/* The layer has no backdrop: the shadow of the pane is sufficient to show
+   that it floats. The layer only gets the click out of the pane, which
+   closes the pane. */
+.SplitPaneOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 12;
+  height: 100%;
+  overflow: hidden;
+}
+/* The floating pane starts next to the rail, not over it. Thus the icon of
+   the rail stays under the pointer. During a peek, its click keeps the pane
+   open. On a pane that floats over a narrow page, its click closes it. */
+.SplitPaneOverlay--left {
+  left: var(--SplitPane-rail-size);
+}
+.SplitPaneOverlay--right {
+  right: var(--SplitPane-rail-size);
+}
+/* The peek: the page stays usable, thus the layer does not get the clicks */
+.SplitPaneOverlay--peek {
+  pointer-events: none;
+
+  .SplitPaneOverlay__secondary {
+    pointer-events: auto;
+    animation: SplitPaneOverlay__peek-in 0.15s var(--material-ease);
+  }
+  .SplitPaneOverlay__secondary--right {
+    animation-name: SplitPaneOverlay__peek-in-right;
+  }
+}
+@keyframes SplitPaneOverlay__peek-in {
+  from {
+    opacity: 0;
+    transform: translateX(-12px);
+  }
+}
+@keyframes SplitPaneOverlay__peek-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(12px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .SplitPaneOverlay--peek .SplitPaneOverlay__secondary {
+    animation: none;
+  }
+}
+.SplitPaneOverlay__primary {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+.SplitPaneOverlay__primary--left {
+  margin-right: 20px;
+}
+.SplitPaneOverlay__primary--right {
+  margin-left: 20px;
+}
+.SplitPaneOverlay__secondary {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background: var(--color--surface);
+  box-shadow: var(--shadow--ambient);
+}
+.SplitPaneOverlay__secondary--left {
+  left: 0;
+}
+.SplitPaneOverlay__secondary--right {
+  right: 0;
+}

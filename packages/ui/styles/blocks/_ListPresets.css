@@ -1,0 +1,20 @@
+/* The title can get narrower than its content, thus a long title shows an
+   ellipsis */
+.ListPresets__dropdown {
+  min-width: 0;
+}
+
+/* The title stays the name of the list, thus the qualifier has the color and
+   the weight of a subtitle */
+.ListPresets__qualifier {
+  font-weight: normal;
+  color: var(--color--ink-subtle);
+}
+
+.ListPresets__option {
+  display: flex;
+  flex: 1;
+  gap: var(--spacing-m);
+  align-items: center;
+  justify-content: space-between;
+}

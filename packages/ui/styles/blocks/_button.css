@@ -1,0 +1,402 @@
+.button,
+.button--micro,
+.button--milli,
+.button--small,
+.button--field,
+.button--large,
+.button--expand,
+.button--primary,
+.button--rev,
+.button--on-primary,
+.button--alert {
+  --button-pad-y: 0.7em;
+  --button-pad-x: 1em;
+  /* The variants set the states of the text, also on a colored surface */
+  --chevron-color: currentColor;
+
+  box-sizing: border-box;
+  display: inline-block;
+  padding: var(--button-pad-y) var(--button-pad-x);
+  font-family: inherit;
+  font-size: 1.1em;
+  font-weight: bold;
+  line-height: inherit;
+  vertical-align: middle;
+  color: var(--color--primary-soft--ink);
+  letter-spacing: 0;
+  text-wrap: nowrap;
+  white-space: nowrap;
+  text-decoration: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  background-color: var(--color--primary-soft--surface);
+  border: 0px solid transparent;
+  border-radius: var(--radius-s);
+  opacity: 1;
+  transition: all 0.3s var(--material-ease);
+
+  &:--enabled:hover,
+  &:--enabled:focus {
+    background-color: var(--color--primary-soft--surface-hover);
+  }
+  &:--enabled:active {
+    background-color: var(--color--primary-soft--surface-active);
+  }
+  > span {
+    position: relative;
+    top: 0.06em;
+  }
+  svg,
+  i,
+  .Spinner {
+    display: inline-block;
+    line-height: 0.6;
+    vertical-align: middle;
+    fill: var(--color--primary-soft--ink);
+
+    &:first-child {
+      margin-right: 0.5em;
+    }
+    &:last-child {
+      margin-left: 0.5em;
+    }
+    &:first-child:last-child {
+      margin-right: 0;
+      margin-left: 0;
+    }
+  }
+  > .Pill:last-child {
+    margin-left: 0.5em;
+    vertical-align: middle;
+  }
+}
+.button--micro,
+.button--milli,
+.button--small,
+.button--field {
+  font-size: 1em;
+}
+/* SegmentedControl takes the padding of the button sizes too. */
+.button--micro,
+.SegmentedControl--micro {
+  --button-pad-y: 0.3em;
+  --button-pad-x: 0.8em;
+}
+.button--milli,
+.SegmentedControl--milli {
+  --button-pad-y: 0.5em;
+  --button-pad-x: 0.8em;
+}
+.button--small,
+.SegmentedControl--small {
+  --button-pad-y: 0.62em;
+  --button-pad-x: 0.8em;
+}
+/* The height of a field (see --control-height), for a button next to
+   fields (a filter bar). The padding centers one line in that height. */
+.button--field,
+.SegmentedControl--field {
+  --button-pad-y: calc((var(--control-height) - 1lh) / 2);
+  --button-pad-x: 0.8em;
+}
+/* The width and the height are one line plus the top and bottom padding of
+   the size class, thus the button has the same height as the buttons with
+   text near it. */
+.button--icon-only {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: calc(1lh + 2 * var(--button-pad-y, 0.7em));
+  height: calc(1lh + 2 * var(--button-pad-y, 0.7em));
+  padding: 0;
+}
+/* Use it with ".button--icon-only". It is narrower than a square, thus the
+   main button stays the main action. */
+.button--split-caret {
+  width: auto;
+  padding-inline: var(--spacing-s);
+}
+.button--large {
+  font-size: 1.2em;
+}
+.button--ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.button--expand {
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+.button--expand-on-mobile {
+  width: 100%;
+
+  @media (--lap) {
+    width: auto;
+  }
+}
+.button--primary {
+  color: var(--color--primary--ink);
+  background-color: var(--color--primary--surface);
+  border-width: 0;
+
+  &:--enabled:hover,
+  &:--enabled:focus,
+  &:--enabled:active {
+    color: var(--color--primary--ink);
+  }
+
+  &:--enabled:hover {
+    background-color: var(--color--primary--surface-hover);
+  }
+
+  &:--enabled:active,
+  &:--enabled:focus {
+    background-color: var(--color--primary--surface-active);
+  }
+
+  svg {
+    fill: var(--color--primary--ink);
+  }
+}
+.button--accent-color {
+  svg {
+    fill: var(--color--ink);
+  }
+  &:--enabled:hover {
+    color: var(--color--ink-link);
+
+    svg {
+      fill: var(--color--ink-link);
+    }
+  }
+}
+.button--rev {
+  color: var(--color--overlay--ink);
+  background: var(--color--overlay--surface);
+
+  svg {
+    fill: var(--color--overlay--ink);
+  }
+  &:--enabled:hover {
+    background: var(--color--overlay--surface-hover);
+  }
+  &:--enabled:focus,
+  &:--enabled:active {
+    background: var(--color--overlay--surface-active);
+  }
+}
+.button--on-primary {
+  color: var(--color--primary-inverse--ink);
+  background-color: var(--color--primary-inverse--surface);
+  border-width: 0;
+
+  svg {
+    fill: var(--color--primary-inverse--ink);
+  }
+  &:--enabled:hover,
+  &:--enabled:focus {
+    background-color: var(--color--primary-inverse--surface-hover);
+  }
+  &:--enabled:active {
+    background-color: var(--color--primary-inverse--surface-active);
+  }
+}
+.button--alert {
+  color: var(--color--danger--ink);
+  background-color: var(--color--danger--surface);
+  border-width: 0;
+
+  svg {
+    fill: var(--color--danger--ink);
+  }
+  &:--enabled:hover,
+  &:--enabled:focus,
+  &:--enabled:active {
+    color: var(--color--danger--ink);
+    background-color: var(--color--danger--surface);
+
+    svg {
+      fill: var(--color--danger--ink);
+    }
+  }
+}
+.button--waiting {
+  cursor: default;
+
+  &:--enabled:hover,
+  &:--enabled:focus {
+    color: var(--color--ink);
+
+    svg {
+      fill: var(--color--ink);
+    }
+  }
+}
+.button--subtle {
+  color: var(--color--ink-subtle);
+
+  svg {
+    fill: var(--color--ink-subtle);
+  }
+  &:--enabled:hover,
+  &:--enabled:focus,
+  &:--enabled:active {
+    color: var(--color--ink-subtle);
+  }
+}
+/* For secondary actions. Use it with ".button" and a size class, or alone
+   when the layout around the button sets its size. The surface shows only on
+   hover and on keyboard focus, thus it does not stay after a click.
+
+   A block with a colored surface changes the colors with these variables.
+   Do not write the states again in the block:
+   --button-ghost-ink            the text and the icon at rest
+   --button-ghost-hover-ink      the text and the icon on hover and focus
+   --button-ghost-hover-surface  the surface on hover and focus
+   --button-ghost-active-surface the surface while the pointer is down
+   --button-ghost-pressed-ink    the text and the icon while the button is
+                                 pressed or its menu is open */
+.button--ghost,
+.button--ghost-alert {
+  color: var(--button-ghost-ink, var(--color--ink-subtle));
+  cursor: pointer;
+  background-color: transparent;
+  border: 0;
+  border-radius: var(--radius-s);
+  transition: background-color 0.2s var(--material-ease);
+
+  svg {
+    fill: var(--button-ghost-ink, var(--color--ink-subtle));
+  }
+  &:--enabled:focus {
+    background-color: transparent;
+  }
+  &:--enabled:hover,
+  &:--enabled:focus-visible,
+  &:--enabled:active {
+    color: var(--button-ghost-hover-ink, var(--color--ink));
+    background-color: var(
+      --button-ghost-hover-surface,
+      var(--color--surface-hover)
+    );
+
+    svg {
+      fill: var(--button-ghost-hover-ink, var(--color--ink));
+    }
+  }
+  &:--enabled:active {
+    background-color: var(
+      --button-ghost-active-surface,
+      var(--button-ghost-hover-surface, var(--color--surface-hover))
+    );
+  }
+  &[aria-pressed="true"],
+  &[aria-expanded="true"] {
+    color: var(--button-ghost-pressed-ink, var(--color--ink-link));
+
+    svg {
+      fill: var(--button-ghost-pressed-ink, var(--color--ink-link));
+    }
+  }
+}
+/* At rest it has the subtle ink, so a list with many rows stays calm. On
+   hover and on keyboard focus it gets the soft red surface (the same colors
+   as a dangerous option of a dropdown menu), so the user sees the risk
+   before the click. */
+.button--ghost-alert {
+  --button-ghost-hover-ink: var(--color--danger-soft--ink);
+  --button-ghost-hover-surface: var(--color--danger-soft--surface);
+}
+/* A ghost button in a line of text or in a row of values: a value that the
+   click changes or copies (see TextualTrigger.tsx, CopyableId.tsx and the
+   ".InlineValue.is-editable" block). Use it alone, without ".button". It is different from
+   ".button--ghost" in two points. It keeps the ink of the text around it,
+   because it is a value, not a secondary action. And it keeps the place of
+   the text: the surface is a pseudo-element out of the box, so the value
+   stays in line with the values that the user cannot change. A padding with
+   a negative margin does the same, but the box then gets wider than its
+   column, and a long value gets an ellipsis. Thus the overflow goes on a
+   child, not on the button: the button must not clip its surface. */
+.button--ghost-inline {
+  position: relative;
+  cursor: pointer;
+  isolation: isolate;
+
+  &::before {
+    position: absolute;
+    inset: -2px calc(-1 * var(--spacing-s));
+    z-index: -1;
+    content: "";
+    border-radius: var(--radius-s);
+  }
+  &:--enabled:hover::before,
+  &:--enabled:focus-visible::before {
+    background-color: var(--color--surface-hover);
+  }
+}
+/* The root of SplitButton. ".button--sub" is on its two halves. */
+.button--container {
+  display: inline-flex;
+
+  /* The line between the main button and its caret is a gap, not a border:
+     the surface behind the buttons shows through it, thus it is correct for
+     each type of button. */
+  gap: 1px;
+
+  /* The caret is in the root element of its Dropdown */
+  & > * {
+    &:first-child {
+      border-radius: var(--radius-s) 0 0 var(--radius-s);
+    }
+    &:last-child {
+      border-radius: 0 var(--radius-s) var(--radius-s) 0;
+
+      > .button--sub {
+        border-radius: 0 var(--radius-s) var(--radius-s) 0;
+      }
+    }
+  }
+}
+.button--sub {
+  border-radius: 0;
+}
+/* A disabled button keeps the colors of its variant and fades, thus a
+   disabled primary button still reads as the primary action. The rules of
+   the variants show the hover only on an enabled button (see ":--enabled"),
+   thus a disabled button keeps its rest state. Use "aria-disabled" in place
+   of "disabled" on a button that must keep the focus and its tooltip. */
+:is(
+    .button,
+    .button--micro,
+    .button--milli,
+    .button--small,
+    .button--field,
+    .button--large,
+    .button--expand,
+    .button--primary,
+    .button--rev,
+    .button--on-primary,
+    .button--alert,
+    .button--ghost,
+    .button--ghost-alert,
+    .button--ghost-inline,
+    .button--container
+  ):--disabled {
+  cursor: not-allowed;
+  user-select: none;
+  opacity: var(--disabled-opacity);
+
+  /* A disabled button in a disabled group fades once */
+  & & {
+    opacity: 1;
+  }
+  /* A button that waits for its action (for example a form that submits)
+     shows a spinner. It does not fade: the user must see the progress. */
+  &[aria-busy="true"] {
+    cursor: progress;
+    opacity: 1;
+  }
+}

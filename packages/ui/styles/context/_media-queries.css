@@ -1,0 +1,8 @@
+@custom-media --palm (max-width: 479px);
+@custom-media --lap (min-width: 480px);
+@custom-media --desk (min-width: 1024px);
+@custom-media --wall (min-width: 1700px);
+/* A small viewport: the side panes become overlays and the bar of the app gets
+   a menu button. Keep it equal to SMALL_VIEWPORT_MEDIA_QUERY in
+   src/hooks/useMediaQuery.ts. */
+@custom-media --small-viewport (max-width: 1024px);

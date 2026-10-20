@@ -1,0 +1,111 @@
+/* RowList, and NavList that renders a RowList */
+.RowList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--row-gap);
+  padding: var(--row-inset);
+}
+
+.RowList__item {
+  /* The padding of the content of a row. With --row-inset, it puts the text
+     of the row at the inset of the sidebar. */
+  --RowList-content-padding: var(--spacing-m);
+
+  position: relative;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  border-radius: var(--row-radius);
+  @media (--lap) {
+    --RowList-content-padding: 10px;
+  }
+
+  &:hover:not([aria-current]),
+  &:focus-visible:not([aria-current]) {
+    background-color: var(--color--surface-hover);
+  }
+}
+
+[role="button"].RowList__item {
+  cursor: pointer;
+}
+
+.RowList__content {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  max-height: 100px;
+  padding: var(--RowList-content-padding);
+  overflow: hidden;
+}
+
+/* A muted row is still a link, thus its text keeps 4.5:1: only the images
+   fade. The row keeps its surface, thus the selected state shows. */
+.RowList__item--muted .RowList__content {
+  color: var(--color--ink-subtle);
+
+  & :is(svg, img) {
+    opacity: var(--disabled-opacity);
+  }
+}
+
+/* A row that draws its own markup (a row of a SortableTree) gives the
+   selected state with the --selected class */
+.RowList__item:is([aria-current], .RowList__item--selected) {
+  background-color: var(--color--selected--surface);
+
+  .EntityRow {
+    color: var(--color--selected--ink);
+  }
+  .EntityRow__kicker,
+  .EntityRow__aside,
+  .EntityRow__details {
+    color: var(--color--selected--ink);
+    opacity: 0.75;
+  }
+  /* The neutral pill after the title uses the primary color, as the row
+     does */
+  .EntityRow__title > .Pill--neutral {
+    color: var(--color--primary--ink);
+    background-color: var(--color--primary--surface);
+  }
+  .RowList__handle svg {
+    fill: var(--color--selected--ink);
+  }
+
+  &:hover,
+  &:focus-visible {
+    background-color: var(--color--selected--surface-hover);
+  }
+}
+
+/* The row has no space at its left, so the handle is on the left padding of
+   the row. The handle fills the space before the content (the padding of the
+   row and the padding of the content), so the grip is at the center of that
+   space. */
+.RowList__handle {
+  right: auto;
+  left: 0;
+  width: calc(8px + var(--spacing-m));
+  @media (--lap) {
+    width: calc(12px + var(--spacing-m));
+  }
+}
+/* A sortable row has a wider left padding, so there is space between the
+   handle and the content. All the rows of a list are sortable, or no row is
+   sortable, so the rows stay aligned. */
+.RowList__item--sortable {
+  padding-left: 8px;
+  @media (--lap) {
+    padding-left: 12px;
+  }
+}
+/* While the user drags a row, the row under the pointer shows the raised
+   surface */
+.RowList:has(.RowList__item--dragging) .RowList__item:hover {
+  background-color: var(--color--surface-raised);
+}
+.RowList__item--dragging {
+  background-color: var(--color--surface-raised);
+  opacity: 0.2;
+}

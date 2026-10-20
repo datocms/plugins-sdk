@@ -1,0 +1,137 @@
+/* The button and the dropdown are also in the balloon toolbar of the
+   structured text editor. */
+.EditorToolbar {
+  --height: 32px;
+  position: sticky;
+  top: 0px;
+  display: none;
+  pointer-events: none;
+  user-select: none;
+
+  &.is-visible {
+    display: block;
+    pointer-events: all;
+    opacity: 1;
+  }
+  .is-fullscreen > & {
+    border-bottom: 1px solid var(--color--border);
+  }
+
+  /* Buttons sit on a grid of fixed-width cells (28px button + 1px margin per
+     side) so they line up in columns when the toolbar wraps onto several
+     rows. */
+  .EditorToolbar__inner {
+    --unit: 30px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, var(--unit));
+    align-items: stretch;
+    min-height: var(--height);
+    font-size: var(--font-size-m);
+    line-height: 1.2;
+
+    background: var(--color--surface-raised);
+    border-bottom: 1px solid var(--color--border);
+  }
+  .is-fullscreen > & .EditorToolbar__inner {
+    max-width: 900px;
+    margin: 0 auto;
+    border-right: 1px solid var(--color--border);
+    border-bottom: none;
+    border-left: 1px solid var(--color--border);
+  }
+  /* Groups don't box their buttons: every button is a grid item of __inner,
+     so they flow left to right and wrap row by row instead of each group
+     starting a new row. The group separator hangs off the group's last
+     button, since a pseudo-element of its own would take a whole cell. */
+  .EditorToolbar__group {
+    display: contents;
+
+    &:not(:last-child) > :last-child::after {
+      position: absolute;
+      top: calc(var(--height) / 3);
+      right: -1px;
+      height: calc(var(--height) / 3);
+      content: "";
+      border-left: 1px solid var(--color--border);
+    }
+  }
+  /* 120px: enough for a short label ("Insert") in all the languages. */
+  .EditorToolbar__dropdown {
+    grid-column: span 4;
+    min-width: 0;
+  }
+  /* 150px: enough for the longest default label ("Paragraph"). */
+  .EditorToolbar__dropdown--wide {
+    grid-column: span 5;
+  }
+}
+.EditorToolbar__dropdown {
+  position: relative;
+  border-right: 1px solid var(--color--border);
+
+  &:last-child {
+    border-right: 0;
+  }
+}
+.EditorToolbar__dropdown__current__label--muted {
+  color: var(--color--ink-subtle);
+}
+.EditorToolbar__dropdown__current {
+  display: flex;
+  align-items: center;
+  padding: 7px 7px 7px 9px;
+  cursor: pointer;
+
+  /* The label takes the space that is left, thus the chevron stays at the
+     end of the cell when the value changes. */
+  .EditorToolbar__dropdown__current__label {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-wrap: nowrap;
+  }
+  svg:first-child {
+    margin-right: 10px;
+    fill: var(--color--ink);
+  }
+  svg:last-child {
+    margin-left: 10px;
+    fill: var(--color--ink-subtle);
+  }
+  svg:first-child:last-child {
+    margin-right: 0;
+  }
+}
+.EditorToolbar__dropdown__current--disabled {
+  cursor: not-allowed;
+  opacity: var(--disabled-opacity);
+}
+.EditorToolbar__button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 7px;
+  margin: 2px 1px;
+  color: var(--color--ink);
+  cursor: pointer;
+  border-radius: calc(var(--radius-s) - 1px);
+
+  &:last-child {
+    border-right: 0;
+  }
+  svg {
+    display: block;
+    fill: currentColor;
+  }
+  &:--enabled:hover {
+    background: var(--color--surface-hover);
+  }
+  &.is-active {
+    background: var(--color--selected--surface-hover);
+  }
+  &.is-disabled {
+    cursor: not-allowed;
+    opacity: var(--disabled-opacity);
+  }
+}

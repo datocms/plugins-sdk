@@ -1,0 +1,256 @@
+/* _form.css reads these values to put the hint of a switch field under its label */
+.SwitchInput,
+.form__field--switch,
+.form__field:where(:has(> .SwitchInput)) {
+  --switch-width: 40px;
+  --switch-gap: var(--spacing-m);
+}
+
+.SwitchInput {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* Hide the actual checkbox */
+.SwitchInput__checkbox {
+  position: absolute;
+  width: 0;
+  height: 0;
+  opacity: 0;
+}
+
+.SwitchInput__switch {
+  --switch-ease: var(--material-ease);
+  --switch-knob: 18px;
+
+  position: relative;
+  box-sizing: border-box;
+  display: inline-block;
+  flex-shrink: 0;
+  width: var(--switch-width);
+  height: 22px;
+  vertical-align: middle;
+  cursor: pointer;
+  /* token-audit-disable-next-line mismatch -- the track of the off switch is a mid-gray fill */
+  background-color: var(--color--ink-muted);
+  border-radius: var(--radius-full);
+  transition:
+    background-color 0.2s var(--switch-ease),
+    box-shadow 0.2s var(--switch-ease);
+
+  &::after {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: var(--switch-knob);
+    height: var(--switch-knob);
+    content: "";
+    background-color: var(--color--surface-raised);
+    border-radius: calc(var(--switch-knob) / 2);
+    transition:
+      transform 0.2s var(--switch-ease),
+      width 0.2s var(--switch-ease);
+  }
+  &:hover {
+    /* token-audit-disable-next-line color-mix mismatch -- a darker track on hover, in both color schemes */
+    background-color: color-mix(
+      in oklch,
+      var(--color--ink-muted),
+      var(--color--ink) 15%
+    );
+  }
+  &:active::after {
+    width: calc(var(--switch-knob) + 4px);
+  }
+}
+.SwitchInput__checkbox:focus-visible + .SwitchInput__switch {
+  box-shadow: var(--focus-ring);
+}
+
+.SwitchInput__checkbox:checked + .SwitchInput__switch,
+.SwitchInput__switch--forced-on {
+  &::after {
+    transform: translateX(18px);
+  }
+  /* The wider knob grows to the left, thus it stays at the right end */
+  &:active::after {
+    transform: translateX(14px);
+  }
+}
+.SwitchInput__checkbox:checked + .SwitchInput__switch {
+  background-color: var(--color--primary--surface);
+
+  &:hover {
+    background-color: var(--color--primary--surface-hover);
+  }
+}
+
+.SwitchInput__switch--forced-on {
+  /* token-audit-disable-next-line color-mix -- extremely specific behaviour.. it's ok not to have a token for this */
+  background-color: color-mix(
+    in oklch,
+    var(--color--primary--surface) 40%,
+    transparent
+  );
+
+  &:hover {
+    /* token-audit-disable-next-line color-mix -- extremely specific behaviour.. it's ok not to have a token for this */
+    background-color: color-mix(
+      in oklch,
+      var(--color--primary--surface) 55%,
+      transparent
+    );
+  }
+}
+
+/* A disabled switch uses the tokens of a disabled field, not the brand. The
+   on switch swaps the colors of the knob and of the track, so on and off
+   stay clear. */
+.SwitchInput__switch--disabled {
+  cursor: default;
+
+  &,
+  &:hover {
+    background-color: var(--color--disabled-field--surface);
+    box-shadow: inset 0 0 0 1px var(--color--border-control);
+  }
+  &::after {
+    /* token-audit-disable-next-line mismatch -- the knob of the off switch is drawn with the fill */
+    background-color: var(--color--disabled-field--fill);
+  }
+  &:active::after {
+    width: var(--switch-knob);
+  }
+}
+.SwitchInput__checkbox:checked + .SwitchInput__switch--disabled {
+  &,
+  &:hover {
+    background-color: var(--color--disabled-field--fill);
+    box-shadow: none;
+  }
+  &::after {
+    background-color: var(--color--disabled-field--surface);
+  }
+  &:active::after {
+    transform: translateX(18px);
+  }
+}
+
+/* A read-only switch keeps the colors of a normal switch, because the user
+   reads a value, not a control that is not available */
+.SwitchInput__switch--read-only {
+  cursor: default;
+
+  &:hover {
+    /* token-audit-disable-next-line mismatch -- the track of the off switch is a mid-gray fill */
+    background-color: var(--color--ink-muted);
+  }
+  &:active::after {
+    width: var(--switch-knob);
+  }
+}
+.SwitchInput__checkbox:checked + .SwitchInput__switch--read-only {
+  &:hover {
+    background-color: var(--color--primary--surface);
+  }
+  &:active::after {
+    transform: translateX(18px);
+  }
+}
+
+/* Label text */
+.SwitchInput__label {
+  position: relative;
+  flex: 1;
+  margin-left: var(--switch-gap);
+  line-height: 1.1;
+  cursor: pointer;
+
+  /* The label keeps its flex row, thus the menu stays at the right end */
+  .form__label {
+    margin-bottom: 0;
+    color: var(--color--ink);
+    cursor: pointer;
+  }
+}
+
+/* See SwitchList.tsx. The rows are inset rows: the text stays in line with
+   the text around the list, and the hover box goes out into the padding. */
+.SwitchList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--row-gap);
+  margin-inline: calc(-1 * var(--row-inset));
+}
+/* A row is a bare SwitchInput, or a field around it for a hint or an error */
+.SwitchList > :is(.form__field, .SwitchInput) {
+  padding: var(--spacing-s) var(--row-inset);
+  margin-bottom: 0;
+  border-radius: var(--row-radius);
+
+  &:hover:not(
+      :has(.SwitchInput__checkbox:disabled, .SwitchInput__switch--read-only)
+    ) {
+    background-color: var(--color--surface-hover);
+  }
+
+  .form__hint,
+  .form__error {
+    margin-left: 0;
+  }
+
+  /* The switch makes the row taller than the label, thus the hint needs no
+     margin of its own */
+  .form__hint {
+    margin-top: 0;
+  }
+}
+/* The row and its label are static, thus the ::after of the label covers
+   the whole field of the SwitchList, padding and hint included: a click
+   anywhere in the row changes the switch. A bare row is the box of the
+   ::after itself. */
+.SwitchList > .SwitchInput--row {
+  position: relative;
+}
+.SwitchInput--row {
+  position: static;
+  gap: var(--spacing-m);
+
+  .SwitchInput__label {
+    position: static;
+    min-width: 0;
+    margin-left: 0;
+    line-height: inherit;
+
+    .form__label {
+      position: static;
+
+      &::after {
+        position: absolute;
+        inset: 0;
+        content: "";
+      }
+    }
+  }
+}
+/* The links stay above the ::after of the label, thus they still open */
+.SwitchList :is(.SwitchInput__reason, .form__hint) a {
+  position: relative;
+}
+.SwitchInput__reason {
+  flex: none;
+  color: var(--color--ink-subtle);
+  text-align: right;
+}
+/* On a phone, a long reason does not push the label into a thin column */
+@media (--palm) {
+  .SwitchInput--row {
+    flex-wrap: wrap;
+  }
+  .SwitchInput__reason {
+    flex: 1 1 100%;
+    order: 1;
+    text-align: left;
+  }
+}

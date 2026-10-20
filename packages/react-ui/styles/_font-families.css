@@ -1,0 +1,10 @@
+/* The plugins use Colfax. The cms fonts (ABC Oracle, Geist, Pangolin and the
+   noto-script-fallback families) do not ship, thus the stacks go to the
+   system fonts after Colfax. */
+:root {
+  --base-font-family:
+    "colfax-web", "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+  --monospaced-font-family:
+    "Menlo", "Bitstream Vera Sans Mono", Consolas, Courier, monospace;
+  --cursive-font-family: cursive;
+}

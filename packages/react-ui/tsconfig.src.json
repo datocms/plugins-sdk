@@ -1,0 +1,4 @@
+{
+  "extends": "../ui/tsconfig.json",
+  "include": ["src", "../ui/src/svg.d.ts", "../ui/src/modules.d.ts"]
+}

@@ -1,6 +1,6 @@
 {
   "name": "datocms-plugin-sdk",
-  "version": "2.5.0",
+  "version": "2.6.0-next.0",
   "description": "DatoCMS Plugin SDK",
   "keywords": [
     "datocms",
@@ -8,7 +8,7 @@
     "sdk"
   ],
   "author": "Stefano Verna <s.verna@datocms.com>",
-  "homepage": "https://github.com/datocms/plugins-sdk/tree/master/packages/sdk#readme",
+  "homepage": "https://github.com/datocms/plugins-sdk/tree/next/packages/sdk#readme",
   "license": "MIT",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -25,13 +25,19 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/datocms/plugins-sdk.git"
+    "url": "git+https://github.com/datocms/plugins-sdk.git",
+    "directory": "packages/sdk"
   },
   "scripts": {
     "build": "npm run generate-manifest && tsc && tsc --project ./tsconfig.esnext.json",
     "generate-manifest": "tsx generateManifest.ts && biome format --write src/manifest.ts",
-    "prebuild": "rimraf dist",
-    "install-in-place": "npm run build && rm -rf $INSTALL_PATH/node_modules/datocms-plugin-sdk/dist && cp -rf dist manifest.json $INSTALL_PATH/node_modules/datocms-plugin-sdk"
+    "prebuild": "node -e \"require('node:fs').rmSync('dist', { recursive: true, force: true })\"",
+    "tsc": "tsc --noEmit",
+    "lint": "biome lint .",
+    "format": "biome check --write .",
+    "test": "vitest run",
+    "install-in-place": "npm run build && rm -rf $INSTALL_PATH/node_modules/datocms-plugin-sdk/dist && cp -rf dist manifest.json $INSTALL_PATH/node_modules/datocms-plugin-sdk",
+    "prepublishOnly": "release-toolchain --assert-release"
   },
   "bugs": {
     "url": "https://github.com/datocms/plugins-sdk/issues"
@@ -44,8 +50,11 @@
     "penpal": "^4.1.1"
   },
   "devDependencies": {
-    "glob": "^11.0.0",
-    "typescript": "^5.6.2"
+    "@biomejs/biome": "2.4.8",
+    "tsx": "^4.21.0",
+    "typescript": "5.6.3",
+    "vitest": "5.0.5"
   },
-  "gitHead": "6b88a998f0807c7da1e17afa6a8f0336aed7497f"
+  "gitHead": "6b88a998f0807c7da1e17afa6a8f0336aed7497f",
+  "private": true
 }

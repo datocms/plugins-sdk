@@ -1,0 +1,58 @@
+/* A bar that floats on the brand color and holds a row of controls (the
+   MultipleSelectionActionBar).
+
+   - The padding of the bar is the same as the gap between the controls, thus
+     each control is at the same distance from the edge and from its
+     neighbors.
+   - The radius of the bar is the radius of the controls plus the padding,
+     thus the corners of the bar and of the controls are concentric.
+   - Controls with text are filled micro Buttons: tone "overlay", or tone
+     "on-primary" for the main action. The main action always has a label.
+   - Controls with only an icon are ghost micro icon-only Buttons: the label
+     gives their tooltip and accessible name. */
+.FloatingBar {
+  --floating-bar--gap: 8px;
+  --floating-bar--control-size: 32px;
+  --floating-bar--control-radius: var(--radius-s);
+  /* The ghost buttons use the ink of the brand color */
+  --button-ghost-ink: var(--color--primary--ink);
+  --button-ghost-hover-ink: var(--color--primary--ink);
+  --button-ghost-hover-surface: var(--color--primary--surface-hover);
+  --button-ghost-active-surface: var(--color--primary--surface-active);
+  --button-ghost-pressed-ink: var(--color--primary--ink);
+
+  display: flex;
+  gap: var(--floating-bar--gap);
+  align-items: center;
+  padding: var(--floating-bar--gap);
+  color: var(--color--primary--ink);
+  background-color: var(--color--primary--surface);
+  border-radius: calc(
+    var(--floating-bar--control-radius) +
+    var(--floating-bar--gap)
+  );
+  box-shadow: var(--shadow--floating);
+
+  .button--micro {
+    display: inline-flex;
+    align-items: center;
+    height: var(--floating-bar--control-size);
+  }
+
+  .button--icon-only {
+    width: var(--floating-bar--control-size);
+    height: var(--floating-bar--control-size);
+  }
+}
+/* The same inset as the text in a ".button--micro" */
+.FloatingBar__text {
+  padding: 0 0.8em;
+  white-space: nowrap;
+}
+/* Separates two groups of controls with an empty space. It has no line. */
+.FloatingBar__divider {
+  flex-shrink: 0;
+  align-self: stretch;
+  width: 1px;
+  margin: var(--floating-bar--gap);
+}

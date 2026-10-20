@@ -1,0 +1,37 @@
+/* The box of Tooltip (components/ui/Tooltip). Do not write these classes
+   in other components: Tooltip draws the box. */
+.Tooltip {
+  max-width: 250px;
+  padding: var(--spacing-s) var(--spacing-m);
+  font-size: var(--font-size-s);
+  line-height: 1.2;
+  color: var(--color--tooltip--ink);
+  text-align: center;
+  text-wrap: balance;
+  background-color: var(--color--tooltip--surface);
+  border-radius: var(--radius-s);
+  box-shadow: var(--shadow--floating);
+  p {
+    margin-bottom: var(--spacing-s);
+  }
+  p:last-child {
+    margin-bottom: 0;
+  }
+}
+.Tooltip--long {
+  max-width: 360px;
+  text-align: left;
+  text-wrap: pretty;
+}
+.Tooltip--with-shortcut {
+  display: flex;
+  gap: var(--spacing-m);
+  align-items: center;
+  max-width: none;
+  padding: var(--spacing-s) var(--spacing-m);
+  line-height: 1;
+  white-space: nowrap;
+}
+.Tooltip__label {
+  flex: 1;
+}

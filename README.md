@@ -1,106 +1,54 @@
-<!--datocms-autoinclude-header start-->
+# DatoCMS plugin packages: the source
 
-<a href="https://www.datocms.com/"><img src="https://www.datocms.com/images/full_logo.svg" height="60"></a>
+This branch holds the source of the two npm packages of the DatoCMS plugins:
 
-👉 [Visit the DatoCMS homepage](https://www.datocms.com) or see [What is DatoCMS?](#what-is-datocms)
+- [`datocms-plugin-sdk`](https://www.npmjs.com/package/datocms-plugin-sdk) 2.6.0-next.0 (`packages/sdk`): the SDK that connects a plugin to DatoCMS.
+- [`datocms-react-ui`](https://www.npmjs.com/package/datocms-react-ui) 3.1.0-next.0 (`packages/react-ui`): the React components of the plugins.
 
----
+DatoCMS develops these packages in a private repository, together with the CMS that uses the same components. At each release, a script copies here the files that the npm packages are built from. A check makes sure that the build of this branch is the same, file for file, as the build in the private repository.
 
-<!--datocms-autoinclude-header end-->
+Do not edit this branch by hand: the next release replaces it. To propose a change, see [Contributing](#contributing).
 
-# DatoCMS Plugin SDK
+The source of `datocms-react-ui` 2.x is on the branch [`2.x`](https://github.com/datocms/plugins-sdk/tree/2.x). A fix for 2.x goes there, with a pull request to that branch.
 
-Monorepo with the TypeScript libraries used to build DatoCMS plugins.
+Copied from the commit `94507def51cd079b1385f1a891011f233f901fb4` of the private repository.
 
-## Building a plugin?
+## What is here
 
-You should not need to install these packages manually. Follow our [Build your first plugin](https://www.datocms.com/docs/plugin-sdk/build-your-first-plugin#set-up-your-project) guide to easily scaffold a plugin with both packages already set up. 
+- `packages/sdk`: the SDK. `ARCHITECTURE.md` tells how a plugin talks to DatoCMS, and `README.md` tells how to try a change in a plugin.
+- `packages/react-ui`: the component library. `entries.mjs` lists its public entries (`datocms-react-ui/Button`). `src/` has the adapter between the components and the `ctx` of a plugin: `Canvas`, `useCtx` and `ContextInspector`. `bin/` builds the output. `README.md` is the documentation of the package.
+- `packages/ui`: the components. The build of react-ui bundles them into the package. Only the modules that react-ui ships are here.
 
-From there, the [Plugin SDK documentation](https://www.datocms.com/docs/plugin-sdk/introduction) and [real-world examples](https://www.datocms.com/docs/plugin-sdk/real-world-examples) cover everything else.
+Some comments point to a file of the private repository, such as an `AGENTS.md` file. These files are not here.
 
-## Packages
+## Build
 
-- [`datocms-plugin-sdk`](https://github.com/datocms/plugins-sdk/tree/master/packages/sdk)
-  - TypeScript SDK to build DatoCMS plugins.
-- [`datocms-react-ui`](https://github.com/datocms/plugins-sdk/tree/master/packages/react-ui)
-  - React component library to mimic the DatoCMS interface inside plugins.
+You need Node 24 (see `.nvmrc`).
 
-## Developing
-
-To work on the packages themselves (e.g. to prepare a PR or debug an issue in the framework itself), see the "Developing" section of each package's README: [`datocms-plugin-sdk`](https://github.com/datocms/plugins-sdk/blob/master/packages/sdk/README.md#developing), [`datocms-react-ui`](https://github.com/datocms/plugins-sdk/blob/master/packages/react-ui/README.md#developing). Both are developed in this npm-workspaces monorepo, and share a version number whenever they are released together.
-
-## Trying a change before it's released
-
-Every push to a branch here publishes a preview of both packages, which you can
-install into a real plugin — no npm release, no `npm link`:
-
-```
-npm i https://pkg.pr.new/datocms-plugin-sdk@<commit-sha>
-npm i https://pkg.pr.new/datocms-react-ui@<commit-sha>
+```sh
+npm ci
+npm run build   # the SDK first, then react-ui: react-ui reads the types of the SDK
+npm test
+npm run tsc
+npm run lint
 ```
 
-The exact URLs show up in the commit's check run on GitHub, and in a comment on
-the pull request once there is one. Installing one preview pulls in the previews
-of its siblings built from the same commit, so a change spanning several
-packages can be tried as one coherent set.
+To try a change in a plugin, pack the build and install the tarball in the plugin:
 
-Previews are throwaway: they are never published to npm, and the URL stops
-resolving after a while. Never commit one to a `package.json` that ships.
+```sh
+cd packages/react-ui   # or packages/sdk
+npm pack
+cd ../../../my-plugin
+npm install ../path/to/the.tgz
+```
 
-## Releasing
+## Contributing
 
-Maintainers only. The two packages share one version number and are always
-released together.
-
-1. **Describe your change.** Run `npx changeset` in the same PR that makes the
-   change: it asks which packages are affected and whether the bump is a
-   patch/minor/major, then writes a small markdown file under `.changeset/`
-   which you commit. `patch` is for bug fixes only; new API surface is
-   `minor`. See [`.changeset/README.md`](.changeset/README.md).
-2. **Release.** From an up-to-date, clean `master`, run `npm run release`.
-   It builds and tests first, then applies the pending changesets (bumping the
-   versions and writing the `CHANGELOG.md`s), publishes to npm, and only then
-   tags each package `name@X.Y.Z`, pushes, and publishes one GitHub release per
-   tag — its notes are the changelog entries changesets just wrote.
-
-If a release is interrupted, **do not undo anything**: run `npm run release`
-again. It detects that some package is still missing from the registry and
-resumes the publish instead of starting a new release.
-
-`npm run release:next` does the same under the `next` dist-tag, leaving
-`latest` untouched; its GitHub releases are marked as prereleases, so they don't
-become the repository's "Latest release" either.
-
-The script itself is
-[`@datocms/release-toolchain`](https://github.com/datocms/release-toolchain),
-shared with every other DatoCMS repository and pinned here by tag.
+- **Report a bug or ask for a feature** in the [issues of this repository](https://github.com/datocms/plugins-sdk/issues).
+- **Propose a change with a pull request** to this branch. Build the branch before you open the pull request: its CI builds it too.
+- **We do not merge a pull request into this branch,** because the next release replaces it. A maintainer applies your commits to the private repository, with you as their author. The pull request closes when a release brings the change here.
+- **Some files are generated** and a change to them does not apply as it is: the files at the root of this branch, the `package.json` of each package, and `packages/ui/tsconfig.json`. Say in the pull request what you need, and a maintainer changes the source.
 
 ## License
 
-This repository is published under the [MIT](LICENSE.md) license.
-
-<!--datocms-autoinclude-footer start-->
-
----
-
-# What is DatoCMS?
-
-<a href="https://www.datocms.com/"><img src="https://www.datocms.com/images/full_logo.svg" height="60" alt="DatoCMS - The Headless CMS for the Modern Web"></a>
-
-[DatoCMS](https://www.datocms.com/) is Headless CMS for the modern web. Trusted by 25,000+ businesses, agencies, and individuals, it gives your team one place to manage content and ship it to any website, app, or device via API.
-
-**New here?** Start with [Create free account](https://dashboard.datocms.com/signup) and the [Documentation](https://www.datocms.com/docs). Stuck? Ask the [Community](https://community.datocms.com/). Curious what's new? [Product Updates](https://www.datocms.com/product-updates).
-
-**Building with AI:** [Agent Skills](https://www.datocms.com/docs/agent-skills) turn coding assistants (Claude Code, Cursor) into expert DatoCMS developers, with full read/write via the auto-installed CLI. No local terminal? Use the [MCP Server](https://www.datocms.com/docs/mcp-server) instead.
-
-**Talking to DatoCMS from code:**
-- [Content Delivery API](https://www.datocms.com/docs/content-delivery-api) (CDA) — the fast, read-only GraphQL API your website/app uses to **fetch** published content.
-- [Content Management API](https://www.datocms.com/docs/content-management-api) (CMA) — the REST API for **creating and updating** content, models, and project settings (think scripts, migrations, integrations).
-- [CLI](https://www.datocms.com/docs/scripting-migrations/installing-the-cli) — terminal tool for schema migrations and importing from Contentful/WordPress.
-
-**Framework guides:** end-to-end recipes for fetching content, rendering Structured Text, optimizing images/video, handling SEO, and setting up live preview with visual editing in [Next.js](https://www.datocms.com/docs/next-js), [Nuxt](https://www.datocms.com/docs/nuxt), [Svelte](https://www.datocms.com/docs/svelte), and [Astro](https://www.datocms.com/docs/astro).
-
-**Want a head start?** Browse our [starter projects](https://www.datocms.com/marketplace/starters) — ready-to-deploy example sites for popular frameworks.
-
-
-<!--datocms-autoinclude-footer end-->
+MIT, see `LICENSE.md`.

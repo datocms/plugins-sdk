@@ -1,0 +1,48 @@
+/* The element that the handle moves is the draggable element that is nearest
+   to the handle. The drag-and-drop library sets the "draggable" attribute on
+   each draggable element. A draggable element can contain other draggable
+   elements (for example, a fieldset contains fields). The ":not()" part makes
+   sure that the handle of a field does not show when the pointer is only on
+   its fieldset. If the handle has no draggable element, the parent of the
+   handle is the element. */
+.DragHandle {
+  cursor: grab;
+
+  svg {
+    fill: var(--color--ink-subtle);
+  }
+
+  @media (hover: hover) {
+    opacity: 0;
+    transition: opacity 0.1s ease-in-out;
+
+    :hover > &,
+    :focus-within > &,
+    [draggable="true"]:hover &:not([draggable="true"]:not(:hover) *) {
+      opacity: 1;
+    }
+  }
+}
+/* The gap below a list of rows in a card puts its button in the same
+   gutter (see _RuleList.css and _TableList.css) */
+:root {
+  /* The width of the column at the left of an element, where the handle of
+     a "gutter" drag handle goes */
+  --DragHandle-gutter: 20px;
+}
+/* Puts the handle in the gutter at the left of its element, so the handle
+   does not push the content of the element to the right. The element must
+   have a position. */
+.DragHandle--gutter {
+  position: absolute;
+  top: 0;
+  right: 100%;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--DragHandle-gutter);
+}
+.DragHandle--gutter-wide {
+  width: 32px;
+}

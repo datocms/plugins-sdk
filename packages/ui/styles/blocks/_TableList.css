@@ -1,0 +1,207 @@
+/* A list of rows of fields (see TableList.tsx) with the same look as the
+   table of the records (.Table) */
+.TableList {
+  /* The space at the sides of a cell */
+  --TableList-horizontal-cell-padding: var(--spacing-l);
+  /* The space above and below a cell */
+  --TableList-vertical-cell-padding: var(--spacing-m);
+  /* The radius of the card, less its border */
+  --TableList-inner-radius: calc(var(--radius-s) - 1px);
+  /* The column of the trash: a micro icon-only button and its space on
+     both sides */
+  --TableList-action-width: calc(1lh + 2 * 0.3em + 2 * var(--spacing-m));
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+/* The gap below the card adds an item. Its button is in the gutter of the
+   drag handles, and the card keeps the space of the gap below it. */
+.TableList:has(> .InsertGap) {
+  margin-bottom: var(--spacing-l);
+}
+.TableList > .InsertGap {
+  --InsertGap-size: var(--spacing-l);
+  --InsertGap-gutter: var(--DragHandle-gutter);
+}
+.TableList--disabled {
+  --TableList-action-width: 0px;
+}
+/* TableList.tsx sets --TableList-columns from the columns that it gets */
+.TableList__head,
+.TableList__row {
+  display: grid;
+  grid-template-columns:
+    var(--TableList-columns)
+    var(--TableList-action-width);
+  align-items: stretch;
+}
+/* The same look as the header of .Table */
+.TableList__head {
+  /* The rows are inside the border of the card: the same inset keeps the
+     columns of the head on the columns of the rows */
+  padding: 0 1px;
+  color: var(--color--ink-subtle);
+}
+/* The font size is on the cell, not on the head: the width of the column
+   of the trash is in "lh" and "em", and the head must compute it with the
+   same font as the rows */
+.TableList__head-cell {
+  padding: var(--TableList-vertical-cell-padding)
+    var(--TableList-horizontal-cell-padding);
+  overflow: hidden;
+  font-size: var(--font-size-xs);
+  white-space: nowrap;
+}
+/* The card does not clip its content: the menu of a select in a cell and
+   the drag handle in the gutter go out of it. Thus the rows and the cells
+   at the corners get the radius of the card. */
+.TableList__body {
+  background-color: var(--color--surface-raised);
+  border: 1px solid var(--color--border);
+  border-radius: var(--radius-s);
+}
+.TableList__row {
+  position: relative;
+  border-bottom: 1px solid var(--color--border);
+
+  &:first-child {
+    border-top-left-radius: var(--TableList-inner-radius);
+    border-top-right-radius: var(--TableList-inner-radius);
+
+    > .TableList__cell:first-child {
+      border-top-left-radius: var(--TableList-inner-radius);
+    }
+    > .TableList__cell--action {
+      border-top-right-radius: var(--TableList-inner-radius);
+    }
+  }
+  &:last-child {
+    border-bottom: 0;
+    border-bottom-right-radius: var(--TableList-inner-radius);
+    border-bottom-left-radius: var(--TableList-inner-radius);
+
+    > .TableList__cell:first-child {
+      border-bottom-left-radius: var(--TableList-inner-radius);
+    }
+    > .TableList__cell--action {
+      border-bottom-right-radius: var(--TableList-inner-radius);
+    }
+  }
+  &:hover,
+  &:focus-within {
+    background-color: var(--color--surface-hover);
+  }
+  &.is-dragging {
+    opacity: 0.6;
+  }
+}
+.TableList__cell {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+.TableList__head-cell
+  + .TableList__head-cell:not(.TableList__head-cell--action),
+.TableList__cell + .TableList__cell:not(.TableList__cell--action) {
+  border-left: 1px solid var(--color--border);
+}
+.TableList__cell--action {
+  justify-content: center;
+  overflow: hidden;
+}
+/* The cell shows the focus with a ring inside it, because a ring outside it
+   goes below the next cell. */
+.TableList__cell > input[type="text"] {
+  padding: var(--TableList-vertical-cell-padding)
+    var(--TableList-horizontal-cell-padding);
+  background-color: transparent;
+  border: 0;
+  border-radius: inherit;
+  box-shadow: none;
+
+  &:hover,
+  &:focus {
+    border: 0;
+    box-shadow: none;
+  }
+}
+/* A text that the user cannot change, in the place of an input: it has the
+   inset of the text of the inputs of the other cells */
+.TableList__text {
+  padding: var(--TableList-vertical-cell-padding)
+    var(--TableList-horizontal-cell-padding);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+/* A select (an "embedded" SelectInput) fills its cell */
+.TableList__cell:not(.TableList__cell--action) > :not(input) {
+  flex: 1;
+  min-width: 0;
+}
+.TableList__cell:not(.TableList__cell--action):focus-within {
+  z-index: 1;
+  box-shadow:
+    inset 0 0 0 1px var(--color--focus--border),
+    inset 0 0 0 3px var(--color--focus--outline);
+}
+/* A select in a cell (a SelectInput with `embedded` and
+   classNamePrefix="TableList__select") has no ring and no surface of its
+   own, as a text input in a cell. Its ring goes out of the cell. Its
+   surface hides the ring of the cell, the hover of the row and the error.
+   The control is an .InputFrame, and _InputFrame.css comes after this
+   file: the third class makes this rule stronger than its states. */
+.TableList__cell .TableList__select__control.InputFrame {
+  background-color: transparent;
+  box-shadow: none;
+}
+/* The value of a select in a cell is at the inset of the text of the other
+   cells: the horizontal padding of the cell, less the margin that
+   _SelectInput.css puts around the value, the placeholder and the text
+   input. The vertical padding stays: the control has the height of the text
+   input of a cell (see _SelectInput.css). */
+.TableList__cell .TableList__select__value-container {
+  padding-right: calc(
+    var(--TableList-horizontal-cell-padding) -
+    var(--SelectInput-value-margin)
+  );
+  padding-left: calc(
+    var(--TableList-horizontal-cell-padding) -
+    var(--SelectInput-value-margin)
+  );
+}
+/* The chevron is at the same inset from the right edge of the cell. The
+   chevron has a padding of its own. */
+.TableList__cell .TableList__select__indicators {
+  padding-right: calc(
+    var(--TableList-horizontal-cell-padding) -
+    var(--SelectInput-indicator-padding)
+  );
+}
+/* A cell with an error: the message is below the card */
+.TableList__cell.is-invalid {
+  background-color: var(--color--danger-soft--surface);
+
+  &:focus-within {
+    box-shadow:
+      inset 0 0 0 1px var(--color--danger-soft--border),
+      inset 0 0 0 3px var(--color--danger-soft--outline);
+  }
+}
+.TableList__remove {
+  opacity: 0;
+  transition: opacity 0.15s ease-out;
+
+  .TableList__row:is(:hover, :focus-within) &,
+  &:focus-visible {
+    opacity: 1;
+  }
+  @media (hover: none) {
+    & {
+      opacity: 1;
+    }
+  }
+}

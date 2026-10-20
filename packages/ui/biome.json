@@ -1,0 +1,193 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.4.8/schema.json",
+  "root": false,
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  },
+  "files": {
+    "ignoreUnknown": false,
+    "includes": ["**", "!styles/fonts/**/*", "!stories/a11y-baseline.json"]
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "a11y": {
+        "recommended": false,
+        "useValidAnchor": "off",
+        "useKeyWithClickEvents": "off",
+        "useAnchorContent": "off",
+        "useAltText": "off"
+      },
+      "correctness": {
+        "noUnusedVariables": "warn",
+        "useExhaustiveDependencies": "off",
+        "useUniqueElementIds": "off",
+        "noUnusedImports": "off",
+        "useHookAtTopLevel": "off",
+        "noUnknownMediaFeatureName": {
+          "level": "off"
+        },
+        "noRestrictedElements": {
+          "level": "error",
+          "options": {
+            "elements": {
+              "aside": "Use Aside (ui/Aside): it needs a label, the name of the complementary content for screen readers.",
+              "nav": "Use Nav (ui/Nav): it needs a label, the name of the navigation for screen readers.",
+              "main": "Use Main (ui/Main): it gives the id of the skip link.",
+              "section": "Do not use section. Without a name it is not a landmark. With a name, each section is a landmark and makes noise in the landmark list of a screen reader. Use a div with a Heading. Use Aside, Nav or Main for a real landmark of the page.",
+              "h1": "Use Heading (ui/Heading) with level 1.",
+              "h2": "Use Heading (ui/Heading) with level 2.",
+              "h3": "Use Heading (ui/Heading) with level 3.",
+              "h4": "Use Heading (ui/Heading) with level 4.",
+              "h5": "Use Heading (ui/Heading) with level 5.",
+              "h6": "Use Heading (ui/Heading) with level 6.",
+              "button": "Use Button (ui/Button) for a button with the look of a button, or RawButton (ui/RawButton) for a button with its own look."
+            }
+          }
+        }
+      },
+      "performance": {
+        "noAccumulatingSpread": "off"
+      },
+      "security": {
+        "noDangerouslySetInnerHtml": "warn"
+      },
+      "suspicious": {
+        "noExplicitAny": "off",
+        "noArrayIndexKey": "warn",
+        "noDuplicateProperties": "off",
+        "noDuplicateCustomProperties": "off",
+        "noUnknownAtRules": {
+          "level": "on",
+          "options": {
+            "ignore": ["custom-selector", "custom-media"]
+          }
+        }
+      },
+      "style": {
+        "noNonNullAssertion": "off",
+        "useDefaultParameterLast": "off",
+        "useImportType": "off",
+        "noDescendingSpecificity": "off"
+      },
+      "complexity": {
+        "noImportantStyles": "off"
+      }
+    }
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space"
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single"
+    }
+  },
+  "assist": {
+    "enabled": true,
+    "actions": {
+      "source": {
+        "organizeImports": "on",
+        "useSortedProperties": "on"
+      }
+    }
+  },
+  "overrides": [
+    {
+      "includes": ["src/**", "icons/**"],
+      "linter": {
+        "rules": {
+          "style": {
+            "noRestrictedImports": {
+              "level": "error",
+              "options": {
+                "paths": {
+                  "formik": "ui never imports formik: it is a library of the apps, and react-ui ships ui to the plugins. Put the code in packages/ui-app, or give the behaviour to ui with a provider (see packages/ui-app/AGENTS.md).",
+                  "i18next": "ui never imports i18next: it is a library of the apps, and react-ui ships ui to the plugins. Put the code in packages/ui-app, or give the behaviour to ui with a provider (see packages/ui-app/AGENTS.md).",
+                  "react-i18next": "ui never imports react-i18next: it is a library of the apps, and react-ui ships ui to the plugins. Put the code in packages/ui-app, or give the behaviour to ui with a provider (see packages/ui-app/AGENTS.md).",
+                  "react-router": "ui never imports react-router: it is a library of the apps, and react-ui ships ui to the plugins. Put the code in packages/ui-app, or give the behaviour to ui with a provider (see packages/ui-app/AGENTS.md).",
+                  "react-router-dom": "ui never imports react-router-dom: it is a library of the apps, and react-ui ships ui to the plugins. Put the code in packages/ui-app, or give the behaviour to ui with a provider (see packages/ui-app/AGENTS.md).",
+                  "history": "ui never imports history: it is a library of the apps, and react-ui ships ui to the plugins. Put the code in packages/ui-app, or give the behaviour to ui with a provider (see packages/ui-app/AGENTS.md).",
+                  "ui-app": "ui never imports ui-app: it is a library of the apps, and react-ui ships ui to the plugins. Put the code in packages/ui-app, or give the behaviour to ui with a provider (see packages/ui-app/AGENTS.md)."
+                },
+                "patterns": [
+                  {
+                    "group": ["ui-app/**"],
+                    "message": "ui never imports ui-app: it is a library of the apps, and react-ui ships ui to the plugins. Put the code in packages/ui-app, or give the behaviour to ui with a provider (see packages/ui-app/AGENTS.md)."
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "includes": ["src/semantic/**"],
+      "linter": {
+        "rules": {
+          "correctness": {
+            "noRestrictedElements": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["stories/**"],
+      "linter": {
+        "rules": {
+          "correctness": {
+            "noRestrictedElements": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "stories/**",
+        "!stories/Internal/**",
+        "!stories/docs/**",
+        "!stories/main.tsx",
+        "stories/docs/DocsArticle.tsx",
+        "stories/docs/Example.tsx",
+        "stories/docs/ExampleFrame.tsx",
+        "stories/docs/Guideline.tsx",
+        "stories/docs/CssVariablePreview.tsx",
+        "stories/docs/CssVariables.tsx",
+        "stories/docs/highlight.ts",
+        "stories/docs/pageList.ts",
+        "stories/docs/PropsTable.tsx",
+        "stories/docs/TokenSwatches.tsx",
+        "stories/docs/types.ts",
+        "stories/docs/useMemoryNavigation.ts"
+      ],
+      "linter": {
+        "rules": {
+          "style": {
+            "noRestrictedImports": {
+              "level": "error",
+              "options": {
+                "paths": {
+                  "ui-app": "A public docs page shows react-ui to the plugins, and sinkbin renders it with its blocks on the build of react-ui: import the entries of react-ui (datocms-react-ui/<Entry>) and the icons of the plugin (@/icons). A page about a module that react-ui does not ship goes in stories/Internal/.",
+                  "react-router": "A public docs page shows react-ui to the plugins, and sinkbin renders it with its blocks on the build of react-ui: import the entries of react-ui (datocms-react-ui/<Entry>) and the icons of the plugin (@/icons). A page about a module that react-ui does not ship goes in stories/Internal/.",
+                  "react-router-dom": "A public docs page shows react-ui to the plugins, and sinkbin renders it with its blocks on the build of react-ui: import the entries of react-ui (datocms-react-ui/<Entry>) and the icons of the plugin (@/icons). A page about a module that react-ui does not ship goes in stories/Internal/.",
+                  "formik": "A public docs page shows react-ui to the plugins, and sinkbin renders it with its blocks on the build of react-ui: import the entries of react-ui (datocms-react-ui/<Entry>) and the icons of the plugin (@/icons). A page about a module that react-ui does not ship goes in stories/Internal/."
+                },
+                "patterns": [
+                  {
+                    "group": ["ui/**", "ui-app/**"],
+                    "message": "A public docs page shows react-ui to the plugins, and sinkbin renders it with its blocks on the build of react-ui: import the entries of react-ui (datocms-react-ui/<Entry>) and the icons of the plugin (@/icons). A page about a module that react-ui does not ship goes in stories/Internal/."
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

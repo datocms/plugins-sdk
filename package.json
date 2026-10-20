@@ -1,40 +1,21 @@
 {
-  "name": "root",
-  "private": true,
-  "workspaces": [
-    "packages/*"
-  ],
-  "devDependencies": {
-    "@biomejs/biome": "1.6.4",
-    "@changesets/cli": "^3.0.1",
-    "@datocms/release-toolchain": "github:datocms/release-toolchain#v1.2.0",
-    "@types/jest": "^29.2.1",
-    "@typescript-eslint/eslint-plugin": "^5.42.0",
-    "@typescript-eslint/parser": "^5.42.0",
-    "husky": "^9.0.11",
-    "jest": "^29.2.2",
-    "pkg-pr-new": "^0.0.88",
-    "ts-jest": "^29.0.3",
-    "tsx": "^4.19.1",
-    "turbo": "^2.10.11",
-    "typescript": "^5.6.2"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/datocms/plugins-sdk.git"
-  },
-  "scripts": {
-    "test": "node --trace-warnings --experimental-vm-modules node_modules/jest/bin/jest.js",
-    "build": "turbo run build",
-    "lint": "biome ci packages",
-    "changeset": "changeset",
-    "release": "release-toolchain",
-    "release:next": "release-toolchain --tag next",
-    "format": "biome check toolchain packages --apply && biome format --write toolchain packages",
-    "prepare": "husky"
-  },
-  "license": "MIT",
-  "author": "Stefano Verna <s.verna@datocms.com>",
-  "homepage": "https://github.com/datocms/plugins-sdk",
-  "packageManager": "npm@10.9.8"
+	"name": "datocms-plugins-sdk",
+	"private": true,
+	"workspaces": [
+		"packages/*"
+	],
+	"scripts": {
+		"build": "npm run build -w datocms-plugin-sdk && npm run build -w datocms-react-ui",
+		"test": "npm test -w datocms-plugin-sdk",
+		"tsc": "npm run tsc -w datocms-plugin-sdk -w ui -w datocms-react-ui",
+		"lint": "npm run lint -w datocms-plugin-sdk -w ui -w datocms-react-ui",
+		"format": "biome check --write ."
+	},
+	"engines": {
+		"node": "24.x"
+	},
+	"packageManager": "npm@11.19.0",
+	"devDependencies": {
+		"@types/node": "24.9.1"
+	}
 }

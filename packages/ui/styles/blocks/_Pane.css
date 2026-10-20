@@ -1,0 +1,56 @@
+.Pane {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--color--border);
+}
+
+.Pane__overlay {
+  z-index: 999;
+}
+.Pane__header,
+.Pane__footer {
+  flex: 0;
+  overflow: visible;
+}
+.Pane__header {
+  > * {
+    border-bottom: 1px solid var(--color--border);
+  }
+}
+.Pane__footer {
+  > * {
+    border-top: 1px solid var(--color--border);
+  }
+}
+/* The content has no padding. Each type of content sets its own inset: the
+   inset rows of a list (see "--row-inset"), or the padding of a page, a table
+   or a form. Thus the inset does not add to the inset of the content, and
+   content that fills the pane and scrolls by itself has no empty bands. */
+.Pane__content {
+  position: relative;
+  flex: 1;
+  overflow-y: overlay;
+  /* The frame of the content of a pane in a mode (see the mode prop) is
+     the border of the scroll container: the scrollbar is inside the frame,
+     and the round corners clip it. */
+  border: 0 solid var(--color--selected--border);
+  transition:
+    margin 0.1s var(--material-ease),
+    border-width 0.1s var(--material-ease),
+    border-radius 0.1s var(--material-ease);
+}
+/* Only a script gives the focus to the content (see the mode prop). The
+   content is a scroll container, not a control, thus it shows no ring. */
+.Pane__content:focus {
+  outline: none;
+}
+.Pane--mode .Pane__content {
+  margin: calc(var(--row-inset) / 2);
+  border-width: var(--base-distance-for-subtle-decoration-elements);
+  border-radius: var(--radius-m);
+}
+.Pane__slideUpToolbar {
+  position: relative;
+}

@@ -1,0 +1,95 @@
+/* Each side holds a Pane, which fills its positioned parent */
+.ListDetailSplit {
+  position: absolute;
+  inset: 0;
+  display: flex;
+}
+
+/* The area of the overview of an empty section. It has the largest width of
+   the split, and the line at its right edge as the detail. */
+.ListDetailOverview {
+  position: absolute;
+  inset: 0;
+  right: auto;
+  box-sizing: border-box;
+  width: 100%;
+  border-right: 1px solid var(--color--border);
+}
+
+/* The detail at the right of the list. The split gives its width (the user
+   resizes it with the sash on its right border); more space at its right
+   stays empty. The line shows where the detail ends, also without an open
+   row. */
+.ListDetailSplit__detail {
+  position: relative;
+  box-sizing: border-box;
+  max-width: 100%;
+  height: 100%;
+  border-right: 1px solid var(--color--border);
+
+  > .Pane,
+  > aside > .Pane {
+    border-right: 0;
+  }
+}
+/* The sash on the right border of the detail goes out of the detail. When
+   the detail fills its pane, the pane does not scroll for it. */
+.SplitViewPane:has(> .ListDetailSplit__detail) {
+  overflow-x: clip;
+}
+
+/* On a small viewport, the list uses all the width and the detail goes over
+   it */
+.ListDetailSplit__list {
+  position: relative;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.ListDetailSplit--overlay .ListDetailSplit__detail {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  width: 480px;
+  max-width: 100%;
+  height: auto;
+  background: var(--color--surface);
+  box-shadow: var(--shadow--floating);
+}
+
+.ListDetailPanel__body {
+  display: flex;
+  flex-direction: column;
+}
+
+.ListDetailPanel__entity {
+  padding: var(--spacing-m) var(--spacing-l);
+  overflow-wrap: anywhere;
+  border-bottom: 1px solid var(--color--border);
+}
+/* With an image, the image is at the left of the title and the subtitle */
+.ListDetailPanel__entity:has(> .ListDetailPanel__entity__image) {
+  display: flex;
+  gap: var(--spacing-m);
+  align-items: center;
+}
+.ListDetailPanel__entity__image {
+  flex: none;
+}
+.ListDetailPanel__entity__text {
+  min-width: 0;
+}
+.ListDetailPanel__entity__title {
+  font-weight: 600;
+}
+.ListDetailPanel__entity__subtitle {
+  margin-top: 2px;
+  font-size: var(--font-size-xs);
+  color: var(--color--ink-subtle);
+}
+
+.ListDetailPanel .InfoList__row__content {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}

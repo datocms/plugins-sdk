@@ -1,0 +1,48 @@
+/* The chevrons of the app (see components/ui/Chevron.tsx). The selectors have
+   two classes. Thus they have more priority than a rule of a container that
+   sets the size or the color of all its icons.
+
+   Do not set the fill of a chevron out of this file: set --chevron-color.
+   A colored surface (a button, a pill, the navigation bar) sets it to
+   currentColor: the chevron then has the color of the text in all the
+   states. A control that is not a button or a link sets it to
+   var(--color--ink) on hover. */
+
+.Chevron:is(.Chevron--disclosure, .Chevron--menu, .Chevron--load-more) {
+  display: inline-block;
+  flex: none;
+  width: max(10px, 0.75em);
+  height: max(10px, 0.75em);
+  vertical-align: middle;
+  fill: var(--chevron-color, var(--color--ink-subtle));
+  transition:
+    fill 0.2s var(--material-ease),
+    transform 0.2s var(--material-ease);
+}
+
+.Chevron.Chevron--disclosure.is-open {
+  transform: rotate(90deg);
+}
+
+:is(button, a, [role="button"]):not(:disabled, [aria-disabled="true"]):hover
+  .Chevron:is(.Chevron--disclosure, .Chevron--menu, .Chevron--load-more),
+:is(button, [role="button"])[aria-expanded="true"] .Chevron.Chevron--menu,
+.SelectInput__control.is-open .Chevron.Chevron--menu {
+  fill: var(--chevron-color, var(--color--ink));
+}
+
+/* The chevron reads the state of its control: aria-expanded, :disabled,
+   aria-disabled. A select of react-select is not a form control, thus its
+   classes tell the state. */
+:is(:disabled, [aria-disabled="true"], .SelectInput__control.is-disabled)
+  .Chevron:is(.Chevron--disclosure, .Chevron--menu, .Chevron--load-more) {
+  fill: var(--chevron-color, var(--color--ink-disabled));
+}
+
+/* The spinner is larger than the box of the chevron: it goes out of the box
+   on all the sides, thus the row does not move. */
+.Chevron--loading {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}

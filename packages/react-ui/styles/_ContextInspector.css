@@ -1,0 +1,53 @@
+.ContextInspector {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-l);
+}
+/* The inset of the title is the inset of the titles of the panels below */
+.ContextInspector__title {
+  padding: 0 var(--spacing-l);
+  margin: 0 0 var(--spacing-s);
+}
+.ContextInspector__items {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+.ContextInspector__item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-s);
+  align-items: flex-start;
+
+  > .CodeSnippet {
+    align-self: stretch;
+  }
+}
+.ContextInspector__signature {
+  font-family: var(--monospaced-font-family);
+  font-size: var(--monospaced-font-size);
+  color: var(--color--ink);
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+.ContextInspector__name {
+  font-weight: 600;
+}
+.ContextInspector__type {
+  color: var(--color--ink-subtle);
+}
+.ContextInspector__description {
+  margin: 0;
+  white-space: pre-line;
+}
+.SidebarPanel__content > .ContextInspector__description {
+  margin-bottom: var(--spacing-l);
+}

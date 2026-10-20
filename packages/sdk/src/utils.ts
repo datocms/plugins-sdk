@@ -14,13 +14,8 @@ export type AwaitedReturnType<T extends (...args: any) => any> = Awaited<
   ReturnType<T>
 >;
 
-type ModeForPluginFrameCtx<T> = T extends ImposedSizePluginFrameCtx<
-  infer Mode,
-  any,
-  any
->
-  ? Mode
-  : never;
+type ModeForPluginFrameCtx<T> =
+  T extends ImposedSizePluginFrameCtx<infer Mode, any, any> ? Mode : never;
 
 export type MaybePromise<T> = T | Promise<T>;
 

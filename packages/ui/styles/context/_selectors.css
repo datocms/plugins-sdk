@@ -1,0 +1,62 @@
+@custom-selector :--all-text-inputs
+  [type='email'],
+  [type='number'],
+  [type='password'],
+  [type='search'],
+  [type='tel'],
+  [type='text'],
+  [type='url'],
+  [type='color'],
+  [type='date'],
+  [type='datetime'],
+  [type='datetime-local'],
+  [type='month'],
+  [type='time'],
+  [type='week'];
+
+@custom-selector :--all-text-inputs-hover
+  [type='email']:hover,
+  [type='number']:hover,
+  [type='password']:hover,
+  [type='search']:hover,
+  [type='tel']:hover,
+  [type='text']:hover,
+  [type='url']:hover,
+  [type='color']:hover,
+  [type='date']:hover,
+  [type='datetime']:hover,
+  [type='datetime-local']:hover,
+  [type='month']:hover,
+  [type='time']:hover,
+  [type='week']:hover;
+
+@custom-selector :--all-text-inputs-focus
+  [type='email']:focus,
+  [type='number']:focus,
+  [type='password']:focus,
+  [type='search']:focus,
+  [type='tel']:focus,
+  [type='text']:focus,
+  [type='url']:focus,
+  [type='color']:focus,
+  [type='date']:focus,
+  [type='datetime']:focus,
+  [type='datetime-local']:focus,
+  [type='month']:focus,
+  [type='time']:focus,
+  [type='week']:focus;
+
+/* A disabled control. A native button or input uses the attribute. A link or
+   a div that acts as a button uses the class. A button that must keep the
+   focus and its tooltip uses aria-disabled. Use it in ":not()" to keep the
+   hover of an enabled control only. */
+@custom-selector :--disabled
+  :disabled,
+  .is-disabled,
+  [aria-disabled='true'];
+
+/* An enabled control. Use it before ":hover", ":focus" and ":active", thus a
+   disabled control keeps the colors of its rest state. It adds no
+   specificity: a rule of a component that changes the hover still wins. */
+@custom-selector :--enabled
+  :not(:where(:disabled, .is-disabled, [aria-disabled='true']));

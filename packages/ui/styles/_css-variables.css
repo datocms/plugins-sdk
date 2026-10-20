@@ -1,0 +1,134 @@
+:root {
+  /* Fonts. Keep the noto-script-fallback families last before the generic
+     family: they lazily cover scripts our fonts lack (see
+     _noto-script-fallback.css). */
+  --base-font-family:
+    "ABC Oracle", "Geist", "Helvetica Neue", Helvetica, Roboto, Arial,
+    "noto-script-fallback", "noto-script-fallback-static", sans-serif;
+  --monospaced-font-family:
+    "Geist Mono", "Menlo", "Bitstream Vera Sans Mono", Consolas, Courier,
+    "noto-script-fallback", "noto-script-fallback-static", monospace;
+  /* Code is a little smaller than the text around it, because the
+     monospaced font looks larger. For inline code and for code blocks. */
+  --monospaced-font-size: 0.9em;
+  --cursive-font-family:
+    "Pangolin", "noto-script-fallback", "noto-script-fallback-static", cursive;
+  --font-weight-bold: 500;
+
+  --px-to-rem: 0.0625rem;
+  --space-unit: calc(12 * var(--px-to-rem));
+
+  --spacing-s: calc(0.5 * var(--space-unit));
+  --spacing-m: calc(1 * var(--space-unit));
+  --spacing-l: calc(2 * var(--space-unit));
+  --spacing-xl: calc(3 * var(--space-unit));
+  --spacing-xxl: calc(5 * var(--space-unit));
+  --spacing-xxxl: calc(8 * var(--space-unit));
+
+  --negative-spacing-s: calc(-0.5 * var(--space-unit));
+  --negative-spacing-m: calc(-1 * var(--space-unit));
+  --negative-spacing-l: calc(-2 * var(--space-unit));
+  --negative-spacing-xl: calc(-3 * var(--space-unit));
+  --negative-spacing-xxl: calc(-5 * var(--space-unit));
+  --negative-spacing-xxxl: calc(-8 * var(--space-unit));
+
+  --font-size-xs: calc(13 * var(--px-to-rem));
+  --font-size-m: calc(15 * var(--px-to-rem));
+  --font-size-l: calc(17 * var(--px-to-rem));
+  --font-size-xl: calc(19 * var(--px-to-rem));
+  --font-size-xxl: calc(25 * var(--px-to-rem));
+  --font-size-xxxl: calc(30 * var(--px-to-rem));
+
+  /* The height of a field of one line (a text input, a select): one line of
+     text, the padding (10px) and the border. A control next to fields (a
+     filter form, a button of size "field") has this height, thus the edges
+     align. */
+  --control-height: calc(1.4 * var(--font-size-m) + 2 * 10px + 2px);
+
+  /* Border radius. A nested element that touches the border of its parent
+     uses the parent radius minus the border width, for example
+     calc(var(--radius-s) - 1px). */
+  /* Thin marks: drop lines, progress bars. */
+  --radius-xs: calc(2 * var(--px-to-rem));
+  /* Controls: inputs, selects, buttons, chips, options, field boxes. */
+  --radius-s: calc(4 * var(--px-to-rem));
+  /* Floating surfaces: menus, popovers, modals. */
+  --radius-m: calc(8 * var(--px-to-rem));
+  /* Pills and circles. */
+  --radius-full: 999px;
+
+  /* The space between the border of a text input and its text, on all the
+     sides. The addons of an input group and the height of a select use it,
+     thus their text lines up with the text of an input. */
+  --input-padding: 10px;
+
+  /* Rows of a list in a sidebar, a panel or a dialog (see "The inset row" in
+     stories/Lists/RowList/RowList.mdx). */
+  /* The space between the box of a row and the sides of the list, also above
+     the first row */
+  --row-inset: var(--spacing-s);
+  /* The space between two rows */
+  --row-gap: 2px;
+  /* The radius of the box of a row, on hover and when it is selected */
+  --row-radius: var(--radius-s);
+
+  /* A disabled button, and every control that acts as a button (an option of
+     a menu, a button of a toolbar, a page of the pagination), keeps the
+     colors of its variant and fades to this opacity. Thus a disabled primary
+     button still reads as the primary action. A disabled field does not fade:
+     its value must stay readable (see the "disabled-field" context of the
+     color tokens). */
+  --disabled-opacity: 0.45;
+
+  --material-ease: cubic-bezier(0.55, 0, 0.1, 1);
+  /* Use it for elements that come into view. */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --base-distance-for-subtle-decoration-elements: 2px;
+
+  /* Structured Text */
+  --slate-margin: 40px;
+  --slate-list-margin: 32px;
+
+  /* The content of a text editor: structured text, Markdown, HTML, and the
+     textarea of a text field. The structured text editor makes the rule, and
+     the other editors use the same values. */
+  --editor-content-block-gap: 0.8em;
+  --editor-content-list-item-gap: 0.3em;
+  --editor-content-space: 15px;
+  /* More open than the text of the UI: the user reads and writes long
+     paragraphs here */
+  --editor-content-line-height: 1.5;
+  /* The minimum height of the content, without the top and bottom spaces: it
+     gives the height of an editor with no content */
+  --editor-content-min-height: 50px;
+  --editor-content-fullscreen-font-size: 1.2em;
+  --editor-content-fullscreen-width: 900px;
+  --editor-content-fullscreen-margin: 20px;
+}
+@media screen and (min-width: 700px) {
+  :root {
+    --editor-content-space: 20px;
+  }
+}
+@media screen and (min-height: 800px) {
+  :root {
+    --editor-content-fullscreen-margin: 80px;
+  }
+}
+
+/* The keyboard focus ring. Use it in box-shadow, also in a list of shadows:
+   "box-shadow: 0 0 0 1px X, var(--focus-ring)". The color comes from the
+   color scheme, thus each element with a scheme computes the ring again. */
+:root,
+[data-color-scheme] {
+  --focus-ring: 0 0 0 4px var(--color--focus--outline);
+}
+
+/* The fixed layer over all the others. The dialogs (also the confirm), the
+   menus and the tooltips take their z-index from NewZIndex: it starts at
+   10050 and adds 10 for each nested layer. The notifications show over
+   all of them. */
+:root {
+  --z-index-notifications: 10500;
+}

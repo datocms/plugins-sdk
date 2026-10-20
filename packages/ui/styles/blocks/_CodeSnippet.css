@@ -1,0 +1,31 @@
+/* The copy button stays at the top right while the text scrolls, thus the
+   overflow is on the body */
+.CodeSnippet {
+  position: relative;
+  background-color: var(--color--code--surface);
+  border-radius: var(--radius-s);
+}
+.CodeSnippet__body {
+  max-height: var(--CodeSnippet-max-height, none);
+  padding: var(--spacing-m);
+  /* This gives room for the copy button on the first line */
+  padding-right: var(--spacing-xl);
+  overflow: auto;
+  font-family: var(--monospaced-font-family);
+  font-size: var(--font-size-xs);
+  line-height: 1.5;
+  color: var(--color--code--ink);
+  overflow-wrap: normal;
+  white-space: pre;
+}
+/* A different view of the text (for example a JSON tree) has its own layout */
+.CodeSnippet__body--custom {
+  padding: 0;
+  white-space: normal;
+}
+.CodeSnippet__copy {
+  position: absolute;
+  top: var(--spacing-s);
+  right: var(--spacing-s);
+  display: flex;
+}

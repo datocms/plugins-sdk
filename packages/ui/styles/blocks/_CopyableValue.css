@@ -1,0 +1,21 @@
+/* The buttons are inside the field, thus the field has the width of the
+   other fields of the form */
+.CopyableValue {
+  position: relative;
+}
+.CopyableValue__input {
+  /* Room for the buttons: the text does not go under them */
+  padding-right: calc(2 * var(--spacing-xl));
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.CopyableValue__actions {
+  position: absolute;
+  top: 50%;
+  right: var(--spacing-s);
+  display: flex;
+  gap: 2px;
+  align-items: center;
+  transform: translateY(-50%);
+}

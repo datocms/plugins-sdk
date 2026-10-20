@@ -1,0 +1,72 @@
+/* The frame of a field that has more parts in one box: a bare input, and a
+   prefix, an icon or buttons next to it. The frame has the look of the text
+   inputs of _base.css: the border, the surface and the focus ring.
+
+   Use it next to the class of the block of the input
+   (`InputFrame ColorInput__field`).
+
+   Classes:
+   - .InputFrame: the box.
+   - .InputFrame__input: the bare input in the box. It has no border, no
+     surface and no focus ring.
+   - .InputFrame__control: a button in the box (a color swatch, a calendar
+     button). The box shows its keyboard focus.
+
+   States of the box:
+   - Focus ring: .is-open, .is-focused, the focus on an .InputFrame__input,
+     or the keyboard focus on an .InputFrame__control. Use .is-focused when
+     the focused element cannot have the .InputFrame__input class (the text
+     input of react-select in SelectInput).
+   - Disabled: .is-disabled, or a disabled .InputFrame__input.
+   - Read-only: .is-read-only, or a read-only .InputFrame__input. The box keeps
+     the regular colors, but it has no hover while it has no focus. */
+.InputFrame {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  background-color: var(--color--surface-raised);
+  border: 1px solid var(--color--border);
+  border-radius: var(--radius-s);
+  transition: border 0.2s var(--material-ease);
+
+  &:hover {
+    border-color: var(--color--border-hover);
+  }
+  &.is-open,
+  &.is-focused,
+  &:has(.InputFrame__input:focus),
+  &:has(.InputFrame__control:focus-visible) {
+    border-color: var(--color--focus--border);
+    box-shadow: var(--focus-ring);
+  }
+  &.is-disabled,
+  &:has(.InputFrame__input[disabled]) {
+    background-color: var(--color--disabled-field--surface);
+    border-color: var(--color--border);
+  }
+  &.is-read-only:not(.is-focused, :has(.InputFrame__input:focus)):hover,
+  &:has(.InputFrame__input[readonly]):not(
+      :has(.InputFrame__input:focus)
+    ):hover {
+    border-color: var(--color--border);
+  }
+}
+/* This rule is stronger than the rules of `:--all-text-inputs` in
+   `_base.css`. The frame has the border, the surface and the focus ring. */
+.InputFrame__input {
+  &,
+  &:hover,
+  &:focus,
+  &[disabled][disabled] {
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+  }
+}
+/* The frame shows the keyboard focus of the control. Thus the control must
+   not also get the ring of _base.css, or two rings show. ":where" keeps the
+   specificity of that ring. */
+:where(.InputFrame__control):focus-visible {
+  box-shadow: none;
+}

@@ -1,0 +1,60 @@
+.Pagination {
+  display: flex;
+  gap: var(--spacing-m);
+  align-items: center;
+}
+.Pagination__links {
+  display: flex;
+  align-items: center;
+}
+.Pagination__button[aria-current="page"] {
+  color: var(--color--ink);
+  cursor: default;
+  background-color: var(--color--surface-muted);
+}
+.Pagination__per-page {
+  position: relative;
+  /* The right padding keeps the place of the chevron, thus the select does
+     not change its width on hover */
+  padding: var(--spacing-s) calc(var(--spacing-m) + 0.75em) var(--spacing-s)
+    var(--spacing-s);
+  margin-right: var(--spacing-l);
+  border: 1px solid transparent;
+  border-radius: var(--radius-s);
+  transition: border-color 0.1s ease-out;
+
+  select {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    appearance: none;
+    opacity: 0;
+  }
+  /* The select is native and has no visible arrow, thus a MenuChevron is
+     next to it. It shows on hover and on focus. */
+  > .Chevron {
+    position: absolute;
+    top: 50%;
+    right: var(--spacing-s);
+    z-index: 2;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(-50%);
+    transition: opacity 0.1s ease-out;
+  }
+  &:has(select:disabled) {
+    opacity: var(--disabled-opacity);
+  }
+  &:has(select:enabled):hover,
+  &:has(select:enabled):focus-within {
+    border-color: var(--color--border);
+
+    > .Chevron {
+      opacity: 1;
+    }
+  }
+}

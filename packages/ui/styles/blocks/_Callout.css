@@ -1,0 +1,125 @@
+/*
+ * The callout has a margin only at the bottom, so it can be the first item of
+ * a page or of a form without modifiers.
+ */
+.Callout {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 12px 16px;
+  margin: 0 0 var(--spacing-l);
+  font-size: var(--font-size-m);
+  border-radius: var(--radius-s);
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.Callout__icon {
+  flex-shrink: 0;
+  line-height: 0;
+
+  & svg {
+    width: 16px;
+    height: 16px;
+    margin-top: 3px;
+  }
+}
+
+.Callout__title {
+  font-weight: 600;
+
+  &:not(:last-child) {
+    margin-bottom: 2px;
+  }
+}
+
+.Callout__body {
+  flex: 1;
+  min-width: 0;
+
+  & p,
+  & pre {
+    margin-bottom: 2px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  /* The reset removes the list markers, thus the callout adds them again.
+   * ":where" keeps the specificity low, thus a block class on the list
+   * (for example, ".InstallPlugin__permissions") keeps its styles. */
+  & :where(ul, ol) {
+    padding-left: 1.25em;
+    margin: 4px 0 8px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  & :where(ul > li) {
+    list-style: disc;
+  }
+
+  & :where(ol > li) {
+    list-style: decimal;
+  }
+
+  /* The links take the ink of the tone, so they are legible on all the
+   * surfaces. The underline tells that they are links. */
+  & a:not(.button) {
+    font-weight: 600;
+    color: inherit;
+    text-decoration: underline;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  & code,
+  & pre {
+    font-family: var(--monospaced-font-family);
+  }
+}
+
+.Callout--neutral {
+  color: var(--color--ink);
+  background: var(--color--surface-muted);
+
+  & .Callout__icon svg {
+    fill: var(--color--ink-subtle);
+  }
+}
+
+/* As the other tones: the text and the icon have the ink of the soft
+   green surface */
+.Callout--success {
+  color: var(--color--success-soft--ink);
+  background: var(--color--success-soft--surface);
+
+  & .Callout__icon svg {
+    fill: var(--color--success-soft--ink);
+  }
+}
+
+.Callout--warning {
+  color: var(--color--warning-soft--ink);
+  background: var(--color--warning-soft--surface);
+
+  & .Callout__icon svg {
+    fill: var(--color--warning-soft--ink);
+  }
+}
+
+.Callout--danger {
+  color: var(--color--danger-soft--ink);
+  background: var(--color--danger-soft--surface);
+
+  & .Callout__icon svg {
+    fill: var(--color--danger-soft--ink);
+  }
+}

@@ -1,0 +1,54 @@
+/* The block of the addons of an input. Use it on top of InputFrame (see
+   _InputFrame.css), which gives the box and its states. */
+.input-group {
+  input {
+    flex: 1;
+    min-width: 0;
+  }
+  /* An addon at the start or at the end touches the text of the input, as
+     the prefix of a slug: "name.jpeg", not "name   .jpeg". An addon between
+     two inputs keeps a space on both sides. */
+  > .input-group__addon:first-child {
+    padding-right: 0;
+  }
+  > .input-group__addon:first-child + input {
+    padding-left: 0;
+  }
+  > .input-group__addon:last-child {
+    padding-left: 0;
+  }
+  > input:has(+ .input-group__addon:last-child) {
+    padding-right: 0;
+  }
+}
+.input-group--inline {
+  display: inline-flex;
+}
+.input-group__addon {
+  flex: 0 1 auto;
+  max-width: 50%;
+  padding: 0 var(--input-padding);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--color--ink-subtle);
+  white-space: nowrap;
+
+  /* In InputGroup.tsx (the input is a direct child of the group), a click on
+     the addon puts the focus in the input. In a group of more fields, the
+     click on the addon does nothing. */
+  .input-group:has(> input):not(:has(input[disabled], input[readonly])) > & {
+    cursor: text;
+  }
+  /* In a disabled field the addon is lighter than the value, thus the value
+     stays the strongest text */
+  .input-group:has(input[disabled]) & {
+    color: var(--color--disabled-field--ink-placeholder);
+  }
+}
+/* The input of a code group has the form__input--code class (StringInput
+   with code). The addons get the same font. */
+.input-group--code .input-group__addon {
+  font-family: var(--monospaced-font-family);
+  font-size: var(--monospaced-font-size);
+  letter-spacing: -0.02em;
+}

@@ -1,6 +1,21 @@
 {
-  "extends": "../../tsconfig.json",
   "compilerOptions": {
+    "moduleResolution": "node",
+    "target": "es5",
+    "module": "commonjs",
+    "lib": ["es2019", "dom"],
+    "esModuleInterop": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "sourceMap": true,
+    "noImplicitReturns": true,
+    "declaration": true,
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "resolveJsonModule": true,
+    "jsx": "react",
+    "skipLibCheck": true,
     "declarationDir": "dist/types",
     "outDir": "dist/cjs",
     "typeRoots": [

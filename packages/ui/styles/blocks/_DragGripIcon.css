@@ -1,0 +1,7 @@
+/* The size is fixed, so the grip is not too large in any handle. The handle
+   around it sets the surface to drag. */
+.DragGripIcon {
+  flex-shrink: 0;
+  width: 14px;
+  height: 14px;
+}

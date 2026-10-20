@@ -1,0 +1,143 @@
+.RadioGroupInput__option {
+  display: flex;
+  padding: var(--spacing-m);
+  margin-bottom: var(--spacing-s);
+  text-decoration: none;
+  cursor: pointer;
+  background-color: var(--color--surface-raised);
+  border: 1px solid var(--color--border);
+  border-radius: var(--radius-s);
+  transition: all 0.15s var(--material-ease);
+
+  &:hover:not(.is-checked, .is-disabled, .is-read-only) {
+    border-color: var(--color--border-hover);
+  }
+  &:has(input[type="radio"]:focus-visible) {
+    border-color: var(--color--focus--border);
+    box-shadow: var(--focus-ring);
+  }
+  &:last-child {
+    margin-bottom: 0;
+  }
+  &.is-checked {
+    border-color: var(--color--selected--border);
+  }
+}
+/* The option shows the keyboard focus of its radio input. Thus the input
+   must not also get the ring of _base.css, or two rings show. ":where"
+   keeps the specificity of that ring. */
+:where(.RadioGroupInput__option input[type="radio"]):focus-visible {
+  box-shadow: none;
+}
+.RadioGroupInput.is-small .RadioGroupInput__option {
+  padding: calc(0.75 * var(--space-unit));
+}
+.RadioGroupInput__option.is-read-only {
+  cursor: default;
+}
+/* The same rules as the disabled option of the checkbox group
+   (_CheckboxGroupInput.css) */
+.RadioGroupInput__option.is-disabled {
+  color: var(--color--disabled-field--ink);
+  cursor: default;
+  background: var(--color--disabled-field--surface);
+
+  &.is-checked {
+    border-color: var(--color--border-control);
+  }
+}
+.RadioGroupInput__radio {
+  position: relative;
+
+  input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+  }
+  &::before {
+    box-sizing: border-box;
+    display: block;
+    width: 1.15em;
+    height: 1.15em;
+    content: "";
+    background-color: var(--color--surface-raised);
+    border: 1px solid var(--color--border-control);
+    border-radius: var(--radius-full);
+    transition:
+      background-color 0.15s var(--material-ease),
+      border-color 0.15s var(--material-ease);
+  }
+  .RadioGroupInput__option:hover:not(.is-disabled, .is-read-only) &::before {
+    border-color: var(--color--border-control-hover);
+  }
+}
+.RadioGroupInput__option.is-checked .RadioGroupInput__radio::before {
+  background-color: var(--color--primary--surface);
+  background-image: radial-gradient(
+    var(--color--primary--ink) 28%,
+    transparent 33%
+  );
+  /* token-audit-disable-next-line mismatch -- the border has the same color as the fill */
+  border-color: var(--color--primary--surface);
+}
+.RadioGroupInput__option.is-checked:hover:not(.is-disabled, .is-read-only)
+  .RadioGroupInput__radio::before {
+  background-color: var(--color--primary--surface-hover);
+  /* token-audit-disable-next-line mismatch -- the border has the same color as the fill */
+  border-color: var(--color--primary--surface-hover);
+}
+.RadioGroupInput__option.is-disabled .RadioGroupInput__radio::before {
+  background-color: transparent;
+  border-color: var(--color--border-control);
+}
+.RadioGroupInput__option.is-disabled.is-checked
+  .RadioGroupInput__radio::before {
+  background-color: var(--color--disabled-field--fill);
+  background-image: radial-gradient(
+    var(--color--disabled-field--surface) 28%,
+    transparent 33%
+  );
+  /* token-audit-disable-next-line mismatch -- the border has the same color as the fill */
+  border-color: var(--color--disabled-field--fill);
+}
+/* The icon is at the end of the option, after the text: the radio and the
+   label stay next to each other, and the logos of the options make one
+   column at the right */
+.RadioGroupInput__icon {
+  display: flex;
+  flex: none;
+  align-items: center;
+  align-self: center;
+  justify-content: center;
+  padding-right: var(--spacing-m);
+  padding-left: var(--spacing-m);
+  margin-left: auto;
+
+  /* Each icon fits the same square, whatever the shape of its drawing: a
+     wide logo and a tall one have the same center. A monochrome icon takes
+     the ink of the text. The paths of a logo have their own colors, thus
+     the logo keeps them. */
+  svg {
+    width: 2em;
+    height: 2em;
+    fill: currentColor;
+  }
+}
+.RadioGroupInput__body {
+  align-self: center;
+  margin-left: calc(1.5 * var(--space-unit));
+}
+.RadioGroupInput__label {
+  display: block;
+  line-height: 1;
+}
+.RadioGroupInput__hint {
+  display: block;
+  margin-top: 3px;
+  font-size: var(--font-size-m);
+  line-height: 1.2;
+  color: var(--color--ink-subtle);
+
+  .RadioGroupInput__option.is-disabled & {
+    color: var(--color--disabled-field--ink-placeholder);
+  }
+}

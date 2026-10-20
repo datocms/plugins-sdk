@@ -1,0 +1,11 @@
+/* The area of the list of a page (ListArea): the space around the table, and
+   the notices above it. It uses all the width. It has no height of its own: a
+   BlankSlate with `placement="area"` in it stays in the center of the
+   Pane__content (see _blank-slate.css). */
+.ListArea {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-l);
+  padding: var(--spacing-l);
+}

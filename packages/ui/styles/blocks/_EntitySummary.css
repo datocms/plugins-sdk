@@ -1,0 +1,42 @@
+/* A header with a bottom border, then the content without padding around
+   it. Taller content scrolls under the header. */
+.EntitySummary {
+  width: max-content;
+  /* Wider than .HoverCard__body, for the preview image */
+  max-width: 400px;
+}
+.EntitySummary__header {
+  position: sticky;
+  top: 0;
+  display: flex;
+  gap: var(--spacing-s);
+  align-items: center;
+  padding: var(--spacing-m);
+  font-weight: bold;
+  line-height: 1.3;
+  background-color: var(--color--surface-raised);
+  border-bottom: 1px solid var(--color--border);
+
+  /* The size of the icon of a Dropdown option: the field types menu shows
+     the card next to the option with the same icon */
+  > svg {
+    flex: none;
+    font-size: 16px;
+    fill: var(--color--ink-subtle);
+  }
+}
+.EntitySummary__image {
+  display: block;
+  width: 100%;
+  height: auto;
+
+  &:not(:last-child) {
+    border-bottom: 1px solid var(--color--border);
+  }
+}
+.EntitySummary__description {
+  padding: var(--spacing-m);
+  font-size: var(--font-size-m);
+  line-height: 1.3;
+  color: var(--color--ink-subtle);
+}

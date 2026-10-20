@@ -1,0 +1,312 @@
+/* SelectInput gives react-select the "unstyled" prop and these classes (see
+   useSelectClassNames.ts). The control is an .InputFrame: it gets the
+   border, the surface, the hover and the focus ring from it.
+
+   react-select keeps some layout styles in a class of its own (for example
+   the min-height and the box-sizing of the control, the display of the
+   indicators). A rule that changes one of these properties has two classes,
+   thus it wins over that class. */
+/* _TableList.css reads these values: it puts the value of a select in a
+   cell at the inset of the text of the other cells */
+.SelectInput {
+  --SelectInput-value-margin: 2px;
+  --SelectInput-indicator-padding: 8px;
+}
+.SelectInput--autosize {
+  display: flex;
+}
+.SelectInput--smaller {
+  font-size: 0.9em;
+
+  /* Only the control is small. The menu has the text size of all menus. */
+  > .SelectInput__menu {
+    font-size: var(--font-size-m);
+  }
+}
+/* The control has the height of a text input (see ":--all-text-inputs" in
+   _base.css): one line of text, the padding above and below it, and the
+   border. Thus the value of the select is on the line of the text of an
+   input at its side. */
+.SelectInput > .SelectInput__control {
+  min-height: calc(1lh + 2 * var(--input-padding) + 2px);
+}
+/* An embedded select is a part of another frame (for example a filter tile),
+   thus it has no border of its own */
+.SelectInput > .SelectInput__control--embedded {
+  flex-grow: 1;
+  min-height: calc(1lh + 20px);
+  border-width: 0;
+  border-radius: inherit;
+}
+.SelectInput > .SelectInput__control--smaller {
+  min-height: auto;
+}
+.SelectInput__control--smaller.is-focused {
+  box-shadow: none;
+}
+.SelectInput__control--fit {
+  width: max-content;
+  max-width: 100%;
+}
+/* A small select has the width of its value and of its chevron */
+.SelectInput--autosize > .SelectInput__control--smaller {
+  box-sizing: content-box;
+  padding-right: 0;
+}
+.SelectInput__control--accent:not(.is-disabled) {
+  --chevron-color: currentColor;
+
+  color: var(--color--primary-soft--ink);
+  background-color: var(--color--primary-soft--surface);
+}
+
+.SelectInput__value-container {
+  padding: 2px 8px;
+}
+.SelectInput__placeholder {
+  margin: 0 var(--SelectInput-value-margin);
+  color: var(--color--ink-placeholder);
+
+  .SelectInput__control.is-disabled & {
+    color: var(--color--disabled-field--ink-placeholder);
+  }
+}
+.SelectInput__single-value {
+  margin: 0 var(--SelectInput-value-margin);
+  color: var(--color--ink);
+
+  .SelectInput__control--accent & {
+    color: var(--color--primary-soft--ink);
+  }
+  .SelectInput__control.is-disabled & {
+    color: var(--color--disabled-field--ink);
+  }
+}
+.SelectInput__input {
+  padding: 2px 0;
+  margin: var(--SelectInput-value-margin);
+  color: var(--color--ink);
+
+  .SelectInput__control--smaller & {
+    margin: 1px 1px 1px 4px;
+  }
+  .SelectInput__control--accent & {
+    color: var(--color--primary-soft--ink);
+  }
+  /* The rule of ":--all-text-inputs-focus" in _base.css adds a ring. The
+     frame already shows the focus. */
+  input:focus {
+    box-shadow: none;
+  }
+}
+.SelectInput__input--inert {
+  pointer-events: none;
+}
+
+.SelectInput__dropdown-indicator {
+  padding: var(--SelectInput-indicator-padding);
+}
+/* A small select has no space for the clear button and the spinner: it shows
+   only the chevron, with less padding */
+.SelectInput__control--smaller > .SelectInput__indicators {
+  > :not(.SelectInput__dropdown-indicator) {
+    display: none;
+  }
+  > .SelectInput__dropdown-indicator {
+    padding: 0 8px 0 2px;
+  }
+}
+/* The user cannot open the menu of a disabled select, thus it has no
+   chevron. react-select already hides the clear button. */
+.SelectInput__control.is-disabled .SelectInput__dropdown-indicator {
+  display: none;
+}
+.SelectInput__indicators > .SelectInput__clear {
+  padding: 6px;
+  color: var(--color--ink-subtle);
+  cursor: pointer;
+  border-radius: var(--radius-s);
+  transition: background-color 0.2s var(--material-ease);
+
+  &:hover {
+    color: var(--color--ink);
+    background-color: var(--color--surface-hover);
+  }
+}
+.SelectInput__loading {
+  padding: 8px;
+  color: var(--color--ink-placeholder);
+}
+/* The cross fills less of its box than a chevron, thus its box is larger than
+   the box of a chevron (see _Chevron.css): 1em, with a minimum of 13px. Then
+   the two look the same size. */
+.SelectInput__cross {
+  display: block;
+  width: max(13px, 1em);
+  height: max(13px, 1em);
+  fill: currentColor;
+}
+
+/* The chip of a value of a multiple select. The wrapper (see
+   SortableMultiValue) holds the drop indicator of the drag. */
+.SelectInput__chip {
+  position: relative;
+  max-width: calc(100% - 4px);
+  margin: 2px;
+  cursor: move;
+
+  &.is-dragging {
+    opacity: 0.5;
+  }
+  &.is-locked {
+    cursor: default;
+  }
+}
+/* The chip clips the hover surface of its remove button to its rounded
+   corners */
+.SelectInput__multi-value {
+  overflow: hidden;
+  color: var(--color--primary-soft--ink);
+  user-select: none;
+  background-color: var(--color--primary-soft--surface);
+  border-radius: var(--radius-s);
+
+  /* A chip of a disabled select is neutral, not the brand: the field shows a
+     value that the user cannot change */
+  &.is-disabled {
+    color: var(--color--disabled-field--ink);
+    background-color: var(--color--surface-muted);
+  }
+}
+.SelectInput__multi-value-label {
+  padding: 3px 3px 3px 6px;
+
+  .SelectInput__control--smaller & {
+    padding: 1px 1px 1px 6px;
+  }
+}
+/* On hover, the chip tint gets darker, not red: the button removes a value,
+   it does not delete data */
+.SelectInput__multi-value-remove {
+  padding: 0 4px;
+  color: var(--color--primary-soft--ink);
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--color--primary-soft--surface-hover);
+  }
+}
+
+/* The menu of react-select has the classes of MenuContainer, and holds a
+   MenuPanel (see SelectMenu). */
+.SelectInput__menu {
+  min-width: 250px;
+  margin-block: 4px;
+
+  &[data-side="top"] {
+    --Dropdown-origin: bottom left;
+  }
+}
+/* The list of the options scrolls, the footer does not: thus the list has
+   the padding of the panel, and the panel clips the list to its rounded
+   corners. */
+.Dropdown__menu.SelectInput__panel {
+  max-height: none;
+  padding: 0;
+  overflow: hidden;
+
+  .Dropdown__menu__blank_slate {
+    padding-block: 6px;
+  }
+}
+.SelectInput__menu-list {
+  padding: var(--Dropdown-padding);
+}
+/* The label of an option can be on more lines. The highlight is only on the
+   option that react-select focuses ("is-selected"), also when the arrow keys
+   move it away from the pointer. */
+.Dropdown__menu__option.SelectInput__option {
+  white-space: normal;
+
+  &:not(.is-selected):hover {
+    background-color: transparent;
+  }
+  &:active:not(.is-disabled) {
+    background-color: var(--color--surface-raised-active);
+  }
+  .Dropdown__menu__option__content > * {
+    min-width: 0;
+  }
+}
+/* The footer of the menu: actions below the options (see SelectMenu) */
+.SelectInput__menu-footer {
+  padding: var(--Dropdown-padding);
+  border-top: 1px solid var(--color--border);
+}
+/* The footer shows a second list of actions in the place of the options */
+.SelectInput__menu-footer--alone {
+  max-height: 300px;
+  overflow-y: auto;
+  border-top: 0;
+}
+/* An action of the footer has the box of an option of the menu */
+.SelectInput__menu-action {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  width: 100%;
+  min-height: var(--Dropdown-item-min-height);
+  padding: var(--Dropdown-item-padding-y) var(--Dropdown-item-padding-x)
+    var(--Dropdown-item-padding-y) var(--Dropdown-gutter);
+  font: inherit;
+  line-height: 20px;
+  color: var(--color--ink);
+  text-align: left;
+  cursor: pointer;
+  background: none;
+  border: 0;
+  border-radius: var(--radius-s);
+
+  &:hover {
+    background-color: var(--color--surface-raised-hover);
+  }
+  &:active {
+    background-color: var(--color--surface-raised-active);
+  }
+}
+/* The options of a multiple select have no gutter for the check */
+.SelectInput__menu-footer--multiple .SelectInput__menu-action {
+  padding-left: var(--Dropdown-item-padding-x);
+}
+.SelectInput__menu-action__icon {
+  display: flex;
+  flex: none;
+  align-items: center;
+
+  svg {
+    font-size: 14px;
+    fill: var(--color--ink-subtle);
+  }
+}
+.SelectInput__menu-action__label {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.SelectInput__menu-action__chevron {
+  display: flex;
+  flex: none;
+
+  svg {
+    font-size: 12px;
+    fill: var(--color--ink-subtle);
+  }
+}
+/* It is the title of the second list. */
+.SelectInput__menu-action--back {
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  color: var(--color--ink-subtle);
+}

@@ -1,0 +1,7 @@
+/* The title is subtle and small, thus it does not compete with the items */
+.group-title {
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  line-height: 18px;
+  color: var(--color--ink-subtle);
+}

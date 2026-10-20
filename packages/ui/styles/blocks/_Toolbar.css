@@ -1,0 +1,384 @@
+/* The title has the same space above, below and on the sides
+   (--Toolbar-inset). The height is two insets plus one line of the title.
+   The variables are on the root, thus an element out of the toolbar can
+   align with it (for example the close button of the fullscreen modal). */
+:root {
+  /* The space above, below and at the sides of the title */
+  --Toolbar-inset: calc(14 * var(--px-to-rem));
+  /* Two insets plus one line of the title */
+  --Toolbar-height: calc(2 * var(--Toolbar-inset) + 1.3 * var(--font-size-m));
+  /* The gap between the controls of a group. The ghost icon buttons have
+     their own padding, thus a small gap is sufficient. */
+  --Toolbar-group-gap: 2px;
+}
+.Toolbar {
+  position: relative;
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: row;
+  gap: var(--spacing-m);
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  min-height: var(--Toolbar-height);
+  > *:last-child {
+    margin-right: var(--Toolbar-inset);
+  }
+  > *:first-child {
+    margin-left: var(--Toolbar-inset);
+  }
+}
+/* A toolbar with a title starts at the left, also when nothing (for example a
+   Toolbar.Space) fills the free width. A toolbar without a title (for example
+   a pagination) stays in the center. */
+.Toolbar:has(> .Toolbar__title, > .Toolbar__group > .Toolbar__title) {
+  justify-content: flex-start;
+}
+.Toolbar--short {
+  min-height: 40px;
+}
+/* The group can get narrower, thus a long title in it shows an ellipsis. */
+.Toolbar__group {
+  display: flex;
+  flex: 0 1 auto;
+  gap: var(--Toolbar-group-gap);
+  align-items: center;
+  min-width: 0;
+
+  &:empty {
+    display: none;
+  }
+}
+.Toolbar__group--s {
+  gap: var(--spacing-s);
+}
+/* It is a direct child of the toolbar, so the toolbar gives the gap. */
+.Toolbar__note {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: var(--font-size-xs);
+  color: var(--color--ink-subtle);
+  white-space: nowrap;
+}
+.Toolbar--border-bottom {
+  border-bottom: 1px solid var(--color--border);
+}
+.Toolbar--full {
+  > *:last-child {
+    margin-right: 0;
+  }
+  > *:first-child {
+    flex: 1;
+    margin-left: 0;
+  }
+}
+.Toolbar__back {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  align-self: stretch;
+  justify-content: center;
+  /* The width comes from the height. The height is the same as the
+     min-height of .Toolbar, thus the button is square. */
+  min-height: var(--Toolbar-height);
+  aspect-ratio: 1;
+  margin-left: 0 !important;
+  color: inherit;
+  border-right: 1px solid var(--color--border);
+
+  svg {
+    font-size: 16px;
+  }
+  @media (--lap) {
+    svg {
+      font-size: 20px;
+    }
+  }
+  &:hover,
+  &:focus {
+    background-color: var(--color--surface-muted);
+  }
+}
+.Toolbar__title {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: var(--font-size-m);
+  font-weight: bold;
+  line-height: 1.3;
+  letter-spacing: 0;
+  white-space: nowrap;
+
+  > svg {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    padding: 3px;
+    opacity: 0.2;
+  }
+}
+/* The emoji of a model at the start of the title. An emoji glyph goes below
+   the baseline more than the letters, thus its center is 0.05em lower than the
+   center of the capital letters. Move it up by the same distance. */
+.Toolbar__title > .ItemTypeEmoji {
+  position: relative;
+  top: -0.05em;
+  flex: none;
+}
+.Toolbar__title__text {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.Toolbar__help {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  border-radius: var(--radius-s);
+
+  & svg {
+    width: 12px;
+    height: 12px;
+    fill: var(--color--ink-subtle);
+  }
+  &:hover,
+  &.is-open {
+    background: var(--color--surface-hover);
+
+    & svg {
+      fill: var(--color--ink);
+    }
+  }
+}
+.Toolbar__help__body--secondary {
+  font-size: var(--font-size-xs);
+  color: var(--color--ink-subtle);
+}
+.Toolbar__help__body {
+  max-width: 420px;
+  font-size: var(--font-size-m);
+  line-height: 1.5;
+  white-space: normal;
+
+  p,
+  pre {
+    margin-bottom: 10px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  a:not(.button) {
+    font-weight: bold;
+    color: var(--color--ink-link);
+  }
+  code,
+  pre {
+    font-family: var(--monospaced-font-family);
+  }
+  pre {
+    padding: 8px;
+    overflow-x: auto;
+    font-size: var(--font-size-xs);
+    background: var(--color--surface-muted);
+    border-radius: var(--radius-s);
+  }
+}
+.Toolbar__subtitle {
+  flex: 0 0 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: var(--font-size-m);
+  color: var(--color--ink-subtle);
+  white-space: nowrap;
+}
+/* A subtitle that opens a menu (see TextualDropdown.tsx): it must not clip
+   the hover surface of its trigger */
+.Toolbar__subtitle--dropdown {
+  overflow: visible;
+}
+/* A long name of a saved filter shows an ellipsis, thus the title keeps its
+   space. */
+.Toolbar__saved-filters > .button {
+  display: inline-flex;
+  align-items: center;
+
+  > span {
+    max-width: 24ch;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+.Toolbar__space {
+  flex: 1;
+}
+.Toolbar__fill {
+  display: flex;
+  flex: 1;
+}
+/* It fills the full height of the toolbar, thus the line under the active tab
+   touches the bottom border of the toolbar. */
+.Toolbar__tabs {
+  display: flex;
+  flex: 0 1 auto;
+  align-self: stretch;
+  gap: var(--spacing-m);
+  min-width: 0;
+  overflow-x: auto;
+  white-space: nowrap;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+/* It fills the full height of the toolbar, thus its line touches the bottom
+   border of the toolbar. The text has the same typography as .Toolbar__title.
+   It is always bold, thus the width of the tab does not change when the tab
+   becomes active. */
+.Toolbar__tab {
+  --toolbar-tab--line: var(--base-distance-for-subtle-decoration-elements);
+
+  position: relative;
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  align-self: stretch;
+  overflow: hidden;
+  font-size: var(--font-size-m);
+  font-weight: bold;
+  line-height: 1.3;
+  color: var(--color--ink-subtle);
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+
+  &:after {
+    position: absolute;
+    right: var(--toolbar-tab--line);
+    bottom: calc(-2 * var(--toolbar-tab--line));
+    left: var(--toolbar-tab--line);
+    height: calc(2 * var(--toolbar-tab--line));
+    content: "";
+    background-color: var(--color--surface-muted);
+    transition: bottom 0.2s var(--material-ease);
+  }
+  &:hover:after,
+  &:focus-visible:after {
+    bottom: 0;
+  }
+}
+.Toolbar__tab--active {
+  color: var(--color--ink);
+
+  &:after {
+    bottom: 0;
+    background-color: var(--color--primary--surface);
+  }
+}
+.Toolbar__title--dropdown {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  border-radius: var(--radius-s);
+
+  /* The label can get narrower than its content: a long label (the file
+     name of an asset) shows an ellipsis */
+  > span {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  > svg {
+    flex: none;
+    margin-left: 10px;
+  }
+}
+.Toolbar__search__search {
+  padding: 9px 9px 9px 18px;
+  line-height: 1;
+  background: none;
+  border: 0;
+}
+input.Toolbar__search__input[type="text"] {
+  display: block;
+  width: 100%;
+  padding: 9px;
+  padding-right: 37px;
+}
+.Toolbar__filter {
+  display: flex;
+  flex: 1;
+  gap: var(--spacing-m);
+  align-items: center;
+  min-width: 0;
+}
+.Toolbar__filter__input {
+  padding: 0;
+  /* The filter has no field look. The global style of text inputs adds a
+     "raised" background, that is visible in dark mode. */
+  background: transparent;
+  border: none;
+
+  &:focus {
+    border: none;
+    box-shadow: none;
+  }
+}
+.Toolbar__filter__icon {
+  display: inline-flex;
+  align-items: center;
+  font-size: 1.1em;
+
+  svg {
+    fill: var(--color--ink);
+  }
+}
+/* The filter has no field look, so the disabled state only dims it. The
+   ".Toolbar" prefix makes the selector stronger than the global disabled
+   style of text inputs, which adds a gray background. */
+.Toolbar .Toolbar__filter__input[disabled][disabled] {
+  cursor: not-allowed;
+  background: transparent;
+
+  &::placeholder {
+    color: var(--color--ink-disabled);
+  }
+}
+.Toolbar__filter__icon--disabled svg {
+  fill: var(--color--ink-disabled);
+}
+
+/* The menu of the title. Its button has no surface until hover, thus the
+   main button is clearly the main action. */
+.Toolbar__title-menu {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+}
+
+/* The spinner after the title (Toolbar.Spinner) */
+.Toolbar__spinner {
+  margin-left: var(--spacing-m);
+}

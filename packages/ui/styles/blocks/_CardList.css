@@ -1,0 +1,217 @@
+/* See CardList.tsx. An item has the same structure as a block of a record
+   (see .RichContentItem). */
+.CardList {
+  /* The radius of the card less its border, for the corners of the rows on
+     hover */
+  --CardList-inner-radius: calc(var(--radius-s) - 1px);
+  /* The space at the sides of the header and of the rows. The text of the
+     rows starts at this inset. */
+  --CardList-inset: var(--spacing-m);
+  /* The padding of the body of an item. It is larger than the inset of the
+     rows, as the body of a block of a record. */
+  --CardList-body-inset: var(--spacing-l);
+
+  background-color: var(--color--surface-raised);
+  border: 1px solid var(--color--border);
+  border-radius: var(--radius-s);
+}
+
+.CardList__header {
+  box-sizing: border-box;
+  display: flex;
+  gap: var(--spacing-s);
+  align-items: center;
+  width: 100%;
+  padding: var(--CardList-inset);
+  font: inherit;
+  color: var(--color--ink);
+  text-align: left;
+  background: none;
+  border: 0;
+  border-radius: var(--CardList-inner-radius);
+
+  &:has(+ .CardList__items) {
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+}
+.CardList__header--toggle {
+  cursor: pointer;
+
+  &:hover:not(:disabled) {
+    background: var(--color--surface-hover);
+  }
+  &:disabled {
+    cursor: default;
+  }
+}
+.CardList__image {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 1rem;
+
+  svg {
+    fill: var(--color--ink-subtle);
+  }
+}
+.CardList__title {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.CardList__aside {
+  flex: none;
+  color: var(--color--ink-subtle);
+}
+.CardList__trailing {
+  display: flex;
+  flex: none;
+  gap: var(--spacing-s);
+  margin-left: auto;
+}
+
+.CardList__items {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+
+  &:not(:first-child) {
+    border-top: 1px solid var(--color--border);
+  }
+}
+.CardList__item + .CardList__item {
+  border-top: 1px solid var(--color--border);
+}
+/* The height and the padding of the row do not change when the body of the
+   item opens below it, thus the row does not move. */
+.CardList__row {
+  position: relative;
+  display: flex;
+  gap: var(--spacing-m);
+  align-items: center;
+  padding: var(--spacing-s) var(--CardList-inset);
+
+  /* A short line between the row and the body of an open item: it covers
+     the inset of the row, thus the body reads as a part of the row */
+  &:has(+ .CardList__body)::after {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: var(--spacing-l);
+    height: 1px;
+    content: "";
+    /* token-audit-disable-next-line mismatch -- a line between the row and the body, so it is a border */
+    background-color: var(--color--border);
+  }
+}
+/* A summary on two lines (an EntityRow with details or a kicker) is an item
+   of a list, not a strip: it gets the inset of the rows of the other lists
+   (see .RowList__content) */
+.CardList__row:has(
+    > .CardList__summary
+      > .EntityRow--row
+      > .EntityRow__content
+      > :is(.EntityRow__details, .EntityRow__kicker)
+  ) {
+  padding-block: var(--spacing-m);
+}
+.CardList__row--toggle {
+  cursor: pointer;
+
+  &:hover {
+    background: var(--color--surface-hover);
+  }
+}
+/* The rows on the corners of the card get the corners of the card on their
+   hover */
+.CardList__items:first-child > .CardList__item:first-child > .CardList__row {
+  border-top-left-radius: var(--CardList-inner-radius);
+  border-top-right-radius: var(--CardList-inner-radius);
+}
+.CardList__items:last-child
+  > .CardList__item:last-child
+  > .CardList__row:last-child {
+  border-bottom-right-radius: var(--CardList-inner-radius);
+  border-bottom-left-radius: var(--CardList-inner-radius);
+}
+.CardList__summary {
+  flex: 1;
+  min-width: 0;
+}
+/* The disclosure button has no look of its own: the row shows the hover */
+.CardList__summary--toggle {
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: inherit;
+  background: none;
+  border: 0;
+  border-radius: var(--radius-s);
+}
+/* The column has at least the width and the height of a micro icon-only
+   button (a menu, a trash), thus the icon actions of all the items line up,
+   and a row keeps its height when its menu becomes an icon button. A text
+   button (for example "Change") makes the column wider. The actions show
+   only when the user can use them, as the actions of a block of a record. */
+.CardList__actions {
+  display: flex;
+  flex: none;
+  align-items: center;
+  align-self: stretch;
+  justify-content: center;
+  min-width: calc(1lh + 2 * 0.3em);
+  min-height: calc(1lh + 2 * 0.3em);
+  opacity: 0;
+  transition: opacity 0.1s ease-in-out;
+
+  .CardList__item:is(:hover, :focus-within, .is-open) > .CardList__row > &,
+  &:has(.Dropdown.is-open),
+  .CardList--actions-always
+    > .CardList__items
+    > .CardList__item
+    > .CardList__row
+    > & {
+    opacity: 1;
+  }
+  @media (hover: none) {
+    & {
+      opacity: 1;
+    }
+  }
+}
+/* Only for the whole card: with one row with actions, the empty column of
+   the other rows keeps their height and right edge. The child combinators
+   skip a CardList in the body of an item. */
+.CardList:not(
+    :has(
+        > .CardList__items
+          > .CardList__item
+          > .CardList__row
+          > .CardList__actions:not(:empty)
+      )
+  ) > .CardList__items
+  > .CardList__item
+  > .CardList__row
+  > .CardList__actions {
+  display: none;
+}
+/* The fields of an item, with the inset of the body of a block of a
+   record (see .RichContentItem__body) */
+.CardList__body {
+  padding: var(--CardList-body-inset);
+
+  > :last-child {
+    margin-bottom: 0;
+  }
+}
+/* The button starts where the sentences of the rows start. */
+.CardList__footer {
+  display: flex;
+  padding: var(--spacing-s);
+  border-top: 1px solid var(--color--border);
+}

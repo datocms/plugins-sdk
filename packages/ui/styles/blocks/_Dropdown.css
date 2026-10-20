@@ -1,0 +1,559 @@
+/* .Dropdown.is-open: the menu is on the page (open or closing). Other
+   blocks use it to find an open menu. Do not use .Dropdown__spacer out of
+   this file. */
+.Dropdown {
+  position: relative;
+}
+.Dropdown__spacer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.Dropdown__textual-trigger {
+  display: flex;
+  gap: 0.5em;
+  align-items: center;
+  width: 100%;
+  width: auto;
+  padding: 0;
+  white-space: nowrap;
+
+  > span {
+    position: relative;
+    top: 0.06em;
+  }
+  svg {
+    display: inline-block;
+    line-height: 0.6;
+    vertical-align: middle;
+    fill: var(--color--ink-subtle);
+  }
+}
+
+/* The options are inset in the padding of the panel, so the highlight of an
+   option does not touch the edge */
+.Dropdown__menu {
+  /* The space between the edges of the panel and the options */
+  --Dropdown-padding: 4px;
+  /* The column at the left of the options that holds the check of the active
+     option or the drag grip */
+  --Dropdown-gutter: 24px;
+  /* The space at the sides of the text of an option */
+  --Dropdown-item-padding-x: 8px;
+  /* Menu.tsx sets a larger value with "optionPaddingY" for a menu of
+     options on two lines (an entity row with a title and details) */
+  --Dropdown-item-padding-y: 3px;
+  /* The height of an option, with its padding */
+  --Dropdown-item-min-height: 32px;
+  /* The height of the search field, with its bottom line */
+  --Dropdown-search-height: 37px;
+  --Dropdown-group-title-height: 26px;
+  /* The position where the group titles stick. The negative value moves them
+     up into the padding of the panel, so no option shows above them. */
+  --Dropdown-sticky-top: calc(-1 * var(--Dropdown-padding));
+
+  min-width: 200px;
+  max-height: var(--maxHeight);
+  padding: var(--Dropdown-padding);
+  overflow-y: auto;
+  text-align: initial;
+  scroll-padding-block: var(--Dropdown-padding);
+  background-color: var(--color--surface-raised);
+  border: 1px solid var(--color--border);
+  border-radius: var(--radius-m);
+  box-shadow: var(--shadow--floating);
+}
+/* The menu gets the focus when it opens (MenuContent.tsx), so that the
+   keyboard can move through the options. The highlighted option shows where
+   the user is, thus the panel keeps its shadow and gets no focus ring. */
+.Dropdown__menu:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow--floating);
+}
+.Dropdown__menu--no-overflow {
+  overflow-y: visible;
+}
+
+/* The menu comes from the side of the trigger. Menu.tsx sets "data-side" and
+   the "--Dropdown-origin" property on the container. */
+.Dropdown__menu-container {
+  &[data-side="bottom"] {
+    --Dropdown-enter-y: -4px;
+  }
+  &[data-side="top"] {
+    --Dropdown-enter-y: 4px;
+  }
+  &[data-side="right"] {
+    --Dropdown-enter-x: -4px;
+  }
+  &[data-side="left"] {
+    --Dropdown-enter-x: 4px;
+  }
+  .Dropdown__menu {
+    transform-origin: var(--Dropdown-origin, top left);
+    animation: Dropdown__menu-enter 150ms var(--ease-out);
+  }
+  &.is-closing {
+    pointer-events: none;
+
+    .Dropdown__menu {
+      animation: Dropdown__menu-exit 100ms ease-in forwards;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .Dropdown__menu,
+    &.is-closing .Dropdown__menu {
+      animation: none;
+    }
+  }
+}
+@keyframes Dropdown__menu-enter {
+  from {
+    opacity: 0;
+    transform: translate(var(--Dropdown-enter-x, 0), var(--Dropdown-enter-y, 0))
+      scale(0.97);
+  }
+}
+@keyframes Dropdown__menu-exit {
+  to {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+}
+
+.Dropdown__menu__group + .Dropdown__menu__group {
+  margin-top: var(--Dropdown-padding);
+}
+/* While you search, a group with no option that matches does not show its
+   title */
+.Dropdown__menu:has(.Dropdown__menu__search__input:not(:placeholder-shown))
+.Dropdown__menu__group:not(:has(.Dropdown__menu__option)) {
+  display: none;
+}
+.Dropdown__menu__group__title {
+  /* The title stays at the top while the options of its group scroll. The
+     title of the next group pushes it away. */
+  position: sticky;
+  top: var(--Dropdown-sticky-top);
+  z-index: 1;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  padding: 6px var(--Dropdown-item-padding-x) 2px;
+  background-color: var(--color--surface-raised);
+
+  > svg {
+    flex: none;
+    font-size: 12px;
+    fill: currentColor;
+  }
+}
+/* In a menu with a search field, the group titles stick below the field */
+.Dropdown__menu:has(> .Dropdown__menu__search) {
+  --Dropdown-sticky-top: calc(
+    var(--Dropdown-search-height) -
+    var(--Dropdown-padding)
+  );
+}
+/* The arrow keys scroll the highlighted option into view below the sticky
+   group title, not behind it */
+.Dropdown__menu:has(.Dropdown__menu__group__title) {
+  scroll-padding-top: calc(
+    var(--Dropdown-sticky-top) +
+    var(--Dropdown-padding) +
+    var(--Dropdown-group-title-height)
+  );
+}
+/* The text has the same space above and below as the text of an option */
+.Dropdown__menu__text {
+  position: relative;
+  display: block;
+  padding: 6px var(--Dropdown-item-padding-x);
+  line-height: 1.3;
+  color: var(--color--ink-subtle);
+  text-align: left;
+}
+/* Free content in a menu, in the place of the options: a small form with
+   one or two fields and a submit button (see DateTimeDropdown and
+   ChangePositionDropdown), a text (see Toolbar.Help), a spinner */
+.Dropdown__menu__body {
+  padding: 12px 16px;
+
+  .form__field {
+    margin-bottom: var(--spacing-m);
+  }
+}
+.Dropdown__menu__blank_slate {
+  padding: var(--spacing-m) var(--Dropdown-item-padding-x);
+  color: var(--color--ink-subtle);
+}
+
+.Dropdown__menu__search {
+  position: sticky;
+  /* The sticky position starts below the padding of the panel. The negative
+     value moves the field up into the padding, so no option shows above it. */
+  top: calc(-1 * var(--Dropdown-padding));
+  z-index: 2;
+  margin: calc(-1 * var(--Dropdown-padding)) calc(-1 * var(--Dropdown-padding))
+    var(--Dropdown-padding);
+  background-color: var(--color--surface-raised);
+  border-bottom: 1px solid var(--color--border);
+
+  > svg {
+    position: absolute;
+    top: 50%;
+    left: 12px;
+    font-size: 15px;
+    pointer-events: none;
+    fill: var(--color--ink-subtle);
+    transform: translateY(-50%);
+  }
+  /* Two classes, so this rule is stronger than the global rules of the text
+     inputs */
+  .Dropdown__menu__search__input {
+    height: 36px;
+    padding: 0 12px 0 36px;
+    font-size: inherit;
+    background-color: transparent;
+    border: 0;
+    border-radius: 0;
+
+    &:hover,
+    &:focus {
+      border: 0;
+      box-shadow: none;
+    }
+  }
+}
+
+.Dropdown__menu__option {
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  min-height: var(--Dropdown-item-min-height);
+  padding: var(--Dropdown-item-padding-y) var(--Dropdown-item-padding-x);
+  line-height: 20px;
+  color: var(--color--ink);
+  text-align: left;
+  white-space: nowrap;
+  text-decoration: none;
+  border-radius: var(--radius-s);
+
+  &.is-clickable-wrapper {
+    cursor: pointer;
+  }
+  /* There is only one highlighted option. Option.tsx moves "is-selected" to
+     the option below the pointer, and the arrow keys of the search field move
+     it too. */
+  &.is-hover,
+  &.is-selected,
+  &:focus-visible,
+  &:has(> .Dropdown__menu__option__content:focus-visible) {
+    background-color: var(--color--surface-raised-hover);
+  }
+  &.is-disabled {
+    opacity: var(--disabled-opacity);
+
+    &.is-clickable-wrapper {
+      cursor: not-allowed;
+    }
+    .Dropdown__menu__option__content {
+      cursor: not-allowed;
+    }
+  }
+  /* A dangerous option is red also when it is not highlighted, so the user
+     sees the risk before the pointer is on it */
+  &.is-dangerous {
+    color: var(--color--ink-danger);
+
+    .Dropdown__menu__option__content > svg {
+      fill: currentColor;
+    }
+  }
+  &.is-dangerous.is-hover,
+  &.is-dangerous.is-selected,
+  &.is-dangerous:has(> .Dropdown__menu__option__content:focus-visible) {
+    color: var(--color--danger-soft--ink);
+    background-color: var(--color--danger-soft--surface);
+  }
+  &.is-sortable {
+    cursor: grab;
+
+    > svg {
+      position: absolute;
+      top: 50%;
+      /* Puts the 14px grip at the center of the gutter */
+      left: calc((var(--Dropdown-gutter) - 14px) / 2);
+      fill: var(--color--ink-subtle);
+      transform: translateY(-50%);
+
+      @media (hover: hover) {
+        opacity: 0;
+        transition: opacity 0.1s ease-in-out;
+      }
+    }
+    &:hover > svg,
+    &:focus-within > svg {
+      opacity: 1;
+    }
+    &.is-hover,
+    &.is-selected {
+      background-color: transparent;
+    }
+  }
+  > input[type="checkbox"] {
+    flex: none;
+    margin: 0 8px 0 0;
+  }
+}
+.Dropdown__menu__option__indicator {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--Dropdown-gutter);
+  pointer-events: none;
+
+  svg {
+    font-size: 12px;
+    fill: currentColor;
+  }
+}
+.Dropdown__menu__option__chevron {
+  display: flex;
+  flex: none;
+  align-items: center;
+  margin-right: -2px;
+  margin-left: 16px;
+
+  svg {
+    font-size: 12px;
+    fill: var(--color--ink-subtle);
+  }
+}
+.Dropdown__menu__option__validity_icon {
+  flex: none;
+  width: 12px;
+  height: 12px;
+  margin-left: 8px;
+}
+.Dropdown__menu__option__content {
+  display: flex;
+  flex: 1;
+  gap: 8px;
+  align-items: center;
+  width: 100%;
+  color: inherit;
+  text-align: left;
+  text-decoration: none;
+
+  > svg {
+    display: inline-block;
+    flex: none;
+    font-size: 16px;
+    vertical-align: middle;
+    fill: var(--color--ink-subtle);
+  }
+  /* Plugin-injected actions render their icon through .PluginIcon; normalize it
+     to match native option icons (muted fill, sizing and spacing). */
+  .PluginIcon {
+    margin-right: 0;
+    font-size: 16px;
+  }
+  /* The rule of _PluginIcon.css (fill: currentColor) comes later in the
+     styles: the two classes make this rule stronger */
+  > .PluginIcon.PluginIcon--svg {
+    fill: var(--color--ink-subtle);
+  }
+  > .Dropdown__menu__option__image {
+    flex: none;
+    width: 16px;
+    height: 16px;
+    border-radius: var(--radius-xs);
+  }
+  /* At a 16px font size, the emoji glyph fills the box as much as an SVG
+     icon */
+  > .ItemTypeEmoji,
+  > .PluginIcon--emoji {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    font-size: 16px;
+    line-height: 1;
+  }
+  code {
+    margin-bottom: 2px;
+    font-family: var(--monospaced-font-family);
+    color: var(--color--ink-subtle);
+  }
+}
+/* When a menu has active or sortable options, all the rows of the menu get
+   the gutter, so the labels stay aligned. The ":where()" keeps the
+   specificity low. */
+:where(
+    .Dropdown__menu:has(
+        .Dropdown__menu__option.is-sortable,
+        .Dropdown__menu__option.is-selectable
+      )
+  ) {
+  .Dropdown__menu__group__title,
+  .Dropdown__menu__text,
+  .Dropdown__menu__blank_slate,
+  .Dropdown__menu__option {
+    padding-left: var(--Dropdown-gutter);
+  }
+}
+.Dropdown__menu__option__icons {
+  display: flex;
+  align-items: center;
+  padding-left: 16px;
+  margin-right: -4px;
+}
+.Dropdown__menu__option__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px;
+  border-radius: var(--radius-s);
+
+  svg {
+    fill: var(--color--ink-subtle);
+  }
+}
+/* The button is a square as tall as the option. The negative margin takes
+   the vertical padding of the option. Thus the click and the tooltip work on
+   the whole height of the row. */
+button.Dropdown__menu__option__icon {
+  width: var(--Dropdown-item-min-height);
+  height: var(--Dropdown-item-min-height);
+  padding: 0;
+  margin-block: calc(-1 * var(--Dropdown-item-padding-y));
+  opacity: 0;
+  transition: opacity 0.1s ease-in-out;
+
+  .Dropdown__menu__option:hover &,
+  .Dropdown__menu__option.is-selected &,
+  &:focus-visible {
+    opacity: 1;
+  }
+  &:hover,
+  &:focus-visible {
+    background-color: var(--color--surface-raised-active);
+
+    svg {
+      fill: var(--color--ink);
+    }
+  }
+}
+.Dropdown__menu__option__icon--delete svg {
+  fill: var(--color--danger-soft--ink);
+}
+button.Dropdown__menu__option__icon--delete:hover svg,
+button.Dropdown__menu__option__icon--delete:focus-visible svg {
+  fill: var(--color--danger-soft--ink);
+}
+.Dropdown__menu__separator {
+  height: 1px;
+  margin: var(--Dropdown-padding) calc(-1 * var(--Dropdown-padding));
+  /* token-audit-disable-next-line mismatch -- 1px separator rule */
+  background-color: var(--color--border);
+}
+/* The footer stays at the bottom of the panel when the options scroll. The
+   negative bottom value and margin move it down into the padding of the
+   panel, so no option shows below it. */
+.Dropdown__menu__footer {
+  position: sticky;
+  bottom: calc(-1 * var(--Dropdown-padding));
+  z-index: 1;
+  padding: 8px calc(var(--Dropdown-item-padding-x) + var(--Dropdown-padding));
+  margin: var(--Dropdown-padding) calc(-1 * var(--Dropdown-padding))
+    calc(-1 * var(--Dropdown-padding));
+  background-color: var(--color--surface-raised);
+  border-top: 1px solid var(--color--border);
+
+  &:only-child {
+    position: static;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin: 0;
+    border: none;
+  }
+}
+.Dropdown__menu__footer--options {
+  padding: var(--Dropdown-padding);
+}
+.Dropdown__menu__mobile-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: auto;
+
+  .Dropdown__menu {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+.Dropdown__menu__mobile-content {
+  position: absolute;
+  top: calc(4 * var(--space-unit));
+  right: var(--spacing-l);
+  left: var(--spacing-l);
+  z-index: 2;
+  margin-bottom: calc(6 * var(--space-unit));
+  pointer-events: auto;
+  animation: FullscreenDropdown__appear 0.2s ease-out forwards;
+}
+@keyframes FullscreenDropdown__appear {
+  0% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* The backdrop of the menu on a small screen. It is not the backdrop of a
+   modal (.Modal__backdrop): the menu is not a modal, and the two can change
+   separately. */
+.Dropdown__menu__mobile-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: var(--color--backdrop--surface);
+  backdrop-filter: blur(4px);
+  animation: Dropdown__menu__mobile-backdrop__appear 0.2s var(--ease-out) both;
+}
+@keyframes Dropdown__menu__mobile-backdrop__appear {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+/* The title is in the panel, on its surface: on the backdrop, a light text
+   has too little contrast in the light theme */
+.Dropdown__menu__title {
+  padding: 8px calc(var(--Dropdown-item-padding-x) + var(--Dropdown-padding));
+  margin: calc(-1 * var(--Dropdown-padding)) calc(-1 * var(--Dropdown-padding))
+    var(--Dropdown-padding);
+  font-weight: var(--font-weight-bold);
+  color: var(--color--ink);
+  border-bottom: 1px solid var(--color--border);
+}
+/* On small screens the options and the close button are two panels, one
+   below the other */
+.Dropdown__menu__mobile-content .Dropdown__menu + .Dropdown__menu {
+  margin-top: var(--spacing-s);
+}

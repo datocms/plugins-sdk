@@ -1,0 +1,80 @@
+/* The element that has the indicator must have a position */
+.DropIndicator {
+  --DropIndicator-thickness: 2px;
+  --DropIndicator-dot-size: 8px;
+
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+  /* The line is an edge marker, thus it has the color of the ring of the
+     other drop targets */
+  /* token-audit-disable-next-line mismatch */
+  background-color: var(--color--selected--border);
+
+  &::before {
+    position: absolute;
+    box-sizing: border-box;
+    width: var(--DropIndicator-dot-size);
+    height: var(--DropIndicator-dot-size);
+    content: "";
+    background-color: var(--color--surface-raised);
+    border: var(--DropIndicator-thickness) solid var(--color--selected--border);
+    border-radius: var(--radius-full);
+  }
+}
+.DropIndicator--top,
+.DropIndicator--bottom {
+  right: 0;
+  left: var(--DropIndicator-inset);
+  height: var(--DropIndicator-thickness);
+
+  &::before {
+    top: 50%;
+    left: 0;
+    transform: translate(-100%, -50%);
+  }
+}
+.DropIndicator--top {
+  top: calc(
+    -0.5 *
+    var(--DropIndicator-gap) -
+    0.5 *
+    var(--DropIndicator-thickness)
+  );
+}
+.DropIndicator--bottom {
+  bottom: calc(
+    -0.5 *
+    var(--DropIndicator-gap) -
+    0.5 *
+    var(--DropIndicator-thickness)
+  );
+}
+.DropIndicator--left,
+.DropIndicator--right {
+  top: var(--DropIndicator-inset);
+  bottom: 0;
+  width: var(--DropIndicator-thickness);
+
+  &::before {
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -100%);
+  }
+}
+.DropIndicator--left {
+  left: calc(
+    -0.5 *
+    var(--DropIndicator-gap) -
+    0.5 *
+    var(--DropIndicator-thickness)
+  );
+}
+.DropIndicator--right {
+  right: calc(
+    -0.5 *
+    var(--DropIndicator-gap) -
+    0.5 *
+    var(--DropIndicator-thickness)
+  );
+}

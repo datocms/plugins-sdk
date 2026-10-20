@@ -1,0 +1,59 @@
+.SegmentedControl {
+  /* The hover surface changes on a raised surface */
+  --SegmentedControl-surface-hover: var(--color--surface-hover);
+
+  display: flex;
+  align-items: stretch;
+  width: fit-content;
+  font-size: var(--font-size-m);
+}
+.SegmentedControl__button {
+  display: flex;
+  gap: 0.5em;
+  align-items: center;
+  justify-content: center;
+  /* The size class sets the variables (see _button.css). The fallbacks are
+     the values of the plain ".button" ("regular" and "large"). */
+  padding: var(--button-pad-y, 0.7em) var(--button-pad-x, 1em);
+  font-family: var(--font-family);
+  font-size: inherit;
+  color: var(--color--ink-subtle);
+  white-space: nowrap;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  border-radius: var(--radius-s);
+  transition: background-color 0.2s var(--material-ease);
+
+  svg {
+    width: 1em;
+    height: 1em;
+    fill: currentColor;
+  }
+  &:hover:not(:disabled),
+  &:focus-visible {
+    color: var(--color--ink);
+    background: var(--SegmentedControl-surface-hover);
+  }
+  /* After the hover rule: the selected option keeps its surface on hover */
+  &.is-selected,
+  &.is-selected:hover:not(:disabled) {
+    color: var(--color--selected--ink);
+    background: var(--color--selected--surface);
+  }
+  &:disabled {
+    cursor: not-allowed;
+    opacity: var(--disabled-opacity);
+  }
+}
+.SegmentedControl--fill {
+  width: auto;
+
+  .SegmentedControl__button {
+    flex: 1;
+  }
+}
+/* In a menu the options are on a raised surface */
+.Dropdown__menu .SegmentedControl {
+  --SegmentedControl-surface-hover: var(--color--surface-raised-hover);
+}

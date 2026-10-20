@@ -1,5 +1,4 @@
 import * as fs from 'node:fs';
-import * as glob from 'glob';
 import * as ts from 'typescript';
 import type {
   CodeLocation,
@@ -504,10 +503,14 @@ const sharedCtxTypes: SharedCtxTypes = {
 // Function to check if a file ends with .guard.ts
 const isGuardFile = (fileName: string) => fileName.endsWith('.guard.ts');
 
-// Use glob to dynamically retrieve all .ts files from src/hooks/ folder
-const hookFiles = glob
-  .sync('src/hooks/*.ts')
-  .filter((file) => !isGuardFile(file));
+// The .ts files of src/hooks/, in reverse order of their names. The order
+// does not depend on the file system, and it keeps the order of the keys of
+// manifest.json.
+const hookFiles = fs
+  .globSync('src/hooks/*.ts')
+  .filter((file) => !isGuardFile(file))
+  .sort()
+  .reverse();
 
 // Process each file and extract hook info
 const hooks = hookFiles.map((file) => processFile(file, sharedCtxTypes));

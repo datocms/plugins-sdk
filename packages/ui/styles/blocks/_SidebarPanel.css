@@ -1,0 +1,72 @@
+.SidebarPanel {
+  /* The space between the edges of the panel and its title and content. A
+     flush content has no padding: it uses this inset to keep its text in line
+     with the title. */
+  --SidebarPanel-inset: var(--spacing-l);
+  /* The space between the hover surface of the header and the edges, the
+     same on all the sides. The side padding of the header is the rest of the
+     inset. */
+  --SidebarPanel-header-margin: var(--spacing-s);
+
+  border-bottom: 1px solid var(--color--border);
+}
+/* The margin and the padding put the title at the inset, in line with the
+   content. The chevron is after the title. Before the title, it pushes the
+   title out of line with the content, and the inset has no space for it. */
+.SidebarPanel__header {
+  box-sizing: border-box;
+  display: flex;
+  gap: var(--spacing-s);
+  align-items: center;
+  width: calc(100% - 2 * var(--SidebarPanel-header-margin));
+  padding: var(--spacing-s)
+    calc(var(--SidebarPanel-inset) - var(--SidebarPanel-header-margin));
+  margin: var(--SidebarPanel-header-margin);
+  color: var(--color--ink);
+  text-align: left;
+  user-select: none;
+  background-color: transparent;
+  border-radius: var(--row-radius);
+
+  &:hover,
+  &:focus-visible {
+    background-color: var(--color--surface-hover);
+  }
+}
+.SidebarPanel__header__title {
+  flex: 1;
+  min-width: 0;
+  font-weight: 600;
+}
+.SidebarPanel__header__count {
+  margin-left: var(--spacing-s);
+  font-weight: normal;
+  color: var(--color--ink-subtle);
+}
+.SidebarPanel__content {
+  padding: 4px var(--SidebarPanel-inset) var(--SidebarPanel-inset);
+}
+.SidebarPanel__content--flush {
+  padding: 0;
+}
+.SidebarPanel__content--scrollable {
+  overflow: auto;
+}
+.SidebarPanel__blank {
+  margin-bottom: var(--spacing-s);
+  color: var(--color--ink-subtle);
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  .SidebarPanel__content--flush > & {
+    padding: 4px var(--SidebarPanel-inset) var(--SidebarPanel-inset);
+    margin-bottom: 0;
+  }
+}
+/* The negative margin puts the text of the ghost button on the left edge of
+   the content */
+.SidebarPanel__action {
+  margin-left: -0.8em;
+}

@@ -1,0 +1,43 @@
+/* Both are kbd elements: the normalize sheet gives a kbd the monospace font */
+.HotKey,
+.HotKey__key {
+  font-family: inherit;
+}
+.HotKey {
+  display: inline-flex;
+  gap: var(--spacing-s);
+}
+.HotKey__key {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-s);
+  line-height: 1;
+  color: var(--color--primary-soft--ink);
+  background-color: var(--color--primary-soft--surface);
+  border-radius: var(--radius-s);
+}
+.HotKeyManagerInfo {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  padding: var(--spacing-l);
+  color: var(--color--ink);
+  background-color: var(--color--surface-raised);
+  border: 1px solid var(--color--border);
+  border-bottom-right-radius: var(--radius-m);
+  border-bottom-left-radius: var(--radius-m);
+  transform: translateX(-50%);
+}
+.HotKeyManagerInfo__title {
+  margin-bottom: var(--spacing-m);
+  font-weight: bold;
+}
+.HotKeyManagerInfo__hotkey {
+  display: flex;
+  gap: var(--spacing-l);
+  align-items: center;
+  margin-bottom: var(--spacing-m);
+}
+.HotKeyManagerInfo__hotkey__description {
+  flex: 1;
+}

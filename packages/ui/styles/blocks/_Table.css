@@ -1,0 +1,383 @@
+.Table {
+  /* The space at the sides of the text of a cell. The first and the last
+     cells line up with the title of the toolbar above the table. */
+  --horizontal-cell-padding: var(--spacing-l);
+  /* The row has the height of one line with the inset of the other lists
+     (--spacing-m). Taller content (an image) keeps only this small padding,
+     thus it does not make the row much higher. */
+  --vertical-cell-padding: var(--spacing-s);
+  --Table-row-min-height: calc(1lh + 2 * var(--spacing-m));
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  margin-bottom: var(--spacing-xxl);
+}
+.Table--sortable {
+  margin-left: var(--horizontal-cell-padding);
+}
+.Table__row {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  text-decoration: none;
+  background: var(--color--surface-raised);
+  border-bottom: 1px solid var(--color--border);
+
+  &:hover,
+  &:focus {
+    background-color: var(--color--surface-hover);
+
+    .Table__content.is-dragging-over & {
+      background-color: var(--color--surface-raised);
+    }
+  }
+}
+.Table__row--openable {
+  cursor: pointer;
+  transition: background-color 0.1s ease-out;
+
+  &:focus-visible {
+    outline: none;
+    background-color: var(--color--surface-hover);
+  }
+}
+/* A muted row is still a link, thus its text keeps 4.5:1: only the images
+   fade */
+.Table__row--muted .Table__row__inner {
+  color: var(--color--ink-subtle);
+
+  & :is(svg, img) {
+    opacity: var(--disabled-opacity);
+  }
+}
+/* The click on the row also gives it the focus, thus these rules must win
+   over the focus rule of .Table__row. */
+.Table__row.Table__row--active {
+  --button-ghost-hover-surface: var(--color--selected--surface-active);
+  --button-ghost-hover-ink: var(--color--selected--ink);
+  color: var(--color--selected--ink);
+  background-color: var(--color--selected--surface);
+
+  &:hover,
+  &:focus-visible {
+    background-color: var(--color--selected--surface-hover);
+  }
+}
+.Table__row__inner {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  min-width: 0;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.Table__row__trailing {
+  display: flex;
+  flex: none;
+  gap: var(--spacing-s);
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: var(--spacing-s);
+  opacity: 0;
+  transition: opacity 0.1s ease-in-out;
+
+  .Table__row:hover &,
+  .Table__row:focus-within &,
+  &:has([aria-expanded="true"]) {
+    opacity: 1;
+  }
+  @media (hover: none) {
+    opacity: 1;
+  }
+  @media (--small-viewport) {
+    opacity: 1;
+  }
+}
+/* On a phone, a tap on the row opens its panel, which has the same
+   actions. The header keeps no space for the controls. */
+@media (--palm) {
+  .Table__row--openable .Table__row__trailing,
+  .Table:has(.Table__row--openable) .Table__header .Table__row__trailing {
+    display: none;
+  }
+}
+.Table__settings {
+  position: absolute;
+  top: 50%;
+  right: 0px;
+  z-index: 1;
+  padding-left: 8px;
+  font-size: var(--font-size-m);
+  /* The label of the last column goes under the button. The background
+     covers it, and it fades in on the padding. */
+  background: linear-gradient(to right, transparent, var(--color--surface) 8px);
+  transform: translateY(-50%);
+}
+.Table__cell {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  min-height: var(--Table-row-min-height);
+  padding: var(--vertical-cell-padding) 0 var(--vertical-cell-padding)
+    var(--horizontal-cell-padding);
+  overflow: hidden;
+
+  &:last-child {
+    padding-right: var(--horizontal-cell-padding);
+  }
+}
+
+.Table__cell__truncate {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.Table__cell--first-real-cell {
+  .Table--tree & {
+    align-items: stretch;
+    padding-left: 0;
+    overflow: visible;
+    overflow-x: clip;
+
+    > .Table__first-cell-wrapper > * {
+      align-content: center;
+    }
+  }
+}
+.Table__cell--row-selection {
+  padding: var(--vertical-cell-padding) 0.6rem;
+}
+/* The line above a nested row of a tree starts at its content (see
+   .Table__first-cell-wrapper::before), thus the selection cell at its left
+   masks the line too. The line is the border of the row above: the mask
+   goes up by its width. */
+.Table__row:has(.Table__first-cell-wrapper--nested)
+> .Table__cell--row-selection {
+  position: relative;
+  overflow: visible;
+
+  &::before {
+    position: absolute;
+    top: -1px;
+    right: 0;
+    left: 0;
+    z-index: 1;
+    pointer-events: none;
+    content: "";
+    /* token-audit-disable-next-line mismatch -- surface-colored line masks the row separator across the tree indentation gutter */
+    border-top: 1px solid var(--color--surface);
+  }
+}
+.Table__row-wrapper {
+  position: relative;
+  display: flex;
+  flex: 1;
+}
+/* The card of the rows has a border, thus the last row has no line below
+   it. In a tree, the rows are in ".SortableTree", not directly in the
+   card, and the drop space of the tree can come after the last row. */
+.Table__content .Table__row-wrapper:is(
+    :last-child,
+    :has(+ .SortableTree__tail:last-child)
+  )
+  > .Table__row {
+  border-bottom: 0;
+}
+/* The drop cue of the row stays on top of the next row */
+.Table__row-wrapper:has(> .Table__row.is-over) {
+  z-index: 1;
+}
+.Table__row-handle--disabled {
+  cursor: not-allowed;
+
+  svg {
+    fill: var(--color--ink-disabled);
+  }
+}
+.Table__header {
+  position: relative;
+  font-size: var(--font-size-xs);
+  color: var(--color--ink-subtle);
+
+  .Table__row {
+    background-color: transparent;
+    border-bottom: 0;
+
+    &:hover,
+    &:focus {
+      background-color: transparent;
+    }
+  }
+  .Table__row__inner {
+    cursor: auto;
+  }
+}
+.Table__header-cell {
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  border-right: 1px solid var(--color--border);
+
+  &:last-child {
+    border-right-width: 0;
+  }
+}
+.Table__header-cell--checkbox {
+  display: flex;
+  align-items: center;
+
+  input[type="checkbox"] {
+    margin-right: initial;
+  }
+}
+/* The same size and color as a chevron (see _Chevron.css) */
+.Table__header-cell__cell__direction svg {
+  width: max(10px, 0.75em);
+  height: max(10px, 0.75em);
+  vertical-align: middle;
+  fill: var(--color--ink-subtle);
+}
+.Table__header-cell__cell {
+  flex: 1;
+  padding: var(--spacing-m) var(--horizontal-cell-padding);
+  padding-right: 0;
+  overflow: hidden;
+  white-space: nowrap;
+
+  .Table--tree .Table__header-cell--first-real-cell & {
+    padding-left: 0;
+  }
+  a {
+    color: var(--color--ink-subtle);
+    text-decoration: none;
+
+    &:hover,
+    &:focus {
+      text-decoration: underline;
+    }
+  }
+}
+.Table__header-cell__resize {
+  position: absolute;
+  top: 0;
+  right: -5px;
+  bottom: 0;
+  z-index: 2;
+  width: 10px;
+  cursor: col-resize;
+}
+/* The handle is on the left padding of the cell, thus the label does not
+   move when the handle shows. */
+.Table__header-cell__reorder {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--horizontal-cell-padding);
+}
+.Table__content {
+  background-color: var(--color--surface-raised);
+  border: 1px solid var(--color--border);
+  border-radius: var(--radius-s);
+}
+.Table--selectable {
+  .Table__row {
+    &:hover,
+    &:focus {
+      cursor: pointer;
+    }
+  }
+
+  .Table__row--selected {
+    display: flex;
+    flex: 1;
+    min-width: 0;
+    text-decoration: none;
+    cursor: pointer;
+    border-bottom: 1px solid var(--color--border);
+  }
+}
+.Table__cell--checkbox {
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+
+  input[type="checkbox"] {
+    margin-right: initial;
+  }
+}
+.Table__row .Table__cell--checkbox:not(.Table__cell--color-transparent) {
+  opacity: 0;
+  transition: opacity 0.1s ease-in-out;
+
+  .Table__row:hover &,
+  .Table__row:focus-within &,
+  .Table__row--selected &,
+  .Table--checkboxes-visible & {
+    opacity: 1;
+  }
+  @media (hover: none) {
+    opacity: 1;
+  }
+}
+.Table__first-cell-wrapper {
+  position: relative;
+  display: flex;
+  gap: calc(var(--horizontal-cell-padding) / 2);
+  align-items: center;
+  align-items: stretch;
+
+  &::before {
+    position: absolute;
+    bottom: calc(-1 * var(--vertical-cell-padding));
+    left: 0;
+    z-index: 1;
+    width: var(--indentation-width);
+    height: calc(2 * var(--vertical-cell-padding) + 100%);
+    pointer-events: none;
+    content: "";
+    /* token-audit-disable-next-line mismatch -- surface-colored line masks the row separator across the tree indentation gutter */
+    border-top: 1px solid var(--color--surface);
+  }
+}
+/* The toggle of the child rows of a tree, or its space. Its box covers the
+   height of the cell, thus a click near the chevron hits it. */
+.Table__toggle {
+  box-sizing: content-box;
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: right;
+  padding-inline: calc(var(--horizontal-cell-padding) / 2);
+  padding-top: var(--vertical-cell-padding);
+  padding-bottom: var(--vertical-cell-padding);
+  margin-top: calc(-1 * var(--vertical-cell-padding));
+  margin-bottom: calc(-1 * var(--vertical-cell-padding));
+  appearance: none;
+  background: transparent;
+  border: 0;
+
+  &:is(button):not(:disabled, [aria-disabled="true"]) {
+    cursor: pointer;
+  }
+}
+/* The box of a disclosure chevron (see _Chevron.css), thus the rows align */
+.Table__toggle__dash {
+  flex: none;
+  width: max(10px, 0.75em);
+  height: max(10px, 0.75em);
+  fill: var(--color--ink-subtle);
+}
+.Table__cell--color-transparent {
+  opacity: 0;
+}

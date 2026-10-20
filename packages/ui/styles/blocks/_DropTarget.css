@@ -1,0 +1,68 @@
+/* The only cue of a target that takes the dragged element in it: the surface
+   behind the content, the ring on top. In the target, boxes with their own
+   background become transparent, and hover controls hide. */
+/* Blocks can set these values: --DropTarget-inset (negative values put the
+   cue out of the element), --DropTarget-z-index, --DropTarget-radius (the
+   corners of the cue, when they must not be the corners of the element) and
+   --DropTarget-ring-color (on a surface where the selected border is not
+   legible). */
+.DropTarget {
+  position: relative;
+}
+.DropTarget.is-over {
+  /* Keeps the surface (z-index -1) in front of the backgrounds */
+  isolation: isolate;
+
+  &::before,
+  &::after {
+    position: absolute;
+    inset: var(--DropTarget-inset, 0px);
+    pointer-events: none;
+    content: "";
+    border-radius: var(--DropTarget-radius, inherit);
+  }
+  &::before {
+    z-index: -1;
+    background-color: var(--color--selected--surface);
+  }
+  &::after {
+    z-index: var(--DropTarget-z-index, 5);
+    box-shadow: inset 0 0 0 2px
+      var(--DropTarget-ring-color, var(--color--selected--border));
+  }
+}
+/* The target refuses the element that the user drags. The browser shows the
+   "no drop" cursor: a CSS cursor has no effect during a native drag. */
+.DropTarget.is-refused {
+  opacity: var(--disabled-opacity);
+}
+/* For targets as large as the page */
+.DropTarget--ring-only.is-over::before {
+  display: none;
+}
+/* A short text in the center of the target, for example "Drop to replace".
+   A veil dims and blurs the content of the target, so the text is legible
+   on any content. The veil is in the ring (2px), with a gap of 4px, thus the
+   ring stays a separate line. */
+.DropTarget__label {
+  position: absolute;
+  inset: calc(var(--DropTarget-inset, 0px) + 6px);
+  z-index: calc(var(--DropTarget-z-index, 5) - 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  background-color: var(--color--overlay--surface);
+  border-radius: var(--radius-s);
+  backdrop-filter: blur(4px);
+
+  > span {
+    padding: var(--spacing-s) var(--spacing-m);
+    font-size: var(--font-size-m);
+    color: var(--color--ink);
+    white-space: nowrap;
+    background-color: var(--color--surface-raised);
+    border-radius: var(--radius-full);
+    box-shadow: var(--shadow--floating);
+  }
+}

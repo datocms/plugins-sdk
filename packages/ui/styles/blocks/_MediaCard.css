@@ -1,0 +1,216 @@
+.MediaCard {
+  position: relative;
+  user-select: none;
+  border-radius: var(--radius-s);
+  box-shadow: 0 0 0 1px var(--color--border);
+  transition: box-shadow 0.1s ease-in-out;
+
+  &.is-selectable:hover {
+    box-shadow: 0 0 0 1px var(--color--border-hover);
+  }
+  &.is-clickable {
+    cursor: pointer;
+  }
+  &.is-draggable {
+    cursor: move;
+
+    &:hover,
+    &:focus {
+      box-shadow: 0 0 0 1px var(--color--border-hover);
+    }
+  }
+  &.is-dragging {
+    opacity: 0.5;
+
+    &:hover,
+    &:focus {
+      box-shadow: 0 0 0 1px var(--color--border);
+    }
+  }
+  &:has(.MediaCard__open:focus-visible) {
+    box-shadow:
+      0 0 0 1px var(--color--focus--border),
+      var(--focus-ring);
+  }
+  /* The same ring as a selected option of a choice input */
+  &.is-selected,
+  &.is-selected:hover {
+    box-shadow: 0 0 0 1px var(--color--selected--border);
+  }
+}
+.MediaCard__actions {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: all 0.1s ease-in-out;
+
+  .MediaCard:hover & {
+    opacity: 1;
+  }
+  .MediaCard:focus-within & {
+    opacity: 1;
+  }
+  .DropTarget.is-over & {
+    opacity: 0;
+  }
+}
+.MediaCard__actions__inner {
+  display: flex;
+  justify-content: center;
+  padding: var(--spacing-s);
+  overflow: hidden;
+  background-color: var(--color--surface-raised);
+  border-radius: var(--radius-m);
+  box-shadow: var(--shadow--floating);
+}
+.MediaCard.is-compact .MediaCard__actions__inner {
+  flex-direction: column;
+}
+.MediaCard__image-preview {
+  position: relative;
+  display: block;
+  container-type: inline-size;
+}
+/* Under the actions (z-index 2) and the menu (z-index 3) */
+.MediaCard__open {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  padding: 0;
+  cursor: inherit;
+  outline: none;
+  background: none;
+  border: 0;
+}
+/* The card draws the focus ring (see .MediaCard above) */
+:where(.MediaCard__open):focus-visible {
+  box-shadow: none;
+}
+.MediaCard__caption {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  gap: var(--spacing-s);
+  align-items: center;
+  padding: var(--spacing-s) var(--spacing-m);
+  font-size: var(--font-size-xs);
+  text-align: left;
+  background-color: var(--color--surface-raised);
+  border-top: 1px solid var(--color--border);
+  border-radius: 0 0 var(--radius-s) var(--radius-s);
+
+  &.is-disabled {
+    color: var(--color--ink-subtle);
+  }
+  .MediaCard__caption__text {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    &:only-child {
+      text-align: center;
+    }
+  }
+  .is-selectable & {
+    cursor: pointer;
+  }
+  /* The hover is on all the card, not only on the caption */
+  .MediaCard.is-selectable:hover &,
+  .MediaCard.is-clickable:hover & {
+    background-color: var(--color--surface-raised-hover);
+  }
+  .MediaCard.is-selected & {
+    background-color: var(--color--selected--surface);
+  }
+}
+/* The negative margins keep the height of the caption line */
+.MediaCard__caption__action {
+  display: flex;
+  flex: none;
+  margin-right: calc(-1 * var(--spacing-s));
+
+  > .button {
+    margin-block: calc(-1 * var(--button-pad-y));
+  }
+}
+/* The click area is larger than the box, but the negative margins keep the
+   height of the caption line. */
+.MediaCard__checkbox {
+  display: flex;
+  flex: none;
+  padding: 4px;
+  margin: -4px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.1s ease-in-out;
+
+  &.MediaCard__checkbox--always,
+  .MediaCard:hover &,
+  .MediaCard:focus-within &,
+  .MediaCard.is-selected & {
+    opacity: 1;
+  }
+  .DropTarget.is-over & {
+    opacity: 0;
+  }
+  @media (hover: none) {
+    opacity: 1;
+  }
+
+  input {
+    margin: 0;
+    cursor: pointer;
+  }
+}
+/* The selector has two classes, because _Dropdown.css comes after this file
+   and gives .Dropdown a position. */
+.Dropdown.MediaCard__menu {
+  position: absolute;
+  top: var(--spacing-s);
+  right: var(--spacing-s);
+  z-index: 3;
+  opacity: 0;
+  transition: opacity 0.1s ease-in-out;
+
+  .MediaCard:hover &,
+  .MediaCard:focus-within & {
+    opacity: 1;
+  }
+  .DropTarget.is-over & {
+    opacity: 0;
+  }
+
+  /* The button is on the media, which can be any image. Thus it is on a
+     raised surface, as the buttons of the actions (see
+     .MediaCard__actions__inner), and it keeps the ink of a ghost button. */
+  .button--icon-only {
+    background-color: var(--color--surface-raised);
+    box-shadow: var(--shadow--floating);
+
+    svg {
+      fill: var(--color--ink);
+    }
+    &:hover,
+    &:focus-visible,
+    &:active {
+      background-color: var(--color--surface-hover);
+    }
+  }
+
+  @media (hover: none) {
+    opacity: 1;
+  }
+}
+/* The actions that do not change the value (for example "Open video") still
+   show on hover. */
+.MediaCard.is-disabled {
+  .MediaCard__caption {
+    background-color: var(--color--disabled-field--surface);
+  }
+}

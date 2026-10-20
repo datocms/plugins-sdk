@@ -1,64 +1,91 @@
 {
   "name": "datocms-react-ui",
-  "version": "2.5.1",
+  "version": "3.1.0-next.0",
   "description": "React components to use inside DatoCMS plugins",
   "keywords": [
     "datocms",
     "plugin",
-    "sdk"
+    "react"
   ],
   "author": "Stefano Verna <s.verna@datocms.com>",
-  "homepage": "https://github.com/datocms/plugins-sdk/tree/master/packages/react-ui#readme",
-  "license": "MIT",
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "typings": "dist/types/index.d.ts",
-  "sideEffects": false,
-  "directories": {
-    "lib": "dist",
-    "test": "__tests__"
-  },
-  "files": [
-    "src",
-    "dist",
-    "styles.css",
-    "types.json"
-  ],
+  "homepage": "https://github.com/datocms/plugins-sdk/tree/next/packages/react-ui#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/datocms/plugins-sdk.git"
-  },
-  "scripts": {
-    "build": "npm run generate-cssmodules && tsc && tsc --project ./tsconfig.esnext.json && npm run generate-typedoc && npm run generate-global-styles",
-    "generate-cssmodules": "NODE_ENV=prebuild postcss 'src/**/styles.module.css' --base src --dir tmp",
-    "generate-global-styles": "cp src/*.css tmp && NODE_ENV=production postcss tmp/global.css --output styles.css && rm -rf tmp",
-    "generate-typedoc": "typedoc src/index.ts --json types.json",
-    "prebuild": "rimraf dist",
-    "install-in-place": "npm run build && rm -rf $INSTALL_PATH/node_modules/datocms-react-ui/dist && cp -rf dist styles.css types.json $INSTALL_PATH/node_modules/datocms-react-ui"
+    "url": "git+https://github.com/datocms/plugins-sdk.git",
+    "directory": "packages/react-ui"
   },
   "bugs": {
     "url": "https://github.com/datocms/plugins-sdk/issues"
   },
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    "./styles.css": "./dist/styles.css",
+    "./internal/*": null,
+    "./ui/*": null,
+    "./*": {
+      "types": "./dist/*.d.ts",
+      "import": "./dist/*.js"
+    }
+  },
+  "scripts": {
+    "build": "vite build && node bin/build-types.mjs && node bin/build-css.mjs && node bin/check-output.mjs && tsc -p tsconfig.react-18.json",
+    "format": "biome check --write .",
+    "lint": "biome lint .",
+    "tsc": "tsc --noEmit && tsc --noEmit -p tsconfig.src.json",
+    "prepublishOnly": "release-toolchain --assert-release"
+  },
   "dependencies": {
-    "@floating-ui/react": "^0.27.16",
+    "@atlaskit/pragmatic-drag-and-drop": "^4.0.0",
+    "@atlaskit/pragmatic-drag-and-drop-auto-scroll": "^3.2.1",
+    "@atlaskit/pragmatic-drag-and-drop-hitbox": "^3.0.0",
+    "@date-fns/tz": "^1.4.1",
+    "@floating-ui/react": "^0.27.19",
+    "@floating-ui/react-dom": "^2.1.8",
+    "@react-hook/merged-ref": "^1.3.0",
     "classnames": "^2.3.1",
-    "datocms-plugin-sdk": "^2.5.0",
-    "react-intersection-observer": "^8.31.0",
-    "react-select": "^5.2.1",
-    "scroll-into-view-if-needed": "^2.2.20"
+    "copy-to-clipboard": "^3.3.1",
+    "cuid": "^2.1.8",
+    "date-fns": "^4.1.0",
+    "fuzzyjs": "^4.0.4",
+    "intersection-observer": "^0.12.0",
+    "intl-messageformat": "^11.2.15",
+    "is-hotkey-esm": "^1.0.0",
+    "lodash-es": "^4.17.23",
+    "min-md5": "^1.0.0",
+    "react-fast-compare": "^2.0.4",
+    "react-select": "^5.10.2",
+    "react-transition-group": "^4.4.5",
+    "rtl-detect": "^1.0.2",
+    "shallow-equal": "^1.2.1",
+    "usehooks-ts": "^3.1.1",
+    "xss": "^1.0.14"
+  },
+  "peerDependencies": {
+    "datocms-plugin-sdk": "^2.2.7",
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0"
   },
   "devDependencies": {
-    "@types/react": "^17.0.3",
-    "@types/react-dom": "^17.0.3",
-    "cssnano": "^5.0.11",
-    "postcss-calc": "^8.0.0",
-    "postcss-cli": "^9.0.2",
-    "postcss-import": "^14.0.2",
-    "postcss-modules": "^4.2.2",
-    "postcss-nested": "^5.0.6",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "typedoc": "^0.26.7"
+    "@biomejs/biome": "2.4.8",
+    "@vitejs/plugin-react": "6.1.1",
+    "datocms-plugin-sdk": "*",
+    "postcss": "8.5.26",
+    "postcss-custom-media": "11.0.6",
+    "postcss-custom-selectors": "8.0.5",
+    "postcss-import": "16.1.1",
+    "types-react-18": "npm:@types/react@18.3.31",
+    "types-react-dom-18": "npm:@types/react-dom@18.3.7",
+    "typescript": "5.6.3",
+    "ui": "1.0.0",
+    "vite": "8.2.2",
+    "vite-plugin-svgr": "5.2.0"
   },
-  "gitHead": "6b88a998f0807c7da1e17afa6a8f0336aed7497f"
+  "private": true
 }

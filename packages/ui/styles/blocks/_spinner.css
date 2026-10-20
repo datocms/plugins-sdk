@@ -1,0 +1,56 @@
+/* The box is the size of the spinner: 16px or 32px (see Spinner.tsx) */
+.Spinner {
+  position: relative;
+  flex: none;
+}
+.Spinner--inline {
+  display: inline-block;
+  vertical-align: middle;
+}
+.Spinner--centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.Spinner__bar {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  /* token-audit-disable-next-line mismatch -- it's basically foreground */
+  background-color: var(--color--ink-subtle);
+  animation: Spinner__spin 1.2s linear infinite;
+
+  button & {
+    background-color: currentColor;
+  }
+}
+@keyframes Spinner__spin {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.15;
+  }
+}
+
+/* See SpinnerArea in Spinner.tsx. The spinner is at the center of the area. */
+.SpinnerArea {
+  position: relative;
+  width: 100%;
+}
+.SpinnerArea--small {
+  min-height: 64px;
+}
+.SpinnerArea--regular {
+  min-height: 200px;
+}
+/* See SpinnerOverlay in Spinner.tsx */
+.SpinnerOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+.SpinnerOverlay--veil {
+  background: var(--color--overlay--surface);
+}
