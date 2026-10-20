@@ -3,9 +3,9 @@
   "changelog": "@changesets/cli/changelog",
   "commit": false,
   "access": "public",
-  "baseBranch": "master",
+  "baseBranch": "2.x",
   "fixed": [],
-  "linked": [["datocms-plugin-sdk", "datocms-react-ui"]],
+  "linked": [],
   "updateInternalDependencies": "patch",
   "ignore": []
 }

@@ -30,6 +30,7 @@
     "changeset": "changeset",
     "release": "release-toolchain",
     "release:next": "release-toolchain --tag next",
+    "release:v2": "release-toolchain --tag v2",
     "format": "biome check toolchain packages --apply && biome format --write toolchain packages",
     "prepare": "husky"
   },

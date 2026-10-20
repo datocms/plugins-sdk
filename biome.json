@@ -9,7 +9,7 @@
     "useIgnoreFile": true
   },
   "files": {
-    "ignore": ["dist", "node_modules", "packages/sdk/manifest.json"]
+    "ignore": ["dist", "node_modules"]
   },
   "linter": {
     "enabled": true,

@@ -169,11 +169,11 @@ Allows rapid iteration when developing the UI library alongside a plugin project
 
 ### First-time setup
 
-On a fresh checkout, package-local commands fail (missing binaries, missing SDK types) until the monorepo is set up from the repo root:
+On a fresh checkout, package-local commands fail (missing binaries) until the monorepo is set up from the repo root:
 
 ```bash
-npm install          # workspaces: one install at the root wires up both packages
-npm run build        # turbo; builds datocms-plugin-sdk first, then this package
+npm install          # workspaces: one install at the root
+npm run build        # turbo; builds this package
 ```
 
 ### Building

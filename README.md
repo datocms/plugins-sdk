@@ -8,9 +8,9 @@
 
 <!--datocms-autoinclude-header end-->
 
-# DatoCMS Plugin SDK
+# DatoCMS Plugin SDK: datocms-react-ui 2.x
 
-Monorepo with the TypeScript libraries used to build DatoCMS plugins.
+This is the `2.x` branch. It holds `datocms-react-ui` 2.x, and gets only fixes. The SDK (`datocms-plugin-sdk`) and `datocms-react-ui` 3.x are on [`master`](https://github.com/datocms/plugins-sdk/tree/master).
 
 ## Building a plugin?
 
@@ -20,44 +20,39 @@ From there, the [Plugin SDK documentation](https://www.datocms.com/docs/plugin-s
 
 ## Packages
 
-- [`datocms-plugin-sdk`](https://github.com/datocms/plugins-sdk/tree/master/packages/sdk)
-  - TypeScript SDK to build DatoCMS plugins.
-- [`datocms-react-ui`](https://github.com/datocms/plugins-sdk/tree/master/packages/react-ui)
+- [`datocms-react-ui`](https://github.com/datocms/plugins-sdk/tree/2.x/packages/react-ui)
   - React component library to mimic the DatoCMS interface inside plugins.
+- [`datocms-plugin-sdk`](https://github.com/datocms/plugins-sdk/tree/master/packages/sdk) is on `master`.
 
 ## Developing
 
-To work on the packages themselves (e.g. to prepare a PR or debug an issue in the framework itself), see the "Developing" section of each package's README: [`datocms-plugin-sdk`](https://github.com/datocms/plugins-sdk/blob/master/packages/sdk/README.md#developing), [`datocms-react-ui`](https://github.com/datocms/plugins-sdk/blob/master/packages/react-ui/README.md#developing). Both are developed in this npm-workspaces monorepo, and share a version number whenever they are released together.
+To work on the packages themselves (e.g. to prepare a PR or debug an issue in the framework itself), see the "Developing" section of the [`datocms-react-ui` README](https://github.com/datocms/plugins-sdk/blob/2.x/packages/react-ui/README.md#developing).
 
 ## Trying a change before it's released
 
-Every push to a branch here publishes a preview of both packages, which you can
+Every push to this branch publishes a preview of the package, which you can
 install into a real plugin — no npm release, no `npm link`:
 
 ```
-npm i https://pkg.pr.new/datocms-plugin-sdk@<commit-sha>
 npm i https://pkg.pr.new/datocms-react-ui@<commit-sha>
 ```
 
 The exact URLs show up in the commit's check run on GitHub, and in a comment on
-the pull request once there is one. Installing one preview pulls in the previews
-of its siblings built from the same commit, so a change spanning several
-packages can be tried as one coherent set.
+the pull request once there is one.
 
 Previews are throwaway: they are never published to npm, and the URL stops
 resolving after a while. Never commit one to a `package.json` that ships.
 
 ## Releasing
 
-Maintainers only. The two packages share one version number and are always
-released together.
+Maintainers only. This branch releases only `datocms-react-ui` 2.x.
 
 1. **Describe your change.** Run `npx changeset` in the same PR that makes the
-   change: it asks which packages are affected and whether the bump is a
+   change: it asks whether the bump is a
    patch/minor/major, then writes a small markdown file under `.changeset/`
    which you commit. `patch` is for bug fixes only; new API surface is
    `minor`. See [`.changeset/README.md`](.changeset/README.md).
-2. **Release.** From an up-to-date, clean `master`, run `npm run release`.
+2. **Release.** From an up-to-date, clean `2.x`, run `npm run release`.
    It builds and tests first, then applies the pending changesets (bumping the
    versions and writing the `CHANGELOG.md`s), publishes to npm, and only then
    tags each package `name@X.Y.Z`, pushes, and publishes one GitHub release per
@@ -67,9 +62,10 @@ If a release is interrupted, **do not undo anything**: run `npm run release`
 again. It detects that some package is still missing from the registry and
 resumes the publish instead of starting a new release.
 
-`npm run release:next` does the same under the `next` dist-tag, leaving
-`latest` untouched; its GitHub releases are marked as prereleases, so they don't
-become the repository's "Latest release" either.
+Once `datocms-react-ui` 3.0 is stable, run `npm run release:v2` instead: it
+publishes under the `v2` dist-tag, so `latest` stays on 3.x. Its GitHub
+releases are marked as prereleases, so they don't become the repository's
+"Latest release" either.
 
 The script itself is
 [`@datocms/release-toolchain`](https://github.com/datocms/release-toolchain),
