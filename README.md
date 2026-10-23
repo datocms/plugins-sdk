@@ -11,7 +11,7 @@ Do not edit this branch by hand: the next release replaces it. To propose a chan
 
 The source of `datocms-react-ui` 2.x is on the branch [`2.x`](https://github.com/datocms/plugins-sdk/tree/2.x). A fix for 2.x goes there, with a pull request to that branch.
 
-Copied from the commit `0239d114a7e39e45550315ec535aa4daf5d853a3` of the private repository.
+Copied from the commit `060eada71843af0749b3c3c8f83db94dffc39261` of the private repository.
 
 ## What is here
 

@@ -3,11 +3,11 @@
      family: they lazily cover scripts our fonts lack (see
      _noto-script-fallback.css). */
   --base-font-family:
-    "ABC Oracle", "Geist", "Helvetica Neue", Helvetica, Roboto, Arial,
+    "ABC Oracle", "Geist Variable", "Helvetica Neue", Helvetica, Roboto, Arial,
     "noto-script-fallback", "noto-script-fallback-static", sans-serif;
   --monospaced-font-family:
-    "Geist Mono", "Menlo", "Bitstream Vera Sans Mono", Consolas, Courier,
-    "noto-script-fallback", "noto-script-fallback-static", monospace;
+    "Geist Mono Variable", "Menlo", "Bitstream Vera Sans Mono", Consolas,
+    Courier, "noto-script-fallback", "noto-script-fallback-static", monospace;
   /* Code is a little smaller than the text around it, because the
      monospaced font looks larger. For inline code and for code blocks. */
   --monospaced-font-size: 0.9em;

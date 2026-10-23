@@ -8,7 +8,7 @@
   },
   "files": {
     "ignoreUnknown": false,
-    "includes": ["**", "!styles/fonts/**/*", "!stories/a11y-baseline.json"]
+    "includes": ["**", "!stories/a11y-baseline.json"]
   },
   "linter": {
     "enabled": true,

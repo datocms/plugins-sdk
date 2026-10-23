@@ -1,5 +1,6 @@
-/* The CSS of react-ui: the foundation of ui without the fonts of the cms and
-   without the colors, then the blocks of the shipped components. The host
+/* The CSS of react-ui: the foundation of ui with only the fonts that
+   www.datocms.com serves and without the colors, then the blocks of the
+   shipped components. The host
    gives the color tokens (ctx.cssDesignTokens on the Canvas element), thus
    the ramps and the semantic tokens of ui do not ship.
 
@@ -12,7 +13,7 @@
 @import "ui/styles/context/_media-queries.css";
 @import "ui/styles/context/_selectors.css";
 
-@import "./_font-faces.css";
+@import "ui/styles/_remote-font-faces.css";
 @import "ui/styles/_css-variables.css";
 @import "./_font-families.css";
 @import "ui/styles/_normalize.css";
