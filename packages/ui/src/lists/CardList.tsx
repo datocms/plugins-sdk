@@ -42,7 +42,7 @@ export type CardListProps = {
    * the pointer or the focus is on the item, when its menu is open or when
    * the item is open (on devices without a pointer, always). Use `always`
    * in a list that the user only reads: the actions are the only way to go
-   * further.
+   * further, and the row under the pointer gets the hover surface.
    */
   actionsVisibility?: 'hover' | 'always';
   className?: string;
@@ -210,15 +210,21 @@ type ItemWithoutRow = {
   expandable?: never;
 };
 
-export type CardListItemProps = { className?: string } & (
-  | ItemWithRow
-  | ExpandableItem
-  | ItemWithoutRow
-);
+/**
+ * The other props go to the `li`, thus the item can be the trigger of a
+ * Tooltip for the whole row
+ */
+type ItemElementProps = Omit<
+  React.HTMLAttributes<HTMLLIElement>,
+  'children' | 'className'
+>;
+
+export type CardListItemProps = { className?: string } & ItemElementProps &
+  (ItemWithRow | ExpandableItem | ItemWithoutRow);
 
 /** An item of a CardList: a row, a body, or a row with a body */
 const Item = React.forwardRef<HTMLLIElement, CardListItemProps>(function Item(
-  { className, row, body, expandable },
+  { className, row, body, expandable, ...elementProps },
   ref,
 ) {
   const visibleBody = expandable ? expandable.open && expandable.body : body;
@@ -232,6 +238,7 @@ const Item = React.forwardRef<HTMLLIElement, CardListItemProps>(function Item(
 
   return (
     <li
+      {...elementProps}
       ref={ref}
       className={classNames(
         'CardList__item',

@@ -1,5 +1,6 @@
 import classNames from 'classnames';
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useRef } from 'react';
+import { useElementLayout } from '../hooks/useElementLayout';
 import { useTranslation } from '../i18n';
 import { type Message } from '../Message';
 
@@ -9,8 +10,28 @@ export type InfoListProps = {
   children: ReactNode;
 };
 
+// The width from which the value is far from its title
+const WIDE_MIN_WIDTH = 600;
+
+// We do not use a container query for the hover of the rows. A size
+// container gets a width of zero in a parent that takes the width of its
+// content (for example a HoverCard).
 function BaseInfoList({ className, children }: InfoListProps) {
-  return <dl className={classNames('InfoList', className)}>{children}</dl>;
+  const ref = useRef<HTMLDListElement>(null);
+  const { width } = useElementLayout(ref);
+
+  return (
+    <dl
+      ref={ref}
+      className={classNames(
+        'InfoList',
+        width >= WIDE_MIN_WIDTH && 'InfoList--wide',
+        className,
+      )}
+    >
+      {children}
+    </dl>
+  );
 }
 
 export type InfoListRowProps = {

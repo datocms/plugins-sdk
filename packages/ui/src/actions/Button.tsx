@@ -20,12 +20,12 @@ import type { FloatingTrigger } from '../overlays/floatingTrigger';
 import Tooltip from '../overlays/Tooltip';
 import RawButton from '../semantic/RawButton';
 import { SvgIcon } from '../utils/types';
+import { ActionTooltip } from './Actions/ActionTooltip';
 import {
   type Disabled,
   DisabledReasonTooltip,
   disabledReasonOf,
 } from './disabledReason';
-import { HotKeyTooltip } from './HotKey';
 
 /**
  * "overlay" and "on-primary" are for a colored bar (the navigation bar, a
@@ -75,18 +75,19 @@ type WithLabel = {
   iconOnly?: false;
   /** Content after the label (for example a "PRO" pill) */
   trailing?: ReactNode;
-  tooltip?: HotKeyTooltipOptions;
+  tooltip?: ActionTooltipOptions;
 };
 
 /**
- * The keys of the HotKeyListener around the button, in the tooltip. The
- * text is the label of an icon-only button, or the description of the
- * listener for a button with a label. When there is no listener, or it is
- * disabled, the tooltip has no keys: an icon-only button shows its label,
- * and a button with a label shows no tooltip.
+ * The name and the keys of an action of the registry (`ui/Actions`), in
+ * the tooltip. An icon-only button shows its label in place of the name.
+ * When the action has no keys or does not exist, the tooltip has no keys:
+ * an icon-only button shows its label, and a button with a label shows no
+ * tooltip.
  */
-export type HotKeyTooltipOptions = {
-  hotKey: true;
+export type ActionTooltipOptions = {
+  /** The id of the action */
+  action: string;
   /**
    * The tooltip goes below when there is no space above it.
    * @default "top"
@@ -103,9 +104,9 @@ type TooltipOptions =
       content?: Message;
       long?: boolean;
       placement?: Placement;
-      hotKey?: never;
+      action?: never;
     }
-  | HotKeyTooltipOptions;
+  | ActionTooltipOptions;
 
 function isTooltipOptions(
   tooltip: Message | TooltipOptions | undefined,
@@ -304,8 +305,8 @@ export function buttonClassName({
  *
  * A button with a label can be in a Tooltip: the button takes its ref and
  * its event props. A button with only the icon has its own tooltip: do not
- * put it in a Tooltip. For the keys of a HotKeyListener, give
- * "tooltip={{ hotKey: true }}" (not a HotKeyTooltip).
+ * put it in a Tooltip. For the name and the keys of an action, give
+ * "tooltip={{ action: id }}".
  */
 const Button = React.forwardRef<HTMLElement, ButtonProps>(function Button(
   {
@@ -461,11 +462,15 @@ const Button = React.forwardRef<HTMLElement, ButtonProps>(function Button(
     );
   }
 
-  if (isTooltipOptions(tooltip) && tooltip.hotKey) {
+  if (isTooltipOptions(tooltip) && tooltip.action !== undefined) {
     return (
-      <HotKeyTooltip placement={tooltip.placement} label={iconOnlyLabel}>
+      <ActionTooltip
+        action={tooltip.action}
+        placement={tooltip.placement}
+        label={iconOnlyLabel}
+      >
         {element}
-      </HotKeyTooltip>
+      </ActionTooltip>
     );
   }
 

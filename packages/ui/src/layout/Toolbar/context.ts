@@ -15,3 +15,8 @@ function NoMenuProvider({ children }: { children: React.ReactNode }) {
 // gives the provider of the plugin actions (ActionsToOptionsProvider).
 export const ToolbarMenuProviderContext =
   React.createContext<MenuProvider>(NoMenuProvider);
+
+// True in a Toolbar.Search. A part in it renders no search landmark of its
+// own, because two nested search landmarks break the structure of the page
+// for a screen reader (WCAG 1.3.1).
+export const InSearchContext = React.createContext(false);

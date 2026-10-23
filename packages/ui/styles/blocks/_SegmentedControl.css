@@ -53,6 +53,11 @@
     flex: 1;
   }
 }
+/* An option with only an icon is a square, as ".button--icon-only" */
+.SegmentedControl--icon-only .SegmentedControl__button {
+  width: calc(1lh + 2 * var(--button-pad-y, 0.7em));
+  padding-inline: 0;
+}
 /* In a menu the options are on a raised surface */
 .Dropdown__menu .SegmentedControl {
   --SegmentedControl-surface-hover: var(--color--surface-raised-hover);

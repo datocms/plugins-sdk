@@ -14,6 +14,8 @@ import React, {
 import { Generic, Navigation } from '../../../icons/index';
 import { InvalidCurrentVersionIcon } from '../../content/ValidityTriangles';
 import { SortableItem } from '../../lists/dnd';
+import { useAction, useRunAction } from '../Actions/registry';
+import { Shortcut } from '../Actions/Shortcut';
 import { type Disabled, DisabledReasonTooltip } from '../disabledReason';
 import DropdownContext from './DropdownContext';
 import MenuContext from './MenuContext';
@@ -38,6 +40,21 @@ type PickAction = {
   to?: never;
   href?: never;
   newTab?: never;
+  action?: never;
+};
+
+/**
+ * Runs an action of the registry (`ui/Actions`). The keys of the action
+ * show at the end of the option. The option is disabled while the action
+ * gives a reason, or when the action does not exist now.
+ */
+type RegistryAction = {
+  /** The id of the action */
+  action: string;
+  onPick?: never;
+  to?: never;
+  href?: never;
+  newTab?: never;
 };
 
 /**
@@ -51,6 +68,7 @@ type LinkAction = {
   newTab?: boolean;
   onPick?: never;
   href?: never;
+  action?: never;
 };
 
 /** A link to a page out of the app */
@@ -61,6 +79,7 @@ type ExternalLinkAction = {
   newTab?: boolean;
   onPick?: never;
   to?: never;
+  action?: never;
 };
 
 /**
@@ -72,14 +91,16 @@ type NoAction = {
   to?: never;
   href?: never;
   newTab?: never;
+  action?: never;
 };
 
 /**
- * The action of an option: a pick handler, a page of the app, or a page
- * out of the app. One option has one action.
+ * The action of an option: a pick handler, an action of the registry, a
+ * page of the app, or a page out of the app. One option has one action.
  */
 export type OptionAction =
   | PickAction
+  | RegistryAction
   | LinkAction
   | ExternalLinkAction
   | NoAction;
@@ -171,10 +192,39 @@ export type OptionProps = OptionAction & {
   actions?: React.ReactNode;
 };
 
+/**
+ * The pick and the disabled state of an option that runs an action of the
+ * registry. The root of the dropdown finds the action of the region of the
+ * menu (see `find` of the registry).
+ */
+function useOptionAction(
+  id: string | undefined,
+  rootRef: React.RefObject<Element | null>,
+) {
+  const action = useAction(id, rootRef.current);
+  const runAction = useRunAction();
+
+  return useMemo(() => {
+    if (id === undefined) return undefined;
+
+    // An action that does not exist now disables the option, as a reason does
+    const disabled: Disabled =
+      action?.disabledReason !== undefined
+        ? { reason: action.disabledReason }
+        : action === undefined;
+
+    return {
+      onPick: () => runAction(id, { origin: rootRef.current }),
+      disabled,
+    };
+  }, [id, action, runAction, rootRef]);
+}
+
 const Option = React.forwardRef<HTMLDivElement, OptionProps>(
   (
     {
-      onPick,
+      onPick: onPickProp,
+      action,
       to,
       href,
       newTab,
@@ -184,7 +234,7 @@ const Option = React.forwardRef<HTMLDivElement, OptionProps>(
       invalid,
       children,
       sortable,
-      disabled,
+      disabled: disabledProp,
       closeMenuOnClick,
       checkbox,
       actions,
@@ -195,6 +245,13 @@ const Option = React.forwardRef<HTMLDivElement, OptionProps>(
     ref,
   ) => {
     const id = useMemo(() => cuid(), []);
+    const { closeMenu, setCloseOnClickOutside, rootRef, triggerId } =
+      useContext(DropdownContext);
+    const registryAction = useOptionAction(action, rootRef);
+    const onPick: PickHandler | undefined = registryAction
+      ? registryAction.onPick
+      : onPickProp;
+    const disabled = disabledProp || registryAction?.disabled;
 
     const { searchTerm, addOption, setClickHandlerForOption } =
       useContext(MenuContext);
@@ -234,8 +291,6 @@ const Option = React.forwardRef<HTMLDivElement, OptionProps>(
     const clickable = !actions && !checkbox;
     // Without an action, the option is the checkbox
     const isCheckboxItem = Boolean(checkbox) && !onPick && !link;
-
-    const { closeMenu, setCloseOnClickOutside } = useContext(DropdownContext);
 
     // Move the highlight to the option below the pointer. The arrow keys of
     // the search field move the same highlight, so the menu shows only one
@@ -284,6 +339,12 @@ const Option = React.forwardRef<HTMLDivElement, OptionProps>(
           return;
         }
 
+        // Space changes the checkbox, Enter runs the action of the option
+        if (checkbox && 'key' in e && e.key === ' ') {
+          checkbox.onChange?.(!checkbox.checked);
+          return;
+        }
+
         if (!onPick) {
           checkbox?.onChange?.(!checkbox.checked);
           return;
@@ -292,6 +353,12 @@ const Option = React.forwardRef<HTMLDivElement, OptionProps>(
         const keepMenuOpen = closeMenuOnClick === false;
 
         if (!keepMenuOpen) {
+          // A key picked the option: the focus goes back to the trigger before
+          // the menu closes
+          if (e.type === 'keydown' && triggerId) {
+            document.getElementById(triggerId)?.focus();
+          }
+
           closeMenu();
         }
 
@@ -314,6 +381,7 @@ const Option = React.forwardRef<HTMLDivElement, OptionProps>(
         closeMenuOnClick,
         closeMenu,
         setCloseOnClickOutside,
+        triggerId,
       ],
     );
 
@@ -370,6 +438,12 @@ const Option = React.forwardRef<HTMLDivElement, OptionProps>(
 
     const after = (
       <>
+        {action !== undefined && (
+          // The keys are not part of the name of the option
+          <span className="Dropdown__menu__option__shortcut" aria-hidden="true">
+            <Shortcut action={action} />
+          </span>
+        )}
         {submenu && (
           <span className="Dropdown__menu__option__chevron">
             <Navigation.ChevronRightIcon />

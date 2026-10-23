@@ -8,6 +8,7 @@ import FormHeader from './FormHeader';
 import { FilterBlankSlate } from './ListFilter';
 import { PaneAriaLabelProvider } from './PaneAriaLabel';
 import PaneHeader from './PaneHeader';
+import { PaneRegionProvider } from './PaneRegion';
 import { PaneTitleIdProvider } from './PaneTitleId';
 
 export { useFilteredList } from './ListFilter';
@@ -17,6 +18,7 @@ export type {
   ListPresetsProps,
 } from './ListPresets';
 export { usePaneAriaLabel } from './PaneAriaLabel';
+export { usePaneRegion } from './PaneRegion';
 
 export type PaneProps = PropsWithChildren<{
   /**
@@ -158,31 +160,33 @@ function Pane({
   return (
     <PaneAriaLabelProvider value={ariaLabel ? tm(ariaLabel) : ''}>
       <PaneTitleIdProvider value={titleId}>
-        <div
-          ref={ref}
-          className={classNames('Pane', className, {
-            'Pane--mode': mode,
-          })}
-        >
-          {header && <div className={'Pane__header'}>{header}</div>}
-          {busy && <Spinner.Overlay veil={false} className="Pane__overlay" />}
+        <PaneRegionProvider value={ref}>
           <div
-            ref={contentRef}
-            className={'Pane__content'}
-            role={tabPanel ? 'tabpanel' : mode ? 'group' : undefined}
-            id={tabPanel?.id}
-            aria-labelledby={
-              tabPanel?.labelledBy ?? (mode ? titleId : undefined)
-            }
-            tabIndex={-1}
+            ref={ref}
+            className={classNames('Pane', className, {
+              'Pane--mode': mode,
+            })}
           >
-            {children}
+            {header && <div className={'Pane__header'}>{header}</div>}
+            {busy && <Spinner.Overlay veil={false} className="Pane__overlay" />}
+            <div
+              ref={contentRef}
+              className={'Pane__content'}
+              role={tabPanel ? 'tabpanel' : mode ? 'group' : undefined}
+              id={tabPanel?.id}
+              aria-labelledby={
+                tabPanel?.labelledBy ?? (mode ? titleId : undefined)
+              }
+              tabIndex={-1}
+            >
+              {children}
+            </div>
+            {slideUpToolbar && (
+              <div className={'Pane__slideUpToolbar'}>{slideUpToolbar}</div>
+            )}
+            {footer && <div className={'Pane__footer'}>{footer}</div>}
           </div>
-          {slideUpToolbar && (
-            <div className={'Pane__slideUpToolbar'}>{slideUpToolbar}</div>
-          )}
-          {footer && <div className={'Pane__footer'}>{footer}</div>}
-        </div>
+        </PaneRegionProvider>
       </PaneTitleIdProvider>
     </PaneAriaLabelProvider>
   );

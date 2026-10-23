@@ -39,7 +39,7 @@ export const entries = {
   'Dropdown/triggers/TextualTrigger': 'ui/Dropdown/triggers/TextualTrigger',
   'Dropdown/triggers/types': 'ui/Dropdown/triggers/types',
   EditorToolbar: 'ui/EditorToolbar',
-  HotKey: 'ui/HotKey',
+  Actions: 'ui/Actions',
   MultipleSelectionActionBar: 'ui/MultipleSelectionActionBar',
   SplitButton: 'ui/SplitButton',
 
@@ -90,6 +90,7 @@ export const entries = {
   CodeSnippet: 'ui/CodeSnippet',
   Avatar: 'ui/Avatar',
   InitialsAvatar: 'ui/InitialsAvatar',
+  IconAvatar: 'ui/IconAvatar',
   FramedImage: 'ui/FramedImage',
   ValidityTriangles: 'ui/ValidityTriangles',
   UploadThreatTriangle: 'ui/UploadThreatTriangle',

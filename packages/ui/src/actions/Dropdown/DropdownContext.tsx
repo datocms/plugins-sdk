@@ -1,4 +1,4 @@
-import { createContext } from 'react';
+import { createContext, type RefObject } from 'react';
 
 const DropdownContext = createContext({
   closeMenu: () => {},
@@ -8,6 +8,9 @@ const DropdownContext = createContext({
   isClosing: false,
   triggerId: undefined as string | undefined,
   menuId: undefined as string | undefined,
+  // The element of the dropdown in the page, around the trigger. The menu
+  // is in a portal, out of it.
+  rootRef: { current: null } as RefObject<HTMLElement | null>,
 });
 
 export default DropdownContext;

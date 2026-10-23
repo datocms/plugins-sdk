@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Generic } from '../../../icons/index';
 import Button from '../../actions/Button';
 import DebouncedTextInput from '../../form/DebouncedTextInput';
@@ -7,6 +7,7 @@ import { useTranslation } from '../../i18n';
 import { type TextMessage } from '../../Message';
 import Search from '../../semantic/Search';
 import { usePaneAriaLabel } from '../Pane/PaneAriaLabel';
+import { InSearchContext } from './context';
 
 export type FilterInputProps = {
   /** The text of the filter */
@@ -15,7 +16,8 @@ export type FilterInputProps = {
   onChange: (value: string) => void;
   /**
    * The name of the search landmark: what the field filters. Without it,
-   * the ariaLabel of the Pane.
+   * the ariaLabel of the Pane. In a Toolbar.Search, the filter has no
+   * landmark of its own and does not use it.
    */
   ariaLabel?: TextMessage;
   /**
@@ -37,30 +39,24 @@ export type FilterInputProps = {
   onClose?: () => void;
 };
 
-/** The text filter of a list, with a magnifier and a "✕" that clears it */
-
-function FilterInput({
+/** The magnifier, the field and the "✕" of the filter, without a landmark */
+function FilterParts({
   value,
   onChange,
-  ariaLabel,
   autoFocus = true,
   debounce = false,
   disabled = false,
   onClose,
-}: FilterInputProps) {
-  const { t, tm } = useTranslation();
+}: Omit<FilterInputProps, 'ariaLabel'>) {
+  const { t } = useTranslation();
   const placeholder = t('fullTextQuery.placeholder');
-  const paneAriaLabel = usePaneAriaLabel();
 
   const handleChange = (newValue: string | null) => {
     onChange(newValue ?? '');
   };
 
   return (
-    <Search
-      ariaLabel={ariaLabel ? tm(ariaLabel) : paneAriaLabel}
-      className="Toolbar__filter"
-    >
+    <>
       <span
         className={cn('Toolbar__filter__icon', {
           'Toolbar__filter__icon--disabled': disabled,
@@ -111,6 +107,33 @@ function FilterInput({
           }}
         />
       )}
+    </>
+  );
+}
+
+/**
+ * The text filter of a list, with a magnifier and a "✕" that clears it. It is
+ * a search landmark, except in a Toolbar.Search (the text cell of a form).
+ */
+function FilterInput({ ariaLabel, ...props }: FilterInputProps) {
+  const { tm } = useTranslation();
+  const paneAriaLabel = usePaneAriaLabel();
+  const inSearch = useContext(InSearchContext);
+
+  if (inSearch) {
+    return (
+      <div className="Toolbar__filter">
+        <FilterParts {...props} />
+      </div>
+    );
+  }
+
+  return (
+    <Search
+      ariaLabel={ariaLabel ? tm(ariaLabel) : paneAriaLabel}
+      className="Toolbar__filter"
+    >
+      <FilterParts {...props} />
     </Search>
   );
 }

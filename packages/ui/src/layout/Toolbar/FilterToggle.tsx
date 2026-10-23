@@ -1,7 +1,13 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Generic } from '../../../icons/index';
+import {
+  type Action,
+  LIST_ACTION_GROUP,
+  useRegisterActions,
+} from '../../actions/Actions/registry';
 import { useTranslation } from '../../i18n';
 import { usePaneAriaLabel } from '../Pane/PaneAriaLabel';
+import { useCollectionRegion, usePaneRegion } from '../Pane/PaneRegion';
 import Button from './Button';
 
 export type FilterToggleProps = {
@@ -9,23 +15,67 @@ export type FilterToggleProps = {
   pressed: boolean;
   /** Opens or closes the filter ("onToggle" of useFilterToolbar) */
   onClick: () => void;
-  /** The keys of the HotKeyListener around the toggle show in its tooltip */
-  hotKey?: boolean;
+  /**
+   * Opens the filter ("onOpen" of useFilterToolbar). `F` and `/` run it while
+   * the pointer or the focus is in the Pane, and the tooltip shows the keys.
+   */
+  onOpen?: () => void;
 };
 
-const HOT_KEY_TOOLTIP = { hotKey: true } as const;
+const FILTER_LIST_ACTION_ID = 'list.filter';
 
-// The keys that open the filter of a list
-export const FILTER_LIST_HOT_KEY = 'mod+shift+f';
+const FILTER_FIELD = 'input, textarea, select';
+
+/**
+ * Registers `F` and `/`, the keys that open the filter of the list and move
+ * the focus to it, while the pointer or the focus is in the Pane of the
+ * list. When the list is at the side of a split, the keys are on in all the
+ * split. Out of a Pane, the keys are on for the page. `undefined` registers
+ * nothing.
+ */
+function useFilterListAction(open: (() => void) | undefined) {
+  const pane = usePaneRegion();
+  const collection = useCollectionRegion();
+
+  const actions = useMemo((): Action[] => {
+    if (!open) return [];
+
+    const run = () => {
+      open();
+      // A filter that opens takes the focus itself. An open filter does not,
+      // thus the key moves the focus to its first field.
+      requestAnimationFrame(() => {
+        const header = pane?.current?.querySelector('.Pane__header');
+        const active = document.activeElement;
+        if (active?.matches(FILTER_FIELD) && header?.contains(active)) return;
+        header?.querySelector<HTMLElement>(FILTER_FIELD)?.focus();
+      });
+    };
+
+    return [
+      {
+        id: FILTER_LIST_ACTION_ID,
+        name: { id: 'hotkeys.filterList' },
+        icon: Generic.SearchIcon,
+        group: LIST_ACTION_GROUP,
+        shortcut: [{ key: 'f' }, { key: '/' }],
+        run,
+      },
+    ];
+  }, [open, pane]);
+
+  useRegisterActions(collection ?? pane, actions);
+}
 
 /**
  * The magnifier that opens the filter of a list. Put the toggle at the
  * right end of the title bar, immediately before the button of the title
  * bar when there is one. Use the toggle with useFilterToolbar.
  */
-function FilterToggle({ pressed, onClick, hotKey }: FilterToggleProps) {
+function FilterToggle({ pressed, onClick, onOpen }: FilterToggleProps) {
   const { t } = useTranslation();
   const paneAriaLabel = usePaneAriaLabel();
+  useFilterListAction(onOpen);
 
   return (
     <Button
@@ -36,7 +86,7 @@ function FilterToggle({ pressed, onClick, hotKey }: FilterToggleProps) {
       }
       icon={Generic.SearchIcon}
       iconOnly={true}
-      tooltip={hotKey ? HOT_KEY_TOOLTIP : undefined}
+      tooltip={onOpen ? { action: FILTER_LIST_ACTION_ID } : undefined}
       pressed={pressed}
       onClick={onClick}
     />

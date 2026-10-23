@@ -5,6 +5,7 @@ import React, {
   useCallback,
   useContext,
   useEffect,
+  useLayoutEffect,
   useRef,
   useState,
 } from 'react';
@@ -35,6 +36,14 @@ type Props = {
   // A title at the top of the panel (the menu on a small screen)
   title?: Message;
 };
+
+// The menu keeps the focus: the option that is active has a class and is the
+// `aria-activedescendant` of the menu
+function highlightOption(menu: HTMLElement, option: Element) {
+  option.classList.add('is-selected');
+  menu.setAttribute('aria-activedescendant', option.id);
+  option.scrollIntoView({ behavior: 'auto', block: 'nearest' });
+}
 
 export default function MenuContent({
   children,
@@ -120,6 +129,30 @@ export default function MenuContent({
       ? contextualSearch.placeholder
       : undefined;
 
+  // The trigger shows its focus ring only for a key, and it has the focus
+  // until the effect below moves the focus into the menu.
+  const openedByKeyRef = useRef(false);
+
+  useLayoutEffect(() => {
+    openedByKeyRef.current = Boolean(
+      triggerId &&
+        document.getElementById(triggerId)?.matches(':focus-visible'),
+    );
+  }, [triggerId]);
+
+  // A menu that a key opened has its first option highlighted, thus Enter
+  // picks it at once
+  useEffect(() => {
+    const focusTarget = showSearch ? searchInputRef.current : menuRef.current;
+    const first = menuRef.current?.querySelector(
+      '.Dropdown__menu__option:not(.is-disabled)',
+    );
+
+    if (isRoot && openedByKeyRef.current && first && focusTarget) {
+      highlightOption(focusTarget, first);
+    }
+  }, [isRoot, showSearch]);
+
   // Do not use "autoFocus": React calls it before Portal attaches the menu to
   // the document, and focus has no effect on a detached element. Without a
   // search field, the main menu gets the focus, so that the keyboard can
@@ -185,16 +218,16 @@ export default function MenuContent({
         selectedOption?.classList.remove('is-selected');
 
         if (nextOption) {
-          nextOption.classList.add('is-selected');
-          event.currentTarget.setAttribute(
-            'aria-activedescendant',
-            nextOption.id,
-          );
-          nextOption.scrollIntoView({ behavior: 'auto', block: 'nearest' });
+          highlightOption(event.currentTarget, nextOption);
         }
       }
 
-      if (isHotkey('enter', event.nativeEvent)) {
+      // In the search field, Space types a space
+      if (
+        isHotkey('enter', event.nativeEvent) ||
+        (isHotkey('space', event.nativeEvent) &&
+          event.target === menuRef.current)
+      ) {
         event.preventDefault();
         event.stopPropagation();
 

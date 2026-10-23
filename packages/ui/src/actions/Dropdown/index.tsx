@@ -40,7 +40,10 @@ type AbstractTriggerComponentProps = {
   onTrigger: (event: React.SyntheticEvent) => void;
 };
 
-/** Lets the parent open the menu from code (for example, with a hotkey) */
+/**
+ * Lets the parent open the menu from code (for example, with a keyboard
+ * shortcut)
+ */
 export type DropdownHandle = {
   open: () => void;
 };
@@ -133,7 +136,8 @@ const DropdownRoot = React.forwardRef<HTMLDivElement, PropTypes<any>>(
     );
 
     const outsideRef = useClickOutside<HTMLDivElement>(handleClickOutside);
-    const mergedRef = mergeRefs(outsideRef, ref);
+    const rootRef = useRef<HTMLDivElement>(null);
+    const mergedRef = mergeRefs(outsideRef, ref, rootRef);
 
     const handleClose = useCallback(() => {
       changeOpen(false);
@@ -167,6 +171,7 @@ const DropdownRoot = React.forwardRef<HTMLDivElement, PropTypes<any>>(
           isClosing,
           triggerId,
           menuId,
+          rootRef,
         }}
       >
         <div

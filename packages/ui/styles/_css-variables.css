@@ -13,7 +13,13 @@
   --monospaced-font-size: 0.9em;
   --cursive-font-family:
     "Pangolin", "noto-script-fallback", "noto-script-fallback-static", cursive;
-  --font-weight-bold: 500;
+  /* The weight of the text. */
+  --font-weight-regular: 340;
+  /* The weight of titles, labels and words with emphasis. */
+  --font-weight-strong: 400;
+  /* The name of --font-weight-strong in react-ui 2.x. Use
+     --font-weight-strong. */
+  --font-weight-bold: var(--font-weight-strong);
 
   --px-to-rem: 0.0625rem;
   --space-unit: calc(12 * var(--px-to-rem));

@@ -7,7 +7,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { HotKeyContext } from '../actions/hotKeyContext';
+import { type Action } from '../actions/Actions/registry';
 import { useHostServices } from '../HostServicesProvider';
 import { confirmQuestion, confirmTexts } from './confirmQuestion';
 import { ZIndexContext } from './NewZIndex';
@@ -27,32 +27,24 @@ export const ModalCloseContext = React.createContext<ModalCloseContextValue>({
 type DialogLayer = {
   /** The z-index of the dialog */
   zIndex: number;
-  /** The priority of the stack of hotkeys of the dialog */
-  hotKeyPriority: number;
 };
 
 // The dialogs that are open now
 let openDialogLayers: DialogLayer[] = [];
 
 /**
- * Gives a dialog its z-index and its hotkey priority. A dialog shows over its
- * parent layer and over all the dialogs that are open, also when it is not
- * inside them in the React tree (for example a dialog that opens from the
- * root of the app). Thus the last dialog that opens is on top and gets the
- * keys.
+ * Gives a dialog its z-index. A dialog shows over its parent layer and over
+ * all the dialogs that are open, also when it is not inside them in the
+ * React tree (for example a dialog that opens from the root of the app).
+ * Thus the last dialog that opens is on top. Its `ActionLayer` gets the
+ * keys in the same order.
  */
 export function useDialogLayer(): DialogLayer {
   const parentZIndex = useContext(ZIndexContext);
-  const { currentStackPriority } = useContext(HotKeyContext);
 
   const [layer] = useState<DialogLayer>(() => ({
     zIndex:
       Math.max(parentZIndex, ...openDialogLayers.map((l) => l.zIndex)) + 10,
-    hotKeyPriority:
-      Math.max(
-        currentStackPriority,
-        ...openDialogLayers.map((l) => l.hotKeyPriority),
-      ) + 1,
   }));
 
   useLayoutEffect(() => {
@@ -64,6 +56,18 @@ export function useDialogLayer(): DialogLayer {
   }, [layer]);
 
   return layer;
+}
+
+/** The Escape of a dialog, for the `actions` of its `ActionLayer` */
+export function closeAction(close: () => unknown): Action {
+  return {
+    id: 'modal.close',
+    name: { id: 'hotkeys.closeModal' },
+    shortcut: { key: 'escape' },
+    palette: 'hidden',
+    // close takes the click event of a button, not the context of the action
+    run: () => close(),
+  };
 }
 
 type UseModalCloseOptions = {

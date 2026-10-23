@@ -146,7 +146,7 @@
   font-size: 12px;
   color: var(--color--ink-subtle);
   background: var(--color--surface);
-  border: 1px solid var(--color--border);
+  border: 1px solid var(--color--border-raised);
   border-radius: var(--radius-s);
   box-shadow: var(--shadow--floating);
 
@@ -334,7 +334,17 @@ body.SplitView--disable-select {
 }
 .SplitPaneOverlay__secondary--left {
   left: 0;
+  border-right: 1px solid var(--color--border-raised);
+
+  /* The ring of the overlay is the edge of the pane that floats. A Pane in it
+     has a right border of its own, which makes a double edge next to the ring.
+     The same rule is in _ListDetail.css for the detail that floats. */
+  > .Pane,
+  > aside > .Pane {
+    border-right: 0;
+  }
 }
 .SplitPaneOverlay__secondary--right {
   right: 0;
+  border-left: 1px solid var(--color--border-raised);
 }

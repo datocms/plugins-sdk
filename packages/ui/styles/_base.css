@@ -14,6 +14,7 @@ html {
 }
 body {
   font-family: var(--base-font-family);
+  font-weight: var(--font-weight-regular);
   font-synthesis-weight: none;
   font-size: var(--font-size-m);
   -webkit-text-size-adjust: 100%;
@@ -21,6 +22,12 @@ body {
   line-height: 1.4;
   color: var(--color--ink);
   text-rendering: optimizeLegibility;
+}
+/* Selected text has the colors of a selected row, thus it follows the brand
+   hue and the color scheme */
+::selection {
+  color: var(--color--selected--ink);
+  background-color: var(--color--selected--surface);
 }
 a {
   color: var(--color--ink);
@@ -244,16 +251,19 @@ th,
 td {
   text-align: left;
 }
+th {
+  font-weight: var(--font-weight-strong);
+}
 img {
   max-width: 100%;
 }
 legend {
-  font-weight: bold;
+  font-weight: var(--font-weight-strong);
   color: var(--color--ink-subtle);
   letter-spacing: 0;
 }
 strong {
-  font-weight: bold;
+  font-weight: var(--font-weight-strong);
 }
 input:-webkit-autofill {
   color: inherit !important;

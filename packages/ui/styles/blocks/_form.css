@@ -68,7 +68,8 @@
     }
   }
 
-  .form__label:focus & {
+  &:focus-within,
+  &:has([aria-expanded="true"]) {
     opacity: 1;
   }
 }
@@ -234,7 +235,7 @@ textarea:focus {
 }
 .form__input--large.form__input--large {
   font-size: 1.2em;
-  font-weight: bold;
+  font-weight: var(--font-weight-strong);
 }
 .form__input--small {
   font-size: var(--font-size-xs);

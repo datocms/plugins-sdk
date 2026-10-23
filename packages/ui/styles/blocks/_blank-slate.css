@@ -25,6 +25,7 @@
   background-color: var(--color--surface-raised);
   border: 1px solid var(--color--border);
   border-radius: var(--radius-s);
+  box-shadow: var(--shadow--resting);
 }
 .blank-slate__inner {
   display: flex;
@@ -57,7 +58,7 @@
   /* With only a title, the title is a plain message, not a heading */
   .blank-slate__title {
     font-size: var(--font-size-m);
-    font-weight: normal;
+    font-weight: var(--font-weight-regular);
   }
 }
 .blank-slate__icon {
@@ -79,7 +80,7 @@
 }
 .blank-slate__title {
   font-size: var(--font-size-xl);
-  font-weight: bold;
+  font-weight: var(--font-weight-strong);
   line-height: 1.2;
 }
 /* A box under the title with the raw text of an error. It is quiet,
@@ -127,7 +128,7 @@
   }
 
   a:not([class]) {
-    font-weight: bold;
+    font-weight: var(--font-weight-strong);
     color: inherit;
     border-color: inherit;
 

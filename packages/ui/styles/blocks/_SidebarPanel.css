@@ -36,11 +36,11 @@
 .SidebarPanel__header__title {
   flex: 1;
   min-width: 0;
-  font-weight: 600;
+  font-weight: var(--font-weight-strong);
 }
 .SidebarPanel__header__count {
   margin-left: var(--spacing-s);
-  font-weight: normal;
+  font-weight: var(--font-weight-regular);
   color: var(--color--ink-subtle);
 }
 .SidebarPanel__content {

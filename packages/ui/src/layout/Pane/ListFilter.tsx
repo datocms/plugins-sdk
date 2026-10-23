@@ -6,13 +6,9 @@ import React, {
   useState,
 } from 'react';
 import { Generic } from '../../../icons/index';
-import { HotKeyListener } from '../../actions/HotKey';
 import BlankSlate from '../../feedback/BlankSlate';
 import Toolbar from '../Toolbar';
-import FilterToggle, {
-  FILTER_LIST_HOT_KEY,
-  useFilterToolbar,
-} from '../Toolbar/FilterToggle';
+import FilterToggle, { useFilterToolbar } from '../Toolbar/FilterToggle';
 import { ListPreset, useListPresets } from './ListPresets';
 
 export type ListFilterProps = {
@@ -93,19 +89,11 @@ export const ListFilterButton = React.memo(function ListFilterButton({
   open,
   onToggle,
 }: ButtonProps) {
-  // The hotkey only opens the filter. When the filter is open, it moves the
-  // focus to the input.
-  const handleHotKey = useCallback(() => onToggle(true), [onToggle]);
   const handleClick = useCallback(() => onToggle(!open), [onToggle, open]);
+  const handleOpen = useCallback(() => onToggle(true), [onToggle]);
 
   return (
-    <HotKeyListener
-      hotKey={FILTER_LIST_HOT_KEY}
-      description={{ id: 'hotkeys.filterList' }}
-      trigger={handleHotKey}
-    >
-      <FilterToggle pressed={open} onClick={handleClick} hotKey={true} />
-    </HotKeyListener>
+    <FilterToggle pressed={open} onClick={handleClick} onOpen={handleOpen} />
   );
 });
 
@@ -126,8 +114,8 @@ export const ListFilterRow = React.memo(function ListFilterRow({
     (event: React.KeyboardEvent) => {
       if (event.key !== 'Escape') return;
 
-      // Other Esc hotkeys (for example, the one that stops edit mode) must not
-      // also run
+      // Other Escape shortcuts (for example, the one that stops edit mode)
+      // must not also run
       event.stopPropagation();
       onClose();
     },

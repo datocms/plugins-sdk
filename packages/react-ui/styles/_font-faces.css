@@ -1,0 +1,16 @@
+/* The face of ABC Oracle, from the same URL as the apps (see
+   ../../ui/styles/_font-faces.css). The file name has no version, thus a new
+   file in the bucket gets to each plugin, also to an old one. The response
+   sends CORS, because the plugins run on other origins.
+
+   The build does not copy local font files, thus the other fonts of the cms
+   do not ship. */
+@font-face {
+  font-family: "ABC Oracle";
+  font-style: normal;
+  font-weight: 200 1000;
+  font-display: swap;
+  src: url("https://www.datocms.com/fonts/ABCOracleVariable.woff2")
+    format("woff2");
+  size-adjust: 102%;
+}

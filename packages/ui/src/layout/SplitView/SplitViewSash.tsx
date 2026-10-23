@@ -15,6 +15,7 @@ export type SashAction = {
   // tells the user about the button)
   wrap?: (button: ReactElement) => ReactNode;
   // See SashActionButton
+  action?: string;
   hidden?: boolean;
   revealFrom?: 'left' | 'right';
   onHoverChange?: (isHovered: boolean) => void;
@@ -70,6 +71,7 @@ export default function SplitViewSash({
       label={action.label}
       onClick={action.onClick}
       expandable={action.expandable}
+      action={action.action}
       revealFrom={action.revealFrom}
       hidden={action.hidden}
       onHoverChange={action.onHoverChange}

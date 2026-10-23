@@ -23,21 +23,37 @@
     text-align: center;
   }
 }
+/* The rows have padding above and below for the hover. The negative
+   margins keep the text of the rows on the edges of the list. */
+.InfoList:has(> .InfoList__row),
+.InfoList__group__content > dl {
+  margin-block: -8px;
+}
 /* The title is on the line of the first line of the value: a value on more
    lines (an address, a note under it) goes down from there */
 .InfoList__row {
   display: grid;
   grid-template-columns: fit-content(70%) minmax(0, 1fr);
   align-items: baseline;
-  padding-bottom: 8px;
-  margin-bottom: 8px;
+  padding-block: 8px;
   line-height: 1.1;
   border-bottom: 1px solid var(--color--border);
 
   &:last-child {
-    padding-bottom: 0;
-    margin-bottom: 0;
     border-bottom: 0;
+  }
+}
+/* In a wide list (600px and more, see InfoList.tsx), the value is far from
+   its title: the hover helps the eye to follow the row. The padding at the
+   sides keeps the text away from the edges of the hover. */
+.InfoList--wide .InfoList__row {
+  padding-inline: var(--spacing-s);
+  margin-inline: calc(-1 * var(--spacing-s));
+
+  @media (hover: hover) {
+    &:hover {
+      background: var(--color--surface-hover);
+    }
   }
 }
 /* The value can get narrower than its content, so a long value (for example
@@ -89,7 +105,7 @@
   gap: var(--spacing-s);
   align-items: center;
   padding-right: 8px;
-  font-weight: normal;
+  font-weight: var(--font-weight-regular);
   color: var(--color--ink-subtle);
   white-space: nowrap;
 }

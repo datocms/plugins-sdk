@@ -7,7 +7,7 @@
 /* The title stays the name of the list, thus the qualifier has the color and
    the weight of a subtitle */
 .ListPresets__qualifier {
-  font-weight: normal;
+  font-weight: var(--font-weight-regular);
   color: var(--color--ink-subtle);
 }
 

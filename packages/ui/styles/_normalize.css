@@ -111,7 +111,7 @@ abbr[title] {
 
 b,
 strong {
-  font-weight: bold;
+  font-weight: var(--font-weight-strong);
 }
 /**
  * Address styling not present in Safari and Chrome.*/
@@ -380,7 +380,7 @@ textarea {
  * NOTE: the default cannot safely be changed in Chrome and Safari on OS X.*/
 
 optgroup {
-  font-weight: bold;
+  font-weight: var(--font-weight-strong);
 }
 /* Tables
  * ==========================================================================*/

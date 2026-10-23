@@ -14,6 +14,7 @@
   background-color: var(--color--surface-raised);
   border: 1px solid var(--color--border);
   border-radius: var(--radius-s);
+  box-shadow: var(--shadow--resting);
 }
 
 .CardList__header {
@@ -60,7 +61,7 @@
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
-  font-weight: 600;
+  font-weight: var(--font-weight-strong);
   white-space: nowrap;
 }
 .CardList__aside {
@@ -124,6 +125,18 @@
 
   &:hover {
     background: var(--color--surface-hover);
+  }
+}
+/* In a list to read, the value of a row can be far from its title: the
+   hover helps the eye to follow the row. The cursor does not change,
+   because the row does not open. */
+.CardList--actions-always > .CardList__items
+  > .CardList__item
+  > .CardList__row {
+  @media (hover: hover) {
+    &:hover {
+      background: var(--color--surface-hover);
+    }
   }
 }
 /* The rows on the corners of the card get the corners of the card on their

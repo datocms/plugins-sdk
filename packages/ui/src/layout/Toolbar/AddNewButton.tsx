@@ -1,9 +1,7 @@
-import React, { useCallback, useContext, useMemo } from 'react';
+import React, { useContext, useMemo } from 'react';
 import { Generic } from '../../../icons/index';
-import { HotKeyListener } from '../../actions/HotKey';
 import { useTranslation } from '../../i18n';
 import { type TextMessage } from '../../Message';
-import { useNavigation } from '../../navigation/NavigationProvider';
 import { SvgIcon } from '../../utils/types';
 import { useIsInSecondaryPane } from '../SplitPane';
 import { InToolbarContext } from './context';
@@ -22,11 +20,6 @@ export type AddNewButtonProps = {
   /** The text of the button ("Add new webhook") */
   label: TextMessage;
   /**
-   * The description of the hotkey. The default is the label. Give a
-   * different text when the label has placeholders.
-   */
-  hotKeyDescription?: TextMessage;
-  /**
    * The full URL of the page of the new item (the app adds its prefixes,
    * for example the environment)
    */
@@ -40,35 +33,32 @@ export type AddNewButtonProps = {
   icon?: SvgIcon;
   /** Other "add" actions. They show in a menu next to the button. */
   extraActions?: ExtraAction[];
+  /**
+   * The id of the action of the button: its name and its keys show in the
+   * tooltip (see the "action" tooltip of Button)
+   */
+  action?: string;
 };
 
 /**
- * The PrimaryButton that adds an item to a list, with the hotkey ⌘⇧N. In
- * the toolbar of a secondary pane, it shows only its icon.
+ * The PrimaryButton that adds an item to a list. In the toolbar of a
+ * secondary pane, it shows only its icon.
  */
-
-const HOT_KEY = 'mod+shift+n';
-
 function AddNewButton({
   label,
-  hotKeyDescription,
   to,
   disabled,
   icon: customIcon,
   extraActions,
+  action,
 }: AddNewButtonProps) {
   const { tm } = useTranslation();
-  const { navigate } = useNavigation();
   // The toolbar of a secondary pane is narrow. A long label there hides the
   // title.
   const isInSecondaryPane = useIsInSecondaryPane();
   const iconOnly = useContext(InToolbarContext) && isInSecondaryPane;
   const icon = customIcon ?? Generic.AddIcon;
   const labelText = tm(label);
-
-  const handleAdd = useCallback(() => {
-    navigate(to);
-  }, [navigate, to]);
 
   const actions = useMemo(
     () => [
@@ -83,19 +73,12 @@ function AddNewButton({
   );
 
   return (
-    <HotKeyListener
-      hotKey={HOT_KEY}
-      description={hotKeyDescription ?? label}
-      enabled={!disabled}
-      trigger={handleAdd}
-    >
-      <PrimaryButton
-        disabled={disabled}
-        actions={actions}
-        hotKey={true}
-        iconOnly={iconOnly}
-      />
-    </HotKeyListener>
+    <PrimaryButton
+      disabled={disabled}
+      actions={actions}
+      action={action}
+      iconOnly={iconOnly}
+    />
   );
 }
 

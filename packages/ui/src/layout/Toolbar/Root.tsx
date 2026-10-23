@@ -3,6 +3,8 @@ import React, { ReactNode } from 'react';
 import { ButtonSizeContext } from '../../actions/Button';
 import { InToolbarContext } from './context';
 
+const TEXT_FIELD = 'input:not([type=checkbox]):not([type=radio]), textarea';
+
 export type ToolbarProps = {
   /** The parts of the toolbar (Toolbar.Title, Toolbar.Space, …) */
   children: ReactNode;
@@ -18,6 +20,11 @@ export type ToolbarProps = {
    * of the fields ("field" size), thus their edges align
    */
   fields?: boolean;
+  /**
+   * Closes the toolbar of a filter ("onClose" of useFilterToolbar). Escape
+   * in a text field of the toolbar calls it.
+   */
+  onClose?: () => void;
   /** Only for the placement of the toolbar (for example "Modal__header") */
   className?: string;
 };
@@ -31,10 +38,25 @@ function Root({
   style,
   borderBottom,
   fields,
+  onClose,
   className,
 }: ToolbarProps) {
+  // A menu of the toolbar is in a Portal: its Escape also comes here
+  // through React, thus we check the DOM. A field that handles Escape
+  // itself (the clear button of a search) calls preventDefault.
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (event.key !== 'Escape' || event.defaultPrevented) return;
+    const target = event.target as HTMLElement;
+    if (!target.matches(TEXT_FIELD)) return;
+    if (!event.currentTarget.contains(target)) return;
+    event.preventDefault();
+    event.stopPropagation();
+    onClose?.();
+  };
+
   return (
     <div
+      onKeyDown={onClose ? handleKeyDown : undefined}
       className={cn(
         'Toolbar',
         style && `Toolbar--${style}`,

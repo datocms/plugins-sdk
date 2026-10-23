@@ -3,6 +3,7 @@ import Page, {
   getPaginatedListState,
   type ListDetailPageState,
   useOpenRowRoute,
+  useReopenLastRow,
 } from './Page';
 import Panel from './Panel';
 import Split, { getListDetailMaxWidth, useIsListDetailOpen } from './Split';
@@ -16,4 +17,5 @@ export {
   ListDetailWidthsProvider,
   useIsListDetailOpen,
   useOpenRowRoute,
+  useReopenLastRow,
 };

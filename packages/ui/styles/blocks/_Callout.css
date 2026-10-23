@@ -28,7 +28,7 @@
 }
 
 .Callout__title {
-  font-weight: 600;
+  font-weight: var(--font-weight-strong);
 
   &:not(:last-child) {
     margin-bottom: 2px;
@@ -71,7 +71,7 @@
   /* The links take the ink of the tone, so they are legible on all the
    * surfaces. The underline tells that they are links. */
   & a:not(.button) {
-    font-weight: 600;
+    font-weight: var(--font-weight-strong);
     color: inherit;
     text-decoration: underline;
 

@@ -55,6 +55,7 @@
   max-width: 100%;
   height: auto;
   background: var(--color--surface);
+  border-left: 1px solid var(--color--border-raised);
   box-shadow: var(--shadow--floating);
 }
 
@@ -81,7 +82,7 @@
   min-width: 0;
 }
 .ListDetailPanel__entity__title {
-  font-weight: 600;
+  font-weight: var(--font-weight-strong);
 }
 .ListDetailPanel__entity__subtitle {
   margin-top: 2px;

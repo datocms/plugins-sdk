@@ -3,6 +3,7 @@ import { Status } from '../../../icons';
 import BlankSlate from '../../feedback/BlankSlate';
 import { useTranslation } from '../../i18n';
 import Pane from '../../layout/Pane';
+import { TOGGLE_RIGHT_SIDEBAR_ACTION_ID } from '../../layout/SplitPane';
 import Toolbar from '../../layout/Toolbar';
 import { type Message, type TextMessage } from '../../Message';
 import Aside from '../../semantic/Aside';
@@ -89,6 +90,7 @@ function ListDetailPanel({
               <Toolbar.GoBack
                 onClick={closeOverlay}
                 ariaLabel={{ id: 'admin.listDetail.panel.close' }}
+                action={TOGGLE_RIGHT_SIDEBAR_ACTION_ID}
               />
             )}
             <Toolbar.Title level={2}>{tc(title)}</Toolbar.Title>

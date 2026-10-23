@@ -5,15 +5,15 @@ import { type Message, type TextMessage } from '../../../Message';
 import { MenuChevron } from '../../../navigation/Chevron';
 import Tooltip from '../../../overlays/Tooltip';
 import { SvgIcon } from '../../../utils/types';
+import { ActionTooltip } from '../../Actions/ActionTooltip';
 import {
+  type ActionTooltipOptions,
   ButtonSize,
   ButtonTone,
   buttonClassName,
-  HotKeyTooltipOptions,
   useButtonSize,
 } from '../../Button';
 import { type Disabled, disabledReasonOf } from '../../disabledReason';
-import { HotKeyTooltip } from '../../HotKey';
 import DropdownTriggerButton from './DropdownTriggerButton';
 import { DropdownTriggerBaseProps } from './types';
 
@@ -61,22 +61,22 @@ export type ButtonTriggerProps = DropdownTriggerBaseProps & {
   disabled?: Disabled;
   /**
    * The tooltip of the button (the label for an icon-only button), or the
-   * keys of the HotKeyListener around the Dropdown (see Button). It does not
-   * show while the menu is open: the menu is in its place.
+   * name and the keys of an action (see Button). It does not show while the
+   * menu is open: the menu is in its place.
    */
-  tooltip?: Message | false | null | HotKeyTooltipOptions;
+  tooltip?: Message | false | null | ActionTooltipOptions;
   /** Only for the place of the button, not for its look */
   className?: string;
 } & ButtonTriggerContent;
 
-function isHotKeyTooltip(
-  tooltip: Message | false | null | HotKeyTooltipOptions | undefined,
-): tooltip is HotKeyTooltipOptions {
+function isActionTooltip(
+  tooltip: Message | false | null | ActionTooltipOptions | undefined,
+): tooltip is ActionTooltipOptions {
   return (
     typeof tooltip === 'object' &&
     tooltip !== null &&
-    'hotKey' in tooltip &&
-    tooltip.hotKey === true
+    'action' in tooltip &&
+    typeof tooltip.action === 'string'
   );
 }
 
@@ -124,15 +124,16 @@ const ButtonTrigger = ({
     return button;
   }
 
-  if (isHotKeyTooltip(tooltip)) {
+  if (isActionTooltip(tooltip)) {
     return (
-      <HotKeyTooltip
+      <ActionTooltip
+        action={tooltip.action}
         placement={tooltip.placement}
         label={iconOnlyLabel}
         hidden={open}
       >
         {button}
-      </HotKeyTooltip>
+      </ActionTooltip>
     );
   }
 

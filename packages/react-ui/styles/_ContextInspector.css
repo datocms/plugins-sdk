@@ -39,7 +39,7 @@
   }
 }
 .ContextInspector__name {
-  font-weight: 600;
+  font-weight: var(--font-weight-strong);
 }
 .ContextInspector__type {
   color: var(--color--ink-subtle);

@@ -158,10 +158,12 @@
         "stories/docs/Guideline.tsx",
         "stories/docs/CssVariablePreview.tsx",
         "stories/docs/CssVariables.tsx",
+        "stories/docs/cssDeclarations.ts",
         "stories/docs/highlight.ts",
         "stories/docs/pageList.ts",
         "stories/docs/PropsTable.tsx",
         "stories/docs/TokenSwatches.tsx",
+        "stories/docs/tokenGroups.ts",
         "stories/docs/types.ts",
         "stories/docs/useMemoryNavigation.ts"
       ],

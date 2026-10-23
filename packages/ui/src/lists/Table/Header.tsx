@@ -6,9 +6,10 @@ import ColumnsMenu from './ColumnsMenu';
 import HeaderCell from './HeaderCell';
 import {
   columnWidthVariable,
-  MIN_COLUMN_WIDTH,
+  MIN_RESIZE_COLUMN_PIXELS,
   moveColumn,
-  resizeColumn,
+  pushColumnWidths,
+  resizeColumns,
   toggleColumn,
   toPercentage,
   withHiddenColumns,
@@ -69,9 +70,10 @@ function Header({ selectAll }: TableHeaderProps) {
   const latest = useRef({ resolved, shown, onLayoutChange });
   latest.current = { resolved, shown, onLayoutChange };
 
-  // During the drag, the widths of the two columns go directly on the table
-  // element as CSS custom properties, so the rows follow the pointer with no
-  // render. The new layout goes to the storage at the end.
+  // During the drag, the widths of the column and of the columns after it go
+  // directly on the table element as CSS custom properties, so the rows
+  // follow the pointer with no render. The new layout goes to the storage at
+  // the end.
   const handleResizeStart = useCallback(
     (index: number, startEvent: React.PointerEvent) => {
       const columnsElement = columnsRef.current;
@@ -84,33 +86,29 @@ function Header({ selectAll }: TableHeaderProps) {
       const target = startEvent.currentTarget as HTMLElement;
       const startX = startEvent.clientX;
       const columnsWidth = columnsElement.getBoundingClientRect().width;
-      const { widths } = latest.current.shown;
-      const leftWidth = widths[index];
-      const rightWidth = widths[index + 1];
-      let amount = 0;
+      const startWidths = latest.current.shown.widths;
+      const minWidth = MIN_RESIZE_COLUMN_PIXELS / columnsWidth;
+      let widths = startWidths;
 
       startEvent.preventDefault();
       target.setPointerCapture(startEvent.pointerId);
 
+      // Each move starts again from the widths at the start of the drag, thus
+      // a drag back to the start gives the same widths again
       const handleMove = (event: PointerEvent) => {
-        // A positive amount makes the left column smaller. The amount keeps
-        // the two columns at the minimum width or more.
-        amount = Math.min(
-          Math.max(
-            (startX - event.clientX) / columnsWidth,
-            MIN_COLUMN_WIDTH - rightWidth,
-          ),
-          leftWidth - MIN_COLUMN_WIDTH,
+        widths = pushColumnWidths(
+          startWidths,
+          index,
+          (event.clientX - startX) / columnsWidth,
+          minWidth,
         );
 
-        table.style.setProperty(
-          columnWidthVariable(index),
-          toPercentage(leftWidth - amount),
-        );
-        table.style.setProperty(
-          columnWidthVariable(index + 1),
-          toPercentage(rightWidth + amount),
-        );
+        for (let i = index; i < widths.length; i += 1) {
+          table.style.setProperty(
+            columnWidthVariable(i),
+            toPercentage(widths[i]),
+          );
+        }
       };
 
       const handleEnd = () => {
@@ -118,13 +116,13 @@ function Header({ selectAll }: TableHeaderProps) {
         target.removeEventListener('pointerup', handleEnd);
         target.removeEventListener('pointercancel', handleEnd);
 
-        if (amount !== 0) {
+        if (widths !== startWidths) {
           const current = latest.current;
           current.onLayoutChange(
             withHiddenColumns(
               current.resolved,
               current.shown,
-              resizeColumn(current.shown, index, amount),
+              resizeColumns(current.shown, widths),
             ),
           );
         }

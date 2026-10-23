@@ -5,10 +5,10 @@ import React, {
   useEffect,
   useMemo,
 } from 'react';
+import { ActionsProvider } from 'ui/Actions';
 import BundledTexts, { type BundledTextsProps } from 'ui/BundledTexts';
 import { DateSettingsProvider } from 'ui/DateSettings';
 import { HostServicesProvider } from 'ui/HostServicesProvider';
-import { HotKeyManager } from 'ui/HotKey';
 import { MenuSheetProvider } from 'ui/MenuSheet';
 import {
   type NavigationAdapter,
@@ -141,9 +141,9 @@ function CtxAdapters({
         <DateSettingsProvider value={dateSettings}>
           <PortalWrapperProvider value={CanvasPortalWrapper}>
             <MenuSheetProvider enabled={false}>
-              <HotKeyManager>
+              <ActionsProvider>
                 <TooltipDelayGroup>{children}</TooltipDelayGroup>
-              </HotKeyManager>
+              </ActionsProvider>
             </MenuSheetProvider>
           </PortalWrapperProvider>
         </DateSettingsProvider>
@@ -166,7 +166,8 @@ function CtxAdapters({
  * - the router: `ctx.navigateTo`, and `ctx.location` in a page and in an
  *   inspector;
  * - the date settings of the user, from `ctx.ui`;
- * - the hot keys and the delays of the tooltips.
+ * - the hot keys, the actions of `useRegisterActions` and the delays of the
+ *   tooltips.
  *
  * It also starts the auto-resizer of the frame, and gives `ctx` to
  * `useCtx`.

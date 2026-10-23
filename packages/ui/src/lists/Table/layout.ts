@@ -3,8 +3,8 @@ import type { SortableDropResult } from '../dnd';
 import { reorder } from '../dnd/reorder';
 import type { TableColumn, TableLayout, TableLayoutColumn } from './types';
 
-// The smallest width of a column, as a fraction of the table width
-export const MIN_COLUMN_WIDTH = 0.05;
+// The smallest width in pixels of a column during a resize
+export const MIN_RESIZE_COLUMN_PIXELS = 48;
 
 // The width that a column gets when the user shows it, as a fraction of the
 // table width
@@ -171,26 +171,70 @@ export function moveColumn(
   return { columns: reorder(toLayoutColumns(resolved), dropResult) };
 }
 
-// `amount` is the fraction of the table width that the column at `index`
-// loses, and the column after it gets
-export function resizeColumn(
-  resolved: ResolvedTableLayout,
+// The widths after the user moves the right border of the column at `index`
+// by `delta` (a fraction of the table width). The columns before it do not
+// change, thus the border stays under the pointer. The columns after it share
+// the change: when the column grows, each one gives a part of the width above
+// its minimum, thus they all get to `minWidth` together. Then the border
+// stops. When the column shrinks, each one gets a part of the width in
+// proportion to its width.
+export function pushColumnWidths(
+  widths: number[],
   index: number,
-  amount: number,
-): TableLayout {
-  return {
-    columns: toLayoutColumns(resolved).map((column, columnIndex) => {
+  delta: number,
+  minWidth: number,
+): number[] {
+  const after = widths.slice(index + 1);
+
+  if (delta > 0) {
+    const slack = after.reduce(
+      (sum, width) => sum + Math.max(0, width - minWidth),
+      0,
+    );
+    const applied = Math.min(delta, slack);
+
+    if (applied <= 0) {
+      return widths;
+    }
+
+    return widths.map((width, columnIndex) => {
       if (columnIndex === index) {
-        return { ...column, width: column.width - amount };
+        return width + applied;
       }
 
-      if (columnIndex === index + 1) {
-        return { ...column, width: column.width + amount };
+      if (columnIndex > index) {
+        return width - (Math.max(0, width - minWidth) * applied) / slack;
       }
 
-      return column;
-    }),
-  };
+      return width;
+    });
+  }
+
+  const applied = Math.min(-delta, Math.max(0, widths[index] - minWidth));
+  const afterSum = after.reduce((sum, width) => sum + width, 0);
+
+  if (applied <= 0 || afterSum <= 0) {
+    return widths;
+  }
+
+  return widths.map((width, columnIndex) => {
+    if (columnIndex === index) {
+      return width - applied;
+    }
+
+    if (columnIndex > index) {
+      return width + (width * applied) / afterSum;
+    }
+
+    return width;
+  });
+}
+
+export function resizeColumns(
+  resolved: ResolvedTableLayout,
+  widths: number[],
+): TableLayout {
+  return { columns: toLayoutColumns({ ...resolved, widths }) };
 }
 
 // The widths of the columns are CSS custom properties on the table element,

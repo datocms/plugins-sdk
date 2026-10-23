@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "exports": {
+    "./Actions": "./src/actions/Actions/index.tsx",
     "./ApiKey": "./src/content/ApiKey.tsx",
     "./Aside": "./src/semantic/Aside.tsx",
     "./Avatar": "./src/content/Avatar.tsx",
@@ -57,8 +58,8 @@
     "./FullscreenModal": "./src/overlays/FullscreenModal.tsx",
     "./Heading": "./src/semantic/Heading.tsx",
     "./HostServicesProvider": "./src/HostServicesProvider.tsx",
-    "./HotKey": "./src/actions/HotKey.tsx",
     "./HoverCard": "./src/overlays/HoverCard.tsx",
+    "./IconAvatar": "./src/content/IconAvatar.tsx",
     "./i18n": "./src/i18n.tsx",
     "./IdText": "./src/content/IdText.tsx",
     "./InfoList": "./src/lists/InfoList.tsx",
@@ -75,6 +76,7 @@
     "./Modal": "./src/overlays/Modal.tsx",
     "./MultipleSelectionActionBar": "./src/actions/MultipleSelectionActionBar.tsx",
     "./Nav": "./src/semantic/Nav.tsx",
+    "./NavigationFocusProvider": "./src/semantic/NavigationFocusProvider.tsx",
     "./NavigationProvider": "./src/navigation/NavigationProvider.tsx",
     "./NavList": "./src/navigation/NavList.tsx",
     "./NewZIndex": "./src/overlays/NewZIndex.tsx",
@@ -158,6 +160,7 @@
   "devDependencies": {
     "@biomejs/biome": "2.4.8",
     "@types/lodash-es": "4.17.4",
+    "@types/mdast": "4.0.4",
     "@types/postcss-import": "14.0.3",
     "@types/react": "17.0.73",
     "@types/react-19": "npm:@types/react@19.3.0",

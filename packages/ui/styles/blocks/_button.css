@@ -19,7 +19,7 @@
   padding: var(--button-pad-y) var(--button-pad-x);
   font-family: inherit;
   font-size: 1.1em;
-  font-weight: bold;
+  font-weight: var(--font-weight-strong);
   line-height: inherit;
   vertical-align: middle;
   color: var(--color--primary-soft--ink);

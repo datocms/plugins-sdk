@@ -46,6 +46,16 @@ The communication flow:
 2. **CMS → Plugin**: CMS invokes hooks when needed, passing a context object
 3. **Plugin → CMS**: Plugin can call CMS methods (open dialogs, navigate, etc.)
 
+### Keyboard Shortcuts of the CMS
+
+The key presses in the iframe of a plugin do not reach the CMS. So that the shortcuts of the app (⌘K, the `G` chords, `?`) also work while a plugin has the focus, `connect()` sends the key presses that the plugin does not handle to the CMS (`src/forwardKeys.ts`):
+
+- A plugin handles a key when it calls `preventDefault()` on the `keydown` event. The SDK reads the event after the listeners of the plugin, and sends only the keys that are not prevented.
+- In a text field, only the keys with ⌘ or Ctrl go to the CMS, with `inField: true`. The CMS then runs only the actions that work in a text field. The modifier keys alone and the keys of an input method do not go. The SDK reads the target in the shadow root, if there is one.
+- ⌘K (Ctrl+K out of macOS) always goes to the CMS at once, also from a text field, because the browser gives it to its address bar otherwise. A plugin that needs this key calls `preventDefault()` on it.
+- A key from a plugin runs only the actions of the app (the palette, the chords, the panel of the keys) and Escape, never an action on the content of the page (the keys of a record or of an asset). The code of a plugin can send any key: this rule keeps it from editing the content. An Escape that the plugin does not prevent closes the dialog of the CMS around the plugin.
+- The CMS gives the method `forwardKeyDown` to the SDK only: the SDK does not put it in `ctx`. An older SDK puts every method of the CMS in `ctx`, thus `ctx.forwardKeyDown` exists there, but it is not an API of the plugins. A CMS without the method gets no keys. The CMS accepts a key only while the iframe has the focus and the user is active.
+
 ### The `connect()` Function
 
 The entry point for every plugin is the `connect()` function (src/connect.ts:129). This function:
@@ -522,6 +532,7 @@ const result = await pluginConnection.callMethodMergingBootCtx(
 
 - **`src/index.ts`**: Main entry point, re-exports everything
 - **`src/connect.ts`**: Connection logic, Penpal setup, hook registration
+- **`src/forwardKeys.ts`**: Sends the key presses that the plugin does not handle to the CMS
 - **`src/utils.ts`**: Bootstrapper factories, helper functions
 
 ### Context Definitions

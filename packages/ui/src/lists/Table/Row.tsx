@@ -7,6 +7,7 @@ import React, {
   useEffect,
   useRef,
 } from 'react';
+import { type Action, useRegisterActions } from '../../actions/Actions';
 import {
   DisabledReasonTooltip,
   type DisabledWithReason,
@@ -19,6 +20,8 @@ import { DragHandle, SortableItem } from '../dnd';
 import type { RefCallback } from '../dnd/types';
 import Cell, { type TableFirstCell } from './Cell';
 import { TableRowNameIdContext, useTableRowsContext } from './TableContext';
+
+const NO_ACTIONS: readonly Action[] = [];
 
 export type RowSelection = {
   selected: boolean;
@@ -120,6 +123,11 @@ type RowBaseProps<R> = {
     Record<`data-${string}`, string>;
   /** The element of the row, without the handle */
   rowRef?: Ref<HTMLDivElement>;
+  /**
+   * The actions of the row (see `ui/Actions`): their keys work while the
+   * pointer or the focus is in the row, and a menu in the row runs them.
+   */
+  actions?: readonly Action[];
   rowClassName?: string;
   /**
    * In a tree: the indentation of the row and the toggle of its child rows.
@@ -243,6 +251,7 @@ function Row<R>({
   fetching,
   wrapperProps,
   rowRef,
+  actions = NO_ACTIONS,
   rowClassName,
   firstCell,
   muted = false,
@@ -267,6 +276,7 @@ function Row<R>({
 
   const ownRowRef = useRef<HTMLDivElement>(null);
   const mergedRowRef = useMergedRef(ownRowRef, rowRef ?? null);
+  useRegisterActions(ownRowRef, actions);
 
   // A link can open a row that is out of view, thus the open row scrolls into
   // view. Only the list scrolls: the areas around it (for example a docs page

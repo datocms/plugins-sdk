@@ -5,16 +5,19 @@ import { Users } from '../../icons';
 import InitialsAvatar, { initialsFor } from './InitialsAvatar';
 
 /**
- * "small" is 20px, "regular" is 30px, "large" is 40px. The regular and the
- * large avatars have a ring, so avatars in a stack stay apart.
+ * "small" is 20px, "regular" is 30px, "large" is 40px, "xlarge" is 48px.
+ * The regular and the large avatars have a ring, so avatars in a stack stay
+ * apart. The xlarge avatar is for a single person, for example the header of
+ * a profile, thus it has no ring.
  */
-export type AvatarSize = 'small' | 'regular' | 'large';
+export type AvatarSize = 'small' | 'regular' | 'large' | 'xlarge';
 
 /** The side of each size in pixels, for example to ask an image of that size */
 export const AVATAR_SIZE_IN_PIXELS: Record<AvatarSize, number> = {
   small: 20,
   regular: 30,
   large: 40,
+  xlarge: 48,
 };
 
 /** The image of the avatar: a URL, or the Gravatar image of the email */

@@ -38,10 +38,10 @@ export type PrimaryButtonProps = {
   /** The button, the caret and the actions of the menu are disabled */
   disabled?: boolean;
   /**
-   * The main button shows the keys of the HotKeyListener around it in its
-   * tooltip (see the "hotKey" tooltip of Button)
+   * The id of the action of the main button: its name and its keys show in
+   * the tooltip (see the "action" tooltip of Button)
    */
-  hotKey?: boolean;
+  action?: string;
   /**
    * Shows only the icon of the main action. The label is then the
    * accessible name of the button.
@@ -61,7 +61,7 @@ export type PrimaryButtonProps = {
 
 const PrimaryButton = React.memo(
   React.forwardRef<HTMLElement, PrimaryButtonProps>(function PrimaryButton(
-    { actions, disabled, hotKey, iconOnly, size: sizeProp },
+    { actions, disabled, action: actionId, iconOnly, size: sizeProp },
     ref,
   ) {
     const { tc } = useTranslation();
@@ -74,7 +74,7 @@ const PrimaryButton = React.memo(
     const [{ to, label, icon: Icon, onPick }, ...rest] = actions;
 
     const action = onPick ? { onClick: onPick } : to ? { to } : {};
-    const tooltip = hotKey ? { hotKey: true as const } : undefined;
+    const tooltip = actionId ? { action: actionId } : undefined;
     const content =
       iconOnly && Icon
         ? { label, icon: Icon, iconOnly: true as const }

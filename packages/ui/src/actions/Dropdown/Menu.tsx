@@ -12,6 +12,7 @@ import classNames from 'classnames';
 import { useTranslation } from '../../i18n';
 import NewZIndex from '../../overlays/NewZIndex';
 import Portal from '../../overlays/Portal';
+import { ActionLayer } from '../Actions/registry';
 import DropdownContext from './DropdownContext';
 import 'intersection-observer';
 import React, { useContext } from 'react';
@@ -115,7 +116,8 @@ export type MenuProps = {
 
 /**
  * The floating menu of a Dropdown. It closes with Escape, Tab and a click
- * out of it. The arrow keys move the highlight, and Enter picks the option.
+ * out of it. While it is open, the actions of the page and of the regions
+ * are off. The arrow keys move the highlight, and Enter picks the option.
  * On a small screen, the menu is a sheet at the bottom of the screen.
  */
 
@@ -166,7 +168,7 @@ const Menu = React.forwardRef<HTMLDivElement, MenuProps>(
       placementStyle(finalPlacement);
 
     return (
-      <>
+      <ActionLayer kind="popover" active={!isClosing}>
         <div ref={refs.setReference} className="Dropdown__spacer" />
         <Wrapper
           ref={ref ? mergeRefs(ref, refs.setFloating) : refs.setFloating}
@@ -203,7 +205,7 @@ const Menu = React.forwardRef<HTMLDivElement, MenuProps>(
             ) : null}
           </div>
         </Wrapper>
-      </>
+      </ActionLayer>
     );
   },
 );

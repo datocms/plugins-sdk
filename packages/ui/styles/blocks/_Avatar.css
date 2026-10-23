@@ -53,6 +53,7 @@
   }
 
   text {
+    font-weight: var(--font-weight-strong);
     fill: var(--Avatar-ink);
   }
 }
@@ -73,9 +74,37 @@
   margin: auto;
   color: var(--color--ink-subtle);
 }
-.Avatar__initials--muted {
+.Avatar__initials--muted,
+.Avatar__icon--muted {
   --Avatar-surface: var(--color--surface-muted);
   --Avatar-ink: var(--color--ink-subtle);
+}
+/* The size is a variable, thus the box of the caller (the image of an
+   EntityRow) can give the square another size. */
+.Avatar__icon {
+  position: relative;
+  display: inline-block;
+  flex: none;
+  width: var(--Avatar-icon-size);
+  height: var(--Avatar-icon-size);
+  background-color: var(--Avatar-surface);
+  border-radius: var(--radius-s);
+
+  /* The icon is centered with the margins, not with flex: the box of the
+     caller can set the display of the square (the image of an EntityRow
+     makes it a block), and the icon stays at the center. */
+  svg {
+    position: absolute;
+    inset: 0;
+    width: 55%;
+    height: 55%;
+    margin: auto;
+    fill: var(--Avatar-ink);
+  }
+}
+.Avatar__icon--primary {
+  --Avatar-surface: var(--color--primary-soft--surface);
+  --Avatar-ink: var(--color--primary-soft--ink);
 }
 /* The hues of the initials. They are local to the avatar, not semantic
    tokens. The values are the same as the field group chips. Light mode has
@@ -169,6 +198,9 @@
 
   /* token-audit-disable-next-line mismatch -- ring matches the page surface to separate stacked avatars */
   border: var(--Avatar-ring) solid var(--color--surface);
+}
+.Avatar--xlarge {
+  --Avatar-size: 48px;
 }
 /* One look for all the sizes: the outline covers the ring of the regular and
    the large avatars, and goes around the small avatar, which has no ring. */

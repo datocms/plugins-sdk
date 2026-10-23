@@ -1,5 +1,6 @@
 import React from 'react';
 import { Navigation } from '../../../icons/index';
+import { ActionTooltip } from '../../actions/Actions/ActionTooltip';
 import { useTranslation } from '../../i18n';
 import { type TextMessage } from '../../Message';
 import Link from '../../navigation/Link';
@@ -28,6 +29,11 @@ export type GoBackProps = (GoBackLink | GoBackButton) & {
    * @default { id: 'toolbar.goBack' } ("Go back to the collection")
    */
   ariaLabel?: TextMessage;
+  /**
+   * The id of the action of the registry that goes back: a tooltip shows
+   * the name of the chevron and the keys of the action
+   */
+  action?: string;
 };
 
 /** The chevron that goes back, before the title */
@@ -35,26 +41,32 @@ function GoBack({
   to,
   onClick,
   ariaLabel = { id: 'toolbar.goBack' },
+  action,
 }: GoBackProps) {
   const { tm } = useTranslation();
   const icon = <Navigation.ChevronLeftIcon />;
 
-  if (to !== undefined) {
-    return (
+  const chevron =
+    to !== undefined ? (
       <Link to={to} className="Toolbar__back" aria-label={tm(ariaLabel)}>
         {icon}
       </Link>
+    ) : (
+      <RawButton
+        className="Toolbar__back"
+        onClick={onClick}
+        ariaLabel={ariaLabel}
+      >
+        {icon}
+      </RawButton>
     );
-  }
+
+  if (!action) return chevron;
 
   return (
-    <RawButton
-      className="Toolbar__back"
-      onClick={onClick}
-      ariaLabel={ariaLabel}
-    >
-      {icon}
-    </RawButton>
+    <ActionTooltip action={action} label={ariaLabel} placement="bottom">
+      {chevron}
+    </ActionTooltip>
   );
 }
 

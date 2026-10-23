@@ -307,6 +307,6 @@
 /* It is the title of the second list. */
 .SelectInput__menu-action--back {
   font-size: var(--font-size-xs);
-  font-weight: 500;
+  font-weight: var(--font-weight-strong);
   color: var(--color--ink-subtle);
 }

@@ -18,7 +18,9 @@
     background: var(--color--fill-danger);
   }
 }
-/* Like an icon, the ring has the size of the text around it */
+/* Like an icon, the ring has the size of the text around it. Within the
+   limit, the fill is gray as an icon, thus only a ring over the limit
+   catches the eye. */
 .UsageRing {
   width: 1em;
   height: 1em;
@@ -30,7 +32,7 @@
   stroke: var(--color--progress--track);
 }
 .UsageRing__fill {
-  stroke: var(--color--progress--fill);
+  stroke: var(--color--ink-subtle);
 
   .UsageRing--over & {
     stroke: var(--color--fill-warning);

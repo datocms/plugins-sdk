@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { Generic } from '../../icons/index';
+import { ActionLayer } from '../actions/Actions/registry';
 import Button from '../actions/Button';
-import { HotKeyListener, HotKeyStack } from '../actions/HotKey';
 import { useTranslation } from '../i18n';
 import ToolbarRoot from '../layout/Toolbar/Root';
 import ToolbarSpace from '../layout/Toolbar/Space';
@@ -10,6 +10,7 @@ import { type Message, type TextMessage } from '../Message';
 import NewZIndex from './NewZIndex';
 import Portal from './Portal';
 import {
+  closeAction,
   ModalCloseContext,
   useDialogLayer,
   useModalClose,
@@ -60,6 +61,13 @@ export type ModalProps = ModalName & {
    */
   freeContent?: boolean;
   /**
+   * `false`: the dialog has no cross. Escape and a click out of the panel
+   * close it. For a dialog whose field keeps the focus, for example the
+   * command palette.
+   * @default true
+   */
+  closeButton?: boolean;
+  /**
    * The maximum width: "s" (600px), "m" (700px), "l" (900px) or "xl"
    * (1010px). A number of pixels is only for a plugin that gives the width of
    * its dialog.
@@ -78,6 +86,7 @@ const Modal = React.memo(function Modal({
   title,
   ariaLabel,
   freeContent = false,
+  closeButton: showCloseButton = true,
   width,
 }: ModalProps) {
   const { tc, tm } = useTranslation();
@@ -94,7 +103,7 @@ const Modal = React.memo(function Modal({
 
   const hasHeader = Boolean(title);
 
-  const closeButton = onClose && (
+  const closeButton = onClose && showCloseButton && (
     <Button
       tone="ghost"
       size="micro"
@@ -107,57 +116,67 @@ const Modal = React.memo(function Modal({
   );
 
   return (
-    <HotKeyStack forceStackPriority={layer.hotKeyPriority}>
-      <HotKeyListener
-        hotKey="escape"
-        description={{ id: 'hotkeys.closeModal' }}
-        trigger={handleClose}
-        enabled={!!onClose}
-      >
-        <Portal>
-          <NewZIndex forcedValue={layer.zIndex}>
-            {(zIndex) => (
-              <ModalCloseContext.Provider value={contextValue}>
-                <div className="Modal Modal--dialog" style={{ zIndex }}>
-                  <div className="Modal__backdrop" />
-                  <div
-                    ref={dialogRef}
-                    role="dialog"
-                    aria-modal="true"
-                    lang={locale}
-                    className="Modal__content"
-                    aria-labelledby={hasHeader ? titleId : undefined}
-                    aria-label={ariaLabel ? tm(ariaLabel) : undefined}
-                    style={{ maxWidth: `${maxWidth}px` }}
-                  >
-                    <div className="Modal__content__inner">
-                      {hasHeader ? (
-                        <ToolbarRoot
-                          borderBottom={true}
-                          className="Modal__header"
-                        >
-                          <ToolbarTitle level={1} id={titleId}>
-                            {title && tc(title)}
-                          </ToolbarTitle>
-                          <ToolbarSpace />
-                          {closeButton}
-                        </ToolbarRoot>
-                      ) : (
-                        closeButton
-                      )}
-                      {freeContent && didMount && children}
-                      {!freeContent && didMount && (
-                        <div className="Modal__body">{children}</div>
-                      )}
-                    </div>
+    <ActionLayer
+      kind="dialog"
+      actions={onClose ? [closeAction(handleClose)] : undefined}
+    >
+      <Portal>
+        <NewZIndex forcedValue={layer.zIndex}>
+          {(zIndex) => (
+            <ModalCloseContext.Provider value={contextValue}>
+              <div
+                className="Modal Modal--dialog"
+                style={{ zIndex }}
+                // Without a cross, a click out of the panel closes the dialog.
+                // The panel stops the event: a click in it does not close.
+                onClick={
+                  onClose && !showCloseButton
+                    ? (event) => {
+                        if (event.target === event.currentTarget) {
+                          handleClose(event);
+                        }
+                      }
+                    : undefined
+                }
+              >
+                <div className="Modal__backdrop" />
+                <div
+                  ref={dialogRef}
+                  role="dialog"
+                  aria-modal="true"
+                  lang={locale}
+                  className="Modal__content"
+                  aria-labelledby={hasHeader ? titleId : undefined}
+                  aria-label={ariaLabel ? tm(ariaLabel) : undefined}
+                  style={{ maxWidth: `${maxWidth}px` }}
+                >
+                  <div className="Modal__content__inner">
+                    {hasHeader ? (
+                      <ToolbarRoot
+                        borderBottom={true}
+                        className="Modal__header"
+                      >
+                        <ToolbarTitle level={1} id={titleId}>
+                          {title && tc(title)}
+                        </ToolbarTitle>
+                        <ToolbarSpace />
+                        {closeButton}
+                      </ToolbarRoot>
+                    ) : (
+                      closeButton
+                    )}
+                    {freeContent && didMount && children}
+                    {!freeContent && didMount && (
+                      <div className="Modal__body">{children}</div>
+                    )}
                   </div>
                 </div>
-              </ModalCloseContext.Provider>
-            )}
-          </NewZIndex>
-        </Portal>
-      </HotKeyListener>
-    </HotKeyStack>
+              </div>
+            </ModalCloseContext.Provider>
+          )}
+        </NewZIndex>
+      </Portal>
+    </ActionLayer>
   );
 });
 

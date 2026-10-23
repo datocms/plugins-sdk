@@ -1,12 +1,13 @@
 import React, { useContext, useState } from 'react';
 import { Generic } from '../../icons/index';
+import { ActionLayer } from '../actions/Actions/registry';
 import Button from '../actions/Button';
-import { HotKeyListener, HotKeyStack } from '../actions/HotKey';
 import { useTranslation } from '../i18n';
 import type { Message, TextMessage } from '../Message';
 import NewZIndex from './NewZIndex';
 import Portal from './Portal';
 import {
+  closeAction,
   ModalCloseContext,
   useDialogLayer,
   useModalClose,
@@ -80,58 +81,54 @@ const FullscreenModal = React.memo(function FullscreenModal({
     });
 
   return (
-    <HotKeyStack forceStackPriority={layer.hotKeyPriority}>
-      <HotKeyListener
-        hotKey="escape"
-        description={{ id: 'hotkeys.closeModal' }}
-        trigger={handleClose}
-        enabled={!!onClose}
-      >
-        <Portal>
-          <FullscreenModalTitleContext.Provider value={title ?? null}>
-            <ModalCloseContext.Provider value={contextValue}>
-              <NewZIndex forcedValue={layer.zIndex}>
-                {(zIndex) => (
-                  <div className="Modal Modal--fullscreen" style={{ zIndex }}>
-                    <div className="Modal__backdrop" />
-                    <div
-                      ref={dialogRef}
-                      role="dialog"
-                      aria-modal="true"
-                      lang={locale}
-                      className="Modal__content"
-                      aria-labelledby={title ? titleId : undefined}
-                      aria-label={ariaLabel ? tm(ariaLabel) : undefined}
-                    >
-                      {/* The name of the dialog: the content shows the title */}
-                      {title && (
-                        <span id={titleId} hidden>
-                          {tc(title)}
-                        </span>
-                      )}
-                      {onClose && (
-                        <Button
-                          tone="ghost"
-                          size="large"
-                          iconOnly
-                          icon={Generic.CloseIcon}
-                          label={{ id: 'modal.close' }}
-                          className="Modal__close"
-                          onClick={handleClose}
-                        />
-                      )}
-                      <div className="Modal__content__inner">
-                        {didMount && children}
-                      </div>
+    <ActionLayer
+      kind="dialog"
+      actions={onClose ? [closeAction(handleClose)] : undefined}
+    >
+      <Portal>
+        <FullscreenModalTitleContext.Provider value={title ?? null}>
+          <ModalCloseContext.Provider value={contextValue}>
+            <NewZIndex forcedValue={layer.zIndex}>
+              {(zIndex) => (
+                <div className="Modal Modal--fullscreen" style={{ zIndex }}>
+                  <div className="Modal__backdrop" />
+                  <div
+                    ref={dialogRef}
+                    role="dialog"
+                    aria-modal="true"
+                    lang={locale}
+                    className="Modal__content"
+                    aria-labelledby={title ? titleId : undefined}
+                    aria-label={ariaLabel ? tm(ariaLabel) : undefined}
+                  >
+                    {/* The name of the dialog: the content shows the title */}
+                    {title && (
+                      <span id={titleId} hidden>
+                        {tc(title)}
+                      </span>
+                    )}
+                    {onClose && (
+                      <Button
+                        tone="ghost"
+                        size="large"
+                        iconOnly
+                        icon={Generic.CloseIcon}
+                        label={{ id: 'modal.close' }}
+                        className="Modal__close"
+                        onClick={handleClose}
+                      />
+                    )}
+                    <div className="Modal__content__inner">
+                      {didMount && children}
                     </div>
                   </div>
-                )}
-              </NewZIndex>
-            </ModalCloseContext.Provider>
-          </FullscreenModalTitleContext.Provider>
-        </Portal>
-      </HotKeyListener>
-    </HotKeyStack>
+                </div>
+              )}
+            </NewZIndex>
+          </ModalCloseContext.Provider>
+        </FullscreenModalTitleContext.Provider>
+      </Portal>
+    </ActionLayer>
   );
 });
 

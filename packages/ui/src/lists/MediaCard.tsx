@@ -48,11 +48,22 @@ export type MediaCardOption = MediaCardOptionBase &
         /** Runs when the user picks the option. */
         onClick: (e: React.MouseEvent) => void;
         submenu?: never;
+        action?: never;
+      }
+    | {
+        /**
+         * The id of an action of the registry (`ui/Actions`). The option
+         * runs it and shows its keys.
+         */
+        action: string;
+        onClick?: never;
+        submenu?: never;
       }
     | {
         /** The options of the submenu that the option opens. */
         submenu: React.ReactNode;
         onClick?: never;
+        action?: never;
       }
   );
 
@@ -198,7 +209,17 @@ const MediaCard = forwardRef<HTMLDivElement, MediaCardProps>(function MediaCard(
       >
         <Dropdown.Menu placement="bottom-end" contextualSearch={false}>
           {options.map((option, index) =>
-            option.onClick ? (
+            option.action !== undefined ? (
+              <Dropdown.Option
+                // biome-ignore lint/suspicious/noArrayIndexKey: an option has no id, and the menu renders the options again each time it opens
+                key={index}
+                alert={option.alert}
+                disabled={option.disabled}
+                action={option.action}
+              >
+                {tc(option.label)}
+              </Dropdown.Option>
+            ) : option.onClick ? (
               <Dropdown.Option
                 // biome-ignore lint/suspicious/noArrayIndexKey: an option has no id, and the menu renders the options again each time it opens
                 key={index}

@@ -1,6 +1,7 @@
 import { TabButton, TabLink, TabList } from '../../navigation/Tabs';
 import AddNewButton from './AddNewButton';
 import Button from './Button';
+import Divider from './Divider';
 import DotsDropdown from './DotsDropdown';
 import Fill from './Fill';
 import FilterInput from './FilterInput';
@@ -23,6 +24,7 @@ import Title from './Title';
 const Toolbar = Object.assign(Root, {
   AddNewButton,
   Button,
+  Divider,
   FilterInput,
   FilterToggle,
   Fill,

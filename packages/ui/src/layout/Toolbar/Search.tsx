@@ -4,6 +4,7 @@ import { useTranslation } from '../../i18n';
 import { type TextMessage } from '../../Message';
 import Search from '../../semantic/Search';
 import { usePaneAriaLabel } from '../Pane/PaneAriaLabel';
+import { InSearchContext } from './context';
 
 export type ToolbarSearchProps = {
   /**
@@ -19,7 +20,8 @@ export type ToolbarSearchProps = {
 
 /**
  * A search or a filter form that takes all the free width of the toolbar.
- * Its children are in a row. It is a search landmark.
+ * Its children are in a row. It is a search landmark: a Toolbar.FilterInput
+ * in it renders no landmark of its own.
  */
 function ToolbarSearch({ ariaLabel, children, className }: ToolbarSearchProps) {
   const paneAriaLabel = usePaneAriaLabel();
@@ -30,7 +32,9 @@ function ToolbarSearch({ ariaLabel, children, className }: ToolbarSearchProps) {
       ariaLabel={ariaLabel ? tm(ariaLabel) : paneAriaLabel}
       className={classNames('Toolbar__fill', className)}
     >
-      {children}
+      <InSearchContext.Provider value={true}>
+        {children}
+      </InSearchContext.Provider>
     </Search>
   );
 }

@@ -1,4 +1,5 @@
 import connectToParent from 'penpal/lib/connectToParent';
+import { forwardUnhandledKeys } from './forwardKeys';
 import type { AssetSourcesHook } from './hooks/assetSources';
 import type { BuildItemPresentationInfoHook } from './hooks/buildItemPresentationInfo';
 import type { ContentAreaSidebarItemsHook } from './hooks/contentAreaSidebarItems';
@@ -273,7 +274,9 @@ export async function connect(
     },
   });
 
-  const methods = await penpalConnection.promise;
+  // `forwardKeyDown` is for the SDK only: it does not go in the ctx
+  const { forwardKeyDown, ...methods } = await penpalConnection.promise;
+  forwardUnhandledKeys(forwardKeyDown);
 
   const initialProperties = await methods.getSettings();
   applyHostAppearance(initialProperties);

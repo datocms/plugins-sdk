@@ -28,7 +28,7 @@
   min-width: 0;
 }
 .SettingsList__title {
-  font-weight: 600;
+  font-weight: var(--font-weight-strong);
 }
 .SettingsList__description {
   color: var(--color--ink-subtle);

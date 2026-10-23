@@ -7,10 +7,13 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { Navigation } from '../../../icons';
-import { HotKeyListener } from '../../actions/HotKey';
+import { Misc, Navigation } from '../../../icons';
+import { useRegisterActions } from '../../actions/Actions/registry';
 import { useMediaQuery } from '../../hooks/useMediaQuery';
-import SplitPane from '../../layout/SplitPane';
+import { CollectionRegionProvider } from '../../layout/Pane/PaneRegion';
+import SplitPane, {
+  TOGGLE_RIGHT_SIDEBAR_ACTION_ID,
+} from '../../layout/SplitPane';
 import { useSashActionReveal } from '../../layout/SplitView/SashActionButton';
 import SplitView from '../../layout/SplitView/SplitView';
 import { useListDetailWidths } from './Widths';
@@ -85,6 +88,11 @@ export type ListDetailSplitDetail = {
    * goes over the list, the back button of the panel run it.
    */
   onClose: () => void;
+  /**
+   * Opens the last open row again, while no row is open. Without it, `]`
+   * only closes the open row.
+   */
+  onReopen?: () => void;
 };
 
 export type ListDetailSplitProps = {
@@ -117,6 +125,11 @@ function ListDetailSplit({ detail, children }: ListDetailSplitProps) {
 
   // The width of the split, for the largest width of the list
   const [container, setContainer] = useState<HTMLDivElement | null>(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const setContainerElement = useCallback((element: HTMLDivElement | null) => {
+    containerRef.current = element;
+    setContainer(element);
+  }, []);
   const [containerWidth, setContainerWidth] = useState<number>();
 
   useEffect(() => {
@@ -182,84 +195,99 @@ function ListDetailSplit({ detail, children }: ListDetailSplitProps) {
   // detail
   const hideButton = useSashActionReveal(isOpen && isOverlay);
 
+  useRegisterActions([
+    {
+      id: 'listDetail.close',
+      name: { id: 'admin.listDetail.panel.close' },
+      shortcut: { key: 'escape' },
+      palette: 'hidden',
+      applicable: () => isOpen,
+      run: onCloseDetail,
+    },
+    {
+      id: TOGGLE_RIGHT_SIDEBAR_ACTION_ID,
+      name: { id: 'sidebar.toggleRight' },
+      icon: Misc.SidebarFlipIcon,
+      shortcut: { key: ']' },
+      applicable: () => isOpen || Boolean(detail?.onReopen),
+      run: () => (isOpen ? onCloseDetail() : detail?.onReopen?.()),
+    },
+  ]);
+
   const list = (
     <DetailOpenContext.Provider value={isOpen}>
-      {children}
+      <CollectionRegionProvider value={containerRef}>
+        {children}
+      </CollectionRegionProvider>
     </DetailOpenContext.Provider>
   );
 
   return (
-    <HotKeyListener
-      hotKey="escape"
-      description={{ id: 'hotkeys.closeModal' }}
-      trigger={onCloseDetail}
-      enabled={isOpen}
+    <div
+      ref={setContainerElement}
+      className={classNames('ListDetailSplit', {
+        'ListDetailSplit--open': isOpen,
+        'ListDetailSplit--overlay': isOverlay,
+      })}
     >
-      <div
-        ref={setContainer}
-        className={classNames('ListDetailSplit', {
-          'ListDetailSplit--open': isOpen,
-          'ListDetailSplit--overlay': isOverlay,
-        })}
-      >
-        {isOverlay ? (
-          <>
-            <div className="ListDetailSplit__list">{list}</div>
-            {isOpen && (
-              <div
-                className="ListDetailSplit__detail"
-                {...hideButton.paneHoverProps}
-              >
-                <SplitView.Sash
-                  split="vertical"
-                  allowResize={false}
-                  style={SASH_STYLE}
-                  onMouseDown={noop}
-                  onMouseMove={noop}
-                  onMouseUp={noop}
-                  action={{
-                    icon: Navigation.ChevronsRightIcon,
-                    label: { id: 'admin.listDetail.panel.close' },
-                    onClick: onCloseDetail,
-                    revealFrom: 'right',
-                    hidden: !hideButton.isVisible,
-                  }}
-                />
-                <OverlayCloseContext.Provider value={onCloseDetail}>
-                  {panel}
-                </OverlayCloseContext.Provider>
-              </div>
-            )}
-          </>
-        ) : (
-          <SplitPane
-            primaryPane="right"
-            size={size}
-            minSize={MIN_LIST_WIDTH}
-            maxSize={maxListWidth}
-            onDragFinished={onListWidthChange}
-          >
-            {list}
-            {isOpen ? (
-              <div
-                className="ListDetailSplit__detail"
-                style={{ width: detailWidth }}
-              >
-                <SplitView.Sash
-                  split="vertical"
-                  allowResize={true}
-                  style={DETAIL_SASH_STYLE}
-                  onMouseDown={handleDetailDragStart}
-                  onMouseMove={handleDetailDragMove}
-                  onMouseUp={handleDetailDragEnd}
-                />
+      {isOverlay ? (
+        <>
+          <div className="ListDetailSplit__list">{list}</div>
+          {isOpen && (
+            <div
+              className="ListDetailSplit__detail"
+              {...hideButton.paneHoverProps}
+            >
+              <SplitView.Sash
+                split="vertical"
+                allowResize={false}
+                style={SASH_STYLE}
+                onMouseDown={noop}
+                onMouseMove={noop}
+                onMouseUp={noop}
+                action={{
+                  icon: Navigation.ChevronsRightIcon,
+                  label: { id: 'admin.listDetail.panel.close' },
+                  action: TOGGLE_RIGHT_SIDEBAR_ACTION_ID,
+                  onClick: onCloseDetail,
+                  revealFrom: 'right',
+                  hidden: !hideButton.isVisible,
+                }}
+              />
+              <OverlayCloseContext.Provider value={onCloseDetail}>
                 {panel}
-              </div>
-            ) : null}
-          </SplitPane>
-        )}
-      </div>
-    </HotKeyListener>
+              </OverlayCloseContext.Provider>
+            </div>
+          )}
+        </>
+      ) : (
+        <SplitPane
+          primaryPane="right"
+          size={size}
+          minSize={MIN_LIST_WIDTH}
+          maxSize={maxListWidth}
+          onDragFinished={onListWidthChange}
+        >
+          {list}
+          {isOpen ? (
+            <div
+              className="ListDetailSplit__detail"
+              style={{ width: detailWidth }}
+            >
+              <SplitView.Sash
+                split="vertical"
+                allowResize={true}
+                style={DETAIL_SASH_STYLE}
+                onMouseDown={handleDetailDragStart}
+                onMouseMove={handleDetailDragMove}
+                onMouseUp={handleDetailDragEnd}
+              />
+              {panel}
+            </div>
+          ) : null}
+        </SplitPane>
+      )}
+    </div>
   );
 }
 

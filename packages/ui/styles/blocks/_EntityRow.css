@@ -44,6 +44,10 @@
   display: flex;
   flex: 1 1 auto;
   flex-direction: column;
+
+  /* A thin gap between the kicker, the title and the details: the lines do
+     not touch, and the three stay one block. --spacing-s is too much. */
+  gap: 2px;
   min-width: 0;
 }
 /* For a record, the kicker is the model. It starts the line, thus a model

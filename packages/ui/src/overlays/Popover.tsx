@@ -11,7 +11,7 @@ import {
 } from '@floating-ui/react-dom';
 import mergeRefs from '@react-hook/merged-ref';
 import React, { ReactNode, useEffect, useRef } from 'react';
-import { HotKeyListener, HotKeyStack } from '../actions/HotKey';
+import { ActionLayer } from '../actions/Actions/registry';
 import { useClickOutside } from '../hooks/useClickOutside';
 import { useTranslation } from '../i18n';
 import { type TextMessage } from '../Message';
@@ -49,10 +49,13 @@ export type PopoverProps = {
   /**
    * The focus goes into the popover when it opens, and comes back to where
    * it was when the popover closes. Give it when the user opens the popover
-   * with a button or a key. Do not give it when the popover opens from a
-   * field where the user types.
+   * with a button or a key. Do not give `true` when the popover opens from a
+   * field where the user types: give a selector, and the focus goes to the
+   * first element of the popover that matches it, for example `"input"`. The
+   * user goes on typing there. When no element matches, the focus stays where
+   * it is.
    */
-  autoFocus?: boolean;
+  autoFocus?: boolean | string;
 };
 
 // Tooltip, HoverCard and the menus of Dropdown have their own Floating UI
@@ -118,7 +121,11 @@ function Popover({
     }
 
     const previous = document.activeElement;
-    dialogRef.current?.focus({ preventScroll: true });
+    const target =
+      typeof autoFocus === 'string'
+        ? dialogRef.current?.querySelector<HTMLElement>(autoFocus)
+        : dialogRef.current;
+    target?.focus({ preventScroll: true });
 
     return () => {
       // A click out of the popover moves the focus to the element that the
@@ -158,15 +165,20 @@ function Popover({
   // The popover is a layer of keys: Escape closes it, and a modal under it
   // stays open.
   return (
-    <HotKeyStack>
-      <HotKeyListener
-        hotKey="escape"
-        description={{ id: 'hotkeys.closePopover' }}
-        trigger={onClose}
-      >
-        {content}
-      </HotKeyListener>
-    </HotKeyStack>
+    <ActionLayer
+      kind="popover"
+      actions={[
+        {
+          id: 'popover.close',
+          name: { id: 'hotkeys.closePopover' },
+          shortcut: { key: 'escape' },
+          palette: 'hidden',
+          run: onClose,
+        },
+      ]}
+    >
+      {content}
+    </ActionLayer>
   );
 }
 

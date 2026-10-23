@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { components, GroupBase, MultiValueRemoveProps } from 'react-select';
 import { Generic } from '../../../icons/index';
+import { useTranslation } from '../../i18n';
 import { BaseSelectOption } from './';
 import Context from './Context';
 
@@ -12,13 +13,21 @@ function SelectMultiValueRemove<
   G extends GroupBase<O>,
 >(props: MultiValueRemoveProps<O, true, G>) {
   const { disabled } = useContext(Context);
+  const { tm } = useTranslation();
 
   if (disabled) {
     return null;
   }
 
+  // react-select builds the name with the content of the chip, which can be
+  // an element: "Remove [object Object]"
+  const innerProps = {
+    ...props.innerProps,
+    'aria-label': tm({ id: 'a11y.selectInput.remove' }),
+  };
+
   return (
-    <components.MultiValueRemove<O, true, G> {...props}>
+    <components.MultiValueRemove<O, true, G> {...props} innerProps={innerProps}>
       <Generic.CloseIcon className="SelectInput__cross" aria-hidden="true" />
     </components.MultiValueRemove>
   );

@@ -1,7 +1,6 @@
 import { escapeRegExp } from 'lodash-es';
-import React, { ReactElement, ReactNode, useCallback } from 'react';
+import React, { ReactElement, ReactNode, useCallback, useState } from 'react';
 import { Generic } from '../../../icons';
-import { HotKeyListener } from '../../actions/HotKey';
 import BlankSlate from '../../feedback/BlankSlate';
 import { useTranslation } from '../../i18n';
 import ListOrOverview, {
@@ -9,7 +8,6 @@ import ListOrOverview, {
 } from '../../layout/ListOrOverview';
 import Pane from '../../layout/Pane';
 import Toolbar from '../../layout/Toolbar';
-import { FILTER_LIST_HOT_KEY } from '../../layout/Toolbar/FilterToggle';
 import ListArea from '../../lists/ListArea';
 import { type Message, type TextMessage } from '../../Message';
 import { useNavigation } from '../../navigation/NavigationProvider';
@@ -65,7 +63,12 @@ export type ListDetailPageProps = {
    * the filter toolbar is open. A list without a filter does not set it.
    */
   filter?: {
-    toolbar: { open: boolean; onOpen: () => void; onToggle: () => void };
+    toolbar: {
+      open: boolean;
+      onOpen: () => void;
+      onToggle: () => void;
+      onClose: () => void;
+    };
     form: ReactNode;
   };
   /**
@@ -151,23 +154,19 @@ function ListDetailPage({
                 <Pane.Header.Button>
                   {controls}
                   {filter && (
-                    <HotKeyListener
-                      hotKey={FILTER_LIST_HOT_KEY}
-                      description={{ id: 'hotkeys.filterList' }}
-                      trigger={filter.toolbar.onOpen}
-                    >
-                      <Toolbar.FilterToggle
-                        pressed={filter.toolbar.open}
-                        onClick={filter.toolbar.onToggle}
-                        hotKey={true}
-                      />
-                    </HotKeyListener>
+                    <Toolbar.FilterToggle
+                      pressed={filter.toolbar.open}
+                      onClick={filter.toolbar.onToggle}
+                      onOpen={filter.toolbar.onOpen}
+                    />
                   )}
                   {button}
                 </Pane.Header.Button>
               </Pane.Header>
               {filter?.toolbar.open && (
-                <Toolbar fields={true}>{filter.form}</Toolbar>
+                <Toolbar fields={true} onClose={filter.toolbar.onClose}>
+                  {filter.form}
+                </Toolbar>
               )}
             </>
           }
@@ -218,6 +217,8 @@ function matchOpenRowId(
  * of the id, for example "\\d+") when other routes are under the base URL:
  * then a route under the open row (for example "<baseUrl>/12/delete") keeps
  * the row open. It needs a host with a location (see NavigationProvider).
+ * `reopen` opens the last open row again, while no row is open: give it to
+ * `onReopen` of the detail.
  */
 export function useOpenRowRoute(baseUrl: string, idPattern?: string) {
   const { location, navigate } = useNavigation();
@@ -238,5 +239,21 @@ export function useOpenRowRoute(baseUrl: string, idPattern?: string) {
     navigate(`${baseUrl}${search}`);
   }, [navigate, baseUrl, search]);
 
-  return { id, open, close };
+  return { id, open, close, reopen: useReopenLastRow(id, open) };
+}
+
+/**
+ * Opens the last open row again, for `onReopen` of the detail. It gives
+ * `undefined` while a row is open or before the first row opens.
+ */
+export function useReopenLastRow(
+  openId: string | undefined,
+  open: (id: string) => void,
+) {
+  const [lastId, setLastId] = useState(openId);
+  if (openId !== undefined && openId !== lastId) setLastId(openId);
+
+  return openId === undefined && lastId !== undefined
+    ? () => open(lastId)
+    : undefined;
 }

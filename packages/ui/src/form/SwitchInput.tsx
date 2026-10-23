@@ -32,6 +32,8 @@ export type SwitchInputProps = BaseInputComponentPropsFieldWithReadOnly<
     /** Why the value is on, for example "The role Editor gives it" */
     reason: Message;
   };
+  /** The `id` of the text of the label. `Field` of the apps gives it. */
+  'aria-labelledby'?: string;
   /** Set when the value has an error. A `FieldWrapper` gives it. */
   'aria-invalid'?: boolean;
   /** The `id` of the error and of the hint. A `FieldWrapper` gives it. */
@@ -43,10 +45,11 @@ export type SwitchInputProps = BaseInputComponentPropsFieldWithReadOnly<
 const SwitchInput = React.memo(function SwitchInput(props: SwitchInputProps) {
   const { tc } = useTranslation();
   const { label, value, name, forcedOn, onChange, onBlur } = props;
-  // The switch names itself with its label, thus it does not take the
-  // `aria-labelledby` of the field
+  // The label of a field can hold a menu button. Its name would join the
+  // name of the switch, thus the switch points to the text of the label.
   const {
     id,
+    'aria-labelledby': ariaLabelledBy,
     'aria-invalid': ariaInvalid,
     'aria-describedby': ariaDescribedBy,
     'aria-required': ariaRequired,
@@ -123,6 +126,7 @@ const SwitchInput = React.memo(function SwitchInput(props: SwitchInputProps) {
           disabled={disabled}
           readOnly={showsReadOnly}
           aria-readonly={showsReadOnly || undefined}
+          aria-labelledby={ariaLabelledBy}
           aria-invalid={ariaInvalid}
           aria-describedby={describedBy}
           aria-required={ariaRequired}

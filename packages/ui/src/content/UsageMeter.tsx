@@ -61,7 +61,8 @@ export function UsageMeter({
 /**
  * The usage against a limit as a ring, for a row with no space for a bar.
  * The ring starts at the top and goes clockwise, and a full ring is the
- * limit. Over the limit, the full ring is in color. Like an icon, it has the
+ * limit. Within the limit, the ring is gray. Over the limit, the full ring
+ * is in color. Like an icon, it has the
  * size of the text around it (1em).
  */
 export function UsageRing({

@@ -14,7 +14,7 @@
   margin: 0;
   font-family: inherit;
   font-size: var(--font-size-xs);
-  font-weight: normal;
+  font-weight: var(--font-weight-regular);
   line-height: 1.5;
   vertical-align: middle;
   white-space: nowrap;

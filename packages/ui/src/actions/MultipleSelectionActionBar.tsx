@@ -8,6 +8,7 @@ import { type Message } from '../Message';
 import { MenuChevron } from '../navigation/Chevron';
 import NewZIndex from '../overlays/NewZIndex';
 import Portal from '../overlays/Portal';
+import { useRunAction } from './Actions/registry';
 import Button, { type ButtonTone, buttonClassName } from './Button';
 import { Dropdown } from './Dropdown';
 import DropdownTriggerButton from './Dropdown/triggers/DropdownTriggerButton';
@@ -23,6 +24,17 @@ type ActionBehavior =
        */
       onClick: (() => void) | (() => Promise<void>);
       menu?: never;
+      action?: never;
+    }
+  /**
+   * Runs an action of the registry (`ui/Actions`). The tooltip of the
+   * button and the option of the ⋮ menu show its keys.
+   */
+  | {
+      /** The id of the action */
+      action: string;
+      onClick?: never;
+      menu?: never;
     }
   /** Opens a menu */
   | {
@@ -32,6 +44,7 @@ type ActionBehavior =
        */
       menu: ReactNode;
       onClick?: never;
+      action?: never;
     };
 
 export type Action = ActionBehavior & {
@@ -42,8 +55,8 @@ export type Action = ActionBehavior & {
   /**
    * `primary` is a button on the brand color for the main actions on the
    * selection. `plain` is for the actions that change the selection itself
-   * ("Select all", "Invert"). On a small viewport, the plain actions with
-   * onClick go in one menu (⋮).
+   * ("Select all", "Invert"). On a small viewport, the plain actions that
+   * do not open a menu go in one menu (⋮).
    * @default "plain"
    */
   tone?: 'primary' | 'plain';
@@ -96,6 +109,11 @@ export type MultipleSelectionActionBarProps = {
   /** Runs when the user clicks the cross at the end of the bar. */
   onDeselectAll: () => void;
   /**
+   * The id of the action of the registry that clears the selection: the
+   * tooltip of the cross shows its keys. The click still runs onDeselectAll.
+   */
+  deselectAllAction?: string;
+  /**
    * The buttons of the bar. An array in the list gives a group of buttons
    * that touch each other. A value that is `false`, `null` or `undefined`
    * shows nothing: use `condition && action`.
@@ -120,6 +138,7 @@ export default function MultipleSelectionActionBar({
   open,
   status,
   onDeselectAll,
+  deselectAllAction,
   actions,
   extra,
   placement = 'pane',
@@ -127,12 +146,13 @@ export default function MultipleSelectionActionBar({
   const { tc } = useTranslation();
   const nodeRef = useRef<HTMLDivElement>(null);
   const smallViewport = useIsSmallViewport();
+  const runAction = useRunAction();
 
-  // On a small viewport, the plain actions with onClick ("Select all",
+  // On a small viewport, the plain actions with no menu ("Select all",
   // "Invert") go in one menu, thus the bar stays on one line and the user
   // can still use them
   const goesInMenu = (action: MaybeAction): action is Action =>
-    smallViewport && !!action && action.tone !== 'primary' && !!action.onClick;
+    smallViewport && !!action && action.tone !== 'primary' && !action.menu;
   const menuActions = actions.flat().filter(goesInMenu);
   const barActions = actions
     .map((actionOrGroup) =>
@@ -153,6 +173,22 @@ export default function MultipleSelectionActionBar({
 
     const tone: ButtonTone =
       action.tone === 'primary' ? 'on-primary' : 'overlay';
+
+    if (action.action !== undefined) {
+      const id = action.action;
+      return (
+        <Button
+          key={action.id}
+          tone={tone}
+          size="micro"
+          label={action.label}
+          disabled={action.disabled}
+          tooltip={{ action: id }}
+          // The origin finds the action of the region of the bar
+          onClick={() => runAction(id, { origin: nodeRef.current })}
+        />
+      );
+    }
 
     if (action.onClick) {
       return (
@@ -214,15 +250,25 @@ export default function MultipleSelectionActionBar({
                         placement="top-start"
                         contextualSearch={false}
                       >
-                        {menuActions.map((action) => (
-                          <Dropdown.Option
-                            key={action.id}
-                            onPick={action.onClick}
-                            disabled={action.disabled}
-                          >
-                            {tc(action.label)}
-                          </Dropdown.Option>
-                        ))}
+                        {menuActions.map((action) =>
+                          action.action !== undefined ? (
+                            <Dropdown.Option
+                              key={action.id}
+                              action={action.action}
+                              disabled={action.disabled}
+                            >
+                              {tc(action.label)}
+                            </Dropdown.Option>
+                          ) : (
+                            <Dropdown.Option
+                              key={action.id}
+                              onPick={action.onClick}
+                              disabled={action.disabled}
+                            >
+                              {tc(action.label)}
+                            </Dropdown.Option>
+                          ),
+                        )}
                       </Dropdown.Menu>
                     </Dropdown>
                   )}
@@ -247,6 +293,11 @@ export default function MultipleSelectionActionBar({
                   iconOnly
                   icon={Generic.CloseIcon}
                   label={{ id: 'MultipleSelectionActionBar.deselectAll' }}
+                  tooltip={
+                    deselectAllAction
+                      ? { action: deselectAllAction }
+                      : undefined
+                  }
                   onClick={onDeselectAll}
                 />
               </div>

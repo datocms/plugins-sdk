@@ -146,7 +146,6 @@ const InitialsAvatar = React.memo(function InitialsAvatar({
           textAnchor="middle"
           dominantBaseline="central"
           fontSize={size * (size < 40 ? 0.4 : 0.3)}
-          fontWeight="700"
         >
           {initials}
         </text>

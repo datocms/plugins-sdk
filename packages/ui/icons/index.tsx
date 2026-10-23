@@ -2,6 +2,7 @@
 
 import classNames from 'classnames';
 import React from 'react';
+import GitlabIcon from './brands/gitlab.svg?react';
 import MarkdownEditorIcon from './brands/markdown.svg?react';
 import DatoCMSIcon from './custom/color_d_icon.svg?react';
 // Field group icons
@@ -77,6 +78,7 @@ import CloneIcon from './regular/clone.svg?react';
 import CloudArrowDownIcon from './regular/cloud-arrow-down.svg?react';
 import CodeBranchIcon from './regular/code-branch.svg?react';
 import CodeForkIcon from './regular/code-fork.svg?react';
+import CommandIcon from './regular/command.svg?react';
 import CommentsIcon from './regular/comments.svg?react';
 import CopyIcon from './regular/copy.svg?react';
 import CubeIcon from './regular/cube.svg?react';
@@ -117,6 +119,7 @@ import HouseIcon from './regular/house.svg?react';
 import ImagesIcon from './regular/images.svg?react';
 import InputNumericIcon from './regular/input-numeric.svg?react';
 import SingleLineEditorIcon from './regular/input-text.svg?react';
+import KeyboardIcon from './regular/keyboard.svg?react';
 import LayerGroupIcon from './regular/layer-group.svg?react';
 import LifeRingIcon from './regular/life-ring.svg?react';
 import LinkIcon from './regular/link.svg?react';
@@ -249,6 +252,7 @@ const AnimatedArrowsRotateIcon = () => {
 
 export const Generic = {
   SearchIcon: MagnifyingGlassIcon,
+  CommandPaletteIcon: CommandIcon,
   EnableSorting: ArrowDownAZIcon,
   CDAPlaygroundIcon: SquareTerminalIcon,
   ProjectSettingsIcon: GearIcon,
@@ -454,6 +458,8 @@ export const FieldGroup = {
 export const Deployment = {
   NetlifyIcon,
   VercelIcon,
+  GitlabIcon,
+  CustomWebhookIcon: WebhookIcon,
 };
 
 export const Authentication = {
@@ -499,6 +505,7 @@ export const UI = {
   FoldersIcon,
   GiftIcon,
   HandIcon,
+  KeyboardIcon,
   LifeRingIcon,
   LinkIcon,
   LocationDotIcon: LocationDotSolidIcon,

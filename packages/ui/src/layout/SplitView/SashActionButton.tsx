@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import React, { useState } from 'react';
+import { ActionTooltip } from '../../actions/Actions/ActionTooltip';
 import { useDebounceOnBoolean } from '../../hooks/useDebounceOnBoolean';
 import { useTranslation } from '../../i18n';
 import { type TextMessage } from '../../Message';
@@ -48,6 +49,9 @@ type Props = {
   onClick: () => void;
   // Gives the button the state of a toggle that opens and closes a pane
   expandable?: { open: boolean };
+  // The id of the action of the registry that the button runs: the tooltip
+  // shows its keys
+  action?: string;
   // Without revealFrom, the button is on the center of the border and always shows.
   revealFrom?: 'left' | 'right';
   hidden?: boolean;
@@ -60,6 +64,7 @@ function SashActionButton({
   label,
   onClick,
   expandable,
+  action,
   revealFrom,
   hidden = false,
   onHoverChange,
@@ -67,6 +72,13 @@ function SashActionButton({
 }: Props) {
   const { tm } = useTranslation();
   const labelText = tm(label);
+  const placement =
+    revealFrom === 'right' ? 'left' : revealFrom === 'left' ? 'right' : 'top';
+  const button = (
+    <span className="SplitViewSash__content__button">
+      <Icon />
+    </span>
+  );
 
   return (
     <RawButton
@@ -85,20 +97,15 @@ function SashActionButton({
       onClick={() => onClick()}
       {...(onHoverChange && mouseHoverProps(onHoverChange))}
     >
-      <Tooltip
-        label={labelText}
-        placement={
-          revealFrom === 'right'
-            ? 'left'
-            : revealFrom === 'left'
-              ? 'right'
-              : 'top'
-        }
-      >
-        <span className="SplitViewSash__content__button">
-          <Icon />
-        </span>
-      </Tooltip>
+      {action ? (
+        <ActionTooltip action={action} label={labelText} placement={placement}>
+          {button}
+        </ActionTooltip>
+      ) : (
+        <Tooltip label={labelText} placement={placement}>
+          {button}
+        </Tooltip>
+      )}
     </RawButton>
   );
 }

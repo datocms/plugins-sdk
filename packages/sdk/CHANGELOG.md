@@ -1,5 +1,11 @@
 # datocms-plugin-sdk
 
+## 2.6.0-next.1
+
+### Minor Changes
+
+- `connect()` sends the key presses that the plugin does not handle to the CMS, thus the shortcuts of the app (⌘K, the `G` chords, `?`) also work while a plugin has the focus. A key from a plugin never runs an action on the content of the page, as the keys of a record. A plugin handles a key when it calls `preventDefault()` on the `keydown` event: the SDK then does not send it. In a text field, only the keys with ⌘ or Ctrl go to the CMS. ⌘K (Ctrl+K out of macOS) goes to the CMS at once, also from a text field: a plugin that needs this key calls `preventDefault()` on it in a listener of an element (a React handler is one). The CMS runs a key only while the iframe of the plugin has the focus. An Escape that the plugin does not prevent closes the dialog of the CMS around the plugin. The actions of `itemFormDropdownActions`, `itemsDropdownActions`, `uploadsDropdownActions` and `schemaItemTypeDropdownActions` also show in the command palette of the CMS.
+
 ## 2.6.0-next.0
 
 ### Minor Changes

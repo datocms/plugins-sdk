@@ -8,13 +8,14 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { Misc, Navigation } from '../../icons/index';
-import { HotKeyListener } from '../actions/HotKey';
+import { Generic, Misc, Navigation } from '../../icons/index';
+import { ActionTooltip } from '../actions/Actions/ActionTooltip';
+import { useRegisterActions } from '../actions/Actions/registry';
 import { useTranslation } from '../i18n';
 import NewZIndex from '../overlays/NewZIndex';
-import Tooltip from '../overlays/Tooltip';
 import RawButton from '../semantic/RawButton';
 import { mouseHoverProps } from '../utils/mouseHoverProps';
+import { CollectionRegionProvider } from './Pane/PaneRegion';
 import { useSashActionReveal } from './SplitView/SashActionButton';
 import SplitView, { type PaneBox } from './SplitView/SplitView';
 export type SplitPaneProps = {
@@ -85,6 +86,10 @@ export type SplitPaneCollapse = {
 };
 
 type Size = string | number;
+
+export const TOGGLE_LEFT_SIDEBAR_ACTION_ID = 'sidebar.toggleLeft';
+
+export const TOGGLE_RIGHT_SIDEBAR_ACTION_ID = 'sidebar.toggleRight';
 
 // The width of the secondary pane when the caller gives no size. The cms
 // also uses it as the first value of the width that it keeps.
@@ -301,6 +306,56 @@ export default function SplitPane({
   const isSecondaryVisible = !isSecondaryCollapsed || isPeeking;
   const isFloating = (isOverlayModeActive && isSecondaryVisible) || isPeeking;
 
+  useRegisterActions([
+    {
+      id: 'splitPane.closeFloating',
+      name: { id: 'sidebar.hide' },
+      shortcut: { key: 'escape' },
+      palette: 'hidden',
+      applicable: () => isFloating,
+      run: handleEscape,
+    },
+  ]);
+
+  const rootRef = useRef<HTMLDivElement>(null);
+  const secondaryHostRef = useRef<HTMLDivElement>(null);
+  const railRef = useRef<HTMLButtonElement>(null);
+  const toggleActionId =
+    secondarySide === 'left'
+      ? TOGGLE_LEFT_SIDEBAR_ACTION_ID
+      : TOGGLE_RIGHT_SIDEBAR_ACTION_ID;
+  const focusRailOnCollapse = useFocusRailOnCollapse(
+    Boolean(isSecondaryCollapsed),
+    railRef,
+  );
+  useRegisterActions(
+    collapse
+      ? [
+          {
+            id: toggleActionId,
+            name: {
+              id:
+                secondarySide === 'left'
+                  ? 'sidebar.toggleLeft'
+                  : 'sidebar.toggleRight',
+            },
+            icon:
+              secondarySide === 'left'
+                ? Generic.SidebarIcon
+                : Misc.SidebarFlipIcon,
+            shortcut: { key: secondarySide === 'left' ? '[' : ']' },
+            run: () => {
+              // The pane that collapses takes the focus away: the rail gets it
+              if (secondaryHostRef.current?.contains(document.activeElement)) {
+                focusRailOnCollapse();
+              }
+              handleSecondaryClick();
+            },
+          },
+        ]
+      : [],
+  );
+
   const railLabel = isPeeking
     ? 'sidebar.keepOpen'
     : isSecondaryCollapsed
@@ -312,20 +367,22 @@ export default function SplitPane({
     // the rail is as tall as the page, and the wrapper of the spotlight is an
     // inline element, while the rail must fill the pane.
     const icon = SashActionIcon && (
-      <Tooltip
+      <ActionTooltip
+        action={toggleActionId}
         label={{ id: railLabel }}
         placement={pane === 'left' ? 'right' : 'left'}
       >
         <span className="SplitPane__rail__icon">
           <SashActionIcon />
         </span>
-      </Tooltip>
+      </ActionTooltip>
     );
     const railIcon =
       icon && collapse?.wrapToggle ? collapse.wrapToggle(icon) : icon;
 
     return (
       <RawButton
+        ref={railRef}
         className={classNames(
           'SplitPane__rail',
           `SplitPane__rail--${pane}`,
@@ -354,7 +411,9 @@ export default function SplitPane({
         <SplitView.Pane>
           <InSecondaryPaneContext.Provider value={false}>
             <SecondaryPaneMinSizeContext.Provider value={undefined}>
-              {children[pane === 'left' ? 0 : 1]}
+              <CollectionRegionProvider value={undefined}>
+                {children[pane === 'left' ? 0 : 1]}
+              </CollectionRegionProvider>
             </SecondaryPaneMinSizeContext.Provider>
           </InSecondaryPaneContext.Provider>
         </SplitView.Pane>
@@ -377,6 +436,7 @@ export default function SplitPane({
 
     return (
       <div
+        ref={secondaryHostRef}
         className={
           isFloating
             ? classNames(
@@ -429,7 +489,9 @@ export default function SplitPane({
         >
           <InSecondaryPaneContext.Provider value={true}>
             <SecondaryPaneMinSizeContext.Provider value={requestMinSize}>
-              {children[secondaryIndex]}
+              <CollectionRegionProvider value={rootRef}>
+                {children[secondaryIndex]}
+              </CollectionRegionProvider>
             </SecondaryPaneMinSizeContext.Provider>
           </InSecondaryPaneContext.Provider>
         </div>
@@ -440,55 +502,67 @@ export default function SplitPane({
   return (
     <NewZIndex>
       {(baseZIndex) => (
-        <HotKeyListener
-          hotKey="escape"
-          description={{ id: 'hotkeys.closeModal' }}
-          trigger={handleEscape}
-          enabled={isFloating}
+        <div
+          ref={rootRef}
+          className={classNames(
+            'SplitPane',
+            isSizeAnimated && 'SplitPane--size-animated',
+          )}
+          style={ROOT_STYLE}
         >
-          <div
-            className={classNames(
-              'SplitPane',
-              isSizeAnimated && 'SplitPane--size-animated',
-            )}
-            style={ROOT_STYLE}
+          <SplitView
+            allowResize={isSecondaryDocked}
+            sizes={sizes}
+            onChange={handleChange}
+            onDragEnd={handleDragEnd}
+            sashZIndex={SashActionIcon ? 10 : undefined}
+            // When the pane is not docked, the rail holds the toggle, thus
+            // the sash between the panes has no button
+            sashAction={
+              SashActionIcon && isSecondaryDocked
+                ? {
+                    icon: SashActionIcon,
+                    label: { id: 'sidebar.hide' },
+                    expandable: { open: true },
+                    action: toggleActionId,
+                    wrap: collapse?.wrapToggle,
+                    onClick: handleSecondaryClick,
+                    hidden: !sashActionReveal.isVisible,
+                    revealFrom: secondarySide,
+                    onHoverChange: sashActionReveal.onActionHoverChange,
+                  }
+                : undefined
+            }
+            collapsiblePaneIndex={collapse ? secondaryIndex : undefined}
+            onCollapseByDrag={collapse ? handleCollapseByDrag : undefined}
+            renderOverPanes={(panes) => renderSecondaryHost(panes, baseZIndex)}
           >
-            <SplitView
-              allowResize={isSecondaryDocked}
-              sizes={sizes}
-              onChange={handleChange}
-              onDragEnd={handleDragEnd}
-              sashZIndex={SashActionIcon ? 10 : undefined}
-              // When the pane is not docked, the rail holds the toggle, thus
-              // the sash between the panes has no button
-              sashAction={
-                SashActionIcon && isSecondaryDocked
-                  ? {
-                      icon: SashActionIcon,
-                      label: { id: 'sidebar.hide' },
-                      expandable: { open: true },
-                      wrap: collapse?.wrapToggle,
-                      onClick: handleSecondaryClick,
-                      hidden: !sashActionReveal.isVisible,
-                      revealFrom: secondarySide,
-                      onHoverChange: sashActionReveal.onActionHoverChange,
-                    }
-                  : undefined
-              }
-              collapsiblePaneIndex={collapse ? secondaryIndex : undefined}
-              onCollapseByDrag={collapse ? handleCollapseByDrag : undefined}
-              renderOverPanes={(panes) =>
-                renderSecondaryHost(panes, baseZIndex)
-              }
-            >
-              {renderPane('left')}
-              {renderPane('right')}
-            </SplitView>
-          </div>
-        </HotKeyListener>
+            {renderPane('left')}
+            {renderPane('right')}
+          </SplitView>
+        </div>
       )}
     </NewZIndex>
   );
+}
+
+// The rail shows after the render that collapses the pane, thus the focus
+// moves to it in an effect
+function useFocusRailOnCollapse(
+  isCollapsed: boolean,
+  railRef: React.RefObject<HTMLButtonElement | null>,
+) {
+  const pending = useRef(false);
+
+  useEffect(() => {
+    if (!isCollapsed || !pending.current) return;
+    pending.current = false;
+    railRef.current?.focus();
+  }, [isCollapsed, railRef]);
+
+  return useCallback(() => {
+    pending.current = true;
+  }, []);
 }
 
 // In ms. Without this delay, a pointer that only crosses the rail opens the

@@ -2,8 +2,8 @@
    in other components: Tooltip draws the box. */
 .Tooltip {
   max-width: 250px;
-  padding: var(--spacing-s) var(--spacing-m);
-  font-size: var(--font-size-s);
+  padding: var(--spacing-s);
+  font-size: var(--font-size-xs);
   line-height: 1.2;
   color: var(--color--tooltip--ink);
   text-align: center;
@@ -11,11 +11,37 @@
   background-color: var(--color--tooltip--surface);
   border-radius: var(--radius-s);
   box-shadow: var(--shadow--floating);
+  animation: Tooltip__appear 0.1s var(--ease-out);
   p {
     margin-bottom: var(--spacing-s);
   }
   p:last-child {
     margin-bottom: 0;
+  }
+}
+.Tooltip--closing {
+  pointer-events: none;
+  opacity: 0;
+  scale: 0.98;
+  transition: opacity 0.2s var(--ease-out);
+}
+@keyframes Tooltip__fade-in {
+  0% {
+    opacity: 0;
+  }
+}
+@keyframes Tooltip__appear {
+  0% {
+    opacity: 0;
+    scale: 0.98;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .Tooltip {
+    animation-name: Tooltip__fade-in;
+  }
+  .Tooltip--closing {
+    scale: none;
   }
 }
 .Tooltip--long {
@@ -28,10 +54,12 @@
   gap: var(--spacing-m);
   align-items: center;
   max-width: none;
-  padding: var(--spacing-s) var(--spacing-m);
   line-height: 1;
   white-space: nowrap;
 }
 .Tooltip__label {
   flex: 1;
+}
+.Tooltip .Shortcut__word {
+  color: var(--color--tooltip--ink-subtle);
 }

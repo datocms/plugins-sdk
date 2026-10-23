@@ -1,5 +1,5 @@
 <!-- The triangle is 15% smaller than the box: a solid shape looks larger than
      the other logos at the same size -->
 <svg width="114px" height="100px" viewBox="0 0 114 100" xmlns="http://www.w3.org/2000/svg">
-    <polygon fill="currentColor" points="57 7.5 105.45 92.5 8.55 92.5"></polygon>
+    <polygon points="57 7.5 105.45 92.5 8.55 92.5"></polygon>
 </svg>
