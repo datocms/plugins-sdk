@@ -8,8 +8,8 @@ const entries = resolvedEntries();
 const ENTRY_PREFIX = 'react-ui-entry:';
 const ENTRY_ID = '\0react-ui-entry:';
 
-// Each entry is a small virtual module that re-exports a module of ui. Thus
-// the public paths do not depend on the folders of ui, and an entry can
+// Each entry is a small virtual module that re-exports a module of ui-public. Thus
+// the public paths do not depend on the folders of ui-public, and an entry can
 // expose only a part of a module (`only` in entries.mjs).
 function entryModules(): Plugin {
   return {
@@ -31,13 +31,13 @@ function entryModules(): Plugin {
   };
 }
 
-// The code of ui and its icons go into the output. Every npm package stays
+// The code of ui-public and its icons go into the output. Every npm package stays
 // an import: it is a dependency or a peer of react-ui.
 function isExternal(id: string) {
   if (id.startsWith('\0') || id.startsWith('.') || path.isAbsolute(id)) {
     return false;
   }
-  return id !== 'ui' && !id.startsWith('ui/');
+  return id !== 'ui-public' && !id.startsWith('ui-public/');
 }
 
 export default defineConfig({
@@ -58,7 +58,7 @@ export default defineConfig({
       },
     }),
   ],
-  // The warnings of ui for the developer show in the development build of
+  // The warnings of ui-public for the developer show in the development build of
   // the plugin. Every bundler that bundles React replaces
   // process.env.NODE_ENV, because React reads it too.
   define: {

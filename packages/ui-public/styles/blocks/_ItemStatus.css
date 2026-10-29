@@ -1,0 +1,21 @@
+.ItemStatus {
+  display: inline-flex;
+  flex: none;
+  gap: 0.3em;
+  align-items: center;
+}
+.ItemStatus__dot {
+  display: block;
+  flex: none;
+  width: 0.7em;
+  height: 0.7em;
+}
+.ItemStatus__dot--published {
+  fill: var(--color--status-published--ink);
+}
+.ItemStatus__dot--outdated {
+  fill: var(--color--status-outdated--ink);
+}
+.ItemStatus__dot--draft {
+  fill: var(--color--status-draft--ink);
+}

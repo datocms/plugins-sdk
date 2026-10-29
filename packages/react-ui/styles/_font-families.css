@@ -1,7 +1,7 @@
 /* The plugins use ABC Oracle and Geist Mono, as the cms. Geist, Pangolin
    and the noto-script-fallback families do not ship, thus the stacks go to
    the system fonts after them. The weights are the ones of
-   ../../ui/styles/_css-variables.css. */
+   ../../ui-public/styles/_css-variables.css. */
 :root {
   --base-font-family:
     "ABC Oracle", "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;

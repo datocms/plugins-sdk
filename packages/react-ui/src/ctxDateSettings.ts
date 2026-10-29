@@ -1,4 +1,4 @@
-import type { DateSettings } from 'ui/DateSettings';
+import type { DateSettings } from 'ui-public/DateSettings';
 import type { BaseCtx } from './ctx';
 
 /**

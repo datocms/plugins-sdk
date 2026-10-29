@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import type { NavigationAdapter } from 'ui/NavigationProvider';
+import type { NavigationAdapter } from 'ui-public/NavigationProvider';
 import { type BaseCtx, useLatestCtx } from './ctx';
 
 type CtxLocation = { pathname: string; search: string };
@@ -11,7 +11,7 @@ function locationOf(ctx: BaseCtx): CtxLocation | undefined {
 }
 
 /**
- * The router of ui from `ctx`. A `to` is a path of the cms, with the
+ * The router of ui-public from `ctx`. A `to` is a path of the cms, with the
  * environment. A click goes through `ctx.navigateTo`. The `href` is the
  * absolute URL of the page on the internal domain of the project, thus a
  * middle click opens the page of the cms in a new tab.

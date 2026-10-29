@@ -1,4 +1,4 @@
-// Resolves the entries of `entries.mjs` to the files of ui and of the
+// Resolves the entries of `entries.mjs` to the files of ui-public and of the
 // adapter (`src/`), and writes the
 // code of the module of each entry. The JS build and the types build share
 // it, thus the two outputs expose the same names.
@@ -12,14 +12,14 @@ export const packageDir = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
   '..',
 );
-export const uiDir = path.resolve(packageDir, '../ui');
+export const uiDir = path.resolve(packageDir, '../ui-public');
 
 const uiExports = JSON.parse(
   readFileSync(path.join(uiDir, 'package.json'), 'utf8'),
 ).exports;
 
 export function resolveUiSpecifier(specifier) {
-  const subpath = `./${specifier.slice('ui/'.length)}`;
+  const subpath = `./${specifier.slice('ui-public/'.length)}`;
   if (uiExports[subpath]) return path.join(uiDir, uiExports[subpath]);
   for (const [pattern, target] of Object.entries(uiExports)) {
     if (!pattern.endsWith('/*')) continue;
@@ -31,17 +31,17 @@ export function resolveUiSpecifier(specifier) {
       );
     }
   }
-  throw new Error(`${specifier} is not in the exports map of ui`);
+  throw new Error(`${specifier} is not in the exports map of ui-public`);
 }
 
-// A regular expression is enough here: the modules of ui write a default
+// A regular expression is enough here: the modules of ui-public write a default
 // export only as "export default".
 function hasDefaultExport(file) {
   return /^export default /m.test(readFileSync(file, 'utf8'));
 }
 
 /**
- * The entries as a list: the public name, the file (of ui or of the adapter),
+ * The entries as a list: the public name, the file (of ui-public or of the adapter),
  * and the names
  * that the entry exposes (`only`), or nothing for all the names.
  */

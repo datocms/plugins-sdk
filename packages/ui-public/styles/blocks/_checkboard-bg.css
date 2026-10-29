@@ -1,0 +1,27 @@
+/*
+ * Transparency checkerboard. Uses semantic surface tokens so it flips with
+ * the theme (subtle tint in light mode, subtle contrast in dark mode) instead
+ * of showing a fixed light-on-dark pattern.
+ */
+.checkboard-bg {
+  background-color: var(--color--surface);
+  background-image:
+    linear-gradient(
+      45deg,
+      var(--color--surface-muted) 25%,
+      transparent 25%,
+      transparent 75%,
+      var(--color--surface-muted) 75%
+    ),
+    linear-gradient(
+      45deg,
+      var(--color--surface-muted) 25%,
+      transparent 25%,
+      transparent 75%,
+      var(--color--surface-muted) 75%
+    );
+  background-position:
+    0 0,
+    5px 5px;
+  background-size: 10px 10px;
+}

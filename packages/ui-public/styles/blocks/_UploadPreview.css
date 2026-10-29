@@ -1,0 +1,35 @@
+.UploadPreview {
+  position: relative;
+  box-sizing: border-box;
+  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  text-decoration: none;
+  background-color: var(--color--surface-raised);
+  border-radius: var(--radius-s);
+
+  /* The image has space around it in the box, thus it gets its own small
+     radius. The thumbhash canvas and the checkerboard behind the image (see
+     UploadPreview.tsx) show before the image loads, thus they get the same
+     radius. */
+  img,
+  canvas,
+  .checkboard-bg {
+    border-radius: var(--radius-xs);
+  }
+}
+.UploadPreview--transparent {
+  background-color: transparent;
+}
+.UploadPreview__overlay {
+  position: absolute;
+  inset: 0;
+  background-color: var(--color--primary--surface-secondary);
+  opacity: 0.4;
+}
+.UploadPreview__progress__label {
+  font-size: var(--font-size-m);
+  color: var(--color--ink-subtle);
+}

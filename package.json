@@ -7,8 +7,8 @@
 	"scripts": {
 		"build": "npm run build -w datocms-plugin-sdk && npm run build -w datocms-react-ui",
 		"test": "npm test -w datocms-plugin-sdk",
-		"tsc": "npm run tsc -w datocms-plugin-sdk -w ui -w datocms-react-ui",
-		"lint": "npm run lint -w datocms-plugin-sdk -w ui -w datocms-react-ui",
+		"tsc": "npm run tsc -w datocms-plugin-sdk -w ui-public -w datocms-react-ui",
+		"lint": "npm run lint -w datocms-plugin-sdk -w ui-public -w datocms-react-ui",
 		"format": "biome check --write ."
 	},
 	"engines": {

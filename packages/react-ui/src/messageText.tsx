@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react';
 import { flushSync } from 'react-dom';
 import { createRoot } from 'react-dom/client';
-import { isHtmlMessage, isIntlMessage, type Message } from 'ui/Message';
-import { TextsProvider, useTexts } from 'ui/TextsProvider';
+import { isHtmlMessage, isIntlMessage, type Message } from 'ui-public/Message';
+import { TextsProvider, useTexts } from 'ui-public/TextsProvider';
 
 function htmlToText(html: string) {
   return (
@@ -31,7 +31,7 @@ export function useMessageText(): (message: Message) => string {
       }
 
       // An element (for example the texts of `confirmTexts`) can need the
-      // texts of ui. Thus it renders in a detached root with the same texts,
+      // texts of ui-public. Thus it renders in a detached root with the same texts,
       // and the text of the root is the result. flushSync cannot run during
       // a render: the services of the host run only in an event handler.
       const container = document.createElement('div');

@@ -1,89 +1,95 @@
-/* The CSS of react-ui: the foundation of ui with only the fonts that
+/* The CSS of react-ui: the foundation of ui-public with only the fonts that
    www.datocms.com serves and without the colors, then the blocks of the
    shipped components. The host
    gives the color tokens (ctx.cssDesignTokens on the Canvas element), thus
-   the ramps and the semantic tokens of ui do not ship.
+   the ramps and the semantic tokens of ui-public do not ship.
 
    The blocks keep the order of the cascade of the apps (the order of
-   packages/ui/stories/main.css). A block ships only when a shipped
+   packages/ui-public/stories/main.css). A block ships only when a shipped
    component uses its classes. */
 
 /* The context files must be first for postcss-custom-media and
    postcss-custom-selectors. */
-@import "ui/styles/context/_media-queries.css";
-@import "ui/styles/context/_selectors.css";
+@import "ui-public/styles/context/_media-queries.css";
+@import "ui-public/styles/context/_selectors.css";
 
-@import "ui/styles/_remote-font-faces.css";
-@import "ui/styles/_css-variables.css";
+@import "ui-public/styles/_remote-font-faces.css";
+@import "ui-public/styles/_css-variables.css";
 @import "./_font-families.css";
-@import "ui/styles/_normalize.css";
-@import "ui/styles/_base.css";
+@import "ui-public/styles/_normalize.css";
+@import "ui-public/styles/_base.css";
 @import "./_canvas.css";
 
-@import "ui/styles/blocks/_blank-slate.css";
-@import "ui/styles/blocks/_button.css";
-@import "ui/styles/blocks/_Chevron.css";
-@import "ui/styles/blocks/_EmptySlot.css";
-@import "ui/styles/blocks/_TableList.css";
-@import "ui/styles/blocks/_CardList.css";
-@import "ui/styles/blocks/_InsertGap.css";
-@import "ui/styles/blocks/_ApiKey.css";
-@import "ui/styles/blocks/_form.css";
-@import "ui/styles/blocks/_FramedImage.css";
-@import "ui/styles/blocks/_InputFrame.css";
-@import "ui/styles/blocks/_input-group.css";
-@import "ui/styles/blocks/_PasswordInput.css";
-@import "ui/styles/blocks/_Page.css";
-@import "ui/styles/blocks/_Modal.css";
-@import "ui/styles/blocks/_spinner.css";
-@import "ui/styles/blocks/_Tabs.css";
-@import "ui/styles/blocks/_DragGripIcon.css";
-@import "ui/styles/blocks/_DragHandle.css";
-@import "ui/styles/blocks/_DropIndicator.css";
-@import "ui/styles/blocks/_DropTarget.css";
-@import "ui/styles/blocks/_SortableTree.css";
-@import "ui/styles/blocks/_SidebarTree.css";
-@import "ui/styles/blocks/_ListPresets.css";
-@import "ui/styles/blocks/_AutosizeInput.css";
-@import "ui/styles/blocks/_Avatar.css";
-@import "ui/styles/blocks/_SwitchInput.css";
-@import "ui/styles/blocks/_EntityRow.css";
-@import "ui/styles/blocks/_RowList.css";
-@import "ui/styles/blocks/_FeedbackDot.css";
-@import "ui/styles/blocks/_ValidityTriangle.css";
-@import "ui/styles/blocks/_MediaCard.css";
-@import "ui/styles/blocks/_Table.css";
-@import "ui/styles/blocks/_TableCells.css";
-@import "ui/styles/blocks/_Pagination.css";
-@import "ui/styles/blocks/_InfoList.css";
-@import "ui/styles/blocks/_SettingsList.css";
-@import "ui/styles/blocks/_CodeSnippet.css";
-@import "ui/styles/blocks/_CopyableValue.css";
-@import "ui/styles/blocks/_SegmentedControl.css";
-@import "ui/styles/blocks/_SelectInput.css";
-@import "ui/styles/blocks/_Dropdown.css";
-@import "ui/styles/blocks/_Tooltip.css";
-@import "ui/styles/blocks/_Callout.css";
-@import "ui/styles/blocks/_SidebarPanel.css";
-@import "ui/styles/blocks/_Toolbar.css";
-@import "ui/styles/blocks/_EditorToolbar.css";
-@import "ui/styles/blocks/_HoverCard.css";
-@import "ui/styles/blocks/_EntitySummary.css";
-@import "ui/styles/blocks/_RadioGroupInput.css";
-@import "ui/styles/blocks/_Shortcut.css";
-@import "ui/styles/blocks/_Pane.css";
-@import "ui/styles/blocks/_SettingsMenu.css";
-@import "ui/styles/blocks/_CopyableId.css";
-@import "ui/styles/blocks/_HighlightElement.css";
-@import "ui/styles/blocks/_MultipleSelectionActionBar.css";
-@import "ui/styles/blocks/_FloatingBar.css";
-@import "ui/styles/blocks/_SplitView.css";
-@import "ui/styles/blocks/_Pill.css";
-@import "ui/styles/blocks/_group-title.css";
-@import "ui/styles/blocks/_ProgressBar.css";
-@import "ui/styles/blocks/_ListArea.css";
-@import "ui/styles/blocks/_ListDetail.css";
-@import "ui/styles/blocks/_UsageMeter.css";
+@import "ui-public/styles/blocks/_checkboard-bg.css";
+@import "ui-public/styles/blocks/_blank-slate.css";
+@import "ui-public/styles/blocks/_button.css";
+@import "ui-public/styles/blocks/_Chevron.css";
+@import "ui-public/styles/blocks/_EmptySlot.css";
+@import "ui-public/styles/blocks/_TableList.css";
+@import "ui-public/styles/blocks/_CardList.css";
+@import "ui-public/styles/blocks/_InsertGap.css";
+@import "ui-public/styles/blocks/_ApiKey.css";
+@import "ui-public/styles/blocks/_form.css";
+@import "ui-public/styles/blocks/_FramedImage.css";
+@import "ui-public/styles/blocks/_InputFrame.css";
+@import "ui-public/styles/blocks/_input-group.css";
+@import "ui-public/styles/blocks/_PasswordInput.css";
+@import "ui-public/styles/blocks/_Page.css";
+@import "ui-public/styles/blocks/_Modal.css";
+@import "ui-public/styles/blocks/_spinner.css";
+@import "ui-public/styles/blocks/_Tabs.css";
+@import "ui-public/styles/blocks/_DragGripIcon.css";
+@import "ui-public/styles/blocks/_DragHandle.css";
+@import "ui-public/styles/blocks/_DropIndicator.css";
+@import "ui-public/styles/blocks/_DropTarget.css";
+@import "ui-public/styles/blocks/_SortableTree.css";
+@import "ui-public/styles/blocks/_SidebarTree.css";
+@import "ui-public/styles/blocks/_ListPresets.css";
+@import "ui-public/styles/blocks/_AutosizeInput.css";
+@import "ui-public/styles/blocks/_Avatar.css";
+@import "ui-public/styles/blocks/_SwitchInput.css";
+@import "ui-public/styles/blocks/_TreeRow.css";
+@import "ui-public/styles/blocks/_ItemStatus.css";
+@import "ui-public/styles/blocks/_EntityRow.css";
+@import "ui-public/styles/blocks/_RowList.css";
+@import "ui-public/styles/blocks/_FeedbackDot.css";
+@import "ui-public/styles/blocks/_ValidityTriangle.css";
+@import "ui-public/styles/blocks/_MediaCard.css";
+@import "ui-public/styles/blocks/_UploadCard.css";
+@import "ui-public/styles/blocks/_Table.css";
+@import "ui-public/styles/blocks/_EntityCell.css";
+@import "ui-public/styles/blocks/_TableCells.css";
+@import "ui-public/styles/blocks/_Pagination.css";
+@import "ui-public/styles/blocks/_InfoList.css";
+@import "ui-public/styles/blocks/_SettingsList.css";
+@import "ui-public/styles/blocks/_CodeSnippet.css";
+@import "ui-public/styles/blocks/_CopyableValue.css";
+@import "ui-public/styles/blocks/_SegmentedControl.css";
+@import "ui-public/styles/blocks/_SelectInput.css";
+@import "ui-public/styles/blocks/_Dropdown.css";
+@import "ui-public/styles/blocks/_Tooltip.css";
+@import "ui-public/styles/blocks/_Callout.css";
+@import "ui-public/styles/blocks/_SidebarPanel.css";
+@import "ui-public/styles/blocks/_Toolbar.css";
+@import "ui-public/styles/blocks/_UploadPreview.css";
+@import "ui-public/styles/blocks/_EditorToolbar.css";
+@import "ui-public/styles/blocks/_HoverCard.css";
+@import "ui-public/styles/blocks/_EntitySummary.css";
+@import "ui-public/styles/blocks/_RadioGroupInput.css";
+@import "ui-public/styles/blocks/_Shortcut.css";
+@import "ui-public/styles/blocks/_Pane.css";
+@import "ui-public/styles/blocks/_SettingsMenu.css";
+@import "ui-public/styles/blocks/_CopyableId.css";
+@import "ui-public/styles/blocks/_HighlightElement.css";
+@import "ui-public/styles/blocks/_MultipleSelectionActionBar.css";
+@import "ui-public/styles/blocks/_FloatingBar.css";
+@import "ui-public/styles/blocks/_SplitView.css";
+@import "ui-public/styles/blocks/_Pill.css";
+@import "ui-public/styles/blocks/_group-title.css";
+@import "ui-public/styles/blocks/_ProgressBar.css";
+@import "ui-public/styles/blocks/_ListArea.css";
+@import "ui-public/styles/blocks/_ListDetail.css";
+@import "ui-public/styles/blocks/_UsageMeter.css";
 
 /* The blocks of the adapter of react-ui (src/) */
 @import "./_ContextInspector.css";

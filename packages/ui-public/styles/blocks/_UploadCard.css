@@ -1,0 +1,44 @@
+.UploadCard__antivirus-badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 3;
+  display: inline-flex;
+  gap: 5px;
+  align-items: center;
+  padding: 5px;
+  font-size: var(--font-size-m);
+  color: var(--color-feedback-ink-fail);
+  white-space: nowrap;
+  background-color: var(--color--danger-soft--surface);
+  border-radius: var(--radius-full);
+
+  svg {
+    flex-shrink: 0;
+    width: 0.9em;
+    height: 0.9em;
+    fill: currentColor;
+  }
+
+  span {
+    display: none;
+  }
+
+  @container (min-width: 180px) {
+    padding: 5px 10px;
+
+    span {
+      display: inline;
+    }
+  }
+}
+/* The preview of an asset in a MediaCard (ui-public/MediaCard) */
+.MediaCard__image-preview {
+  .UploadPreview {
+    height: 200px;
+    border-radius: var(--radius-s) var(--radius-s) 0 0;
+  }
+}
+.MediaCard.is-disabled .UploadPreview {
+  background-color: var(--color--disabled-field--surface);
+}

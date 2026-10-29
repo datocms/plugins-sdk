@@ -1,6 +1,6 @@
 {
   "name": "datocms-react-ui",
-  "version": "3.1.0-next.1",
+  "version": "3.1.0-next.2",
   "description": "React components to use inside DatoCMS plugins",
   "keywords": [
     "datocms",
@@ -28,7 +28,7 @@
   "exports": {
     "./styles.css": "./dist/styles.css",
     "./internal/*": null,
-    "./ui/*": null,
+    "./ui-public/*": null,
     "./*": {
       "types": "./dist/*.d.ts",
       "import": "./dist/*.js"
@@ -83,7 +83,7 @@
     "types-react-18": "npm:@types/react@18.3.31",
     "types-react-dom-18": "npm:@types/react-dom@18.3.7",
     "typescript": "5.6.3",
-    "ui": "1.0.0",
+    "ui-public": "1.0.0",
     "vite": "8.2.2",
     "vite-plugin-svgr": "5.2.0"
   },

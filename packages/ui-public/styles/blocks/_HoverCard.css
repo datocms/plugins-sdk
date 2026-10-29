@@ -1,0 +1,28 @@
+/* The surface of HoverCard (ui-public/HoverCard). The content of the
+   card does not draw a surface of its own. */
+.HoverCard {
+  box-sizing: border-box;
+  /* The Overlay sets the variable to the height that is available in the
+     viewport. Content that is taller scrolls. */
+  max-height: var(--Popover-available-height, none);
+  overflow-y: auto;
+  color: var(--color--ink);
+  background-color: var(--color--surface-raised);
+  border: 1px solid var(--color--border-raised);
+  border-radius: var(--radius-s);
+  box-shadow: var(--shadow--floating);
+}
+/* Text content with the inset of the card. The body is not a flex box,
+   because a sentence with a link is many inline children: a flex box puts
+   each child on its own line. */
+.HoverCard__body {
+  max-width: 320px;
+  padding: var(--spacing-l);
+}
+.HoverCard__body > * + * {
+  margin-block-start: var(--spacing-m);
+}
+.HoverCard__note {
+  font-size: var(--font-size-xs);
+  color: var(--color--ink-subtle);
+}

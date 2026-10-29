@@ -1,0 +1,99 @@
+/* The row also has the "RowList__item" class, so it looks like a row of a
+   RowList. The indent of the level is the left padding of the row, so the
+   indent is in the box of the row, and all the boxes have the same width.
+   The tree is not a RowList, thus the rows give the insets and the gaps. */
+.TreeRow {
+  margin: var(--row-gap) var(--row-inset) 0;
+
+  &:first-child {
+    margin-top: var(--row-inset);
+  }
+  &:last-child {
+    margin-bottom: var(--row-inset);
+  }
+}
+/* The same as the toggle column of the sidebar trees (see
+   _SidebarTree.css): the icon is at the center of a column of 1rem that
+   starts at "--spacing-m" from the edge of the list. The space between the
+   edge of the row and the icon is in the column too, thus the user can click
+   or drag there. The column has a fixed width, so the content of rows at the
+   same level stays aligned. */
+.TreeRow__handle {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  align-self: stretch;
+  justify-content: center;
+  width: calc(1rem + var(--spacing-m) - var(--row-inset));
+
+  .RowList__item--selected & svg {
+    fill: var(--color--selected--ink);
+  }
+}
+/* It fills all the column, so the area for a click or a drag is large. The
+   icon is at the center of the 1rem after the left padding, thus a chevron
+   and a grip have the same center. */
+.TreeRow__drag-handle {
+  box-sizing: border-box;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  align-self: stretch;
+  justify-content: center;
+  padding-left: calc(var(--spacing-m) - var(--row-inset));
+  color: inherit;
+
+  svg {
+    display: block;
+  }
+}
+.TreeRow__drag-handle--disabled {
+  cursor: not-allowed;
+
+  svg {
+    fill: var(--color--ink-disabled);
+  }
+}
+/* Without an image, the icon is in line with the first line of the title,
+   not at the center of the row: the row also has the status below the
+   title. The first track of the grid has the height of a line of the title
+   (the line height of .EntityRow), and the icon is at its center. */
+.TreeRow:not(:has(.EntityRow__image)) .TreeRow__drag-handle {
+  display: grid;
+  grid-template-rows: calc(1.2 * 1em);
+  align-content: start;
+  align-items: center;
+  justify-content: center;
+  padding-top: var(--RowList-content-padding);
+}
+.TreeRow__inner {
+  display: block;
+  flex: 1;
+  min-width: 200px;
+  overflow: hidden;
+  text-decoration: none;
+}
+/* TreeRow.Action: the button fills the row, and its first span is the
+   column of the handle. A control that is not a link of the row sets the
+   color of its text and of the chevron on hover (see _Chevron.css). */
+.TreeRow__action {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  color: var(--color--ink-subtle);
+  border-radius: var(--row-radius);
+
+  &:hover,
+  &:focus-visible {
+    color: var(--color--ink);
+  }
+}
+.RowList__item:has(> .TreeRow__action:focus-visible) {
+  background-color: var(--color--surface-hover);
+}
+.TreeRow__action__label {
+  flex: 1;
+  min-width: 0;
+  padding: var(--RowList-content-padding);
+  line-height: 1.3;
+}

@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import type { HostServices } from 'ui/HostServicesProvider';
+import type { HostServices } from 'ui-public/HostServicesProvider';
 import { type BaseCtx, useLatestCtx } from './ctx';
 import { useMessageText } from './messageText';
 
@@ -23,7 +23,7 @@ function hostHasConfirmChecks(ctx: BaseCtx) {
 }
 
 /**
- * The services of ui from the methods of `ctx`: the host draws the
+ * The services of ui-public from the methods of `ctx`: the host draws the
  * notifications and the confirm dialog out of the frame of the plugin.
  */
 export function useCtxHostServices(ctx: BaseCtx): HostServices {

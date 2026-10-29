@@ -1,5 +1,33 @@
 # datocms-react-ui
 
+## 3.1.0-next.2
+
+### Minor Changes
+
+- Code shows in Geist Mono, the monospaced font of the CMS. The browser downloads the font from `www.datocms.com`, as it does for ABC Oracle: if your plugin has a Content Security Policy, the `font-src` that allows ABC Oracle allows Geist Mono too.
+- Rename the props of `MediaCard` and `UploadCard`, and change the caption and `UploadThreatTriangle`. react-ui 3 is in alpha, thus these props change without a major version:
+  
+  - `isDraggable`, `isDragging`, `isCompact` and `isDisabled` are now `draggable`, `dragging`, `compact` and `disabled`.
+  - `caption` takes `{ text, muted }` in place of a text and `captionDisabled`: `caption={{ text: 'cover.jpg', muted: true }}`. `uploadCaption` gives this object, thus write `caption={uploadCaption(metadata)}`. The type of the object is `MediaCardCaption`.
+  - `UploadThreatTriangle` has no `status` prop: render it only when the antivirus status of the upload is `infected`.
+- New components for records and assets, with the look of DatoCMS:
+  
+  - `ItemStatus`: the colored dot of the publishing status of a record, with its label in a tooltip or as text.
+  - `EnvironmentPill`: the pill of the type of an environment, primary or sandbox.
+  - `UploadPreview`: the box with the preview of an asset, with `UploadPreview.Image` and `UploadPreview.Progress`. `UploadPreview.Image` takes `icon` for an image in the place of an icon: it always gets space around it.
+  - `UploadCard`: the card of an asset, a `MediaCard` with the caption from the metadata (`caption={uploadCaption(…)}`), the progress of the upload and the antivirus badge.
+  - `FileTypeIcon`: the icon of a file that has no preview, with its extension.
+  - `TreeRow`: a row of a `SortableTree` with the chevron or the grip. It takes `drag` (the same `RowDrag` as a `Table.Row`: `wrapperRef`, `dropIndicator` and `handle`, also a disabled handle with its reason) and `indentation`. Give `handle` to the `SortableTree`: then a row with a disabled handle, or with no handle, does not move. `TreeRow.Link` is its content as a link, and `TreeRow.Action` is its content as a button, for example "Load more": the arrow keys of the tree move the focus to it.
+  - `Table/cells/EntityCell`: the title of the entity of a row, with its image, in the first column of a `Table`.
+  - `InfoList.Value` and `InfoList.User`, with their `.Trigger` parts: a value (`label`) and a user (the fields of an `Avatar`, with a `tooltip`) in a row of an `InfoList`, and the triggers of the menus that change them.
+- `RowList` gets `density="compact"`, for a list in a container that already has an inset, such as a `SidebarPanel`: the image and the text of each row stay on the edge of the content of the panel. `RowList.Actions` holds the icon buttons at the end of a row that only shows its content: they show when the pointer or the focus is on the row, and at rest they take no space. `RowList` and `RowList.Item` also take a `className`, only for their place in the page.
+- `SortableTree` takes `handle`: the user drags a row only from the element of `provided.dragHandleRef`, and a row without this element does not move, for example a row with a disabled handle or a "Load more" row. Without `handle`, the user drags a row from any point of it, as before.
+
+### Patch Changes
+
+- The types of `Dropdown.MenuSearch` compile with the React 18 types. They contained event handler types that only the React 19 types have (`SubmitEventHandler`, `ToggleEventHandler`), thus `tsc` failed on `datocms-react-ui/Dropdown` in a plugin with `skipLibCheck: false`.
+- `Dropdown`, `SplitButton`, `InsertGap`, `Tooltip`, `HoverCard`, `Modal`, `FullscreenModal` and `SplitPane` do not have the `Static` and `Rail` members any more. They were pictures of the components for the pages of the DatoCMS website, and a plugin cannot use them. The components look and work as before.
+
 ## 3.1.0-next.1
 
 ### Minor Changes

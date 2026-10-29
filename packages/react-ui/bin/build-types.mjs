@@ -1,8 +1,8 @@
 // Writes the declaration files of the output. tsc emits the declarations of
-// the modules of ui and of the adapter that the entries reach, in the
-// folders of the JS build (dist/ui/... and dist/react-ui/...). Then the
+// the modules of ui-public and of the adapter that the entries reach, in the
+// folders of the JS build (dist/ui-public/... and dist/react-ui/...). Then the
 // script makes them work in a plugin: an import of an SVG file goes to one
-// declaration of an icon component, an import of ui (in the adapter) goes to
+// declaration of an icon component, an import of ui-public (in the adapter) goes to
 // the declaration of its module, and each relative import gets the ".js"
 // extension of the JS build, thus a project with "moduleResolution":
 // "node16" resolves it too. Last, it writes one
@@ -70,7 +70,7 @@ if (diagnostics.length > 0) {
 }
 
 // One declaration for every icon: svgr gives each SVG file the same props.
-const iconDeclaration = path.join(distDir, 'ui/icons/svgComponent.d.ts');
+const iconDeclaration = path.join(distDir, 'ui-public/icons/svgComponent.d.ts');
 writeFileSync(
   iconDeclaration,
   `import type { ComponentProps, FunctionComponent } from 'react';
@@ -99,9 +99,9 @@ function toRelative(from, to) {
   return relative.startsWith('.') ? relative : `./${relative}`;
 }
 
-// ui type-checks on the React 19 types, which the root node_modules has
+// ui-public type-checks on the React 19 types, which the root node_modules has
 // under the names react-19 and react-dom-19 (see "React 19" in
-// packages/ui/AGENTS.md). tsc writes these names in an inferred type.
+// packages/ui-public/AGENTS.md). tsc writes these names in an inferred type.
 const aliasedPackages = { 'react-19': 'react', 'react-dom-19': 'react-dom' };
 
 // The declaration of a source file of packages/, in the output
@@ -112,7 +112,7 @@ function declarationOf(sourceFile) {
 }
 
 function rewriteSpecifier(file, specifier) {
-  if (specifier === 'ui' || specifier.startsWith('ui/')) {
+  if (specifier === 'ui-public' || specifier.startsWith('ui-public/')) {
     return toRelative(
       file,
       declarationOf(resolveUiSpecifier(specifier)),
@@ -138,9 +138,9 @@ function rewriteSpecifier(file, specifier) {
   throw new Error(`${file}: cannot resolve ${specifier}`);
 }
 
-// The folders of the output that tsc writes: ui, and the adapter
+// The folders of the output that tsc writes: ui-public, and the adapter
 const emittedFiles = () =>
-  ['ui', path.basename(packageDir)].flatMap((folder) =>
+  ['ui-public', path.basename(packageDir)].flatMap((folder) =>
     walk(path.join(distDir, folder)),
   );
 

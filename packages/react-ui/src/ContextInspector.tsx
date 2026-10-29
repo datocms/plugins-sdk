@@ -1,12 +1,12 @@
 import { manifest } from 'datocms-plugin-sdk';
 import React, { useCallback } from 'react';
-import Button from 'ui/Button';
-import CodeSnippet from 'ui/CodeSnippet';
-import type { HeadingLevel } from 'ui/Heading';
-import Heading from 'ui/Heading';
-import { useHostServices } from 'ui/HostServicesProvider';
-import { useTranslation } from 'ui/i18n';
-import SidebarPanel from 'ui/SidebarPanel';
+import Button from 'ui-public/Button';
+import CodeSnippet from 'ui-public/CodeSnippet';
+import type { HeadingLevel } from 'ui-public/Heading';
+import Heading from 'ui-public/Heading';
+import { useHostServices } from 'ui-public/HostServicesProvider';
+import { useTranslation } from 'ui-public/i18n';
+import SidebarPanel from 'ui-public/SidebarPanel';
 import { useCtx } from './ctx';
 
 // The SDK exports the types of the manifest only from a path inside its

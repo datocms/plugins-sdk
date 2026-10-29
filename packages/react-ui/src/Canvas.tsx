@@ -5,17 +5,17 @@ import React, {
   useEffect,
   useMemo,
 } from 'react';
-import { ActionsProvider } from 'ui/Actions';
-import BundledTexts, { type BundledTextsProps } from 'ui/BundledTexts';
-import { DateSettingsProvider } from 'ui/DateSettings';
-import { HostServicesProvider } from 'ui/HostServicesProvider';
-import { MenuSheetProvider } from 'ui/MenuSheet';
+import { ActionsProvider } from 'ui-public/Actions';
+import BundledTexts, { type BundledTextsProps } from 'ui-public/BundledTexts';
+import { DateSettingsProvider } from 'ui-public/DateSettings';
+import { HostServicesProvider } from 'ui-public/HostServicesProvider';
+import { MenuSheetProvider } from 'ui-public/MenuSheet';
 import {
   type NavigationAdapter,
   NavigationProvider,
-} from 'ui/NavigationProvider';
-import { PortalWrapperProvider } from 'ui/PortalWrapper';
-import { TooltipDelayGroup } from 'ui/Tooltip';
+} from 'ui-public/NavigationProvider';
+import { PortalWrapperProvider } from 'ui-public/PortalWrapper';
+import { TooltipDelayGroup } from 'ui-public/Tooltip';
 import adapterTexts from '../locales/en.json';
 import { type BaseCtx, CtxContext, useCtx } from './ctx';
 import { ctxDateSettings } from './ctxDateSettings';
@@ -35,7 +35,7 @@ export type CanvasProps = {
    */
   noAutoResizer?: boolean;
   /**
-   * More texts, by key, in the ICU syntax: a key of ui or of react-ui gets a
+   * More texts, by key, in the ICU syntax: a key of ui-public or of react-ui gets a
    * new text (also an aria text), and a key of the plugin gets its text for
    * `{ id }` messages. Give a constant: a new object renders the plugin again.
    */
@@ -119,7 +119,7 @@ function useScrollbarToken(ctx: BaseCtx) {
   }, [value]);
 }
 
-/** The adapters of ui from `ctx`. They need the texts above them. */
+/** The adapters of ui-public from `ctx`. They need the texts above them. */
 function CtxAdapters({
   ctx,
   navigation,
@@ -159,7 +159,7 @@ function CtxAdapters({
  *
  * - the colors: the semantic tokens of `ctx.cssDesignTokens` on its element
  *   and around the content of each portal;
- * - the texts: the English texts of ui, the `texts` prop over them, and the
+ * - the texts: the English texts of ui-public, the `texts` prop over them, and the
  *   language of `ctx.ui.locale`;
  * - the notifications and the confirm dialog of the host (`ctx.notice`,
  *   `ctx.alert`, `ctx.customToast`, `ctx.openConfirm`);

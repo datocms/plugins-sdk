@@ -1,0 +1,33 @@
+.EntityCell {
+  display: flex;
+  align-items: center;
+  font-size: var(--font-size-m);
+}
+.EntityCell__image {
+  img,
+  svg,
+  div {
+    flex-shrink: 0;
+    width: 35px;
+    height: 35px;
+    margin-right: 20px;
+    background-position: center center;
+    background-size: cover;
+    border-radius: var(--radius-s);
+  }
+}
+.EntityCell__preview {
+  margin-right: 20px;
+}
+/* A title with a preview image: the ellipsis goes on the title */
+.Table__cell__truncate .EntityCell__title {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/* The rule has no specificity, thus a block in the title keeps its own
+   display. A block in an inline parent would start a new line. */
+:where(.Table__cell__truncate .EntityCell__title) > * {
+  display: inline;
+}
