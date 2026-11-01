@@ -2,8 +2,6 @@ import React, { useMemo } from 'react';
 import RawSelect, {
   type Props as RawSelectProps,
   type GroupBase,
-  type StylesConfig,
-  type ThemeConfig,
 } from 'react-select';
 import RawAsyncSelect, { type AsyncProps } from 'react-select/async';
 import RawAsyncCreatableSelect, {
@@ -12,139 +10,10 @@ import RawAsyncCreatableSelect, {
 import RawCreatableSelect, {
   type CreatableProps,
 } from 'react-select/creatable';
+import { buildStyles, themeConfig } from './theme';
 
-const themeConfig: ThemeConfig = (existing) => ({
-  ...existing,
-  borderRadius: 0,
-  colors: {
-    ...existing.colors,
-    primary25: 'var(--color--surface-hover)',
-    // disabled
-    neutral10: 'var(--color--border)',
-    // normal
-    neutral20: 'var(--color--border)',
-    // focused
-    primary: 'var(--color--focus--border)',
-    // hover
-    neutral30: 'var(--color--border-hover)',
-  },
-});
-
-const useStyles = (isDisabled?: boolean, error?: boolean) => {
-  return useMemo<StylesConfig>(() => {
-    return {
-      placeholder: (provided) => ({
-        ...provided,
-        color: 'var(--color--ink-placeholder)',
-      }),
-      container: (provided) => {
-        return {
-          ...provided,
-          fontSize: 'inherit',
-        };
-      },
-
-      control: (provided, { isFocused }) => {
-        let result = provided;
-
-        result = {
-          ...result,
-          minHeight: 40,
-        };
-
-        if (isFocused) {
-          return {
-            ...result,
-            borderColor: error
-              ? 'var(--color--danger-soft--border)'
-              : 'var(--color--focus--border)',
-            backgroundColor: isDisabled
-              ? 'var(--color--disabled--surface)'
-              : 'var(--color--surface-raised)',
-            boxShadow: `0 0 0 4px ${
-              error
-                ? 'var(--color--danger-soft--outline)'
-                : 'var(--color--focus--outline)'
-            }`,
-            '&:hover': {
-              borderColor: error
-                ? 'var(--color--danger-soft--border)'
-                : 'var(--color--focus--border)',
-            },
-          };
-        }
-
-        return {
-          ...result,
-          borderColor: error
-            ? 'var(--color--danger-soft--border)'
-            : 'var(--color--border)',
-          backgroundColor: isDisabled
-            ? 'var(--color--disabled--surface)'
-            : 'var(--color--surface-raised)',
-          '&:hover': {
-            borderColor: error
-              ? 'var(--color--danger-soft--border)'
-              : 'var(--color--border-hover)',
-          },
-        };
-      },
-      multiValueRemove: (provided) => ({
-        ...provided,
-        cursor: 'pointer',
-        color: 'var(--color--primary-soft--ink)',
-        ':hover': {
-          backgroundColor: 'var(--color--primary-soft--surface-hover)',
-          color: 'var(--color--primary-soft--ink)',
-        },
-      }),
-      menu: (provided) => {
-        return {
-          ...provided,
-          zIndex: 1000,
-          minWidth: 250,
-          backgroundColor: 'var(--color--surface-raised)',
-          boxShadow: 'var(--shadow--floating)',
-        };
-      },
-      singleValue: (provided) => ({
-        ...provided,
-        color: 'var(--color--ink)',
-      }),
-      input: (provided) => ({
-        ...provided,
-        color: 'var(--color--ink)',
-        boxShadow: 'none',
-        'input:focus': {
-          boxShadow: 'none',
-        },
-      }),
-      option: (provided, { isFocused, isSelected }) => ({
-        ...provided,
-        backgroundColor: isSelected
-          ? 'var(--color--selected--surface)'
-          : isFocused
-            ? 'var(--color--surface-hover)'
-            : undefined,
-        color: 'var(--color--ink)',
-      }),
-      multiValue: (provided) => {
-        return {
-          ...provided,
-          zIndex: 100,
-          backgroundColor: 'var(--color--primary-soft--surface)',
-          userSelect: 'none',
-        };
-      },
-      multiValueLabel: (provided) => ({
-        ...provided,
-        fontSize: 'inherit',
-        padding: 3,
-        color: 'var(--color--primary-soft--ink)',
-      }),
-    };
-  }, [isDisabled, error]);
-};
+const useStyles = (isDisabled?: boolean, error?: boolean) =>
+  useMemo(() => buildStyles(isDisabled, error), [isDisabled, error]);
 
 type ErrorProp = { error?: boolean };
 
