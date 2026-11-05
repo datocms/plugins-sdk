@@ -9,13 +9,13 @@ import { ActionsProvider } from 'ui-public/Actions';
 import BundledTexts, { type BundledTextsProps } from 'ui-public/BundledTexts';
 import { DateSettingsProvider } from 'ui-public/DateSettings';
 import { HostServicesProvider } from 'ui-public/HostServicesProvider';
+import { HoverDelayGroup } from 'ui-public/HoverDelayGroup';
 import { MenuSheetProvider } from 'ui-public/MenuSheet';
 import {
   type NavigationAdapter,
   NavigationProvider,
 } from 'ui-public/NavigationProvider';
 import { PortalWrapperProvider } from 'ui-public/PortalWrapper';
-import { TooltipDelayGroup } from 'ui-public/Tooltip';
 import adapterTexts from '../locales/en.json';
 import { type BaseCtx, CtxContext, useCtx } from './ctx';
 import { ctxDateSettings } from './ctxDateSettings';
@@ -142,7 +142,7 @@ function CtxAdapters({
           <PortalWrapperProvider value={CanvasPortalWrapper}>
             <MenuSheetProvider enabled={false}>
               <ActionsProvider>
-                <TooltipDelayGroup>{children}</TooltipDelayGroup>
+                <HoverDelayGroup>{children}</HoverDelayGroup>
               </ActionsProvider>
             </MenuSheetProvider>
           </PortalWrapperProvider>

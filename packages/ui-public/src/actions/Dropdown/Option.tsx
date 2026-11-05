@@ -1,6 +1,5 @@
 import mergeRefs from '@react-hook/merged-ref';
 import classNames from 'classnames';
-import cuid from 'cuid';
 import { test } from 'fuzzyjs';
 import React, {
   ReactNode,
@@ -220,6 +219,10 @@ function useOptionAction(
   }, [id, action, runAction, rootRef]);
 }
 
+// The id is a key of the menu, not an attribute of the markup. React 17 has no
+// `useId`, thus we make it with a counter.
+let nextOptionId = 0;
+
 const Option = React.forwardRef<HTMLDivElement, OptionProps>(
   (
     {
@@ -244,7 +247,7 @@ const Option = React.forwardRef<HTMLDivElement, OptionProps>(
     },
     ref,
   ) => {
-    const id = useMemo(() => cuid(), []);
+    const [id] = useState(() => `Dropdown__option-${++nextOptionId}`);
     const { closeMenu, setCloseOnClickOutside, rootRef, triggerId } =
       useContext(DropdownContext);
     const registryAction = useOptionAction(action, rootRef);

@@ -697,6 +697,19 @@ export const manifest: Manifest = {
                 },
                 type: '(showToast?: boolean) => Promise<void>',
               },
+              openItemFormSidebar: {
+                comment: {
+                  markdownText:
+                    'Opens the sidebar of the record form and shows one of the sidebars that\nthe plugin declared with the `itemFormSidebars` hook.\n\nWith `parameters`, the sidebar receives them in `ctx.parameters`, on top\nof the parameters it declared. They stay while the user edits this\nrecord: a new call replaces them.',
+                  example:
+                    "await ctx.openItemFormSidebar('webPreviews', {\n  parameters: { frontend: 'Production', url: 'https://example.com/blog/post' },\n});",
+                },
+                location: {
+                  filePath: 'src/ctx/commonExtras/itemForm.ts',
+                  lineNumber: 174,
+                },
+                type: '(\n    sidebarId: string,\n    options?: OpenItemFormSidebarOptions,\n  ) => Promise<void>',
+              },
             },
           },
         ],
@@ -833,11 +846,11 @@ export const manifest: Manifest = {
               parameters: {
                 comment: {
                   markdownText:
-                    'The arbitrary `parameters` of the declared in the `itemFormSidebars`\nfunction.',
+                    'The arbitrary `parameters` declared in the `itemFormSidebars` function.\nA call to `ctx.openItemFormSidebar()` with `parameters` adds them on\ntop.',
                 },
                 location: {
                   filePath: 'src/hooks/renderItemFormSidebar.ts',
-                  lineNumber: 30,
+                  lineNumber: 31,
                 },
                 type: 'Record<string, unknown>',
               },
@@ -938,6 +951,19 @@ export const manifest: Manifest = {
                   lineNumber: 157,
                 },
                 type: '(showToast?: boolean) => Promise<void>',
+              },
+              openItemFormSidebar: {
+                comment: {
+                  markdownText:
+                    'Opens the sidebar of the record form and shows one of the sidebars that\nthe plugin declared with the `itemFormSidebars` hook.\n\nWith `parameters`, the sidebar receives them in `ctx.parameters`, on top\nof the parameters it declared. They stay while the user edits this\nrecord: a new call replaces them.',
+                  example:
+                    "await ctx.openItemFormSidebar('webPreviews', {\n  parameters: { frontend: 'Production', url: 'https://example.com/blog/post' },\n});",
+                },
+                location: {
+                  filePath: 'src/ctx/commonExtras/itemForm.ts',
+                  lineNumber: 174,
+                },
+                type: '(\n    sidebarId: string,\n    options?: OpenItemFormSidebarOptions,\n  ) => Promise<void>',
               },
             },
           },
@@ -1169,6 +1195,19 @@ export const manifest: Manifest = {
                   lineNumber: 157,
                 },
                 type: '(showToast?: boolean) => Promise<void>',
+              },
+              openItemFormSidebar: {
+                comment: {
+                  markdownText:
+                    'Opens the sidebar of the record form and shows one of the sidebars that\nthe plugin declared with the `itemFormSidebars` hook.\n\nWith `parameters`, the sidebar receives them in `ctx.parameters`, on top\nof the parameters it declared. They stay while the user edits this\nrecord: a new call replaces them.',
+                  example:
+                    "await ctx.openItemFormSidebar('webPreviews', {\n  parameters: { frontend: 'Production', url: 'https://example.com/blog/post' },\n});",
+                },
+                location: {
+                  filePath: 'src/ctx/commonExtras/itemForm.ts',
+                  lineNumber: 174,
+                },
+                type: '(\n    sidebarId: string,\n    options?: OpenItemFormSidebarOptions,\n  ) => Promise<void>',
               },
             },
           },
@@ -1671,6 +1710,19 @@ export const manifest: Manifest = {
                   lineNumber: 157,
                 },
                 type: '(showToast?: boolean) => Promise<void>',
+              },
+              openItemFormSidebar: {
+                comment: {
+                  markdownText:
+                    'Opens the sidebar of the record form and shows one of the sidebars that\nthe plugin declared with the `itemFormSidebars` hook.\n\nWith `parameters`, the sidebar receives them in `ctx.parameters`, on top\nof the parameters it declared. They stay while the user edits this\nrecord: a new call replaces them.',
+                  example:
+                    "await ctx.openItemFormSidebar('webPreviews', {\n  parameters: { frontend: 'Production', url: 'https://example.com/blog/post' },\n});",
+                },
+                location: {
+                  filePath: 'src/ctx/commonExtras/itemForm.ts',
+                  lineNumber: 174,
+                },
+                type: '(\n    sidebarId: string,\n    options?: OpenItemFormSidebarOptions,\n  ) => Promise<void>',
               },
             },
           },
@@ -2770,6 +2822,19 @@ export const manifest: Manifest = {
                 },
                 type: '(showToast?: boolean) => Promise<void>',
               },
+              openItemFormSidebar: {
+                comment: {
+                  markdownText:
+                    'Opens the sidebar of the record form and shows one of the sidebars that\nthe plugin declared with the `itemFormSidebars` hook.\n\nWith `parameters`, the sidebar receives them in `ctx.parameters`, on top\nof the parameters it declared. They stay while the user edits this\nrecord: a new call replaces them.',
+                  example:
+                    "await ctx.openItemFormSidebar('webPreviews', {\n  parameters: { frontend: 'Production', url: 'https://example.com/blog/post' },\n});",
+                },
+                location: {
+                  filePath: 'src/ctx/commonExtras/itemForm.ts',
+                  lineNumber: 174,
+                },
+                type: '(\n    sidebarId: string,\n    options?: OpenItemFormSidebarOptions,\n  ) => Promise<void>',
+              },
             },
           },
         ],
@@ -3060,6 +3125,19 @@ export const manifest: Manifest = {
                   lineNumber: 157,
                 },
                 type: '(showToast?: boolean) => Promise<void>',
+              },
+              openItemFormSidebar: {
+                comment: {
+                  markdownText:
+                    'Opens the sidebar of the record form and shows one of the sidebars that\nthe plugin declared with the `itemFormSidebars` hook.\n\nWith `parameters`, the sidebar receives them in `ctx.parameters`, on top\nof the parameters it declared. They stay while the user edits this\nrecord: a new call replaces them.',
+                  example:
+                    "await ctx.openItemFormSidebar('webPreviews', {\n  parameters: { frontend: 'Production', url: 'https://example.com/blog/post' },\n});",
+                },
+                location: {
+                  filePath: 'src/ctx/commonExtras/itemForm.ts',
+                  lineNumber: 174,
+                },
+                type: '(\n    sidebarId: string,\n    options?: OpenItemFormSidebarOptions,\n  ) => Promise<void>',
               },
             },
           },

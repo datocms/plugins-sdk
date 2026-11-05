@@ -1,5 +1,16 @@
 # datocms-react-ui
 
+## 3.1.0-next.3
+
+### Minor Changes
+
+- `Pane.Header.Display` and the `display` prop of `ListDetail.Page`: a menu after the title that changes how the list shows (the layout, the order).
+
+### Patch Changes
+
+- Updated dependencies
+  - datocms-plugin-sdk@2.6.0-next.2
+
 ## 3.1.0-next.2
 
 ### Minor Changes

@@ -24,8 +24,9 @@ export type RenderItemFormSidebarCtx = ImposedSizePluginFrameCtx<
     /** The ID of the sidebar that needs to be rendered */
     sidebarId: string;
     /**
-     * The arbitrary `parameters` of the declared in the `itemFormSidebars`
-     * function
+     * The arbitrary `parameters` declared in the `itemFormSidebars` function.
+     * A call to `ctx.openItemFormSidebar()` with `parameters` adds them on
+     * top.
      */
     parameters: Record<string, unknown>;
   },

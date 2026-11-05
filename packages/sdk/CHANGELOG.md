@@ -1,5 +1,11 @@
 # datocms-plugin-sdk
 
+## 2.6.0-next.2
+
+### Minor Changes
+
+- `ctx.openItemFormSidebar(sidebarId, { parameters })`: a plugin opens one of its sidebars of the record form, with optional parameters that the sidebar receives in `ctx.parameters`. Available wherever the item form methods are (outlets, sidebar panels, sidebars, field extensions, the dropdown actions of the form and of the fields).
+
 ## 2.6.0-next.1
 
 ### Minor Changes

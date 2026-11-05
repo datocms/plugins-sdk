@@ -1,6 +1,5 @@
 import {
   autoUpdate,
-  NextFloatingDelayGroup,
   type OffsetOptions,
   type Placement,
   type Side,
@@ -9,27 +8,25 @@ import {
   useFocus,
   useHover,
   useInteractions,
-  useNextDelayGroup,
   useRole,
   useTransitionStatus,
 } from '@floating-ui/react';
-import React, { ReactNode, useState } from 'react';
+import React, { useState } from 'react';
 import {
   type ActionShortcut,
   parseShortcut,
 } from '../../actions/Actions/shortcuts';
 import { type Message } from '../../Message';
 import { cloneTrigger, type FloatingTrigger } from '../floatingTrigger';
+import { useHoverDelay } from '../HoverDelayGroup';
 import NewZIndex from '../NewZIndex';
 import { floatingMiddleware } from '../Popover';
 import Portal from '../Portal';
 import TooltipBox from './Box';
 
 // The pointer must stay on a trigger for this time before the tooltip opens.
-// In a TooltipDelayGroup, the next tooltip opens immediately after a tooltip
-// closes, until the pointer is out of the triggers for TOOLTIP_GROUP_TIMEOUT.
+// In a HoverDelayGroup, the next tooltip opens immediately.
 const TOOLTIP_DELAY = { open: 450, close: 0 };
-const TOOLTIP_GROUP_TIMEOUT = 300;
 
 // The tooltip stays in the DOM for this time after it closes, while it fades
 // out. Keep it equal to the transition of .Tooltip--closing.
@@ -117,8 +114,9 @@ function Tooltip({
     middleware: floatingMiddleware(offset),
   });
 
-  const { delayRef, hasProvider, isInstantPhase } = useNextDelayGroup(context, {
+  const { delay, isInstantPhase } = useHoverDelay(context, {
     enabled,
+    delay: TOOLTIP_DELAY,
   });
 
   // When the next tooltip of the group opens, this tooltip closes with no
@@ -136,7 +134,7 @@ function Tooltip({
   const { getReferenceProps, getFloatingProps } = useInteractions([
     useHover(context, {
       enabled,
-      delay: () => (hasProvider ? delayRef.current : TOOLTIP_DELAY),
+      delay,
     }),
     useFocus(context, { enabled }),
     useDismiss(context, { enabled }),
@@ -172,21 +170,6 @@ function Tooltip({
         </Portal>
       )}
     </>
-  );
-}
-
-/**
- * The tooltips in this group share one delay: after the first tooltip
- * opens, the next tooltip opens immediately. Put it once around the app.
- */
-export function TooltipDelayGroup({ children }: { children: ReactNode }) {
-  return (
-    <NextFloatingDelayGroup
-      delay={TOOLTIP_DELAY}
-      timeoutMs={TOOLTIP_GROUP_TIMEOUT}
-    >
-      {children}
-    </NextFloatingDelayGroup>
   );
 }
 

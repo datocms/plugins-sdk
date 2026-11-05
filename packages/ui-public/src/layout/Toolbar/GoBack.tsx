@@ -26,7 +26,7 @@ type GoBackButton = {
 export type GoBackProps = (GoBackLink | GoBackButton) & {
   /**
    * The name of the chevron for screen readers
-   * @default { id: 'toolbar.goBack' } ("Go back to the collection")
+   * @default { id: 'toolbar.goBack' } ("Go back to the list")
    */
   ariaLabel?: TextMessage;
   /**

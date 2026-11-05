@@ -23,7 +23,7 @@ import { usePaneTitleId } from './PaneTitleId';
 //
 // Rules:
 // - Pane.Header renders the parts in a fixed order: title or tabs, subtitle,
-//   menu, spinner, space, filter button, button. The order of the parts in the
+//   menu, display, spinner, space, filter button, button. The order of the parts in the
 //   JSX does not matter. Pane.Header picks the parts by type and renders them
 //   in React, not with CSS `order`, thus the DOM order and the tab order are
 //   the same as the visual order.
@@ -90,6 +90,12 @@ function Subtitle(_props: { children: ReactNode }) {
 }
 
 function Menu(_props: { children: ReactNode }) {
+  return null;
+}
+
+// A menu that changes how the list shows (the layout, the order), as the
+// display menu of the media area
+function Display(_props: { children: ReactNode }) {
   return null;
 }
 
@@ -173,6 +179,7 @@ function PaneHeader({ filter, children }: PaneHeaderProps) {
   const tabs = findPart(children, Tabs);
   const subtitle = findPart(children, Subtitle);
   const menu = findPart(children, Menu);
+  const display = findPart(children, Display);
   const spinner = findPart(children, Spinner);
   const button = findPart(children, Button);
 
@@ -218,6 +225,7 @@ function PaneHeader({ filter, children }: PaneHeaderProps) {
             <Toolbar.DotsDropdown>{menu.props.children}</Toolbar.DotsDropdown>
           </div>
         )}
+        {display?.props.children}
         <Toolbar.Spinner show={Boolean(spinner)} />
         <Toolbar.Space />
         {listFilter && (
@@ -244,6 +252,7 @@ export default Object.assign(React.memo(PaneHeader), {
   Tabs,
   Subtitle,
   Menu,
+  Display,
   Spinner,
   Button,
 });

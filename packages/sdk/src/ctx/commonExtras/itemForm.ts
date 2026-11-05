@@ -155,4 +155,32 @@ export type ItemFormAdditionalMethods = {
    * ```
    */
   saveCurrentItem: (showToast?: boolean) => Promise<void>;
+  /**
+   * Opens the sidebar of the record form and shows one of the sidebars that
+   * the plugin declared with the `itemFormSidebars` hook.
+   *
+   * With `parameters`, the sidebar receives them in `ctx.parameters`, on top
+   * of the parameters it declared. They stay while the user edits this
+   * record: a new call replaces them.
+   *
+   * @example
+   *
+   * ```js
+   * await ctx.openItemFormSidebar('webPreviews', {
+   *   parameters: { frontend: 'Production', url: 'https://example.com/blog/post' },
+   * });
+   * ```
+   */
+  openItemFormSidebar: (
+    sidebarId: string,
+    options?: OpenItemFormSidebarOptions,
+  ) => Promise<void>;
+};
+
+export type OpenItemFormSidebarOptions = {
+  /**
+   * Parameters that the sidebar receives in `ctx.parameters`, on top of the
+   * parameters declared in the `itemFormSidebars` hook
+   */
+  parameters?: Record<string, unknown>;
 };

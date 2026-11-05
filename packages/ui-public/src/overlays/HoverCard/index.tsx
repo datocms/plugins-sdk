@@ -11,13 +11,15 @@ import {
 } from '@floating-ui/react';
 import React, { ReactNode, useState } from 'react';
 import { cloneTrigger, type FloatingTrigger } from '../floatingTrigger';
+import { useHoverDelay } from '../HoverDelayGroup';
 import NewZIndex from '../NewZIndex';
 import { floatingMiddleware } from '../Popover';
 import Portal from '../Portal';
 import HoverCardSurface from './Surface';
 
 // The pointer must stay on the trigger for this time before the card opens.
-// Thus the card does not open while the pointer only moves over a list.
+// Thus the card does not open while the pointer only moves over a list, or
+// to an open card. In a HoverDelayGroup, the card before it closes.
 const HOVER_CARD_DELAY = { open: 300, close: 100 };
 
 export type HoverCardProps = {
@@ -68,12 +70,18 @@ function HoverCard({
     middleware: floatingMiddleware(offset),
   });
 
+  const { delay } = useHoverDelay(context, {
+    enabled,
+    delay: HOVER_CARD_DELAY,
+    instant: false,
+  });
+
   const { getReferenceProps, getFloatingProps } = useInteractions([
     // While the pointer moves from the trigger to the card, the card stays
     // open, also on a diagonal path.
     useHover(context, {
       enabled,
-      delay: HOVER_CARD_DELAY,
+      delay,
       handleClose: safePolygon({ requireIntent: false, buffer: 5 }),
     }),
     useFocus(context, { enabled }),

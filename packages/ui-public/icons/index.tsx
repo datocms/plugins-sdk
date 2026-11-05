@@ -28,6 +28,7 @@ import HidePasswordIcon from './light/eye-slash.svg?react';
 import TextareaEditorIcon from './regular/align-left.svg?react';
 import ArrowDownIcon from './regular/arrow-down.svg?react';
 import ArrowDownAZIcon from './regular/arrow-down-a-z.svg?react';
+import ArrowDownFromLineIcon from './regular/arrow-down-from-line.svg?react';
 import ArrowDownToLineIcon from './regular/arrow-down-to-line.svg?react';
 import ArrowLeftIcon from './regular/arrow-left.svg?react';
 import ArrowRightIcon from './regular/arrow-right.svg?react';
@@ -38,6 +39,7 @@ import ArrowRotateRightIcon from './regular/arrow-rotate-right.svg?react';
 import ArrowTurnUpIcon from './regular/arrow-turn-up.svg?react';
 import ArrowUpIcon from './regular/arrow-up.svg?react';
 import ArrowUpArrowDownIcon from './regular/arrow-up-arrow-down.svg?react';
+import ArrowUpFromLineIcon from './regular/arrow-up-from-line.svg?react';
 import ArrowUpRightFromSquareIcon from './regular/arrow-up-right-from-square.svg?react';
 import ArrowUpToLineIcon from './regular/arrow-up-to-line.svg?react';
 import ArrowsFromLineIcon from './regular/arrows-from-line.svg?react';
@@ -292,6 +294,8 @@ export const Generic = {
   DashIcon,
   DragGripIcon,
   ExpandAllIcon: ArrowsFromLineIcon,
+  ExpandDownIcon: ArrowDownFromLineIcon,
+  ExpandUpIcon: ArrowUpFromLineIcon,
   CollapseAllIcon: ArrowsToLineIcon,
   RefreshIcon: ArrowsRotateIcon,
   DownloadIcon: DownloadRegularIcon,

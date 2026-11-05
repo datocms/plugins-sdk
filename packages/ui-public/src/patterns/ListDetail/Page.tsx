@@ -55,6 +55,11 @@ export type ListDetailPageProps = {
    * The options of the "⋯" menu of the title bar (Dropdown Option elements)
    */
   menu?: ReactNode;
+  /**
+   * A menu after the title that changes how the list shows (the layout, the
+   * order)
+   */
+  display?: ReactNode;
   /** The list loads in the background. The title bar shows a small spinner. */
   busy?: boolean;
   /**
@@ -117,6 +122,7 @@ function ListDetailPage({
   help,
   subtitle,
   menu,
+  display,
   busy,
   filter,
   controls,
@@ -150,6 +156,7 @@ function ListDetailPage({
                   {subtitle && tc(subtitle)}
                 </Pane.Header.Subtitle>
                 <Pane.Header.Menu>{menu}</Pane.Header.Menu>
+                <Pane.Header.Display>{display}</Pane.Header.Display>
                 {busy && <Pane.Header.Spinner />}
                 <Pane.Header.Button>
                   {controls}
