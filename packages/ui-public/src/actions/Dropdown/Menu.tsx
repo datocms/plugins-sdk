@@ -146,6 +146,7 @@ const Menu = React.forwardRef<HTMLDivElement, MenuProps>(
       refs,
       floatingStyles,
       placement: finalPlacement,
+      isPositioned,
     } = useFloating({
       placement,
       whileElementsMounted: autoUpdate,
@@ -188,6 +189,8 @@ const Menu = React.forwardRef<HTMLDivElement, MenuProps>(
           >
             <MenuContent
               isRoot
+              // The sheet of a small screen has a fixed place
+              isPositioned={isMobile || isPositioned}
               title={isMobile ? { id: 'dropdown.selectOption' } : undefined}
               noOverflowHidden={noOverflowHidden}
               contextualSearch={contextualSearch}

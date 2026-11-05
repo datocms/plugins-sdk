@@ -1,5 +1,35 @@
 # datocms-react-ui
 
+## 3.1.0-next.5
+
+### Patch Changes
+
+- `BlankSlate`: a button with a long label in `actions` gets an ellipsis and stays inside the slate.
+- `Button`, `SplitButton` and `ButtonTrigger` are never wider than their container. A long label ends with an ellipsis, and the icon, the chevron of the trigger and the caret of the split button stay visible. The full label stays the accessible name.
+- `Button`: a soft button with `pressed` gets the look of a selected row (the selected surface with a brand border), thus a soft toggle that is on is visible, also on hover and on focus. A ghost button that is on, or a ghost trigger with its menu open, keeps its hover surface with the link ink, thus the state shows also in the dark scheme. The other tones are not toggles and do not show `pressed`.
+- CardList: the title, the aside and the trailing part of the header share its width in equal parts, and the trailing part of a row never takes more than the summary. A long API key or a long pill ends with an ellipsis, and the title and the summary stay visible. The `trailing` of a row is now in a `CardList__trailing` element.
+- `Dropdown`: opening a menu (by click or by keyboard) keeps the scroll position of the page, also when the document has scrolled. The menu, its search field and the search field of a submenu get the focus only once they are next to their trigger.
+- A `Dropdown` is never wider than its container. A long label of a `ButtonTrigger` or a long value of a `TextualTrigger` gets an ellipsis, and the chevron always shows.
+- EmptySlot: actions that do not fit on one line wrap, and the slot gets taller, instead of going out of both sides of the slot.
+- EntityRow: the title, the `afterTitle` content and the aside share the width of the title line in equal parts. A short title stays whole next to long pills or a long API key, and a long part ends with an ellipsis instead of pushing the title to 0px.
+- The CSS of react-ui does not set `height: 100%` on `html` and `body`: the document of a frame takes the height of its content, thus the auto-resizer of `Canvas` makes the frame shorter when the content gets shorter. A plugin with a full-height layout (a page) sets that height itself.
+- An icon takes the color of its text through `currentColor`, and keeps its own `fill` attribute: an outline icon (`fill="none"`, as in Lucide or Heroicons) stays an outline in the page, in `BlankSlate`, in `Pill` and in `SegmentedControl`.
+- Every component sets the `color` of its icons, not their `fill`. Any icon set works in every component and in every state: an outline icon (Lucide, Tabler, Heroicons outline) stays an outline and takes the color of the component, and a filled icon (Font Awesome, Heroicons solid, react-icons, Phosphor, Material) takes it too.
+- InfoList: a long row title stops at 70% of the row and wraps, thus the value always keeps the rest of the row.
+- `ApiKey`: a key longer than its place ends with an ellipsis, as `CopyableId`, and stays on the baseline of the text around it. `RadioGroupInput`: the text of an option can shrink, thus a long word in a label or in a hint wraps inside the option.
+- A long word (a URL, an id) breaks inside its line when it does not fit, for example in a `Callout`, in the hint of a field and in the options of `RadioGroupInput`. The layouts keep their widths.
+- Page.Group: when the title and the `actions` or the `status` do not fit on one line, the actions and the status go under the title, thus they never cover it. A long word in the title breaks inside its box.
+- `Toolbar.PresetsTitle` and the presets of `Pane.Header.Title`: a long title ends with an ellipsis in the toolbar, and the chevron of the menu stays visible.
+- A plain `<input type="search">` has the same border-box sizing as the other text inputs, thus it fits its container and no longer runs 22px past it.
+- `SegmentedControl` stays in its container: when the labels do not fit (for example in a translation), the options shrink and their labels end in an ellipsis. The accessible name keeps the full label.
+- `SelectInput` and `FieldWrapper`: in a flex row or in a grid, a select (also an `autosize` one) and a field are never wider than their place. A long value or chip ends with an ellipsis, and the clear button and the chevron stay visible.
+- SettingsList: the narrow layout follows the width of the list, not of the viewport. In a list narrower than 480px, the value is at the left and keeps the width of the row, and the action goes under it when the two do not fit, thus a long action label does not crush the value. A long value goes on more lines, and a label longer than the row gets an ellipsis.
+- `SwitchList`: in a row, a hint or an error stays in the column of the label, and the column of the switch stays empty under the switch. The reason of `forcedOn` stays at the end of the line of the label when the two fit, and goes under the label when they do not, whatever the width of the window: a long reason no longer squeezes the label or covers it.
+- Tabs, Toolbar.Tab and Toolbar.TabLink: when the tabs do not fit, the row scrolls until the active tab is fully visible: on a click, with the arrow keys, Home and End, and when the tabs mount. Only the row scrolls, not the page.
+- Tabs: when the tabs do not fit, an edge of the row fades where tabs are hidden past it. The fade is a mask, thus it works on any background.
+- `Toolbar.Pagination` fits a narrow toolbar: when the toolbar is narrow, it shows fewer page buttons and hides the "items per page" select, and a centered toolbar never overflows past its start edge.
+- `Toolbar.TextualDropdown`: a long value gets an ellipsis and shrinks with the title, thus the title stays visible in a narrow toolbar.
+
 ## 3.1.0-next.4
 
 ### Minor Changes

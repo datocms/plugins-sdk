@@ -11,6 +11,10 @@
 .SelectInput {
   --SelectInput-value-margin: 2px;
   --SelectInput-indicator-padding: 8px;
+
+  /* In a flex row or in a grid, the select is never wider than its place: a
+     long value or chip ends with an ellipsis, and the indicators stay */
+  min-width: 0;
 }
 .SelectInput--autosize {
   display: flex;
@@ -144,7 +148,6 @@
   display: block;
   width: max(13px, 1em);
   height: max(13px, 1em);
-  fill: currentColor;
 }
 
 /* The chip of a value of a multiple select. The wrapper (see
@@ -285,7 +288,7 @@
 
   svg {
     font-size: 14px;
-    fill: var(--color--ink-subtle);
+    color: var(--color--ink-subtle);
   }
 }
 .SelectInput__menu-action__label {
@@ -301,7 +304,7 @@
 
   svg {
     font-size: 12px;
-    fill: var(--color--ink-subtle);
+    color: var(--color--ink-subtle);
   }
 }
 /* It is the title of the second list. */

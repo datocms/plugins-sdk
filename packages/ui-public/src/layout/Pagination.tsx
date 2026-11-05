@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import React from 'react';
 import { buttonClassName } from '../actions/Button';
 import { useTranslation } from '../i18n';
@@ -18,6 +19,11 @@ export type PaginationProps = {
    * @default 7
    */
   maxPagesToBeShown?: number;
+  /**
+   * The most page numbers that show in a narrow toolbar (see
+   * Toolbar.Pagination). The other page numbers show only in a wide toolbar.
+   */
+  maxNarrowPagesToBeShown?: number;
   /** The number of items in all the pages */
   totalEntries: number;
   /** Runs when the user picks a page. The first page is 0. */
@@ -57,10 +63,15 @@ const Pagination = ({
   onChange,
   disabled = false,
   maxPagesToBeShown = 7,
+  maxNarrowPagesToBeShown,
 }: PaginationProps) => {
   const { t, tm } = useTranslation();
   const pageCount = Math.ceil(totalEntries / perPage);
   const pages = visiblePages(pageCount, currentPage, maxPagesToBeShown);
+  const narrowPages =
+    maxNarrowPagesToBeShown === undefined
+      ? pages
+      : visiblePages(pageCount, currentPage, maxNarrowPagesToBeShown);
 
   return (
     <Nav
@@ -82,7 +93,9 @@ const Pagination = ({
           return (
             <RawButton
               key={page}
-              className={pageButtonClassName}
+              className={classNames(pageButtonClassName, {
+                'Pagination__button--wide-only': !narrowPages.includes(page),
+              })}
               disabled={disabled}
               onClick={() => onChange(page)}
               ariaLabel={t('a11y.pagination.goToPage', { page: page + 1 })}

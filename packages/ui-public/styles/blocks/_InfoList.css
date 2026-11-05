@@ -71,21 +71,9 @@
 }
 /* A value that opens a menu (see TextualTrigger.tsx) is a block, thus
    "text-align" does not move it. The automatic margin puts it at the right,
-   as the other values. A long value in the trigger (for example a domain)
-   stays on one line with an ellipsis and does not go out of the row. The text clips, not the button
-   (the surface of the button is out of its box). */
+   as the other values. */
 .InfoList__row__content .Dropdown__textual-trigger {
-  max-width: 100%;
   margin-left: auto;
-
-  > span {
-    min-width: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  > svg {
-    flex: none;
-  }
 }
 /* The smart tags of an asset (see UploadSmartTags.tsx): the tags go on
    more lines, at the right as the other values. The title stays at the level
@@ -107,7 +95,9 @@
   padding-right: 8px;
   font-weight: var(--font-weight-regular);
   color: var(--color--ink-subtle);
-  white-space: nowrap;
+  /* The title wraps, thus its min-content width is small and the
+     fit-content(70%) column of .InfoList__row can stop it at 70% */
+  overflow-wrap: anywhere;
 }
 /* A value in a row (InfoList.Value and InfoList.User). With "is-editable"
    and ".button--ghost-inline" it is a button. */

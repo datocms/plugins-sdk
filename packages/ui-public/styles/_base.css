@@ -1,6 +1,5 @@
 html,
 body {
-  height: 100%;
   background-color: var(--color--surface);
 }
 /* On a phone, all the interface is a step smaller. The sizes and the spaces
@@ -18,10 +17,13 @@ body {
   font-synthesis-weight: none;
   font-size: var(--font-size-m);
   -webkit-text-size-adjust: 100%;
-  height: 100%;
   line-height: 1.4;
   color: var(--color--ink);
   text-rendering: optimizeLegibility;
+  /* A long word (a URL, an id) breaks only when it does not fit in its
+     line. "anywhere" would also change the min-content width, and the
+     grid and flex layouts would change. */
+  overflow-wrap: break-word;
 }
 /* Selected text has the colors of a selected row, thus it follows the brand
    hue and the color scheme */
@@ -269,8 +271,12 @@ input:-webkit-autofill {
   color: inherit !important;
   background-color: transparent !important;
 }
-svg {
-  fill: var(--color--ink);
+/* An icon takes the color of its text: set "color" on an icon, not "fill".
+   The value goes down as the keyword, thus each icon reads its own color.
+   It is not a rule on svg: that rule would win over the fill attribute of
+   an icon, and an outline icon (fill="none") would become a solid shape. */
+html {
+  fill: currentColor;
 }
 button {
   box-sizing: border-box;

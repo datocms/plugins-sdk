@@ -87,7 +87,7 @@
   }
   & .SidebarTree__node__icon svg,
   & .SidebarTree__node__actions .button:not(:hover, :focus-visible) svg {
-    fill: var(--color--selected--ink);
+    color: var(--color--selected--ink);
   }
 
   &:hover {
@@ -105,7 +105,7 @@
   cursor: inherit;
 
   svg {
-    fill: var(--color--ink-subtle);
+    color: var(--color--ink-subtle);
   }
 }
 /* The link or button of the row. Its "::after" covers all the row, thus a
@@ -218,7 +218,7 @@ span.SidebarTree__node__toggle {
 
   /* The subtle ink, as every other grip (see .DragHandle) */
   svg {
-    fill: var(--color--ink-subtle);
+    color: var(--color--ink-subtle);
   }
 }
 .SidebarTree__node--editing {

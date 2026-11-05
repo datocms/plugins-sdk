@@ -27,7 +27,7 @@
   width: calc(1rem + var(--spacing-m) - var(--row-inset));
 
   .RowList__item--selected & svg {
-    fill: var(--color--selected--ink);
+    color: var(--color--selected--ink);
   }
 }
 /* It fills all the column, so the area for a click or a drag is large. The
@@ -51,7 +51,7 @@
   cursor: not-allowed;
 
   svg {
-    fill: var(--color--ink-disabled);
+    color: var(--color--ink-disabled);
   }
 }
 /* Without an image, the icon is in line with the first line of the title,

@@ -18,7 +18,9 @@
   flex-direction: row;
   gap: var(--spacing-m);
   align-items: center;
-  justify-content: center;
+  /* Content that is too wide starts at the left edge: an overflow past the
+     left edge cannot scroll into view. */
+  justify-content: safe center;
   min-width: 0;
   min-height: var(--Toolbar-height);
   > *:last-child {
@@ -150,14 +152,14 @@
   & svg {
     width: 12px;
     height: 12px;
-    fill: var(--color--ink-subtle);
+    color: var(--color--ink-subtle);
   }
   &:hover,
   &.is-open {
     background: var(--color--surface-hover);
 
     & svg {
-      fill: var(--color--ink);
+      color: var(--color--ink);
     }
   }
 }
@@ -204,8 +206,12 @@
   white-space: nowrap;
 }
 /* A subtitle that opens a menu (see TextualDropdown.tsx): it must not clip
-   the hover surface of its trigger */
+   the hover surface of its trigger. It shrinks with the title, and its
+   trigger gets the ellipsis, thus a long value does not push the title to
+   0px. */
 .Toolbar__subtitle--dropdown {
+  flex-shrink: 1;
+  min-width: 0;
   overflow: visible;
 }
 /* A long name of a saved filter shows an ellipsis, thus the title keeps its
@@ -223,13 +229,60 @@
 .Toolbar__space {
   flex: 1;
 }
+/* It takes the free width of the toolbar, thus it is the container of the
+   narrow layout of the pagination (see "_Pagination.css"). After a title,
+   the pages go at the right end, as after a Toolbar.Space. */
+.Toolbar__pagination {
+  display: flex;
+  flex: 1;
+  gap: var(--spacing-m);
+  align-items: center;
+  justify-content: safe center;
+  min-width: 0;
+  container: toolbar-pagination / inline-size;
+
+  &:not(:only-child) {
+    justify-content: safe flex-end;
+  }
+}
 .Toolbar__fill {
   display: flex;
   flex: 1;
 }
+/* The widths of the two edge fades of .Toolbar__tabs. They must be
+   registered: an animation cannot interpolate a custom property that is not
+   registered. */
+@property --Toolbar__tabs-fade-start {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+@property --Toolbar__tabs-fade-end {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+@keyframes Toolbar__tabs-fade-start {
+  to {
+    --Toolbar__tabs-fade-start: var(--Toolbar__tabs-fade);
+  }
+}
+@keyframes Toolbar__tabs-fade-end {
+  from {
+    --Toolbar__tabs-fade-end: var(--Toolbar__tabs-fade);
+  }
+}
 /* It fills the full height of the toolbar, thus the line under the active tab
-   touches the bottom border of the toolbar. */
+   touches the bottom border of the toolbar.
+
+   The scrollbar is hidden, thus an edge fades when tabs are hidden past it.
+   The fade is a mask, thus it works on any background. Each fade follows
+   the scroll of the strip: it grows in the first and the last
+   --Toolbar__tabs-fade of the scroll. A strip that does not scroll has no
+   active timeline, thus no fade. */
 .Toolbar__tabs {
+  --Toolbar__tabs-fade: var(--spacing-xl);
+
   display: flex;
   flex: 0 1 auto;
   align-self: stretch;
@@ -238,6 +291,20 @@
   overflow-x: auto;
   white-space: nowrap;
   scrollbar-width: none;
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 var(--Toolbar__tabs-fade-start),
+    #000 calc(100% - var(--Toolbar__tabs-fade-end)),
+    transparent
+  );
+  animation:
+    Toolbar__tabs-fade-start linear both,
+    Toolbar__tabs-fade-end linear both;
+  animation-timeline: scroll(self inline), scroll(self inline);
+  animation-range:
+    0 var(--Toolbar__tabs-fade),
+    calc(100% - var(--Toolbar__tabs-fade)) 100%;
   -webkit-overflow-scrolling: touch;
   -ms-overflow-style: -ms-autohiding-scrollbar;
 
@@ -289,10 +356,13 @@
     background-color: var(--color--primary--surface);
   }
 }
+/* A button element is as wide as its content, also as a flex box, thus it
+   needs "max-width" to stay in the title. */
 .Toolbar__title--dropdown {
   display: flex;
   align-items: center;
   min-width: 0;
+  max-width: 100%;
   padding: 0;
   font: inherit;
   color: inherit;
@@ -353,7 +423,7 @@
   font-size: 1.1em;
 
   svg {
-    fill: var(--color--ink);
+    color: var(--color--ink);
   }
 }
 /* The filter has no field look, so the disabled state only dims it. The
@@ -368,7 +438,7 @@
   }
 }
 .Toolbar__filter__icon--disabled svg {
-  fill: var(--color--ink-disabled);
+  color: var(--color--ink-disabled);
 }
 
 /* The menu of the title. Its button has no surface until hover, thus the

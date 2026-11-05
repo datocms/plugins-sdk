@@ -15,7 +15,14 @@
   --chevron-color: currentColor;
 
   box-sizing: border-box;
-  display: inline-block;
+  /* A button is never wider than its container: the label gets the
+     ellipsis, and the icons and the chevron keep their size. A button
+     element is as wide as its content, also as a block, thus it needs
+     "max-width". */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 100%;
   padding: var(--button-pad-y) var(--button-pad-x);
   font-family: inherit;
   font-size: 1.1em;
@@ -46,14 +53,17 @@
   > span {
     position: relative;
     top: 0.06em;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   svg,
   i,
   .Spinner {
     display: inline-block;
+    flex: none;
     line-height: 0.6;
     vertical-align: middle;
-    fill: var(--color--primary-soft--ink);
 
     &:first-child {
       margin-right: 0.5em;
@@ -66,9 +76,14 @@
       margin-left: 0;
     }
   }
+  /* Only the svg takes the color. The bars of a .Spinner paint with
+     currentColor, thus they keep the color of the text of the button. */
+  svg {
+    color: var(--color--primary-soft--ink);
+  }
   > .Pill:last-child {
+    flex: none;
     margin-left: 0.5em;
-    vertical-align: middle;
   }
 }
 .button--micro,
@@ -121,20 +136,37 @@
 .button--large {
   font-size: 1.2em;
 }
-.button--ellipsis {
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
 .button--expand {
-  display: block;
+  display: flex;
   width: 100%;
-  text-align: center;
 }
 .button--expand-on-mobile {
   width: 100%;
 
   @media (--lap) {
     width: auto;
+  }
+}
+/* A soft toggle that is on has the recipe of a selected row: the solid
+   recipe would make it look like the primary action. The rule comes after
+   the states of the soft tone, thus a focused toggle keeps it: the focus
+   stays on the button after the click. The border is an inset shadow, thus
+   the size of the button does not change. */
+.button--soft[aria-pressed="true"] {
+  --button-pressed-border: inset 0 0 0 1px var(--color--selected--border);
+
+  color: var(--color--selected--ink);
+  background-color: var(--color--selected--surface);
+  box-shadow: var(--button-pressed-border);
+
+  svg {
+    color: var(--color--selected--ink);
+  }
+  &:--enabled:hover {
+    background-color: var(--color--selected--surface-hover);
+  }
+  &:focus-visible {
+    box-shadow: var(--button-pressed-border), var(--focus-ring);
   }
 }
 .button--primary {
@@ -158,18 +190,18 @@
   }
 
   svg {
-    fill: var(--color--primary--ink);
+    color: var(--color--primary--ink);
   }
 }
 .button--accent-color {
   svg {
-    fill: var(--color--ink);
+    color: var(--color--ink);
   }
   &:--enabled:hover {
     color: var(--color--ink-link);
 
     svg {
-      fill: var(--color--ink-link);
+      color: var(--color--ink-link);
     }
   }
 }
@@ -178,7 +210,7 @@
   background: var(--color--overlay--surface);
 
   svg {
-    fill: var(--color--overlay--ink);
+    color: var(--color--overlay--ink);
   }
   &:--enabled:hover {
     background: var(--color--overlay--surface-hover);
@@ -194,7 +226,7 @@
   border-width: 0;
 
   svg {
-    fill: var(--color--primary-inverse--ink);
+    color: var(--color--primary-inverse--ink);
   }
   &:--enabled:hover,
   &:--enabled:focus {
@@ -210,7 +242,7 @@
   border-width: 0;
 
   svg {
-    fill: var(--color--danger--ink);
+    color: var(--color--danger--ink);
   }
   &:--enabled:hover,
   &:--enabled:focus,
@@ -219,7 +251,7 @@
     background-color: var(--color--danger--surface);
 
     svg {
-      fill: var(--color--danger--ink);
+      color: var(--color--danger--ink);
     }
   }
 }
@@ -231,7 +263,7 @@
     color: var(--color--ink);
 
     svg {
-      fill: var(--color--ink);
+      color: var(--color--ink);
     }
   }
 }
@@ -239,7 +271,7 @@
   color: var(--color--ink-subtle);
 
   svg {
-    fill: var(--color--ink-subtle);
+    color: var(--color--ink-subtle);
   }
   &:--enabled:hover,
   &:--enabled:focus,
@@ -255,7 +287,8 @@
    Do not write the states again in the block:
    --button-ghost-ink            the text and the icon at rest
    --button-ghost-hover-ink      the text and the icon on hover and focus
-   --button-ghost-hover-surface  the surface on hover and focus
+   --button-ghost-hover-surface  the surface on hover and focus, and while
+                                 the button is pressed or its menu is open
    --button-ghost-active-surface the surface while the pointer is down
    --button-ghost-pressed-ink    the text and the icon while the button is
                                  pressed or its menu is open */
@@ -269,7 +302,7 @@
   transition: background-color 0.2s var(--material-ease);
 
   svg {
-    fill: var(--button-ghost-ink, var(--color--ink-subtle));
+    color: var(--button-ghost-ink, var(--color--ink-subtle));
   }
   &:--enabled:focus {
     background-color: transparent;
@@ -284,7 +317,7 @@
     );
 
     svg {
-      fill: var(--button-ghost-hover-ink, var(--color--ink));
+      color: var(--button-ghost-hover-ink, var(--color--ink));
     }
   }
   &:--enabled:active {
@@ -293,12 +326,18 @@
       var(--button-ghost-hover-surface, var(--color--surface-hover))
     );
   }
+  /* The hover surface stays while the button is on. The ink alone does not
+     show the state in the dark scheme: the link ink is near the subtle ink. */
   &[aria-pressed="true"],
   &[aria-expanded="true"] {
     color: var(--button-ghost-pressed-ink, var(--color--ink-link));
+    background-color: var(
+      --button-ghost-hover-surface,
+      var(--color--surface-hover)
+    );
 
     svg {
-      fill: var(--button-ghost-pressed-ink, var(--color--ink-link));
+      color: var(--button-ghost-pressed-ink, var(--color--ink-link));
     }
   }
 }
@@ -345,6 +384,7 @@
      the surface behind the buttons shows through it, thus it is correct for
      each type of button. */
   gap: 1px;
+  max-width: 100%;
 
   /* The caret is in the root element of its Dropdown */
   & > * {
@@ -362,6 +402,11 @@
 }
 .button--sub {
   border-radius: 0;
+}
+/* A long label of the main half gets the ellipsis, thus the caret stays in
+   the container. */
+.button--container > .button--sub {
+  min-width: 0;
 }
 /* A disabled button keeps the colors of its variant and fades, thus a
    disabled primary button still reads as the primary action. The rules of

@@ -195,9 +195,11 @@
     background-color: var(--color--surface-hover);
   }
 
+  /* The hint and the error stay in the column of the label: the switch
+     column is empty under the switch */
   .form__hint,
   .form__error {
-    margin-left: 0;
+    margin-inline: 0 calc(var(--switch-width) + var(--switch-gap));
   }
 
   /* The switch makes the row taller than the label, thus the hint needs no
@@ -215,10 +217,11 @@
 }
 .SwitchInput--row {
   position: static;
-  gap: var(--spacing-m);
+  gap: var(--switch-gap);
 
   .SwitchInput__label {
     position: static;
+    flex: 1 1 auto;
     min-width: 0;
     margin-left: 0;
     line-height: inherit;
@@ -238,19 +241,18 @@
 .SwitchList :is(.SwitchInput__reason, .form__hint) a {
   position: relative;
 }
-.SwitchInput__reason {
-  flex: none;
-  color: var(--color--ink-subtle);
-  text-align: right;
+/* The reason is at the end of the line of the label, because the label
+   grows. When the two do not fit on one line, the reason wraps under the
+   label: the width of the row decides, not the width of the window. */
+.SwitchInput__text {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  column-gap: var(--switch-gap);
+  align-items: baseline;
+  min-width: 0;
 }
-/* On a phone, a long reason does not push the label into a thin column */
-@media (--palm) {
-  .SwitchInput--row {
-    flex-wrap: wrap;
-  }
-  .SwitchInput__reason {
-    flex: 1 1 100%;
-    order: 1;
-    text-align: left;
-  }
+.SwitchInput__reason {
+  flex: 0 1 auto;
+  color: var(--color--ink-subtle);
 }

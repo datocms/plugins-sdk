@@ -176,9 +176,12 @@
 .Page__content > :last-child > .Page__group:last-child {
   margin-bottom: 0;
 }
+/* When the title and the actions do not fit on one line, the actions go
+   under the title. The title never shrinks under them. */
 .Page__group__header {
   display: flex;
-  gap: var(--spacing-m);
+  flex-wrap: wrap;
+  gap: var(--spacing-s) var(--spacing-m);
   align-items: center;
   justify-content: space-between;
   padding: var(--spacing-m) var(--Page__group-padding);
@@ -206,17 +209,21 @@
   }
 }
 .Page__group__title {
-  flex: 1;
+  flex: 1 1 auto;
   min-width: 0;
   margin: 0;
   font-size: var(--font-size-l);
   font-weight: var(--font-weight-strong);
   line-height: 1.2;
+  /* A word longer than the line (a German compound) breaks in its box */
+  overflow-wrap: anywhere;
 }
 .Page__group__count {
   margin-left: var(--spacing-s);
   font-weight: var(--font-weight-regular);
   color: var(--color--ink-subtle);
+  /* The title breaks anywhere, but the number stays whole */
+  white-space: nowrap;
 }
 .Page__group__actions {
   display: flex;

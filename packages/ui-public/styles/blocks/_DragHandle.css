@@ -9,7 +9,7 @@
   cursor: grab;
 
   svg {
-    fill: var(--color--ink-subtle);
+    color: var(--color--ink-subtle);
   }
 
   @media (hover: hover) {

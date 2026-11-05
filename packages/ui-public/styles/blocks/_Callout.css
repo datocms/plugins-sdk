@@ -91,7 +91,7 @@
   background: var(--color--surface-muted);
 
   & .Callout__icon svg {
-    fill: var(--color--ink-subtle);
+    color: var(--color--ink-subtle);
   }
 }
 
@@ -102,7 +102,7 @@
   background: var(--color--success-soft--surface);
 
   & .Callout__icon svg {
-    fill: var(--color--success-soft--ink);
+    color: var(--color--success-soft--ink);
   }
 }
 
@@ -111,7 +111,7 @@
   background: var(--color--warning-soft--surface);
 
   & .Callout__icon svg {
-    fill: var(--color--warning-soft--ink);
+    color: var(--color--warning-soft--ink);
   }
 }
 
@@ -120,6 +120,6 @@
   background: var(--color--danger-soft--surface);
 
   & .Callout__icon svg {
-    fill: var(--color--danger-soft--ink);
+    color: var(--color--danger-soft--ink);
   }
 }

@@ -313,11 +313,10 @@ input {
       height: auto;
     }
   }
+  /* We do not set box-sizing here. A search input keeps the border-box of
+     the other text inputs (_base.css), thus it fits its container. */
   &[type="search"] {
-    box-sizing: content-box;
     -webkit-appearance: textfield;
-
-    /* 2*/
 
     &::-webkit-search-cancel-button,
     &::-webkit-search-decoration {
@@ -342,8 +341,7 @@ input {
  * decrement button to change from `default` to `text`.*/
 
 /**
- * 1. Address `appearance` set to `searchfield` in Safari and Chrome.
- * 2. Address `box-sizing` set to `border-box` in Safari and Chrome.*/
+ * Address `appearance` set to `searchfield` in Safari and Chrome.*/
 
 /**
  * Remove inner padding and search cancel button in Safari and Chrome on OS X.

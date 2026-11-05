@@ -61,7 +61,13 @@
   white-space: nowrap;
 }
 .EntityRow__title {
-  display: flex;
+  /* Each part of the line (the title, a pill, the aside) gets an equal
+     share of the width, and a part that needs less gives the rest to the
+     others. Thus a short title stays whole next to long pills, and no part
+     becomes 0px wide: the long parts end with an ellipsis. */
+  display: grid;
+  grid-auto-columns: minmax(0, max-content);
+  grid-auto-flow: column;
   gap: var(--spacing-s);
   align-items: center;
   min-width: 0;
@@ -72,8 +78,6 @@
   }
 }
 .EntityRow__title__text {
-  flex: 0 1 auto;
-  min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -85,7 +89,8 @@
   white-space: normal;
 }
 .EntityRow__aside {
-  flex: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
   font-size: var(--font-size-xs);
   color: var(--color--ink-subtle);
   white-space: nowrap;

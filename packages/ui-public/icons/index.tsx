@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import React from 'react';
 import GitlabIcon from './brands/gitlab.svg?react';
 import MarkdownEditorIcon from './brands/markdown.svg?react';
-import DatoCMSIcon from './custom/color_d_icon.svg?react';
+import DatoCMSIcon from './custom/dato_symbol.svg?react';
 // Field group icons
 import BooleanGroupIcon from './custom/fieldgroup-boolean.svg?react';
 import ColorGroupIcon from './custom/fieldgroup-color.svg?react';

@@ -1,7 +1,9 @@
-/* See SettingsList.tsx */
+/* See SettingsList.tsx. The layout follows the width of the list, not of
+   the viewport: a list in a narrow column gets the layout of a phone too. */
 .SettingsList {
   padding: 0;
   margin: 0;
+  container: settings-list / inline-size;
   list-style: none;
 }
 /* On a narrow page, the value and the action go under the text and stay at
@@ -43,23 +45,23 @@
   text-align: right;
   white-space: nowrap;
 }
+/* A label longer than the row gets an ellipsis from the button */
 .SettingsList__action {
   flex: none;
+  max-width: 100%;
 }
 /* Without a value, the action goes to the right */
 .SettingsList__text + .SettingsList__action {
   margin-left: auto;
 }
-/* On a phone, the text, the value and the action are one under the other.
-   With a value, the action stays at the right of the value. Without a value,
-   the text of a ghost button starts on the line of the title. */
-@media (--palm) {
-  .SettingsList__row {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-  }
+/* In a narrow list, the text is on a line of its own. The value is at the
+   left, and the action at the right of the value, or under it when the two
+   do not fit. Without a value, the text of a ghost button starts on the
+   line of the title. Under 480px, the text, the value and the action do
+   not fit on one line. */
+@container settings-list (max-width: 479px) {
   .SettingsList__text {
-    grid-column: 1 / -1;
+    flex-basis: 100%;
   }
   .SettingsList__value {
     margin-left: 0;
@@ -67,13 +69,16 @@
     overflow-wrap: anywhere;
     white-space: normal;
   }
+  .SettingsList__value + .SettingsList__action {
+    margin-left: auto;
+  }
   .SettingsList__text + .SettingsList__action {
-    grid-column: 1;
-    justify-self: start;
     margin-left: 0;
 
+    /* A negative margin makes the action narrower than the button, and the
+       label gets an ellipsis. The translate moves only the picture. */
     > :is(.button--ghost, .button--ghost-alert) {
-      margin-left: calc(-1 * var(--button-pad-x));
+      translate: calc(-1 * var(--button-pad-x));
     }
   }
 }

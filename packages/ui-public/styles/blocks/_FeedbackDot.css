@@ -3,7 +3,7 @@
   width: 0.7em;
   min-width: 0.7em;
 }
-/* The fill goes on the circle, not on the svg. A Button gives a fill to
+/* The fill goes on the circle, not on the svg. A Button gives a color to
    each svg in it (the color of its icons), with a stronger selector. */
 .FeedbackDot--success > circle {
   fill: var(--color--fill-success);

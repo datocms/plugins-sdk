@@ -28,7 +28,6 @@
   }
   > svg {
     flex: none;
-    fill: currentColor;
   }
   > .ItemTypeEmoji {
     flex: none;

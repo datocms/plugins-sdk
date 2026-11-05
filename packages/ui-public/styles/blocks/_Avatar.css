@@ -99,7 +99,7 @@
     width: 55%;
     height: 55%;
     margin: auto;
-    fill: var(--Avatar-ink);
+    color: var(--Avatar-ink);
   }
 }
 .Avatar__icon--primary {

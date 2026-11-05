@@ -113,7 +113,7 @@
     display: block;
     width: 1em;
     height: 1em;
-    fill: var(--color--ink-subtle);
+    color: var(--color--ink-subtle);
   }
   .InsertGap:--InsertGap-shown & {
     pointer-events: auto;
@@ -122,7 +122,7 @@
     background-color: var(--color--primary-soft--surface);
 
     svg {
-      fill: var(--color--primary-soft--ink);
+      color: var(--color--primary-soft--ink);
     }
   }
   .InsertGap__bar:focus-visible & {

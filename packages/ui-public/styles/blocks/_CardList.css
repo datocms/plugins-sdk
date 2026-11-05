@@ -54,24 +54,38 @@
   width: 1rem;
 
   svg {
-    fill: var(--color--ink-subtle);
+    color: var(--color--ink-subtle);
   }
 }
-.CardList__title {
+/* The parts of the header and the trailing part of a row share the width
+   in equal parts, and a part that needs less gives the rest to the others
+   (see .EntityRow__title). Thus a short title stays whole next to a long
+   API key, and no part becomes 0px wide. */
+:is(.CardList__title, .CardList__aside, .CardList__trailing) {
+  flex: 1 1 0;
   min-width: 0;
+  max-width: max-content;
+}
+.CardList__title {
   overflow: hidden;
   text-overflow: ellipsis;
   font-weight: var(--font-weight-strong);
   white-space: nowrap;
 }
 .CardList__aside {
-  flex: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
   color: var(--color--ink-subtle);
+  white-space: nowrap;
 }
+/* The pills of the part share its width as the parts of an EntityRow
+   title. The gap is the gap of the header or of the row. */
 .CardList__trailing {
-  display: flex;
-  flex: none;
-  gap: var(--spacing-s);
+  display: grid;
+  grid-auto-columns: minmax(0, max-content);
+  grid-auto-flow: column;
+  gap: inherit;
+  align-items: center;
   margin-left: auto;
 }
 

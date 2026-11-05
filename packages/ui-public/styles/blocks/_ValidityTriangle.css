@@ -2,7 +2,8 @@
 .ValidityTriangle--current,
 .ValidityTriangle--threat {
   vertical-align: text-top;
-  fill: var(--color--fill-danger);
+  /* token-audit-disable-next-line mismatch -- the triangle is a graphic mark, and its color paints its fill */
+  color: var(--color--fill-danger);
 }
 .ValidityTriangle__wrapper {
   display: inline-flex;

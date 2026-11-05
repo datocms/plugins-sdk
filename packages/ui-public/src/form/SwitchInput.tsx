@@ -114,8 +114,12 @@ const SwitchInput = React.memo(function SwitchInput(props: SwitchInputProps) {
   return (
     <>
       <div className={classNames('SwitchInput', inList && 'SwitchInput--row')}>
-        {inList && labelElement}
-        {inList && reasonElement}
+        {inList && (
+          <div className="SwitchInput__text">
+            {labelElement}
+            {reasonElement}
+          </div>
+        )}
         <input
           type="checkbox"
           id={checkboxId}

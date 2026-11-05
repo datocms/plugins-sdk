@@ -117,7 +117,7 @@
     background-color: var(--color--primary--surface);
   }
   .RowList__handle svg {
-    fill: var(--color--selected--ink);
+    color: var(--color--selected--ink);
   }
 
   &:hover,

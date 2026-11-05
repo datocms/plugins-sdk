@@ -196,7 +196,7 @@
   cursor: not-allowed;
 
   svg {
-    fill: var(--color--ink-disabled);
+    color: var(--color--ink-disabled);
   }
 }
 .Table__header {
@@ -241,7 +241,7 @@
   width: max(10px, 0.75em);
   height: max(10px, 0.75em);
   vertical-align: middle;
-  fill: var(--color--ink-subtle);
+  color: var(--color--ink-subtle);
 }
 .Table__header-cell__cell {
   flex: 1;
@@ -376,7 +376,7 @@
   flex: none;
   width: max(10px, 0.75em);
   height: max(10px, 0.75em);
-  fill: var(--color--ink-subtle);
+  color: var(--color--ink-subtle);
 }
 .Table__cell--color-transparent {
   opacity: 0;

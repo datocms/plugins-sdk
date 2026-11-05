@@ -42,7 +42,7 @@
 
   svg {
     display: block;
-    fill: var(--color--ink-subtle);
+    color: var(--color--ink-subtle);
   }
 }
 .form__label__info {
@@ -78,8 +78,11 @@
      between the fields uses it to keep the rhythm of the form. */
   --form-field-gap: var(--spacing-l);
 }
+/* In a flex row or in a grid, the field is never wider than its place, also
+   when its input holds a long value without spaces */
 .form__field {
   position: relative;
+  min-width: 0;
   margin-bottom: var(--form-field-gap);
   scroll-margin-top: var(--spacing-xxxl);
 
@@ -215,7 +218,7 @@ textarea:focus {
     display: inline-block;
     margin-right: 0.5em;
     vertical-align: middle;
-    fill: var(--color--ink-link);
+    color: var(--color--ink-link);
   }
 }
 .form__hint__warning {
@@ -229,7 +232,7 @@ textarea:focus {
     display: inline-block;
     margin-right: 0.5em;
     vertical-align: middle;
-    fill: var(--color--warning-soft--ink);
+    color: var(--color--warning-soft--ink);
   }
 }
 .form__input--large.form__input--large {

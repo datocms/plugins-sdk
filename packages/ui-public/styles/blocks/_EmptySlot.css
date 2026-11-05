@@ -1,11 +1,12 @@
-/* The actions also show when the menu of an action is open
-   (.Dropdown.is-open). */
+/* The message and the actions are in the same cell of the grid, one on the
+   other. Thus the slot gets the height of the taller one: actions that wrap
+   on two lines make the slot taller and do not go out of it. The actions
+   also show when the menu of an action is open (.Dropdown.is-open). */
 .EmptySlot {
-  position: relative;
   box-sizing: border-box;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  place-items: center;
   width: 100%;
   min-height: calc(4 * var(--space-unit));
   padding: 0 var(--spacing-m);
@@ -30,18 +31,22 @@ button.EmptySlot {
     box-shadow: var(--focus-ring);
   }
 }
+.EmptySlot > * {
+  grid-area: 1 / 1;
+}
 .EmptySlot__message {
   font-size: var(--font-size-m);
   color: var(--color--ink-subtle);
   transition: opacity 0.15s ease-out;
 }
 .EmptySlot__actions {
-  position: absolute;
-  inset: 0;
   display: flex;
+  flex-wrap: wrap;
   gap: var(--spacing-s);
   align-items: center;
   justify-content: center;
+  max-width: 100%;
+  padding-block: var(--spacing-s);
   opacity: 0;
   transition: opacity 0.15s ease-out;
 

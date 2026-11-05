@@ -34,6 +34,10 @@ type Props = {
   isRoot?: boolean;
   // A title at the top of the panel (the menu on a small screen)
   title?: Message;
+  // True when the menu is at its place next to its trigger. Until then, the
+  // menu is at the top of the page, and a focus or a scroll in it scrolls
+  // the page to the top.
+  isPositioned: boolean;
 };
 
 // The menu keeps the focus: the option that is active has a class and is the
@@ -52,6 +56,7 @@ export default function MenuContent({
   optionPaddingY,
   isRoot = false,
   title,
+  isPositioned,
 }: Props) {
   const { t, tm, tc } = useTranslation();
   const { closeMenu, triggerId, menuId } = useContext(DropdownContext);
@@ -142,6 +147,8 @@ export default function MenuContent({
   // A menu that a key opened has its first option highlighted, thus Enter
   // picks it at once
   useEffect(() => {
+    if (!isPositioned) return;
+
     const focusTarget = showSearch ? searchInputRef.current : menuRef.current;
     const first = menuRef.current?.querySelector(
       '.Dropdown__menu__option:not(.is-disabled)',
@@ -150,19 +157,21 @@ export default function MenuContent({
     if (isRoot && openedByKeyRef.current && first && focusTarget) {
       highlightOption(focusTarget, first);
     }
-  }, [isRoot, showSearch]);
+  }, [isRoot, showSearch, isPositioned]);
 
   // Do not use "autoFocus": React calls it before Portal attaches the menu to
   // the document, and focus has no effect on a detached element. Without a
   // search field, the main menu gets the focus, so that the keyboard can
   // move through the options.
   useEffect(() => {
+    if (!isPositioned) return;
+
     if (showSearch) {
       searchInputRef.current?.focus();
     } else if (isRoot) {
       menuRef.current?.focus();
     }
-  }, [showSearch, isRoot]);
+  }, [showSearch, isRoot, isPositioned]);
 
   const handleKeyDown = useCallback(
     (event: React.KeyboardEvent<HTMLElement>) => {

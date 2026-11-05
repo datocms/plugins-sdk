@@ -5,6 +5,10 @@
   display: flex;
   align-items: stretch;
   width: fit-content;
+  /* Long labels (a translation) shrink the options, not the container: the
+     control stays in its container, also as a flex item */
+  min-width: 0;
+  max-width: 100%;
   font-size: var(--font-size-m);
 }
 .SegmentedControl__button {
@@ -12,6 +16,7 @@
   gap: 0.5em;
   align-items: center;
   justify-content: center;
+  min-width: 0;
   /* The size class sets the variables (see _button.css). The fallbacks are
      the values of the plain ".button" ("regular" and "large"). */
   padding: var(--button-pad-y, 0.7em) var(--button-pad-x, 1em);
@@ -26,9 +31,9 @@
   transition: background-color 0.2s var(--material-ease);
 
   svg {
+    flex: none;
     width: 1em;
     height: 1em;
-    fill: currentColor;
   }
   &:hover:not(:disabled),
   &:focus-visible {
@@ -46,6 +51,11 @@
     opacity: var(--disabled-opacity);
   }
 }
+/* The accessible name of the option keeps the full label */
+.SegmentedControl__label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .SegmentedControl--fill {
   width: auto;
 
@@ -55,6 +65,7 @@
 }
 /* An option with only an icon is a square, as ".button--icon-only" */
 .SegmentedControl--icon-only .SegmentedControl__button {
+  flex-shrink: 0;
   width: calc(1lh + 2 * var(--button-pad-y, 0.7em));
   padding-inline: 0;
 }

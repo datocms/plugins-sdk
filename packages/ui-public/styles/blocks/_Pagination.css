@@ -58,3 +58,12 @@
     }
   }
 }
+/* The full layout with ten page numbers and the "Show" select needs about
+   44em. In a narrower toolbar, the pagination shows fewer page numbers and
+   no select (see Toolbar/Pagination.tsx). */
+@container toolbar-pagination (max-width: 45em) {
+  .Pagination__per-page,
+  .Pagination__button--wide-only {
+    display: none;
+  }
+}

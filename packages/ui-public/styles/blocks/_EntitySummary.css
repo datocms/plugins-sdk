@@ -22,7 +22,7 @@
   > svg {
     flex: none;
     font-size: 16px;
-    fill: var(--color--ink-subtle);
+    color: var(--color--ink-subtle);
   }
 }
 .EntitySummary__image {

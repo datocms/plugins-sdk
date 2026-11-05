@@ -19,9 +19,10 @@ export type SettingsListRowProps = {
   /** One short sentence about the setting or about the result of the action */
   description?: Message;
   /**
-   * The current value. A long value gets an ellipsis, and a value on more
-   * lines (an address) has each line at the right. An action without a value
-   * (for example "Log out everywhere") has no value.
+   * The current value. A long value gets an ellipsis (in a narrow list, it
+   * goes on more lines), and a value on more lines (an address) has each
+   * line at the right. An action without a value (for example "Log out
+   * everywhere") has no value.
    */
   value?: ReactNode;
   /**

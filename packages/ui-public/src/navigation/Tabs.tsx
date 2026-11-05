@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import React, { ReactNode, useCallback } from 'react';
+import React, { ReactNode, useCallback, useEffect, useRef } from 'react';
 import { useAutoincrementIntegerId } from '../hooks/useAutoincrementIntegerId';
 import { useRovingKeyDown } from '../hooks/useRovingKeyDown';
 import { useTranslation } from '../i18n';
@@ -24,6 +24,35 @@ export function useTabIds() {
 }
 
 const TAB_SELECTOR = '[role="tab"]';
+
+/**
+ * Scrolls the row of tabs until the active tab is fully visible. It scrolls
+ * only the row: scrollIntoView also scrolls the page, and a row of tabs
+ * under the fold must not move the page when it mounts.
+ */
+function useScrollIntoTabRow<T extends HTMLElement>(active: boolean) {
+  const ref = useRef<T>(null);
+
+  useEffect(() => {
+    const tab = ref.current;
+    const row = tab?.closest<HTMLElement>('.Toolbar__tabs');
+
+    if (!active || !tab || !row) {
+      return;
+    }
+
+    const rowRect = row.getBoundingClientRect();
+    const tabRect = tab.getBoundingClientRect();
+
+    if (tabRect.left < rowRect.left) {
+      row.scrollBy({ left: tabRect.left - rowRect.left });
+    } else if (tabRect.right > rowRect.right) {
+      row.scrollBy({ left: tabRect.right - rowRect.right });
+    }
+  }, [active]);
+
+  return ref;
+}
 
 export type TabListProps = {
   /** The accessible name of the tablist, for example "Sidebar" */
@@ -81,8 +110,10 @@ export const TabButton = React.memo(function TabButton({
   onPick,
 }: TabButtonProps) {
   const { tc } = useTranslation();
+  const ref = useScrollIntoTabRow<HTMLButtonElement>(active);
   return (
     <RawButton
+      ref={ref}
       id={id}
       tab={{ selected: active, controls: active ? panelId : undefined }}
       tabIndex={active ? 0 : -1}
@@ -132,9 +163,11 @@ export const TabLink = React.memo(function TabLink({
   const { location } = useNavigation();
   const isActive =
     active ?? (location ? isActivePath(location.pathname, to) : false);
+  const ref = useScrollIntoTabRow<HTMLAnchorElement>(isActive);
 
   return (
     <Link
+      ref={ref}
       to={to}
       replace={replace}
       active={isActive}

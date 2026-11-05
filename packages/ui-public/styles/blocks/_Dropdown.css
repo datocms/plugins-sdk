@@ -3,6 +3,9 @@
    this file. */
 .Dropdown {
   position: relative;
+  /* A parent that is as wide as its content (a column with "align-items:
+     flex-start") can otherwise give the trigger the full width of its label */
+  max-width: 100%;
 }
 .Dropdown__spacer {
   position: absolute;
@@ -15,18 +18,24 @@
   align-items: center;
   width: 100%;
   width: auto;
+  max-width: 100%;
   padding: 0;
   white-space: nowrap;
 
+  /* A long value gets an ellipsis, and the chevron always shows */
   > span {
     position: relative;
     top: 0.06em;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   svg {
     display: inline-block;
+    flex: none;
     line-height: 0.6;
     vertical-align: middle;
-    fill: var(--color--ink-subtle);
+    color: var(--color--ink-subtle);
   }
 }
 
@@ -190,7 +199,6 @@
   > svg {
     flex: none;
     font-size: 12px;
-    fill: currentColor;
   }
 
   /* The line separates the stuck title from the options that scroll below
@@ -270,8 +278,8 @@
     top: 50%;
     left: 12px;
     font-size: 15px;
+    color: var(--color--ink-subtle);
     pointer-events: none;
-    fill: var(--color--ink-subtle);
     transform: translateY(-50%);
   }
   /* Two classes, so this rule is stronger than the global rules of the text
@@ -334,7 +342,7 @@
     color: var(--color--ink-danger);
 
     .Dropdown__menu__option__content > svg {
-      fill: currentColor;
+      color: inherit;
     }
   }
   &.is-dangerous.is-hover,
@@ -351,7 +359,7 @@
       top: 50%;
       /* Puts the 14px grip at the center of the gutter */
       left: calc((var(--Dropdown-gutter) - 14px) / 2);
-      fill: var(--color--ink-subtle);
+      color: var(--color--ink-subtle);
       transform: translateY(-50%);
 
       @media (hover: hover) {
@@ -386,7 +394,6 @@
 
   svg {
     font-size: 12px;
-    fill: currentColor;
   }
 }
 .Dropdown__menu__option__chevron {
@@ -398,7 +405,7 @@
 
   svg {
     font-size: 12px;
-    fill: var(--color--ink-subtle);
+    color: var(--color--ink-subtle);
   }
 }
 .Dropdown__menu__option__validity_icon {
@@ -422,18 +429,18 @@
     flex: none;
     font-size: 16px;
     vertical-align: middle;
-    fill: var(--color--ink-subtle);
+    color: var(--color--ink-subtle);
   }
   /* Plugin-injected actions render their icon through .PluginIcon; normalize it
-     to match native option icons (muted fill, sizing and spacing). */
+     to match native option icons (muted color, sizing and spacing). */
   .PluginIcon {
     margin-right: 0;
     font-size: 16px;
   }
-  /* The rule of _PluginIcon.css (fill: currentColor) comes later in the
+  /* The rule of _PluginIcon.css (color: inherit) comes later in the
      styles: the two classes make this rule stronger */
   > .PluginIcon.PluginIcon--svg {
-    fill: var(--color--ink-subtle);
+    color: var(--color--ink-subtle);
   }
   /* At a 16px font size, the emoji glyph fills the box as much as an SVG
      icon */
@@ -500,7 +507,7 @@
   border-radius: var(--radius-s);
 
   svg {
-    fill: var(--color--ink-subtle);
+    color: var(--color--ink-subtle);
   }
 }
 /* The button is a square as tall as the option. The negative margin takes
@@ -524,16 +531,16 @@ button.Dropdown__menu__option__icon {
     background-color: var(--color--surface-raised-active);
 
     svg {
-      fill: var(--color--ink);
+      color: var(--color--ink);
     }
   }
 }
 .Dropdown__menu__option__icon--delete svg {
-  fill: var(--color--danger-soft--ink);
+  color: var(--color--danger-soft--ink);
 }
 button.Dropdown__menu__option__icon--delete:hover svg,
 button.Dropdown__menu__option__icon--delete:focus-visible svg {
-  fill: var(--color--danger-soft--ink);
+  color: var(--color--danger-soft--ink);
 }
 .Dropdown__menu__separator {
   height: 1px;

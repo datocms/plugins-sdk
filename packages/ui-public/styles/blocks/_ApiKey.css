@@ -1,5 +1,14 @@
+/* A key has no spaces, thus a long key does not wrap: it ends with an
+   ellipsis at the edge of its place. "clip" does not make a scroll
+   container, thus the key stays on the baseline of the text around it. */
 .ApiKey {
+  display: inline-block;
+  min-width: 0;
+  max-width: 100%;
+  overflow: clip;
+  text-overflow: ellipsis;
   font-family: var(--monospaced-font-family);
   font-size: var(--font-size-xs);
   color: var(--color--ink-subtle);
+  white-space: nowrap;
 }

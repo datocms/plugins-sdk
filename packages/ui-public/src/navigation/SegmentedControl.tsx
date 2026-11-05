@@ -132,7 +132,7 @@ function SegmentedControl<T extends string>({
         return (
           <RawButton key={option.value} {...buttonProps}>
             {option.icon}
-            {tc(option.label)}
+            <span className="SegmentedControl__label">{tc(option.label)}</span>
           </RawButton>
         );
       })}

@@ -11,11 +11,11 @@
   height: 0.7em;
 }
 .ItemStatus__dot--published {
-  fill: var(--color--status-published--ink);
+  color: var(--color--status-published--ink);
 }
 .ItemStatus__dot--outdated {
-  fill: var(--color--status-outdated--ink);
+  color: var(--color--status-outdated--ink);
 }
 .ItemStatus__dot--draft {
-  fill: var(--color--status-draft--ink);
+  color: var(--color--status-draft--ink);
 }

@@ -68,7 +68,6 @@
   svg {
     width: 32px;
     height: 32px;
-    fill: currentColor;
   }
 }
 /* Spinner--centered is "position: absolute" at 50%. This box holds the
@@ -103,11 +102,14 @@
   gap: var(--spacing-m);
   align-items: flex-start;
 }
+/* The slate centers its parts and makes them as wide as their content, thus
+   a long button gets an ellipsis only with "max-width" */
 .blank-slate__actions {
   display: flex;
   flex-wrap: wrap;
   gap: var(--spacing-s);
   align-items: center;
+  max-width: 100%;
   margin-top: var(--spacing-s);
 }
 /* The content can have a form, thus it uses all the width */

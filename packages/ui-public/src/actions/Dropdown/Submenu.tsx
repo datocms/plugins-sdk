@@ -50,6 +50,7 @@ export default function Submenu({
     floatingStyles,
     context,
     placement: finalPlacement,
+    isPositioned,
   } = useFloating({
     open: isOpen,
     onOpenChange: setIsOpen,
@@ -118,7 +119,9 @@ export default function Submenu({
                 {...placementAttributes}
                 {...getFloatingProps()}
               >
-                <MenuContent>{children}</MenuContent>
+                <MenuContent isPositioned={isPositioned}>
+                  {children}
+                </MenuContent>
               </div>
             )}
           </NewZIndex>

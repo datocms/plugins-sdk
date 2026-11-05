@@ -22,7 +22,10 @@ export type ToolbarPaginationProps = Omit<
 > & {
   /** What the pages are of ("Roles"). Without it, the ariaLabel of the Pane. */
   ariaLabel?: TextMessage;
-  /** Fewer page numbers, and no "Show" select (for a narrow pane) */
+  /**
+   * Always fewer page numbers, and no "Show" select. Without it, the
+   * pagination has this layout only when the toolbar is narrow.
+   */
   compact?: boolean;
   /**
    * A "Show" select before the pages, to change the number of items of a
@@ -63,7 +66,7 @@ function ToolbarPagination({
   }
 
   return (
-    <>
+    <div className="Toolbar__pagination">
       {perPageSelect && showPerPageSelect && (
         <div className="Pagination__per-page">
           {t('pagination.show', { perPage })}
@@ -93,9 +96,10 @@ function ToolbarPagination({
           onChange={onChange}
           disabled={disabled}
           maxPagesToBeShown={compact ? 3 : 10}
+          maxNarrowPagesToBeShown={3}
         />
       )}
-    </>
+    </div>
   );
 }
 

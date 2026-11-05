@@ -212,7 +212,7 @@
     box-shadow: var(--shadow--floating);
 
     svg {
-      fill: var(--color--ink);
+      color: var(--color--ink);
     }
     &:hover,
     &:focus-visible,

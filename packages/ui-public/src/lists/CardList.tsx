@@ -264,7 +264,9 @@ const Item = React.forwardRef<HTMLLIElement, CardListItemProps>(function Item(
           ) : (
             <div className="CardList__summary">{row.summary}</div>
           )}
-          {row.trailing}
+          {row.trailing && (
+            <div className="CardList__trailing">{row.trailing}</div>
+          )}
           <div className="CardList__actions">{row.actions}</div>
         </div>
       )}

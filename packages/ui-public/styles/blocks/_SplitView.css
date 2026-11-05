@@ -152,7 +152,6 @@
 
   svg {
     display: block;
-    fill: currentColor;
   }
   .SplitViewSash__content:hover & {
     color: var(--color--ink);
@@ -220,7 +219,6 @@ body.SplitView--disable-select {
 
   svg {
     display: block;
-    fill: currentColor;
   }
 }
 

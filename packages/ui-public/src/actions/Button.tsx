@@ -152,7 +152,10 @@ type ButtonElementState = {
    * "onClick" that returns a promise sets it automatically.
    */
   busy?: boolean;
-  /** The state of a toggle button (for example the filter toggle) */
+  /**
+   * The state of a toggle button (for example the filter toggle). Only the
+   * soft and the ghost tones show it: a toggle is never the main action.
+   */
   pressed?: boolean;
 };
 
@@ -261,7 +264,7 @@ export type ButtonProps = {
   ButtonAction;
 
 const toneClassName: Record<ButtonTone, string> = {
-  soft: 'button',
+  soft: 'button button--soft',
   ghost: 'button button--ghost',
   primary: 'button button--primary',
   alert: 'button button--alert',
