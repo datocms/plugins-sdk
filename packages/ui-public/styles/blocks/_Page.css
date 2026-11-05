@@ -189,6 +189,22 @@
     border-bottom: 0;
   }
 }
+/* The whole strip opens and closes the group, not only the title: the
+   toggle stretches over the header, and the actions stay above it. */
+.Page__group__header--collapsible {
+  position: relative;
+
+  .Page__collapseToggle:not(:disabled)::after {
+    position: absolute;
+    inset: 0;
+    content: "";
+  }
+
+  .Page__group__actions {
+    position: relative;
+    z-index: 1;
+  }
+}
 .Page__group__title {
   flex: 1;
   min-width: 0;
@@ -196,6 +212,11 @@
   font-size: var(--font-size-l);
   font-weight: var(--font-weight-strong);
   line-height: 1.2;
+}
+.Page__group__count {
+  margin-left: var(--spacing-s);
+  font-weight: var(--font-weight-regular);
+  color: var(--color--ink-subtle);
 }
 .Page__group__actions {
   display: flex;

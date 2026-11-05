@@ -43,6 +43,11 @@ export type PageGroupProps = {
    */
   status?: React.ReactNode;
   /**
+   * A number after the title, for example the number of rows of a closed
+   * group. The group does not show it when it is 0.
+   */
+  count?: number;
+  /**
    * The body has no padding. Use it for a Table or a CardList: its rows go
    * from edge to edge of the card. Put the other parts of the body in a
    * Page.GroupInset.
@@ -73,6 +78,7 @@ export function PageGroup({
   footer,
   tone,
   status,
+  count,
   flush,
   children,
   className,
@@ -81,6 +87,14 @@ export function PageGroup({
 }: PageGroupProps) {
   const { tc } = useTranslation();
   const open = collapse ? collapse.open : true;
+  const titleContent = (
+    <>
+      {tc(title)}
+      {count !== undefined && count > 0 && (
+        <span className="Page__group__count">{count}</span>
+      )}
+    </>
+  );
 
   return (
     <div
@@ -91,14 +105,18 @@ export function PageGroup({
       )}
       id={id}
     >
-      <header className="Page__group__header">
+      <header
+        className={classNames('Page__group__header', {
+          'Page__group__header--collapsible': collapse,
+        })}
+      >
         <Heading level={titleLevel} className="Page__group__title">
           {collapse ? (
             <PageCollapseToggle collapse={collapse}>
-              {tc(title)}
+              {titleContent}
             </PageCollapseToggle>
           ) : (
-            tc(title)
+            titleContent
           )}
         </Heading>
         {status}

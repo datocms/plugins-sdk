@@ -1,5 +1,11 @@
 # datocms-react-ui
 
+## 3.1.0-next.4
+
+### Minor Changes
+
+- `Page.Group` gets `count`: a number after the title, as the count of a `SidebarPanel`. The whole header of a group with `collapse` opens and closes the group, not only its title.
+
 ## 3.1.0-next.3
 
 ### Minor Changes
