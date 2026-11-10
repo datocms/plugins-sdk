@@ -16,7 +16,7 @@
   position: relative;
   /* The right padding keeps the place of the chevron, thus the select does
      not change its width on hover */
-  padding: var(--spacing-s) calc(var(--spacing-m) + 0.75em) var(--spacing-s)
+  padding: var(--spacing-s) calc(var(--spacing-m) + 1.125em) var(--spacing-s)
     var(--spacing-s);
   margin-right: var(--spacing-l);
   border: 1px solid transparent;

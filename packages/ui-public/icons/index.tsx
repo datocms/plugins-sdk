@@ -1,11 +1,197 @@
-// Custom icons
-
 import classNames from 'classnames';
+import AppWindowIcon from 'lucide-static/icons/app-window.svg?react';
+import ArchiveArrowUpIcon from 'lucide-static/icons/archive-arrow-up.svg?react';
+import ArrowBigDownIcon from 'lucide-static/icons/arrow-big-down.svg?react';
+import ArrowDownIcon from 'lucide-static/icons/arrow-down.svg?react';
+import ArrowDownAZIcon from 'lucide-static/icons/arrow-down-a-z.svg?react';
+import ArrowDownFromLineIcon from 'lucide-static/icons/arrow-down-from-line.svg?react';
+import ArrowDownToLineIcon from 'lucide-static/icons/arrow-down-to-line.svg?react';
+import ArrowLeftIcon from 'lucide-static/icons/arrow-left.svg?react';
+import ArrowLeftRightIcon from 'lucide-static/icons/arrow-left-right.svg?react';
+import ArrowRightIcon from 'lucide-static/icons/arrow-right.svg?react';
+import ArrowRightLeftIcon from 'lucide-static/icons/arrow-right-left.svg?react';
+import ArrowUpIcon from 'lucide-static/icons/arrow-up.svg?react';
+import ArrowUpDownIcon from 'lucide-static/icons/arrow-up-down.svg?react';
+import ArrowUpFromLineIcon from 'lucide-static/icons/arrow-up-from-line.svg?react';
+import ArrowUpToLineIcon from 'lucide-static/icons/arrow-up-to-line.svg?react';
+import BadgeCheckIcon from 'lucide-static/icons/badge-check.svg?react';
+import BanIcon from 'lucide-static/icons/ban.svg?react';
+import BarcodeIcon from 'lucide-static/icons/barcode.svg?react';
+import BookIcon from 'lucide-static/icons/book.svg?react';
+import BookmarkIcon from 'lucide-static/icons/bookmark.svg?react';
+import BoxIcon from 'lucide-static/icons/box.svg?react';
+import BoxesIcon from 'lucide-static/icons/boxes.svg?react';
+import BracesIcon from 'lucide-static/icons/braces.svg?react';
+import CalendarIcon from 'lucide-static/icons/calendar.svg?react';
+import CalendarClockIcon from 'lucide-static/icons/calendar-clock.svg?react';
+import CaptionsIcon from 'lucide-static/icons/captions.svg?react';
+import ChartAreaIcon from 'lucide-static/icons/chart-area.svg?react';
+import CheckIcon from 'lucide-static/icons/check.svg?react';
+import ChevronDownIcon from 'lucide-static/icons/chevron-down.svg?react';
+import ChevronLeftIcon from 'lucide-static/icons/chevron-left.svg?react';
+import ChevronRightIcon from 'lucide-static/icons/chevron-right.svg?react';
+import ChevronsDownIcon from 'lucide-static/icons/chevrons-down.svg?react';
+import ChevronsLeftIcon from 'lucide-static/icons/chevrons-left.svg?react';
+import ChevronsRightIcon from 'lucide-static/icons/chevrons-right.svg?react';
+import CircleArrowUpIcon from 'lucide-static/icons/circle-arrow-up.svg?react';
+import CircleCheckIcon from 'lucide-static/icons/circle-check.svg?react';
+import CircleDotIcon from 'lucide-static/icons/circle-dot.svg?react';
+import CircleExclamationPointIcon from 'lucide-static/icons/circle-exclamation-point.svg?react';
+import CircleQuestionMarkIcon from 'lucide-static/icons/circle-question-mark.svg?react';
+import ClapperboardIcon from 'lucide-static/icons/clapperboard.svg?react';
+import ClipboardIcon from 'lucide-static/icons/clipboard.svg?react';
+import ClipboardPasteIcon from 'lucide-static/icons/clipboard-paste.svg?react';
+import ClockIcon from 'lucide-static/icons/clock.svg?react';
+import ClosedCaptionIcon from 'lucide-static/icons/closed-caption.svg?react';
+import CloudDownloadIcon from 'lucide-static/icons/cloud-download.svg?react';
+import CodeIcon from 'lucide-static/icons/code.svg?react';
+import CommandIcon from 'lucide-static/icons/command.svg?react';
+import CopyIcon from 'lucide-static/icons/copy.svg?react';
+import CopyPlusIcon from 'lucide-static/icons/copy-plus.svg?react';
+import CornerLeftUpIcon from 'lucide-static/icons/corner-left-up.svg?react';
+import CropIcon from 'lucide-static/icons/crop.svg?react';
+import DatabaseIcon from 'lucide-static/icons/database.svg?react';
+import DiamondIcon from 'lucide-static/icons/diamond.svg?react';
+import DownloadIcon from 'lucide-static/icons/download.svg?react';
+import EarthIcon from 'lucide-static/icons/earth.svg?react';
+import EighthNotesIcon from 'lucide-static/icons/eighth-notes.svg?react';
+import EllipsisIcon from 'lucide-static/icons/ellipsis.svg?react';
+import EllipsisVerticalIcon from 'lucide-static/icons/ellipsis-vertical.svg?react';
+import ExternalLinkIcon from 'lucide-static/icons/external-link.svg?react';
+import EyeIcon from 'lucide-static/icons/eye.svg?react';
+import EyeOffIcon from 'lucide-static/icons/eye-off.svg?react';
+import FileIcon from 'lucide-static/icons/file.svg?react';
+import FileCodeIcon from 'lucide-static/icons/file-code.svg?react';
+import FileDownIcon from 'lucide-static/icons/file-down.svg?react';
+import FileLockIcon from 'lucide-static/icons/file-lock.svg?react';
+import FileOutputIcon from 'lucide-static/icons/file-output.svg?react';
+import FileTextIcon from 'lucide-static/icons/file-text.svg?react';
+import FlameIcon from 'lucide-static/icons/flame.svg?react';
+import FlaskConicalIcon from 'lucide-static/icons/flask-conical.svg?react';
+import FoldVerticalIcon from 'lucide-static/icons/fold-vertical.svg?react';
+import FolderIcon from 'lucide-static/icons/folder.svg?react';
+import FolderCogIcon from 'lucide-static/icons/folder-cog.svg?react';
+import FolderOpenIcon from 'lucide-static/icons/folder-open.svg?react';
+import FolderPlusIcon from 'lucide-static/icons/folder-plus.svg?react';
+import FolderSearchIcon from 'lucide-static/icons/folder-search.svg?react';
+import FoldersIcon from 'lucide-static/icons/folders.svg?react';
+import FunnelIcon from 'lucide-static/icons/funnel.svg?react';
+import GiftIcon from 'lucide-static/icons/gift.svg?react';
+import GitBranchIcon from 'lucide-static/icons/git-branch.svg?react';
+import GitForkIcon from 'lucide-static/icons/git-fork.svg?react';
+import GlobeIcon from 'lucide-static/icons/globe.svg?react';
+import GripVerticalIcon from 'lucide-static/icons/grip-vertical.svg?react';
+import HandIcon from 'lucide-static/icons/hand.svg?react';
+import HardHatIcon from 'lucide-static/icons/hard-hat.svg?react';
+import HashIcon from 'lucide-static/icons/hash.svg?react';
+import Heading1Icon from 'lucide-static/icons/heading-1.svg?react';
+import Heading2Icon from 'lucide-static/icons/heading-2.svg?react';
+import Heading3Icon from 'lucide-static/icons/heading-3.svg?react';
+import Heading4Icon from 'lucide-static/icons/heading-4.svg?react';
+import Heading5Icon from 'lucide-static/icons/heading-5.svg?react';
+import Heading6Icon from 'lucide-static/icons/heading-6.svg?react';
+import HighlighterIcon from 'lucide-static/icons/highlighter.svg?react';
+import HourglassIcon from 'lucide-static/icons/hourglass.svg?react';
+import HouseIcon from 'lucide-static/icons/house.svg?react';
+import ImageIcon from 'lucide-static/icons/image.svg?react';
+import ImagePlayIcon from 'lucide-static/icons/image-play.svg?react';
+import ImagesIcon from 'lucide-static/icons/images.svg?react';
+import InfoIcon from 'lucide-static/icons/info.svg?react';
+import ItalicIcon from 'lucide-static/icons/italic.svg?react';
+import KeyboardIcon from 'lucide-static/icons/keyboard.svg?react';
+import LanguagesIcon from 'lucide-static/icons/languages.svg?react';
+import LayersIcon from 'lucide-static/icons/layers.svg?react';
+import LayoutGridIcon from 'lucide-static/icons/layout-grid.svg?react';
+import LayoutListIcon from 'lucide-static/icons/layout-list.svg?react';
+import LayoutTemplateIcon from 'lucide-static/icons/layout-template.svg?react';
+import LetterBIcon from 'lucide-static/icons/letter-b.svg?react';
+import LifeBuoyIcon from 'lucide-static/icons/life-buoy.svg?react';
+import LinkIcon from 'lucide-static/icons/link.svg?react';
+import Link2Icon from 'lucide-static/icons/link-2.svg?react';
+import ListIcon from 'lucide-static/icons/list.svg?react';
+import ListChecksIcon from 'lucide-static/icons/list-checks.svg?react';
+import ListIndentDecreaseIcon from 'lucide-static/icons/list-indent-decrease.svg?react';
+import ListIndentIncreaseIcon from 'lucide-static/icons/list-indent-increase.svg?react';
+import ListOrderedIcon from 'lucide-static/icons/list-ordered.svg?react';
+import ListTreeIcon from 'lucide-static/icons/list-tree.svg?react';
+import LogOutIcon from 'lucide-static/icons/log-out.svg?react';
+import MailIcon from 'lucide-static/icons/mail.svg?react';
+import MapPinIcon from 'lucide-static/icons/map-pin.svg?react';
+import MapPinnedIcon from 'lucide-static/icons/map-pinned.svg?react';
+import MaximizeIcon from 'lucide-static/icons/maximize.svg?react';
+import MenuIcon from 'lucide-static/icons/menu.svg?react';
+import MessagesSquareIcon from 'lucide-static/icons/messages-square.svg?react';
+import MinimizeIcon from 'lucide-static/icons/minimize.svg?react';
+import MinusIcon from 'lucide-static/icons/minus.svg?react';
+import MoveVerticalIcon from 'lucide-static/icons/move-vertical.svg?react';
+import NotepadTextIcon from 'lucide-static/icons/notepad-text.svg?react';
+import OctagonExclamationPointIcon from 'lucide-static/icons/octagon-exclamation-point.svg?react';
+import PaletteIcon from 'lucide-static/icons/palette.svg?react';
+import PanelLeftIcon from 'lucide-static/icons/panel-left.svg?react';
+import PanelRightIcon from 'lucide-static/icons/panel-right.svg?react';
+import PauseIcon from 'lucide-static/icons/pause.svg?react';
+import PenIcon from 'lucide-static/icons/pen.svg?react';
+import PilcrowIcon from 'lucide-static/icons/pilcrow.svg?react';
+import PipetteIcon from 'lucide-static/icons/pipette.svg?react';
+import PlayIcon from 'lucide-static/icons/play.svg?react';
+import PlusIcon from 'lucide-static/icons/plus.svg?react';
+import PuzzleIcon from 'lucide-static/icons/puzzle.svg?react';
+import QuoteIcon from 'lucide-static/icons/quote.svg?react';
+import ReceiptIcon from 'lucide-static/icons/receipt.svg?react';
+import Redo2Icon from 'lucide-static/icons/redo-2.svg?react';
+import RefreshCwIcon from 'lucide-static/icons/refresh-cw.svg?react';
+import RotateCcwIcon from 'lucide-static/icons/rotate-ccw.svg?react';
+import RotateCcwClockIcon from 'lucide-static/icons/rotate-ccw-clock.svg?react';
+import SearchIcon from 'lucide-static/icons/search.svg?react';
+import SendIcon from 'lucide-static/icons/send.svg?react';
+import SettingsIcon from 'lucide-static/icons/settings.svg?react';
+import Settings2Icon from 'lucide-static/icons/settings-2.svg?react';
+import ShieldIcon from 'lucide-static/icons/shield.svg?react';
+import SlidersHorizontalIcon from 'lucide-static/icons/sliders-horizontal.svg?react';
+import SmartphoneIcon from 'lucide-static/icons/smartphone.svg?react';
+import SparklesIcon from 'lucide-static/icons/sparkles.svg?react';
+import SquareArrowLeftIcon from 'lucide-static/icons/square-arrow-left.svg?react';
+import SquareArrowUpRightIcon from 'lucide-static/icons/square-arrow-up-right.svg?react';
+import SquareCheckIcon from 'lucide-static/icons/square-check.svg?react';
+import SquareChevronDownIcon from 'lucide-static/icons/square-chevron-down.svg?react';
+import SquareCodeIcon from 'lucide-static/icons/square-code.svg?react';
+import SquareDashedIcon from 'lucide-static/icons/square-dashed.svg?react';
+import SquarePenIcon from 'lucide-static/icons/square-pen.svg?react';
+import SquarePlusIcon from 'lucide-static/icons/square-plus.svg?react';
+import SquareTerminalIcon from 'lucide-static/icons/square-terminal.svg?react';
+import StoreIcon from 'lucide-static/icons/store.svg?react';
+import StrikethroughIcon from 'lucide-static/icons/strikethrough.svg?react';
+import TableIcon from 'lucide-static/icons/table.svg?react';
+import TagIcon from 'lucide-static/icons/tag.svg?react';
+import TextAlignCenterIcon from 'lucide-static/icons/text-align-center.svg?react';
+import TextAlignEndIcon from 'lucide-static/icons/text-align-end.svg?react';
+import TextAlignJustifyIcon from 'lucide-static/icons/text-align-justify.svg?react';
+import TextAlignStartIcon from 'lucide-static/icons/text-align-start.svg?react';
+import TextCursorInputIcon from 'lucide-static/icons/text-cursor-input.svg?react';
+import TextSearchIcon from 'lucide-static/icons/text-search.svg?react';
+import ToggleRightIcon from 'lucide-static/icons/toggle-right.svg?react';
+import ToolboxIcon from 'lucide-static/icons/toolbox.svg?react';
+import TrashIcon from 'lucide-static/icons/trash.svg?react';
+import TriangleExclamationPointIcon from 'lucide-static/icons/triangle-exclamation-point.svg?react';
+import UnderlineIcon from 'lucide-static/icons/underline.svg?react';
+import Undo2Icon from 'lucide-static/icons/undo-2.svg?react';
+import UnfoldVerticalIcon from 'lucide-static/icons/unfold-vertical.svg?react';
+import UserIcon from 'lucide-static/icons/user.svg?react';
+import UserGroupIcon from 'lucide-static/icons/user-group.svg?react';
+import UserLockIcon from 'lucide-static/icons/user-lock.svg?react';
+import UserMinusIcon from 'lucide-static/icons/user-minus.svg?react';
+import UserRoundArrowLeftIcon from 'lucide-static/icons/user-round-arrow-left.svg?react';
+import UsersIcon from 'lucide-static/icons/users.svg?react';
+import VideoIcon from 'lucide-static/icons/video.svg?react';
+import WebhookIcon from 'lucide-static/icons/webhook.svg?react';
+import WorkflowIcon from 'lucide-static/icons/workflow.svg?react';
+import WrenchIcon from 'lucide-static/icons/wrench.svg?react';
+import XIcon from 'lucide-static/icons/x.svg?react';
+import ZapIcon from 'lucide-static/icons/zap.svg?react';
 import React from 'react';
-import GitlabIcon from './brands/gitlab.svg?react';
-import MarkdownEditorIcon from './brands/markdown.svg?react';
+import GitlabIcon from 'simple-icons/icons/gitlab.svg?react';
+import MarkdownIcon from 'simple-icons/icons/markdown.svg?react';
 import DatoCMSIcon from './custom/dato_symbol.svg?react';
-// Field group icons
 import BooleanGroupIcon from './custom/fieldgroup-boolean.svg?react';
 import ColorGroupIcon from './custom/fieldgroup-color.svg?react';
 import DatetimeGroupIcon from './custom/fieldgroup-datetime.svg?react';
@@ -17,231 +203,19 @@ import ReferenceGroupIcon from './custom/fieldgroup-reference.svg?react';
 import RichTextGroupIcon from './custom/fieldgroup-rich_text.svg?react';
 import SeoGroupIcon from './custom/fieldgroup-seo.svg?react';
 import StructuredTextGroupIcon from './custom/fieldgroup-structured_text.svg?react';
-import LanguageIcon from './custom/language.svg?react';
-import MasonryIcon from './custom/masonry.svg?react';
 import NetlifyIcon from './custom/netlify.svg?react';
 import TwitterVerifiedIcon from './custom/twitter-verified.svg?react';
 import VercelIcon from './custom/vercel.svg?react';
-import ShowPasswordIcon from './light/eye.svg?react';
-// Light icons (password)
-import HidePasswordIcon from './light/eye-slash.svg?react';
-import TextareaEditorIcon from './regular/align-left.svg?react';
-import ArrowDownIcon from './regular/arrow-down.svg?react';
-import ArrowDownAZIcon from './regular/arrow-down-a-z.svg?react';
-import ArrowDownFromLineIcon from './regular/arrow-down-from-line.svg?react';
-import ArrowDownToLineIcon from './regular/arrow-down-to-line.svg?react';
-import ArrowLeftIcon from './regular/arrow-left.svg?react';
-import ArrowRightIcon from './regular/arrow-right.svg?react';
-import ArrowRightArrowLeftIcon from './regular/arrow-right-arrow-left.svg?react';
-import ArrowRightFromBracketIcon from './regular/arrow-right-from-bracket.svg?react';
-import ArrowRotateLeftIcon from './regular/arrow-rotate-left.svg?react';
-import ArrowRotateRightIcon from './regular/arrow-rotate-right.svg?react';
-import ArrowTurnUpIcon from './regular/arrow-turn-up.svg?react';
-import ArrowUpIcon from './regular/arrow-up.svg?react';
-import ArrowUpArrowDownIcon from './regular/arrow-up-arrow-down.svg?react';
-import ArrowUpFromLineIcon from './regular/arrow-up-from-line.svg?react';
-import ArrowUpRightFromSquareIcon from './regular/arrow-up-right-from-square.svg?react';
-import ArrowUpToLineIcon from './regular/arrow-up-to-line.svg?react';
-import ArrowsFromLineIcon from './regular/arrows-from-line.svg?react';
-import ArrowsRotateIcon from './regular/arrows-rotate.svg?react';
-import ArrowsToLineIcon from './regular/arrows-to-line.svg?react';
-import ArrowsTurnToDotsIcon from './regular/arrows-turn-to-dots.svg?react';
-import BadgeCheckIcon from './regular/badge-check.svg?react';
-import BallotCheckIcon from './regular/ballot-check.svg?react';
-import BanIcon from './regular/ban.svg?react';
-import BarsIcon from './regular/bars.svg?react';
-import WysiwygEditorIcon from './regular/bold.svg?react';
-import BoltIcon from './regular/bolt.svg?react';
-import BookIcon from './regular/book.svg?react';
-import BookmarkIcon from './regular/bookmark.svg?react';
-import JsonEditorIcon from './regular/brackets-curly.svg?react';
-import BrowserIcon from './regular/browser.svg?react';
-import CalendarIcon from './regular/calendar.svg?react';
-import DateTimePickerEditorIcon from './regular/calendar-clock.svg?react';
-import ChartAreaIcon from './regular/chart-area.svg?react';
-import CheckIcon from './regular/check.svg?react';
-import ChevronDownIcon from './regular/chevron-down.svg?react';
-import ChevronLeftIcon from './regular/chevron-left.svg?react';
-import ChevronRightIcon from './regular/chevron-right.svg?react';
-import ChevronsDownIcon from './regular/chevrons-down.svg?react';
-import ChevronsLeftIcon from './regular/chevrons-left.svg?react';
-import ChevronsRightIcon from './regular/chevrons-right.svg?react';
-import CircleArrowUpIcon from './regular/circle-arrow-up.svg?react';
-import CircleCheckIcon from './regular/circle-check.svg?react';
-import CircleDotIcon from './regular/circle-dot.svg?react';
-import CircleExclamationIcon from './regular/circle-exclamation.svg?react';
-import CircleInfoIcon from './regular/circle-info.svg?react';
-import CircleQuestionIcon from './regular/circle-question.svg?react';
-import ClapperboardPlayIcon from './regular/clapperboard-play.svg?react';
-import ClipboardIcon from './regular/clipboard.svg?react';
-import ClockIcon from './regular/clock.svg?react';
-import ClockRotateLeftIcon from './regular/clock-rotate-left.svg?react';
-import CloneIcon from './regular/clone.svg?react';
-import CloudArrowDownIcon from './regular/cloud-arrow-down.svg?react';
-import CodeBranchIcon from './regular/code-branch.svg?react';
-import CodeForkIcon from './regular/code-fork.svg?react';
-import CommandIcon from './regular/command.svg?react';
-import CommentsIcon from './regular/comments.svg?react';
-import CopyIcon from './regular/copy.svg?react';
-import CubeIcon from './regular/cube.svg?react';
-import RichTextEditorIcon from './regular/cubes.svg?react';
-import DashIcon from './regular/dash.svg?react';
-import DatabaseIcon from './regular/database.svg?react';
-import DiamondIcon from './regular/diamond.svg?react';
-import DownIcon from './regular/down.svg?react';
-import DownloadRegularIcon from './regular/download.svg?react';
-import EarthEuropeIcon from './regular/earth-europe.svg?react';
-import EllipsisIcon from './regular/ellipsis.svg?react';
-import EllipsisVerticalIcon from './regular/ellipsis-vertical.svg?react';
-import EnvelopeIcon from './regular/envelope.svg?react';
-import ExpandRegularIcon from './regular/expand.svg?react';
-import EyeIcon from './regular/eye.svg?react';
-import EyeDropperIcon from './regular/eye-dropper.svg?react';
-import FileEditorIcon from './regular/file.svg?react';
-import FileExportIcon from './regular/file-export.svg?react';
-import FileLinesIcon from './regular/file-lines.svg?react';
-import FileShieldIcon from './regular/file-shield.svg?react';
-import FilterIcon from './regular/filter.svg?react';
-import FireFlameCurvedIcon from './regular/fire-flame-curved.svg?react';
-import FlaskIcon from './regular/flask.svg?react';
-import FlaskGearIcon from './regular/flask-gear.svg?react';
-import FolderIcon from './regular/folder.svg?react';
-import FolderGearIcon from './regular/folder-gear.svg?react';
-import FolderMagnifyingGlassIcon from './regular/folder-magnifying-glass.svg?react';
-import FolderOpenIcon from './regular/folder-open.svg?react';
-import FolderPlusIcon from './regular/folder-plus.svg?react';
-import FoldersIcon from './regular/folders.svg?react';
-import GearIcon from './regular/gear.svg?react';
-import GiftIcon from './regular/gift.svg?react';
-import GlobeIcon from './regular/globe.svg?react';
-import GridIcon from './regular/grid-2.svg?react';
-import GripDotsVerticalIcon from './regular/grip-dots-vertical.svg?react';
-import HandIcon from './regular/hand.svg?react';
-import HourglassClockIcon from './regular/hourglass-clock.svg?react';
-import HouseIcon from './regular/house.svg?react';
-import ImagesIcon from './regular/images.svg?react';
-import InputNumericIcon from './regular/input-numeric.svg?react';
-import SingleLineEditorIcon from './regular/input-text.svg?react';
-import KeyboardIcon from './regular/keyboard.svg?react';
-import LayerGroupIcon from './regular/layer-group.svg?react';
-import LifeRingIcon from './regular/life-ring.svg?react';
-import LinkIcon from './regular/link.svg?react';
-import SlugEditorIcon from './regular/link-simple.svg?react';
-import ListIcon from './regular/list.svg?react';
-import ListTreeIcon from './regular/list-tree.svg?react';
-import MagnifyingGlassIcon from './regular/magnifying-glass.svg?react';
-import SeoEditorIcon from './regular/magnifying-glass-chart.svg?react';
-import MapLocationDotIcon from './regular/map-location-dot.svg?react';
-import MemoIcon from './regular/memo.svg?react';
-import MobileScreenButtonIcon from './regular/mobile-screen-button.svg?react';
-import OctagonExclamationIcon from './regular/octagon-exclamation.svg?react';
-import PaletteIcon from './regular/palette.svg?react';
-import PaperPlaneIcon from './regular/paper-plane.svg?react';
-import StructuredTextEditorIcon from './regular/paragraph.svg?react';
-import PasteIcon from './regular/paste.svg?react';
-import PauseIcon from './regular/pause.svg?react';
-import PenIcon from './regular/pen.svg?react';
-import PenPaintbrushIcon from './regular/pen-paintbrush.svg?react';
-import PenToSquareIcon from './regular/pen-to-square.svg?react';
-import PeopleArrowsIcon from './regular/people-arrows.svg?react';
-import PhotoFilmIcon from './regular/photo-film.svg?react';
-import PlayIcon from './regular/play.svg?react';
-import PuzzlePieceIcon from './regular/puzzle-piece.svg?react';
-import ReceiptIcon from './regular/receipt.svg?react';
-import RectangleBarcodeIcon from './regular/rectangle-barcode.svg?react';
-import RectangleListIcon from './regular/rectangle-list.svg?react';
-import RightLeftIcon from './regular/right-left.svg?react';
-import RotateLeftIcon from './regular/rotate-left.svg?react';
-import ShieldIcon from './regular/shield.svg?react';
-import SidebarIcon from './regular/sidebar.svg?react';
-import SidebarFlipIcon from './regular/sidebar-flip.svg?react';
-import SlidersIcon from './regular/sliders.svg?react';
-import SparklesIcon from './regular/sparkles.svg?react';
-import SelectEditorIcon from './regular/square-caret-down.svg?react';
-import CheckboxGroupEditorIcon from './regular/square-check.svg?react';
-import SquareDashedIcon from './regular/square-dashed.svg?react';
-import SquareLeftIcon from './regular/square-left.svg?react';
-import SquareTerminalIcon from './regular/square-terminal.svg?react';
-import SquareUpRightIcon from './regular/square-up-right.svg?react';
-import StoreIcon from './regular/store.svg?react';
-import SwapArrowsIcon from './regular/swap-arrows.svg?react';
-import TableIcon from './regular/table.svg?react';
-import TagIcon from './regular/tag.svg?react';
-// Field editor icons (Font Awesome)
-import BooleanEditorIcon from './regular/toggle-on.svg?react';
-import ToolboxIcon from './regular/toolbox.svg?react';
-import TrashIcon from './regular/trash.svg?react';
-import TrashUndoIcon from './regular/trash-undo.svg?react';
-import TriangleExclamationIcon from './regular/triangle-exclamation.svg?react';
-import TurnUpIcon from './regular/turn-up.svg?react';
-import UserIcon from './regular/user.svg?react';
-import UserGroupIcon from './regular/user-group.svg?react';
-import UserHelmetSafetyIcon from './regular/user-helmet-safety.svg?react';
-import UserLockIcon from './regular/user-lock.svg?react';
-import UserMinusIcon from './regular/user-minus.svg?react';
-import UserTieIcon from './regular/user-tie.svg?react';
-import UsersIcon from './regular/users.svg?react';
-import VideoEditorIcon from './regular/video.svg?react';
-import WebhookIcon from './regular/webhook.svg?react';
-import WrenchIcon from './regular/wrench.svg?react';
-import XmarkIcon from './regular/xmark.svg?react';
-import AlignCenterIcon from './solid/align-center.svg?react';
-import AlignJustifyIcon from './solid/align-justify.svg?react';
-import AlignLeftIcon from './solid/align-left.svg?react';
-import AlignRightIcon from './solid/align-right.svg?react';
-import UndoSolidIcon from './solid/arrow-rotate-left.svg?react';
-import RedoSolidIcon from './solid/arrow-rotate-right.svg?react';
-import BoldIcon from './solid/bold.svg?react';
-import CircleExclamationSolidIcon from './solid/circle-exclamation.svg?react';
-import ClosedCaptioningIcon from './solid/closed-captioning.svg?react';
-import CodeIcon from './solid/code.svg?react';
-import CompressSolidIcon from './solid/compress.svg?react';
-import DownloadIcon from './solid/download.svg?react';
-import ExpandSolidIcon from './solid/expand.svg?react';
-import FileArrowDownIcon from './solid/file-arrow-down.svg?react';
-import FileCodeIcon from './solid/file-code.svg?react';
-import GridSolidIcon from './solid/grid-2.svg?react';
-import H1Icon from './solid/h1.svg?react';
-import H2Icon from './solid/h2.svg?react';
-import H3Icon from './solid/h3.svg?react';
-import H4Icon from './solid/h4.svg?react';
-import H5Icon from './solid/h5.svg?react';
-import H6Icon from './solid/h6.svg?react';
-import HighlightIcon from './solid/highlighter.svg?react';
-import HorizontalRulerIcon from './solid/horizontal-rule.svg?react';
-import ImageSolidIcon from './solid/image.svg?react';
-import IndentIcon from './solid/indent.svg?react';
-import ItalicIcon from './solid/italic.svg?react';
-import LinkSolidIcon from './solid/link.svg?react';
-import ListOlIcon from './solid/list-ol.svg?react';
-import ListUlIcon from './solid/list-ul.svg?react';
-import LocationDotSolidIcon from './solid/location-dot.svg?react';
-import MusicIcon from './solid/music.svg?react';
-import OutdentIcon from './solid/outdent.svg?react';
-import ParagraphIcon from './solid/paragraph.svg?react';
-import PlusIcon from './solid/plus.svg?react';
-import QuoteRightIcon from './solid/quote-right.svg?react';
-import RectangleCodeIcon from './solid/rectangle-code.svg?react';
-import SquarePlusIcon from './solid/square-plus.svg?react';
-import StrikethroughIcon from './solid/strikethrough.svg?react';
-import SubtitlesIcon from './solid/subtitles.svg?react';
-import TableSolidIcon from './solid/table.svg?react';
-import TriangleExclamationSolidIcon from './solid/triangle-exclamation.svg?react';
-import UnderlineIcon from './solid/underline.svg?react';
-
-const WorkflowIcon = () => {
-  return <ArrowsTurnToDotsIcon style={{ transform: 'rotate(180deg)' }} />;
-};
 
 const BlockIcon = () => {
-  return <GridIcon style={{ transform: 'rotate(45deg)' }} />;
+  return <LayoutGridIcon style={{ transform: 'rotate(45deg)' }} />;
 };
 
 // The DragGripIcon block sets a fixed size, so the grip stays small in all
 // handles. The handle element sets the surface that the user can drag.
 const DragGripIcon = (props?: React.SVGProps<SVGSVGElement> | null) => {
   return (
-    <GripDotsVerticalIcon
+    <GripVerticalIcon
       {...props}
       className={classNames('DragGripIcon', props?.className)}
     />
@@ -250,99 +224,98 @@ const DragGripIcon = (props?: React.SVGProps<SVGSVGElement> | null) => {
 
 const AnimatedArrowsRotateIcon = () => {
   return (
-    <ArrowsRotateIcon style={{ animation: 'simple-spin 2s linear infinite' }} />
+    <RefreshCwIcon style={{ animation: 'simple-spin 2s linear infinite' }} />
   );
 };
 
 export const Generic = {
-  SearchIcon: MagnifyingGlassIcon,
+  SearchIcon,
   CommandPaletteIcon: CommandIcon,
   EnableSorting: ArrowDownAZIcon,
   CDAPlaygroundIcon: SquareTerminalIcon,
-  ProjectSettingsIcon: GearIcon,
-  GridIcon,
-  GridSolidIcon,
+  ProjectSettingsIcon: SettingsIcon,
+  GridIcon: LayoutGridIcon,
   LocalesAndTimezoneIcon: GlobeIcon,
   AppearenceIcon: PaletteIcon,
-  CircleQuestionIcon,
+  CircleQuestionIcon: CircleQuestionMarkIcon,
   AddNewFolderIcon: FolderPlusIcon,
   GroupIcon: FolderIcon,
-  CloseIcon: XmarkIcon,
-  OpenInNewTabIcon: ArrowUpRightFromSquareIcon,
+  CloseIcon: XIcon,
+  OpenInNewTabIcon: ExternalLinkIcon,
   ActionToggleIcon: EllipsisVerticalIcon,
   DeleteIcon: TrashIcon,
-  DuplicateIcon: CloneIcon,
-  HideIcon: HidePasswordIcon,
-  ConvertUsersIcon: PeopleArrowsIcon,
-  ExportIcon: FileExportIcon,
-  VersionIcon: CodeBranchIcon,
+  DuplicateIcon: CopyPlusIcon,
+  HideIcon: EyeOffIcon,
+  ConvertUsersIcon: UserRoundArrowLeftIcon,
+  ExportIcon: FileOutputIcon,
+  VersionIcon: GitBranchIcon,
   DashboardIcon: HouseIcon,
   EditIcon: PenIcon,
-  ForkIcon: CodeForkIcon,
-  SendIcon: PaperPlaneIcon,
+  ForkIcon: GitForkIcon,
+  SendIcon,
   RemoveUserIcon: UserMinusIcon,
-  ReorderIcon: ArrowUpArrowDownIcon,
-  ClockRotateLeftIcon,
-  SidebarIcon,
-  CloseRightSidebarIcon: SquareLeftIcon,
-  InfoIcon: CircleInfoIcon,
+  ReorderIcon: ArrowUpDownIcon,
+  ClockRotateLeftIcon: RotateCcwClockIcon,
+  SidebarIcon: PanelLeftIcon,
+  CloseRightSidebarIcon: SquareArrowLeftIcon,
+  InfoIcon,
   SquarePlusIcon,
-  SyncIcon: ArrowsRotateIcon,
+  SyncIcon: RefreshCwIcon,
   AddIcon: PlusIcon,
-  BarsIcon,
+  BarsIcon: MenuIcon,
   LoadMoreIcon: ChevronsDownIcon,
-  DashIcon,
+  DashIcon: MinusIcon,
   DragGripIcon,
-  ExpandAllIcon: ArrowsFromLineIcon,
+  ExpandAllIcon: UnfoldVerticalIcon,
   ExpandDownIcon: ArrowDownFromLineIcon,
   ExpandUpIcon: ArrowUpFromLineIcon,
-  CollapseAllIcon: ArrowsToLineIcon,
-  RefreshIcon: ArrowsRotateIcon,
-  DownloadIcon: DownloadRegularIcon,
+  CollapseAllIcon: FoldVerticalIcon,
+  RefreshIcon: RefreshCwIcon,
+  DownloadIcon,
   AnimatedRefreshIcon: AnimatedArrowsRotateIcon,
 };
 
 export const Environments = {
   PrimaryEnvironmentIcon: DatabaseIcon,
-  SandboxEnvironmentIcon: FlaskIcon,
-  ContentIcon: PenToSquareIcon,
+  SandboxEnvironmentIcon: FlaskConicalIcon,
+  ContentIcon: SquarePenIcon,
   MediaIcon: ImagesIcon,
-  SchemaIcon: LayerGroupIcon,
-  ConfigurationIcon: FlaskGearIcon,
+  SchemaIcon: LayersIcon,
+  ConfigurationIcon: Settings2Icon,
 };
 
 export const EnvironmentConfiguration = {
   LocalesAndTimezoneIcon: GlobeIcon,
   AppearenceIcon: PaletteIcon,
-  PluginsIcon: PuzzlePieceIcon,
-  PluginsPopularIcon: FireFlameCurvedIcon,
+  PluginsIcon: PuzzleIcon,
+  PluginsPopularIcon: FlameIcon,
   PluginsLatestIcon: SparklesIcon,
   PluginsOfficialIcon: BadgeCheckIcon,
   WorkflowIcon,
-  ContentPermissions: FileShieldIcon,
+  ContentPermissions: FileLockIcon,
   AvailableUpdatesIcon: CircleArrowUpIcon,
 };
 
 export const ProjectSettings = {
-  GlobalPropertiesIcon: FolderGearIcon,
-  AssetCdnIcon: PhotoFilmIcon,
+  GlobalPropertiesIcon: FolderCogIcon,
+  AssetCdnIcon: ImagePlayIcon,
   CollaboratorsIcon: UserGroupIcon,
   RolesIcon: ShieldIcon,
-  APITokensIcon: RectangleBarcodeIcon,
+  APITokensIcon: BarcodeIcon,
   WebhooksIcon: WebhookIcon,
-  BuildTriggersIcon: BoltIcon,
-  WhiteLabelIcon: UserTieIcon,
-  EnvironmentsIcon: FlaskIcon,
+  BuildTriggersIcon: ZapIcon,
+  WhiteLabelIcon: TagIcon,
+  EnvironmentsIcon: FlaskConicalIcon,
   ParametersIcon: WrenchIcon,
   UsersIcon: UserIcon,
   GroupsIcon: UsersIcon,
-  AuditLogIcon: FileLinesIcon,
+  AuditLogIcon: FileTextIcon,
   ProjectUsageIcon: ChartAreaIcon,
-  SearchIndexIcon: FolderMagnifyingGlassIcon,
+  SearchIndexIcon: FolderSearchIcon,
 };
 
 export const Content = {
-  ManageLocalesIcon: LanguageIcon,
+  ManageLocalesIcon: LanguagesIcon,
   SEOPrefencesIcon: ToolboxIcon,
 };
 
@@ -355,55 +328,55 @@ export const Schema = {
 
 export const Editor = {
   RecordListIcon: ListIcon,
-  SingletonRecordIcon: MemoIcon,
-  LinkIcon: ArrowUpRightFromSquareIcon,
+  SingletonRecordIcon: NotepadTextIcon,
+  LinkIcon: ExternalLinkIcon,
   MenuIcon: ListTreeIcon,
 };
 
 export const TextFormat = {
-  BoldIcon,
+  BoldIcon: LetterBIcon,
   CodeIcon,
   CodeBlockIcon: FileCodeIcon,
-  Heading1Icon: H1Icon,
-  Heading2Icon: H2Icon,
-  Heading3Icon: H3Icon,
-  Heading4Icon: H4Icon,
-  Heading5Icon: H5Icon,
-  Heading6Icon: H6Icon,
-  HighlightIcon,
-  HorizontalRulerIcon,
+  Heading1Icon,
+  Heading2Icon,
+  Heading3Icon,
+  Heading4Icon,
+  Heading5Icon,
+  Heading6Icon,
+  HighlightIcon: HighlighterIcon,
+  HorizontalRulerIcon: MinusIcon,
   ItalicIcon,
-  LinkIcon: LinkSolidIcon,
-  NumberedListIcon: ListOlIcon,
-  BulletedListIcon: ListUlIcon,
-  ParagraphIcon,
-  BlockquoteIcon: QuoteRightIcon,
+  LinkIcon,
+  NumberedListIcon: ListOrderedIcon,
+  BulletedListIcon: ListIcon,
+  ParagraphIcon: PilcrowIcon,
+  BlockquoteIcon: QuoteIcon,
   StrikethroughIcon,
-  ThematicBreakIcon: HorizontalRulerIcon,
+  ThematicBreakIcon: MinusIcon,
   UnderlineIcon,
   EllipsisIcon,
-  ImageIcon: ImageSolidIcon,
-  TableIcon: TableSolidIcon,
-  AlignLeftIcon,
-  AlignCenterIcon,
-  AlignRightIcon,
-  AlignJustifyIcon,
-  IndentIcon,
-  OutdentIcon,
-  UndoIcon: UndoSolidIcon,
-  RedoIcon: RedoSolidIcon,
-  SourceIcon: RectangleCodeIcon,
-  OpenFullscreenIcon: ExpandSolidIcon,
-  CloseFullscreenIcon: CompressSolidIcon,
+  ImageIcon,
+  TableIcon,
+  AlignLeftIcon: TextAlignStartIcon,
+  AlignCenterIcon: TextAlignCenterIcon,
+  AlignRightIcon: TextAlignEndIcon,
+  AlignJustifyIcon: TextAlignJustifyIcon,
+  IndentIcon: ListIndentIncreaseIcon,
+  OutdentIcon: ListIndentDecreaseIcon,
+  UndoIcon: Undo2Icon,
+  RedoIcon: Redo2Icon,
+  SourceIcon: SquareCodeIcon,
+  OpenFullscreenIcon: MaximizeIcon,
+  CloseFullscreenIcon: MinimizeIcon,
 };
 
 export const Media = {
   AllAssetsIcon: ImagesIcon,
   AssetCollectionIcon: FolderIcon,
-  EditMediaIcon: PenPaintbrushIcon,
+  EditMediaIcon: CropIcon,
   CopyUrlIcon: LinkIcon,
-  DownloadIcon: DownloadRegularIcon,
-  ReplaceIcon: RightLeftIcon,
+  DownloadIcon,
+  ReplaceIcon: ArrowLeftRightIcon,
 };
 
 export const RichContentIcons = {
@@ -411,40 +384,40 @@ export const RichContentIcons = {
   MoveDownIcon: ArrowDownIcon,
   MoveToTopIcon: ArrowUpToLineIcon,
   MoveToBottomIcon: ArrowDownToLineIcon,
-  MoveIcon: SwapArrowsIcon,
+  MoveIcon: MoveVerticalIcon,
   CopyIcon: ClipboardIcon,
-  PasteIcon,
-  LocaleIcon: LanguageIcon,
+  PasteIcon: ClipboardPasteIcon,
+  LocaleIcon: LanguagesIcon,
 };
 
 export const FieldEditor = {
-  BooleanIcon: BooleanEditorIcon,
-  CheckboxGroupIcon: CheckboxGroupEditorIcon,
+  BooleanIcon: ToggleRightIcon,
+  CheckboxGroupIcon: SquareCheckIcon,
   ColorPickerIcon: PaletteIcon,
   DatePickerIcon: CalendarIcon,
-  DateTimePickerIcon: DateTimePickerEditorIcon,
-  FileIcon: FileEditorIcon,
-  FloatIcon: InputNumericIcon,
+  DateTimePickerIcon: CalendarClockIcon,
+  FileIcon,
+  FloatIcon: HashIcon,
   FramelessSingleBlockIcon: SquareDashedIcon,
   GalleryIcon: ImagesIcon,
-  IntegerIcon: InputNumericIcon,
-  JsonIcon: JsonEditorIcon,
-  LinkEmbedIcon: RectangleListIcon,
-  LinksEmbedIcon: RectangleListIcon,
-  MapIcon: MapLocationDotIcon,
-  MarkdownIcon: MarkdownEditorIcon,
-  PluginIcon: PuzzlePieceIcon,
+  IntegerIcon: HashIcon,
+  JsonIcon: BracesIcon,
+  LinkEmbedIcon: LayoutListIcon,
+  LinksEmbedIcon: LayoutListIcon,
+  MapIcon: MapPinnedIcon,
+  MarkdownIcon,
+  PluginIcon: PuzzleIcon,
   RadioGroupIcon: CircleDotIcon,
-  RichTextIcon: RichTextEditorIcon,
-  SelectIcon: SelectEditorIcon,
-  SeoIcon: SeoEditorIcon,
-  SingleBlockIcon: CubeIcon,
-  SingleLineIcon: SingleLineEditorIcon,
-  SlugIcon: SlugEditorIcon,
-  StructuredTextIcon: StructuredTextEditorIcon,
-  TextareaIcon: TextareaEditorIcon,
-  VideoIcon: VideoEditorIcon,
-  WysiwygIcon: WysiwygEditorIcon,
+  RichTextIcon: BoxesIcon,
+  SelectIcon: SquareChevronDownIcon,
+  SeoIcon: TextSearchIcon,
+  SingleBlockIcon: BoxIcon,
+  SingleLineIcon: TextCursorInputIcon,
+  SlugIcon: Link2Icon,
+  StructuredTextIcon: PilcrowIcon,
+  TextareaIcon: TextAlignStartIcon,
+  VideoIcon,
+  WysiwygIcon: LetterBIcon,
 };
 
 export const FieldGroup = {
@@ -469,8 +442,8 @@ export const Deployment = {
 };
 
 export const Authentication = {
-  HidePasswordIcon,
-  ShowPasswordIcon,
+  HidePasswordIcon: EyeOffIcon,
+  ShowPasswordIcon: EyeIcon,
   UserLockIcon,
 };
 
@@ -485,42 +458,41 @@ export const Navigation = {
   ChevronsLeftIcon,
   ChevronsRightIcon,
   ChevronsDownIcon,
-  ArrowRightArrowLeftIcon,
-  ArrowRightFromBracketIcon,
-  ArrowRotateRightIcon,
-  ArrowTurnUpIcon,
-  TurnUpIcon,
-  DownIcon,
+  ArrowRightArrowLeftIcon: ArrowRightLeftIcon,
+  ArrowRightFromBracketIcon: LogOutIcon,
+  ArrowRotateRightIcon: Redo2Icon,
+  ArrowTurnUpIcon: CornerLeftUpIcon,
+  DownIcon: ArrowBigDownIcon,
 };
 
 export const UI = {
-  BrowserIcon,
+  BrowserIcon: AppWindowIcon,
   BookmarkIcon,
   CalendarIcon,
   CheckIcon,
   CircleCheckIcon,
   CircleDotIcon,
-  CommentsIcon,
+  CommentsIcon: MessagesSquareIcon,
   CopyIcon,
-  EarthEuropeIcon,
-  EnvelopeIcon,
-  ExpandIcon: ExpandRegularIcon,
+  EarthEuropeIcon: EarthIcon,
+  EnvelopeIcon: MailIcon,
+  ExpandIcon: MaximizeIcon,
   EyeIcon,
-  EyeDropperIcon,
-  FilterIcon,
+  EyeDropperIcon: PipetteIcon,
+  FilterIcon: FunnelIcon,
   FolderOpenIcon,
   FoldersIcon,
   GiftIcon,
   HandIcon,
   KeyboardIcon,
-  LifeRingIcon,
+  LifeRingIcon: LifeBuoyIcon,
   LinkIcon,
-  LocationDotIcon: LocationDotSolidIcon,
-  MapLocationDotIcon,
-  MobileIcon: MobileScreenButtonIcon,
+  LocationDotIcon: MapPinIcon,
+  MapLocationDotIcon: MapPinnedIcon,
+  MobileIcon: SmartphoneIcon,
   ReceiptIcon,
-  SlidersIcon,
-  SquareUpRightIcon,
+  SlidersIcon: SlidersHorizontalIcon,
+  SquareUpRightIcon: SquareArrowUpRightIcon,
   StoreIcon,
   TableIcon,
   TagIcon,
@@ -529,54 +501,53 @@ export const UI = {
 
 export const Status = {
   BanIcon,
-  CircleExclamationIcon,
+  CircleExclamationIcon: CircleExclamationPointIcon,
   UpdateAvailableIcon: CircleArrowUpIcon,
   ClockIcon,
-  HourglassClockIcon,
-  InfoIcon: TriangleExclamationIcon,
-  OctagonExclamationIcon,
+  HourglassClockIcon: HourglassIcon,
+  InfoIcon: TriangleExclamationPointIcon,
+  OctagonExclamationIcon: OctagonExclamationPointIcon,
   PauseIcon,
   PlayIcon,
-  RotateLeftIcon,
-  TriangleExclamationIcon,
-  CircleExclamationSolidIcon,
-  TriangleExclamationSolidIcon,
+  RotateLeftIcon: RotateCcwIcon,
+  TriangleExclamationIcon: TriangleExclamationPointIcon,
 };
 
 export const MediaPlayback = {
-  ClapperboardPlayIcon,
-  SkipBackIcon: ArrowRotateLeftIcon,
-  SkipForwardIcon: ArrowRotateRightIcon,
-  ClosedCaptioningIcon,
-  SubtitlesIcon,
-  MusicIcon,
+  ClapperboardPlayIcon: ClapperboardIcon,
+  SkipBackIcon: Undo2Icon,
+  SkipForwardIcon: Redo2Icon,
+  ClosedCaptioningIcon: ClosedCaptionIcon,
+  SubtitlesIcon: CaptionsIcon,
+  MusicIcon: EighthNotesIcon,
 };
 
 export const Integration = {
-  MasonryIcon,
+  MasonryIcon: LayoutTemplateIcon,
   TwitterVerifiedIcon,
 };
 
 export const Users = {
   UserIcon,
-  UserHelmetSafetyIcon,
+  UserHelmetSafetyIcon: HardHatIcon,
 };
 
 export const Actions = {
   ArrowDownIcon,
-  BallotCheckIcon,
-  CloudArrowDownIcon,
+  BallotCheckIcon: ListChecksIcon,
+  CloudArrowDownIcon: CloudDownloadIcon,
   DownloadIcon,
-  FileArrowDownIcon,
+  FileArrowDownIcon: FileDownIcon,
   BuildIcon: PlayIcon,
   // A build after a failed one
-  RebuildIcon: ArrowsRotateIcon,
-  TrashUndoIcon,
+  RebuildIcon: RefreshCwIcon,
+  TrashUndoIcon: ArchiveArrowUpIcon,
 };
 
 export const Misc = {
   DatoCMSIcon,
-  SidebarFlipIcon,
+  SidebarFlipIcon: PanelRightIcon,
+  SquareDashedIcon,
 };
 
 export const NoIcon = SquareDashedIcon;

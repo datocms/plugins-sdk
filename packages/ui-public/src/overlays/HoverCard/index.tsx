@@ -90,7 +90,10 @@ function HoverCard({
 
   return (
     <>
-      {cloneTrigger(children, refs.setReference, getReferenceProps)}
+      {/* The trigger can keep its look while the pointer is in the card */}
+      {cloneTrigger(children, refs.setReference, getReferenceProps, {
+        'data-open': isOpen && enabled ? '' : undefined,
+      })}
       {isOpen && enabled && (
         <Portal>
           <NewZIndex>

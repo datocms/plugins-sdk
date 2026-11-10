@@ -6,7 +6,9 @@
 // - an import of ui-public (`ui-public/...`), of an SVG file, or of a relative file that is
 //   not in the output;
 // - a font file or an absolute path of this machine;
-// - a picture at rest of ui-public (`pictureModules`).
+// - a picture at rest of ui-public (`pictureModules`);
+// - an icon that is not of ui-public or of an open icon set, or the Lucide
+//   icons without the notice of their licence.
 
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
 import path from 'node:path';
@@ -116,6 +118,30 @@ for (const file of files) {
         `${relative}: imports ${name}, which package.json does not declare`,
       );
     }
+  }
+}
+
+// The output can ship only the drawings of ui-public and of the open icon
+// sets (see "Icons" in `packages/ui-public/AGENTS.md`). The licence of
+// another set can forbid it.
+const iconsDir = path.join(distDir, 'ui-public/icons');
+const iconFolders = ['custom', 'lucide', 'simple-icons'];
+if (existsSync(iconsDir)) {
+  for (const name of readdirSync(iconsDir)) {
+    const isFolder = statSync(path.join(iconsDir, name)).isDirectory();
+    if (
+      isFolder ? !iconFolders.includes(name) : !/^index\.(js|d\.ts)$/.test(name)
+    ) {
+      errors.push(
+        `ui-public/icons/${name}: is not an icon of ${iconFolders.join(', ')}`,
+      );
+    }
+  }
+  if (
+    existsSync(path.join(iconsDir, 'lucide')) &&
+    !existsSync(path.join(distDir, 'LICENSE-lucide.txt'))
+  ) {
+    errors.push('LICENSE-lucide.txt: the output has Lucide icons without it');
   }
 }
 

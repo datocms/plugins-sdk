@@ -8,7 +8,7 @@ import { HintLine } from './ValidityTriangles';
 // line. The tooltip gives the message.
 function UploadThreatIcon() {
   return (
-    <Status.TriangleExclamationSolidIcon className="ValidityTriangle--threat" />
+    <Status.TriangleExclamationIcon className="ValidityTriangle--threat" />
   );
 }
 

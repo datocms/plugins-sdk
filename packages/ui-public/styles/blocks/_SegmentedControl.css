@@ -56,11 +56,15 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+/* Each option starts from the width of its label and gets an equal part of
+   the free space. With "flex: 1" the options are equal, thus a long label
+   ends in "…" in a container as wide as the sum of the options (a dropdown
+   menu), and a short label gets a wide empty box. */
 .SegmentedControl--fill {
   width: auto;
 
   .SegmentedControl__button {
-    flex: 1;
+    flex: auto;
   }
 }
 /* An option with only an icon is a square, as ".button--icon-only" */

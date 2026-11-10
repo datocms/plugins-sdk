@@ -31,10 +31,10 @@ export type ContentAreaSidebarItem = {
   /** Label to be shown. Must be unique. */
   label: string;
   /**
-   * Icon to be shown alongside the label. Can be a FontAwesome icon name (ie.
-   * `"address-book"`), a custom SVG definition, or an emoji. To maintain visual
-   * consistency with the rest of the interface, try to use FontAwesome icons
-   * whenever possible.
+   * Icon to be shown alongside the label. Can be the name of a Lucide icon
+   * (https://lucide.dev/icons, for example `"book-open"`), a custom SVG
+   * definition, or an emoji. To keep the look of the rest of the interface,
+   * use a Lucide icon whenever possible.
    */
   icon: IconWithEmoji;
   /** ID of the page linked to the item */

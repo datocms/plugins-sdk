@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { Generic } from '../../../icons/index';
 import {
   type Action,
@@ -99,19 +105,25 @@ type UseFilterToolbarOptions = {
   // The list has a filter with a value
   isFiltering: boolean;
   // Removes all the values of the filter. It runs when the user closes the
-  // toolbar of a filtered list.
-  onClear: () => void;
+  // toolbar of a filtered list. It can return a function that puts the
+  // filter back as it was before the clear: the next open of the toolbar
+  // runs it. Read the current state of the list in that function, not the
+  // state at the time of the clear, because the user can change the list
+  // while the toolbar is closed.
+  // biome-ignore lint/suspicious/noConfusingVoidType: a callback that returns nothing (`() => void`) must fit
+  onClear: () => (() => void) | void;
   // Runs each time the user closes the toolbar, also when the filter has no
   // value (for example, to discard a draft that the list did not apply)
   onClose?: () => void;
   // The toolbar is open before the user opens it (for example, in a picker,
-  // where the search is the primary task)
+  // where the search is the primary task). The open does not move the focus.
   defaultOpen?: boolean;
 };
 
 // The toolbar is open when the user opens it, or when the filter has a value.
-// Thus a filtered list always shows its filter. When the user
-// closes the toolbar of a filtered list, the filter clears.
+// Thus a filtered list always shows its filter. When the user closes the
+// toolbar of a filtered list, the filter clears, and the next open puts it
+// back. The hook keeps the filter only while the list is mounted.
 export function useFilterToolbar({
   isFiltering,
   onClear,
@@ -124,9 +136,18 @@ export function useFilterToolbar({
   // The filter clears a moment after the user closes the toolbar. Until
   // then, the value of the filter must not show the toolbar again.
   const [isClosing, setClosing] = useState(false);
+  // Puts back the filter that the last close cleared
+  const restoreRef = useRef<(() => void) | null>(null);
 
   useEffect(() => {
-    if (!isFiltering) setClosing(false);
+    if (!isFiltering) {
+      setClosing(false);
+      return;
+    }
+    // A filter that comes while the toolbar is closed (for example, a saved
+    // filter) is newer than the cleared one, thus the open must not
+    // replace it
+    restoreRef.current = null;
   }, [isFiltering]);
 
   const open = openByUser || (isFiltering && !isClosing);
@@ -134,7 +155,11 @@ export function useFilterToolbar({
   const handleOpen = useCallback(() => {
     setOpenByUser(true);
     setAutoFocus(true);
-  }, []);
+
+    const restore = restoreRef.current;
+    restoreRef.current = null;
+    if (restore && !isFiltering) restore();
+  }, [isFiltering]);
 
   const handleClose = useCallback(() => {
     setOpenByUser(false);
@@ -145,7 +170,7 @@ export function useFilterToolbar({
     // filter moves the list back to its first page
     if (isFiltering) {
       setClosing(true);
-      onClear();
+      restoreRef.current = onClear() || null;
     }
   }, [isFiltering, onClear, onClose]);
 

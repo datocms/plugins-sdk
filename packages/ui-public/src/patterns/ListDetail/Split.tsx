@@ -7,32 +7,30 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { Misc, Navigation } from '../../../icons';
+import { Misc } from '../../../icons';
 import { useRegisterActions } from '../../actions/Actions/registry';
+import BlankSlate from '../../feedback/BlankSlate';
 import { useMediaQuery } from '../../hooks/useMediaQuery';
 import { CollectionRegionProvider } from '../../layout/Pane/PaneRegion';
 import SplitPane, {
   TOGGLE_RIGHT_SIDEBAR_ACTION_ID,
 } from '../../layout/SplitPane';
-import { useSashActionReveal } from '../../layout/SplitView/SashActionButton';
 import SplitView from '../../layout/SplitView/SplitView';
+import FloatingDetail from './FloatingDetail';
+import {
+  DEFAULT_DETAIL_WIDTH,
+  MIN_DETAIL_WIDTH,
+  useDetailWidthDrag,
+} from './useDetailWidthDrag';
 import { useListDetailWidths } from './Widths';
 
 // The smallest width of the list
 const MIN_LIST_WIDTH = 360;
 
-// The width of the detail before the user resizes it. The space at the
-// right of the detail stays empty.
-const DEFAULT_DETAIL_WIDTH = 500;
-
 // Before the user resizes the list, the list takes the width that leaves
 // the detail its default width, but not more than this. A resize of the
 // detail does not move the list.
 const MAX_FIRST_LIST_WIDTH = 1100;
-
-// The detail keeps at least this width: in a smaller window, the list
-// becomes narrower
-const MIN_DETAIL_WIDTH = 360;
 
 // The sash of the detail is on its right border
 const DETAIL_SASH_STYLE: React.CSSProperties = {
@@ -42,22 +40,19 @@ const DETAIL_SASH_STYLE: React.CSSProperties = {
   zIndex: 2,
 };
 
-// Below this viewport width, the detail goes over the list
-const OVERLAY_MEDIA_QUERY = '(max-width: 1100px)';
+// Below this viewport width, the detail always goes over the list
+export const CLOSE_DETAIL_ACTION_ID = 'listDetail.close';
 
-// The sash is on the left border of the detail over the list, as wide as
-// the sash of a SplitView, and over the content of the detail
-const SASH_STYLE: React.CSSProperties = { left: -5, width: 10, zIndex: 2 };
+const NARROW_VIEWPORT_MEDIA_QUERY = '(max-width: 1100px)';
 
-// The detail over the list has a fixed width: its sash only has the button
-// that hides the detail
 const noop = () => {};
 
-const DetailOpenContext = createContext(false);
+const EMPTY_DETAIL_TITLE = { id: 'admin.listDetail.panel.empty.title' };
+const EMPTY_DETAIL_DESCRIPTION = {
+  id: 'admin.listDetail.panel.empty.description',
+};
 
-// The close of the detail when the detail goes over the list. The panel then
-// shows a back button: on a touch screen, the sash button does not show.
-const OverlayCloseContext = createContext<(() => void) | undefined>(undefined);
+const DetailOpenContext = createContext(false);
 
 // The largest width of the split: the list and the detail. The space at the
 // right of the detail stays empty. In a smaller window, the split fills the
@@ -75,17 +70,17 @@ export function useIsListDetailOpen() {
   return useContext(DetailOpenContext);
 }
 
-export function useListDetailOverlayClose() {
-  return useContext(OverlayCloseContext);
-}
+/** Where the panel of the open row goes */
+export type ListDetailPlacement = 'beside' | 'over';
 
 /** The detail of the open row */
 export type ListDetailSplitDetail = {
   /** The panel of the open row (a ListDetail.Panel). Without it, no row is open. */
   panel?: React.ReactNode;
   /**
-   * Closes the open row. Escape, the button on the sash and, when the panel
-   * goes over the list, the back button of the panel run it.
+   * Closes the open row. Escape, `]` and, when the panel goes over the
+   * list, the close button of the panel and a click on an empty part of the
+   * list run it.
    */
   onClose: () => void;
   /**
@@ -93,6 +88,16 @@ export type ListDetailSplitDetail = {
    * only closes the open row.
    */
   onReopen?: () => void;
+  /**
+   * Where the panel goes. "beside": at the right of the list, and the list
+   * keeps a part of the width for the panel. Use it for a table with few,
+   * narrow columns. "over": the list takes all the width, and the open
+   * panel goes over the right part of the list. Use it for a table that
+   * needs the width. Below 1100px of window width, the panel always goes
+   * over the list.
+   * @default "beside"
+   */
+  placement?: ListDetailPlacement;
 };
 
 export type ListDetailSplitProps = {
@@ -102,75 +107,130 @@ export type ListDetailSplitProps = {
   children: React.ReactNode;
 };
 
+function useElementWidth() {
+  const [element, setElement] = useState<HTMLDivElement | null>(null);
+  const ref = useRef<HTMLDivElement | null>(null);
+  const setRef = useCallback((node: HTMLDivElement | null) => {
+    ref.current = node;
+    setElement(node);
+  }, []);
+  const [width, setWidth] = useState<number>();
+
+  useEffect(() => {
+    if (!element) return undefined;
+
+    const observer = new ResizeObserver(() => {
+      setWidth(element.offsetWidth);
+    });
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, [element]);
+
+  return { ref, setRef, width };
+}
+
+function useDetailActions(
+  isOpen: boolean,
+  onClose: () => void,
+  onReopen: (() => void) | undefined,
+) {
+  useRegisterActions([
+    {
+      id: CLOSE_DETAIL_ACTION_ID,
+      name: { id: 'admin.listDetail.panel.close' },
+      shortcut: { key: 'escape' },
+      palette: 'hidden',
+      applicable: () => isOpen,
+      run: onClose,
+    },
+    {
+      id: TOGGLE_RIGHT_SIDEBAR_ACTION_ID,
+      name: { id: 'sidebar.toggleRight' },
+      icon: Misc.SidebarFlipIcon,
+      shortcut: { key: ']' },
+      applicable: () => isOpen || Boolean(onReopen),
+      run: () => (isOpen ? onClose() : onReopen?.()),
+    },
+  ]);
+}
+
 /**
  * A list at the left and the detail of the open row at the right, as the
- * records of a model in the cms. The list keeps its place and its width when
- * a row opens or closes, thus the user does not lose the row. When no row is
- * open, there is no detail: the space at the right of the list stays empty.
- * The user resizes the list and the detail; the space at the right of the
- * detail stays empty. On a small viewport, the detail goes over the list.
+ * records of a model in DatoCMS. The list keeps its place and its width when
+ * a row opens or closes, thus the user does not lose the row.
+ * With the "beside" placement, the user resizes the list and the detail, and
+ * the space at the right of the detail stays empty. When no row is open, the
+ * place of the detail shows a blank slate that tells the user to open a row.
+ * With the "over" placement, and on a small viewport, the list takes all the
+ * width and the open detail goes over it.
  * The widths come from the ListDetailWidthsProvider of the app.
  */
 function ListDetailSplit({ detail, children }: ListDetailSplitProps) {
   const panel = detail?.panel;
   const onCloseDetail = detail?.onClose ?? noop;
-  const {
-    listWidth,
-    onListWidthChange,
-    detailWidth: storedDetailWidth,
-    onDetailWidthChange,
-  } = useListDetailWidths();
-  const { matches: isOverlay } = useMediaQuery(OVERLAY_MEDIA_QUERY);
   const isOpen = Boolean(panel);
+  const { matches: isNarrowViewport } = useMediaQuery(
+    NARROW_VIEWPORT_MEDIA_QUERY,
+  );
+  const placement: ListDetailPlacement = isNarrowViewport
+    ? 'over'
+    : (detail?.placement ?? 'beside');
+  const container = useElementWidth();
 
-  // The width of the split, for the largest width of the list
-  const [container, setContainer] = useState<HTMLDivElement | null>(null);
-  const containerRef = useRef<HTMLDivElement | null>(null);
-  const setContainerElement = useCallback((element: HTMLDivElement | null) => {
-    containerRef.current = element;
-    setContainer(element);
-  }, []);
-  const [containerWidth, setContainerWidth] = useState<number>();
+  useDetailActions(isOpen, onCloseDetail, detail?.onReopen);
 
-  useEffect(() => {
-    if (!container) return undefined;
-
-    const observer = new ResizeObserver(() => {
-      setContainerWidth(container.offsetWidth);
-    });
-    observer.observe(container);
-    return () => observer.disconnect();
-  }, [container]);
-
-  // The width of the detail while the user drags its sash
-  const [dragDetailWidth, setDragDetailWidth] = useState<number>();
-  const detailWidth =
-    dragDetailWidth ?? storedDetailWidth ?? DEFAULT_DETAIL_WIDTH;
-  // Where the drag started, and the last width of the drag
-  const dragStart = useRef<{ x: number; width: number; last?: number }>({
-    x: 0,
-    width: 0,
-  });
-
-  const handleDetailDragStart = useCallback(
-    (x: number) => {
-      dragStart.current = { x, width: detailWidth, last: undefined };
-    },
-    [detailWidth],
+  const list = (
+    <DetailOpenContext.Provider value={isOpen}>
+      <CollectionRegionProvider value={container.ref}>
+        {children}
+      </CollectionRegionProvider>
+    </DetailOpenContext.Provider>
   );
 
-  const handleDetailDragMove = useCallback((x: number) => {
-    const { x: startX, width } = dragStart.current;
-    const newWidth = Math.max(MIN_DETAIL_WIDTH, width + x - startX);
-    dragStart.current.last = newWidth;
-    setDragDetailWidth(newWidth);
-  }, []);
+  return (
+    <div
+      ref={container.setRef}
+      className={classNames('ListDetailSplit', {
+        'ListDetailSplit--open': isOpen,
+        'ListDetailSplit--over': placement === 'over',
+      })}
+    >
+      {placement === 'over' ? (
+        <>
+          <div className="ListDetailSplit__list">{list}</div>
+          {isOpen && (
+            <FloatingDetail
+              panel={panel}
+              onClose={onCloseDetail}
+              resizable={!isNarrowViewport}
+              containerWidth={container.width}
+              container={container.ref}
+            />
+          )}
+        </>
+      ) : (
+        <BesideSplit
+          containerWidth={container.width}
+          detail={detail}
+          list={list}
+        />
+      )}
+    </div>
+  );
+}
 
-  const handleDetailDragEnd = useCallback(() => {
-    const { last } = dragStart.current;
-    if (last !== undefined) onDetailWidthChange(last);
-    setDragDetailWidth(undefined);
-  }, [onDetailWidthChange]);
+type BesideSplitProps = {
+  containerWidth: number | undefined;
+  detail: ListDetailSplitDetail | undefined;
+  list: React.ReactNode;
+};
+
+function BesideSplit({ containerWidth, detail, list }: BesideSplitProps) {
+  const panel = detail?.panel;
+  const { listWidth, onListWidthChange } = useListDetailWidths();
+  const { width: detailWidth, sashHandlers } = useDetailWidthDrag({
+    sashSide: 'right',
+  });
 
   const maxListWidth =
     containerWidth === undefined
@@ -190,104 +250,40 @@ function ListDetailSplit({ detail, children }: ListDetailSplitProps) {
     maxListWidth ?? Number.POSITIVE_INFINITY,
   );
 
-  // As the button on the border of the sidebar of a record, the button that
-  // hides the detail over the list shows only while the pointer is in the
-  // detail
-  const hideButton = useSashActionReveal(isOpen && isOverlay);
-
-  useRegisterActions([
-    {
-      id: 'listDetail.close',
-      name: { id: 'admin.listDetail.panel.close' },
-      shortcut: { key: 'escape' },
-      palette: 'hidden',
-      applicable: () => isOpen,
-      run: onCloseDetail,
-    },
-    {
-      id: TOGGLE_RIGHT_SIDEBAR_ACTION_ID,
-      name: { id: 'sidebar.toggleRight' },
-      icon: Misc.SidebarFlipIcon,
-      shortcut: { key: ']' },
-      applicable: () => isOpen || Boolean(detail?.onReopen),
-      run: () => (isOpen ? onCloseDetail() : detail?.onReopen?.()),
-    },
-  ]);
-
-  const list = (
-    <DetailOpenContext.Provider value={isOpen}>
-      <CollectionRegionProvider value={containerRef}>
-        {children}
-      </CollectionRegionProvider>
-    </DetailOpenContext.Provider>
-  );
-
   return (
-    <div
-      ref={setContainerElement}
-      className={classNames('ListDetailSplit', {
-        'ListDetailSplit--open': isOpen,
-        'ListDetailSplit--overlay': isOverlay,
-      })}
+    <SplitPane
+      primaryPane="right"
+      size={size}
+      minSize={MIN_LIST_WIDTH}
+      maxSize={maxListWidth}
+      onDragFinished={onListWidthChange}
     >
-      {isOverlay ? (
-        <>
-          <div className="ListDetailSplit__list">{list}</div>
-          {isOpen && (
-            <div
-              className="ListDetailSplit__detail"
-              {...hideButton.paneHoverProps}
-            >
-              <SplitView.Sash
-                split="vertical"
-                allowResize={false}
-                style={SASH_STYLE}
-                onMouseDown={noop}
-                onMouseMove={noop}
-                onMouseUp={noop}
-                action={{
-                  icon: Navigation.ChevronsRightIcon,
-                  label: { id: 'admin.listDetail.panel.close' },
-                  action: TOGGLE_RIGHT_SIDEBAR_ACTION_ID,
-                  onClick: onCloseDetail,
-                  revealFrom: 'right',
-                  hidden: !hideButton.isVisible,
-                }}
-              />
-              <OverlayCloseContext.Provider value={onCloseDetail}>
-                {panel}
-              </OverlayCloseContext.Provider>
-            </div>
-          )}
-        </>
-      ) : (
-        <SplitPane
-          primaryPane="right"
-          size={size}
-          minSize={MIN_LIST_WIDTH}
-          maxSize={maxListWidth}
-          onDragFinished={onListWidthChange}
+      {list}
+      {panel ? (
+        <div className="ListDetailSplit__detail" style={{ width: detailWidth }}>
+          <SplitView.Sash
+            split="vertical"
+            allowResize={true}
+            style={DETAIL_SASH_STYLE}
+            {...sashHandlers}
+          />
+          {panel}
+        </div>
+      ) : detail ? (
+        <div
+          className="ListDetailSplit__detail ListDetailSplit__detail--empty"
+          style={{ width: detailWidth }}
         >
-          {list}
-          {isOpen ? (
-            <div
-              className="ListDetailSplit__detail"
-              style={{ width: detailWidth }}
-            >
-              <SplitView.Sash
-                split="vertical"
-                allowResize={true}
-                style={DETAIL_SASH_STYLE}
-                onMouseDown={handleDetailDragStart}
-                onMouseMove={handleDetailDragMove}
-                onMouseUp={handleDetailDragEnd}
-              />
-              {panel}
-            </div>
-          ) : null}
-        </SplitPane>
-      )}
-    </div>
+          <BlankSlate
+            placement="area"
+            small
+            icon={<Misc.SquareDashedIcon />}
+            title={EMPTY_DETAIL_TITLE}
+            description={EMPTY_DETAIL_DESCRIPTION}
+          />
+        </div>
+      ) : null}
+    </SplitPane>
   );
 }
 

@@ -138,7 +138,10 @@ function ListDetailPage({
   // The destructured props lose the link between state and overview: without
   // an overview, the state is never "empty".
   const content: ListOrOverviewContent = overview
-    ? { state: listState, overview: <Overview>{overview}</Overview> }
+    ? {
+        state: listState,
+        overview: <Overview placement={detail?.placement}>{overview}</Overview>,
+      }
     : { state: listState as Exclude<typeof listState, 'empty'> };
 
   return (

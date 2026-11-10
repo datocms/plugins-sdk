@@ -7,16 +7,6 @@ import { useFieldInput } from './FieldWrapper';
 import { BaseInputComponentPropsField } from './inputProps';
 import { useTextInputHandlers } from './useTextInputHandlers';
 
-// The two icons have the same viewBox, thus the icon does not move when the
-// button toggles (the eye is narrower than the eye with the slash)
-const ShowPasswordIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <Authentication.ShowPasswordIcon {...props} viewBox="0 0 640 512" />
-);
-
-const HidePasswordIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <Authentication.HidePasswordIcon {...props} viewBox="0 0 640 512" />
-);
-
 /**
  * The props of `PasswordInput`: the contract of an input, and the
  * attributes of an `input` element (`autoComplete`, `onFocus`, ...).
@@ -75,7 +65,11 @@ const PasswordInput = ({
         tone="ghost"
         size="micro"
         iconOnly
-        icon={showPassword ? HidePasswordIcon : ShowPasswordIcon}
+        icon={
+          showPassword
+            ? Authentication.HidePasswordIcon
+            : Authentication.ShowPasswordIcon
+        }
         label={{
           id: showPassword ? 'form.password.hide' : 'form.password.show',
         }}

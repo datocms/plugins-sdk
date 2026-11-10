@@ -1,6 +1,6 @@
 {
   "name": "datocms-plugin-sdk",
-  "version": "2.6.0-next.2",
+  "version": "3.0.0-next.3",
   "description": "DatoCMS Plugin SDK",
   "keywords": [
     "datocms",
@@ -37,7 +37,8 @@
     "format": "biome check --write .",
     "test": "vitest run",
     "install-in-place": "npm run build && rm -rf $INSTALL_PATH/node_modules/datocms-plugin-sdk/dist && cp -rf dist manifest.json $INSTALL_PATH/node_modules/datocms-plugin-sdk",
-    "prepublishOnly": "release-toolchain --assert-release"
+    "prepublishOnly": "release-toolchain --assert-release",
+    "generate-icon-names": "tsx generateLucideIconNames.ts"
   },
   "bugs": {
     "url": "https://github.com/datocms/plugins-sdk/issues"
@@ -52,6 +53,7 @@
   "devDependencies": {
     "@biomejs/biome": "2.4.8",
     "jsdom": "^30.1.3",
+    "lucide-static": "1.71.0",
     "tsx": "^4.21.0",
     "typescript": "5.6.3",
     "vitest": "5.0.5"

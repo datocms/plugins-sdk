@@ -14,6 +14,8 @@
   "activityLog.noResults.description": "Nothing matches your filters. Try different filters, or remove some of them.",
   "activityLog.noResults.title": "No results",
   "admin.listDetail.panel.close": "Hide details",
+  "admin.listDetail.panel.empty.description": "Click a row to see its details here.",
+  "admin.listDetail.panel.empty.title": "Nothing selected",
   "admin.listDetail.panel.failed.text": "It may no longer exist, or the request failed.",
   "admin.listDetail.panel.failed.title": "The event could not be loaded",
   "admin.listDetail.panel.loading": "Loading the event…",

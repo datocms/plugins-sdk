@@ -1,13 +1,13 @@
 import React from 'react';
-import { Status } from '../../../icons';
+import { Generic, Status } from '../../../icons';
 import BlankSlate from '../../feedback/BlankSlate';
 import { useTranslation } from '../../i18n';
 import Pane from '../../layout/Pane';
-import { TOGGLE_RIGHT_SIDEBAR_ACTION_ID } from '../../layout/SplitPane';
 import Toolbar from '../../layout/Toolbar';
 import { type Message, type TextMessage } from '../../Message';
 import Aside from '../../semantic/Aside';
-import { useListDetailOverlayClose } from './Split';
+import { useListDetailOverlayClose } from './FloatingDetail';
+import { CLOSE_DETAIL_ACTION_ID } from './Split';
 
 type ListDetailPanelState =
   /** The element is not available: the panel shows only the title */
@@ -86,13 +86,6 @@ function ListDetailPanel({
         className="ListDetailPanel"
         header={
           <Toolbar>
-            {closeOverlay && (
-              <Toolbar.GoBack
-                onClick={closeOverlay}
-                ariaLabel={{ id: 'admin.listDetail.panel.close' }}
-                action={TOGGLE_RIGHT_SIDEBAR_ACTION_ID}
-              />
-            )}
             <Toolbar.Title level={2}>{tc(title)}</Toolbar.Title>
             <Toolbar.Spinner show={!!fetching} />
             <Toolbar.DotsDropdown hidden={!actions}>
@@ -100,6 +93,15 @@ function ListDetailPanel({
             </Toolbar.DotsDropdown>
             <Toolbar.Space />
             {toolbarAction}
+            {closeOverlay && (
+              <Toolbar.Button
+                iconOnly
+                icon={Generic.CloseIcon}
+                label={{ id: 'admin.listDetail.panel.close' }}
+                tooltip={{ action: CLOSE_DETAIL_ACTION_ID }}
+                onClick={closeOverlay}
+              />
+            )}
           </Toolbar>
         }
       >

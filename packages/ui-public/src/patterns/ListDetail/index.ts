@@ -6,7 +6,11 @@ import Page, {
   useReopenLastRow,
 } from './Page';
 import Panel from './Panel';
-import Split, { getListDetailMaxWidth, useIsListDetailOpen } from './Split';
+import Split, {
+  getListDetailMaxWidth,
+  type ListDetailPlacement,
+  useIsListDetailOpen,
+} from './Split';
 import { ListDetailWidthsProvider } from './Widths';
 
 export const ListDetail = { Page, Split, Panel, Overview };
@@ -14,6 +18,7 @@ export {
   getListDetailMaxWidth,
   getPaginatedListState,
   type ListDetailPageState,
+  type ListDetailPlacement,
   ListDetailWidthsProvider,
   useIsListDetailOpen,
   useOpenRowRoute,

@@ -1,3 +1,5 @@
+import { readFileSync } from 'node:fs';
+import { createRequire } from 'node:module';
 import path from 'node:path';
 import react from '@vitejs/plugin-react';
 import { defineConfig, type Plugin } from 'vite';
@@ -31,12 +33,37 @@ function entryModules(): Plugin {
   };
 }
 
-// The code of ui-public and its icons go into the output. Every npm package stays
-// an import: it is a dependency or a peer of react-ui.
+// The SVG files of the icon packages, with the folder of their set in the
+// output
+const ICON_PACKAGE_SVGS =
+  /^node_modules\/(?:(lucide)-static|(simple-icons))\/icons\//;
+
+const require = createRequire(import.meta.url);
+
+// The ISC licence of Lucide tells us to put its notice in each copy of the
+// drawings. The icons of Simple Icons are CC0: they need no notice.
+function lucideLicence(): Plugin {
+  return {
+    name: 'react-ui-lucide-licence',
+    generateBundle() {
+      this.emitFile({
+        type: 'asset',
+        fileName: 'LICENSE-lucide.txt',
+        source: readFileSync(require.resolve('lucide-static/LICENSE'), 'utf8'),
+      });
+    },
+  };
+}
+
+// The code of ui-public and its icons go into the output. The icons are SVG
+// files of ui-public and of the icon packages: svgr makes them components.
+// Every other npm package stays an import: it is a dependency or a peer of
+// react-ui.
 function isExternal(id: string) {
   if (id.startsWith('\0') || id.startsWith('.') || path.isAbsolute(id)) {
     return false;
   }
+  if (/\.svg(\?|$)/.test(id)) return false;
   return id !== 'ui-public' && !id.startsWith('ui-public/');
 }
 
@@ -46,6 +73,7 @@ export default defineConfig({
   envPrefix: [],
   plugins: [
     entryModules(),
+    lucideLicence(),
     react(),
     // The same options as the apps (see the vite.config.ts of the cms)
     svgr({
@@ -85,7 +113,20 @@ export default defineConfig({
         // its imports reach.
         preserveModules: true,
         preserveModulesRoot: path.resolve(packageDir, '..'),
-        entryFileNames: '[name].js',
+        // The icons of the icon packages go next to the icons of ui-public,
+        // in a folder for each set (ui-public/icons/lucide/x.js). npm does
+        // not publish a node_modules folder, thus the output cannot keep the
+        // path of the package.
+        entryFileNames: ({ name }) =>
+          ICON_PACKAGE_SVGS.test(name)
+            ? `${name
+                .replace(
+                  ICON_PACKAGE_SVGS,
+                  (_, lucide, simpleIcons) =>
+                    `ui-public/icons/${lucide ?? simpleIcons}/`,
+                )
+                .replace(/\.svg(\?.*)?$/, '')}.js`
+            : '[name].js',
       },
     },
   },

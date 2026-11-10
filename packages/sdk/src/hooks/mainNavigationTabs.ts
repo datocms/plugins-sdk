@@ -30,10 +30,10 @@ export type MainNavigationTab = {
   /** Label to be shown. Must be unique. */
   label: string;
   /**
-   * Icon to be shown alongside the label. Can be a FontAwesome icon name (ie.
-   * `"address-book"`) or a custom SVG definition. To maintain visual
-   * consistency with the rest of the interface, try to use FontAwesome icons
-   * whenever possible.
+   * Icon to be shown alongside the label. Can be the name of a Lucide icon
+   * (https://lucide.dev/icons, for example `"book-open"`), or a custom SVG
+   * definition. To keep the look of the rest of the interface, use a Lucide
+   * icon whenever possible.
    */
   icon: Icon;
   /** ID of the page/inspector linked to the tab */

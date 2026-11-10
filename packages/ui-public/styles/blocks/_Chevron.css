@@ -11,8 +11,10 @@
 .Chevron:is(.Chevron--disclosure, .Chevron--menu, .Chevron--load-more) {
   display: inline-block;
   flex: none;
-  width: max(10px, 0.75em);
-  height: max(10px, 0.75em);
+  /* A Lucide chevron fills only the middle of its box, thus the box is larger
+     than the text, as in shadcn/ui (16px next to a text of 14px) */
+  width: max(14px, 1.125em);
+  height: max(14px, 1.125em);
   vertical-align: middle;
   color: var(--chevron-color, var(--color--ink-subtle));
   transition:

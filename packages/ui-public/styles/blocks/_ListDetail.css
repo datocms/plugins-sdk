@@ -6,20 +6,19 @@
 }
 
 /* The area of the overview of an empty section. It has the largest width of
-   the split, and the line at its right edge as the detail. */
+   the split. It has no line at its right edge, because no content ends
+   there. */
 .ListDetailOverview {
   position: absolute;
   inset: 0;
   right: auto;
   box-sizing: border-box;
   width: 100%;
-  border-right: 1px solid var(--color--border);
 }
 
 /* The detail at the right of the list. The split gives its width (the user
    resizes it with the sash on its right border); more space at its right
-   stays empty. The line shows where the detail ends, also without an open
-   row. */
+   stays empty. Without an open row, it holds a blank slate. */
 .ListDetailSplit__detail {
   position: relative;
   box-sizing: border-box;
@@ -32,20 +31,24 @@
     border-right: 0;
   }
 }
+/* Without an open row, no content ends at the right edge of the detail */
+.ListDetailSplit__detail--empty {
+  border-right: 0;
+}
 /* The sash on the right border of the detail goes out of the detail. When
    the detail fills its pane, the pane does not scroll for it. */
 .SplitViewPane:has(> .ListDetailSplit__detail) {
   overflow-x: clip;
 }
 
-/* On a small viewport, the list uses all the width and the detail goes over
-   it */
+/* With the "over" placement, the list uses all the width and the detail goes
+   over it. The split gives the width of a detail that the user resizes. */
 .ListDetailSplit__list {
   position: relative;
   flex: 1 1 auto;
   min-width: 0;
 }
-.ListDetailSplit--overlay .ListDetailSplit__detail {
+.ListDetailSplit--over .ListDetailSplit__detail {
   position: absolute;
   top: 0;
   right: 0;

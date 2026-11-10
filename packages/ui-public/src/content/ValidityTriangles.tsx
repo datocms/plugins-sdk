@@ -10,7 +10,7 @@ export function InvalidPublishedVersionIcon({
   className?: string;
 }) {
   return (
-    <Status.TriangleExclamationSolidIcon
+    <Status.TriangleExclamationIcon
       className={classNames('ValidityTriangle--published', className)}
     />
   );

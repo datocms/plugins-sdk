@@ -151,11 +151,13 @@
     "intl-messageformat": "11.2.15",
     "is-hotkey-esm": "1.0.0",
     "lodash-es": "4.17.23",
+    "lucide-static": "1.71.0",
     "min-md5": "1.0.0",
     "react-fast-compare": "2.0.4",
     "react-transition-group": "4.4.5",
     "rtl-detect": "1.0.2",
     "shallow-equal": "1.2.1",
+    "simple-icons": "16.37.0",
     "usehooks-ts": "3.1.1",
     "xss": "1.0.14"
   },

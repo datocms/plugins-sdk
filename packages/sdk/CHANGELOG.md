@@ -1,5 +1,11 @@
 # datocms-plugin-sdk
 
+## 3.0.0-next.3
+
+### Major Changes
+
+- The `icon` of a plugin takes the name of a [Lucide icon](https://lucide.dev/icons), not of a Font Awesome icon: the main navigation tabs, the items of the content and settings sidebars, the asset sources, the custom marks of Structured Text and the dropdown actions and their groups. The new `LucideIconIdentifier` type lists the names, and `AwesomeFontIconIdentifier` goes away. A custom SVG (`SvgDefinition`) and, where the SDK accepts it, an emoji (`EmojiDefinition`) work as before. To update a plugin, find the Lucide icon with the same meaning on https://lucide.dev/icons and give its name (for example `"zap"` for the old `"bolt"`, `"search"` for `"magnifying-glass"`). The CMS keeps drawing the Font Awesome names of the plugins built on an older SDK, with the Lucide icon of the same meaning.
+
 ## 2.6.0-next.2
 
 ### Minor Changes

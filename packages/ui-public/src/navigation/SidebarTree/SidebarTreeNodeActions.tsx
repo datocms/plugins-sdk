@@ -3,6 +3,7 @@ import { Generic } from '../../../icons';
 import { Dropdown } from '../../actions/Dropdown';
 import { useTranslation } from '../../i18n';
 import { type Message } from '../../Message';
+import { SvgIcon } from '../../utils/types';
 import { useNavigation } from '../NavigationProvider';
 
 export type SidebarTreeNodeActionsProps = {
@@ -25,6 +26,8 @@ export type SidebarTreeNodeActionsProps = {
     label: Message;
     /** Runs when the user picks the option */
     onAdd: () => void;
+    /** The icon of the option. The default is the "add" icon. */
+    icon?: SvgIcon;
   };
 };
 
@@ -41,6 +44,7 @@ function SidebarTreeNodeActions({
 }: SidebarTreeNodeActionsProps) {
   const { t, tc } = useTranslation();
   const { navigate } = useNavigation();
+  const AddIcon = add?.icon ?? Generic.AddIcon;
 
   return (
     <Dropdown
@@ -56,7 +60,7 @@ function SidebarTreeNodeActions({
               e.preventDefault();
               add.onAdd();
             }}
-            icon={<Generic.AddIcon />}
+            icon={<AddIcon />}
           >
             <span>{tc(add.label)}</span>
           </Dropdown.Option>

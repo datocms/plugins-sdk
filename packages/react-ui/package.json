@@ -1,6 +1,6 @@
 {
   "name": "datocms-react-ui",
-  "version": "3.1.0-next.5",
+  "version": "3.1.0-next.6",
   "description": "React components to use inside DatoCMS plugins",
   "keywords": [
     "datocms",
@@ -67,7 +67,7 @@
     "xss": "^1.0.14"
   },
   "peerDependencies": {
-    "datocms-plugin-sdk": "^2.2.7",
+    "datocms-plugin-sdk": "^2.2.7 || ^3.0.0-next.0",
     "react": "^18.0.0 || ^19.0.0",
     "react-dom": "^18.0.0 || ^19.0.0"
   },

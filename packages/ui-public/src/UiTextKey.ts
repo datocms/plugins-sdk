@@ -18,6 +18,8 @@ export type UiTextKey =
   | 'activityLog.noResults.description'
   | 'activityLog.noResults.title'
   | 'admin.listDetail.panel.close'
+  | 'admin.listDetail.panel.empty.description'
+  | 'admin.listDetail.panel.empty.title'
   | 'admin.listDetail.panel.failed.text'
   | 'admin.listDetail.panel.failed.title'
   | 'admin.listDetail.panel.loading'

@@ -437,11 +437,6 @@
     margin-right: 0;
     font-size: 16px;
   }
-  /* The rule of _PluginIcon.css (color: inherit) comes later in the
-     styles: the two classes make this rule stronger */
-  > .PluginIcon.PluginIcon--svg {
-    color: var(--color--ink-subtle);
-  }
   /* At a 16px font size, the emoji glyph fills the box as much as an SVG
      icon */
   > .ItemTypeEmoji,

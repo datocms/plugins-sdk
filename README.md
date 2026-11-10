@@ -2,8 +2,8 @@
 
 This branch holds the source of the two npm packages of the DatoCMS plugins:
 
-- [`datocms-plugin-sdk`](https://www.npmjs.com/package/datocms-plugin-sdk) 2.6.0-next.2 (`packages/sdk`): the SDK that connects a plugin to DatoCMS.
-- [`datocms-react-ui`](https://www.npmjs.com/package/datocms-react-ui) 3.1.0-next.5 (`packages/react-ui`): the React components of the plugins.
+- [`datocms-plugin-sdk`](https://www.npmjs.com/package/datocms-plugin-sdk) 3.0.0-next.3 (`packages/sdk`): the SDK that connects a plugin to DatoCMS.
+- [`datocms-react-ui`](https://www.npmjs.com/package/datocms-react-ui) 3.1.0-next.6 (`packages/react-ui`): the React components of the plugins.
 
 DatoCMS develops these packages in a private repository, together with the CMS that uses the same components. At each release, a script copies here the files that the npm packages are built from. A check makes sure that the build of this branch is the same, file for file, as the build in the private repository.
 
@@ -11,7 +11,7 @@ Do not edit this branch by hand: the next release replaces it. To propose a chan
 
 The source of `datocms-react-ui` 2.x is on the branch [`2.x`](https://github.com/datocms/plugins-sdk/tree/2.x). A fix for 2.x goes there, with a pull request to that branch.
 
-Copied from the commit `2f55ddca7331c92240b421a9e53175ba57351875` of the private repository.
+Copied from the commit `1e0d4b2640b71c6f8e575c17d67116ac835fa11f` of the private repository.
 
 ## What is here
 

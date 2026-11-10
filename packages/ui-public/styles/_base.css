@@ -274,9 +274,22 @@ input:-webkit-autofill {
 /* An icon takes the color of its text: set "color" on an icon, not "fill".
    The value goes down as the keyword, thus each icon reads its own color.
    It is not a rule on svg: that rule would win over the fill attribute of
-   an icon, and an outline icon (fill="none") would become a solid shape. */
-html {
+   an icon, and an outline icon (fill="none") would become a solid shape.
+   The rule is also on each link, because of a bug of Chrome: when a link
+   becomes visited while the page is open (the router pushes its URL), Chrome
+   keeps the initial black for the visited fill of the link if the fill only
+   comes down from an ancestor, and the icons inside the link paint black.
+   A fill declared on the link sets its visited fill too. */
+html,
+:any-link {
   fill: currentColor;
+}
+/* The stroke width of all the Lucide icons. Change it here only. At 2 the
+   icons have the weight of the text next to them. At 1.75 or 1.5 they look
+   light next to the text of the UI. The selector reads the attributes of
+   the Lucide file, because a className of the caller replaces its class. */
+svg[fill="none"][stroke="currentColor"][stroke-width="2"] {
+  stroke-width: 2;
 }
 button {
   box-sizing: border-box;

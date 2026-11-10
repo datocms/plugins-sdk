@@ -1,5 +1,18 @@
 # datocms-react-ui
 
+## 3.1.0-next.6
+
+### Minor Changes
+
+- `onClear` of `useFilterToolbar` can return a function that puts the filter back. The close of a filtered list still clears the filter, and the next open of the filter runs that function, thus the same filter applies again. A filter that the list gets while the filter is closed wins: the open does not replace it. The hook keeps the function only while the list is mounted.
+- The icons that the components draw (the chevrons, the carets, the crosses, the grips, the icons of the toolbars and of the messages) are the outline icons of Lucide. A component draws them with a stroke that takes the color of its text. The package has the ISC notice of Lucide in `dist/LICENSE-lucide.txt`. A plugin that gives its own icons to the components sees no change.
+
+### Patch Changes
+
+- The peer range of `datocms-plugin-sdk` accepts the SDK 3 (`^2.2.7 || ^3.0.0-next.0`), thus a plugin can update the SDK and keep react-ui.
+- Updated dependencies
+  - datocms-plugin-sdk@3.0.0-next.3
+
 ## 3.1.0-next.5
 
 ### Patch Changes

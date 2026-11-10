@@ -230,7 +230,9 @@ export async function connect(
       // the host needs to tell what a plugin understands. 0.4.0 says this
       // plugin reads an asset's `default_field_metadata` with `alt`, `title`
       // and `custom_data` keyed by locale, rather than one hash per locale.
-      sdkVersion: () => '0.4.0',
+      // 0.5.0 says that the `icon` of this plugin is a Lucide name: the host
+      // reads the icon names of an older plugin in the icon set of its SDK.
+      sdkVersion: () => '0.5.0',
       implementedHooks: () =>
         Object.fromEntries(
           Object.keys(rawConfiguration).map((hook) => {

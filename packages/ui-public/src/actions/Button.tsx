@@ -17,6 +17,7 @@ import {
 } from '../Message';
 import Link from '../navigation/Link';
 import type { FloatingTrigger } from '../overlays/floatingTrigger';
+import HoverCard from '../overlays/HoverCard';
 import Tooltip from '../overlays/Tooltip';
 import RawButton from '../semantic/RawButton';
 import { SvgIcon } from '../utils/types';
@@ -99,10 +100,15 @@ export type ActionTooltipOptions = {
 
 /** The tooltip of an icon-only button, with options */
 type TooltipOptions =
-  /** A text (the label by default). "long" is for a paragraph or a list. */
+  /**
+   * A text (the label by default). "long" is for a paragraph or a list.
+   * With "interactive", the text shows in a HoverCard: the pointer can move
+   * into it, and the user can select the text.
+   */
   | {
       content?: Message;
       long?: boolean;
+      interactive?: boolean;
       placement?: Placement;
       action?: never;
     }
@@ -483,6 +489,21 @@ const Button = React.forwardRef<HTMLElement, ButtonProps>(function Button(
 
   if (!isTooltipOptions(tooltip)) {
     return <Tooltip label={tooltip ?? iconOnlyLabel}>{element}</Tooltip>;
+  }
+
+  if (tooltip.interactive) {
+    return (
+      <HoverCard
+        content={
+          <HoverCard.Body>
+            {tooltip.content ? tc(tooltip.content) : iconOnlyLabel}
+          </HoverCard.Body>
+        }
+        placement={tooltip.placement}
+      >
+        {element}
+      </HoverCard>
+    );
   }
 
   return (
