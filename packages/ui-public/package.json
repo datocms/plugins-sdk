@@ -36,6 +36,8 @@
     "./EntitySummary": "./src/lists/EntitySummary.tsx",
     "./FeedbackDot": "./src/content/FeedbackDot.tsx",
     "./floatingTrigger": "./src/overlays/floatingTrigger.tsx",
+    "./FieldTypeAvatar": "./src/content/FieldTypeAvatar.tsx",
+    "./FieldTypeName": "./src/content/FieldTypeName.tsx",
     "./FileTypeIcon": "./src/content/FileTypeIcon.tsx",
     "./form/AutosizeInput": "./src/form/AutosizeInput.tsx",
     "./form/DateInput": "./src/form/DateInput.tsx",

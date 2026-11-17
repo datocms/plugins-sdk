@@ -104,6 +104,8 @@ export const entries = {
   Avatar: 'ui-public/Avatar',
   InitialsAvatar: 'ui-public/InitialsAvatar',
   IconAvatar: 'ui-public/IconAvatar',
+  FieldTypeAvatar: 'ui-public/FieldTypeAvatar',
+  FieldTypeName: 'ui-public/FieldTypeName',
   FramedImage: 'ui-public/FramedImage',
   UploadPreview: 'ui-public/UploadPreview',
   FileTypeIcon: 'ui-public/FileTypeIcon',
@@ -164,6 +166,7 @@ export const entries = {
 
   // Utils
   'utils/formatDate': 'ui-public/utils/formatDate',
+  'utils/fieldTypes': 'ui-public/utils/fieldTypes',
   // The other helpers of the module write English words
   'utils/format': {
     module: 'ui-public/utils/format',

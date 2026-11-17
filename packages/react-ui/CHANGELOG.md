@@ -1,5 +1,33 @@
 # datocms-react-ui
 
+## 4.0.0-next.8
+
+### Minor Changes
+
+- New entries show a field type as DatoCMS shows it. Give them the `field_type` of a field, as the CMA gives it.
+  
+  - `FieldTypeAvatar` (`datocms-react-ui/FieldTypeAvatar`): the icon of the group of the field type, on the colors of the group.
+  - `FieldTypeName` (`datocms-react-ui/FieldTypeName`): the name of the field type, as text in the language of the user.
+  - `useFieldTypeName` (a named export of `datocms-react-ui/FieldTypeName`): a function that gives the same name as a string, for example for the text of a tooltip.
+  
+  `datocms-react-ui/utils/fieldTypes` has the data behind them:
+  
+  - `fieldTypeGroups`: the groups and their field types, in the order of the "Add new field" menu.
+  - `fieldGroupOf`: the group of a field type.
+  - `fieldTypeMessage` and `fieldGroupMessage`: the name of a field type and of a group, for a prop that takes a text.
+  - `fieldTypeSurface`: the colors of the group of a field type, for an `IconAvatar` with your own icon.
+  - The `FieldType` and `FieldGroupName` types.
+  
+  A field type that the package does not know gets a generic icon on the neutral surface, and its `field_type` string as its name.
+  
+  The names of the field types and of the groups are new keys of the `texts` of `Canvas`: `fieldType.*` and `fieldGroup.*.title`.
+
+### Patch Changes
+
+- The hues of `InitialsAvatar` have the same contrast between the letters and the square: 5:1 in light mode and 8:1 in dark mode. Some hues were below 4.5:1 in light mode.
+- A small `IconAvatar` draws a larger icon. The icon fills 55% of the square, but at least 14px, with a 3px margin on each side. At 20px, in a menu or in a line of text, the icon is 14px and no longer 11px.
+- The `mode` of a `Pane` stops on a click out of the pane, not when the pointer goes down. When the content of a `SplitPane` stops asking for a larger width with `useSecondaryPaneMinSize`, the pane keeps that width until `size` changes. Thus the elements do not move under the pointer between the press and the release, and the click goes to the element that the user wanted.
+
 ## 4.0.0-next.7
 
 ### Major Changes

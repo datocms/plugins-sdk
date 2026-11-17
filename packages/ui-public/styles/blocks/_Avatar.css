@@ -93,11 +93,19 @@
   /* The icon is centered with the margins, not with flex: the box of the
      caller can set the display of the square (the image of an EntityRow
      makes it a block), and the icon stays at the center. */
+  /* The icon fills 55% of a large square. In a small square (20px in a
+     menu or in a line of text) 55% is too small to read, thus the icon
+     gets at least 14px and keeps a 3px margin on each side. */
   svg {
+    --Avatar-glyph-size: min(
+      calc(var(--Avatar-icon-size) - 6px),
+      max(55%, 14px)
+    );
+
     position: absolute;
     inset: 0;
-    width: 55%;
-    height: 55%;
+    width: var(--Avatar-glyph-size);
+    height: var(--Avatar-glyph-size);
     margin: auto;
     color: var(--Avatar-ink);
   }
@@ -111,75 +119,75 @@
    a pale surface and a saturated ink. Dark mode has a deep surface and a
    light ink. */
 .Avatar__initials--hue-1 {
-  --Avatar-surface: #fff8d6;
-  --Avatar-ink: #998100;
+  --Avatar-surface: #f8f1cf;
+  --Avatar-ink: #796501;
 
   [data-color-scheme="dark"] & {
-    --Avatar-surface: #2d2500;
-    --Avatar-ink: #e6c840;
+    --Avatar-surface: #292101;
+    --Avatar-ink: #d4b625;
   }
 }
 .Avatar__initials--hue-2 {
-  --Avatar-surface: #defce2;
-  --Avatar-ink: #1d9f2f;
+  --Avatar-surface: #dcf9e0;
+  --Avatar-ink: #01781a;
 
   [data-color-scheme="dark"] & {
-    --Avatar-surface: #003909;
-    --Avatar-ink: #72d980;
+    --Avatar-surface: #002b05;
+    --Avatar-ink: #68d077;
   }
 }
 .Avatar__initials--hue-3 {
-  --Avatar-surface: #e5fbf9;
-  --Avatar-ink: #38ada3;
+  --Avatar-surface: #e0f5f3;
+  --Avatar-ink: #02736c;
 
   [data-color-scheme="dark"] & {
-    --Avatar-surface: #00322f;
-    --Avatar-ink: #70d9d2;
+    --Avatar-surface: #012826;
+    --Avatar-ink: #60cac3;
   }
 }
 .Avatar__initials--hue-4 {
-  --Avatar-surface: #ddecfc;
-  --Avatar-ink: #1b5899;
+  --Avatar-surface: #e5f2ff;
+  --Avatar-ink: #2d68ab;
 
   [data-color-scheme="dark"] & {
-    --Avatar-surface: #00183d;
-    --Avatar-ink: #7db2f2;
+    --Avatar-surface: #052046;
+    --Avatar-ink: #85bafb;
   }
 }
 .Avatar__initials--hue-5 {
-  --Avatar-surface: #e2e2fa;
-  --Avatar-ink: #38388d;
+  --Avatar-surface: #eeeefe;
+  --Avatar-ink: #585db6;
 
   [data-color-scheme="dark"] & {
-    --Avatar-surface: #11113d;
-    --Avatar-ink: #9a9ae8;
+    --Avatar-surface: #191b48;
+    --Avatar-ink: #aeaffe;
   }
 }
 .Avatar__initials--hue-6 {
-  --Avatar-surface: #fef0e2;
-  --Avatar-ink: #d76f0e;
+  --Avatar-surface: #fceee0;
+  --Avatar-ink: #a15002;
 
   [data-color-scheme="dark"] & {
-    --Avatar-surface: #3a1e00;
-    --Avatar-ink: #f5b96a;
+    --Avatar-surface: #341a00;
+    --Avatar-ink: #e7ab5c;
   }
 }
 .Avatar__initials--hue-7 {
-  --Avatar-surface: #fde5e3;
-  --Avatar-ink: #c82b1d;
+  --Avatar-surface: #ffebe9;
+  --Avatar-ink: #c42719;
 
   [data-color-scheme="dark"] & {
-    --Avatar-surface: #3d0a06;
-    --Avatar-ink: #f4a9a3;
+    --Avatar-surface: #400d08;
+    --Avatar-ink: #eda29c;
   }
 }
 .Avatar__initials--hue-8 {
-  --Avatar-surface: #f8dffa;
-  --Avatar-ink: #7e2e86;
+  --Avatar-surface: #fde8ff;
+  --Avatar-ink: #95459d;
 
   [data-color-scheme="dark"] & {
-    --Avatar-surface: #280030;
-    --Avatar-ink: #de9de6;
+    --Avatar-surface: #350b3d;
+    --Avatar-ink: #df9ee7;
   }
 }
 .Avatar--small {

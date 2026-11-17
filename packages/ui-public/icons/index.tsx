@@ -104,6 +104,7 @@ import LayoutGridIcon from 'lucide-static/icons/layout-grid.svg?react';
 import LayoutListIcon from 'lucide-static/icons/layout-list.svg?react';
 import LayoutTemplateIcon from 'lucide-static/icons/layout-template.svg?react';
 import LetterBIcon from 'lucide-static/icons/letter-b.svg?react';
+import LetterTextIcon from 'lucide-static/icons/letter-text.svg?react';
 import LifeBuoyIcon from 'lucide-static/icons/life-buoy.svg?react';
 import LinkIcon from 'lucide-static/icons/link.svg?react';
 import Link2Icon from 'lucide-static/icons/link-2.svg?react';
@@ -140,6 +141,7 @@ import Redo2Icon from 'lucide-static/icons/redo-2.svg?react';
 import RefreshCwIcon from 'lucide-static/icons/refresh-cw.svg?react';
 import RotateCcwIcon from 'lucide-static/icons/rotate-ccw.svg?react';
 import RotateCcwClockIcon from 'lucide-static/icons/rotate-ccw-clock.svg?react';
+import Rows3Icon from 'lucide-static/icons/rows-3.svg?react';
 import ScrollTextIcon from 'lucide-static/icons/scroll-text.svg?react';
 import SearchIcon from 'lucide-static/icons/search.svg?react';
 import SendIcon from 'lucide-static/icons/send.svg?react';
@@ -191,17 +193,6 @@ import React from 'react';
 import GitlabIcon from 'simple-icons/icons/gitlab.svg?react';
 import MarkdownIcon from 'simple-icons/icons/markdown.svg?react';
 import DatoCMSIcon from './custom/dato_symbol.svg?react';
-import BooleanGroupIcon from './custom/fieldgroup-boolean.svg?react';
-import ColorGroupIcon from './custom/fieldgroup-color.svg?react';
-import DatetimeGroupIcon from './custom/fieldgroup-datetime.svg?react';
-import JsonGroupIcon from './custom/fieldgroup-json.svg?react';
-import LocationGroupIcon from './custom/fieldgroup-location.svg?react';
-import MediaGroupIcon from './custom/fieldgroup-media.svg?react';
-import NumberGroupIcon from './custom/fieldgroup-number.svg?react';
-import ReferenceGroupIcon from './custom/fieldgroup-reference.svg?react';
-import RichTextGroupIcon from './custom/fieldgroup-rich_text.svg?react';
-import SeoGroupIcon from './custom/fieldgroup-seo.svg?react';
-import StructuredTextGroupIcon from './custom/fieldgroup-structured_text.svg?react';
 import NetlifyIcon from './custom/netlify.svg?react';
 import TwitterVerifiedIcon from './custom/twitter-verified.svg?react';
 import VercelIcon from './custom/vercel.svg?react';
@@ -420,17 +411,17 @@ export const FieldEditor = {
 };
 
 export const FieldGroup = {
-  BooleanGroupIcon,
-  ColorGroupIcon,
-  DatetimeGroupIcon,
-  JsonGroupIcon,
-  LocationGroupIcon,
-  MediaGroupIcon,
-  NumberGroupIcon,
-  ReferenceGroupIcon,
-  RichTextGroupIcon,
-  SeoGroupIcon,
-  StructuredTextGroupIcon,
+  BooleanGroupIcon: ToggleRightIcon,
+  ColorGroupIcon: PaletteIcon,
+  DatetimeGroupIcon: CalendarIcon,
+  JsonGroupIcon: BracesIcon,
+  LocationGroupIcon: MapPinIcon,
+  MediaGroupIcon: ImageIcon,
+  NumberGroupIcon: HashIcon,
+  ReferenceGroupIcon: LinkIcon,
+  RichTextGroupIcon: Rows3Icon,
+  SeoGroupIcon: GlobeIcon,
+  StructuredTextGroupIcon: LetterTextIcon,
 };
 
 export const Deployment = {

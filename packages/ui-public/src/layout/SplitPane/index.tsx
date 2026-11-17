@@ -111,9 +111,10 @@ const SecondaryPaneMinSizeContext = createContext<
 // The content of the secondary pane asks for a larger width while it needs
 // it (for example, a sidebar in edit mode with more buttons in its title
 // bar). The pane is at least `minSize` pixels wide until the value is
-// undefined or the content unmounts. Then the pane gets its width again. The
-// width that the user keeps does not change. Out of a secondary pane, and
-// with a size in percent, the hook does nothing.
+// undefined or the content unmounts. Then the pane keeps its larger width
+// until the `size` prop changes, but the user can make it narrower again.
+// The width that the user keeps does not change. Out of a secondary pane,
+// and with a size in percent, the hook does nothing.
 export function useSecondaryPaneMinSize(minSize: number | undefined) {
   const setMinSize = useContext(SecondaryPaneMinSizeContext);
 
@@ -192,14 +193,30 @@ function SplitPane({
   // See useSecondaryPaneMinSize
   const [requestedMinSize, setRequestedMinSize] = useState<number>();
   // The width changes with an animation when the content asks for a larger
-  // width, and when it stops. A drag changes the width with no animation.
+  // width. A drag changes the width with no animation.
   const [isSizeAnimated, setSizeAnimated] = useState(false);
+  // When the request stops, the pane keeps its width. If the pane gets
+  // narrower, the elements move under the pointer, and a click goes to the
+  // wrong element. The value applies only while `size` is equal to `from`.
+  const [keptSize, setKeptSize] = useState<{ from: Size; size: number }>();
+  const renderedSecondarySize = useRef<Size | undefined>(undefined);
+  const latestSizeProp = useRef(sizeProp);
+  latestSizeProp.current = sizeProp;
 
   // The class of the animation and the new width are in the same render.
   // Thus the transition starts from the old width.
   const requestMinSize = useCallback((minSize: number | undefined) => {
     setRequestedMinSize(minSize);
-    setSizeAnimated(true);
+
+    if (minSize !== undefined) {
+      setSizeAnimated(true);
+      return;
+    }
+
+    const rendered = renderedSecondarySize.current;
+    if (typeof rendered === 'number' && rendered !== latestSizeProp.current) {
+      setKeptSize({ from: latestSizeProp.current, size: rendered });
+    }
   }, []);
 
   useEffect(() => {
@@ -211,10 +228,12 @@ function SplitPane({
     );
     return () => clearTimeout(timer);
   }, [isSizeAnimated]);
+  const unrequestedSize =
+    keptSize?.from === sizeProp ? keptSize.size : sizeProp;
   const size =
-    requestedMinSize !== undefined && typeof sizeProp === 'number'
-      ? Math.max(sizeProp, requestedMinSize)
-      : sizeProp;
+    requestedMinSize !== undefined && typeof unrequestedSize === 'number'
+      ? Math.max(unrequestedSize, requestedMinSize)
+      : unrequestedSize;
   const minSize =
     requestedMinSize !== undefined && typeof minSizeProp === 'number'
       ? Math.max(minSizeProp, requestedMinSize)
@@ -241,6 +260,10 @@ function SplitPane({
   // minimum width for one frame.)
   const [dragSizes, setDragSizes] = useState<{ from: Size[]; sizes: Size[] }>();
   const sizes = dragSizes?.from === baseSizes ? dragSizes.sizes : baseSizes;
+  // A collapsed pane and an overlay have the rail size in `sizes`
+  renderedSecondarySize.current = isSecondaryDocked
+    ? sizes[primaryPane === 'left' ? 1 : 0]
+    : size;
   const currentSizes = useRef<Size[]>(sizes);
   const isCollapsedByDrag = useRef(false);
 

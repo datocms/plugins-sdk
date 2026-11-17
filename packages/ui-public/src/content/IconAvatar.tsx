@@ -16,7 +16,8 @@ export type IconAvatarSurface =
   /**
    * A surface and an ink from the data or from a context of tokens, for
    * example `{ color: 'var(--color--field-group-media--surface)', ink:
-   * 'var(--color--field-group-media--ink)' }`
+   * 'var(--color--field-group-media--ink)' }`. `fieldTypeSurface` gives
+   * this pair for the group of a field type.
    */
   | { color: string; ink: string };
 

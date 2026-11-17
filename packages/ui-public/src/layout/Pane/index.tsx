@@ -59,9 +59,9 @@ export type PaneProps = PropsWithChildren<{
    */
   mode?: {
     /**
-     * Stops the mode. It runs when the user pushes the pointer on the page
-     * out of the pane. Menus and dialogs are not in the page: a click there
-     * does not run it.
+     * Stops the mode. It runs when the user clicks on the page out of the
+     * pane. Menus and dialogs are not in the page: a click there does not
+     * run it.
      */
     onExit: () => void;
   };
@@ -128,32 +128,34 @@ function Pane({
   useEffect(() => {
     if (!onExit) return;
 
+    // The mode stops on the click, not on the pointerdown. The pane can
+    // change its width when the mode stops. If it changes before the
+    // pointerup, the click goes to a different element.
+    let pressedOnPage = false;
+
     const handlePointerDown = (event: PointerEvent) => {
-      const pane = ref.current;
-      const target = event.target;
+      pressedOnPage = isOnPageOutOfPane(ref.current, event.target);
+    };
 
-      if (!pane || !(target instanceof Node) || pane.contains(target)) {
-        return;
-      }
+    const handleClick = (event: MouseEvent) => {
+      const clickedOnPage =
+        pressedOnPage && isOnPageOutOfPane(ref.current, event.target);
+      pressedOnPage = false;
 
-      // Menus, dialogs and tooltips are in portals: other children of the
-      // body. Thus only a target in the same child of the body as the pane is
-      // on the page.
-      let page: HTMLElement = pane;
-      while (page.parentElement && page.parentElement !== document.body) {
-        page = page.parentElement;
-      }
-
-      if (page.contains(target)) {
+      if (clickedOnPage) {
         exitedByClickOutside.current = true;
         onExit();
       }
     };
 
-    document.addEventListener('pointerdown', handlePointerDown);
+    // The capture phase, because a handler on the target can stop the
+    // propagation of the click
+    document.addEventListener('pointerdown', handlePointerDown, true);
+    document.addEventListener('click', handleClick, true);
 
     return () => {
-      document.removeEventListener('pointerdown', handlePointerDown);
+      document.removeEventListener('pointerdown', handlePointerDown, true);
+      document.removeEventListener('click', handleClick, true);
     };
   }, [onExit]);
 
@@ -190,6 +192,25 @@ function Pane({
       </PaneTitleIdProvider>
     </PaneAriaLabelProvider>
   );
+}
+
+// Menus, dialogs and tooltips are in portals: other children of the body.
+// Thus only a target in the same child of the body as the pane is on the
+// page.
+function isOnPageOutOfPane(
+  pane: HTMLElement | null,
+  target: EventTarget | null,
+) {
+  if (!pane || !(target instanceof Node) || pane.contains(target)) {
+    return false;
+  }
+
+  let page: HTMLElement = pane;
+  while (page.parentElement && page.parentElement !== document.body) {
+    page = page.parentElement;
+  }
+
+  return page.contains(target);
 }
 
 export default Object.assign(React.memo(Pane), {
