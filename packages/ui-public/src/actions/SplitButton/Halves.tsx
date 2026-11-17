@@ -11,7 +11,7 @@ type SplitButtonHalvesProps = {
 };
 
 /**
- * The main half and the place of the caret. `SplitButton` and its picture
+ * The main half and the caret. `SplitButton` and its picture
  * at rest (`Static.tsx`) render it.
  */
 const SplitButtonHalves = React.forwardRef<

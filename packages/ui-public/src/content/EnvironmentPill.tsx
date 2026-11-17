@@ -14,7 +14,7 @@ export type EnvironmentPillProps = {
   label?: Message;
 };
 
-/** A pill that tells the type of an environment, with its icon */
+/** A pill that shows the type of an environment, with its icon */
 function EnvironmentPill({ primary, label }: EnvironmentPillProps) {
   const { tc } = useTranslation();
   const Icon = primary

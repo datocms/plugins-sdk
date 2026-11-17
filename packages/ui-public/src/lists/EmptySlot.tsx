@@ -10,7 +10,7 @@ import { type ActionOrMenu } from './ActionOrMenu';
 
 type EmptySlotAction =
   /**
-   * The actions show in the place of the message when the pointer is on the
+   * The actions show instead of the message when the pointer is on the
    * slot, when an action has the focus or when its menu is open. On a touch
    * device, they always show.
    */

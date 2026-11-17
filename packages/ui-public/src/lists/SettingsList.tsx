@@ -21,7 +21,7 @@ export type SettingsListRowProps = {
   /**
    * The current value. A long value gets an ellipsis (in a narrow list, it
    * goes on more lines), and a value on more lines (an address) has each
-   * line at the right. An action without a value (for example "Log out
+   * line on the right. An action without a value (for example "Log out
    * everywhere") has no value.
    */
   value?: ReactNode;
@@ -33,7 +33,7 @@ export type SettingsListRowProps = {
   action?: ReactNode;
 };
 
-/** A setting or an action: the text at the left, the value and the control at the right */
+/** A setting or an action: the text on the left, the value and the control on the right */
 function Row({ title, description, value, action }: SettingsListRowProps) {
   const { tc } = useTranslation();
   return (
@@ -52,7 +52,7 @@ function Row({ title, description, value, action }: SettingsListRowProps) {
 
 /**
  * The settings of a wide page: one row for each value that the user changes
- * or for each action, with the control always visible at the right. Put it
+ * or for each action, with the control always visible on the right. Put it
  * in a Page.Group. For facts to read, use InfoList. For a list of items,
  * use CardList.
  */

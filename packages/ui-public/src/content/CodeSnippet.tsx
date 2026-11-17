@@ -9,7 +9,7 @@ export type CodeSnippetProps = {
   code: string;
   /**
    * The name of the box for screen readers, for example "Request body". The
-   * box is a region that the keyboard can focus, thus the arrow keys
+   * box is a region that the keyboard can focus, so the arrow keys
    * scroll it.
    */
   ariaLabel: TextMessage;

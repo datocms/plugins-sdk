@@ -47,9 +47,13 @@ export const entries = {
 
   // Forms
   AutosizeInput: 'ui-public/form/AutosizeInput',
+  DateInput: 'ui-public/form/DateInput',
+  DateTimeInput: 'ui-public/form/DateTimeInput',
+  DateTimeRangeInput: 'ui-public/form/DateTimeRangeInput',
   DebouncedTextInput: 'ui-public/form/DebouncedTextInput',
   FieldHint: 'ui-public/form/FieldHint',
   FieldWrapper: 'ui-public/form/FieldWrapper',
+  FilterBuilder: 'ui-public/form/FilterBuilder',
   InputGroup: 'ui-public/form/InputGroup',
   KeyValueList: 'ui-public/form/KeyValueList',
   Label: 'ui-public/form/Label',
@@ -73,6 +77,8 @@ export const entries = {
   RowList: 'ui-public/RowList',
   EntityRow: 'ui-public/EntityRow',
   EntitySummary: 'ui-public/EntitySummary',
+  UserRow: 'ui-public/UserRow',
+  RecordRow: 'ui-public/RecordRow',
   InfoList: 'ui-public/InfoList',
   CardList: 'ui-public/CardList',
   SettingsList: 'ui-public/SettingsList',
@@ -158,6 +164,11 @@ export const entries = {
 
   // Utils
   'utils/formatDate': 'ui-public/utils/formatDate',
+  // The other helpers of the module write English words
+  'utils/format': {
+    module: 'ui-public/utils/format',
+    only: { values: ['formatBytes'] },
+  },
 
   // The providers that Canvas mounts. They are in the output but not
   // public: the `exports` map of package.json blocks `./internal/*`. The

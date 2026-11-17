@@ -8,8 +8,8 @@ export type BoxSize = {
 export type UploadPreviewPadding = [vertical: number, horizontal: number];
 
 /**
- * The space around the asset when the caller gives no padding. Only an image
- * can have no space around it: when the caller gives zero padding, an icon
+ * The space around the asset when you give no padding. Only an image
+ * can have no space around it: when you give zero padding, an icon
  * gets this space, because an icon without space touches the edges of the
  * box.
  */

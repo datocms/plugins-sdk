@@ -29,7 +29,7 @@ export type IconAvatarProps = {
   surface?: IconAvatarSurface;
   /**
    * The name for the screen readers. Use it only when no text near the
-   * avatar tells what the icon shows. Without it, the screen readers do not
+   * avatar says what the icon shows. Without it, the screen readers do not
    * read the avatar.
    */
   ariaLabel?: TextMessage;

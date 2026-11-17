@@ -41,7 +41,7 @@ export type ItemValidityTrianglesProps = {
   currentValid?: boolean | null | undefined;
   /**
    * True when the model has a draft mode. Without it, the current version
-   * is the published version, thus the current triangle does not show.
+   * is the published version, so the current triangle does not show.
    */
   draftModeActive: boolean | null | undefined;
 };

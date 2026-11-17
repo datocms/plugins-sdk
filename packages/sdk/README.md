@@ -10,12 +10,12 @@ Plugins scaffolded from the official plugin template already include the SDK (al
 
 ## Developing
 
-DatoCMS develops this package in a private repository, together with the CMS that hosts the plugins. The branch [`next` of `datocms/plugins-sdk`](https://github.com/datocms/plugins-sdk/tree/next) has a copy of its source and of the source of [`datocms-react-ui`](https://github.com/datocms/plugins-sdk/tree/next/packages/react-ui), updated at each release. Its README tells how to propose a change.
+DatoCMS develops this package in a private repository, together with the CMS that hosts the plugins. The branch [`master` of `datocms/plugins-sdk`](https://github.com/datocms/plugins-sdk/tree/master) has a copy of its source and of the source of [`datocms-react-ui`](https://github.com/datocms/plugins-sdk/tree/master/packages/react-ui), updated at each release. Its README tells how to propose a change.
 
 To build the SDK from that branch:
 
 ```sh
-git clone --branch next https://github.com/datocms/plugins-sdk && cd plugins-sdk
+git clone https://github.com/datocms/plugins-sdk && cd plugins-sdk
 npm ci
 npm run build
 npm test
@@ -38,4 +38,4 @@ rm -rf node_modules/datocms-plugin-sdk node_modules/.vite && npm install
 
 ### Releasing (maintainers)
 
-The maintainers release the SDK from the private repository, with changesets. Each release updates the branch `next`.
+The maintainers release the SDK from the private repository, with changesets. Each release updates the branch `master`.

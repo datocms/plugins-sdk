@@ -62,7 +62,7 @@ type PropTypes<P extends AbstractTriggerComponentProps> = {
    * it runs only when the menu opens.
    */
   children: ReactElement | (() => ReactElement);
-  /** Only for the place of the dropdown, not for its look */
+  /** Only for the position of the dropdown, not for its look */
   className?: string;
   /** Lets the parent open the menu from code (see DropdownHandle) */
   controlRef?: React.Ref<DropdownHandle>;

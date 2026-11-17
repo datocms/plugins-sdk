@@ -55,7 +55,7 @@ export type PaneHeaderTitleProps = {
    * The level of the title as a heading. Give it only to a pane inside
    * <main> or inside a dialog that has content: the title of a detail pane
    * is level 2. Without it, the title is not a heading (for example the
-   * title of a list at the left).
+   * title of a list on the left).
    */
   level?: HeadingLevel;
   /** The help of the page (a Toolbar.Help element) */

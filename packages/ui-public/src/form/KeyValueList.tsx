@@ -47,7 +47,7 @@ export type KeyValueListTexts = {
 
 /** The props of a `KeyValueList` that are not its value and its state. */
 export type KeyValueListOptions = {
-  /** The texts of the list. Give a constant, thus the columns stay the same. */
+  /** The texts of the list. Give a constant, so the columns stay the same. */
   texts: KeyValueListTexts;
   /**
    * The language of the values, as a locale code, for example "it". The

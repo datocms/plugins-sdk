@@ -54,7 +54,7 @@ export type PillProps = {
   icon?: React.ReactNode;
   /**
    * A hint in a tooltip, on hover and on keyboard focus. A static pill with a
-   * tooltip takes the focus, thus the keyboard can reach the hint.
+   * tooltip takes the focus, so the keyboard can reach the hint.
    */
   tooltip?: Message;
   /** The text of the pill. Keep it short: a long text gets an ellipsis. */

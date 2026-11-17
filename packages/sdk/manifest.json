@@ -3065,7 +3065,7 @@
             },
             "location": {
               "filePath": "src/ctx/base.ts",
-              "lineNumber": 50
+              "lineNumber": 51
             },
             "type": "Plugin"
           }
@@ -3083,7 +3083,7 @@
             },
             "location": {
               "filePath": "src/ctx/base.ts",
-              "lineNumber": 34
+              "lineNumber": 35
             },
             "type": "User | SsoUser | Account | Organization"
           },
@@ -3093,7 +3093,7 @@
             },
             "location": {
               "filePath": "src/ctx/base.ts",
-              "lineNumber": 36
+              "lineNumber": 37
             },
             "type": "Role"
           },
@@ -3103,7 +3103,7 @@
             },
             "location": {
               "filePath": "src/ctx/base.ts",
-              "lineNumber": 41
+              "lineNumber": 42
             },
             "type": "string | undefined"
           }
@@ -3118,7 +3118,7 @@
             },
             "location": {
               "filePath": "src/ctx/base.ts",
-              "lineNumber": 58
+              "lineNumber": 59
             },
             "type": "Site"
           },
@@ -3128,7 +3128,7 @@
             },
             "location": {
               "filePath": "src/ctx/base.ts",
-              "lineNumber": 61
+              "lineNumber": 62
             },
             "type": "string"
           },
@@ -3138,7 +3138,7 @@
             },
             "location": {
               "filePath": "src/ctx/base.ts",
-              "lineNumber": 64
+              "lineNumber": 65
             },
             "type": "boolean"
           },
@@ -3148,7 +3148,7 @@
             },
             "location": {
               "filePath": "src/ctx/base.ts",
-              "lineNumber": 74
+              "lineNumber": 75
             },
             "type": "string"
           },
@@ -3158,7 +3158,7 @@
             },
             "location": {
               "filePath": "src/ctx/base.ts",
-              "lineNumber": 83
+              "lineNumber": 84
             },
             "type": "string"
           },
@@ -3168,7 +3168,7 @@
             },
             "location": {
               "filePath": "src/ctx/base.ts",
-              "lineNumber": 86
+              "lineNumber": 87
             },
             "type": "Account | Organization"
           },
@@ -3179,7 +3179,7 @@
             },
             "location": {
               "filePath": "src/ctx/base.ts",
-              "lineNumber": 94
+              "lineNumber": 95
             },
             "type": "Account | undefined"
           },
@@ -3189,7 +3189,7 @@
             },
             "location": {
               "filePath": "src/ctx/base.ts",
-              "lineNumber": 100
+              "lineNumber": 101
             },
             "type": "{\n    /** Preferred locale */\n    locale: string;\n    /** Preferred date format, as a `date-fns` pattern, for example `dd/MM/yyyy` */\n    dateFormat: string;\n    /** Preferred time zone, as an IANA name, for example `Europe/Rome` */\n    timezone: string;\n    /** Whether times use a 24-hour clock (`true`) or a 12-hour clock */\n    twentyFourHour: boolean;\n  }"
           },
@@ -3200,7 +3200,7 @@
             },
             "location": {
               "filePath": "src/ctx/base.ts",
-              "lineNumber": 117
+              "lineNumber": 118
             },
             "type": "Theme"
           },
@@ -3210,7 +3210,7 @@
             },
             "location": {
               "filePath": "src/ctx/base.ts",
-              "lineNumber": 125
+              "lineNumber": 126
             },
             "type": "CssDesignTokens"
           },
@@ -3220,7 +3220,7 @@
             },
             "location": {
               "filePath": "src/ctx/base.ts",
-              "lineNumber": 140
+              "lineNumber": 141
             },
             "type": "'light' | 'dark'"
           },
@@ -3230,7 +3230,7 @@
             },
             "location": {
               "filePath": "src/ctx/base.ts",
-              "lineNumber": 153
+              "lineNumber": 154
             },
             "type": "number"
           }
@@ -3248,7 +3248,7 @@
             },
             "location": {
               "filePath": "src/ctx/base.ts",
-              "lineNumber": 163
+              "lineNumber": 164
             },
             "type": "Partial<Record<string, ItemType>>"
           },
@@ -3258,7 +3258,7 @@
             },
             "location": {
               "filePath": "src/ctx/base.ts",
-              "lineNumber": 170
+              "lineNumber": 171
             },
             "type": "Partial<Record<string, Field>>"
           },
@@ -3268,7 +3268,7 @@
             },
             "location": {
               "filePath": "src/ctx/base.ts",
-              "lineNumber": 177
+              "lineNumber": 178
             },
             "type": "Partial<Record<string, Fieldset>>"
           },
@@ -3278,7 +3278,7 @@
             },
             "location": {
               "filePath": "src/ctx/base.ts",
-              "lineNumber": 184
+              "lineNumber": 185
             },
             "type": "Partial<Record<string, User>>"
           },
@@ -3288,7 +3288,7 @@
             },
             "location": {
               "filePath": "src/ctx/base.ts",
-              "lineNumber": 191
+              "lineNumber": 192
             },
             "type": "Partial<Record<string, SsoUser>>"
           }
@@ -3309,7 +3309,7 @@
             },
             "location": {
               "filePath": "src/ctx/base.ts",
-              "lineNumber": 254
+              "lineNumber": 255
             },
             "type": "(itemTypeId: string) => Promise<Field[]>"
           },
@@ -3320,7 +3320,7 @@
             },
             "location": {
               "filePath": "src/ctx/base.ts",
-              "lineNumber": 273
+              "lineNumber": 274
             },
             "type": "(itemTypeId: string) => Promise<Fieldset[]>"
           },
@@ -3331,7 +3331,7 @@
             },
             "location": {
               "filePath": "src/ctx/base.ts",
-              "lineNumber": 290
+              "lineNumber": 291
             },
             "type": "() => Promise<Field[]>"
           },
@@ -3342,7 +3342,7 @@
             },
             "location": {
               "filePath": "src/ctx/base.ts",
-              "lineNumber": 303
+              "lineNumber": 304
             },
             "type": "() => Promise<User[]>"
           },
@@ -3353,9 +3353,42 @@
             },
             "location": {
               "filePath": "src/ctx/base.ts",
-              "lineNumber": 316
+              "lineNumber": 317
             },
             "type": "() => Promise<SsoUser[]>"
+          },
+          "loadItemPresentationInfo": {
+            "comment": {
+              "markdownText": "Resolves how the interface presents some records: the title, the image,\nthe status and the validity, the same that DatoCMS shows in its lists and\nin its link fields. The result has the presentation of the plugins that\nimplement `buildItemPresentationInfo`, with the same `rank` rules.\n\nPass IDs, or full records that you already have: a full record is used as\nit is, and DatoCMS does not fetch it again. A record must have an ID. The\nID of a block works too: the block gets the presentation of its model,\nwith no `editPath`. One call resolves all the records, so call it once\nfor a list, not once for each record.\n\nThe result is an array with the order and the length of `itemsOrIds`:\nthe entry at index i is the presentation of the record at index i. It is\n`null` when the record does not exist, or when the current user cannot\nread it. The same ID twice gives two entries.\n\nThe result is a snapshot: it does not change when somebody edits the\nrecord. Call the method again to get the new presentation. To get the\nfull records, call `loadItems`.",
+              "example": "const itemId = prompt('Please insert a record ID:');\n\nconst [info] = await ctx.loadItemPresentationInfo([itemId]);\n\nif (info) {\n  ctx.notice(`The title of the record is \"${info.title}\"`);\n} else {\n  ctx.alert('The record does not exist.');\n}"
+            },
+            "location": {
+              "filePath": "src/ctx/base.ts",
+              "lineNumber": 353
+            },
+            "type": "(\n    itemsOrIds: Array<string | Item>,\n    options?: LoadItemPresentationInfoOptions,\n  ) => Promise<Array<ResolvedItemPresentationInfo | null>>"
+          },
+          "loadItems": {
+            "comment": {
+              "markdownText": "Loads some records by ID, for example the records of the value of a link\nfield, which holds only their IDs. The ID of a block works too, for\nexample an ID from a field of blocks: the result is the block. One call\nloads all the records, so call it once for a list, not once for each\nrecord.\n\nA record has the same shape that `selectItem` and `editItem` give: the\ncurrent version of the record, with its draft changes. A field of blocks\n(Modular Content, single block, Structured Text) holds the IDs of the\nblocks, not the blocks.\n\nThe result is an array with the order and the length of `itemIds`: the\nentry at index i is the record with the ID at index i. It is `null` when\nthe record does not exist, or when the current user cannot read it. The\nsame ID twice gives two entries.\n\nThe result is a snapshot: it does not change when somebody edits the\nrecord. Call the method again to get the new record.",
+              "example": "const itemId = prompt('Please insert a record ID:');\n\nconst [item] = await ctx.loadItems([itemId]);\n\nif (item) {\n  ctx.notice(`The model of the record is ${item.relationships.item_type.data.id}`);\n} else {\n  ctx.alert('The record does not exist.');\n}"
+            },
+            "location": {
+              "filePath": "src/ctx/base.ts",
+              "lineNumber": 391
+            },
+            "type": "(itemIds: string[]) => Promise<Array<Item | null>>"
+          },
+          "loadUploads": {
+            "comment": {
+              "markdownText": "Loads some assets of the Media Area by ID, for example the assets of the\nvalue of a file or gallery field, which holds only their `upload_id`.\nOne call loads all the assets, so call it once for a list, not once for\neach asset.\n\nThe result is an array with the order and the length of `uploadIds`: the\nentry at index i is the asset with the ID at index i. It is `null` when\nthe asset does not exist, or when the current user cannot read it. The\nsame ID twice gives two entries.\n\nThe result is a snapshot: it does not change when somebody edits the\nasset. Call the method again to get the new asset.",
+              "example": "const uploadId = prompt('Please insert an asset ID:');\n\nconst [upload] = await ctx.loadUploads([uploadId]);\n\nif (upload) {\n  ctx.notice(`The file name of the asset is \"${upload.attributes.filename}\"`);\n} else {\n  ctx.alert('The asset does not exist.');\n}"
+            },
+            "location": {
+              "filePath": "src/ctx/base.ts",
+              "lineNumber": 420
+            },
+            "type": "(uploadIds: string[]) => Promise<Array<Upload | null>>"
           }
         }
       },
@@ -3372,7 +3405,7 @@
             },
             "location": {
               "filePath": "src/ctx/base.ts",
-              "lineNumber": 338
+              "lineNumber": 531
             },
             "type": "(params: Record<string, unknown>) => Promise<void>"
           },
@@ -3383,7 +3416,7 @@
             },
             "location": {
               "filePath": "src/ctx/base.ts",
-              "lineNumber": 389
+              "lineNumber": 582
             },
             "type": "(\n    fieldId: string,\n    changes: FieldAppearanceChange[],\n  ) => Promise<void>"
           }
@@ -3402,7 +3435,7 @@
             },
             "location": {
               "filePath": "src/ctx/base.ts",
-              "lineNumber": 494
+              "lineNumber": 687
             },
             "type": "(message: string) => Promise<void>"
           },
@@ -3413,7 +3446,7 @@
             },
             "location": {
               "filePath": "src/ctx/base.ts",
-              "lineNumber": 509
+              "lineNumber": 702
             },
             "type": "(message: string) => Promise<void>"
           },
@@ -3424,7 +3457,7 @@
             },
             "location": {
               "filePath": "src/ctx/base.ts",
-              "lineNumber": 533
+              "lineNumber": 726
             },
             "type": "<CtaValue = unknown>(\n    toast: Toast<CtaValue>,\n  ) => Promise<CtaValue | null>"
           }
@@ -3443,7 +3476,7 @@
             },
             "location": {
               "filePath": "src/ctx/base.ts",
-              "lineNumber": 419
+              "lineNumber": 612
             },
             "type": "(itemTypeId: string) => Promise<Item | null>"
           },
@@ -3454,7 +3487,7 @@
             },
             "location": {
               "filePath": "src/ctx/base.ts",
-              "lineNumber": 440
+              "lineNumber": 633
             },
             "type": "{\n    (\n      itemTypeId: string,\n      options: { multiple: true; initialLocationQuery?: ItemListLocationQuery },\n    ): Promise<Item[] | null>;\n    (\n      itemTypeId: string,\n      options?: {\n        multiple: false;\n        initialLocationQuery?: ItemListLocationQuery;\n      },\n    ): Promise<Item | null>;\n  }"
           },
@@ -3465,7 +3498,7 @@
             },
             "location": {
               "filePath": "src/ctx/base.ts",
-              "lineNumber": 472
+              "lineNumber": 665
             },
             "type": "(itemId: string) => Promise<Item | null>"
           }
@@ -3484,7 +3517,7 @@
             },
             "location": {
               "filePath": "src/ctx/base.ts",
-              "lineNumber": 560
+              "lineNumber": 753
             },
             "type": "{\n    (options: { multiple: true }): Promise<Upload[] | null>;\n    (options?: { multiple: false }): Promise<Upload | null>;\n  }"
           },
@@ -3495,7 +3528,7 @@
             },
             "location": {
               "filePath": "src/ctx/base.ts",
-              "lineNumber": 588
+              "lineNumber": 781
             },
             "type": "(\n    uploadId: string,\n  ) => Promise<(Upload & { deleted?: true }) | null>"
           },
@@ -3506,7 +3539,7 @@
             },
             "location": {
               "filePath": "src/ctx/base.ts",
-              "lineNumber": 617
+              "lineNumber": 810
             },
             "type": "(\n    /** The \"single asset\" field structure */\n    fileFieldValue: FileFieldValue,\n    /** Shows metadata information for a specific locale */\n    locale?: string,\n  ) => Promise<FileFieldValue | null>"
           }
@@ -3525,7 +3558,7 @@
             },
             "location": {
               "filePath": "src/ctx/base.ts",
-              "lineNumber": 648
+              "lineNumber": 841
             },
             "type": "(modal: Modal) => Promise<unknown>"
           },
@@ -3536,7 +3569,7 @@
             },
             "location": {
               "filePath": "src/ctx/base.ts",
-              "lineNumber": 685
+              "lineNumber": 878
             },
             "type": "(options: ConfirmOptions) => Promise<unknown>"
           }
@@ -3555,7 +3588,7 @@
             },
             "location": {
               "filePath": "src/ctx/base.ts",
-              "lineNumber": 699
+              "lineNumber": 892
             },
             "type": "(path: string) => Promise<void>"
           }

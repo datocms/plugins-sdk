@@ -26,9 +26,9 @@ export type NavProps = Omit<
   );
 
 /**
- * A list of links that go to other places of the app: a landmark of the
- * page. Do not use it for a list of controls that change the content of the
- * same place (use Tabs).
+ * A list of links that go to other pages: a landmark of the page. Do
+ * not use it for a list of controls that change the content of the same
+ * page (use Tabs).
  */
 const Nav = React.forwardRef<HTMLElement, NavProps>(function Nav(
   { ariaLabel, ariaLabelledBy, ...props },

@@ -2,9 +2,8 @@ import type { ReactElement } from 'react';
 
 /**
  * A translation key with its values, for example `{ id: 'button.save' }`.
- * The texts adapter of the host gives the text of the key: the resources of
- * i18next in the apps, the texts of ui-public and the `texts` map in
- * `BundledTexts`. See the "Texts provider" docs page.
+ * The texts adapter of the host gives the text of the key. See "Texts" on
+ * the `Canvas` docs page.
  */
 export type IntlMessage = { id: string; values?: Record<string, any> };
 
@@ -20,7 +19,7 @@ export type HtmlMessage = { html: string };
 export type Message = string | ReactElement | IntlMessage | HtmlMessage;
 
 /**
- * A text that goes in an attribute (for example `aria-label`), thus it cannot
+ * A text that goes in an attribute (for example `aria-label`), so it cannot
  * be a React element or HTML.
  */
 export type TextMessage = string | IntlMessage;

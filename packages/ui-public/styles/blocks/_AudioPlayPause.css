@@ -1,0 +1,63 @@
+/* The waveform is always the same picture, not the sound of the file */
+
+/* A registered percentage, so the played part grows smoothly between two
+   updates of the time */
+@property --AudioPlayPause-progress {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 0%;
+}
+.AudioPlayPause {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* The picture is a mask: the background gives the colors of the bars */
+.AudioPlayPause__wave {
+  width: 80%;
+  aspect-ratio: 174 / 40;
+  /* token-audit-disable-next-line mismatch -- the mask makes the background the bars of a picture, so it's foreground */
+  background: linear-gradient(
+    to right,
+    var(--color--progress--fill) var(--AudioPlayPause-progress),
+    var(--color--ink-placeholder) var(--AudioPlayPause-progress)
+  );
+  mask:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 174 40'%3E%3Crect x='0' y='15.9' width='2' height='8.2' rx='1'/%3E%3Crect x='4' y='16.15' width='2' height='7.7' rx='1'/%3E%3Crect x='8' y='15.25' width='2' height='9.5' rx='1'/%3E%3Crect x='12' y='11.05' width='2' height='17.9' rx='1'/%3E%3Crect x='16' y='10' width='2' height='20' rx='1'/%3E%3Crect x='20' y='11.85' width='2' height='16.3' rx='1'/%3E%3Crect x='24' y='7.5' width='2' height='25' rx='1'/%3E%3Crect x='28' y='6.15' width='2' height='27.7' rx='1'/%3E%3Crect x='32' y='12.25' width='2' height='15.5' rx='1'/%3E%3Crect x='36' y='14.35' width='2' height='11.3' rx='1'/%3E%3Crect x='40' y='11.65' width='2' height='16.7' rx='1'/%3E%3Crect x='44' y='6' width='2' height='28' rx='1'/%3E%3Crect x='48' y='2.2' width='2' height='35.6' rx='1'/%3E%3Crect x='52' y='6.95' width='2' height='26.1' rx='1'/%3E%3Crect x='56' y='15.35' width='2' height='9.3' rx='1'/%3E%3Crect x='60' y='16.6' width='2' height='6.8' rx='1'/%3E%3Crect x='64' y='11.45' width='2' height='17.1' rx='1'/%3E%3Crect x='68' y='6.3' width='2' height='27.4' rx='1'/%3E%3Crect x='72' y='8.25' width='2' height='23.5' rx='1'/%3E%3Crect x='76' y='14.1' width='2' height='11.8' rx='1'/%3E%3Crect x='80' y='15.2' width='2' height='9.6' rx='1'/%3E%3Crect x='84' y='12.8' width='2' height='14.4' rx='1'/%3E%3Crect x='88' y='10.1' width='2' height='19.8' rx='1'/%3E%3Crect x='92' y='5.65' width='2' height='28.7' rx='1'/%3E%3Crect x='96' y='6.15' width='2' height='27.7' rx='1'/%3E%3Crect x='100' y='6.5' width='2' height='27' rx='1'/%3E%3Crect x='104' y='3.35' width='2' height='33.3' rx='1'/%3E%3Crect x='108' y='3.85' width='2' height='32.3' rx='1'/%3E%3Crect x='112' y='5.65' width='2' height='28.7' rx='1'/%3E%3Crect x='116' y='8.7' width='2' height='22.6' rx='1'/%3E%3Crect x='120' y='11.35' width='2' height='17.3' rx='1'/%3E%3Crect x='124' y='9.85' width='2' height='20.3' rx='1'/%3E%3Crect x='128' y='9.4' width='2' height='21.2' rx='1'/%3E%3Crect x='132' y='10.95' width='2' height='18.1' rx='1'/%3E%3Crect x='136' y='8.25' width='2' height='23.5' rx='1'/%3E%3Crect x='140' y='6.7' width='2' height='26.6' rx='1'/%3E%3Crect x='144' y='11.2' width='2' height='17.6' rx='1'/%3E%3Crect x='148' y='15.45' width='2' height='9.1' rx='1'/%3E%3Crect x='152' y='14' width='2' height='12' rx='1'/%3E%3Crect x='156' y='10.15' width='2' height='19.7' rx='1'/%3E%3Crect x='160' y='11.65' width='2' height='16.7' rx='1'/%3E%3Crect x='164' y='15.8' width='2' height='8.4' rx='1'/%3E%3Crect x='168' y='16.6' width='2' height='6.8' rx='1'/%3E%3Crect x='172' y='14.65' width='2' height='10.7' rx='1'/%3E%3C/svg%3E")
+    center / 100% 100% no-repeat;
+  transition: --AudioPlayPause-progress 0.3s linear;
+}
+.AudioPlayPause__button {
+  position: absolute;
+}
+/* The audio play button is the only button with fully round corners (see
+   also AudioPlayer) */
+.AudioPlayPause.big .AudioPlayPause__button {
+  top: 50%;
+  left: 50%;
+  border-radius: var(--radius-full);
+  transform: translate(-50%, -50%);
+}
+/* A small preview (a row of a table) has no room for a round button: all
+   the preview is the button, and the icon is on the waveform */
+.AudioPlayPause.small {
+  .AudioPlayPause__wave {
+    opacity: 0.5;
+  }
+  .AudioPlayPause__button {
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+
+    svg {
+      color: var(--color--ink-subtle);
+    }
+    &:hover svg,
+    &:focus-visible svg {
+      color: var(--color--ink-link);
+    }
+  }
+}

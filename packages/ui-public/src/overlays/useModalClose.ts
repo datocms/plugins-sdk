@@ -35,9 +35,9 @@ let openDialogLayers: DialogLayer[] = [];
 
 /**
  * Gives a dialog its z-index. A dialog shows over its parent layer and over
- * all the dialogs that are open, also when it is not inside them in the
+ * all the dialogs that are open, even when it is not inside them in the
  * React tree (for example a dialog that opens from the root of the app).
- * Thus the last dialog that opens is on top. Its `ActionLayer` gets the
+ * So the last dialog that opens is on top. Its `ActionLayer` gets the
  * keys in the same order.
  */
 export function useDialogLayer(): DialogLayer {
@@ -80,7 +80,7 @@ type UseModalCloseOptions = {
  * element that matches `initialFocus`, or to the dialog. When the dialog
  * closes, the focus goes back to the element that opened it, or to its
  * nearest ancestor when the element left the page. It also gives
- * the language of that element: the dialog is in a Portal, thus it does not
+ * the language of that element: the dialog is in a Portal, so it does not
  * get the `lang` of the page around the trigger.
  */
 export function useDialogFocus(initialFocus: string) {

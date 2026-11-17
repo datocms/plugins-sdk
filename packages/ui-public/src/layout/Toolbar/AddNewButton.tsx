@@ -10,7 +10,7 @@ import PrimaryButton from './PrimaryButton';
 type ExtraAction = {
   /** The text of the action */
   label: TextMessage;
-  /** The full URL of the page (the app adds its prefixes) */
+  /** The full URL of the page (DatoCMS adds its prefixes) */
   to: string;
   /** The icon of the action */
   icon?: SvgIcon;
@@ -20,7 +20,7 @@ export type AddNewButtonProps = {
   /** The text of the button ("Add new webhook") */
   label: TextMessage;
   /**
-   * The full URL of the page of the new item (the app adds its prefixes,
+   * The full URL of the page of the new item (DatoCMS adds its prefixes,
    * for example the environment)
    */
   to: string;

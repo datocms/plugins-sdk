@@ -16,7 +16,7 @@ const INTERACTIVE_SELECTOR =
  *   does its own action.
  * - A click that ends a text selection (for example, to copy a value).
  *
- * When `enabled` is false, the hook returns `undefined`, thus the row has no
+ * When `enabled` is false, the hook returns `undefined`, so the row has no
  * click handler. The handler is stable: it always calls the latest `handler`.
  */
 export function useSmartRowClick<T extends HTMLElement = HTMLElement>(

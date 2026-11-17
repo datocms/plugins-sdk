@@ -63,21 +63,21 @@ const DocsButton = React.memo(function DocsButton({
 });
 
 /**
- * While the content loads: a spinner shows in the place of the icon. The
- * title then tells what loads. Without a title, the spinner tells that the
+ * While the content loads, a spinner shows instead of the icon. The
+ * title then says what loads. Without a title, the spinner says that the
  * content loads.
  */
 type Loading = {
-  /** Shows a spinner in the place of the icon */
+  /** Shows a spinner instead of the icon */
   loading: true;
   /** What loads, for example "Loading the invoices" */
   title?: Message;
-  /** The spinner takes the place of the icon */
+  /** The spinner replaces the icon */
   icon?: never;
   error?: never;
 };
 
-/** The content is ready: the blank slate tells why there is nothing to show */
+/** The content is ready: the blank slate says why there is nothing to show */
 type Loaded = {
   loading?: false;
   /**

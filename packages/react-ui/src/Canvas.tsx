@@ -16,11 +16,15 @@ import {
   NavigationProvider,
 } from 'ui-public/NavigationProvider';
 import { PortalWrapperProvider } from 'ui-public/PortalWrapper';
+import { RecordPresentationProvider } from 'ui-public/RecordRow/presentation';
+import { UploadPresentationProvider } from 'ui-public/UploadPreview/presentation';
 import adapterTexts from '../locales/en.json';
 import { type BaseCtx, CtxContext, useCtx } from './ctx';
 import { ctxDateSettings } from './ctxDateSettings';
 import { useCtxHostServices } from './ctxHostServices';
 import { useCtxNavigation } from './ctxNavigation';
+import { useCtxRecordPresentation } from './ctxRecordPresentation';
+import { useCtxUploadsLoader } from './ctxUploads';
 
 export type { BaseCtx, NavigationAdapter };
 export { useCtx };
@@ -127,12 +131,19 @@ function CtxAdapters({
 }: Pick<CanvasProps, 'ctx' | 'navigation' | 'children'>) {
   const hostServices = useCtxHostServices(ctx);
   const ctxNavigation = useCtxNavigation(ctx);
+  const recordPresentation = useCtxRecordPresentation(ctx);
+  const loadUploads = useCtxUploadsLoader(ctx);
   const { locale, dateFormat, timezone, twentyFourHour } = ctx.ui as Parameters<
     typeof ctxDateSettings
   >[0];
+  const projectTimezone = ctx.site.attributes.timezone;
   const dateSettings = useMemo(
-    () => ctxDateSettings({ locale, dateFormat, timezone, twentyFourHour }),
-    [locale, dateFormat, timezone, twentyFourHour],
+    () =>
+      ctxDateSettings(
+        { locale, dateFormat, timezone, twentyFourHour },
+        projectTimezone,
+      ),
+    [locale, dateFormat, timezone, twentyFourHour, projectTimezone],
   );
 
   return (
@@ -141,9 +152,19 @@ function CtxAdapters({
         <DateSettingsProvider value={dateSettings}>
           <PortalWrapperProvider value={CanvasPortalWrapper}>
             <MenuSheetProvider enabled={false}>
-              <ActionsProvider>
-                <HoverDelayGroup>{children}</HoverDelayGroup>
-              </ActionsProvider>
+              <RecordPresentationProvider
+                load={recordPresentation.load}
+                model={recordPresentation.model}
+              >
+                <UploadPresentationProvider
+                  load={loadUploads}
+                  mainLocale={ctx.site?.attributes.locales?.[0]}
+                >
+                  <ActionsProvider>
+                    <HoverDelayGroup>{children}</HoverDelayGroup>
+                  </ActionsProvider>
+                </UploadPresentationProvider>
+              </RecordPresentationProvider>
             </MenuSheetProvider>
           </PortalWrapperProvider>
         </DateSettingsProvider>
@@ -165,7 +186,13 @@ function CtxAdapters({
  *   `ctx.alert`, `ctx.customToast`, `ctx.openConfirm`);
  * - the router: `ctx.navigateTo`, and `ctx.location` in a page and in an
  *   inspector;
- * - the date settings of the user, from `ctx.ui`;
+ * - the date settings of the user, from `ctx.ui`, and the time zone of the
+ *   project, from `ctx.site`;
+ * - the presentation of the records of `RecordRow` with `item`, from
+ *   `ctx.loadItemPresentationInfo` and `ctx.itemTypes`;
+ * - the assets of `UploadPreview` and `UploadCard` with an asset ID, from
+ *   `ctx.loadUploads`, and the main locale of the project for the caption
+ *   of `UploadCard`, from `ctx.site`;
  * - the hot keys, the actions of `useRegisterActions` and the delays of the
  *   tooltips.
  *

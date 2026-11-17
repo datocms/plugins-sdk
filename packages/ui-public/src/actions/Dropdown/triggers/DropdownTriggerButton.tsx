@@ -24,7 +24,7 @@ export type DropdownTriggerButtonProps = DropdownTriggerBaseProps &
   > & {
     /**
      * The menu cannot open. With a reason, the button keeps the focus and
-     * its tooltip tells why.
+     * its tooltip says why.
      */
     disabled?: Disabled;
   };

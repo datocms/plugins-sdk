@@ -18,7 +18,7 @@ export type SearchProps = Omit<
 /**
  * The controls that search or filter a collection: the field of the text
  * and the filters. It is a landmark of the page. The native search element
- * is not in the types of React 17, thus it is a div with the role.
+ * is not in the types of React 17, so it is a div with the role.
  */
 const Search = React.forwardRef<HTMLDivElement, SearchProps>(function Search(
   { ariaLabel, ...props },

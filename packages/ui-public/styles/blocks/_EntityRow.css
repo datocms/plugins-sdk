@@ -33,6 +33,13 @@
     width: 100%;
     height: 100%;
   }
+
+  /* The rule above has the specificity of .UploadPreview, thus without this
+     rule the import order of the two blocks decides if the asset is in the
+     center. Keep the display of .UploadPreview (_UploadPreview.css). */
+  > .UploadPreview {
+    display: flex;
+  }
 }
 .EntityRow--inline .EntityRow__image {
   border-radius: var(--radius-xs);

@@ -11,7 +11,7 @@ export type NewZIndexProps = {
 
 /**
  * Gives its content a z-index 10 higher than the one of the parent layer.
- * Every floating layer (dialog, menu, tooltip) wraps its box in it, thus a
+ * Every floating layer (dialog, menu, tooltip) wraps its box in it, so a
  * layer always shows over its parent.
  */
 export default function NewZIndex({ children, forcedValue }: NewZIndexProps) {

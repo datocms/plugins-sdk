@@ -4,13 +4,13 @@ import { Generic } from '../../../icons';
 
 export type DragHandleProps = {
   /**
-   * Puts the handle in the gutter at the left of the item, out of its
+   * Puts the handle in the gutter on the left of the item, out of its
    * content. "wide" is a wider gutter, for a table row. The item must have a
    * CSS `position`. Without it, the handle stays in the flow, and its place
    * comes from `className`.
    */
   gutter?: 'normal' | 'wide';
-  /** A class for the place of the handle in its block */
+  /** A class for the position of the handle in its block */
   className?: string;
 };
 

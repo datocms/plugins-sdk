@@ -46,7 +46,7 @@ type ListDetailPanelState =
       toolbarAction?: React.ReactNode;
       /**
        * The element that the panel shows: its name and a line under it (for
-       * example the email of a member), with an optional image at the left
+       * example the email of a member), with an optional image on the left
        * (for example an avatar). Without it, the page writes its own
        * `ListDetailPanel__entity` block in the children.
        */
@@ -67,7 +67,7 @@ export type ListDetailPanelProps = {
   title: TextMessage;
 } & ListDetailPanelState;
 
-/** The panel at the right of a ListDetail.Page that shows the open row */
+/** The panel on the right of a ListDetail.Page that shows the open row */
 function ListDetailPanel({
   title,
   state = 'ready',

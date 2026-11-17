@@ -51,9 +51,9 @@ export type FieldHintProps = {
   /**
    * The text of the hint. A string is plain text. For markup, give
    * `{ html }`: unlike the other `Message` props, the component does NOT
-   * sanitize this HTML (the sanitizer removes `data-router-link`), thus only
+   * sanitize this HTML (the sanitizer removes `data-router-link`), so only
    * give HTML that you trust. A link with the `data-router-link` attribute
-   * in it opens with the router of the app.
+   * in it opens with the router of DatoCMS.
    */
   hint?: Message;
   /**

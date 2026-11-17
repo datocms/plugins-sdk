@@ -11,7 +11,7 @@ export type DropTargetClassNameArgs = {
   ringOnly?: boolean;
   /**
    * A drag is in progress, and the target does not take the dragged
-   * element. The target fades, thus the user sees where the element cannot
+   * element. The target fades, so the user sees where the element cannot
    * go before the pointer gets there. Read the drag with `useActiveDrag`.
    * @default false
    */

@@ -17,7 +17,7 @@ export type ToolbarProps = {
   borderBottom?: boolean;
   /**
    * The toolbar holds fields (a filter form): its buttons have the height
-   * of the fields ("field" size), thus their edges align
+   * of the fields ("field" size), so their edges align
    */
   fields?: boolean;
   /**
@@ -60,7 +60,7 @@ function Root({
       className={cn(
         'Toolbar',
         style && `Toolbar--${style}`,
-        { 'Toolbar--border-bottom': borderBottom },
+        { 'Toolbar--border-bottom': borderBottom, 'Toolbar--fields': fields },
         className,
       )}
     >

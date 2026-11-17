@@ -4,7 +4,7 @@
 
 /** The props of an input that is disabled: it needs no name and no handlers. */
 export type BaseInputComponentPropsFieldDisabled<Value = unknown> = {
-  /** The `id` that `Field` gives, for the `label` to point to. */
+  /** The `id` that the field gives, for the `label` to point to. */
   id?: string;
   /** The value of the field in the form. */
   value: Value;
@@ -20,7 +20,7 @@ export type BaseInputComponentPropsFieldDisabled<Value = unknown> = {
 
 /** The props of an input that the user can change. */
 export type BaseInputComponentPropsFieldEnabled<Value = unknown> = {
-  /** The `id` that `Field` gives, for the `label` to point to. */
+  /** The `id` that the field gives, for the `label` to point to. */
   id?: string;
   /** The value of the field in the form. */
   value: Value;
@@ -53,7 +53,7 @@ export type FieldInputStatics = {
 };
 
 /**
- * The `aria-labelledby` that `Field` gives: the `id` of the text of its label.
+ * The `aria-labelledby` that the field gives: the `id` of the text of its label.
  * A group input (a radio group) puts it on its group element, because the
  * `htmlFor` of the label cannot point to a group.
  */
@@ -80,7 +80,7 @@ export type BaseInputComponentPropsFieldWithReadOnlyNonEditable<
   Value = unknown,
   ChangeDetail extends unknown[] = [],
 > = {
-  /** The `id` that `Field` gives, for the `label` to point to. */
+  /** The `id` that the field gives, for the `label` to point to. */
   id?: string;
   /** The value of the field in the form. */
   value: Value;
@@ -103,7 +103,7 @@ export type BaseInputComponentPropsFieldWithReadOnlyEditable<
   Value = unknown,
   ChangeDetail extends unknown[] = [],
 > = {
-  /** The `id` that `Field` gives, for the `label` to point to. */
+  /** The `id` that the field gives, for the `label` to point to. */
   id?: string;
   /** The value of the field in the form. */
   value: Value;
@@ -130,7 +130,7 @@ export type BaseInputComponentPropsFieldWithReadOnlyEditable<
  * `BaseInputComponentPropsFieldWithReadOnlyEditable` and
  * `BaseInputComponentPropsFieldWithReadOnlyNonEditable`. `ChangeDetail` is
  * the list of the arguments that `onChange` gets after the value. It is empty
- * by default, thus a handler with one parameter always fits.
+ * by default, so a handler with one parameter always fits.
  */
 export type BaseInputComponentPropsFieldWithReadOnly<
   Value = unknown,

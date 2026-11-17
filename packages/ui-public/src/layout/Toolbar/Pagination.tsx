@@ -39,7 +39,7 @@ const DEFAULT_PER_PAGE_OPTIONS = [25, 50, 100, 200];
 /**
  * The pages of a list. The pages show when the list has more than one page.
  * The "Show" select shows when the list has more items than its smallest
- * option, thus the user can always go back to a smaller page.
+ * option, so the user can always go back to a smaller page.
  */
 function ToolbarPagination({
   ariaLabel,

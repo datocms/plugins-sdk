@@ -11,8 +11,6 @@
   /* Code is a little smaller than the text around it, because the
      monospaced font looks larger. For inline code and for code blocks. */
   --monospaced-font-size: 0.9em;
-  --cursive-font-family:
-    "Pangolin", "noto-script-fallback", "noto-script-fallback-static", cursive;
   /* The weight of the text. */
   --font-weight-regular: 340;
   /* The weight of titles, labels and words with emphasis. */

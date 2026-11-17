@@ -165,7 +165,7 @@ type TableListAddMenu<Item> = {
 export type TableListLocked<Item> = {
   /** Tells if a row is locked */
   isLocked: (item: Item) => boolean;
-  /** The tooltip of the disabled trash of a locked row: it tells why */
+  /** The tooltip of the disabled trash of a locked row. It says why */
   reason: TextMessage;
 };
 
@@ -201,7 +201,7 @@ export type ListInputValueProps<Item> = {
   value: Item[];
   /**
    * Called with the new rows when the user adds, removes, moves or changes a
-   * row. The second argument tells what changed.
+   * row. The second argument says what changed.
    */
   onChange: (items: Item[], change: TableListChange) => void;
   /**

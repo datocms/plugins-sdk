@@ -23,7 +23,7 @@ export type PortalWrapperProviderProps = {
 /**
  * Gives a wrapper to the content of each Portal below it. A portal renders
  * at the end of the body, out of the elements of the host. The `Canvas` of
- * react-ui writes the color tokens on its element, thus its wrapper writes
+ * react-ui writes the color tokens on its element, so its wrapper writes
  * them again around the content of a portal. The apps give no wrapper.
  */
 export function PortalWrapperProvider({

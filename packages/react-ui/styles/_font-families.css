@@ -1,5 +1,5 @@
-/* The plugins use ABC Oracle and Geist Mono, as the cms. Geist, Pangolin
-   and the noto-script-fallback families do not ship, thus the stacks go to
+/* The plugins use ABC Oracle and Geist Mono, as the cms. Geist and the
+   noto-script-fallback families do not ship, thus the stacks go to
    the system fonts after them. The weights are the ones of
    ../../ui-public/styles/_css-variables.css. */
 :root {
@@ -8,5 +8,4 @@
   --monospaced-font-family:
     "Geist Mono Variable", "Menlo", "Bitstream Vera Sans Mono", Consolas,
     Courier, monospace;
-  --cursive-font-family: cursive;
 }

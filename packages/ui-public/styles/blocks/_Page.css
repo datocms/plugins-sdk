@@ -164,16 +164,19 @@
   --Page__group-tint: var(--color--warning-soft--surface);
   --Page__group-outline: var(--color--warning-soft--outline);
 }
-/* The content before a group can have no margin under it (a CardList). The
-   margins collapse, thus between two groups the space stays the same. */
+/* The content before a group can have no margin under it (a CardList or a
+   switch). The margins collapse, thus between two groups the space stays
+   the same. */
 .Page__content > * + .Page__group,
-.Page__content > * + :has(> .Page__group:first-child) {
+.Page__content > * + :has(> .Page__group:first-child),
+.Page__content__section > * + .Page__group {
   margin-top: var(--spacing-l);
 }
 /* A form can be around one group (the group is its last child), thus only
-   the last group of the content loses the space under it */
+   the last group of the content or of a section loses the space under it */
 .Page__content > .Page__group:last-child,
-.Page__content > :last-child > .Page__group:last-child {
+.Page__content > :last-child > .Page__group:last-child,
+.Page__content__section > .Page__group:last-child {
   margin-bottom: 0;
 }
 /* When the title and the actions do not fit on one line, the actions go

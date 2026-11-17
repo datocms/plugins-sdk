@@ -52,7 +52,7 @@ export type TextareaInputProps = BaseInputComponentPropsFieldWithReadOnly<
 
 /**
  * Sets the height of the textarea from its text. The height goes to `auto`
- * first: thus `scrollHeight` gives the height of the text, also when the
+ * first, so `scrollHeight` gives the height of the text, even when the
  * text becomes shorter. The `rows` of the element keep the smallest height.
  */
 function useAutosize(

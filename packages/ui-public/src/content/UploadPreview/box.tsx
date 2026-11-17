@@ -6,19 +6,19 @@ import React, {
   useContext,
   useMemo,
 } from 'react';
-import ProgressBar from '../feedback/ProgressBar';
-import { useTranslation } from '../i18n';
-import type { TextMessage } from '../Message';
-import Image from '../semantic/Image';
+import ProgressBar from '../../feedback/ProgressBar';
+import { useTranslation } from '../../i18n';
+import type { TextMessage } from '../../Message';
+import Image from '../../semantic/Image';
 import {
   type BoxSize,
   DEFAULT_PADDING,
   fitInBox,
   nonImagePadding,
   type UploadPreviewPadding,
-} from './uploadPreviewFit';
+} from './fit';
 
-export type { BoxSize, UploadPreviewPadding } from './uploadPreviewFit';
+export type { BoxSize, UploadPreviewPadding } from './fit';
 
 type BoxContext = { box: BoxSize | null; padding: UploadPreviewPadding };
 
@@ -27,10 +27,10 @@ const UploadPreviewContext = createContext<BoxContext>({
   padding: DEFAULT_PADDING,
 });
 
-export type UploadPreviewProps = {
+export type UploadPreviewBoxProps = {
   /**
    * The size of the box in px, for the fit of the asset. A live host
-   * measures the box. A static host gives a constant. `null` tells that the
+   * measures the box. A static host gives a constant. `null` says that the
    * size is not known yet: `UploadPreview.Image` then renders nothing.
    */
   box: BoxSize | null;
@@ -45,7 +45,7 @@ export type UploadPreviewProps = {
    * @default [10, 10]
    */
   padding?: UploadPreviewPadding;
-  /** The box has no background, thus it shows the background of the parent. */
+  /** The box has no background, so it shows the background of the parent. */
   transparent?: boolean;
   /** The box is a link to the file. */
   link?: { href: string; target?: string };
@@ -57,7 +57,7 @@ export type UploadPreviewProps = {
  * The box of the preview of an asset: the asset is in the center, with
  * space around it.
  */
-const UploadPreview = forwardRef<HTMLElement, UploadPreviewProps>(
+const UploadPreview = forwardRef<HTMLElement, UploadPreviewBoxProps>(
   function UploadPreview(
     { box, fixedSize, padding = DEFAULT_PADDING, transparent, link, children },
     ref,
@@ -122,8 +122,8 @@ export type UploadPreviewImageProps = {
    */
   upscale?: boolean;
   /**
-   * The image shows in the place of an icon (for example the poster of a
-   * video), thus it always gets space around it, also when the
+   * The image shows instead of an icon (for example the poster of a
+   * video), so it always gets space around it, even when the
    * `UploadPreview` has zero padding.
    */
   icon?: boolean;
@@ -173,7 +173,7 @@ export type UploadPreviewProgressProps = {
   percent: number;
   /**
    * The text above the bar, and the name of the bar. Without it, the name
-   * of the bar tells the percent or the analysis.
+   * of the bar says the percent or the analysis.
    */
   label?: TextMessage;
 };

@@ -13,7 +13,7 @@ export type ToolbarTitleTriggerProps = DropdownTriggerBaseProps & {
 /**
  * The title of a toolbar that opens a menu. Use it only for a menu that
  * switches the view of the same list (see Toolbar.PresetsTitle), never for actions
- * on the thing that the title names. The chevron always shows, thus the
+ * on the thing that the title names. The chevron always shows, so the
  * user sees that the title opens a menu.
  */
 export default function ToolbarTitleTrigger({

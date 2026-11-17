@@ -27,7 +27,7 @@ export type RadioGroupOption<T extends string = string> = {
    */
   icon?: React.ReactNode;
   /**
-   * An extra class for a mark of the caller on this option, for example the
+   * An extra class for a mark of your own on this option, for example the
    * diff of two versions marks the options that changed
    */
   className?: string;
@@ -45,7 +45,7 @@ export type RadioGroupInputProps<T extends string = string> =
 
 /**
  * A choice of one value from a list of options, all visible, each with a
- * label and an optional hint. For a boolean value, the caller maps `true`
+ * label and an optional hint. For a boolean value, you map `true`
  * and `false` to two string values.
  */
 function RadioGroupInput<T extends string>(props: RadioGroupInputProps<T>) {

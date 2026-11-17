@@ -39,7 +39,7 @@ export type TableProps<R = any> = {
   layout: TableLayout;
   onLayoutChange: (layout: TableLayout) => void;
   /**
-   * The order of the rows: `useClientSort` or a hook of the app gives it.
+   * The order of the rows: `useClientSort` or a hook of yours gives it.
    * Without it, the user cannot sort from the header.
    */
   sort?: TableSortState;
@@ -51,13 +51,13 @@ export type TableProps<R = any> = {
   /**
    * The width in pixels of a column at the end of each row, outside the columns
    * of the layout and with no label: the controls of the row (see `trailing` of
-   * <Table.Row>). The header keeps the same space empty, thus the button of the
+   * <Table.Row>). The header keeps the same space empty, so the button of the
    * columns menu sits over it.
    */
   trailingWidth?: number;
   /**
    * The rows have a drag handle at their left. Set it with the `reorder` of
-   * <Table.Body>, or for rows that a library of the caller moves (a tree).
+   * <Table.Body>, or for rows that a library of yours moves (a tree).
    */
   reorderable?: boolean;
   /**

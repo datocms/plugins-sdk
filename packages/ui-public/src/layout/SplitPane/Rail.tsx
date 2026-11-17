@@ -20,8 +20,8 @@ export type SplitPaneRailProps = {
    */
   state?: 'collapsed' | 'peek' | 'open';
   /**
-   * Puts the icon (with its tooltip) in an element of the app, for example a
-   * spotlight that tells the user about the toggle.
+   * Puts the icon (with its tooltip) in an element of yours, for example a
+   * spotlight that explains the toggle to the user.
    */
   wrapIcon?: (icon: React.ReactElement) => React.ReactNode;
   /** Runs on a click on the rail */
@@ -41,7 +41,7 @@ const LABELS = {
 /**
  * The rail of a collapsed secondary pane: a narrow button that opens the
  * pane. `SplitPane` renders it. The product scenes render it alone, as the
- * picture at rest of a collapsed pane (`ui-public/SplitPane/Rail`).
+ * picture at rest of a collapsed pane (`SplitPane/Rail`).
  */
 const Rail = React.forwardRef<HTMLButtonElement, SplitPaneRailProps>(
   function Rail(

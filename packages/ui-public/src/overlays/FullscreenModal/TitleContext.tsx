@@ -9,7 +9,7 @@ export const FullscreenModalTitleContext = React.createContext<Message | null>(
 /**
  * Gives the title of the FullscreenModal around the component, already
  * rendered, or null out of a FullscreenModal. A content that is also a page
- * (a record form, a list) shows it in its toolbar in place of the title of
+ * (a record form, a list) shows it in its toolbar instead of the title of
  * the page.
  */
 export function useFullscreenModalTitle(): React.ReactElement | null {

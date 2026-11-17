@@ -19,7 +19,7 @@ export type TableRowExpandable = {
   /** Runs when the user clicks the toggle */
   onToggle: () => void;
   /**
-   * The child rows load: a spinner takes the place of the chevron, and the
+   * The child rows load: a spinner replaces the chevron, and the
    * toggle does nothing
    */
   busy?: boolean;
@@ -37,7 +37,7 @@ function stopPropagation(event: React.SyntheticEvent) {
 
 /**
  * The toggle column of a tree row. A row without child rows keeps the space
- * of the toggle, thus the contents of the rows align.
+ * of the toggle, so the contents of the rows align.
  */
 export function TreeToggle({
   expandable,

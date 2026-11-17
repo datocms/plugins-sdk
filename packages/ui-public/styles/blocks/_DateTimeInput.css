@@ -1,0 +1,211 @@
+.DateTimeInput {
+  position: relative;
+  display: flex;
+  width: 100%;
+}
+.DateTimeInput--autosize {
+  display: inline-flex;
+  width: auto;
+  max-width: 100%;
+}
+.DateTimeInput__field {
+  flex: 1;
+  padding: 0 4px;
+
+  /* The timezone select is not an InputFrame__input, but its focus also
+     shows the focus ring of the frame */
+  &:has(.DateTimeInput__timezone :focus) {
+    border-color: var(--color--focus--border);
+    box-shadow: var(--focus-ring);
+  }
+  /* A disabled or read-only field has no focus ring. These rules have the
+     specificity of the focus rules of _InputFrame.css, and they come after
+     them, thus they win. */
+  .DateTimeInput.is-disabled &,
+  .DateTimeInput.is-read-only & {
+    border-color: var(--color--border);
+    box-shadow: none;
+  }
+}
+/* The date and the time have the width of their text (see sizerText in
+   src/form/DateTimeInput/Base.tsx). Thus no empty space comes between the time and
+   the timezone, and a long format does not get cut. The date, the time and
+   the timezone read as one value: no line separates them. */
+.DateTimeInput__sizer {
+  --autosize-input-padding-inline: 6px;
+  --autosize-input-border-inline: 0px;
+  flex: none;
+  font-variant-numeric: tabular-nums;
+}
+/* The rules of the timezone have three classes, thus they are stronger than
+   the styles of react-select */
+.DateTimeInput__timezone {
+  flex: none;
+}
+/* When the field is wider than its parts, the empty space comes before the
+   clear button. Thus the button stays at the right
+   end, and the value stays together at the left. */
+.DateTimeInput__clear {
+  margin-left: auto;
+}
+.DateTimeInput__field
+  .DateTimeInput__timezone
+  .DateTimeInput__timezone__control {
+  min-height: 0;
+  padding: 2px 4px 2px 8px;
+  color: var(--color--ink-subtle);
+  cursor: pointer;
+  background-color: transparent;
+  border-radius: var(--radius-s);
+  box-shadow: none;
+  transition: background-color 0.2s var(--material-ease);
+
+  &:hover,
+  &.DateTimeInput__timezone__control--menu-is-open {
+    color: var(--color--ink);
+    background-color: var(--color--surface-hover);
+  }
+  /* A disabled timezone is a value, not a button */
+  &.DateTimeInput__timezone__control--is-disabled {
+    color: var(--color--disabled-field--ink);
+    cursor: default;
+    background-color: transparent;
+  }
+}
+/* The timezone is at the right end of the field, and its menu is wider than
+   it. Thus the menu aligns with the right edge of the timezone and opens to
+   the left: when the field is near the right edge of the screen, the menu
+   stays in the screen. */
+.DateTimeInput__field .DateTimeInput__timezone .DateTimeInput__timezone__menu {
+  right: 0;
+  left: auto;
+}
+.DateTimeInput__field
+  .DateTimeInput__timezone
+  .DateTimeInput__timezone__single-value {
+  font-variant-numeric: tabular-nums;
+  color: inherit;
+}
+.DateTimeInput__field
+  .DateTimeInput__timezone
+  .DateTimeInput__timezone__value-container {
+  padding: 0;
+}
+.DateTimeInput__field
+  .DateTimeInput__timezone
+  .DateTimeInput__timezone__dropdown-indicator {
+  padding: 0 0 0 4px;
+  color: inherit;
+
+  svg {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+.DateTimeInput--smaller {
+  .DateTimeInput__field {
+    padding: 0;
+    background-color: transparent;
+    border: 0;
+    box-shadow: none;
+  }
+  .DateTimeInput__sizer {
+    --autosize-input-padding-inline: 5px;
+    font-size: var(--font-size-xs);
+  }
+  .DateTimeInput__date,
+  .DateTimeInput__time {
+    padding-block: 5px;
+  }
+}
+
+.DateTimeInput__date-popper {
+  box-sizing: border-box;
+  width: 272px;
+  padding: 8px;
+  background-color: var(--color--surface-raised);
+  border: 1px solid var(--color--border-raised);
+  border-radius: var(--radius-m);
+  box-shadow: var(--shadow--floating);
+}
+.DateTimeInput__CalendarHeader {
+  display: flex;
+  align-items: center;
+  margin-bottom: 4px;
+}
+.DateTimeInput__CalendarHeader__title {
+  flex: 1;
+  padding-left: 6px;
+  font-weight: var(--font-weight-strong);
+}
+.DateTimeInput__CalendarHeader__actions {
+  display: flex;
+}
+.DateTimeInput__CalendarHeader__action--today svg {
+  font-size: 0.8em;
+}
+.DateTimeInput__CalendarGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+  text-align: center;
+}
+/* The rows and the cells of the grid role give no box: the days are the
+   items of the CSS grid */
+.DateTimeInput__CalendarRow,
+.DateTimeInput__CalendarCell {
+  display: contents;
+}
+.DateTimeInput__CalendarWeekDay {
+  padding: 6px 0;
+  font-size: var(--font-size-xs);
+  color: var(--color--ink-subtle);
+}
+.DateTimeInput__CalendarDayCell {
+  position: relative;
+  height: 32px;
+  padding: 0;
+  font-variant-numeric: tabular-nums;
+  color: var(--color--ink);
+  cursor: pointer;
+  background: none;
+  border: 0;
+  border-radius: var(--radius-s);
+
+  &:hover {
+    background-color: var(--color--surface-hover);
+  }
+  &:focus-visible {
+    box-shadow: var(--focus-ring);
+  }
+  &[disabled],
+  &[aria-disabled="true"] {
+    color: var(--color--ink-disabled);
+    cursor: not-allowed;
+
+    &:hover {
+      background: none;
+    }
+  }
+}
+.DateTimeInput__CalendarDayCell--inAdjacentMonth {
+  color: var(--color--ink-subtle);
+}
+.DateTimeInput__CalendarDayCell--isToday {
+  font-weight: var(--font-weight-strong);
+  box-shadow: inset 0 0 0 1px var(--color--selected--border);
+}
+.DateTimeInput__CalendarDayCell--inRange {
+  background-color: var(--color--selected--surface);
+}
+.DateTimeInput__CalendarDayCell--isSelected {
+  font-weight: var(--font-weight-strong);
+  color: var(--color--primary--ink);
+  background-color: var(--color--primary--surface);
+  box-shadow: none;
+
+  &:hover {
+    background-color: var(--color--primary--surface);
+  }
+}

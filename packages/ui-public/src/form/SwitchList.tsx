@@ -17,7 +17,7 @@ export type SwitchListProps = {
 
 /**
  * A list of related switches, for example the permissions of a role. Each
- * switch is an inset row: the label at the left, the switch at the right,
+ * switch is an inset row: the label on the left, the switch on the right,
  * and a box that shows on hover. Put one list in a `Page.Group` for each topic.
  */
 export function SwitchList({ children, className }: SwitchListProps) {

@@ -7,7 +7,7 @@ import { type Message } from '../Message';
 import Tooltip from '../overlays/Tooltip';
 import { useFormApp } from './FormAppContext';
 
-/** A required label shows an asterisk, thus it cannot also show "(optional)" */
+/** A required label shows an asterisk, so it cannot also show "(optional)" */
 type LabelRequirementProps =
   /** The label of a field that is not required, with "(optional)" */
   | {
@@ -34,7 +34,7 @@ export type LabelProps = LabelRequirementProps & {
   label: Message;
   /** Hides the label from the eye. A screen reader still reads it. */
   hidden?: boolean;
-  /** Adds the icon that tells that the value is different for each locale. */
+  /** Adds the icon that says that the value is different for each locale. */
   localized?: boolean;
   /**
    * Renders a menu at the end of the label. It renders only when the label

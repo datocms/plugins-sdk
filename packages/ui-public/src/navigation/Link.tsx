@@ -6,7 +6,7 @@ export type LinkProps = Omit<
   'href'
 > & {
   /**
-   * The page of the app that the link opens: the path with its query, for
+   * The page of DatoCMS that the link opens: the path with its query, for
    * example "/editor?tab=fields"
    */
   to: string;
@@ -23,7 +23,7 @@ export type LinkProps = Omit<
    */
   active?: boolean;
   /**
-   * The link replaces the current entry of the history, thus the Back
+   * The link replaces the current entry of the history, so the Back
    * button of the browser does not come back to the current page
    * @default false
    */
@@ -35,7 +35,7 @@ function isModifiedEvent(event: React.MouseEvent) {
 }
 
 /**
- * A link to a page of the app, through the router of the host (see
+ * A link to a page of DatoCMS, through the router of the host (see
  * NavigationProvider). When its page is open, it gets `aria-current="page"`:
  * give the active look with that attribute. For a link to another site, use
  * a normal `a`.

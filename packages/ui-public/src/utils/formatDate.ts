@@ -8,7 +8,9 @@ import { format } from 'date-fns';
 export type DateSettings = {
   /**
    * A BCP 47 language tag, for example 'it'. formatRelativeTime uses it for
-   * the words of a relative time ("3 giorni fa"). SmartDate does not use it.
+   * the words of a relative time ("3 giorni fa"). The calendar of the date
+   * inputs uses it for the names of the months and of the days, and for the
+   * first day of the week. SmartDate does not use it.
    */
   locale: string;
   /**
@@ -19,6 +21,12 @@ export type DateSettings = {
   /** An IANA time zone, for example 'Europe/Rome' */
   timezone: string;
   twentyFourHour: boolean;
+  /**
+   * The IANA time zone of the project, for example 'America/New_York'.
+   * `DateTimeInput` gives its value with the offset of this time zone, as
+   * the API does. Without it, the inputs use `timezone`.
+   */
+  projectTimezone?: string;
 };
 
 const PLAIN_DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
@@ -181,7 +189,7 @@ const RELATIVE_TIME_UNITS: [Intl.RelativeTimeFormatUnit, number][] = [
 ];
 
 /**
- * The text always has a number ("1 day ago", not "yesterday"), thus it can go
+ * The text always has a number ("1 day ago", not "yesterday"), so it can go
  * after a word, as in "Updated 1 day ago", in all the languages.
  */
 export function formatRelativeTime(

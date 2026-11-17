@@ -27,8 +27,7 @@ export type ListDetailPageState = 'loading' | 'empty' | 'no-results' | 'ready';
 
 /**
  * The state of a list that the server filters and paginates. `isEmpty` is
- * undefined until the first load ends (for example, see useSettledEmpty of
- * the cms).
+ * undefined until the first load ends.
  */
 export function getPaginatedListState(
   isEmpty: boolean | undefined,
@@ -40,10 +39,10 @@ export function getPaginatedListState(
 }
 
 export type ListDetailPageProps = {
-  /** The rows open a detail at the right (see ListDetail.Split) */
+  /** The rows open a detail on the right (see ListDetail.Split) */
   detail?: ListDetailSplitDetail;
   /**
-   * The Pane uses the title as the label of the filter form, thus it is a
+   * The Pane uses the title as the label of the filter form, so it is a
    * TextMessage
    */
   title: TextMessage;
@@ -63,8 +62,8 @@ export type ListDetailPageProps = {
   /** The list loads in the background. The title bar shows a small spinner. */
   busy?: boolean;
   /**
-   * The filter of the list: the result of useFilterToolbar (ui-public/Toolbar) and
-   * the filter form. The form shows in a toolbar under the title bar while
+   * The filter of the list: the result of useFilterToolbar (see Toolbar) and the
+   * filter form. The form shows in a toolbar under the title bar while
    * the filter toolbar is open. A list without a filter does not set it.
    */
   filter?: {
@@ -112,9 +111,9 @@ type ListDetailPageContent =
 
 /**
  * The page of a list with a panel for the open row: a title bar with the
- * filter toggle, the filter form, the list and the panel at the right. The
+ * filter toggle, the filter form, the list and the panel on the right. The
  * page gives the data, the filter form, the table and the panel. Put it in
- * the Main of the app.
+ * your Main.
  */
 function ListDetailPage({
   detail,
@@ -220,7 +219,7 @@ function matchOpenRowId(
 /**
  * The open row of a ListDetail.Page is in the URL: "<baseUrl>/<id>". The id
  * can have more segments (for example, "invitations/12"). The open and the
- * close keep the query of the URL, thus the list keeps its filter and its
+ * close keep the query of the URL, so the list keeps its filter and its
  * page. When a row is open, the open of another row (for example with the
  * arrows) replaces the step in the history: the history does not keep each
  * row. Give `idPattern` (the source of a regular expression for the segment

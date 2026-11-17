@@ -49,7 +49,7 @@ export type PaneProps = PropsWithChildren<{
   /**
    * Puts the pane in a mode (for example the reorder mode of a sidebar).
    * While the prop is set, the pane draws a primary frame around its
-   * content, under the title bar. Thus the user sees that the pane is in
+   * content, under the title bar. So the user sees that the pane is in
    * that mode. The title in the header is the name of the mode.
    *
    * For a screen reader, the content is then a group with the title as its

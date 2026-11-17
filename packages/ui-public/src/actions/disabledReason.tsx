@@ -7,10 +7,10 @@ import HoverCard from '../overlays/HoverCard';
 import Tooltip from '../overlays/Tooltip';
 
 /**
- * A disabled control that tells why. It keeps the focus and the hover
- * ("aria-disabled" in place of "disabled"), thus its tooltip shows the
- * reason, also to the keyboard and screen reader users.
- * With "interactive", the reason has links: it shows in a HoverCard, thus
+ * A disabled control that says why. It keeps the focus and the hover
+ * ("aria-disabled" instead of "disabled"), so its tooltip shows the
+ * reason, even to the keyboard and screen reader users.
+ * With "interactive", the reason has links. It shows in a HoverCard, so
  * the pointer can move into it.
  */
 export type DisabledWithReason = { reason: Message; interactive?: boolean };

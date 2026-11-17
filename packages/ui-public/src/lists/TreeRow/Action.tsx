@@ -18,7 +18,7 @@ export type TreeRowActionProps = {
 
 /**
  * The content of a `TreeRow` as a button, for example "Load more". The
- * button starts in the column of the handle, thus a click there also runs
+ * button starts in the column of the handle, so a click there also runs
  * it. Give it to a row with no `expandable` and no `drag.handle`. In a
  * SortableTree, the button is a tree item: the arrow keys move the focus to
  * it, and Enter or Space runs it.

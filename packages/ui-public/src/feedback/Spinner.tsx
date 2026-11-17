@@ -11,18 +11,18 @@ export type SpinnerProps = {
    */
   inline?: boolean;
   /**
-   * The text that a screen reader tells: the spinner is a status. Give
-   * `false` when a visible text or `aria-busy` already tells that the
-   * content loads: then the spinner is only a decoration.
+   * The text that a screen reader says. The spinner is a status. Give
+   * `false` when a visible text or `aria-busy` already says that the
+   * content loads. Then the spinner is only a decoration.
    * @default "Loading"
    */
   label?: TextMessage | false;
-  /** Only for the place of the spinner (margin, z-index), not for its look */
+  /** Only for the position of the spinner (margin, z-index), not for its look */
   className?: string;
 };
 
 /**
- * A spinner that tells that something loads. It has two sizes: 32px to load
+ * A spinner that shows that something loads. It has two sizes: 32px to load
  * an area, 16px (an icon) in a line of text or in a control. The box is the
  * size of the spinner.
  */
@@ -113,7 +113,7 @@ export type SpinnerOverlayProps = {
   veil?: boolean;
   /** See the label of Spinner */
   label?: TextMessage | false;
-  /** Only for the place of the overlay (z-index), not for its look */
+  /** Only for the position of the overlay (z-index), not for its look */
   className?: string;
 };
 

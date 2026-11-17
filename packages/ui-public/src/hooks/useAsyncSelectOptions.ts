@@ -5,7 +5,7 @@ import { useDebouncedCallback } from './useDebouncedCallback';
 export type UseAsyncSelectOptionsConfig<O extends BaseSelectOption> = {
   /**
    * Gives the options that match the query. The hook calls it with an empty
-   * query at mount, thus the menu is full when the user opens it. The signal
+   * query at mount, so the menu is full when the user opens it. The signal
    * aborts when a newer query starts or when the component unmounts: give it
    * to `fetch`.
    */

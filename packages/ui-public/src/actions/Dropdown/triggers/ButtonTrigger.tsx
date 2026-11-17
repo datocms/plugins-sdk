@@ -48,15 +48,15 @@ export type ButtonTriggerProps = DropdownTriggerBaseProps & {
    */
   tone?: Extract<ButtonTone, 'soft' | 'ghost' | 'primary'>;
   /**
-   * The size of the place by default: "milli" in a toolbar, "small" out of
-   * a toolbar (see useButtonSize)
+   * The default size: "milli" in a toolbar, "small" out of a toolbar (see
+   * useButtonSize)
    */
   size?: ButtonSize;
   /** The button fills the width of its container */
   expand?: boolean;
   /**
-   * The menu cannot open. Give a reason when the user must know why: it
-   * takes the place of the tooltip.
+   * The menu cannot open. Give a reason when the user must know why. It
+   * replaces the tooltip.
    */
   disabled?: Disabled;
   /**
@@ -65,7 +65,7 @@ export type ButtonTriggerProps = DropdownTriggerBaseProps & {
    * menu is open: the menu is in its place.
    */
   tooltip?: Message | false | null | ActionTooltipOptions;
-  /** Only for the place of the button, not for its look */
+  /** Only for the position of the button, not for its look */
   className?: string;
 } & ButtonTriggerContent;
 

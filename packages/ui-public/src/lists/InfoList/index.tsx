@@ -44,16 +44,16 @@ function BaseInfoList({ className, children }: InfoListProps) {
 }
 
 export type InfoListRowProps = {
-  /** The name of the fact, at the left */
+  /** The name of the fact, on the left */
   title: Message;
   /**
-   * The value, at the right. A short note about the value goes under it, in
+   * The value, on the right. A short note about the value goes under it, in
    * the value.
    */
   children: ReactNode;
 };
 
-/** A line with a title at the left and its value at the right. */
+/** A line with a title on the left and its value on the right. */
 function Row({ title, children }: InfoListRowProps) {
   const { tc } = useTranslation();
   return (

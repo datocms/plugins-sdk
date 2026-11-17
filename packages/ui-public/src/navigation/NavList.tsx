@@ -18,7 +18,7 @@ export type NavListProps = {
 };
 
 /**
- * A list of rows in a sidebar. Each row opens a page of the app, and the row
+ * A list of rows in a sidebar. Each row opens a page of DatoCMS, and the row
  * of the open page is selected. It is a RowList in a navigation landmark.
  */
 function BaseNavList({ ariaLabel, children }: NavListProps) {

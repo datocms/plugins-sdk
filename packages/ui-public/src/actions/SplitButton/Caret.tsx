@@ -8,7 +8,7 @@ import DropdownTriggerButton from '../Dropdown/triggers/DropdownTriggerButton';
 import { DropdownTriggerBaseProps } from '../Dropdown/triggers/types';
 import { type Disabled } from '../disabledReason';
 
-/** The accessible name of the caret when the caller gives none */
+/** The accessible name of the caret when you give none */
 export const defaultCaretLabel: TextMessage = { id: 'splitButton.moreActions' };
 
 export type CaretProps = DropdownTriggerBaseProps & {
@@ -20,7 +20,7 @@ export type CaretProps = DropdownTriggerBaseProps & {
 
 /**
  * The caret half of a SplitButton. It has the tone and the size of the main
- * half, thus the two halves read as one button.
+ * half, so the two halves read as one button.
  */
 const Caret = React.memo(function Caret({
   open,

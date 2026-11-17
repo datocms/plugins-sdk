@@ -43,7 +43,7 @@ type PickAction = {
 };
 
 /**
- * Runs an action of the registry (`ui-public/Actions`). The keys of the action
+ * Runs an action of the registry (`Actions`). The keys of the action
  * show at the end of the option. The option is disabled while the action
  * gives a reason, or when the action does not exist now.
  */
@@ -57,11 +57,11 @@ type RegistryAction = {
 };
 
 /**
- * A link to a page of the app. When the page is open, the option gets
+ * A link to a page of DatoCMS. When the page is open, the option gets
  * aria-current="page".
  */
 type LinkAction = {
-  /** The page of the app that the option opens */
+  /** The page of DatoCMS that the option opens */
   to: string;
   /** Opens the page in a new tab */
   newTab?: boolean;
@@ -70,7 +70,7 @@ type LinkAction = {
   action?: never;
 };
 
-/** A link to a page out of the app */
+/** A link to another site */
 type ExternalLinkAction = {
   /** The URL that the option opens */
   href: string;
@@ -95,7 +95,7 @@ type NoAction = {
 
 /**
  * The action of an option: a pick handler, an action of the registry, a
- * page of the app, or a page out of the app. One option has one action.
+ * page of DatoCMS, or another site. One option has one action.
  */
 export type OptionAction =
   | PickAction
@@ -153,7 +153,7 @@ export type OptionProps = OptionAction & {
    */
   sortable?: OptionSortable;
   /**
-   * With a reason, the option is disabled and its tooltip tells why. With
+   * With a reason, the option is disabled and its tooltip says why. With
    * "interactive", the reason has links: it shows in a HoverCard.
    */
   disabled?: Disabled;
@@ -180,7 +180,7 @@ export type OptionProps = OptionAction & {
    */
   keywords?: string[];
   /**
-   * Shows a chevron after the label, and a screen reader tells if the
+   * Shows a chevron after the label, and a screen reader says if the
    * submenu is open. Dropdown.Submenu gives it.
    */
   submenu?: OptionSubmenu;

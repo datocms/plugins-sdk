@@ -100,7 +100,7 @@ export type Action = {
    */
   layerSafe?: boolean;
   /**
-   * The area of the app that holds the page or the action, for example
+   * The area of DatoCMS that holds the page or the action, for example
    * "Usage" for "By project". The command palette and the list of the
    * shortcuts show it before the name, because a short name is not clear
    * without its menu group.
@@ -414,7 +414,7 @@ class ActionsRegistry {
 
   /**
    * The action with this id: the active one, else the one that would win.
-   * A menu runs an action of a region also when the pointer is in the menu.
+   * A menu runs an action of a region even when the pointer is in the menu.
    * With an `origin` (the dropdown of the menu), only the regions that hold
    * the origin count: each row of a list registers the same ids, and the
    * menu of a row must not run the action of another row, nor a menu out of
@@ -605,7 +605,7 @@ function RootActionsProvider({ children }: { children: ReactNode }) {
  * A layer of actions, for example a dialog. While it is open, the actions
  * under it are off: all of them under a dialog, the page and the regions
  * under a popover. An action with `layerSafe` stays on. A dialog that opens
- * later is on top, also when it is not inside the other dialogs in the tree.
+ * later is on top, even when it is not inside the other dialogs in the tree.
  */
 export function ActionLayer({
   kind,

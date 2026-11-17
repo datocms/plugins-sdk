@@ -12,18 +12,18 @@ export type IconTriggerProps = DropdownTriggerBaseProps & {
   /**
    * The accessible name of the button and the text of its tooltip. If you
    * do not give a label, the button gets the generic name "Actions" and no
-   * tooltip: "Actions" tells nothing that the "⋮" does not tell.
+   * tooltip, because "Actions" says nothing that the "⋮" does not say.
    */
   label?: TextMessage;
-  /** The size of the place in a toolbar, "micro" in other places */
+  /** The default size in a toolbar, "micro" outside a toolbar */
   size?: ButtonSize;
   /**
-   * The menu cannot open. Give a reason when the user must know why: it
-   * takes the place of the tooltip.
+   * The menu cannot open. Give a reason when the user must know why. It
+   * replaces the tooltip.
    */
   disabled?: Disabled;
   /**
-   * Only for the place or the surface of the button (for example on a
+   * Only for the position or the surface of the button (for example on a
    * media card)
    */
   className?: string;
@@ -31,7 +31,7 @@ export type IconTriggerProps = DropdownTriggerBaseProps & {
 
 /**
  * A ghost icon-only ButtonTrigger (the "⋮" of a row, a card or a toolbar).
- * It has the size of the place in a toolbar, and "micro" in other places
+ * It has the default size in a toolbar, and "micro" outside a toolbar
  * (the actions of a row or a card).
  */
 const IconTrigger = ({

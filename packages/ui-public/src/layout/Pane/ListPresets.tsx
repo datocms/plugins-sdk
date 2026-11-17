@@ -8,7 +8,7 @@ import type { Message } from '../../Message';
  */
 export type ListPreset<T> = {
   id: string;
-  /** The name in the menu: it tells exactly what the preset keeps */
+  /** The name in the menu: it says exactly what the preset keeps */
   label: Message;
   /**
    * The name after the title while the preset is active ("API tokens ·

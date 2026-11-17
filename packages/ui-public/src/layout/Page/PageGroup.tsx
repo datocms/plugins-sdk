@@ -35,7 +35,7 @@ export type PageGroupProps = {
    */
   tone?: 'danger' | 'warning';
   /**
-   * A short status at the right of the title. Put a Pill here, in the color
+   * A short status on the right of the title. Put a Pill here, in the color
    * of the tone (for example `<Pill tone="danger">Unpaid</Pill>`). Use it
    * for a problem that the user must fix, not for the "Danger zone". A group
    * without a tone can show its state (for example a `success` pill for a
@@ -67,7 +67,7 @@ export type PageGroupProps = {
 
 /**
  * A group of related content in a card, with its own title. Use it in a
- * Page.Content in place of a Page.Section when the content of the group has
+ * Page.Content instead of a Page.Section when the content of the group has
  * more than one part (for example a summary and a chart), so the parts read
  * as one thing. The parts inside the card have no card of their own.
  */

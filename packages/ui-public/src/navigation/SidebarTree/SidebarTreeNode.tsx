@@ -81,7 +81,7 @@ type ClickAction = {
   newTab?: never;
 };
 
-/** A link to a page of the app */
+/** A link to a page of DatoCMS */
 type LinkAction = {
   /** The page of the node: the path with its query */
   to: string;
@@ -97,7 +97,7 @@ type LinkAction = {
   href?: never;
 };
 
-/** A link to a page out of the app */
+/** A link to another site */
 type ExternalLinkAction = {
   href: string;
   /** Opens the page in a new tab */
@@ -134,7 +134,7 @@ type InTree = {
 type OutOfTree = {
   /**
    * The node is next to a tree, but not in it. It keeps the space of the
-   * toggle, thus its icon aligns with the icons of the tree.
+   * toggle, so its icon aligns with the icons of the tree.
    * @default false
    */
   alignWithTree?: boolean;
@@ -173,7 +173,7 @@ export type SidebarTreeNodeProps = SidebarTreeNodeAction &
      * scrolls the node into view
      */
     highlighted?: boolean;
-    /** Only for the place of the node, not for its look */
+    /** Only for the position of the node, not for its look */
     className?: string;
   };
 

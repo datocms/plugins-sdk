@@ -20,7 +20,7 @@ export type InfoListValueTriggerProps = {
 
 /**
  * A value in a row of an InfoList, that the user cannot change. It has the
- * same look as `InfoList.Value.Trigger`, thus the values of the rows align.
+ * same look as `InfoList.Value.Trigger`, so the values of the rows align.
  */
 function Value({ label }: InfoListValueProps) {
   const { tc } = useTranslation();

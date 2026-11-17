@@ -14,7 +14,7 @@ import { SvgIcon } from '../utils/types';
 export type MediaCardAction = {
   /**
    * The key of the action. Give it when the label changes, for example
-   * "Play" and "Pause". Thus the button keeps the keyboard focus.
+   * "Play" and "Pause". So the button keeps the keyboard focus.
    */
   id?: string;
   /** The text of the button or of the menu option. */
@@ -52,7 +52,7 @@ export type MediaCardOption = MediaCardOptionBase &
       }
     | {
         /**
-         * The id of an action of the registry (`ui-public/Actions`). The option
+         * The id of an action of the registry (`Actions`). The option
          * runs it and shows its keys.
          */
         action: string;
@@ -81,10 +81,10 @@ export type MediaCardCaption = {
 // React 17 has no `useId`, thus we make the ids of the captions with a counter.
 let nextCaptionId = 0;
 
-/** A click on the media opens a page of the app. */
+/** A click on the media opens a page of DatoCMS. */
 type LinkCard = {
   /**
-   * The page that the card opens. The media is a link, thus the user can
+   * The page that the card opens. The media is a link, so the user can
    * open the page in a new tab.
    */
   to: string;
@@ -147,11 +147,11 @@ export type MediaCardSelection = {
   onSelect?: () => void;
 };
 
-/** The caption has a checkbox, thus it has no `captionAction`. */
+/** The caption has a checkbox, so it has no `captionAction`. */
 type CheckboxCaption = {
   selection: MediaCardSelection & {
     /**
-     * The checkbox at the right of the caption. Its name is the caption.
+     * The checkbox on the right of the caption. Its name is the caption.
      * "hover" shows it when the pointer is on the card, when the card has
      * the focus, when the card is selected and on a touch screen. "always"
      * shows it in all cases, for example when the user has selected a card.
@@ -164,7 +164,7 @@ type CheckboxCaption = {
 /** The caption has no checkbox. */
 type PlainCaption = {
   selection?: MediaCardSelection & { checkbox?: never };
-  /** An action at the right of the caption, for example the cross that cancels an upload. */
+  /** An action on the right of the caption, for example the cross that cancels an upload. */
   captionAction?: React.ReactNode;
 };
 

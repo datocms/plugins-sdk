@@ -17,14 +17,14 @@ export type ProgressBarProps = {
   ariaLabel: TextMessage;
   /**
    * "inline" is a 4px bar as wide as its parent. "edge" is a 2px bar on the
-   * bottom edge of the nearest positioned parent, thus it does not cover the
-   * content: use it on a card or a row.
+   * bottom edge of the nearest positioned parent, so it does not cover the
+   * content. Use it on a card or a row.
    * @default "inline"
    */
   placement?: 'inline' | 'edge';
   /**
-   * Only for the place of the bar (width, margin), not for its look. The bar
-   * is as wide as its parent: the caller knows the width that fits its
+   * Only for the position of the bar (width, margin), not for its look. The bar
+   * is as wide as its parent. You know the width that fits your
    * layout, for example a maximum width in a table column.
    */
   className?: string;

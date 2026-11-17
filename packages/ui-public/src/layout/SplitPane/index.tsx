@@ -26,8 +26,8 @@ export {
 export type SplitPaneProps = {
   /**
    * "split" puts the two panes side by side. "overlay" shows the secondary
-   * pane over the page, for example on a small viewport. The caller
-   * computes it, because its own controls use the same breakpoint.
+   * pane over the page, for example on a small viewport. You
+   * compute it, because its own controls use the same breakpoint.
    * @default "split"
    */
   mode?: 'overlay' | 'split';
@@ -68,7 +68,7 @@ export type SplitPaneProps = {
 export type SplitPaneSize = number | `${number}%`;
 
 export type SplitPaneCollapse = {
-  /** Tells if the secondary pane is open. */
+  /** Says if the secondary pane is open. */
   open: boolean;
   /**
    * Runs with the new state: `true` when the pane opens, `false` when it
@@ -76,7 +76,7 @@ export type SplitPaneCollapse = {
    */
   onToggle: (open: boolean) => void;
   /**
-   * Hides the rail of the collapsed pane. Use it when the app gives another
+   * Hides the rail of the collapsed pane. Use it when you give another
    * control that opens the pane, for example the menu button of the mobile
    * header.
    * @default false
@@ -84,8 +84,8 @@ export type SplitPaneCollapse = {
   hideRail?: boolean;
   /**
    * Puts the toggle (the button on the sash or the icon of the rail) in an
-   * element of the app, for example a spotlight that tells the user about
-   * the toggle.
+   * element of yours, for example a spotlight that explains the toggle to the
+   * user.
    */
   wrapToggle?: (toggle: React.ReactElement) => React.ReactNode;
 };

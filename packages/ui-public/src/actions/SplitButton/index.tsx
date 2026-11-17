@@ -41,8 +41,8 @@ export type SplitButtonProps = {
    */
   tone?: Extract<ButtonTone, 'primary' | 'soft'>;
   /**
-   * The size of the two halves. The size of the place by default: "milli"
-   * in a toolbar, "small" out of a toolbar (see useButtonSize).
+   * The size of the two halves. The default size is "milli" in a toolbar
+   * and "small" out of a toolbar (see useButtonSize).
    */
   size?: ButtonSize;
   /**
@@ -50,7 +50,7 @@ export type SplitButtonProps = {
    * to disable it too. Give a reason when the user must know why.
    */
   disabled?: ButtonProps['disabled'];
-  /** Only for the place of the split button, not for its look */
+  /** Only for the position of the split button, not for its look */
   className?: string;
   /** The caret and its menu */
   menu?: SplitButtonMenu;

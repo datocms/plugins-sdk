@@ -105,7 +105,7 @@ export type SortableListProps = {
    */
   onDrop: (result: SortableDropResult) => void;
   /**
-   * Tells if an item can go in a container. By default, all the items can
+   * Says if an item can go in a container. By default, all the items can
    * go in all the containers. For example, a fieldset cannot go in another
    * fieldset.
    */

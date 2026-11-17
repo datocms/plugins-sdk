@@ -23,7 +23,7 @@ type ListFilterState = {
   open: boolean;
   /**
    * Runs with the new state. `true` opens the row and moves the focus to the
-   * input, also when the row is open. `false` closes the row and clears a
+   * input, even when the row is open. `false` closes the row and clears a
    * filter with a value.
    */
   onToggle: (open: boolean) => void;

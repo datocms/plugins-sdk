@@ -277,6 +277,8 @@ Methods available in every context:
 - `loadItemTypeFields(itemTypeId)`: Load all fields for a model
 - `loadFieldsUsingPlugin()`: Load fields using this plugin
 - `loadUsers()`, `loadSsoUsers()`: Load user lists
+- `loadItemPresentationInfo(itemsOrIds, options)`: Resolve the title, image, status and validity of records, as the CMS shows them
+- `loadItems(itemIds)`, `loadUploads(uploadIds)`: Load records and assets by ID, one entry for each ID
 
 **Plugin Configuration**:
 - `updatePluginParameters(params)`: Save plugin settings

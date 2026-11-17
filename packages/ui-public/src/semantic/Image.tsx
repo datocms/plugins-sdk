@@ -15,7 +15,7 @@ export type ImageProps = Omit<
 };
 
 /**
- * An image. The `alt` is required, thus the author has to choose a text or an
+ * An image. The `alt` is required, so the author has to choose a text or an
  * empty text for a decoration (WCAG 2.1 AA 1.1.1).
  */
 export default function Image({ alt, ...props }: ImageProps) {

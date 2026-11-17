@@ -84,7 +84,7 @@ export type MenuProps = {
   /**
    * The side of the trigger where the menu opens. When there is no space
    * there, the menu goes to the other side. Use "bottom-end" for a trigger
-   * at the right of its place (the "⋮" of a row).
+   * on the right of its container (the "⋮" of a row).
    * @default "bottom-start"
    */
   placement?: Placement;
@@ -96,7 +96,7 @@ export type MenuProps = {
   /**
    * A search field at the top of the menu. With "auto", it shows when the
    * menu has more than 5 options. With "{ placeholder }", it always shows,
-   * with that text in place of "Search...".
+   * with that text instead of "Search...".
    * @default "auto"
    */
   contextualSearch?: ContextualSearch;

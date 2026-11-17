@@ -89,19 +89,18 @@ export type ListDetailSplitDetail = {
    */
   onReopen?: () => void;
   /**
-   * Where the panel goes. "beside": at the right of the list, and the list
+   * Where the panel goes. "beside": on the right of the list, and the list
    * keeps a part of the width for the panel. Use it for a table with few,
    * narrow columns. "over": the list takes all the width, and the open
    * panel goes over the right part of the list. Use it for a table that
    * needs the width. Below 1100px of window width, the panel always goes
-   * over the list.
-   * @default "beside"
+   * over the list. There is no default: choose the placement for each list.
    */
-  placement?: ListDetailPlacement;
+  placement: ListDetailPlacement;
 };
 
 export type ListDetailSplitProps = {
-  /** The rows open a detail at the right. Without it, the list is alone. */
+  /** The rows open a detail on the right. Without it, the list is alone. */
   detail?: ListDetailSplitDetail;
   /** The list: a Pane */
   children: React.ReactNode;
@@ -155,15 +154,15 @@ function useDetailActions(
 }
 
 /**
- * A list at the left and the detail of the open row at the right, as the
+ * A list on the left and the detail of the open row on the right, as the
  * records of a model in DatoCMS. The list keeps its place and its width when
- * a row opens or closes, thus the user does not lose the row.
+ * a row opens or closes, so the user does not lose the row.
  * With the "beside" placement, the user resizes the list and the detail, and
- * the space at the right of the detail stays empty. When no row is open, the
- * place of the detail shows a blank slate that tells the user to open a row.
+ * the space on the right of the detail stays empty. When no row is open, the
+ * space of the detail shows a blank slate that says to open a row.
  * With the "over" placement, and on a small viewport, the list takes all the
  * width and the open detail goes over it.
- * The widths come from the ListDetailWidthsProvider of the app.
+ * The widths come from the ListDetailWidthsProvider of the host.
  */
 function ListDetailSplit({ detail, children }: ListDetailSplitProps) {
   const panel = detail?.panel;

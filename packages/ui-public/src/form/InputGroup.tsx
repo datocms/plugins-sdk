@@ -20,7 +20,7 @@ type DistributiveOmit<U, K extends PropertyKey> = U extends unknown
 
 /**
  * The props of `InputGroup`: the props of `StringInput` and the addons. The
- * package draws the box, thus `InputGroup` takes no class. Put a class for
+ * package draws the box, so `InputGroup` takes no class. Put a class for
  * the layout on the field (`container.className` of `FieldWrapper`).
  */
 export type InputGroupProps = DistributiveOmit<
@@ -131,7 +131,7 @@ function Input({ ariaLabel, code, ...other }: InputGroupInputProps) {
 /**
  * A fixed text in an `InputGroup.Root`. A click on it does nothing, because
  * the box can have more inputs. A screen reader does not read it: the names
- * of the group and of the inputs tell the unit.
+ * of the group and of the inputs say the unit.
  */
 function Addon({ children }: InputGroupAddonProps) {
   return (

@@ -19,21 +19,21 @@ export type PresetsTitleProps = {
   children: ReactNode;
   /**
    * The content at the bottom of the menu, after a separator. The title
-   * opens a menu, thus a "?" button next to it is one control too many: put
+   * opens a menu, so a "?" button next to it is one control too many: put
    * the help of the page here (a Toolbar.HelpBody with "secondary").
    */
   footer?: ReactNode;
   /** The level of the title as a heading (see Toolbar.Title) */
   level?: HeadingLevel;
-  /** The id of the heading, thus other elements can use it as their label */
+  /** The id of the heading, so other elements can use it as their label */
   id?: string;
 };
 
 /**
  * A toolbar title that is the menu of the presets of a list (views of the
  * list: fixed filters with a name). It only draws the title and the menu:
- * the caller gives the options and keeps the active preset. In a Pane,
- * Pane.Header.Title does this (see useFilteredList in ui-public/Pane).
+ * you give the options and keep the active preset. In a Pane,
+ * Pane.Header.Title does this (see useFilteredList in Pane).
  */
 const PresetsTitle = React.memo(function PresetsTitle({
   label,
@@ -82,7 +82,7 @@ const PresetsTitle = React.memo(function PresetsTitle({
 });
 
 export type PresetsTitleOptionProps = {
-  /** The name of the preset: it tells exactly what the preset keeps */
+  /** The name of the preset: it says exactly what the preset keeps */
   children: ReactNode;
   /** The number of the items that the preset keeps */
   count?: number;

@@ -1,0 +1,137 @@
+.DateTimeRangeInput {
+  position: relative;
+  display: flex;
+  width: 100%;
+}
+.DateTimeRangeInput--autosize {
+  display: inline-flex;
+  width: auto;
+  max-width: 100%;
+}
+.DateTimeRangeInput__dropdown {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+}
+
+/* The trigger has the look of a field, so it has the height of a field (see
+   --control-height) */
+.DateTimeRangeInput__trigger {
+  box-sizing: border-box;
+  display: flex;
+  flex: 1;
+  gap: 8px;
+  align-items: center;
+  min-width: 0;
+  min-height: var(--control-height);
+  padding: 10px;
+  font-size: var(--font-size-m);
+  color: var(--color--ink);
+  cursor: pointer;
+  background: var(--color--surface-raised);
+  border: 1px solid var(--color--border);
+  border-radius: var(--radius-s);
+  transition: border-color 0.15s ease;
+
+  &:hover {
+    border-color: var(--color--border-hover);
+  }
+  &[aria-expanded="true"] {
+    border-color: var(--color--focus--border);
+  }
+  &:focus-visible {
+    border-color: var(--color--focus--border);
+    box-shadow: var(--focus-ring);
+  }
+
+  svg {
+    color: var(--color--ink-subtle);
+  }
+
+  /* A locked trigger is a field that the user cannot change: the value stays
+     readable */
+  .DateTimeRangeInput.is-disabled &,
+  .DateTimeRangeInput.is-read-only & {
+    cursor: default;
+    border-color: var(--color--border);
+  }
+  .DateTimeRangeInput.is-disabled & {
+    color: var(--color--disabled-field--ink);
+    background: var(--color--disabled-field--surface);
+  }
+}
+.DateTimeRangeInput__trigger-icon {
+  flex-shrink: 0;
+  width: 14px;
+  height: 14px;
+}
+.DateTimeRangeInput__trigger-label {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+  white-space: nowrap;
+}
+
+/* The clear button is over the right end of the trigger, where the chevron
+   is in the other states. The trigger keeps space for it, so the label does
+   not go below it. */
+.DateTimeRangeInput--clearable .DateTimeRangeInput__trigger {
+  padding-right: calc(10px + 1lh + 2 * 0.3em);
+}
+.DateTimeRangeInput__clear {
+  position: absolute;
+  top: 50%;
+  right: 6px;
+  transform: translateY(-50%);
+}
+
+/* The box around a filter draws the focus ring, as for the other inputs of
+   the filter look */
+.DateTimeRangeInput--filter .DateTimeRangeInput__trigger {
+  min-height: 0;
+  padding: 5px;
+  font-size: var(--font-size-xs);
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+.DateTimeRangeInput__panel {
+  box-sizing: border-box;
+  width: 280px;
+  padding: 12px;
+  background: var(--color--surface-raised);
+  border: 1px solid var(--color--border-raised);
+  border-radius: var(--radius-m);
+  box-shadow: var(--shadow--floating);
+}
+.DateTimeRangeInput__edges {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 12px;
+}
+.DateTimeRangeInput__edge-label {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: var(--font-weight-strong);
+  color: var(--color--ink-subtle);
+}
+.DateTimeRangeInput__edge-inputs {
+  display: flex;
+  gap: 6px;
+}
+.DateTimeRangeInput__edge-date {
+  flex: 1.3;
+  min-width: 0;
+
+  /* The next pick in the calendar sets the end of this text */
+  &.is-active {
+    border-color: var(--color--focus--border);
+  }
+}
+.DateTimeRangeInput__edge-time {
+  flex: 0.7;
+  min-width: 0;
+}

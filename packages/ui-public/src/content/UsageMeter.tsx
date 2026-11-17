@@ -22,7 +22,7 @@ export type UsageMeterProps = {
    * @default false
    */
   blocked?: boolean;
-  /** Only for the size and the place of the meter, not for its look */
+  /** Only for the size and the position of the meter, not for its look */
   className?: string;
 };
 

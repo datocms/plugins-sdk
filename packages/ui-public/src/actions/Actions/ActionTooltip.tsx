@@ -7,7 +7,7 @@ import { useAction } from './registry';
 
 /**
  * A tooltip with the name and the keys of an action of the registry.
- * `label` takes the place of the name (the label of an icon-only button).
+ * `label` replaces the name (the label of an icon-only button).
  * Without `label`, an action with no keys has no tooltip: the button already
  * shows its name.
  */

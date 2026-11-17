@@ -22,7 +22,7 @@ function Trigger({ open, onTrigger }: DropdownTriggerBaseProps) {
 }
 
 export type HelpProps = {
-  /** The text that tells what the page is for: two short sentences, plain text */
+  /** The text that says what the page is for: two short sentences, plain text */
   children: ReactNode;
   /**
    * The page of the documentation about the subject. A "Learn more" link to
@@ -32,7 +32,7 @@ export type HelpProps = {
 };
 
 /**
- * A "?" button that opens the text that tells what the page is for. Give
+ * A "?" button that opens the text that says what the page is for. Give
  * Help to the "help" prop of Toolbar.Title, not as a sibling of the title.
  */
 function Help({ children, docsUrl }: HelpProps) {
@@ -48,7 +48,7 @@ function Help({ children, docsUrl }: HelpProps) {
 /**
  * The text of a Help, without the "?" button. Help shows it in its popover.
  * A title that opens a menu (Toolbar.PresetsTitle) shows it at the bottom of
- * the menu ("footer"), with "secondary", in place of the "?" button.
+ * the menu ("footer"), with "secondary", instead of the "?" button.
  */
 export function HelpBody({
   children,

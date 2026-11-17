@@ -7,9 +7,9 @@ import { type TextMessage } from '../../Message';
 import { useNavigation } from '../../navigation/NavigationProvider';
 import { SvgIcon } from '../../utils/types';
 
-/** An action that opens a page of the app */
+/** An action that opens a page of DatoCMS */
 type LinkActionItem = {
-  /** A page of the app that the action opens */
+  /** A page of DatoCMS that the action opens */
   to: string;
   onPick?: never;
 };
@@ -48,7 +48,7 @@ export type PrimaryButtonProps = {
    */
   iconOnly?: boolean;
   /**
-   * The size of the button. The default is the size of the place: "milli"
+   * The size of the button. The default is the size of its container: "milli"
    * in a toolbar, "small" out of a toolbar.
    */
   size?: ButtonSize;

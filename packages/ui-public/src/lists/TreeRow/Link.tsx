@@ -8,7 +8,7 @@ export type TreeRowLinkProps = Omit<LinkProps, 'className' | 'children'> & {
 
 /**
  * The content of a `TreeRow` as a link, for example the link that opens a
- * record. Give it the `provided.treeItemProps` of SortableTree, thus the
+ * record. Give it the `provided.treeItemProps` of SortableTree, so the
  * arrow keys move the focus between the rows.
  */
 export default function TreeRowLink({ children, ...props }: TreeRowLinkProps) {

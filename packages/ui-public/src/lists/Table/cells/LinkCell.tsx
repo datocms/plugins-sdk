@@ -4,7 +4,7 @@ import Link from '../../../navigation/Link';
 export type LinkCellProps = {
   /** The path of the link */
   to: string;
-  /** The text of the link: a string, thus the title can show it */
+  /** The text of the link: a string, so the title can show it */
   children: string;
 };
 

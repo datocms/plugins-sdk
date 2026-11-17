@@ -27,7 +27,7 @@ const INTERACTIVE_SELECTOR =
 /**
  * Closes the detail on a click in the list area that is not on an
  * interactive element. A click in a portal (a menu, a dialog) is out of the
- * area, thus it does not close the detail.
+ * area, so it does not close the detail.
  */
 function useCloseOnEmptyClick(
   area: React.RefObject<HTMLElement | null>,
@@ -66,7 +66,7 @@ type Props = {
 
 /**
  * The detail over the list, at its right. The list keeps all the width and
- * stays usable: a click on another row changes the detail. Thus there is
+ * stays usable: a click on another row changes the detail. So there is
  * no backdrop and no focus trap. A click on an empty part of the list closes
  * the detail.
  */

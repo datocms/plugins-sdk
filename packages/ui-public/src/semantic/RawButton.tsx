@@ -24,7 +24,7 @@ type RawButtonName =
     };
 
 /**
- * What the button tells about itself. A button is a toggle (`pressed`), it
+ * What the button says about itself. A button is a toggle (`pressed`), it
  * opens and closes other content (`expandable`), it is a tab of a tablist
  * (`tab`), or it is an option of a radio group (`radio`). It is only one of
  * them.
@@ -82,7 +82,7 @@ export type RawButtonProps = Omit<
     submit?: true;
     /**
      * `true` disables the button and removes it from the Tab order.
-     * `'focusable'` keeps the button in the Tab order and tells a screen
+     * `'focusable'` keeps the button in the Tab order and says to a screen
      * reader that it is disabled (`aria-disabled`). The click does nothing.
      * Use it when the user must find out why the button is disabled.
      */
@@ -127,7 +127,7 @@ function isHidden(button: HTMLButtonElement) {
 }
 
 /**
- * A button without a look. The caller draws it with a class. It sets the
+ * A button without a look. You draw it with a class. It sets the
  * parts of a button that the keyboard and the screen reader need: the type,
  * the name, the state and the disabled mode.
  *

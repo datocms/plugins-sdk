@@ -28,7 +28,7 @@ export type SmartDateProps = {
    */
   withSeconds?: boolean;
   /**
-   * Show "Today, 09:30" in place of the date and the time when the date is
+   * Show "Today, 09:30" instead of the date and the time when the date is
    * today. It has an effect only with `show="dateTime"`.
    * @default true
    */

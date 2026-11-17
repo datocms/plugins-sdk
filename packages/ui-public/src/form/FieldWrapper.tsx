@@ -22,7 +22,7 @@ export type FieldWrapperLabelExtras = {
    * of the input. Use it when a text near the input shows what it is.
    */
   hidden?: boolean;
-  /** Adds the icon that tells that the value is different for each locale. */
+  /** Adds the icon that says that the value is different for each locale. */
   localized?: boolean;
   /**
    * The validators of the field, for the `FieldValidations` component of
@@ -52,7 +52,7 @@ export type FieldWrapperLabelProps =
   | { label?: never; labelExtras?: never };
 
 /**
- * A required field shows an asterisk, thus it cannot also show "(optional)".
+ * A required field shows an asterisk, so it cannot also show "(optional)".
  */
 export type FieldWrapperRequirementProps =
   /** A field that is not required, with "(optional)" after the label */
@@ -83,7 +83,7 @@ export type FieldWrapperProps = FieldWrapperLabelProps &
     id?: string;
     /**
      * A short help under the input. A string is plain text. For markup, give
-     * `{ html }`: this HTML is not sanitized, thus give only HTML that you
+     * `{ html }`: this HTML is not sanitized, so give only HTML that you
      * trust. A screen reader reads it as the description of the input.
      */
     hint?: Message;
@@ -157,11 +157,11 @@ export type FieldInputProps = {
 /**
  * Gives the `id` and the ARIA props of an input in a `FieldWrapper`. It
  * takes the props of the input and reads the five props of
- * `FieldInputProps`: a prop that the caller gives wins over the field. Out
- * of a `FieldWrapper`, it gives the props of the caller as they are.
+ * `FieldInputProps`. A prop that you give wins over the field. Out
+ * of a `FieldWrapper`, it gives your props as they are.
  *
  * All the inputs of the package call it. A custom input of a plugin calls it
- * too, and puts the result on the element that gets the focus: thus the
+ * too, and puts the result on the element that gets the focus. So the
  * input works in a `FieldWrapper`.
  * @example const fieldProps = useFieldInput(props); return <input {...fieldProps} />;
  */

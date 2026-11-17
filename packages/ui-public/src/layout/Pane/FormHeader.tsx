@@ -65,7 +65,7 @@ function findPart<P>(
  * The title bar of an edit pane: a pane that is the form of one thing (a
  * settings form, the form of a role or of a webhook). A view pane (a list, a
  * sidebar, a page to read) uses Pane.Header. The rules of this bar are here,
- * thus all the forms have the same bar. The record editor has its own bar.
+ * so all the forms have the same bar. The record editor has its own bar.
  *
  * Rules:
  * - Pane.FormHeader renders the parts in a fixed order: title, details,

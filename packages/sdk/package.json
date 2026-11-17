@@ -1,6 +1,6 @@
 {
   "name": "datocms-plugin-sdk",
-  "version": "3.0.0-next.3",
+  "version": "3.0.0-next.4",
   "description": "DatoCMS Plugin SDK",
   "keywords": [
     "datocms",
@@ -8,7 +8,7 @@
     "sdk"
   ],
   "author": "Stefano Verna <s.verna@datocms.com>",
-  "homepage": "https://github.com/datocms/plugins-sdk/tree/next/packages/sdk#readme",
+  "homepage": "https://github.com/datocms/plugins-sdk/tree/master/packages/sdk#readme",
   "license": "MIT",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",

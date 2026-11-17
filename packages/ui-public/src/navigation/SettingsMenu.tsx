@@ -56,9 +56,9 @@ function Group({ name, children }: SettingsMenuGroupProps) {
   );
 }
 
-/** The item goes to a page of the app */
+/** The item goes to a page of DatoCMS */
 export type SettingsMenuPageItem = {
-  /** The page of the app, for example "/project-settings/site" */
+  /** The page of DatoCMS, for example "/project-settings/site" */
   to: string;
   /** The item is active only when the URL is exactly `to` */
   exact?: boolean;
@@ -72,7 +72,7 @@ export type SettingsMenuPageItem = {
   newTab?: never;
 };
 
-/** The item goes to a page out of the app */
+/** The item goes to another site */
 export type SettingsMenuLinkItem = {
   /** The address of the page, for example "https://www.datocms.com" */
   href: string;
@@ -96,7 +96,7 @@ export type SettingsMenuActionItem = {
   href?: never;
 };
 
-/** Where the item goes: a page of the app, a page out of the app, or an action */
+/** Where the item goes: a page of DatoCMS, another site, or an action */
 export type SettingsMenuItemDestination =
   | SettingsMenuPageItem
   | SettingsMenuLinkItem
@@ -151,15 +151,15 @@ function Item(props: SettingsMenuItemProps) {
   );
 }
 
-/** The notice opens a page of the app */
+/** The notice opens a page of DatoCMS */
 export type SettingsMenuNoticePageLink = {
-  /** The page of the app, for example "/project-settings" */
+  /** The page of DatoCMS, for example "/project-settings" */
   to: string;
   href?: never;
   newTab?: never;
 };
 
-/** The notice opens a page out of the app */
+/** The notice opens another site */
 export type SettingsMenuNoticeExternalLink = {
   /** The address of the page, for example "https://www.datocms.com" */
   href: string;
@@ -179,7 +179,7 @@ export type SettingsMenuNoticeProps = (
 };
 
 /**
- * A link for the footer of the menu. All the box is the link, thus do not
+ * A link for the footer of the menu. All the box is the link, so do not
  * put other links in the text.
  */
 function Notice(props: SettingsMenuNoticeProps) {

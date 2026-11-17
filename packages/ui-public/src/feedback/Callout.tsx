@@ -6,10 +6,10 @@ import { type Message } from '../Message';
 
 export type CalloutProps = {
   /**
-   * "neutral" gives information. "warning" tells about a problem or a risk
+   * "neutral" gives information. "warning" says that there is a problem or a risk
    * with the current data, for example a token that shows only once.
-   * "danger" tells about an error, for example the error of a form.
-   * "success" tells that the current data is in a good state, for example
+   * "danger" says that there is an error, for example the error of a form.
+   * "success" says that the current data is in a good state, for example
    * a usage that is within the limits.
    *
    * When a "warning" or "danger" callout appears, screen readers read it
@@ -22,14 +22,14 @@ export type CalloutProps = {
   icon?: ReactNode;
   /** A short line in bold above the text, for example "Some invoices are due" */
   title?: Message;
-  /** Only for the place of the callout (margin), not for its look */
+  /** Only for the position of the callout (margin), not for its look */
   className?: string;
   /** The message. A next step is a link in the text. */
   children?: ReactNode;
 };
 
 /**
- * A message about the current data. For the text that tells what a page is
+ * A message about the current data. For the text that says what a page is
  * for, use Toolbar.Help. A callout has no buttons: a next step is a link in
  * the text, and a link only opens a page. An action that fixes the problem
  * goes in the row of the value, or in a Page.Group with a tone (a callout in

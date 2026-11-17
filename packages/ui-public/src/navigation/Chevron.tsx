@@ -12,7 +12,7 @@ import Spinner from '../feedback/Spinner';
 export type DisclosureChevronProps = {
   /** True when the content is open. The chevron turns down. */
   open: boolean;
-  /** A class for the place of the chevron (margin, alignment) */
+  /** A class for the position of the chevron (margin, alignment) */
   className?: string;
 };
 
@@ -48,7 +48,7 @@ export const DisclosureChevronPlaceholder = React.memo(
 );
 
 export type MenuChevronProps = {
-  /** A class for the place of the chevron (margin, alignment) */
+  /** A class for the position of the chevron (margin, alignment) */
   className?: string;
 };
 
@@ -70,7 +70,7 @@ export const MenuChevron = React.memo(function MenuChevron({
 
 export type LoadMoreChevronProps = {
   /**
-   * True while the items load. A spinner shows in place of the chevron, with
+   * True while the items load. A spinner shows instead of the chevron, with
    * the same size.
    * @default false
    */
@@ -79,7 +79,7 @@ export type LoadMoreChevronProps = {
 
 /**
  * For a control that loads more items of a list. Put it before the label,
- * in the place that the DisclosureChevron has in the other rows.
+ * where the DisclosureChevron is in the other rows.
  */
 export const LoadMoreChevron = React.memo(function LoadMoreChevron({
   loading,

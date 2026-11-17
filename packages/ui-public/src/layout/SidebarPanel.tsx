@@ -58,7 +58,7 @@ export type SidebarPanelUncontrolled = {
 };
 
 /**
- * The caller keeps the open state, for example with
+ * You keep the open state, for example with
  * `useLocalStorageSidebarPanelOpen`.
  */
 export type SidebarPanelControlled = {

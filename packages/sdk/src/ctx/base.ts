@@ -1,4 +1,5 @@
 import type { RawApiTypes } from '@datocms/cma-client';
+import { isBoolean, isRecord, isString } from '../guardUtils.js';
 
 type Account = RawApiTypes.Account;
 type Field = RawApiTypes.Field;
@@ -314,7 +315,199 @@ type LoadDataMethods = {
    * ```
    */
   loadSsoUsers: () => Promise<SsoUser[]>;
+  /**
+   * Resolves how the interface presents some records: the title, the image,
+   * the status and the validity, the same that DatoCMS shows in its lists and
+   * in its link fields. The result has the presentation of the plugins that
+   * implement `buildItemPresentationInfo`, with the same `rank` rules.
+   *
+   * Pass IDs, or full records that you already have: a full record is used as
+   * it is, and DatoCMS does not fetch it again. A record must have an ID. The
+   * ID of a block works too: the block gets the presentation of its model,
+   * with no `editPath`. One call resolves all the records, so call it once
+   * for a list, not once for each record.
+   *
+   * The result is an array with the order and the length of `itemsOrIds`:
+   * the entry at index i is the presentation of the record at index i. It is
+   * `null` when the record does not exist, or when the current user cannot
+   * read it. The same ID twice gives two entries.
+   *
+   * The result is a snapshot: it does not change when somebody edits the
+   * record. Call the method again to get the new presentation. To get the
+   * full records, call `loadItems`.
+   *
+   * @example
+   *
+   * ```js
+   * const itemId = prompt('Please insert a record ID:');
+   *
+   * const [info] = await ctx.loadItemPresentationInfo([itemId]);
+   *
+   * if (info) {
+   *   ctx.notice(`The title of the record is "${info.title}"`);
+   * } else {
+   *   ctx.alert('The record does not exist.');
+   * }
+   * ```
+   */
+  loadItemPresentationInfo: (
+    itemsOrIds: Array<string | Item>,
+    options?: LoadItemPresentationInfoOptions,
+  ) => Promise<Array<ResolvedItemPresentationInfo | null>>;
+  /**
+   * Loads some records by ID, for example the records of the value of a link
+   * field, which holds only their IDs. The ID of a block works too, for
+   * example an ID from a field of blocks: the result is the block. One call
+   * loads all the records, so call it once for a list, not once for each
+   * record.
+   *
+   * A record has the same shape that `selectItem` and `editItem` give: the
+   * current version of the record, with its draft changes. A field of blocks
+   * (Modular Content, single block, Structured Text) holds the IDs of the
+   * blocks, not the blocks.
+   *
+   * The result is an array with the order and the length of `itemIds`: the
+   * entry at index i is the record with the ID at index i. It is `null` when
+   * the record does not exist, or when the current user cannot read it. The
+   * same ID twice gives two entries.
+   *
+   * The result is a snapshot: it does not change when somebody edits the
+   * record. Call the method again to get the new record.
+   *
+   * @example
+   *
+   * ```js
+   * const itemId = prompt('Please insert a record ID:');
+   *
+   * const [item] = await ctx.loadItems([itemId]);
+   *
+   * if (item) {
+   *   ctx.notice(`The model of the record is ${item.relationships.item_type.data.id}`);
+   * } else {
+   *   ctx.alert('The record does not exist.');
+   * }
+   * ```
+   */
+  loadItems: (itemIds: string[]) => Promise<Array<Item | null>>;
+  /**
+   * Loads some assets of the Media Area by ID, for example the assets of the
+   * value of a file or gallery field, which holds only their `upload_id`.
+   * One call loads all the assets, so call it once for a list, not once for
+   * each asset.
+   *
+   * The result is an array with the order and the length of `uploadIds`: the
+   * entry at index i is the asset with the ID at index i. It is `null` when
+   * the asset does not exist, or when the current user cannot read it. The
+   * same ID twice gives two entries.
+   *
+   * The result is a snapshot: it does not change when somebody edits the
+   * asset. Call the method again to get the new asset.
+   *
+   * @example
+   *
+   * ```js
+   * const uploadId = prompt('Please insert an asset ID:');
+   *
+   * const [upload] = await ctx.loadUploads([uploadId]);
+   *
+   * if (upload) {
+   *   ctx.notice(`The file name of the asset is "${upload.attributes.filename}"`);
+   * } else {
+   *   ctx.alert('The asset does not exist.');
+   * }
+   * ```
+   */
+  loadUploads: (uploadIds: string[]) => Promise<Array<Upload | null>>;
 };
+
+/** The options of `loadItemPresentationInfo` */
+export type LoadItemPresentationInfoOptions = {
+  /**
+   * The locale of the title and of the image, for a model with localized
+   * fields. Without it, DatoCMS uses the first locale of the project that
+   * has a value.
+   */
+  preferredLocale?: string;
+  /**
+   * The size at which you draw the image, in CSS pixels. DatoCMS crops the
+   * images of the Media Area and the frames of the videos to this size, with
+   * two image pixels for each CSS pixel, for screens with a high density. The
+   * other images (a map, a color, a date, the image of a plugin) come at
+   * their own size: draw them with `object-fit: cover`.
+   *
+   * @default { width: 32, height: 32 }
+   */
+  preferredImageSize?: { width: number; height: number };
+};
+
+/**
+ * How the interface presents a record, as `loadItemPresentationInfo`
+ * resolves it.
+ *
+ * @see {isResolvedItemPresentationInfo}
+ */
+export type ResolvedItemPresentationInfo = {
+  /** The ID of the record */
+  id: string;
+  /**
+   * The title of the record, as text. A record with no title gets a title
+   * like "Record #123".
+   */
+  title: string;
+  /**
+   * The image of the record. "image" is a picture to show in a square, cut
+   * to fill it. "file" is an asset that is not a picture: show the icon of
+   * its extension. `null` when the record has no image.
+   */
+  image:
+    | { type: 'image'; url: string }
+    | { type: 'file'; extension: string }
+    | null;
+  /** The ID of the model of the record */
+  itemTypeId: string;
+  /**
+   * The publishing status of the record. Show it only when the model has
+   * the draft mode (`draft_mode_active`): without it, a record is published
+   * every time that it is saved.
+   */
+  status: 'draft' | 'updated' | 'published';
+  /** False when the current version does not pass the validations */
+  currentVersionValid: boolean;
+  /** False when the published version does not pass the validations */
+  publishedVersionValid: boolean;
+  /**
+   * The path of the page of the record in the interface, for
+   * `ctx.navigateTo`. `null` when the record has no page of its own (a
+   * block).
+   */
+  editPath: string | null;
+};
+
+export function isResolvedItemPresentationInfo(
+  value: unknown,
+): value is ResolvedItemPresentationInfo {
+  if (!isRecord(value)) {
+    return false;
+  }
+
+  const { image } = value;
+
+  return (
+    isString(value.id) &&
+    isString(value.title) &&
+    (image === null ||
+      (isRecord(image) &&
+        ((image.type === 'image' && isString(image.url)) ||
+          (image.type === 'file' && isString(image.extension))))) &&
+    isString(value.itemTypeId) &&
+    (value.status === 'draft' ||
+      value.status === 'updated' ||
+      value.status === 'published') &&
+    isBoolean(value.currentVersionValid) &&
+    isBoolean(value.publishedVersionValid) &&
+    (value.editPath === null || isString(value.editPath))
+  );
+}
 
 /**
  * These methods can be used to update both plugin parameters and manual field

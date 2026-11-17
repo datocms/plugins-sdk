@@ -122,12 +122,12 @@ export type SortableTreeProps<D = any> = {
    */
   isNestingEnabled?: boolean;
   /**
-   * Tells if the dragged item can go in this item, for example only in a
+   * Says if the dragged item can go in this item, for example only in a
    * folder. It has an effect only with `isNestingEnabled`. By default, all
    * the items take children.
    */
   canNest?: (item: TreeItem<D>) => boolean;
-  /** Tells if the user can drag this item. By default, all the items move. */
+  /** Says if the user can drag this item. By default, all the items move. */
   canDrag?: (item: TreeItem<D>) => boolean;
   /**
    * How the rows show their indent

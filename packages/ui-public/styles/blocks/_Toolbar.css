@@ -249,6 +249,21 @@
   display: flex;
   flex: 1;
 }
+/* The parts of a filter row are bare (see the Filter section of the Toolbar
+   page), thus the row gives them the gap of a toolbar. */
+.Toolbar--fields > .Toolbar__fill {
+  gap: var(--spacing-m);
+  align-items: flex-start;
+
+  /* Each part is at least as tall as a field of one line, and centers its
+     own content in that height. Thus the parts stay on the first line of the
+     tiles when the tiles wrap. Toolbar.Divider stretches to the full height
+     of the row. */
+  > * {
+    box-sizing: border-box;
+    min-height: var(--control-height);
+  }
+}
 /* The widths of the two edge fades of .Toolbar__tabs. They must be
    registered: an animation cannot interpolate a custom property that is not
    registered. */

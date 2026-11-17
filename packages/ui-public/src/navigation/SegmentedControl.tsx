@@ -54,7 +54,7 @@ export type SegmentedControlProps<T extends string> = SegmentedControlName &
     onChange: (value: T) => void;
     /**
      * The height of the options, with the padding of the Button sizes. The
-     * size of the place by default: "milli" in a toolbar, "field" in a
+     * size of its container by default: "milli" in a toolbar, "field" in a
      * toolbar of fields, "small" out of a toolbar (see useButtonSize).
      */
     size?: ButtonSize;
@@ -62,7 +62,7 @@ export type SegmentedControlProps<T extends string> = SegmentedControlName &
     fill?: boolean;
     /** Turns off all the options */
     disabled?: boolean;
-    /** Only for the place of the control (margin), not for its look */
+    /** Only for the position of the control (margin), not for its look */
     className?: string;
   };
 

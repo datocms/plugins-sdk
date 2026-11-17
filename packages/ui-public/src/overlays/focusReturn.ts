@@ -2,7 +2,7 @@ type FocusReturn = {
   /** Gives the focus to the trigger, or to the nearest ancestor that is still on the page */
   focus: () => void;
   /**
-   * After the next frame, gives the focus to the nearest ancestor of the
+   * After the next frame, moves the focus to the nearest ancestor of the
    * trigger when the trigger left the page and the focus is lost. Use it
    * when the overlay closes and the action can remove the trigger.
    */

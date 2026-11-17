@@ -65,7 +65,6 @@ import FileCodeIcon from 'lucide-static/icons/file-code.svg?react';
 import FileDownIcon from 'lucide-static/icons/file-down.svg?react';
 import FileLockIcon from 'lucide-static/icons/file-lock.svg?react';
 import FileOutputIcon from 'lucide-static/icons/file-output.svg?react';
-import FileTextIcon from 'lucide-static/icons/file-text.svg?react';
 import FlameIcon from 'lucide-static/icons/flame.svg?react';
 import FlaskConicalIcon from 'lucide-static/icons/flask-conical.svg?react';
 import FoldVerticalIcon from 'lucide-static/icons/fold-vertical.svg?react';
@@ -137,11 +136,11 @@ import PlayIcon from 'lucide-static/icons/play.svg?react';
 import PlusIcon from 'lucide-static/icons/plus.svg?react';
 import PuzzleIcon from 'lucide-static/icons/puzzle.svg?react';
 import QuoteIcon from 'lucide-static/icons/quote.svg?react';
-import ReceiptIcon from 'lucide-static/icons/receipt.svg?react';
 import Redo2Icon from 'lucide-static/icons/redo-2.svg?react';
 import RefreshCwIcon from 'lucide-static/icons/refresh-cw.svg?react';
 import RotateCcwIcon from 'lucide-static/icons/rotate-ccw.svg?react';
 import RotateCcwClockIcon from 'lucide-static/icons/rotate-ccw-clock.svg?react';
+import ScrollTextIcon from 'lucide-static/icons/scroll-text.svg?react';
 import SearchIcon from 'lucide-static/icons/search.svg?react';
 import SendIcon from 'lucide-static/icons/send.svg?react';
 import SettingsIcon from 'lucide-static/icons/settings.svg?react';
@@ -309,7 +308,7 @@ export const ProjectSettings = {
   ParametersIcon: WrenchIcon,
   UsersIcon: UserIcon,
   GroupsIcon: UsersIcon,
-  AuditLogIcon: FileTextIcon,
+  AuditLogIcon: ScrollTextIcon,
   ProjectUsageIcon: ChartAreaIcon,
   SearchIndexIcon: FolderSearchIcon,
 };
@@ -490,7 +489,6 @@ export const UI = {
   LocationDotIcon: MapPinIcon,
   MapLocationDotIcon: MapPinnedIcon,
   MobileIcon: SmartphoneIcon,
-  ReceiptIcon,
   SlidersIcon: SlidersHorizontalIcon,
   SquareUpRightIcon: SquareArrowUpRightIcon,
   StoreIcon,

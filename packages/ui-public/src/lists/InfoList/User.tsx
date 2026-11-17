@@ -13,7 +13,7 @@ export type InfoListUserProps = {
   user: InfoListUserData;
   /**
    * A text about the user, for example the type of the user. It goes in a
-   * tooltip at the left, thus the text does not wrap in a narrow column.
+   * tooltip on the left, so the text does not wrap in a narrow column.
    * Without it, there is no tooltip.
    */
   tooltip?: Message;

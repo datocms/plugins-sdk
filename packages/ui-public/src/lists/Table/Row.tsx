@@ -73,7 +73,7 @@ export type RowAction =
     };
 
 /**
- * The drag handle at the left of the row: the handle that the library listens
+ * The drag handle on the left of the row: the handle that the library listens
  * to, or a disabled handle with the reason in a tooltip
  */
 export type RowDragHandle =
@@ -84,7 +84,7 @@ export type RowDragHandle =
 
 export type RowDrag = {
   /**
-   * The element that the library moves. It has a position, thus the drop
+   * The element that the library moves. It has a position, so the drop
    * indicator can be in it.
    */
   wrapperRef?: Ref<HTMLDivElement>;
@@ -115,7 +115,7 @@ type RowBaseProps<R> = {
   /**
    * The text of the row is subtle and its images fade, but the user can
    * still open it. Use it for an element that is off (for example a
-   * deactivated user), with a Pill that tells it.
+   * deactivated user), with a Pill that says it.
    * @default false
    */
   muted?: boolean;
@@ -124,7 +124,7 @@ type RowBaseProps<R> = {
   /** The element of the row, without the handle */
   rowRef?: Ref<HTMLDivElement>;
   /**
-   * The actions of the row (see `ui-public/Actions`): their keys work while the
+   * The actions of the row (see `Actions`): their keys work while the
    * pointer or the focus is in the row, and a menu in the row runs them.
    */
   actions?: readonly Action[];
@@ -142,7 +142,7 @@ type RowBaseProps<R> = {
    * device with no hover. A click in them never opens the row.
    */
   trailing?: ReactNode;
-  /** Cells in place of the cells of the columns. Use <Table.Cell>. */
+  /** Cells instead of the cells of the columns. Use <Table.Cell>. */
   children?: ReactNode;
 };
 

@@ -55,7 +55,7 @@ export type ButtonSize =
   | 'large';
 
 /**
- * The size of the buttons of the place, when a button does not give one:
+ * The size of the buttons in their container, when a button does not give one:
  * "small" by default, "milli" in a toolbar (the toolbar is short: two
  * insets plus one line of the title, and a "small" button almost touches
  * its top and bottom edges), "field" in a toolbar of fields (a filter bar:
@@ -80,8 +80,8 @@ type WithLabel = {
 };
 
 /**
- * The name and the keys of an action of the registry (`ui-public/Actions`), in
- * the tooltip. An icon-only button shows its label in place of the name.
+ * The name and the keys of an action of the registry (`Actions`), in
+ * the tooltip. An icon-only button shows its label instead of the name.
  * When the action has no keys or does not exist, the tooltip has no keys:
  * an icon-only button shows its label, and a button with a label shows no
  * tooltip.
@@ -153,7 +153,7 @@ type ClickHandler = (event: React.MouseEvent<HTMLButtonElement>) => unknown;
 /** The state of a button element. A link cannot show it. */
 type ButtonElementState = {
   /**
-   * The action runs: the button shows a spinner in the place of the icon
+   * The action runs: the button shows a spinner instead of the icon
    * (before the label when there is no icon), and it is disabled. An
    * "onClick" that returns a promise sets it automatically.
    */
@@ -180,9 +180,9 @@ type ClickAction = ButtonElementState & {
   newTab?: never;
 };
 
-/** A link to a page of the app */
+/** A link to a page of DatoCMS */
 type LinkAction = LinkElementState & {
-  /** The page of the app: the path with its query, for example "/editor?tab=x" */
+  /** The page of DatoCMS: the path with its query, for example "/editor?tab=x" */
   to: string;
   /** Opens the page in a new tab (for example from a modal, to keep it open) */
   newTab?: boolean;
@@ -191,7 +191,7 @@ type LinkAction = LinkElementState & {
   submit?: never;
 };
 
-/** A link to a page out of the app */
+/** A link to another site */
 type ExternalLinkAction = LinkElementState & {
   href: string;
   /** Opens the page in a new tab (for example the docs) */
@@ -255,15 +255,15 @@ export type ButtonProps = {
    */
   tone?: ButtonTone;
   /**
-   * The size of the place by default: "milli" in a toolbar, "small" out of
-   * a toolbar (see useButtonSize)
+   * The default size: "milli" in a toolbar, "small" out of a toolbar (see
+   * useButtonSize)
    */
   size?: ButtonSize;
   /** The button fills the width of its container */
   expand?: boolean;
   /** Give a reason when the user must know why the button is disabled */
   disabled?: Disabled;
-  /** Only for the place of the button (margin, alignment), not for its look */
+  /** Only for the position of the button (margin, alignment), not for its look */
   className?: string;
 } & HtmlProps &
   ButtonContent &

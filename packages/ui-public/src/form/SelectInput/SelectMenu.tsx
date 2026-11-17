@@ -10,7 +10,7 @@ import { stopPropagation } from '../../utils/events';
 import { BaseSelectOption } from './';
 
 /**
- * The list that an action of the footer shows in the place of the options.
+ * The list that an action of the footer shows instead of the options.
  * `SelectInput` holds it: the keys, the Tab key and the close of the menu
  * must know about it.
  */
@@ -109,7 +109,7 @@ export type SelectMenuActionProps = {
     }
   | {
       /**
-       * The action opens this list of actions in the place of the options.
+       * The action opens this list of actions instead of the options.
        * The select shows the label of the action as the title of the list,
        * which goes back to the options. Escape and the close of the menu go
        * back too.

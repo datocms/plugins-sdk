@@ -17,7 +17,7 @@ type CopyableValueName =
       hint?: Message;
       ariaLabel?: never;
     }
-  /** No visible label, for example a link under a text that tells it */
+  /** No visible label, for example a link under a text that says it */
   | {
       /** The name of the field for screen readers */
       ariaLabel: TextMessage;

@@ -28,7 +28,7 @@ const tags = {
 
 /**
  * A heading. The level sets the structure of the page for screen readers.
- * The look comes from the class, thus a level 1 heading can look small.
+ * The look comes from the class, so a level 1 heading can look small.
  * A title that the user can click has a button or a link inside it.
  */
 export default function Heading({

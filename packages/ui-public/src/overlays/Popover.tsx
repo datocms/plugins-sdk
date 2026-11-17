@@ -37,7 +37,7 @@ export type PopoverProps = {
   /**
    * Runs when the user presses Escape or clicks out of the popover. A click
    * on the anchor does not run it, because the anchor opens and closes the
-   * popover. Without it, the popover stays open until the caller removes it.
+   * popover. Without it, the popover stays open until you remove it.
    */
   onClose?: () => void;
   /**

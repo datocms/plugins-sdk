@@ -38,7 +38,9 @@
 .form__label__icon {
   display: inline-block;
   margin-left: var(--spacing-s);
-  vertical-align: text-top;
+  /* The same alignment as the buttons in the label (FieldValidations of the
+     cms), thus the icons are on one line */
+  vertical-align: middle;
 
   svg {
     display: block;

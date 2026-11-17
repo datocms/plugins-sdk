@@ -9,7 +9,7 @@ import InitialsAvatar, { initialsFor } from './InitialsAvatar';
  * "small" is 20px, "regular" is 30px, "large" is 40px, "xlarge" is 48px.
  * The regular and the large avatars have a ring, so avatars in a stack stay
  * apart. The xlarge avatar is for a single person, for example the header of
- * a profile, thus it has no ring.
+ * a profile, so it has no ring.
  */
 export type AvatarSize = 'small' | 'regular' | 'large' | 'xlarge';
 
@@ -77,8 +77,8 @@ function gravatarUrl(email: string, pixels: number) {
 }
 
 /**
- * The avatar of a person. It does not know where the person comes from: the
- * app reads the name, the email and the image URL and gives them.
+ * The avatar of a person. It does not know where the person comes from. You
+ * read the name, the email and the image URL and give them.
  */
 const Avatar = forwardRef<HTMLDivElement, AvatarProps>(
   (

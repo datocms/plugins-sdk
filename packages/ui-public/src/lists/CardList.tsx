@@ -33,7 +33,7 @@ export type CardListProps = {
   /** The button that adds an item, in the footer of the card */
   add?: ActionOrMenu;
   /**
-   * Shows in place of the card when the card has no items (for example an
+   * Shows instead of the card when the card has no items (for example an
    * EmptySlot with the button that adds the first item)
    */
   empty?: ReactNode;
@@ -173,7 +173,7 @@ export type CardListRow = {
   /**
    * The actions of the item (an icon button, a menu, a "Change" button).
    * They go in a column with the width of a micro icon button at least,
-   * thus the icon actions of all the items align.
+   * so the icon actions of all the items align.
    */
   actions?: ReactNode;
 };
@@ -211,7 +211,7 @@ type ItemWithoutRow = {
 };
 
 /**
- * The other props go to the `li`, thus the item can be the trigger of a
+ * The other props go to the `li`, so the item can be the trigger of a
  * Tooltip for the whole row
  */
 type ItemElementProps = Omit<

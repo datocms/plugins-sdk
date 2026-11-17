@@ -20,7 +20,7 @@ interface ButtonBaseProps {
   shortcut?: string;
   /**
    * Runs the command of the button. The button keeps the focus and the
-   * selection in the editor, thus do not call `preventDefault()`.
+   * selection in the editor, so do not call `preventDefault()`.
    */
   onClick?: (event: React.MouseEvent) => void;
 }

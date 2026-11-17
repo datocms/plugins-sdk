@@ -36,7 +36,7 @@ export type NavigationAdapter = {
   /**
    * Gives the `href` attribute of a link to `to`. Without it, the `href` is
    * `to`. A host that is not on the origin of the page (a plugin in a frame)
-   * gives the absolute URL, thus a new tab opens the correct page.
+   * gives the absolute URL, so a new tab opens the correct page.
    */
   href?: (to: string) => string;
 };

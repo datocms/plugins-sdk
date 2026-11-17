@@ -27,7 +27,7 @@ type ActionBehavior =
       action?: never;
     }
   /**
-   * Runs an action of the registry (`ui-public/Actions`). The tooltip of the
+   * Runs an action of the registry (`Actions`). The tooltip of the
    * button and the option of the ⋮ menu show its keys.
    */
   | {

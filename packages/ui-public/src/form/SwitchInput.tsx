@@ -18,7 +18,7 @@ export type SwitchInputProps = BaseInputComponentPropsFieldWithReadOnly<
   /**
    * The text next to the switch. It is the name of the switch, and a click
    * on it flips the switch. An element shows as it is: it must be a `Label`
-   * that points to the `id` of the switch (`Field` of the apps gives one).
+   * that points to the `id` of the switch.
    * Do not give a `label` to a `FieldWrapper` around the switch.
    */
   label: Message;
@@ -32,7 +32,7 @@ export type SwitchInputProps = BaseInputComponentPropsFieldWithReadOnly<
     /** Why the value is on, for example "The role Editor gives it" */
     reason: Message;
   };
-  /** The `id` of the text of the label. `Field` of the apps gives it. */
+  /** The `id` of the text of the label. */
   'aria-labelledby'?: string;
   /** Set when the value has an error. A `FieldWrapper` gives it. */
   'aria-invalid'?: boolean;

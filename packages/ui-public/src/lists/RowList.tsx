@@ -14,7 +14,7 @@ export type RowListProps = {
    * @default "default"
    */
   density?: 'default' | 'compact';
-  /** Only for the place of the list in its container (a margin), not for its look */
+  /** Only for the position of the list in its container (a margin), not for its look */
   className?: string;
   /** The rows (RowList.Item) */
   children: ReactNode;
@@ -43,9 +43,9 @@ function BaseRowList({
   );
 }
 
-/** The row opens a page of the app. It is selected while the page is open. */
+/** The row opens a page of DatoCMS. It is selected while the page is open. */
 type LinkRow = {
-  /** The page of the app: the path with its query */
+  /** The page of DatoCMS: the path with its query */
   to: string;
   /** Runs on a click, before the page opens */
   onClick?: () => void;
@@ -79,13 +79,13 @@ export type RowListItemProps = RowListItemAction & {
   /**
    * The text of the row is subtle and its images fade, but the user can
    * still open it. Use it for an element that is off (for example a
-   * disabled plugin), with a Pill that tells it.
+   * disabled plugin), with a Pill that says it.
    * @default false
    */
   muted?: boolean;
   /**
    * The user can drag the row to a new position. Give the argument of the
-   * children of SortableItem (ui-public/dnd), with `handle` on the SortableItem:
+   * children of SortableItem , with `handle` on the SortableItem:
    * the row shows a grip at its left.
    */
   sortable?: SortableItemApi;

@@ -77,7 +77,7 @@ export type SelectSearch = {
   /**
    * Called with the text in the input each time it changes. The select
    * empties the input when the user picks an option, leaves the select or
-   * closes the menu: the query is then an empty string, thus the next open
+   * closes the menu: the query is then an empty string, so the next open
    * starts from the full list.
    */
   onQueryChange: (query: string) => void;
@@ -326,7 +326,7 @@ function useSearchProps(search: SelectSearch | undefined) {
 type CommonProps<O extends BaseSelectOption> = {
   /**
    * The options load: the control shows a spinner, and the open menu shows
-   * the loading text in place of the options
+   * the loading text instead of the options
    */
   loading?: boolean;
   /**
@@ -364,7 +364,7 @@ type CommonProps<O extends BaseSelectOption> = {
   /**
    * Actions below the options of the menu, for example "Create new". Build
    * them with `SelectMenuAction`: an action with `list` opens a second list
-   * in the place of the options. Close the menu with `closeSelectMenu`.
+   * instead of the options. Close the menu with `closeSelectMenu`.
    */
   menuFooter?: ReactNode;
 };

@@ -14,14 +14,14 @@ export type ListFormPageProps = {
   /** The state of the section (see getListOrOverviewState) */
   state: ListOrOverviewState;
   /**
-   * Shows in place of the children when the section is empty: a
+   * Shows instead of the children when the section is empty: a
    * BlankSlate with titleLevel={1} in a Main
    */
   overview: ReactElement;
   /**
    * The list of the elements: a Pane with a Pane.Header. With a list, the
    * page shows the list and the children in a split. When the section is
-   * empty, the list has no use, thus the children (for example the "new"
+   * empty, the list has no use, so the children (for example the "new"
    * form) show alone.
    */
   list?: ReactNode;
@@ -35,7 +35,7 @@ export type ListFormPageProps = {
 /**
  * The content of a settings section whose elements are forms (for a list
  * with facts to scan, use ListDetail.Page): a ListOrOverview with the list
- * in a left pane of 300px and the open element at the right. On the URL of
+ * in a left pane of 300px and the open element on the right. On the URL of
  * the section, an empty section shows the overview. On another URL (for
  * example the "new" form), it shows the children alone.
  */

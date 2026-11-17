@@ -1,0 +1,126 @@
+.FilterBuilder {
+  display: flex;
+  flex: 3;
+  gap: var(--spacing-m);
+  align-items: flex-start;
+  min-width: 0;
+}
+/* The funnel and the clear button stay on the first line of the tiles when
+   the tiles wrap */
+.FilterBuilder__icon,
+.FilterBuilder__clear {
+  display: flex;
+  flex: none;
+  align-items: center;
+  min-height: var(--control-height);
+}
+.FilterBuilder__icon svg {
+  display: block;
+  color: var(--color--ink-subtle);
+}
+/* The padding and the row gap keep a space of 4px around each line of
+   tiles. With one line, the line fills the min-height and its tiles are in
+   the center. */
+.FilterBuilder__box {
+  box-sizing: border-box;
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  gap: 4px var(--spacing-m);
+  align-items: center;
+  min-width: 0;
+  min-height: var(--control-height);
+  padding-block: 4px;
+}
+.FilterBuilder__empty {
+  color: var(--color--ink-subtle);
+}
+.FilterBuilder__add {
+  display: flex;
+}
+.FilterBuilder__tile {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  max-width: 100%;
+  background-color: var(--color--surface-raised);
+  border: 1px solid var(--color--primary-soft--border);
+  border-radius: var(--radius-s);
+  transition:
+    border-color 0.1s ease-out,
+    box-shadow 0.1s ease-out;
+
+  &:hover {
+    border-color: var(--color--focus--border);
+  }
+  /* The small selects of the tile draw no focus ring, thus the tile draws
+     it for all its inputs */
+  &:focus-within {
+    border-color: var(--color--focus--border);
+    box-shadow: var(--focus-ring);
+  }
+  /* A read-only tile has no hover look, as the other read-only inputs */
+  .FilterBuilder.is-read-only &:hover:not(:focus-within) {
+    border-color: var(--color--primary-soft--border);
+  }
+}
+.FilterBuilder__field,
+.FilterBuilder__operator {
+  position: relative;
+  border-right: 1px solid var(--color--primary-soft--border);
+}
+/* The tile has a border of 1px, thus the inner radius is 1px smaller */
+.FilterBuilder__field {
+  border-radius: calc(var(--radius-s) - 1px) 0 0 calc(var(--radius-s) - 1px);
+}
+.FilterBuilder__operator--static {
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  font-size: var(--font-size-xs);
+  color: var(--color--ink-subtle);
+}
+/* The value keeps a minimum width, even when it is empty, thus the user can
+   find it and click it */
+.FilterBuilder__value {
+  display: flex;
+  align-items: stretch;
+  min-width: 80px;
+
+  > * {
+    flex: 1 0 auto;
+  }
+}
+.FilterBuilder__argument {
+  display: flex;
+  align-items: center;
+  margin-inline: 10px;
+}
+.FilterBuilder__argument-label {
+  padding-right: 8px;
+  font-size: var(--font-size-xs);
+}
+/* The text inputs have no field look: the tile is the field */
+.FilterBuilder__value > .AutosizeInput,
+.FilterBuilder__argument > .AutosizeInput {
+  --autosize-input-padding-inline: 10px;
+  --autosize-input-border-inline: 0px;
+  min-width: 80px;
+  max-width: 30vw;
+  font-size: var(--font-size-xs);
+
+  > input[type="text"] {
+    padding-block: 5px;
+    appearance: none;
+    background-color: transparent;
+    border: none;
+
+    &:focus {
+      box-shadow: none;
+    }
+  }
+}
+.FilterBuilder__remove {
+  align-self: center;
+  margin-right: 4px;
+}

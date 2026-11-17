@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 
 /**
- * A short quiet text before a button at the end of the toolbar, that tells
+ * A short quiet text before a button at the end of the toolbar, that says
  * why the button is there (for example "New version available!" before
  * "Update"). It ends with an ellipsis when the toolbar is narrow.
  */
