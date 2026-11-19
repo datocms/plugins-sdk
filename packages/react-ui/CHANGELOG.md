@@ -1,5 +1,11 @@
 # datocms-react-ui
 
+## 3.1.0-next.9
+
+### Patch Changes
+
+- The version goes back to 3. `4.0.0-next.7` and `4.0.0-next.8` are prereleases of 3.1.0 with a wrong number: their changes are in this version. Install `datocms-react-ui@next`, or `3.1.0-next.9` and later.
+
 ## 4.0.0-next.8
 
 ### Minor Changes

@@ -30,9 +30,12 @@ export type TableRowExpandable = {
   disabled?: Disabled;
 };
 
-// The toggle is in the row: a click on it must not open or select the row
-function stopPropagation(event: React.SyntheticEvent) {
+// The toggle is in the row, and in the link of a row with `to`. A click on
+// it must not open or select the row. stopPropagation stops the handlers of
+// the row, and preventDefault stops the navigation of the link.
+function stopRowClick(event: React.SyntheticEvent) {
   event.stopPropagation();
+  event.preventDefault();
 }
 
 /**
@@ -77,9 +80,9 @@ export function TreeToggle({
         aria-busy={busy || undefined}
         // RawButton drops the onClick of a disabled button, thus the capture
         // phase stops the click of a disabled toggle
-        onClickCapture={disabled ? stopPropagation : undefined}
+        onClickCapture={disabled ? stopRowClick : undefined}
         onClick={(event) => {
-          stopPropagation(event);
+          stopRowClick(event);
 
           if (!busy) {
             onToggle();

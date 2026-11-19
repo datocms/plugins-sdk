@@ -116,7 +116,7 @@ An input of your own calls `useFieldInput` (from `datocms-react-ui/FieldWrapper`
 
 ### From react-ui 2.x
 
-| 2.x | 4 |
+| 2.x | 3 |
 | --- | --- |
 | `TextField` | `FieldWrapper` + `StringInput` |
 | `TextareaField` | `FieldWrapper` + `TextareaInput` |

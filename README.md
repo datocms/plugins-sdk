@@ -111,7 +111,7 @@ Some comments point to a file of the private repository, such as an `AGENTS.md` 
 
 MIT, see [`LICENSE.md`](LICENSE.md).
 
-<sub>Source commit: `522da2dd11c1c776cdbceab9f1d2d890da605c22`</sub>
+<sub>Source commit: `def79e29a070b9b6e4a23bb8bb606f070c42fb00`</sub>
 
 <!--datocms-autoinclude-footer start-->
 <!--datocms-autoinclude-footer end-->
