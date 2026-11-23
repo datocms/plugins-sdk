@@ -47,6 +47,7 @@ export const entries = {
 
   // Forms
   AutosizeInput: 'ui-public/form/AutosizeInput',
+  ColorInput: 'ui-public/form/ColorInput',
   DateInput: 'ui-public/form/DateInput',
   DateTimeInput: 'ui-public/form/DateTimeInput',
   DateTimeRangeInput: 'ui-public/form/DateTimeRangeInput',
@@ -60,6 +61,7 @@ export const entries = {
   NumberInput: 'ui-public/form/NumberInput',
   PasswordInput: 'ui-public/form/PasswordInput',
   RadioGroupInput: 'ui-public/form/RadioGroupInput',
+  RangeInput: 'ui-public/form/RangeInput',
   SelectInput: 'ui-public/form/SelectInput',
   StringInput: 'ui-public/form/StringInput',
   SwitchInput: 'ui-public/form/SwitchInput',

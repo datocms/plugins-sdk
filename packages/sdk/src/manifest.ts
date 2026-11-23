@@ -367,6 +367,11 @@ export const manifest: Manifest = {
     },
     renderManualFieldExtensionConfigScreen: {
       name: 'renderManualFieldExtensionConfigScreen',
+      comment: {
+        markdownText:
+          'This function will be called when a user adds a manual field extension\nwith `configurable: true` to a field. Use it to render the form for the\nparameters of the extension (see the `manualFieldExtensions` hook).',
+        tag: 'manualFieldExtensions',
+      },
       nonCtxArguments: [
         {
           name: 'fieldExtensionId',
@@ -386,7 +391,7 @@ export const manifest: Manifest = {
                 location: {
                   filePath:
                     'src/hooks/renderManualFieldExtensionConfigScreen.ts',
-                  lineNumber: 23,
+                  lineNumber: 30,
                 },
                 type: 'string',
               },
@@ -398,7 +403,7 @@ export const manifest: Manifest = {
                 location: {
                   filePath:
                     'src/hooks/renderManualFieldExtensionConfigScreen.ts',
-                  lineNumber: 28,
+                  lineNumber: 35,
                 },
                 type: 'Record<string, unknown>',
               },
@@ -410,7 +415,7 @@ export const manifest: Manifest = {
                 location: {
                   filePath:
                     'src/hooks/renderManualFieldExtensionConfigScreen.ts',
-                  lineNumber: 33,
+                  lineNumber: 40,
                 },
                 type: 'Record<string, unknown>',
               },
@@ -422,7 +427,7 @@ export const manifest: Manifest = {
                 location: {
                   filePath:
                     'src/hooks/renderManualFieldExtensionConfigScreen.ts',
-                  lineNumber: 36,
+                  lineNumber: 43,
                 },
                 type: 'PendingField',
               },
@@ -433,7 +438,7 @@ export const manifest: Manifest = {
                 location: {
                   filePath:
                     'src/hooks/renderManualFieldExtensionConfigScreen.ts',
-                  lineNumber: 39,
+                  lineNumber: 46,
                 },
                 type: 'ItemType',
               },
@@ -451,7 +456,7 @@ export const manifest: Manifest = {
                 location: {
                   filePath:
                     'src/hooks/renderManualFieldExtensionConfigScreen.ts',
-                  lineNumber: 51,
+                  lineNumber: 58,
                 },
                 type: '(params: Record<string, unknown>) => Promise<void>',
               },
@@ -462,7 +467,7 @@ export const manifest: Manifest = {
       returnType: 'void',
       location: {
         filePath: 'src/hooks/renderManualFieldExtensionConfigScreen.ts',
-        lineNumber: 9,
+        lineNumber: 16,
       },
     },
     renderItemFormSidebarPanel: {

@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react';
 import { useTranslation } from '../../i18n';
 import type { Message } from '../../Message';
+import { useTabRowFadeReset } from '../../navigation/useTabRowFadeReset';
 import { HeadingLevel } from '../../semantic/Heading';
 import Toolbar from '../Toolbar';
 import type { HelpProps } from '../Toolbar/Help';
@@ -193,6 +194,7 @@ function PaneHeader({ filter, children }: PaneHeaderProps) {
   }
 
   const presets = title?.props.presets;
+  const tabRowRef = useTabRowFadeReset<HTMLDivElement>();
 
   return (
     <>
@@ -201,7 +203,9 @@ function PaneHeader({ filter, children }: PaneHeaderProps) {
           // The tabs fill the full height of the bar, thus they are not in a
           // group
           <>
-            <div className="Toolbar__tabs">{tabs.props.children}</div>
+            <div ref={tabRowRef} className="Toolbar__tabs">
+              {tabs.props.children}
+            </div>
             {tabs.props.help}
           </>
         ) : title ? (

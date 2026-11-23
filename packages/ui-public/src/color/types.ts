@@ -9,12 +9,8 @@ export type RgbaColor = {
 };
 export type ColorValue = RgbaColor | null;
 
-// The four canonical theme colors plugins and non-CSS consumers see (Mux
-// player accent, drag-preview canvas, GraphiQL primary). Stored as
-// CSS-ready RGB strings. In monochromatic mode they are derived from the
-// pigment ramp at fixed stops (light=50, primary=450, accent=550,
-// dark=800) converted from OKLCH; in custom mode they are the four
-// explicit RGB colors the customer chose.
+// The four colors of a custom theme, as CSS color strings: the colors that
+// the customer picks for the light scheme. They are the input of customTheme.
 export type ThemeColors = {
   primaryColor: string;
   accentColor: string;

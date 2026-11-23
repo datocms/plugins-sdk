@@ -27,7 +27,7 @@
 // sRGB → OKLab → OKLCH in JS (we only ingest the four legacy API colors,
 // and that's where `rgbToOklch` is used).
 
-import { decimalToPercentage } from './utils';
+import { decimalToPercentage } from './utils.js';
 
 export type Oklch = { l: number; c: number; h: number };
 
@@ -180,8 +180,23 @@ export function rgbToOklch({
   return { l: lab_l, c, h };
 }
 
-// OKLCH CSS string → `rgb(R, G, B)` string. Used when callers need an RGB
-// representation of a ramp stop (e.g. ThemeColors in monochromatic mode).
+// OKLCH → the sRGB channels, integers from 0 to 255. A color outside the sRGB
+// gamut is clamped.
+export function oklchToRgb(oklch: Oklch): {
+  red: number;
+  green: number;
+  blue: number;
+} {
+  const [lr, lg, lb] = oklchToLinearRgb(oklch);
+  return {
+    red: Math.round(linearToSrgb(lr) * 255),
+    green: Math.round(linearToSrgb(lg) * 255),
+    blue: Math.round(linearToSrgb(lb) * 255),
+  };
+}
+
+// OKLCH CSS string → `rgb(R, G, B)` string, for a consumer that needs an
+// sRGB color. A string that is not OKLCH comes back as it is.
 export function oklchStringToRgbCss(oklchString: string): string {
   const oklch = parseOklch(oklchString);
   if (!oklch) return oklchString;

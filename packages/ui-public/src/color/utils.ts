@@ -1,4 +1,4 @@
-import { RgbaColor } from './types';
+import { RgbaColor } from './types.js';
 
 type RgbColor = {
   red: number;

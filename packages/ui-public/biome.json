@@ -8,7 +8,11 @@
   },
   "files": {
     "ignoreUnknown": false,
-    "includes": ["**", "!stories/a11y-baseline.json"]
+    "includes": [
+      "**",
+      "!stories/a11y-baseline.json",
+      "!src/color/monochromaticTheme.fixture.json"
+    ]
   },
   "linter": {
     "enabled": true,

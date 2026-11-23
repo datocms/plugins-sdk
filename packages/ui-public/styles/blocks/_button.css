@@ -205,12 +205,14 @@
     }
   }
 }
+/* A block that paints its own ground sets --button-overlay-ink to the ink of
+   that ground (see _NavigationBar.css) */
 .button--rev {
-  color: var(--color--overlay--ink);
+  color: var(--button-overlay-ink, var(--color--overlay--ink));
   background: var(--color--overlay--surface);
 
   svg {
-    color: var(--color--overlay--ink);
+    color: var(--button-overlay-ink, var(--color--overlay--ink));
   }
   &:--enabled:hover {
     background: var(--color--overlay--surface-hover);

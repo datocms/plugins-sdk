@@ -95,13 +95,13 @@
     width: 100%;
   }
 }
-/* A field around a switch has no label above the switch, thus the hint and
-   the error start under the label of the switch. `Field` of the apps also
+/* A field around a switch has no label above the switch, thus the hint, the
+   status and the error start under the label of the switch. `Field` of the apps also
    adds the class, because its input can wrap the switch in another element.
    `:where` keeps the specificity of the class, thus `SwitchList` can reset
    the margin. */
 :is(.form__field--switch, .form__field:where(:has(> .SwitchInput)))
-  :is(.form__hint, .form__error) {
+  :is(.form__hint, .form__status, .form__error) {
   margin-left: calc(var(--switch-width) + var(--switch-gap));
 }
 .form__field--less-margin {
@@ -236,6 +236,59 @@ textarea:focus {
     vertical-align: middle;
     color: var(--color--warning-soft--ink);
   }
+}
+/* A note about a valid value, in the place of the hint (see the status of
+   FieldWrapper) */
+.form__status {
+  display: flex;
+  gap: var(--spacing-s);
+  /* The icon is on the baseline of the first line, also when the text wraps */
+  align-items: baseline;
+  margin-top: var(--spacing-s);
+  font-size: var(--font-size-m);
+  line-height: 1.4;
+}
+.form__status--warning {
+  color: var(--color--ink-warning);
+}
+.form__status__icon {
+  /* A box with the height of the capitals, on the baseline. The icon is at
+     the center of the box, thus at the center of the capitals. Layout
+     containment puts the baseline of the box at its bottom. */
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  height: 1cap;
+  contain: layout;
+
+  svg {
+    width: 1.1em;
+    height: 1.1em;
+  }
+}
+/* The fix of the problem, after the text. The short text before the pill
+   and the pill stay on one line. The space before it is the space between
+   two words. */
+.form__status__fix {
+  display: inline-flex;
+  gap: var(--spacing-s);
+  align-items: center;
+  margin-left: 0.3em;
+  white-space: nowrap;
+}
+.form__status__swatch {
+  display: inline-block;
+  flex: none;
+  width: 0.9em;
+  height: 0.9em;
+  background: var(--form-status-swatch);
+  /* A rounded square, as the swatches of ColorInput */
+  border-radius: var(--radius-xs);
+  /* A translucent hairline. It is visible only when the color is near the
+     color of the surface. */
+  /* token-audit-disable-next-line color-mix -- a translucent hairline around the swatch */
+  box-shadow: inset 0 0 0 1px
+    color-mix(in oklch, var(--color--ink) 15%, transparent);
 }
 .form__input--large.form__input--large {
   font-size: 1.2em;

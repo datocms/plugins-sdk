@@ -1,0 +1,168 @@
+.ColorInput {
+  position: relative;
+  display: flex;
+  width: 100%;
+}
+/* A width that fits a hex value with alpha (#RRGGBBAA) and the clear button */
+.ColorInput--autosize {
+  display: inline-flex;
+  width: 220px;
+  max-width: 100%;
+}
+.ColorInput__field {
+  flex: 1;
+}
+.ColorInput__swatch {
+  display: flex;
+  flex: none;
+  padding: 0 0 0 8px;
+  cursor: pointer;
+  background: none;
+  border: 0;
+
+  &[disabled] {
+    cursor: default;
+  }
+}
+/* The color (see the --ColorInput-swatch property, which the component sets)
+   is on top of a checkerboard, which shows the alpha. The two are layers of
+   one background, thus the checkerboard does not show at the rounded
+   corners. */
+.ColorInput__swatch__color {
+  position: relative;
+  display: block;
+  width: 22px;
+  height: 22px;
+  overflow: hidden;
+  background:
+    linear-gradient(var(--ColorInput-swatch), var(--ColorInput-swatch)),
+    url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAMUlEQVQ4T2NkYGAQYcAP3uCTZhw1gGGYhAGBZIA/nYDCgBDAm9BGDWAAJyRCgLaBCAAgXwixzAS0pgAAAABJRU5ErkJggg==");
+  border-radius: var(--radius-s);
+  /* A translucent hairline. It is visible only when the color is near the
+     color of the surface. */
+  /* token-audit-disable-next-line color-mix -- a translucent hairline around the swatch */
+  box-shadow: inset 0 0 0 1px
+    color-mix(in oklch, var(--color--ink) 15%, transparent);
+
+  &.is-empty {
+    background: none;
+
+    &::after {
+      position: absolute;
+      top: 50%;
+      left: -20%;
+      width: 140%;
+      height: 1px;
+      content: "";
+      /* token-audit-disable-next-line mismatch -- a 1px line, drawn with the ink color */
+      background-color: var(--color--ink-subtle);
+      transform: rotate(-45deg);
+    }
+  }
+}
+.ColorInput__hex {
+  flex: 1;
+  min-width: 0;
+  font-family: var(--monospaced-font-family);
+  text-transform: uppercase;
+
+  &::placeholder {
+    font-family: var(--base-font-family);
+    text-transform: none;
+  }
+}
+.ColorInput__clear {
+  margin-right: 4px;
+}
+.ColorInput__pane {
+  box-sizing: border-box;
+  width: 240px;
+  padding: var(--spacing-m);
+  background-color: var(--color--surface-raised);
+  border: 1px solid var(--color--border-raised);
+  border-radius: var(--radius-m);
+  box-shadow: var(--shadow--floating);
+}
+/* The picker root has display: contents, thus the saturation area, the
+   sliders and the eye dropper are cells of one grid. The eye dropper is in
+   the left column, next to the sliders. */
+.ColorInput__picker-area {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-s);
+  align-items: center;
+
+  &.has-eye-dropper {
+    grid-template-columns: auto 1fr;
+  }
+}
+.ColorInput__picker.react-colorful {
+  --ColorInput-slider-pointer: 14px;
+
+  display: contents;
+
+  .react-colorful__saturation {
+    grid-column: 1 / -1;
+    height: 140px;
+    margin-bottom: var(--spacing-s);
+    border-bottom: 0;
+    border-radius: var(--radius-s);
+  }
+  /* The slider pointer has its center on the value, thus at the two ends
+     it goes out of the track by half its width. The inline margin keeps it
+     inside the grid cell, away from the eye dropper and the pane edge. */
+  .react-colorful__hue,
+  .react-colorful__alpha {
+    grid-column: -2 / -1;
+    height: 12px;
+    margin-inline: calc(var(--ColorInput-slider-pointer) / 2);
+    border-radius: var(--radius-full);
+  }
+  .react-colorful__pointer {
+    width: 16px;
+    height: 16px;
+    border-width: 2px;
+  }
+  .react-colorful__hue-pointer,
+  .react-colorful__alpha-pointer {
+    width: var(--ColorInput-slider-pointer);
+    height: var(--ColorInput-slider-pointer);
+  }
+}
+.ColorInput__eye-dropper {
+  grid-row: 2;
+  grid-column: 1;
+
+  .has-alpha > & {
+    grid-row: 2 / span 2;
+  }
+}
+.ColorInput__pane__footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-s);
+  align-items: center;
+  padding-top: var(--spacing-m);
+  margin-top: var(--spacing-m);
+  border-top: 1px solid var(--color--border);
+}
+.ColorInput__preset {
+  display: flex;
+  padding: 2px;
+  cursor: pointer;
+  background: none;
+  border: 0;
+  border-radius: var(--radius-s);
+
+  &:hover,
+  &:focus-visible {
+    box-shadow: 0 0 0 2px var(--color--border-hover);
+  }
+  &.is-selected {
+    box-shadow: 0 0 0 2px var(--color--selected--border);
+  }
+  .ColorInput__swatch__color {
+    width: 20px;
+    height: 20px;
+  }
+}

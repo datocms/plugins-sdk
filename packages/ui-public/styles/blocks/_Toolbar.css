@@ -294,7 +294,8 @@
    The fade is a mask, thus it works on any background. Each fade follows
    the scroll of the strip: it grows in the first and the last
    --Toolbar__tabs-fade of the scroll. A strip that does not scroll has no
-   active timeline, thus no fade. */
+   active timeline, thus no fade. Chromium keeps the last fade when a strip
+   stops scrolling: useTabRowFadeReset restarts the animations then. */
 .Toolbar__tabs {
   --Toolbar__tabs-fade: var(--spacing-xl);
 

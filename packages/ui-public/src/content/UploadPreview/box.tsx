@@ -122,6 +122,11 @@ export type UploadPreviewImageProps = {
    */
   upscale?: boolean;
   /**
+   * The `loading` attribute of the image. Without it the browser loads the
+   * image at once.
+   */
+  loading?: 'lazy' | 'eager';
+  /**
    * The image shows instead of an icon (for example the poster of a
    * video), so it always gets space around it, even when the
    * `UploadPreview` has zero padding.
@@ -143,6 +148,7 @@ function UploadPreviewImage({
   upscale,
   icon,
   alt,
+  loading,
 }: UploadPreviewImageProps) {
   const context = useContext(UploadPreviewContext);
   const box = context.box;
@@ -161,6 +167,7 @@ function UploadPreviewImage({
       style={fit.style}
       alt={alt ?? ''}
       draggable="false"
+      loading={loading}
     />
   );
 }

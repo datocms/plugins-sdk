@@ -71,19 +71,19 @@
   }
 }
 .RadioGroupInput__option.is-checked .RadioGroupInput__radio::before {
-  background-color: var(--color--primary--surface);
+  background-color: var(--color--control-on--surface);
   background-image: radial-gradient(
-    var(--color--primary--ink) 28%,
+    var(--color--control-on--ink) 28%,
     transparent 33%
   );
   /* token-audit-disable-next-line mismatch -- the border has the same color as the fill */
-  border-color: var(--color--primary--surface);
+  border-color: var(--color--control-on--surface);
 }
 .RadioGroupInput__option.is-checked:hover:not(.is-disabled, .is-read-only)
   .RadioGroupInput__radio::before {
-  background-color: var(--color--primary--surface-hover);
+  background-color: var(--color--control-on--surface-hover);
   /* token-audit-disable-next-line mismatch -- the border has the same color as the fill */
-  border-color: var(--color--primary--surface-hover);
+  border-color: var(--color--control-on--surface-hover);
 }
 .RadioGroupInput__option.is-disabled .RadioGroupInput__radio::before {
   background-color: transparent;

@@ -127,7 +127,11 @@ function rewriteSpecifier(file, specifier) {
   if (specifier.endsWith('.svg?react')) {
     return toRelative(file, iconDeclaration).replace(/\.d\.ts$/, '.js');
   }
-  const target = path.resolve(path.dirname(file), specifier);
+  // A specifier can have the `.js` extension of its output file.
+  const target = path.resolve(
+    path.dirname(file),
+    specifier.replace(/\.js$/, ''),
+  );
   for (const candidate of [`${target}.d.ts`, `${target}/index.d.ts`]) {
     try {
       if (statSync(candidate).isFile()) {

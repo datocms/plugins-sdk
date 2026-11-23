@@ -81,6 +81,8 @@
 @import "ui-public/styles/blocks/_RadioGroupInput.css";
 @import "ui-public/styles/blocks/_DateTimeInput.css";
 @import "ui-public/styles/blocks/_DateTimeRangeInput.css";
+@import "ui-public/styles/blocks/_ColorInput.css";
+@import "ui-public/styles/blocks/_RangeInput.css";
 @import "ui-public/styles/blocks/_Shortcut.css";
 @import "ui-public/styles/blocks/_Pane.css";
 @import "ui-public/styles/blocks/_SettingsMenu.css";

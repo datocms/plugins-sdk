@@ -6,6 +6,13 @@ type Field = RawApiTypes.Field;
 type ItemType = RawApiTypes.ItemType;
 
 export type RenderManualFieldExtensionConfigScreenHook = {
+  /**
+   * This function will be called when a user adds a manual field extension
+   * with `configurable: true` to a field. Use it to render the form for the
+   * parameters of the extension (see the `manualFieldExtensions` hook)
+   *
+   * @tag manualFieldExtensions
+   */
   renderManualFieldExtensionConfigScreen: (
     fieldExtensionId: string,
     ctx: RenderManualFieldExtensionConfigScreenCtx,

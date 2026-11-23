@@ -1,0 +1,77 @@
+/* A thick track with a pill thumb. The part of the track before the thumb
+   has the color of a control that is on, the part after it is muted.
+   The component sets --RangeInput-value (0 to 1). */
+.RangeInput {
+  --RangeInput-thumb-width: 28px;
+  --RangeInput-thumb-height: 18px;
+  --RangeInput-track-height: 6px;
+  /* The center of the thumb: the thumb stays inside the track. */
+  --RangeInput-fill: calc(
+    var(--RangeInput-thumb-width) /
+    2 +
+    var(--RangeInput-value, 0) *
+    (100% - var(--RangeInput-thumb-width))
+  );
+  width: 100%;
+  height: var(--RangeInput-thumb-height);
+  margin: 0;
+  appearance: none;
+  cursor: pointer;
+  background: none;
+
+  &.is-disabled {
+    pointer-events: none;
+    opacity: var(--disabled-opacity);
+  }
+
+  &:focus-visible {
+    outline: none;
+    border-radius: var(--radius-full);
+    box-shadow: var(--focus-ring);
+  }
+
+  /* Two hard stops: no fade. */
+  &::-webkit-slider-runnable-track {
+    height: var(--RangeInput-track-height);
+    background: linear-gradient(
+      to right,
+      var(--color--control-on--surface) var(--RangeInput-fill),
+      var(--color--surface-muted) var(--RangeInput-fill)
+    );
+    border-radius: var(--radius-full);
+  }
+  &::-moz-range-track {
+    height: var(--RangeInput-track-height);
+    background: var(--color--surface-muted);
+    border-radius: var(--radius-full);
+  }
+  &::-moz-range-progress {
+    height: var(--RangeInput-track-height);
+    background: var(--color--control-on--surface);
+    border-radius: var(--radius-full);
+  }
+
+  &::-webkit-slider-thumb {
+    box-sizing: border-box;
+    width: var(--RangeInput-thumb-width);
+    height: var(--RangeInput-thumb-height);
+    margin-top: calc(
+      (var(--RangeInput-track-height) - var(--RangeInput-thumb-height)) /
+      2
+    );
+    appearance: none;
+    background: var(--color--surface);
+    /* token-audit-disable-next-line mismatch -- the ring has the color of the filled part of the track */
+    border: 2.5px solid var(--color--control-on--surface);
+    border-radius: var(--radius-full);
+  }
+  &::-moz-range-thumb {
+    box-sizing: border-box;
+    width: var(--RangeInput-thumb-width);
+    height: var(--RangeInput-thumb-height);
+    background: var(--color--surface);
+    /* token-audit-disable-next-line mismatch -- the ring has the color of the filled part of the track */
+    border: 2.5px solid var(--color--control-on--surface);
+    border-radius: var(--radius-full);
+  }
+}

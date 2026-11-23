@@ -8,6 +8,8 @@ import React, {
   useContext,
   useMemo,
 } from 'react';
+import { Status } from '../../icons/index';
+import Pill from '../content/Pill';
 import { useAutoincrementIntegerId } from '../hooks/useAutoincrementIntegerId';
 import { useTranslation } from '../i18n';
 import { type Message } from '../Message';
@@ -73,6 +75,29 @@ export type FieldWrapperRequirementProps =
       labelExtras?: FieldWrapperLabelExtras & { optional?: false };
     };
 
+/**
+ * A note about the value that is not an error: the value is valid and the
+ * form saves it, but the user must know something about it.
+ */
+export type FieldWrapperStatus = {
+  /** `warning`: the value works, but it has a problem */
+  tone: 'warning';
+  /** The text of the note */
+  message: Message;
+  /**
+   * A fix for the problem, as a neutral `Pill` at the end of the line. `lead` is a
+   * short text before the chip (for example "Try"). `swatch` is a CSS color
+   * that shows in the pill before the label (for example the color that the
+   * fix gives).
+   */
+  action?: {
+    lead?: Message;
+    label: Message;
+    swatch?: string;
+    onClick: () => void;
+  };
+};
+
 /** The props of `FieldWrapper` */
 export type FieldWrapperProps = FieldWrapperLabelProps &
   FieldWrapperRequirementProps & {
@@ -98,6 +123,13 @@ export type FieldWrapperProps = FieldWrapperLabelProps &
      * it, the value is valid.
      */
     error?: Message;
+    /**
+     * A note about a valid value, in the place of the hint (the link to the
+     * docs stays). It has the icon
+     * and the color of its tone, and a screen reader reads it when it
+     * changes. It does not make the value invalid. An error hides it.
+     */
+    status?: FieldWrapperStatus;
     /**
      * The attributes of the container of the field, for the layout of the
      * page: an `id` to scroll to, a class, and content after the hint.
@@ -226,6 +258,7 @@ const FieldWrapper = forwardRef<HTMLDivElement, FieldWrapperProps>(
       hint,
       docs,
       error,
+      status,
       container,
       children,
     },
@@ -239,7 +272,9 @@ const FieldWrapper = forwardRef<HTMLDivElement, FieldWrapperProps>(
     const hintId = `${inputId}-hint`;
     // An empty string is no error: a form library can give it for a valid value
     const invalid = Boolean(error);
-    const hasHint = Boolean(hint || docs);
+    // The status takes the place of the hint, and the error hides the status
+    const shownStatus = invalid ? undefined : status;
+    const hasHint = Boolean(shownStatus || hint || docs);
 
     warnOnSwitchLabel(label, children);
 
@@ -288,7 +323,51 @@ const FieldWrapper = forwardRef<HTMLDivElement, FieldWrapperProps>(
             {tc(error)}
           </div>
         )}
-        <FieldHint id={hintId} hint={hint} docs={docs} />
+        {shownStatus ? (
+          <div
+            id={hintId}
+            role="status"
+            className={classNames(
+              'form__status',
+              `form__status--${shownStatus.tone}`,
+            )}
+          >
+            <span className="form__status__icon" aria-hidden="true">
+              <Status.TriangleExclamationIcon />
+            </span>
+            <span className="form__status__message">
+              {tc(shownStatus.message)}
+              {shownStatus.action && (
+                <span className="form__status__fix">
+                  {shownStatus.action.lead && tc(shownStatus.action.lead)}
+                  <Pill
+                    tone="neutral"
+                    onClick={shownStatus.action.onClick}
+                    icon={
+                      shownStatus.action.swatch && (
+                        <span
+                          className="form__status__swatch"
+                          style={
+                            {
+                              '--form-status-swatch': shownStatus.action.swatch,
+                            } as React.CSSProperties
+                          }
+                        />
+                      )
+                    }
+                  >
+                    {tc(shownStatus.action.label)}
+                  </Pill>
+                </span>
+              )}
+            </span>
+          </div>
+        ) : (
+          <FieldHint id={hintId} hint={hint} docs={docs} />
+        )}
+        {/* The status takes the place of the hint, but not of the link to
+            the docs */}
+        {shownStatus && docs && <FieldHint docs={docs} />}
         {container?.trailing}
       </div>
     );

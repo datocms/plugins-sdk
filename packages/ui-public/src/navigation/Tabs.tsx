@@ -9,6 +9,7 @@ import Nav from '../semantic/Nav';
 import RawButton from '../semantic/RawButton';
 import Link from './Link';
 import { isActivePath, useNavigation } from './NavigationProvider';
+import { useTabRowFadeReset } from './useTabRowFadeReset';
 
 /**
  * Gives the DOM ids that link the tabs to their panel. Give `tabId(key)` to
@@ -72,9 +73,11 @@ export const TabList = React.memo(function TabList({
 }: TabListProps) {
   const { tm } = useTranslation();
   const handleKeyDown = useRovingKeyDown(TAB_SELECTOR);
+  const rowRef = useTabRowFadeReset<HTMLDivElement>();
 
   return (
     <div
+      ref={rowRef}
       className="Toolbar__tabs"
       role="tablist"
       aria-label={tm(ariaLabel)}
@@ -259,6 +262,7 @@ export function Tabs({
   const search = location?.search ?? '';
   const { tabId, panelId } = useTabIds();
   const isControlled = onChange !== undefined;
+  const navRef = useTabRowFadeReset<HTMLElement>();
 
   const tabs = maybeTabs.filter((tab): tab is TabsItem => Boolean(tab));
   const firstTabId = tabs[0]?.id;
@@ -309,7 +313,7 @@ export function Tabs({
         {isControlled ? (
           <TabList ariaLabel={labelText}>{handles}</TabList>
         ) : (
-          <Nav className="Toolbar__tabs" ariaLabel={labelText}>
+          <Nav ref={navRef} className="Toolbar__tabs" ariaLabel={labelText}>
             {handles}
           </Nav>
         )}

@@ -1,5 +1,11 @@
 # datocms-plugin-sdk
 
+## 3.0.0-next.5
+
+### Patch Changes
+
+- The hook reference of the docs now lists `renderManualFieldExtensionConfigScreen`, `renderInspector`, `renderInspectorPanel`, `initialLocationQueryForItemSelector` and `contentAreaSidebarItems`.
+
 ## 3.0.0-next.4
 
 ### Minor Changes

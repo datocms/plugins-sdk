@@ -1,6 +1,6 @@
 {
   "name": "datocms-react-ui",
-  "version": "3.1.0-next.9",
+  "version": "3.1.0-next.10",
   "description": "React components to use inside DatoCMS plugins",
   "keywords": [
     "datocms",
@@ -58,6 +58,7 @@
     "is-hotkey-esm": "^1.0.0",
     "lodash-es": "^4.17.23",
     "min-md5": "^1.0.0",
+    "react-colorful": "^5.8.1",
     "react-fast-compare": "^2.0.4",
     "react-select": "^5.10.2",
     "react-transition-group": "^4.4.5",

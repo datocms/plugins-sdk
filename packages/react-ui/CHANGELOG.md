@@ -1,5 +1,22 @@
 # datocms-react-ui
 
+## 3.1.0-next.10
+
+### Minor Changes
+
+- New `ColorInput` entry (`datocms-react-ui/ColorInput`): the input of a color, as in the color fields of DatoCMS. The user types a hex value, or picks the color in a picker with a color area, a hue slider and, in the browsers that have one, an eye dropper. The value is `{ red, green, blue, alpha }` (each channel from 0 to 255) or `null`, the shape of the value of a color field. `alpha` adds an alpha slider, `presetColors` adds colors for one-click picks, `clearable={false}` removes the clear button, and `autosize` gives the input a fixed width instead of the width of its container. It follows the contract of the other inputs (`value`, `onChange`, `onBlur`, `name`, `disabled`, `readOnly`), works in a `FieldWrapper`, and takes `ariaLabel` out of one.
+- Three new color tokens for a control that is on: `--color--control-on--surface`, `--color--control-on--surface-hover` and `--color--control-on--ink`. A checked checkbox, a selected radio and a switch that is on use them. The project theme gives them a value with 3:1 on the page in both color schemes, thus a control that is on is visible also when the brand color is light. A plugin can read them as the other color tokens.
+- `FieldWrapper` has a new `status` prop: a note about a value that is valid, but that the user must know about (for example, a color that is hard to read). It shows in the place of the hint, with a warning icon and color, and the link of `docs` stays under it. The input gets it as its description, without `aria-invalid`, and an error hides it. `status.action` adds a fix as a `Pill` at the end of the line, with an optional `lead` text and a color `swatch`.
+- The stylesheet has no `--wash-*` custom properties. The project theme gives a value to the grey color tokens (`--color--surface`, `--color--ink`, `--color--border` and the others), as it does for the tokens of the brand color. A plugin reads them as before. A plugin that reads a `--wash-*` property takes the semantic token in its place.
+- New `RangeInput` entry (`datocms-react-ui/RangeInput`): a slider for a number between `min` and `max` (0 and 100 by default), in steps of `step` (1 by default). `onChange` gets the new value on each move, so a plugin can show the result while the user drags. It follows the contract of the other inputs (`value`, `onChange`, `onBlur`, `name`, `disabled`), works in a `FieldWrapper`, and takes `ariaLabel` out of one.
+
+### Patch Changes
+
+- The default values of `--color--navbar-bright--surface`, `--color--navbar-bright--surface-hover` and `--color--navbar--surface-hover` are a little lighter. The contrast between the two surfaces of the navigation bar follows the lightness of the bar.
+- In Chromium, a row of tabs that scrolled while it was narrow kept a faded edge after it grew. The row now clears the fade when it stops scrolling.
+- Updated dependencies
+  - datocms-plugin-sdk@3.0.0-next.5
+
 ## 3.1.0-next.9
 
 ### Patch Changes

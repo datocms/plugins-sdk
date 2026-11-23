@@ -79,10 +79,10 @@
   }
 }
 .SwitchInput__checkbox:checked + .SwitchInput__switch {
-  background-color: var(--color--primary--surface);
+  background-color: var(--color--control-on--surface);
 
   &:hover {
-    background-color: var(--color--primary--surface-hover);
+    background-color: var(--color--control-on--surface-hover);
   }
 }
 
@@ -90,7 +90,7 @@
   /* token-audit-disable-next-line color-mix -- extremely specific behaviour.. it's ok not to have a token for this */
   background-color: color-mix(
     in oklch,
-    var(--color--primary--surface) 40%,
+    var(--color--control-on--surface) 40%,
     transparent
   );
 
@@ -98,7 +98,7 @@
     /* token-audit-disable-next-line color-mix -- extremely specific behaviour.. it's ok not to have a token for this */
     background-color: color-mix(
       in oklch,
-      var(--color--primary--surface) 55%,
+      var(--color--control-on--surface) 55%,
       transparent
     );
   }
@@ -152,7 +152,7 @@
 }
 .SwitchInput__checkbox:checked + .SwitchInput__switch--read-only {
   &:hover {
-    background-color: var(--color--primary--surface);
+    background-color: var(--color--control-on--surface);
   }
   &:active::after {
     transform: translateX(18px);
